@@ -21,7 +21,7 @@
         }
 
         [Test]
-        public void WithResponseShouldNotThrowExceptionWithIncorrectInheritedTypeArgument()
+        public void WithResponseModelShouldNotThrowExceptionWithIncorrectInheritedTypeArgument()
         {
             MyWebApi
                 .Controller<WebApiController>()
@@ -32,7 +32,7 @@
 
         [Test]
         [ExpectedException(typeof(ResponseModelAssertionException))]
-        public void WithResponseShouldThrowExceptionWithIncorrectResponseModel()
+        public void WithResponseModelShouldThrowExceptionWithIncorrectResponseModel()
         {
             MyWebApi
                 .Controller<WebApiController>()
@@ -43,13 +43,38 @@
 
         [Test]
         [ExpectedException(typeof(ResponseModelAssertionException))]
-        public void WithResponseShouldThrowExceptionWithIncorrectGenericTypeArgument()
+        public void WithResponseModelShouldThrowExceptionWithIncorrectGenericTypeArgument()
         {
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOkResult()
                 .WithResponseModel<ICollection<int>>();
+        }
+
+        [Test]
+        public void WithResponseModelShouldNotThrowExceptionWithCorrectPassedExpectedObject()
+        {
+            var controller = new WebApiController();
+
+            MyWebApi
+                .Controller(() => controller)
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOkResult()
+                .WithResponseModel(controller.ResponseModel);
+        }
+
+        [Test]
+        [ExpectedException(typeof (ResponseModelAssertionException))]
+        public void WithResponceModelShouldThrowExceptionWithDifferentPassedExpectedObject()
+        {
+            var controller = new WebApiController();
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOkResult()
+                .WithResponseModel(controller.ResponseModel);
         }
     }
 }
