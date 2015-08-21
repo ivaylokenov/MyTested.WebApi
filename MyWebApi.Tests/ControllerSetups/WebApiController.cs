@@ -18,12 +18,12 @@
 
         public IInjectedService InjectedService { get; private set; }
 
-        public IHttpActionResult EmptyAction()
+        public IHttpActionResult OkResultAction()
         {
             return this.Ok();
         }
 
-        public async Task<OkResult> AsyncEmptyAction()
+        public async Task<OkResult> AsyncOkResultAction()
         {
             return await Task.Run(() => this.Ok());
         }

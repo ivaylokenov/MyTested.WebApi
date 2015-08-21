@@ -11,7 +11,7 @@
         {
             MyWebApi
                 .Controller<WebApiController>()
-                .Calling(c => c.EmptyAction())
+                .Calling(c => c.OkResultAction())
                 .ShouldReturnOkResult();
         }
 

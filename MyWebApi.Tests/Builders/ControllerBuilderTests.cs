@@ -17,9 +17,9 @@
         {
             var actionResultTestBuilder = MyWebApi
                 .Controller<WebApiController>()
-                .Calling(c => c.EmptyAction());
+                .Calling(c => c.OkResultAction());
 
-            this.CheckActionResultTestBuilder(actionResultTestBuilder, "EmptyAction");
+            this.CheckActionResultTestBuilder(actionResultTestBuilder, "OkResultAction");
         }
 
         [Test]
@@ -27,9 +27,9 @@
         {
             var actionResultTestBuilder = MyWebApi
                 .Controller<WebApiController>()
-                .CallingAsync(c => c.AsyncEmptyAction());
+                .CallingAsync(c => c.AsyncOkResultAction());
 
-            this.CheckActionResultTestBuilder(actionResultTestBuilder, "AsyncEmptyAction");
+            this.CheckActionResultTestBuilder(actionResultTestBuilder, "AsyncOkResultAction");
         }
 
         private void CheckActionResultTestBuilder<TActionResult>(
