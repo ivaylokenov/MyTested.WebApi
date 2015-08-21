@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders
 {
+    using System;
     using System.Web.Http.Results;
 
     using Contracts;
@@ -67,13 +68,31 @@
         {
             this.WithResponseModel<TResponseData>();
 
-            var actualModel = (this.ActionResult as OkNegotiatedContentResult<TResponseData>).Content;
+            var actualModel = this.GetActualModel<TResponseData>();
             if (actualModel != expectedModel)
             {
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} expected response model to be the given model, but in fact it was a different model.",
                             this.ActionName));
             }
+        }
+
+        /// <summary>
+        /// Tests whether the returned response model from the invoked action passes given assertions.
+        /// </summary>
+        /// <typeparam name="TResponseData">Type of the response model.</typeparam>
+        /// <param name="assertions">Action containing all assertions on the response model.</param>
+        public void WithResponseModel<TResponseData>(Action<TResponseData> assertions)
+        {
+            this.WithResponseModel<TResponseData>();
+
+            var actualModel = this.GetActualModel<TResponseData>();
+            assertions(actualModel);
+        }
+
+        private TResponseData GetActualModel<TResponseData>()
+        {
+            return (this.ActionResult as OkNegotiatedContentResult<TResponseData>).Content;
         }
     }
 }
