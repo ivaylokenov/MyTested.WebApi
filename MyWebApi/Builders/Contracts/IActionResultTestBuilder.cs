@@ -18,6 +18,9 @@
         /// <value>Action result to be tested.</value>
         TActionResult ActionResult { get; }
 
+        /// <summary>
+        /// Tests whether action result is OkResult.
+        /// </summary>
         void ShouldReturnOkResult();
     }
 }

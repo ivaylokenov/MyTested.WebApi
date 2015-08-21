@@ -5,7 +5,7 @@
     using Utilities;
 
     /// <summary>
-    /// Used for specifying the action result type of test.
+    /// Used for testing the action result type of test.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ActionResultTestBuilder<TActionResult> : IActionResultTestBuilder<TActionResult>
@@ -57,6 +57,20 @@
             {
                 Validator.CheckForNullReference(value, errorMessageName: "ActionResult");
                 this.actionResult = value;
+            }
+        }
+
+        private void ValidateActionReturnType<TExpectedType>()
+            where TExpectedType : class
+        {
+            var castedOkResult = this.ActionResult as TExpectedType;
+            if (castedOkResult == null)
+            {
+                throw new IHttpActionResultAssertionException(string.Format(
+                    "When calling {0} expected action result to be a {1}, but instead received a {2}.",
+                    this.ActionName,
+                    typeof(TExpectedType).Name,
+                    this.ActionResult.GetType().Name));
             }
         }
     }
