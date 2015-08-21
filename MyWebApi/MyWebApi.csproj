@@ -67,7 +67,7 @@
     <Compile Include="MyWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ExpressionParser.cs" />
-    <Compile Include="Utilities\ReflectionChecker.cs" />
+    <Compile Include="Utilities\Reflection.cs" />
     <Compile Include="Utilities\Validator.cs" />
   </ItemGroup>
   <ItemGroup>

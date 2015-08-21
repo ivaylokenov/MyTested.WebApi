@@ -125,7 +125,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<ICollection<ResponseModel>>(m => m.First().Id == 2);
+                .WithResponseModel<IList<ResponseModel>>(m => m.First().Id == 2);
         }
     }
 }

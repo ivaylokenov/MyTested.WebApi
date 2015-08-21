@@ -33,7 +33,7 @@
             var actionResultType = this.ActionResult.GetType();
             var negotiatedContentResultType = typeof(OkNegotiatedContentResult<TResponseData>);
 
-            var negotiatedActionResultIsAssignable = ReflectionChecker.AreAssignable(
+            var negotiatedActionResultIsAssignable = Reflection.AreAssignable(
                 actionResultType,
                 negotiatedContentResultType);
             if (!negotiatedActionResultIsAssignable)
@@ -43,7 +43,7 @@
                     var actualResponseDataType = actionResultType.GetGenericArguments()[0];
                     var expectedResponseDataType = typeof(TResponseData);
 
-                    var responseDataTypeIsAssignable = ReflectionChecker.AreAssignable(
+                    var responseDataTypeIsAssignable = Reflection.AreAssignable(
                         actualResponseDataType,
                         expectedResponseDataType);
                     if (!responseDataTypeIsAssignable)
@@ -112,7 +112,7 @@
 
         private TResponseData GetActualModel<TResponseData>()
         {
-            return (this.ActionResult as OkNegotiatedContentResult<TResponseData>).Content;
+            return (this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult)).Content;
         }
     }
 }

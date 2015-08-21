@@ -2,11 +2,12 @@
 {
     using System;
     using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Class for validating reflection checks.
     /// </summary>
-    public static class ReflectionChecker
+    public static class Reflection
     {
         /// <summary>
         /// Checks whether two types are different.
@@ -105,6 +106,16 @@
             }
 
             return baseTypeGenericArguments.Where((t, i) => AreNotAssignable(t, inheritedTypeGenericArguments[i])).Any();
+        }
+
+        public static TResult CastTo<TResult>(this Type type, object data)
+        {
+            var dataParam = Expression.Parameter(typeof(object), "data");
+            var body = Expression.Block(Expression.Convert(Expression.Convert(dataParam, data.GetType()), type));
+
+            var run = Expression.Lambda(body, dataParam).Compile();
+            var ret = run.DynamicInvoke(data);
+            return (TResult)ret;
         }
     }
 }

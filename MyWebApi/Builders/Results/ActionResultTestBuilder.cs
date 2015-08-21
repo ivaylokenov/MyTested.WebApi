@@ -27,24 +27,24 @@
         {
             var typeOfActionResult = this.ActionResult.GetType();
 
-            var isAssignableCheck = canBeAssignable && ReflectionChecker.AreNotAssignable(typeOfExpectedReturnValue, typeOfActionResult);
+            var isAssignableCheck = canBeAssignable && Reflection.AreNotAssignable(typeOfExpectedReturnValue, typeOfActionResult);
             var haveDifferentGenericArguments = false;
-            if (isAssignableCheck && allowDifferentGenericTypeDefinitions && ReflectionChecker.IsGeneric(typeOfExpectedReturnValue))
+            if (isAssignableCheck && allowDifferentGenericTypeDefinitions && Reflection.IsGeneric(typeOfExpectedReturnValue))
             {
-                isAssignableCheck = ReflectionChecker.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
+                isAssignableCheck = Reflection.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
 
-                if (!ReflectionChecker.IsGenericTypeDefinition(typeOfExpectedReturnValue))
+                if (!Reflection.IsGenericTypeDefinition(typeOfExpectedReturnValue))
                 {
-                    haveDifferentGenericArguments = ReflectionChecker.HaveDifferentGenericArguments(typeOfExpectedReturnValue, typeOfActionResult);
+                    haveDifferentGenericArguments = Reflection.HaveDifferentGenericArguments(typeOfExpectedReturnValue, typeOfActionResult);
                 }
             }
 
-            var strictlyEqualCheck = !canBeAssignable && ReflectionChecker.AreDifferentTypes(typeOfExpectedReturnValue, typeOfActionResult);
+            var strictlyEqualCheck = !canBeAssignable && Reflection.AreDifferentTypes(typeOfExpectedReturnValue, typeOfActionResult);
 
             var invalid = isAssignableCheck || strictlyEqualCheck || haveDifferentGenericArguments;
             if (strictlyEqualCheck)
             {
-                var genericTypeDefinitionCheck = ReflectionChecker.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
+                var genericTypeDefinitionCheck = Reflection.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
 
                 if (genericTypeDefinitionCheck)
                 {
