@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Tests.BuildersTests
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using ControllerSetups;
     using Exceptions;
@@ -21,7 +22,7 @@
         }
 
         [Test]
-        public void WithResponseShouldNotThrowExceptionWithIncorrectInheritedTypeArgument()
+        public void WithResponseModelShouldNotThrowExceptionWithIncorrectInheritedTypeArgument()
         {
             MyWebApi
                 .Controller<WebApiController>()
@@ -32,7 +33,7 @@
 
         [Test]
         [ExpectedException(typeof(ResponseModelAssertionException))]
-        public void WithResponseShouldThrowExceptionWithIncorrectResponseModel()
+        public void WithResponseModelShouldThrowExceptionWithIncorrectResponseModel()
         {
             MyWebApi
                 .Controller<WebApiController>()
@@ -43,13 +44,88 @@
 
         [Test]
         [ExpectedException(typeof(ResponseModelAssertionException))]
-        public void WithResponseShouldThrowExceptionWithIncorrectGenericTypeArgument()
+        public void WithResponseModelShouldThrowExceptionWithIncorrectGenericTypeArgument()
         {
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOkResult()
                 .WithResponseModel<ICollection<int>>();
+        }
+
+        [Test]
+        public void WithResponseModelShouldNotThrowExceptionWithCorrectPassedExpectedObject()
+        {
+            var controller = new WebApiController();
+
+            MyWebApi
+                .Controller(() => controller)
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOkResult()
+                .WithResponseModel(controller.ResponseModel);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ResponseModelAssertionException))]
+        public void WithResponceModelShouldThrowExceptionWithDifferentPassedExpectedObject()
+        {
+            var controller = new WebApiController();
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOkResult()
+                .WithResponseModel(controller.ResponseModel);
+        }
+
+        [Test]
+        public void WithResponseModelShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOkResult()
+                .WithResponseModel<ICollection<ResponseModel>>(m =>
+                {
+                    Assert.AreEqual(2, m.Count);
+                    Assert.AreEqual(1, m.First().Id);
+                });
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void WithResponseModelShouldThrowExceptionWithIncorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOkResult()
+                .WithResponseModel<ICollection<ResponseModel>>(m =>
+                {
+                    Assert.AreEqual(3, m.Count);
+                    Assert.AreEqual(1, m.First().Id);
+                });
+        }
+
+        [Test]
+        public void WithResponseModelShouldNotThrowExceptionWithCorrectPredicate()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOkResult()
+                .WithResponseModel<ICollection<ResponseModel>>(m => m.First().Id == 1);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ResponseModelAssertionException))]
+        public void WithResponseModelShouldThrowExceptionWithWrongPredicate()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOkResult()
+                .WithResponseModel<ICollection<ResponseModel>>(m => m.First().Id == 2);
         }
     }
 }

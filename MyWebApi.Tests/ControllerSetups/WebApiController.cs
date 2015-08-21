@@ -24,6 +24,11 @@
             };
         }
 
+        public ICollection<ResponseModel> ResponseModel
+        {
+            get { return this.responseModel; }
+        }
+
         public IInjectedService InjectedService { get; private set; }
 
         public IHttpActionResult OkResultAction()
