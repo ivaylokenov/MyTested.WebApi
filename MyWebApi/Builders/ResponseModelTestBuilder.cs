@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Builders
 {
     using System;
+    using System.Web.Http;
     using System.Web.Http.Results;
 
     using Contracts;
@@ -17,10 +18,11 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseModelTestBuilder{TActionResult}" /> class.
         /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="actionResult">Result from the tested action.</param>
-        public ResponseModelTestBuilder(string actionName, TActionResult actionResult)
-            : base(actionName, actionResult)
+        public ResponseModelTestBuilder(ApiController controller, string actionName, TActionResult actionResult)
+            : base(controller, actionName, actionResult)
         {
         }
 
@@ -112,7 +114,7 @@
 
         private TResponseData GetActualModel<TResponseData>()
         {
-            return (this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult)).Content;
+            return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult).Content;
         }
     }
 }

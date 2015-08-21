@@ -108,6 +108,13 @@
             return baseTypeGenericArguments.Where((t, i) => AreNotAssignable(t, inheritedTypeGenericArguments[i])).Any();
         }
 
+        /// <summary>
+        /// Performs dynamic casting from type to generic result.
+        /// </summary>
+        /// <typeparam name="TResult">Result type from casting.</typeparam>
+        /// <param name="type">Type from which the casting should be done.</param>
+        /// <param name="data">Object from which the casting should be done.</param>
+        /// <returns>Casted object of type TResult.</returns>
         public static TResult CastTo<TResult>(this Type type, object data)
         {
             var dataParam = Expression.Parameter(typeof(object), "data");

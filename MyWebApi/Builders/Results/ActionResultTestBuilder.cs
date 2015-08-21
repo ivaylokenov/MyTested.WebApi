@@ -1,7 +1,7 @@
 ﻿namespace MyWebApi.Builders.Results
 {
     using System;
-
+    using System.Web.Http;
     using Contracts;
     using Exceptions;
     using Utilities;
@@ -16,10 +16,11 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ActionResultTestBuilder{TActionResult}" /> class.
         /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="actionResult">Result from the tested action.</param>
-        public ActionResultTestBuilder(string actionName, TActionResult actionResult)
-            : base(actionName, actionResult)
+        public ActionResultTestBuilder(ApiController controller, string actionName, TActionResult actionResult)
+            : base(controller, actionName, actionResult)
         {
         }
 

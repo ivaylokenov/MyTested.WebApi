@@ -41,7 +41,7 @@
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
             var actionResult = actionCall.Compile().Invoke(this.Controller);
-            return new ActionResultTestBuilder<TActionResult>(actionName, actionResult);
+            return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
             var actionResult = actionCall.Compile().Invoke(this.Controller).Result;
-            return new ActionResultTestBuilder<TActionResult>(actionName, actionResult);
+            return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
         }
     }
 }
