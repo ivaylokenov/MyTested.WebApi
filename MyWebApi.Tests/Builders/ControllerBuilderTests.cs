@@ -1,12 +1,12 @@
 ﻿namespace MyWebApi.Tests.Builders
 {
-    using System;
-    using System.Linq.Expressions;
     using System.Threading.Tasks;
     using System.Web.Http.Results;
 
     using ControllerSetups;
+
     using global::MyWebApi.Builders.Contracts;
+
     using NUnit.Framework;
 
     [TestFixture]
