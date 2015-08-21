@@ -2,5 +2,6 @@
 {
     public interface IResponseModelTestBuilder<TActionResult>
     {
+        void WithResponseModel<TResponseData>();
     }
 }
