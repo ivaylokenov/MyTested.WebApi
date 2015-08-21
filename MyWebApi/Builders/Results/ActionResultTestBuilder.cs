@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Builders.Results
 {
     using System;
+
     using Contracts;
     using Exceptions;
     using Utilities;

@@ -4,7 +4,6 @@
     using System.Web.Http.Results;
 
     using Builders.Contracts;
-
     using ControllerSetups;
 
     using NUnit.Framework;
