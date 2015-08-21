@@ -22,5 +22,11 @@
         /// Tests whether action result is OkResult.
         /// </summary>
         void ShouldReturnOkResult();
+
+        /// <summary>
+        /// Tests whether action result is of the provided generic type.
+        /// </summary>
+        /// <typeparam name="TResponseData">Expected response type.</typeparam>
+        void ShouldReturn<TResponseData>();
     }
 }

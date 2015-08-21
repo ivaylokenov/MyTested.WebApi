@@ -61,16 +61,17 @@
         }
 
         private void ValidateActionReturnType<TExpectedType>()
-            where TExpectedType : class
         {
-            var castedOkResult = this.ActionResult as TExpectedType;
-            if (castedOkResult == null)
+            var typeOfActionResult = this.ActionResult.GetType();
+            var typeOfResponseData = typeof(TExpectedType);
+
+            if (typeOfActionResult != typeOfResponseData)
             {
                 throw new IHttpActionResultAssertionException(string.Format(
                     "When calling {0} expected action result to be a {1}, but instead received a {2}.",
                     this.ActionName,
-                    typeof(TExpectedType).Name,
-                    this.ActionResult.GetType().Name));
+                    typeOfResponseData.Name,
+                    typeOfActionResult.Name));
             }
         }
     }

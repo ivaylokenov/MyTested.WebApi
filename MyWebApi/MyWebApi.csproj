@@ -56,6 +56,7 @@
     <Compile Include="Builders\Contracts\IActionResultTestBuilder.cs" />
     <Compile Include="Builders\ControllerBuilder.cs" />
     <Compile Include="Builders\Results\ActionResultTestBuilder.cs" />
+    <Compile Include="Builders\Results\ShouldReturn.cs" />
     <Compile Include="Builders\Results\ShouldReturnOkResult.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="MyWebApi.cs" />
