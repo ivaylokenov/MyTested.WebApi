@@ -65,7 +65,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof (ResponseModelAssertionException))]
+        [ExpectedException(typeof(ResponseModelAssertionException))]
         public void WithResponceModelShouldThrowExceptionWithDifferentPassedExpectedObject()
         {
             var controller = new WebApiController();
