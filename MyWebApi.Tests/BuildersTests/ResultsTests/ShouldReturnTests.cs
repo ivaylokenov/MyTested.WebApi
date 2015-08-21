@@ -3,7 +3,7 @@
     using System.Collections.Generic;
 
     using ControllerSetups;
-
+    using Exceptions;
     using NUnit.Framework;
 
     [TestFixture]

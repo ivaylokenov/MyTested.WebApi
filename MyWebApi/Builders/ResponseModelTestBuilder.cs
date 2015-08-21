@@ -3,6 +3,7 @@
     using System.Web.Http.Results;
 
     using Contracts;
+    using Exceptions;
     using Utilities;
 
     /// <summary>

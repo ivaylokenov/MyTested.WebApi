@@ -2,7 +2,7 @@
 {
     using System;
     using Contracts;
-
+    using Exceptions;
     using Utilities;
 
     /// <summary>
