@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using System.Web.Http.Results;
 
-    using global::MyWebApi.Builders.Contracts;
+    using Builders.Contracts;
 
     using ControllerSetups;
 
