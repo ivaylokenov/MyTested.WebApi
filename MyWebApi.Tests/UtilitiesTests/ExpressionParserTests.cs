@@ -16,7 +16,7 @@
         [Test]
         public void GetMethodNameShouldReturnCorrectMethodNameWithValidMethodCallExpression()
         {
-            Expression<Func<NormalController, IHttpActionResult>> expression = c => c.EmptyAction();
+            Expression<Func<WebApiController, IHttpActionResult>> expression = c => c.EmptyAction();
             var methodName = ExpressionParser.GetMethodName(expression);
             Assert.AreEqual("EmptyAction", methodName);
         }

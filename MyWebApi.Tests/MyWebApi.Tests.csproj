@@ -57,9 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\ControllerBuilderTests.cs" />
+    <Compile Include="Builders\ShouldReturnOkResultTests.cs" />
     <Compile Include="ControllerSetups\IInjectedService.cs" />
     <Compile Include="ControllerSetups\InjectedService.cs" />
-    <Compile Include="ControllerSetups\NormalController.cs" />
+    <Compile Include="ControllerSetups\WebApiController.cs" />
     <Compile Include="MyWebApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtilitiesTests\ExpressionParserTests.cs" />

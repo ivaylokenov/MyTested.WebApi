@@ -1,0 +1,28 @@
+﻿namespace MyWebApi.Tests.Builders
+{
+    using ControllerSetups;
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class ShouldReturnOkResultTests
+    {
+        [Test]
+        public void ShouldReturnOkResultShouldNotThrowExceptionWithOkResult()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.EmptyAction())
+                .ShouldReturnOkResult();
+        }
+
+        [Test]
+        [ExpectedException(typeof(IHttpActionResultAssertionException))]
+        public void ShouldReturnOkResultShouldThrowExceptionWithOtherThanOkResult()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.BadRequestAction())
+                .ShouldReturnOkResult();
+        }
+    }
+}

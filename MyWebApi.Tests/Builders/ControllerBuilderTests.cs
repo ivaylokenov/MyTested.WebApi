@@ -16,7 +16,7 @@
         public void CallingShouldPopulateCorrectActionNameAndActionResultWithNormalActionCall()
         {
             var actionResultTestBuilder = MyWebApi
-                .Controller<NormalController>()
+                .Controller<WebApiController>()
                 .Calling(c => c.EmptyAction());
 
             this.CheckActionResultTestBuilder(actionResultTestBuilder, "EmptyAction");
@@ -26,7 +26,7 @@
         public void CallingShouldPopulateCorrectActionNameAndActionResultWithAsyncActionCall()
         {
             var actionResultTestBuilder = MyWebApi
-                .Controller<NormalController>()
+                .Controller<WebApiController>()
                 .CallingAsync(c => c.AsyncEmptyAction());
 
             this.CheckActionResultTestBuilder(actionResultTestBuilder, "AsyncEmptyAction");

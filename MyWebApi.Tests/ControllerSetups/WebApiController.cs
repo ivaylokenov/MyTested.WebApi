@@ -4,14 +4,14 @@
     using System.Web.Http;
     using System.Web.Http.Results;
 
-    internal class NormalController : ApiController
+    internal class WebApiController : ApiController
     {
-        public NormalController()
+        public WebApiController()
             : this(new InjectedService())
         {
         }
 
-        public NormalController(IInjectedService injectedService)
+        public WebApiController(IInjectedService injectedService)
         {
             this.InjectedService = injectedService;
         }
@@ -26,6 +26,11 @@
         public async Task<OkResult> AsyncEmptyAction()
         {
             return await Task.Run(() => this.Ok());
+        }
+
+        public IHttpActionResult BadRequestAction()
+        {
+            return this.BadRequest();
         }
     }
 }
