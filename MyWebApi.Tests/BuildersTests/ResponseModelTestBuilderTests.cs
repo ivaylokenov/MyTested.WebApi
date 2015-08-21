@@ -1,7 +1,7 @@
 ﻿namespace MyWebApi.Tests.BuildersTests
 {
     using System.Collections.Generic;
-
+    using System.Linq;
     using ControllerSetups;
     using Exceptions;
 
@@ -75,6 +75,35 @@
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOkResult()
                 .WithResponseModel(controller.ResponseModel);
+        }
+
+        [Test]
+        public void WithResponseModelShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOkResult()
+                .WithResponseModel<ICollection<ResponseModel>>(m =>
+                {
+                    Assert.AreEqual(2, m.Count);
+                    Assert.AreEqual(1, m.First().Id);
+                });
+        }
+
+        [Test]
+        [ExpectedException(typeof(AssertionException))]
+        public void WithResponseModelShouldThrowExceptionWithIncorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOkResult()
+                .WithResponseModel<ICollection<ResponseModel>>(m =>
+                {
+                    Assert.AreEqual(3, m.Count);
+                    Assert.AreEqual(1, m.First().Id);
+                });
         }
     }
 }
