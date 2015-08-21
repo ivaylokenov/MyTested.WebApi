@@ -1,6 +1,10 @@
 ﻿namespace MyWebApi.Builders.Contracts
 {
-    internal interface IControllerBuilder
+    using System.Web.Http;
+
+    public interface IControllerBuilder<TController>
+        where TController : ApiController
     {
+        void Calling<TAction>();
     }
 }
