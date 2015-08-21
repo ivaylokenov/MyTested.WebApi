@@ -17,7 +17,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(IHttpActionResultAssertionException))]
+        [ExpectedException(typeof(HttpActionResultAssertionException))]
         public void ShouldReturnOkResultShouldThrowExceptionWithOtherThanOkResult()
         {
             MyWebApi
