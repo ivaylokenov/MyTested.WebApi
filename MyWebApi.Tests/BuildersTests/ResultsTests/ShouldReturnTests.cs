@@ -19,6 +19,15 @@
         }
 
         [Test]
+        public void ShouldReturnShouldNotThrowExceptionWithDifferentInheritedGenericResult()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.GenericAction())
+                .ShouldReturn<IList<ResponseModel>>();
+        }
+
+        [Test]
         public void ShouldReturnShouldNotThrowExceptionWithClassTypes()
         {
             MyWebApi
@@ -28,7 +37,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(IHttpActionResultAssertionException))]
+        [ExpectedException(typeof(HttpActionResultAssertionException))]
         public void ShouldReturnShouldThrowExceptionWithDifferentResult()
         {
             MyWebApi
@@ -38,7 +47,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(IHttpActionResultAssertionException))]
+        [ExpectedException(typeof(HttpActionResultAssertionException))]
         public void ShouldReturnShouldThrowExceptionWithDifferentGenericResult()
         {
             MyWebApi
