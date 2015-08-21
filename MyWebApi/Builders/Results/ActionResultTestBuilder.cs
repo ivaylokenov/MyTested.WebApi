@@ -22,19 +22,29 @@
         {
         }
 
-        private void ValidateActionReturnType(Type actionReturnType, bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
+        private void ValidateActionReturnType(Type typeOfExpectedReturnValue, bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
         {
             var typeOfActionResult = this.ActionResult.GetType();
 
-            var isAssignableCheck = canBeAssignable && !actionReturnType.IsAssignableFrom(typeOfActionResult);
-            var strictlyEqualCheck = !canBeAssignable && typeOfActionResult != actionReturnType;
+            var isAssignableCheck = canBeAssignable && ReflectionChecker.AreNotAssignable(typeOfExpectedReturnValue, typeOfActionResult);
+            var haveDifferentGenericArguments = false;
+            if (isAssignableCheck && allowDifferentGenericTypeDefinitions && ReflectionChecker.IsGeneric(typeOfExpectedReturnValue))
+            {
+                isAssignableCheck = ReflectionChecker.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
 
-            var invalid = isAssignableCheck || strictlyEqualCheck;
+                if (!isAssignableCheck && !ReflectionChecker.IsGenericTypeDefinition(typeOfExpectedReturnValue))
+                {
+                    haveDifferentGenericArguments = ReflectionChecker.HaveDifferentGenericArguments(typeOfExpectedReturnValue, typeOfActionResult);
+                }
+            }
+
+            var strictlyEqualCheck = !canBeAssignable && ReflectionChecker.AreDifferentTypes(typeOfExpectedReturnValue, typeOfActionResult);
+
+            var invalid = isAssignableCheck || strictlyEqualCheck || haveDifferentGenericArguments;
             if (strictlyEqualCheck)
             {
-                var genericTypeDefinitionCheck = allowDifferentGenericTypeDefinitions &&
-                          typeOfActionResult.IsGenericType &&
-                          actionReturnType.IsAssignableFrom(typeOfActionResult.GetGenericTypeDefinition());
+                var genericTypeDefinitionCheck = allowDifferentGenericTypeDefinitions 
+                    && ReflectionChecker.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
 
                 if (genericTypeDefinitionCheck)
                 {
@@ -47,7 +57,7 @@
                 throw new HttpActionResultAssertionException(string.Format(
                     "When calling {0} expected action result to be a {1}, but instead received a {2}.",
                     this.ActionName,
-                    actionReturnType.Name,
+                    typeOfExpectedReturnValue.Name,
                     typeOfActionResult.Name));
             }
         }

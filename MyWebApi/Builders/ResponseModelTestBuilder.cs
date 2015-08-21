@@ -3,6 +3,7 @@
     using System.Web.Http.Results;
 
     using Contracts;
+    using Utilities;
 
     public class ResponseModelTestBuilder<TActionResult>
         : BaseTestBuilder<TActionResult>, IResponseModelTestBuilder<TActionResult>
@@ -17,15 +18,19 @@
             var actionResultType = this.ActionResult.GetType();
             var negotiatedContentResultType = typeof(OkNegotiatedContentResult<TResponseData>);
 
-            var negotiatedActionResultIsAssignable = !actionResultType.IsAssignableFrom(negotiatedContentResultType);
-            if (negotiatedActionResultIsAssignable)
+            var negotiatedActionResultIsAssignable = ReflectionChecker.AreAssignable(
+                actionResultType,
+                negotiatedContentResultType);
+            if (!negotiatedActionResultIsAssignable)
             {
                 if (actionResultType.IsGenericType)
                 {
                     var actualResponseDataType = actionResultType.GetGenericArguments()[0];
                     var expectedResponseDataType = typeof(TResponseData);
 
-                    var responseDataTypeIsAssignable = actualResponseDataType.IsAssignableFrom(expectedResponseDataType);
+                    var responseDataTypeIsAssignable = ReflectionChecker.AreAssignable(
+                        actualResponseDataType,
+                        expectedResponseDataType);
                     if (!responseDataTypeIsAssignable)
                     {
                         throw new ResponseModelAssertionException(string.Format(
