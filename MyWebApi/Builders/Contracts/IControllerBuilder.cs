@@ -8,8 +8,8 @@
     public interface IControllerBuilder<TController>
         where TController : ApiController
     {
-        void Calling<TAction>(Expression<Func<TController, TAction>> actionCall);
+        IActionResultBuilder<TAction> Calling<TAction>(Expression<Func<TController, TAction>> actionCall);
 
-        void Calling<TAction>(Expression<Func<TController, Task<TAction>>> actionCall);
+        IActionResultBuilder<TAction> Calling<TAction>(Expression<Func<TController, Task<TAction>>> actionCall);
     }
 }

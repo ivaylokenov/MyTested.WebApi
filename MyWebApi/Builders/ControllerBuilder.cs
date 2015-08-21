@@ -6,25 +6,30 @@
     using System.Web.Http;
 
     using Contracts;
+    using Utilities;
 
     public class ControllerBuilder<TController> : IControllerBuilder<TController>
         where TController : ApiController
     {
-        private TController controller;
+        private readonly TController controller;
 
         public ControllerBuilder(TController controllerInstance)
         {
             this.controller = controllerInstance;
         }
 
-        public void Calling<TAction>(Expression<Func<TController, TAction>> actionCall)
+        public IActionResultBuilder<TAction> Calling<TAction>(Expression<Func<TController, TAction>> actionCall)
         {
-            throw new NotImplementedException();
+            var actionName = ExpressionParser.GetMethodName(actionCall);
+            var actionResult = actionCall.Compile().Invoke(this.controller);
+            return new ActionResultBuilder<TAction>(actionName, actionResult);
         }
 
-        public void Calling<TAction>(Expression<Func<TController, Task<TAction>>> actionCall)
+        public IActionResultBuilder<TAction> Calling<TAction>(Expression<Func<TController, Task<TAction>>> actionCall)
         {
-            throw new NotImplementedException();
+            var actionName = ExpressionParser.GetMethodName(actionCall);
+            var actionResult = actionCall.Compile().Invoke(this.controller).Result;
+            return new ActionResultBuilder<TAction>(actionName, actionResult);
         }
     }
 }
