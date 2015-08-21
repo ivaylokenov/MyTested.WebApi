@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\Contracts\IControllerBuilder.cs" />
+    <Compile Include="Builders\ControllerBuilder.cs" />
     <Compile Include="MyWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
