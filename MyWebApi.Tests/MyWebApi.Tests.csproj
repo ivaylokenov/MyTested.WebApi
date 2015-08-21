@@ -61,6 +61,7 @@
     <Compile Include="ControllerSetups\NormalController.cs" />
     <Compile Include="MyWebApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UtilitiesTests\ExpressionParserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

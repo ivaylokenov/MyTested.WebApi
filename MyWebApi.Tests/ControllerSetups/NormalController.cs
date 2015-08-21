@@ -15,5 +15,10 @@
         }
 
         public IInjectedService InjectedService { get; private set; }
+
+        public IHttpActionResult EmptyAction()
+        {
+            return Ok();
+        }
     }
 }
