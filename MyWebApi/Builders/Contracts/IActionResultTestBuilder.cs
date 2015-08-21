@@ -12,7 +12,7 @@
         /// Tests whether action result is OkResult.
         /// </summary>
         /// <returns>Response model test builder.</returns>
-        IResponseModelTestBuilder ShouldReturnOkResult();
+        IResponseModelTestBuilder ShouldReturnOk();
 
         /// <summary>
         /// Tests whether action result is of the provided generic type.

@@ -14,7 +14,7 @@
         /// Tests whether action result is plain OkResult.
         /// </summary>
         /// <returns>Response model test builder.</returns>
-        public IResponseModelTestBuilder ShouldReturnOkResult()
+        public IResponseModelTestBuilder ShouldReturnOk()
         {
             var actionResultAsOkResult = this.ActionResult as OkResult;
             if (actionResultAsOkResult != null)

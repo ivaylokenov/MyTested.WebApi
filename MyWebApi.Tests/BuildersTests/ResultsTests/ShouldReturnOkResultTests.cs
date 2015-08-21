@@ -15,7 +15,7 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultAction())
-                .ShouldReturnOkResult();
+                .ShouldReturnOk();
         }
 
         [Test]
@@ -25,7 +25,7 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestAction())
-                .ShouldReturnOkResult();
+                .ShouldReturnOk();
         }
     }
 }

@@ -17,7 +17,7 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOkResult()
+                .ShouldReturnOk()
                 .WithResponseModel<ICollection<ResponseModel>>();
         }
 
@@ -27,7 +27,7 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOkResult()
+                .ShouldReturnOk()
                 .WithResponseModel<IList<ResponseModel>>();
         }
 
@@ -38,7 +38,7 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOkResult()
+                .ShouldReturnOk()
                 .WithResponseModel<ResponseModel>();
         }
 
@@ -49,7 +49,7 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOkResult()
+                .ShouldReturnOk()
                 .WithResponseModel<ICollection<int>>();
         }
 
@@ -61,7 +61,7 @@
             MyWebApi
                 .Controller(() => controller)
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOkResult()
+                .ShouldReturnOk()
                 .WithResponseModel(controller.ResponseModel);
         }
 
@@ -74,7 +74,7 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOkResult()
+                .ShouldReturnOk()
                 .WithResponseModel(controller.ResponseModel);
         }
 
@@ -84,7 +84,7 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOkResult()
+                .ShouldReturnOk()
                 .WithResponseModel<ICollection<ResponseModel>>(m =>
                 {
                     Assert.AreEqual(2, m.Count);
@@ -99,7 +99,7 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOkResult()
+                .ShouldReturnOk()
                 .WithResponseModel<ICollection<ResponseModel>>(m =>
                 {
                     Assert.AreEqual(3, m.Count);
@@ -113,7 +113,7 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOkResult()
+                .ShouldReturnOk()
                 .WithResponseModel<ICollection<ResponseModel>>(m => m.First().Id == 1);
         }
 
@@ -124,7 +124,7 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOkResult()
+                .ShouldReturnOk()
                 .WithResponseModel<ICollection<ResponseModel>>(m => m.First().Id == 2);
         }
     }

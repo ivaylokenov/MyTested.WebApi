@@ -61,7 +61,7 @@
     <Compile Include="Builders\ResponseModelTestBuilder.cs" />
     <Compile Include="Builders\Results\ActionResultTestBuilder.cs" />
     <Compile Include="Builders\Results\ShouldReturn.cs" />
-    <Compile Include="Builders\Results\ShouldReturnOkResult.cs" />
+    <Compile Include="Builders\Results\ShouldReturnOk.cs" />
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
     <Compile Include="MyWebApi.cs" />
