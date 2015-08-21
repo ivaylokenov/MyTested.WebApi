@@ -25,7 +25,7 @@
         }
 
         /// <summary>
-        /// Gets ASP.NET Web API controller instance to be tested.
+        /// Gets the ASP.NET Web API controller instance to be tested.
         /// </summary>
         /// <value>Instance of the ASP.NET Web API controller.</value>
         public TController Controller { get; private set; }

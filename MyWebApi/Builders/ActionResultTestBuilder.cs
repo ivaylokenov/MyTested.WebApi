@@ -1,7 +1,7 @@
 ﻿namespace MyWebApi.Builders
 {
-    using System;
     using Contracts;
+
     using Utilities;
 
     /// <summary>
@@ -24,12 +24,17 @@
             this.ActionResult = actionResult;
         }
 
+        /// <summary>
+        /// Gets the action name which will be tested.
+        /// </summary>
+        /// <value>Action name to be tested.</value>
         public string ActionName
         {
             get
             {
                 return this.actionName;
             }
+
             private set
             {
                 Validator.CheckForNotEmptyString(value, errorMessageName: "ActionName");
@@ -37,12 +42,17 @@
             }
         }
 
+        /// <summary>
+        /// Gets the action result which will be tested.
+        /// </summary>
+        /// <value>Action result to be tested.</value>
         public TActionResult ActionResult
         {
             get
             {
                 return this.actionResult;
             }
+
             private set
             {
                 Validator.CheckForNullReference(value, errorMessageName: "ActionResult");

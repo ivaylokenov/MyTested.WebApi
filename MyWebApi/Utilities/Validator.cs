@@ -2,8 +2,17 @@
 {
     using System;
 
+    /// <summary>
+    /// Validator class containing common validation logic.
+    /// </summary>
     public static class Validator
     {
+        /// <summary>
+        /// Validates object for null reference.
+        /// </summary>
+        /// <param name="value">Object to be validated.</param>
+        /// <param name="parameterName">Name of the parameter to be checked.</param>
+        /// <param name="errorMessageName">Name of the parameter to be included in the error message.</param>
         public static void CheckForNullReference(
             object value,
             string parameterName = "value",
@@ -15,6 +24,12 @@
             }
         }
 
+        /// <summary>
+        /// Validates string for null reference or whitespace.
+        /// </summary>
+        /// <param name="value">String to be validated.</param>
+        /// <param name="parameterName">Name of the parameter to be checked.</param>
+        /// <param name="errorMessageName">Name of the parameter to be included in the error message.</param>
         public static void CheckForNotEmptyString(
             string value,
             string parameterName = "value",
