@@ -1,5 +1,9 @@
 ﻿namespace MyWebApi.Builders.Contracts
 {
+    /// <summary>
+    /// Base interface for all test builders.
+    /// </summary>
+    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public interface IBaseTestBuilder<out TActionResult>
     {
         /// <summary>

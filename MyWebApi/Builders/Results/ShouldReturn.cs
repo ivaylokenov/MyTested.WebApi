@@ -8,6 +8,10 @@
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ActionResultTestBuilder<TActionResult>
     {
+        /// <summary>
+        /// Tests whether action result is of the provided type.
+        /// </summary>
+        /// <param name="returnType">Expected response type.</param>
         public void ShouldReturn(Type returnType)
         {
             this.ValidateActionReturnType(returnType, true, true);

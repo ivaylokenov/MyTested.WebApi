@@ -17,6 +17,9 @@
         }
     }
 
+    /// <summary>
+    /// Exception for invalid action return type when expecting response model.
+    /// </summary>
     public class ResponseModelAssertionException : Exception
     {
         /// <summary>

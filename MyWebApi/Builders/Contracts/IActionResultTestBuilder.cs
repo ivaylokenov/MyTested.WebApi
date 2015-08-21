@@ -11,6 +11,7 @@
         /// <summary>
         /// Tests whether action result is OkResult.
         /// </summary>
+        /// <returns>Response model test builder.</returns>
         IResponseModelTestBuilder<TActionResult> ShouldReturnOkResult();
 
         /// <summary>

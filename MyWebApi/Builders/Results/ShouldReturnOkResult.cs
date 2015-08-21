@@ -13,6 +13,7 @@
         /// <summary>
         /// Tests whether action result is plain OkResult.
         /// </summary>
+        /// <returns>Response model test builder.</returns>
         public IResponseModelTestBuilder<TActionResult> ShouldReturnOkResult()
         {
             var actionResultAsOkResult = this.ActionResult as OkResult;
