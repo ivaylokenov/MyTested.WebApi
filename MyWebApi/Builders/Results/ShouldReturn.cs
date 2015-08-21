@@ -12,7 +12,7 @@
         /// <typeparam name="TResponseData">Expected response type.</typeparam>
         public void ShouldReturn<TResponseData>()
         {
-            this.ValidateActionReturnType<TResponseData>();
+            this.ValidateActionReturnType<TResponseData>(true);
         }
     }
 }

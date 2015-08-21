@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Tests.ControllerSetups
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Results;
@@ -31,6 +32,20 @@
         public IHttpActionResult BadRequestAction()
         {
             return this.BadRequest();
+        }
+
+        public bool GenericStructAction()
+        {
+            return true;
+        }
+
+        public ICollection<ResponseModel> GenericAction()
+        {
+            return new List<ResponseModel>
+            {
+                new ResponseModel { Id = 1, Name = "Test" },
+                new ResponseModel { Id = 2, Name = "Another Test" }
+            };
         }
     }
 }

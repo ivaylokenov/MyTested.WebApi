@@ -60,12 +60,15 @@
             }
         }
 
-        private void ValidateActionReturnType<TExpectedType>()
+        private void ValidateActionReturnType<TExpectedType>(bool canBeAssignable = false)
         {
             var typeOfActionResult = this.ActionResult.GetType();
             var typeOfResponseData = typeof(TExpectedType);
 
-            if (typeOfActionResult != typeOfResponseData)
+            bool invalid = (canBeAssignable && !typeOfResponseData.IsAssignableFrom(typeOfActionResult))
+                           || (!canBeAssignable && typeOfActionResult != typeOfResponseData);
+
+            if (invalid)
             {
                 throw new IHttpActionResultAssertionException(string.Format(
                     "When calling {0} expected action result to be a {1}, but instead received a {2}.",

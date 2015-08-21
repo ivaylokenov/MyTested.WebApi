@@ -1,6 +1,7 @@
-﻿namespace MyWebApi.Tests.Builders
+﻿namespace MyWebApi.Tests.Builders.Results
 {
     using ControllerSetups;
+
     using NUnit.Framework;
 
     [TestFixture]
