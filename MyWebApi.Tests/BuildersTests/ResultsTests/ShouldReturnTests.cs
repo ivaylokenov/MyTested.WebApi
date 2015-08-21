@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Tests.Builders.Results
+﻿namespace MyWebApi.Tests.BuildersTests.ResultsTests
 {
     using System.Collections.Generic;
 

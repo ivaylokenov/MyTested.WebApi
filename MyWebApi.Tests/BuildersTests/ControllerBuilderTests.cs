@@ -1,11 +1,11 @@
-﻿namespace MyWebApi.Tests.Builders
+﻿namespace MyWebApi.Tests.BuildersTests
 {
     using System.Threading.Tasks;
     using System.Web.Http.Results;
 
-    using ControllerSetups;
-
     using global::MyWebApi.Builders.Contracts;
+
+    using ControllerSetups;
 
     using NUnit.Framework;
 

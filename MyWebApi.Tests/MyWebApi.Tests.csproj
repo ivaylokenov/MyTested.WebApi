@@ -56,9 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\ControllerBuilderTests.cs" />
-    <Compile Include="Builders\Results\ShouldReturnOkResultTests.cs" />
-    <Compile Include="Builders\Results\ShouldReturnTests.cs" />
+    <Compile Include="BuildersTests\ControllerBuilderTests.cs" />
+    <Compile Include="BuildersTests\ResultsTests\ShouldReturnOkResultTests.cs" />
+    <Compile Include="BuildersTests\ResultsTests\ShouldReturnTests.cs" />
     <Compile Include="ControllerSetups\IInjectedService.cs" />
     <Compile Include="ControllerSetups\InjectedService.cs" />
     <Compile Include="ControllerSetups\ResponseModel.cs" />
