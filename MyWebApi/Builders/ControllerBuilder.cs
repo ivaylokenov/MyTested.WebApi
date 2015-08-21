@@ -18,18 +18,18 @@
             this.controller = controllerInstance;
         }
 
-        public IActionResultBuilder<TAction> Calling<TAction>(Expression<Func<TController, TAction>> actionCall)
+        public IActionResultTestBuilder<TActionResult> Calling<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
             var actionResult = actionCall.Compile().Invoke(this.controller);
-            return new ActionResultBuilder<TAction>(actionName, actionResult);
+            return new ActionResultTestBuilder<TActionResult>(actionName, actionResult);
         }
 
-        public IActionResultBuilder<TAction> Calling<TAction>(Expression<Func<TController, Task<TAction>>> actionCall)
+        public IActionResultTestBuilder<TActionResult> Calling<TActionResult>(Expression<Func<TController, Task<TActionResult>>> actionCall)
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
             var actionResult = actionCall.Compile().Invoke(this.controller).Result;
-            return new ActionResultBuilder<TAction>(actionName, actionResult);
+            return new ActionResultTestBuilder<TActionResult>(actionName, actionResult);
         }
     }
 }

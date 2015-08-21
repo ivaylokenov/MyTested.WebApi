@@ -8,8 +8,20 @@
     public interface IControllerBuilder<TController>
         where TController : ApiController
     {
-        IActionResultBuilder<TAction> Calling<TAction>(Expression<Func<TController, TAction>> actionCall);
+        /// <summary>
+        /// Indicates which action should be invoked and tested
+        /// </summary>
+        /// <typeparam name="TActionResult">Type of result from action</typeparam>
+        /// <param name="actionCall">Method call expression indicating invoked action</param>
+        /// <returns>Builder for testing the action result</returns>
+        IActionResultTestBuilder<TActionResult> Calling<TActionResult>(Expression<Func<TController, TActionResult>> actionCall);
 
-        IActionResultBuilder<TAction> Calling<TAction>(Expression<Func<TController, Task<TAction>>> actionCall);
+        /// <summary>
+        /// Indicates which action should be invoked and tested
+        /// </summary>
+        /// <typeparam name="TActionResult">Asynchronous Task result from action</typeparam>
+        /// <param name="actionCall">Method call expression indicating invoked action</param>
+        /// <returns>Builder for testing the action result</returns>
+        IActionResultTestBuilder<TActionResult> Calling<TActionResult>(Expression<Func<TController, Task<TActionResult>>> actionCall);
     }
 }

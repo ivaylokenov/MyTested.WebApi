@@ -2,12 +2,12 @@
 {
     using Contracts;
 
-    public class ActionResultBuilder<TActionResult> : IActionResultBuilder<TActionResult>
+    public class ActionResultTestBuilder<TActionResult> : IActionResultTestBuilder<TActionResult>
     {
         private string actionName;
         private TActionResult actionResult;
 
-        public ActionResultBuilder(string actionName, TActionResult actionResult)
+        public ActionResultTestBuilder(string actionName, TActionResult actionResult)
         {
             this.actionName = actionName;
             this.actionResult = actionResult;
