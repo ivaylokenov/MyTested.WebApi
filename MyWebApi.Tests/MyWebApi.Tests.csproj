@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildersTests\ControllerBuilderTests.cs" />
+    <Compile Include="BuildersTests\ResponseModelTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ResultsTests\ShouldReturnOkResultTests.cs" />
     <Compile Include="BuildersTests\ResultsTests\ShouldReturnTests.cs" />
     <Compile Include="ControllerSetups\IInjectedService.cs" />
