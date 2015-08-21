@@ -6,6 +6,7 @@
     using System.Web.Http;
 
     using Contracts;
+    using Results;
     using Utilities;
 
     /// <summary>

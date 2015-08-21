@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders
+﻿namespace MyWebApi.Builders.Results
 {
     using Contracts;
 
@@ -8,7 +8,7 @@
     /// Used for specifying the action result type of test.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public class ActionResultTestBuilder<TActionResult> : IActionResultTestBuilder<TActionResult>
+    public partial class ActionResultTestBuilder<TActionResult> : IActionResultTestBuilder<TActionResult>
     {
         private string actionName;
         private TActionResult actionResult;
