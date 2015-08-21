@@ -10,7 +10,7 @@
     {
         public void ShouldReturn(Type returnType)
         {
-            this.ValidateActionReturnType(returnType, true);
+            this.ValidateActionReturnType(returnType, true, true);
         }
 
         /// <summary>
