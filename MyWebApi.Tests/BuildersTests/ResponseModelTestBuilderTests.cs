@@ -106,5 +106,26 @@
                     Assert.AreEqual(1, m.First().Id);
                 });
         }
+
+        [Test]
+        public void WithResponseModelShouldNotThrowExceptionWithCorrectPredicate()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOkResult()
+                .WithResponseModel<ICollection<ResponseModel>>(m => m.First().Id == 1);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ResponseModelAssertionException))]
+        public void WithResponseModelShouldThrowExceptionWithWrongPredicate()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOkResult()
+                .WithResponseModel<ICollection<ResponseModel>>(m => m.First().Id == 2);
+        }
     }
 }
