@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\ControllerBuilderTests.cs" />
     <Compile Include="ControllerSetups\IInjectedService.cs" />
     <Compile Include="ControllerSetups\InjectedService.cs" />
     <Compile Include="ControllerSetups\NormalController.cs" />
