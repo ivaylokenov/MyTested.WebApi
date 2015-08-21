@@ -49,7 +49,7 @@
         /// <typeparam name="TActionResult">Asynchronous Task result from action.</typeparam>
         /// <param name="actionCall">Method call expression indicating invoked action.</param>
         /// <returns>Builder for testing the action result.</returns>
-        public IActionResultTestBuilder<TActionResult> Calling<TActionResult>(Expression<Func<TController, Task<TActionResult>>> actionCall)
+        public IActionResultTestBuilder<TActionResult> CallingAsync<TActionResult>(Expression<Func<TController, Task<TActionResult>>> actionCall)
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
             var actionResult = actionCall.Compile().Invoke(this.Controller).Result;
