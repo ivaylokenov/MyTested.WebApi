@@ -33,7 +33,7 @@
             {
                 isAssignableCheck = ReflectionChecker.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
 
-                if (!isAssignableCheck && !ReflectionChecker.IsGenericTypeDefinition(typeOfExpectedReturnValue))
+                if (!ReflectionChecker.IsGenericTypeDefinition(typeOfExpectedReturnValue))
                 {
                     haveDifferentGenericArguments = ReflectionChecker.HaveDifferentGenericArguments(typeOfExpectedReturnValue, typeOfActionResult);
                 }
@@ -44,8 +44,7 @@
             var invalid = isAssignableCheck || strictlyEqualCheck || haveDifferentGenericArguments;
             if (strictlyEqualCheck)
             {
-                var genericTypeDefinitionCheck = allowDifferentGenericTypeDefinitions 
-                    && ReflectionChecker.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
+                var genericTypeDefinitionCheck = ReflectionChecker.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
 
                 if (genericTypeDefinitionCheck)
                 {
