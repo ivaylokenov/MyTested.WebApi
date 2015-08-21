@@ -27,5 +27,12 @@
         /// <typeparam name="TResponseData">Type of the response model.</typeparam>
         /// <param name="assertions">Action containing all assertions on the response model.</param>
         void WithResponseModel<TResponseData>(Action<TResponseData> assertions);
+
+        /// <summary>
+        /// Tests whether the returned response model from the invoked action passes given predicate.
+        /// </summary>
+        /// <typeparam name="TResponseData">Type of the response model.</typeparam>
+        /// <param name="predicate">Predicate testing the response model.</param>
+        void WithResponseModel<TResponseData>(Func<TResponseData, bool> predicate);
     }
 }
