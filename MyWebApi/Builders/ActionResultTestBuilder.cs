@@ -1,6 +1,8 @@
 ﻿namespace MyWebApi.Builders
 {
+    using System;
     using Contracts;
+    using Utilities;
 
     /// <summary>
     /// Used for specifying the action result type of test.
@@ -18,8 +20,34 @@
         /// <param name="actionResult">Result from the tested action.</param>
         public ActionResultTestBuilder(string actionName, TActionResult actionResult)
         {
-            this.actionName = actionName;
-            this.actionResult = actionResult;
+            this.ActionName = actionName;
+            this.ActionResult = actionResult;
+        }
+
+        public string ActionName
+        {
+            get
+            {
+                return this.actionName;
+            }
+            private set
+            {
+                Validator.CheckForNotEmptyString(value, errorMessageName: "ActionName");
+                this.actionName = value;
+            }
+        }
+
+        public TActionResult ActionResult
+        {
+            get
+            {
+                return this.actionResult;
+            }
+            private set
+            {
+                Validator.CheckForNullReference(value, errorMessageName: "ActionResult");
+                this.actionResult = value;
+            }
         }
     }
 }
