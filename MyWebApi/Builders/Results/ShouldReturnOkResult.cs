@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Builders.Results
 {
     using System.Web.Http.Results;
+    using Contracts;
 
     /// <summary>
     /// Class containing methods for testing OkResult.
@@ -11,9 +12,10 @@
         /// <summary>
         /// Tests whether action result is plain OkResult.
         /// </summary>
-        public void ShouldReturnOkResult()
+        public IResponseModelTestBuilder<TActionResult> ShouldReturnOkResult()
         {
             this.ShouldReturn<OkResult>();
+            return new ResponseModelTestBuilder<TActionResult>(this.ActionName, this.ActionResult);
         }
     }
 }

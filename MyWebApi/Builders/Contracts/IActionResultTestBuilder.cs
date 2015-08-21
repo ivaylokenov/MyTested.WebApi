@@ -4,24 +4,12 @@
     /// Used for building the action result which will be tested.
     /// </summary>
     /// <typeparam name="TActionResult">Type of action result to be tested.</typeparam>
-    public interface IActionResultTestBuilder<out TActionResult>
+    public interface IActionResultTestBuilder<TActionResult> : IBaseTestBuilder<TActionResult>
     {
-        /// <summary>
-        /// Gets the action name which will be tested.
-        /// </summary>
-        /// <value>Action name to be tested.</value>
-        string ActionName { get; }
-
-        /// <summary>
-        /// Gets the action result which will be tested.
-        /// </summary>
-        /// <value>Action result to be tested.</value>
-        TActionResult ActionResult { get; }
-
         /// <summary>
         /// Tests whether action result is OkResult.
         /// </summary>
-        void ShouldReturnOkResult();
+        IResponseModelTestBuilder<TActionResult> ShouldReturnOkResult();
 
         /// <summary>
         /// Tests whether action result is of the provided generic type.
