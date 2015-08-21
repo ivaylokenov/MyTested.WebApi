@@ -18,7 +18,7 @@
 
         public IHttpActionResult EmptyAction()
         {
-            return Ok();
+            return this.Ok();
         }
     }
 }

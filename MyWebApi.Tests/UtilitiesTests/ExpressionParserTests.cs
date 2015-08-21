@@ -3,8 +3,11 @@
     using System;
     using System.Linq.Expressions;
     using System.Web.Http;
+
     using ControllerSetups;
+
     using NUnit.Framework;
+
     using Utilities;
 
     [TestFixture]
@@ -23,7 +26,7 @@
         public void GetMethodNameShouldThrowArgumentExceptionWithInvalidMethodCallExpression()
         {
             Expression<Func<int>> expression = () => 0;
-            var methodName = ExpressionParser.GetMethodName(expression);
+            ExpressionParser.GetMethodName(expression);
         }
     }
 }

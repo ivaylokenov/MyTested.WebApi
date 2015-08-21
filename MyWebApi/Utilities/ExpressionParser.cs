@@ -21,7 +21,7 @@
                 throw new ArgumentException("Provided expression is not a valid method call");
             }
 
-            return (methodCallExpression).Method.Name;
+            return methodCallExpression.Method.Name;
         }
     }
 }
