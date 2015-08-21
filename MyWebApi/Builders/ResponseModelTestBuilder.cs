@@ -72,8 +72,9 @@
             if (actualModel != expectedModel)
             {
                 throw new ResponseModelAssertionException(string.Format(
-                            "When calling {0} expected response model to be the given model, but in fact it was a different model.",
-                            this.ActionName));
+                            "When calling {0} expected response model {1} to be the given model, but in fact it was a different model.",
+                            this.ActionName,
+                            typeof(TResponseData).Name));
             }
         }
 
@@ -88,6 +89,25 @@
 
             var actualModel = this.GetActualModel<TResponseData>();
             assertions(actualModel);
+        }
+
+        /// <summary>
+        /// Tests whether the returned response model from the invoked action passes given predicate.
+        /// </summary>
+        /// <typeparam name="TResponseData">Type of the response model.</typeparam>
+        /// <param name="predicate">Predicate testing the response model.</param>
+        public void WithResponseModel<TResponseData>(Func<TResponseData, bool> predicate)
+        {
+            this.WithResponseModel<TResponseData>();
+
+            var actualModel = this.GetActualModel<TResponseData>();
+            if (!predicate(actualModel))
+            {
+                throw new ResponseModelAssertionException(string.Format(
+                            "When calling {0} cxpected response model {1} to pass the given condition, but it failed.",
+                            this.ActionName,
+                            typeof(TResponseData).Name));
+            }
         }
 
         private TResponseData GetActualModel<TResponseData>()
