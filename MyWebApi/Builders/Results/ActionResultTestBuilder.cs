@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.Results
 {
+    using System;
     using Contracts;
 
     using Utilities;
@@ -21,22 +22,40 @@
         {
         }
 
-        private void ValidateActionReturnType<TExpectedType>(bool canBeAssignable = false)
+        private void ValidateActionReturnType(Type actionReturnType, bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
         {
             var typeOfActionResult = this.ActionResult.GetType();
-            var typeOfResponseData = typeof(TExpectedType);
 
-            bool invalid = (canBeAssignable && !typeOfResponseData.IsAssignableFrom(typeOfActionResult))
-                           || (!canBeAssignable && typeOfActionResult != typeOfResponseData);
+            var isAssignableCheck = canBeAssignable && !actionReturnType.IsAssignableFrom(typeOfActionResult);
+            var strictlyEqualCheck = !canBeAssignable && typeOfActionResult != actionReturnType;
+
+            var invalid = isAssignableCheck || strictlyEqualCheck;
+            if (strictlyEqualCheck)
+            {
+                var genericTypeDefinitionCheck = allowDifferentGenericTypeDefinitions &&
+                          typeOfActionResult.IsGenericType &&
+                          actionReturnType.IsAssignableFrom(typeOfActionResult.GetGenericTypeDefinition());
+
+                if (genericTypeDefinitionCheck)
+                {
+                    invalid = false;
+                }
+            }
 
             if (invalid)
             {
-                throw new IHttpActionResultAssertionException(string.Format(
+                throw new HttpActionResultAssertionException(string.Format(
                     "When calling {0} expected action result to be a {1}, but instead received a {2}.",
                     this.ActionName,
-                    typeOfResponseData.Name,
+                    actionReturnType.Name,
                     typeOfActionResult.Name));
             }
+        }
+
+        private void ValidateActionReturnType<TExpectedType>(bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
+        {
+            var typeOfResponseData = typeof(TExpectedType);
+            this.ValidateActionReturnType(typeOfResponseData, canBeAssignable, allowDifferentGenericTypeDefinitions);
         }
     }
 }
