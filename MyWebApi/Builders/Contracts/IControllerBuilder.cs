@@ -13,6 +13,12 @@
         where TController : ApiController
     {
         /// <summary>
+        /// Gets ASP.NET Web API controller instance to be tested.
+        /// </summary>
+        /// <value>Instance of the ASP.NET Web API controller.</value>
+        TController Controller { get; }
+
+        /// <summary>
         /// Indicates which action should be invoked and tested.
         /// </summary>
         /// <typeparam name="TActionResult">Type of result from action.</typeparam>
