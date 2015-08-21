@@ -24,7 +24,7 @@
         }
 
         /// <summary>
-        /// Tests whether response model is returned from the invoked action.
+        /// Tests whether certain type of response model is returned from the invoked action.
         /// </summary>
         /// <typeparam name="TResponseData">Type of the response model.</typeparam>
         public void WithResponseModel<TResponseData>()
@@ -54,6 +54,25 @@
                             actualResponseDataType.Name));
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Tests whether an object is returned from the invoked action.
+        /// </summary>
+        /// <typeparam name="TResponseData">Type of the response model.</typeparam>
+        /// <param name="expectedModel">Expected model to be returned.</param>
+        public void WithResponseModel<TResponseData>(TResponseData expectedModel)
+            where TResponseData : class
+        {
+            this.WithResponseModel<TResponseData>();
+
+            var actualModel = (this.ActionResult as OkNegotiatedContentResult<TResponseData>).Content;
+            if (actualModel != expectedModel)
+            {
+                throw new ResponseModelAssertionException(string.Format(
+                            "When calling {0} expected response model to be the given model, but in fact it was a different model.",
+                            this.ActionName));
             }
         }
     }
