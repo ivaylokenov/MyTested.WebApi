@@ -2,6 +2,8 @@
 {
     using System.Web.Http.Results;
 
+    using Contracts;
+
     /// <summary>
     /// Class containing methods for testing OkResult.
     /// </summary>
@@ -11,9 +13,20 @@
         /// <summary>
         /// Tests whether action result is plain OkResult.
         /// </summary>
-        public void ShouldReturnOkResult()
+        /// <returns>Response model test builder.</returns>
+        public IResponseModelTestBuilder<TActionResult> ShouldReturnOkResult()
         {
-            this.ShouldReturn<OkResult>();
+            var actionResultAsOkResult = this.ActionResult as OkResult;
+            if (actionResultAsOkResult != null)
+            {
+                this.ShouldReturn<OkResult>();
+            }
+            else
+            {
+                this.ValidateActionReturnType(typeof(OkNegotiatedContentResult<>), allowDifferentGenericTypeDefinitions: true);
+            }
+
+            return new ResponseModelTestBuilder<TActionResult>(this.ActionName, this.ActionResult);
         }
     }
 }

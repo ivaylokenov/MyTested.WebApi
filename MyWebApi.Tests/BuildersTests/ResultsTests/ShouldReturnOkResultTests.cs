@@ -1,6 +1,8 @@
-﻿namespace MyWebApi.Tests.Builders.Results
+﻿namespace MyWebApi.Tests.BuildersTests.ResultsTests
 {
     using ControllerSetups;
+
+    using Exceptions;
 
     using NUnit.Framework;
 
@@ -17,7 +19,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(IHttpActionResultAssertionException))]
+        [ExpectedException(typeof(HttpActionResultAssertionException))]
         public void ShouldReturnOkResultShouldThrowExceptionWithOtherThanOkResult()
         {
             MyWebApi

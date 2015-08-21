@@ -1,81 +1,72 @@
 ﻿namespace MyWebApi.Builders.Results
 {
-    using Contracts;
+    using System;
 
+    using Contracts;
+    using Exceptions;
     using Utilities;
 
     /// <summary>
     /// Used for testing the action result type of test.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public partial class ActionResultTestBuilder<TActionResult> : IActionResultTestBuilder<TActionResult>
+    public partial class ActionResultTestBuilder<TActionResult> 
+        : BaseTestBuilder<TActionResult>, IActionResultTestBuilder<TActionResult>
     {
-        private string actionName;
-        private TActionResult actionResult;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ActionResultTestBuilder{TActionResult}" /> class.
         /// </summary>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="actionResult">Result from the tested action.</param>
         public ActionResultTestBuilder(string actionName, TActionResult actionResult)
+            : base(actionName, actionResult)
         {
-            this.ActionName = actionName;
-            this.ActionResult = actionResult;
         }
 
-        /// <summary>
-        /// Gets the action name which will be tested.
-        /// </summary>
-        /// <value>Action name to be tested.</value>
-        public string ActionName
-        {
-            get
-            {
-                return this.actionName;
-            }
-
-            private set
-            {
-                Validator.CheckForNotEmptyString(value, errorMessageName: "ActionName");
-                this.actionName = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the action result which will be tested.
-        /// </summary>
-        /// <value>Action result to be tested.</value>
-        public TActionResult ActionResult
-        {
-            get
-            {
-                return this.actionResult;
-            }
-
-            private set
-            {
-                Validator.CheckForNullReference(value, errorMessageName: "ActionResult");
-                this.actionResult = value;
-            }
-        }
-
-        private void ValidateActionReturnType<TExpectedType>(bool canBeAssignable = false)
+        private void ValidateActionReturnType(Type typeOfExpectedReturnValue, bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
         {
             var typeOfActionResult = this.ActionResult.GetType();
-            var typeOfResponseData = typeof(TExpectedType);
 
-            bool invalid = (canBeAssignable && !typeOfResponseData.IsAssignableFrom(typeOfActionResult))
-                           || (!canBeAssignable && typeOfActionResult != typeOfResponseData);
+            var isAssignableCheck = canBeAssignable && ReflectionChecker.AreNotAssignable(typeOfExpectedReturnValue, typeOfActionResult);
+            var haveDifferentGenericArguments = false;
+            if (isAssignableCheck && allowDifferentGenericTypeDefinitions && ReflectionChecker.IsGeneric(typeOfExpectedReturnValue))
+            {
+                isAssignableCheck = ReflectionChecker.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
+
+                if (!isAssignableCheck && !ReflectionChecker.IsGenericTypeDefinition(typeOfExpectedReturnValue))
+                {
+                    haveDifferentGenericArguments = ReflectionChecker.HaveDifferentGenericArguments(typeOfExpectedReturnValue, typeOfActionResult);
+                }
+            }
+
+            var strictlyEqualCheck = !canBeAssignable && ReflectionChecker.AreDifferentTypes(typeOfExpectedReturnValue, typeOfActionResult);
+
+            var invalid = isAssignableCheck || strictlyEqualCheck || haveDifferentGenericArguments;
+            if (strictlyEqualCheck)
+            {
+                var genericTypeDefinitionCheck = allowDifferentGenericTypeDefinitions 
+                    && ReflectionChecker.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
+
+                if (genericTypeDefinitionCheck)
+                {
+                    invalid = false;
+                }
+            }
 
             if (invalid)
             {
-                throw new IHttpActionResultAssertionException(string.Format(
+                throw new HttpActionResultAssertionException(string.Format(
                     "When calling {0} expected action result to be a {1}, but instead received a {2}.",
                     this.ActionName,
-                    typeOfResponseData.Name,
+                    typeOfExpectedReturnValue.Name,
                     typeOfActionResult.Name));
             }
+        }
+
+        private void ValidateActionReturnType<TExpectedType>(bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
+        {
+            var typeOfResponseData = typeof(TExpectedType);
+            this.ValidateActionReturnType(typeOfResponseData, canBeAssignable, allowDifferentGenericTypeDefinitions);
         }
     }
 }
