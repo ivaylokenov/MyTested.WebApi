@@ -7,7 +7,6 @@
     {
         public ResponseModelErrorTestBuilder(ApiController controller)
         {
-            
         }
     }
 }

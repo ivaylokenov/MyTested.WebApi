@@ -6,13 +6,11 @@
     using Utilities;
 
     /// <summary>
-    /// Base class for all test builders.
+    /// Base class for all test builders with action result.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public abstract class BaseTestBuilderWithActionResult<TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
+    public abstract class BaseTestBuilderWithActionResult<TActionResult> : BaseTestBuilder, IBaseTestBuilderWithActionResult<TActionResult>
     {
-        private ApiController controller;
-        private string actionName;
         private TActionResult actionResult;
 
         /// <summary>
@@ -22,46 +20,9 @@
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="actionResult">Result from the tested action.</param>
         protected BaseTestBuilderWithActionResult(ApiController controller, string actionName, TActionResult actionResult)
+            : base(controller, actionName)
         {
-            this.Controller = controller;
-            this.ActionName = actionName;
             this.ActionResult = actionResult;
-        }
-
-        /// <summary>
-        /// Gets the controller on which the action will be tested.
-        /// </summary>
-        /// <value>Controller on which the action will be tested.</value>
-        public ApiController Controller
-        {
-            get
-            {
-                return this.controller;
-            }
-
-            private set
-            {
-                Validator.CheckForNullReference(value, errorMessageName: "Controller");
-                this.controller = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the action name which will be tested.
-        /// </summary>
-        /// <value>Action name to be tested.</value>
-        public string ActionName
-        {
-            get
-            {
-                return this.actionName;
-            }
-
-            private set
-            {
-                Validator.CheckForNotEmptyString(value, errorMessageName: "ActionName");
-                this.actionName = value;
-            }
         }
 
         /// <summary>

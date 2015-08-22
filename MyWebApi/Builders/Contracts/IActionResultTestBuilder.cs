@@ -6,7 +6,7 @@
     /// Used for building the action result which will be tested.
     /// </summary>
     /// <typeparam name="TActionResult">Type of action result to be tested.</typeparam>
-    public interface IActionResultTestBuilder<TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
+    public interface IActionResultTestBuilder<out TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
     {
         /// <summary>
         /// Tests whether action result is OkResult.
