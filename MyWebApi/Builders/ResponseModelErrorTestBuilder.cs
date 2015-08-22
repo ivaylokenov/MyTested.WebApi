@@ -36,21 +36,5 @@
         {
             this.CheckValidModelState();
         }
-
-        /// <summary>
-        /// Tests whether tested action's model state contains error by key.
-        /// </summary>
-        /// <param name="errorKey">Error key to search for.</param>
-        public void ContainingModelStateError(string errorKey)
-        {
-            if (!this.ModelState.ContainsKey(errorKey) || this.ModelState.Count == 0)
-            {
-                throw new ResponseModelErrorAssertionException(string.Format(
-                    "When calling {0} action in {1} expected to have a model error against key {2}, but none found.",
-                    this.ActionName,
-                    this.Controller.GetType().Name,
-                    errorKey));
-            }
-        }
     }
 }

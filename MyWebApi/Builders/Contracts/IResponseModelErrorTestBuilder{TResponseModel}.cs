@@ -10,11 +10,17 @@
     public interface IResponseModelErrorTestBuilder<TResponseModel> : IResponseModelErrorTestBuilder
     {
         /// <summary>
+        /// Tests whether tested action's model state contains error by key.
+        /// </summary>
+        /// <param name="errorKey">Error key to search for.</param>
+        IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateError(string errorKey);
+
+        /// <summary>
         /// Tests whether tested action's model state contains error by member expression.
         /// </summary>
         /// <typeparam name="TProperty">Type of the member which will be tested for errors.</typeparam>
         /// <param name="memberWithError">Member expression for the tested member.</param>
-        void ContainingModelStateErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithError);
+        IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithError);
 
         /// <summary>
         /// Tests whether tested action's model state contains no error by member expression.

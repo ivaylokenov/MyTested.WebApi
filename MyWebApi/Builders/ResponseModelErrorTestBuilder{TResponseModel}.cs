@@ -25,14 +25,44 @@
         }
 
         /// <summary>
+        /// Tests whether tested action's model state contains error by key.
+        /// </summary>
+        /// <param name="errorKey">Error key to search for.</param>
+        public IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateError(string errorKey)
+        {
+            if (!this.ModelState.ContainsKey(errorKey) || this.ModelState.Count == 0)
+            {
+                throw new ResponseModelErrorAssertionException(string.Format(
+                    "When calling {0} action in {1} expected to have a model error against key {2}, but none found.",
+                    this.ActionName,
+                    this.Controller.GetType().Name,
+                    errorKey));
+            }
+
+            return new ResponseModelErrorDetailsTestBuilder<TResponseModel>(
+                this.Controller,
+                this.ActionName,
+                this,
+                errorKey,
+                this.ModelState[errorKey].Errors);
+        }
+
+        /// <summary>
         /// Tests whether tested action's model state contains error by member expression.
         /// </summary>
         /// <typeparam name="TProperty">Type of the member which will be tested for errors.</typeparam>
         /// <param name="memberWithError">Member expression for the tested member.</param>
-        public void ContainingModelStateErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithError)
+        public IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithError)
         {
             var memberName = ExpressionParser.GetPropertyName(memberWithError);
             this.ContainingModelStateError(memberName);
+
+            return new ResponseModelErrorDetailsTestBuilder<TResponseModel>(
+                this.Controller,
+                this.ActionName,
+                this,
+                memberName,
+                this.ModelState[memberName].Errors);
         }
 
         /// <summary>
