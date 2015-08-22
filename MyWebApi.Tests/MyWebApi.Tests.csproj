@@ -66,6 +66,7 @@
     <Compile Include="ControllerSetups\Services\InjectedService.cs" />
     <Compile Include="ControllerSetups\Models\RequestModel.cs" />
     <Compile Include="ControllerSetups\Models\ResponseModel.cs" />
+    <Compile Include="ControllerSetups\TestObjectFactory.cs" />
     <Compile Include="ControllerSetups\WebApiController.cs" />
     <Compile Include="MyWebApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

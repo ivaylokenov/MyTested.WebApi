@@ -35,11 +35,7 @@
         [Test]
         public void ResolveMethodArgumentsShouldReturnCorrectCollectionOfTypeValuePair()
         {
-            var requestModel = new RequestModel
-            {
-                Id = 2,
-                Name = "Test"
-            };
+            var requestModel = TestObjectFactory.GetValidRequestModel();
 
             Expression<Func<WebApiController, IHttpActionResult>> expression = c => c.OkResultActionWithRequestBody(1, requestModel);
 

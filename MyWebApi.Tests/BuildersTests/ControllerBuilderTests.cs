@@ -2,12 +2,12 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Web.Http.ModelBinding;
     using System.Web.Http.Results;
 
     using Builders.Contracts;
     using ControllerSetups;
     using ControllerSetups.Models;
+
     using NUnit.Framework;
 
     [TestFixture]
@@ -52,11 +52,7 @@
         [Test]
         public void CallingShouldHaveValidModelStateWhenThereAreNoModelErrors()
         {
-            var requestBody = new RequestModel
-            {
-                Id = 1,
-                Name = "Test"
-            };
+            var requestBody = TestObjectFactory.GetValidRequestModel();
 
             var actionResultTestBuilder = MyWebApi
                 .Controller<WebApiController>()

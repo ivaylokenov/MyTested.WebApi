@@ -14,11 +14,7 @@
         [Test]
         public void ContainingNoErrorsShouldNotThrowExceptionWhenThereAreNoModelStateErrors()
         {
-            var requestBody = new RequestModel
-            {
-                Id = 1,
-                Name = "Test"
-            };
+            var requestBody = TestObjectFactory.GetValidRequestModel();
 
             MyWebApi
                 .Controller<WebApiController>()
@@ -32,7 +28,7 @@
         [ExpectedException(typeof(ResponseModelErrorAssertionException))]
         public void ContainingNoErrorsShouldThrowExceptionWhenThereAreModelStateErrors()
         {
-            var requestBodyWithErrors = new RequestModel();
+            var requestBodyWithErrors = TestObjectFactory.GetRequestModelWithErrors();
 
             MyWebApi
                 .Controller<WebApiController>()
@@ -45,7 +41,7 @@
         [Test]
         public void AndModelStateErrorShouldNotThrowExceptionWhenTheProvidedModelStateErrorExists()
         {
-            var requestBodyWithErrors = new RequestModel();
+            var requestBodyWithErrors = TestObjectFactory.GetRequestModelWithErrors();
 
             MyWebApi
                 .Controller<WebApiController>()
@@ -59,11 +55,7 @@
         [ExpectedException(typeof(ResponseModelErrorAssertionException))]
         public void AndModelStateErrorShouldThrowExceptionWhenTheProvidedModelStateErrorDoesNotExist()
         {
-            var requestBody = new RequestModel
-            {
-                Id = 1,
-                Name = "Test"
-            };
+            var requestBody = TestObjectFactory.GetValidRequestModel();
 
             MyWebApi
                 .Controller<WebApiController>()
