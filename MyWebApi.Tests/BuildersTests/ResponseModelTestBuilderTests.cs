@@ -103,8 +103,8 @@
                 .ShouldReturnOk()
                 .WithResponseModel<ICollection<ResponseModel>>(m =>
                 {
-                    Assert.AreEqual(3, m.Count);
                     Assert.AreEqual(1, m.First().Id);
+                    Assert.AreEqual(3, m.Count);
                 });
         }
 

@@ -71,18 +71,12 @@
         {
             var actionName = actionResultTestBuilder.ActionName;
             var actionResult = actionResultTestBuilder.ActionResult;
-
-            var testedActionResult = actionResult;
-            if (actionResult is Task<TActionResult>)
-            {
-                testedActionResult = (actionResult as Task<TActionResult>).Result;
-            }
-
+            
             Assert.IsNotNullOrEmpty(actionName);
-            Assert.IsNotNull(testedActionResult);
+            Assert.IsNotNull(actionResult);
 
             Assert.AreEqual(expectedActionName, actionName);
-            Assert.IsAssignableFrom<OkResult>(testedActionResult);
+            Assert.IsAssignableFrom<OkResult>(actionResult);
         }
     }
 }

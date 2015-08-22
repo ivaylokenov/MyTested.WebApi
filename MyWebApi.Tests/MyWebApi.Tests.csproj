@@ -60,7 +60,7 @@
     <Compile Include="BuildersTests\ControllerBuilderTests.cs" />
     <Compile Include="BuildersTests\ResponseModelTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ResponseModelErrorTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\ResultsTests\ShouldHaveModelStateForTests.cs" />
+    <Compile Include="BuildersTests\ResultsTests\ShouldHaveModelStateTests.cs" />
     <Compile Include="BuildersTests\ResultsTests\ShouldReturnOkResultTests.cs" />
     <Compile Include="BuildersTests\ResultsTests\ShouldReturnTests.cs" />
     <Compile Include="ControllerSetups\Services\IInjectedService.cs" />

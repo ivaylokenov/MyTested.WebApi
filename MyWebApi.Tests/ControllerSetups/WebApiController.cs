@@ -4,7 +4,9 @@
     using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Results;
+
     using Models;
+
     using Services;
 
     internal class WebApiController : ApiController
@@ -19,11 +21,7 @@
         public WebApiController(IInjectedService injectedService)
         {
             this.InjectedService = injectedService;
-            this.responseModel = new List<ResponseModel>
-            {
-                new ResponseModel { Id = 1, Name = "Test" },
-                new ResponseModel { Id = 2, Name = "Another Test" }
-            };
+            this.responseModel = TestObjectFactory.GetListOfResponseModels();
         }
 
         public ICollection<ResponseModel> ResponseModel

@@ -16,6 +16,16 @@
         IResponseModelErrorTestBuilder<TRequestModel> ShouldHaveModelStateFor<TRequestModel>();
 
         /// <summary>
+        /// Checks whether the tested action's provided model state is valid.
+        /// </summary>
+        void ShouldHaveValidModelState();
+
+        /// <summary>
+        /// Checks whether the tested action's provided model state is not valid.
+        /// </summary>
+        void ShouldHaveInvalidModelState();
+
+        /// <summary>
         /// Tests whether action result is OkResult.
         /// </summary>
         /// <returns>Response model test builder.</returns>
