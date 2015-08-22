@@ -24,7 +24,7 @@
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestBody))
                 .ShouldReturnOk()
                 .WithResponseModel<List<ResponseModel>>()
-                .ContainingNoErrors();
+                .ContainingNoModelStateErrors();
         }
 
         [Test]
@@ -38,7 +38,7 @@
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestBodyWithErrors))
                 .ShouldReturnOk()
                 .WithResponseModel<List<ResponseModel>>()
-                .ContainingNoErrors();
+                .ContainingNoModelStateErrors();
         }
     }
 }

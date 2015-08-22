@@ -8,12 +8,12 @@
         /// <summary>
         /// Tests whether tested action's model state is valid.
         /// </summary>
-        void ContainingNoErrors();
+        void ContainingNoModelStateErrors();
 
         /// <summary>
         /// Tests whether tested action's model state contains error by key.
         /// </summary>
         /// <param name="errorKey">Error key to search for.</param>
-        void AndModelError(string errorKey);
+        void AndModelStateError(string errorKey);
     }
 }

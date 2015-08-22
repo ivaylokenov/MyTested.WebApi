@@ -32,7 +32,7 @@
         /// <summary>
         /// Tests whether tested action's model state is valid.
         /// </summary>
-        public void ContainingNoErrors()
+        public void ContainingNoModelStateErrors()
         {
             if (!this.ModelState.IsValid)
             {
@@ -47,7 +47,7 @@
         /// Tests whether tested action's model state contains error by key.
         /// </summary>
         /// <param name="errorKey">Error key to search for.</param>
-        public void AndModelError(string errorKey)
+        public void AndModelStateError(string errorKey)
         {
             if (!this.ModelState.ContainsKey(errorKey) || this.ModelState.Count == 0)
             {
