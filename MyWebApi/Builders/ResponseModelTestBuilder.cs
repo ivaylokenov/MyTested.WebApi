@@ -30,7 +30,7 @@
         /// Tests whether certain type of response model is returned from the invoked action.
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
-        public void WithResponseModel<TResponseModel>()
+        public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>()
         {
             var actionResultType = this.ActionResult.GetType();
             var negotiatedContentResultType = typeof(OkNegotiatedContentResult<TResponseModel>);
@@ -58,6 +58,8 @@
                     }
                 }
             }
+
+            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
 
         /// <summary>
@@ -65,7 +67,7 @@
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="expectedModel">Expected model to be returned.</param>
-        public void WithResponseModel<TResponseModel>(TResponseModel expectedModel)
+        public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
             where TResponseModel : class
         {
             this.WithResponseModel<TResponseModel>();
@@ -78,6 +80,8 @@
                             this.ActionName,
                             typeof(TResponseModel).Name));
             }
+
+            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
 
         /// <summary>
@@ -85,12 +89,14 @@
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="assertions">Action containing all assertions on the response model.</param>
-        public void WithResponseModel<TResponseModel>(Action<TResponseModel> assertions)
+        public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(Action<TResponseModel> assertions)
         {
             this.WithResponseModel<TResponseModel>();
 
             var actualModel = this.GetActualModel<TResponseModel>();
             assertions(actualModel);
+
+            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
 
         /// <summary>
@@ -98,7 +104,7 @@
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="predicate">Predicate testing the response model.</param>
-        public void WithResponseModel<TResponseModel>(Func<TResponseModel, bool> predicate)
+        public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(Func<TResponseModel, bool> predicate)
         {
             this.WithResponseModel<TResponseModel>();
 
@@ -110,6 +116,8 @@
                             this.ActionName,
                             typeof(TResponseModel).Name));
             }
+
+            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
 
         private TResponseModel GetActualModel<TResponseModel>()
