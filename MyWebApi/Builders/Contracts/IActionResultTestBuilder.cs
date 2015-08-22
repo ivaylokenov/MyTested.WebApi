@@ -9,6 +9,13 @@
     public interface IActionResultTestBuilder<out TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
     {
         /// <summary>
+        /// Provides way to continue test case with specific model state errors.
+        /// </summary>
+        /// <typeparam name="TRequestModel">Request model type to be tested for errors.</typeparam>
+        /// <returns>Response model test builder.</returns>
+        IResponseModelErrorTestBuilder<TRequestModel> ShouldHaveModelStateFor<TRequestModel>();
+
+        /// <summary>
         /// Tests whether action result is OkResult.
         /// </summary>
         /// <returns>Response model test builder.</returns>
