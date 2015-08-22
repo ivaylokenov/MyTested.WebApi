@@ -18,12 +18,12 @@
         /// Tests whether action result is of the provided generic type.
         /// </summary>
         /// <typeparam name="TResponseModel">Expected response type.</typeparam>
-        void ShouldReturn<TResponseModel>();
+        IResponseModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>();
 
         /// <summary>
         /// Tests whether action result is of the provided type.
         /// </summary>
         /// <param name="returnType">Expected return type.</param>
-        void ShouldReturn(Type returnType);
+        IResponseModelErrorTestBuilder ShouldReturn(Type returnType);
     }
 }

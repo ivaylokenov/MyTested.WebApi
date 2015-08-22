@@ -62,6 +62,7 @@
     <Compile Include="Builders\Contracts\IResponseModelErrorTestBuilder{TResponseModel}.cs" />
     <Compile Include="Builders\Contracts\IResponseModelTestBuilder.cs" />
     <Compile Include="Builders\ControllerBuilder.cs" />
+    <Compile Include="Builders\HttpResults\ShouldHaveModelState.cs" />
     <Compile Include="Builders\ResponseModelErrorTestBuilder.cs" />
     <Compile Include="Builders\ResponseModelErrorTestBuilder{TResponseModel}.cs" />
     <Compile Include="Builders\ResponseModelTestBuilder.cs" />

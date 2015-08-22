@@ -14,7 +14,7 @@
         /// </summary>
         /// <typeparam name="TProperty">Type of the member which will be tested for errors.</typeparam>
         /// <param name="memberWithError">Member expression for the tested member.</param>
-        void AndModelStateErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithError);
+        void ContainingModelStateErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithError);
 
         /// <summary>
         /// Tests whether tested action's model state contains no error by member expression.
@@ -22,7 +22,7 @@
         /// <typeparam name="TProperty">Type of the member which will be tested for no errors.</typeparam>
         /// <param name="memberWithNoError">Member expression for the tested member.</param>
         /// <returns>This in order to support method chaining.</returns>
-        IResponseModelErrorTestBuilder<TResponseModel> AndNoModelStateErrorFor<TProperty>(
+        IResponseModelErrorTestBuilder<TResponseModel> ContainingNoModelStateErrorFor<TProperty>(
             Expression<Func<TResponseModel, TProperty>> memberWithNoError);
     }
 }

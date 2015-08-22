@@ -43,6 +43,16 @@
             return this.Ok(this.responseModel);
         }
 
+        public IHttpActionResult ModelStateCheck(RequestModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                return this.Ok(model);
+            }
+
+            return this.Ok(model);
+        }
+
         public IHttpActionResult OkResultWithResponse()
         {
             return this.Ok(this.responseModel);

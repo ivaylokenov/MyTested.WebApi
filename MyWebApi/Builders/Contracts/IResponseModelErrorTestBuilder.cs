@@ -14,6 +14,6 @@
         /// Tests whether tested action's model state contains error by key.
         /// </summary>
         /// <param name="errorKey">Error key to search for.</param>
-        void AndModelStateError(string errorKey);
+        void ContainingModelStateError(string errorKey);
     }
 }
