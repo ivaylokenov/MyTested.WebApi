@@ -62,6 +62,7 @@
     <Compile Include="BuildersTests\ResultsTests\ShouldReturnTests.cs" />
     <Compile Include="ControllerSetups\IInjectedService.cs" />
     <Compile Include="ControllerSetups\InjectedService.cs" />
+    <Compile Include="ControllerSetups\RequestModel.cs" />
     <Compile Include="ControllerSetups\ResponseModel.cs" />
     <Compile Include="ControllerSetups\WebApiController.cs" />
     <Compile Include="MyWebApiTests.cs" />
