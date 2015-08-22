@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Tests.UtilitiesTests
 {
+    using System;
     using System.Collections.Generic;
 
     using NUnit.Framework;
@@ -180,6 +181,23 @@
             var second = typeof(IDictionary<int, string>);
 
             Assert.IsTrue(Reflection.HaveDifferentGenericArguments(first, second));
+        }
+
+        [Test]
+        public void CastToShouldReturnCorrectCastWhenCastIsPossible()
+        {
+            IEnumerable<int> original = new List<int>();
+            var cast = typeof(IEnumerable<int>).CastTo<List<int>>(original);
+
+            Assert.AreEqual(typeof(List<int>), cast.GetType());
+        }
+
+        [Test]
+        [ExpectedException(typeof(InvalidCastException))]
+        public void CastToShouldThrowExceptionWhenCastIsNotPossible()
+        {
+            IEnumerable<int> original = new List<int>();
+            typeof(IEnumerable<int>).CastTo<int>(original);
         }
     }
 }
