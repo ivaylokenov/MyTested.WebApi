@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using ControllerSetups;
+    using ControllerSetups.Models;
     using Exceptions;
 
     using NUnit.Framework;

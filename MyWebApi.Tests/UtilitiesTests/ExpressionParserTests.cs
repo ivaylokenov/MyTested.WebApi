@@ -8,7 +8,7 @@
 
     using Common;
     using ControllerSetups;
-
+    using ControllerSetups.Models;
     using NUnit.Framework;
 
     using Utilities;
@@ -87,7 +87,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof (ArgumentException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void GetPropertyNameShouldThrowExceptionWithInvalidMemberExpression()
         {
             Expression<Func<WebApiController, object>> expression = c => c.OkResultWithResponse();

@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Tests.ControllerSetups
+﻿namespace MyWebApi.Tests.ControllerSetups.Models
 {
     public class ResponseModel
     {

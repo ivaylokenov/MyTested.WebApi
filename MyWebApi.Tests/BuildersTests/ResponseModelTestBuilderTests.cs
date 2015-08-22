@@ -4,6 +4,7 @@
     using System.Linq;
 
     using ControllerSetups;
+    using ControllerSetups.Models;
     using Exceptions;
 
     using NUnit.Framework;

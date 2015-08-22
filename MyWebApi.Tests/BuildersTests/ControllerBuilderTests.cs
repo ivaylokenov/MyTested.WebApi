@@ -7,7 +7,7 @@
 
     using Builders.Contracts;
     using ControllerSetups;
-
+    using ControllerSetups.Models;
     using NUnit.Framework;
 
     [TestFixture]

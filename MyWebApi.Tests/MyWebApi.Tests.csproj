@@ -62,10 +62,10 @@
     <Compile Include="BuildersTests\ResponseModelErrorTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ResultsTests\ShouldReturnOkResultTests.cs" />
     <Compile Include="BuildersTests\ResultsTests\ShouldReturnTests.cs" />
-    <Compile Include="ControllerSetups\IInjectedService.cs" />
-    <Compile Include="ControllerSetups\InjectedService.cs" />
-    <Compile Include="ControllerSetups\RequestModel.cs" />
-    <Compile Include="ControllerSetups\ResponseModel.cs" />
+    <Compile Include="ControllerSetups\Services\IInjectedService.cs" />
+    <Compile Include="ControllerSetups\Services\InjectedService.cs" />
+    <Compile Include="ControllerSetups\Models\RequestModel.cs" />
+    <Compile Include="ControllerSetups\Models\ResponseModel.cs" />
     <Compile Include="ControllerSetups\WebApiController.cs" />
     <Compile Include="MyWebApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
