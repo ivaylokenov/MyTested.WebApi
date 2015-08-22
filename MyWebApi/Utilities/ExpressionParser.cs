@@ -41,6 +41,11 @@
                 .ToList();
         }
 
+        /// <summary>
+        /// Parses member name from member lambda expression.
+        /// </summary>
+        /// <param name="expression">Expression to be parsed.</param>
+        /// <returns>Member name as string.</returns>
         public static string GetPropertyName(LambdaExpression expression)
         {
             var memberExpression = expression.Body as MemberExpression;

@@ -42,6 +42,10 @@
             }
         }
 
+        /// <summary>
+        /// Tests whether tested action's model state contains error by key.
+        /// </summary>
+        /// <param name="errorKey">Error key to search for.</param>
         public void AndModelError(string errorKey)
         {
             if (!this.modelState.ContainsKey(errorKey) || this.modelState.Count == 0)
@@ -54,12 +58,23 @@
             }
         }
 
+        /// <summary>
+        /// Tests whether tested action's model state contains error by member expression.
+        /// </summary>
+        /// <typeparam name="TProperty">Type of the member which will be tested for errors.</typeparam>
+        /// <param name="memberWithError">Member expression for the tested member.</param>
         public void AndModelErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithError)
         {
             var memberName = ExpressionParser.GetPropertyName(memberWithError);
             this.AndModelError(memberName);
         }
 
+        /// <summary>
+        /// Tests whether tested action's model state contains no error by member expression.
+        /// </summary>
+        /// <typeparam name="TProperty">Type of the member which will be tested for no errors.</typeparam>
+        /// <param name="memberWithNoError">Member expression for the tested member.</param>
+        /// <returns>This in order to support method chaining.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> AndNoModelErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithNoError)
         {
             var memberName = ExpressionParser.GetPropertyName(memberWithNoError);
