@@ -13,6 +13,7 @@
         /// Tests whether action result is of the provided type.
         /// </summary>
         /// <param name="returnType">Expected response type.</param>
+        /// <returns>Response model test builder.</returns>
         public IResponseModelErrorTestBuilder ShouldReturn(Type returnType)
         {
             this.ValidateActionReturnType(returnType, true, true);
@@ -23,6 +24,7 @@
         /// Tests whether action result is of the provided generic type.
         /// </summary>
         /// <typeparam name="TResponseModel">Expected response type.</typeparam>
+        /// <returns>Response model test builder.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>()
         {
             this.ValidateActionReturnType<TResponseModel>(true);

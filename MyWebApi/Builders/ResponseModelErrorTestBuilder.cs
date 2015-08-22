@@ -34,13 +34,7 @@
         /// </summary>
         public void ContainingNoModelStateErrors()
         {
-            if (!this.ModelState.IsValid)
-            {
-                throw new ResponseModelErrorAssertionException(string.Format(
-                    "When calling {0} action in {1} expected response model to have no errors, but it had some.",
-                    this.ActionName,
-                    this.Controller.GetType().Name));
-            }
+            this.CheckValidModelState();
         }
 
         /// <summary>
