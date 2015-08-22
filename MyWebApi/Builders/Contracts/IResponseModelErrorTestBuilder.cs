@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Builders.Contracts
 {
-    public interface IResponseModelErrorTestBuilder<TResponseError>
+    public interface IResponseModelErrorTestBuilder<TResponseModel>
     {
+        void ContainingNoErrors();
     }
 }

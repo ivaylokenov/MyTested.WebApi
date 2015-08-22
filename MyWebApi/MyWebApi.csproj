@@ -63,11 +63,12 @@
     <Compile Include="Builders\ControllerBuilder.cs" />
     <Compile Include="Builders\ResponseModelErrorTestBuilder.cs" />
     <Compile Include="Builders\ResponseModelTestBuilder.cs" />
-    <Compile Include="Builders\Results\ActionResultTestBuilder.cs" />
-    <Compile Include="Builders\Results\ShouldReturn.cs" />
-    <Compile Include="Builders\Results\ShouldReturnOk.cs" />
+    <Compile Include="Builders\HttpResults\ActionResultTestBuilder.cs" />
+    <Compile Include="Builders\HttpResults\ShouldReturn.cs" />
+    <Compile Include="Builders\HttpResults\ShouldReturnOk.cs" />
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
+    <Compile Include="Exceptions\ResponseModelErrorAssertionException.cs" />
     <Compile Include="MyWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ExpressionParser.cs" />

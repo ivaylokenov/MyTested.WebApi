@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Results
+﻿namespace MyWebApi.Builders.HttpResults
 {
     using System;
 

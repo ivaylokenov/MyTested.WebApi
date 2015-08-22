@@ -3,6 +3,7 @@
     using System;
     using System.Web.Http;
     using System.Web.Http.Results;
+
     using Base;
     using Contracts;
     using Exceptions;
@@ -51,8 +52,9 @@
                     if (!responseDataTypeIsAssignable)
                     {
                         throw new ResponseModelAssertionException(string.Format(
-                            "When calling {0} expected response model to be a {1}, but instead received a {2}.",
+                            "When calling {0} action in {1} expected response model to be a {2}, but instead received a {3}.",
                             this.ActionName,
+                            this.Controller.GetType().Name,
                             typeof(TResponseModel).Name,
                             actualResponseDataType.Name));
                     }
@@ -76,8 +78,9 @@
             if (actualModel != expectedModel)
             {
                 throw new ResponseModelAssertionException(string.Format(
-                            "When calling {0} expected response model {1} to be the given model, but in fact it was a different model.",
+                            "When calling {0} action in {1} expected response model {2} to be the given model, but in fact it was a different model.",
                             this.ActionName,
+                            this.Controller.GetType().Name,
                             typeof(TResponseModel).Name));
             }
 
@@ -112,8 +115,9 @@
             if (!predicate(actualModel))
             {
                 throw new ResponseModelAssertionException(string.Format(
-                            "When calling {0} cxpected response model {1} to pass the given condition, but it failed.",
+                            "When calling {0} action in {1} expected response model {2} to pass the given condition, but it failed.",
                             this.ActionName,
+                            this.Controller.GetType().Name,
                             typeof(TResponseModel).Name));
             }
 

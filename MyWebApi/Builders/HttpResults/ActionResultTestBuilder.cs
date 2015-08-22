@@ -1,7 +1,8 @@
-﻿namespace MyWebApi.Builders.Results
+﻿namespace MyWebApi.Builders.HttpResults
 {
     using System;
     using System.Web.Http;
+
     using Base;
     using Contracts;
     using Exceptions;
@@ -57,8 +58,9 @@
             if (invalid)
             {
                 throw new HttpActionResultAssertionException(string.Format(
-                    "When calling {0} expected action result to be a {1}, but instead received a {2}.",
+                    "When calling {0} action in {1} expected action result to be a {2}, but instead received a {3}.",
                     this.ActionName,
+                    this.Controller.GetType().Name,
                     typeOfExpectedReturnValue.Name,
                     typeOfActionResult.Name));
             }
