@@ -41,6 +41,17 @@
                 .ToList();
         }
 
+        public static string GetPropertyName(LambdaExpression expression)
+        {
+            var memberExpression = expression.Body as MemberExpression;
+            if (memberExpression == null)
+            {
+                throw new ArgumentException("Provided expression is not a valid member expression");
+            }
+
+            return memberExpression.Member.Name;
+        }
+
         private static MethodCallExpression GetMethodCallExpresstion(LambdaExpression expression)
         {
             var methodCallExpression = expression.Body as MethodCallExpression;
