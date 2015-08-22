@@ -11,7 +11,7 @@
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ActionResultTestBuilder<TActionResult> 
-        : BaseTestBuilder<TActionResult>, IActionResultTestBuilder<TActionResult>
+        : BaseTestBuilderWithActionResult<TActionResult>, IActionResultTestBuilder<TActionResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ActionResultTestBuilder{TActionResult}" /> class.

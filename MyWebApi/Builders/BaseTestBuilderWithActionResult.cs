@@ -9,19 +9,19 @@
     /// Base class for all test builders.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public abstract class BaseTestBuilder<TActionResult> : IBaseTestBuilder<TActionResult>
+    public abstract class BaseTestBuilderWithActionResult<TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
     {
         private ApiController controller;
         private string actionName;
         private TActionResult actionResult;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseTestBuilder{TActionResult}" /> class.
+        /// Initializes a new instance of the <see cref="BaseTestBuilderWithActionResult{TActionResult}" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="actionResult">Result from the tested action.</param>
-        protected BaseTestBuilder(ApiController controller, string actionName, TActionResult actionResult)
+        protected BaseTestBuilderWithActionResult(ApiController controller, string actionName, TActionResult actionResult)
         {
             this.Controller = controller;
             this.ActionName = actionName;

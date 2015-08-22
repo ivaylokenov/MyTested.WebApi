@@ -6,7 +6,7 @@
     /// Base interface for all test builders.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public interface IBaseTestBuilder<out TActionResult>
+    public interface IBaseTestBuilderWithActionResult<out TActionResult>
     {
         /// <summary>
         /// Gets the controller on which the action is tested.

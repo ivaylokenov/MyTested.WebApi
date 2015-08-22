@@ -13,7 +13,7 @@
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public class ResponseModelTestBuilder<TActionResult>
-        : BaseTestBuilder<TActionResult>, IResponseModelTestBuilder
+        : BaseTestBuilderWithActionResult<TActionResult>, IResponseModelTestBuilder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseModelTestBuilder{TActionResult}" /> class.
