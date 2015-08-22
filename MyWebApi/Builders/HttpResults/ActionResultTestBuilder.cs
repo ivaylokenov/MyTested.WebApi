@@ -34,7 +34,7 @@
             var haveDifferentGenericArguments = false;
             if (isAssignableCheck && allowDifferentGenericTypeDefinitions && Reflection.IsGeneric(typeOfExpectedReturnValue))
             {
-                isAssignableCheck = Reflection.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
+                isAssignableCheck = Reflection.AreAssignableByGeneric(typeOfExpectedReturnValue, typeOfActionResult);
 
                 if (!Reflection.IsGenericTypeDefinition(typeOfExpectedReturnValue))
                 {
@@ -47,7 +47,7 @@
             var invalid = isAssignableCheck || strictlyEqualCheck || haveDifferentGenericArguments;
             if (strictlyEqualCheck)
             {
-                var genericTypeDefinitionCheck = Reflection.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
+                var genericTypeDefinitionCheck = Reflection.AreAssignableByGeneric(typeOfExpectedReturnValue, typeOfActionResult);
 
                 if (genericTypeDefinitionCheck)
                 {

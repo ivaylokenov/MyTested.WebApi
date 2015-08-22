@@ -67,6 +67,7 @@
     <Compile Include="MyWebApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtilitiesTests\ExpressionParserTests.cs" />
+    <Compile Include="UtilitiesTests\ReflectionTests.cs" />
     <Compile Include="UtilitiesTests\ValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>

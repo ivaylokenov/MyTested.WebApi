@@ -78,7 +78,7 @@
         /// <param name="baseType">Base type to be checked.</param>
         /// <param name="inheritedType">Inherited type to be checked.</param>
         /// <returns>True or false.</returns>
-        public static bool AreAssignableByGenericDefinition(Type baseType, Type inheritedType)
+        public static bool AreAssignableByGeneric(Type baseType, Type inheritedType)
         {
             return IsGeneric(inheritedType) && IsGeneric(baseType) &&
                    baseType.IsAssignableFrom(inheritedType.GetGenericTypeDefinition());
