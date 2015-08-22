@@ -60,6 +60,16 @@
         }
 
         [Test]
+        public void ResolveMethodArgumentsShouldReturnEmptyCollectionIfMethoDoesNotHaveArguments()
+        {
+            Expression<Func<WebApiController, IHttpActionResult>> expression = c => c.OkResultAction();
+            var result = ExpressionParser.ResolveMethodArguments(expression);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void ResolveMethodArgumentsShouldThrowArgumentExceptionWithInvalidMethodCallExpression()
         {
