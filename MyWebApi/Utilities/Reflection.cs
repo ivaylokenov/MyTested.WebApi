@@ -118,7 +118,9 @@
         public static TResult CastTo<TResult>(this Type type, object data)
         {
             var dataParam = Expression.Parameter(typeof(object), "data");
-            var body = Expression.Block(Expression.Convert(Expression.Convert(dataParam, data.GetType()), type));
+            var firstConvert = Expression.Convert(dataParam, data.GetType());
+            var secondConvert = Expression.Convert(firstConvert, type);
+            var body = Expression.Block(new Expression[] { secondConvert });
 
             var run = Expression.Lambda(body, dataParam).Compile();
             var ret = run.DynamicInvoke(data);
