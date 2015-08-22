@@ -52,8 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\BaseTestBuilderWithActionResult.cs" />
-    <Compile Include="Builders\Contracts\IBaseTestBuilder.cs" />
+    <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
+    <Compile Include="Builders\Contracts\IBaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Contracts\IControllerBuilder.cs" />
     <Compile Include="Builders\Contracts\IActionResultTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IResponseModelErrorTestBuilder.cs" />

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Web.Http;
+    using Base;
     using Contracts;
     using Exceptions;
     using Utilities;

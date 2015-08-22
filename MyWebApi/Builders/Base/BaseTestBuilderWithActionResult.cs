@@ -1,8 +1,8 @@
-﻿namespace MyWebApi.Builders
+﻿namespace MyWebApi.Builders.Base
 {
     using System.Web.Http;
+
     using Contracts;
-    
     using Utilities;
 
     /// <summary>
