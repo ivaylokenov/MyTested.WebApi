@@ -20,10 +20,10 @@
         /// <summary>
         /// Tests whether action result is of the provided generic type.
         /// </summary>
-        /// <typeparam name="TResponseData">Expected response type.</typeparam>
-        public void ShouldReturn<TResponseData>()
+        /// <typeparam name="TResponseModel">Expected response type.</typeparam>
+        public void ShouldReturn<TResponseModel>()
         {
-            this.ValidateActionReturnType<TResponseData>(true);
+            this.ValidateActionReturnType<TResponseModel>(true);
         }
     }
 }

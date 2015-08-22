@@ -17,8 +17,8 @@
         /// <summary>
         /// Tests whether action result is of the provided generic type.
         /// </summary>
-        /// <typeparam name="TResponseData">Expected response type.</typeparam>
-        void ShouldReturn<TResponseData>();
+        /// <typeparam name="TResponseModel">Expected response type.</typeparam>
+        void ShouldReturn<TResponseModel>();
 
         /// <summary>
         /// Tests whether action result is of the provided type.
