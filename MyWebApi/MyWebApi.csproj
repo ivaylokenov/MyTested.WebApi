@@ -66,6 +66,7 @@
     <Compile Include="Builders\HttpResults\ActionResultTestBuilder.cs" />
     <Compile Include="Builders\HttpResults\ShouldReturn.cs" />
     <Compile Include="Builders\HttpResults\ShouldReturnOk.cs" />
+    <Compile Include="Common\TypeValuePair.cs" />
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelErrorAssertionException.cs" />
