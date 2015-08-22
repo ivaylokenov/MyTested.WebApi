@@ -10,5 +10,7 @@
         /// Tests whether tested action's model state is valid.
         /// </summary>
         void ContainingNoErrors();
+
+        void AndModelError(string errorKey);
     }
 }
