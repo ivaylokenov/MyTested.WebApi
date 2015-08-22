@@ -1,10 +1,10 @@
 ﻿namespace MyWebApi.Utilities
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+
     using Common;
 
     /// <summary>
@@ -23,6 +23,11 @@
             return methodCallExpression.Method.Name;
         }
 
+        /// <summary>
+        /// Resolves arguments from method in method call lambda expression.
+        /// </summary>
+        /// <param name="expression">Expression to be parsed.</param>
+        /// <returns>Collection of type-value pairs.</returns>
         public static IEnumerable<TypeValuePair> ResolveMethodArguments(LambdaExpression expression)
         {
             var methodCallExpression = GetMethodCallExpresstion(expression);
