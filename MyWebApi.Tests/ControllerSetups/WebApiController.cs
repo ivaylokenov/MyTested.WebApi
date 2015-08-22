@@ -36,6 +36,11 @@
             return this.Ok();
         }
 
+        public IHttpActionResult OkResultActionWithRequestBody(int id, RequestModel model)
+        {
+            return this.Ok(this.responseModel);
+        }
+
         public IHttpActionResult OkResultWithResponse()
         {
             return this.Ok(this.responseModel);
