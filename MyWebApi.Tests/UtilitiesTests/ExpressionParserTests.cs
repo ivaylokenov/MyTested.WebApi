@@ -76,5 +76,22 @@
             Expression<Func<int>> expression = () => 0;
             ExpressionParser.ResolveMethodArguments(expression);
         }
+
+        [Test]
+        public void GetPropertyNameShouldReturnProperMemberNameWithValidExpression()
+        {
+            Expression<Func<WebApiController, object>> expression = c => c.InjectedService;
+            var result = ExpressionParser.GetPropertyName(expression);
+
+            Assert.AreEqual("InjectedService", result);
+        }
+
+        [Test]
+        [ExpectedException(typeof (ArgumentException))]
+        public void GetPropertyNameShouldThrowExceptionWithInvalidMemberExpression()
+        {
+            Expression<Func<WebApiController, object>> expression = c => c.OkResultWithResponse();
+            ExpressionParser.GetPropertyName(expression);
+        }
     }
 }
