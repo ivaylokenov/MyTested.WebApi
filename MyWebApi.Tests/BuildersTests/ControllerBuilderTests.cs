@@ -1,6 +1,8 @@
 ﻿namespace MyWebApi.Tests.BuildersTests
 {
+    using System.Linq;
     using System.Threading.Tasks;
+    using System.Web.Http.ModelBinding;
     using System.Web.Http.Results;
 
     using Builders.Contracts;
@@ -29,6 +31,42 @@
                 .CallingAsync(c => c.AsyncOkResultAction());
 
             this.CheckActionResultTestBuilder(actionResultTestBuilder, "AsyncOkResultAction");
+        }
+
+        [Test]
+        public void CallingShouldPopulateModelStateWhenThereAreModelErrors()
+        {
+            var requestBody = new RequestModel();
+
+            var actionResultTestBuilder = MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultActionWithRequestBody(1, requestBody));
+
+            var modelState = actionResultTestBuilder.Controller.ModelState;
+
+            Assert.IsFalse(modelState.IsValid);
+            Assert.AreEqual(1, modelState.Values.Count);
+            Assert.AreEqual("Name", modelState.Keys.First());
+        }
+
+        [Test]
+        public void CallingShouldHaveValidModelStateWhenThereAreNoModelErrors()
+        {
+            var requestBody = new RequestModel
+            {
+                Id = 1,
+                Name = "Test"
+            };
+
+            var actionResultTestBuilder = MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultActionWithRequestBody(1, requestBody));
+
+            var modelState = actionResultTestBuilder.Controller.ModelState;
+
+            Assert.IsTrue(modelState.IsValid);
+            Assert.AreEqual(0, modelState.Values.Count);
+            Assert.AreEqual(0, modelState.Keys.Count);
         }
 
         private void CheckActionResultTestBuilder<TActionResult>(
