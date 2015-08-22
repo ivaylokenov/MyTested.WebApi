@@ -1,39 +1,40 @@
 ﻿namespace MyWebApi.Builders
 {
-    using System;
-    using System.Linq.Expressions;
     using System.Web.Http;
     using System.Web.Http.ModelBinding;
+
     using Base;
     using Contracts;
     using Exceptions;
-    using Utilities;
 
     /// <summary>
     /// Used for testing the response model errors.
     /// </summary>
-    /// <typeparam name="TResponseModel">Response model from invoked action in ASP.NET Web API controller.</typeparam>
-    public class ResponseModelErrorTestBuilder<TResponseModel> : BaseTestBuilder, IResponseModelErrorTestBuilder<TResponseModel>
+    public class ResponseModelErrorTestBuilder : BaseTestBuilder, IResponseModelErrorTestBuilder
     {
-        private ModelStateDictionary modelState;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResponseModelErrorTestBuilder{TResponseModel}" /> class.
+        /// Initializes a new instance of the <see cref="ResponseModelErrorTestBuilder" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         public ResponseModelErrorTestBuilder(ApiController controller, string actionName)
             : base(controller, actionName)
         {
-            this.modelState = controller.ModelState;
+            this.ModelState = controller.ModelState;
         }
+
+        /// <summary>
+        /// Gets validated model state of the provided ASP.NET Web API controller instance.
+        /// </summary>
+        /// <value>Model state dictionary containing all validation errors.</value>
+        protected ModelStateDictionary ModelState { get; private set; }
 
         /// <summary>
         /// Tests whether tested action's model state is valid.
         /// </summary>
         public void ContainingNoErrors()
         {
-            if (!this.modelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 throw new ResponseModelErrorAssertionException(string.Format(
                     "When calling {0} action in {1} expected response model to have no errors, but it had some.",
@@ -48,7 +49,7 @@
         /// <param name="errorKey">Error key to search for.</param>
         public void AndModelError(string errorKey)
         {
-            if (!this.modelState.ContainsKey(errorKey) || this.modelState.Count == 0)
+            if (!this.ModelState.ContainsKey(errorKey) || this.ModelState.Count == 0)
             {
                 throw new ResponseModelErrorAssertionException(string.Format(
                     "When calling {0} action in {1} to have a model error against key {2}, but none found.",
@@ -56,38 +57,6 @@
                     this.Controller.GetType().Name,
                     errorKey));
             }
-        }
-
-        /// <summary>
-        /// Tests whether tested action's model state contains error by member expression.
-        /// </summary>
-        /// <typeparam name="TProperty">Type of the member which will be tested for errors.</typeparam>
-        /// <param name="memberWithError">Member expression for the tested member.</param>
-        public void AndModelErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithError)
-        {
-            var memberName = ExpressionParser.GetPropertyName(memberWithError);
-            this.AndModelError(memberName);
-        }
-
-        /// <summary>
-        /// Tests whether tested action's model state contains no error by member expression.
-        /// </summary>
-        /// <typeparam name="TProperty">Type of the member which will be tested for no errors.</typeparam>
-        /// <param name="memberWithNoError">Member expression for the tested member.</param>
-        /// <returns>This in order to support method chaining.</returns>
-        public IResponseModelErrorTestBuilder<TResponseModel> AndNoModelErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithNoError)
-        {
-            var memberName = ExpressionParser.GetPropertyName(memberWithNoError);
-            if (this.modelState.ContainsKey(memberName))
-            {
-                throw new ResponseModelErrorAssertionException(string.Format(
-                    "When calling {0} action in {1} expected to have no model errors against key {2}, but found some.",
-                    this.ActionName,
-                    this.Controller.GetType().Name,
-                    memberName));
-            }
-
-            return this;
         }
     }
 }

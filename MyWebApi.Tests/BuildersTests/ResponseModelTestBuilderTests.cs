@@ -127,5 +127,26 @@
                 .ShouldReturnOk()
                 .WithResponseModel<IList<ResponseModel>>(m => m.First().Id == 2);
         }
+
+        [Test]
+        public void WithNoResponseModelShouldNotThrowExceptionWhenNoResponseModel()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultAction())
+                .ShouldReturnOk()
+                .WithNoResponseModel();
+        }
+
+        [Test]
+        [ExpectedException(typeof(ResponseModelAssertionException))]
+        public void WithNoResponseModelShouldThrowExceptionWhenResponseModelExists()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOk()
+                .WithNoResponseModel();
+        }
     }
 }

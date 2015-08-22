@@ -59,9 +59,11 @@
     <Compile Include="Builders\Contracts\IControllerBuilder.cs" />
     <Compile Include="Builders\Contracts\IActionResultTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IResponseModelErrorTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\IResponseModelErrorTestBuilder{TResponseModel}.cs" />
     <Compile Include="Builders\Contracts\IResponseModelTestBuilder.cs" />
     <Compile Include="Builders\ControllerBuilder.cs" />
     <Compile Include="Builders\ResponseModelErrorTestBuilder.cs" />
+    <Compile Include="Builders\ResponseModelErrorTestBuilder{TResponseModel}.cs" />
     <Compile Include="Builders\ResponseModelTestBuilder.cs" />
     <Compile Include="Builders\HttpResults\ActionResultTestBuilder.cs" />
     <Compile Include="Builders\HttpResults\ShouldReturn.cs" />

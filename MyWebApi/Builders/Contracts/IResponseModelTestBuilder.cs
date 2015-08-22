@@ -8,6 +8,11 @@
     public interface IResponseModelTestBuilder
     {
         /// <summary>
+        /// Tests whether no response model is returned from the invoked action.
+        /// </summary>
+        void WithNoResponseModel();
+
+        /// <summary>
         /// Tests whether response model is returned from the invoked action.
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>

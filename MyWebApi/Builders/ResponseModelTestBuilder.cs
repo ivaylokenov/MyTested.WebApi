@@ -28,6 +28,21 @@
         }
 
         /// <summary>
+        /// Tests whether no response model is returned from the invoked action.
+        /// </summary>
+        public void WithNoResponseModel()
+        {
+            var actualResult = this.ActionResult as OkResult;
+            if (actualResult == null)
+            {
+                throw new ResponseModelAssertionException(string.Format(
+                        "When calling {0} action in {1} expected to not have response model but in fact response model was found",
+                        this.ActionName,
+                        this.Controller.GetType().Name));
+            }
+        }
+
+        /// <summary>
         /// Tests whether certain type of response model is returned from the invoked action.
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
