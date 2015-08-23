@@ -44,6 +44,11 @@
         void ShouldReturnStatusCode(HttpStatusCode statusCode);
 
         /// <summary>
+        /// Tests whether action result is NotFoundResult.
+        /// </summary>
+        void ShouldReturnNotFound();
+
+        /// <summary>
         /// Tests whether action result is of the provided generic type.
         /// </summary>
         /// <typeparam name="TResponseModel">Expected response type.</typeparam>
