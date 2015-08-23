@@ -24,7 +24,8 @@
                 .ContainingModelStateError("RequiredString")
                 .ContainingModelStateErrorFor(m => m.Integer).ThatEquals(string.Format("The field Integer must be between {0} and {1}.", 1, int.MaxValue))
                 .ContainingModelStateError("RequiredString")
-                .ContainingModelStateError("Integer");
+                .ContainingModelStateError("Integer")
+                .ContainingNoModelStateErrorFor(m => m.NotValidateInteger);
         }
 
         [Test]
