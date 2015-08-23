@@ -1,5 +1,5 @@
 # MyWebApi - ASP.NET Web API Fluent Testing Framework
-====================================
+------------------------------------
 
 MyWebApi is unit testing framework providing easy fluent interface to test the ASP.NET Web API framework. Inspired by [TestStack.FluentMVCTesting](https://github.com/TestStack/TestStack.FluentMVCTesting) and [ChaiJS](https://github.com/chaijs/chai)
 
@@ -89,6 +89,83 @@ MyWebApi
 	.ContainingModelStateErrorFor(m => m.ThirdProperty).EndingWith("message") // error message must end with the provided string
 	.And()
 	.ContainingModelStateErrorFor(m => m.SecondProperty).Containing("ror mes"); // error message must contain the provided string
+```
+
+### Action results
+
+You can test for specific return values or the default IHttpActionResult types:
+
+#### Generic result
+
+Useful where the action does not return IHttpActionResult
+
+```c#
+// tests whether the action returns certain type by providing generic parameter
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn<ResponseModel>();
+	
+// tests whether the action returns certain type by using typeof
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn(typeof(ResponseModel));
+	
+// tests whether the action returns generic model
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn(typeof(IList<>)); // works with IEnumerable<> (or IList<ResponseModel>) too by using polymorphism
+```
+
+#### OkResult
+
+```c#
+// tests whether the action returns OkResult
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk();
+	
+// tests whether the action returns OkResult with no response model
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.WithNoResponseModel();
+	
+// tests whether the action returns OkResult with specific response model type
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.WithResponseModel<ResponseModel>();
+	
+// tests whether the action returns OkResult with specific object
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.WithResponseModel(someResponseModelObject);
+
+// tests whether the action returns OkResult with specific response model passing certain assertions
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.WithResponseModel<ResponseModel>(m =>
+	{
+		Assert.AreEqual(1, m.Id);
+		Assert.AreEqual("Some property value", m.SomeProperty);
+	});
+	
+// tests whether the action returns OkResult with specific response model passing a predicate
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.WithResponseModel<ResponseModel>(m => m.Id == 1);
 ```
 
 ## Any questions, comments or additions?
