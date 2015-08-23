@@ -56,7 +56,7 @@
 
             private set
             {
-                Validator.CheckForNotEmptyString(value, errorMessageName: "ActionName");
+                Validator.CheckForNotWhiteSpaceString(value, errorMessageName: "ActionName");
                 this.actionName = value;
             }
         }

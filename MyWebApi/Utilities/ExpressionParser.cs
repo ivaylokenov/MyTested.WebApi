@@ -51,7 +51,7 @@
             var memberExpression = expression.Body as MemberExpression;
             if (memberExpression == null)
             {
-                throw new ArgumentException("Provided expression is not a valid member expression");
+                throw new ArgumentException("Provided expression is not a valid member expression.");
             }
 
             return memberExpression.Member.Name;
@@ -62,7 +62,7 @@
             var methodCallExpression = expression.Body as MethodCallExpression;
             if (methodCallExpression == null)
             {
-                throw new ArgumentException("Provided expression is not a valid method call");
+                throw new ArgumentException("Provided expression is not a valid method call.");
             }
 
             return methodCallExpression;

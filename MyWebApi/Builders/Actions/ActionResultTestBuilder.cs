@@ -58,7 +58,7 @@
             if (invalid)
             {
                 throw new HttpActionResultAssertionException(string.Format(
-                    "When calling {0} action in {1} expected action result to be a {2}, but instead received a {3}.",
+                    "When calling {0} action in {1} expected action result to be {2}, but instead received {3}.",
                     this.ActionName,
                     this.Controller.GetType().ToFriendlyGenericTypeName(),
                     typeOfExpectedReturnValue.ToFriendlyGenericTypeName(),

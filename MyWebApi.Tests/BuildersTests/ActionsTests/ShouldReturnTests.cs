@@ -87,7 +87,7 @@
         [Test]
         [ExpectedException(
             typeof(HttpActionResultAssertionException),
-            ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be a ResponseModel, but instead received a List<ResponseModel>.")]
+            ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be ResponseModel, but instead received List<ResponseModel>.")]
         public void ShouldReturnShouldThrowExceptionWithDifferentResult()
         {
             MyWebApi
@@ -99,7 +99,7 @@
         [Test]
         [ExpectedException(
             typeof(HttpActionResultAssertionException),
-            ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be a ResponseModel, but instead received a List<ResponseModel>.")]
+            ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be ResponseModel, but instead received List<ResponseModel>.")]
         public void ShouldReturnShouldThrowExceptionWithDifferentResultAndTypeOf()
         {
             MyWebApi
@@ -111,7 +111,7 @@
         [Test]
         [ExpectedException(
             typeof(HttpActionResultAssertionException),
-            ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be a ICollection<Int32>, but instead received a List<ResponseModel>.")]
+            ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be ICollection<Int32>, but instead received List<ResponseModel>.")]
         public void ShouldReturnShouldThrowExceptionWithDifferentGenericResult()
         {
             MyWebApi
@@ -123,7 +123,7 @@
         [Test]
         [ExpectedException(
             typeof(HttpActionResultAssertionException),
-            ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be a ICollection<Int32>, but instead received a List<ResponseModel>.")]
+            ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be ICollection<Int32>, but instead received List<ResponseModel>.")]
         public void ShouldReturnShouldThrowExceptionWithDifferentGenericResultAndTypeOf()
         {
             MyWebApi

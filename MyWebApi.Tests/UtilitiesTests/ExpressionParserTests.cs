@@ -24,7 +24,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Provided expression is not a valid method call.")]
         public void GetMethodNameShouldThrowArgumentExceptionWithInvalidMethodCallExpression()
         {
             Expression<Func<int>> expression = () => 0;
@@ -65,7 +65,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Provided expression is not a valid method call.")]
         public void ResolveMethodArgumentsShouldThrowArgumentExceptionWithInvalidMethodCallExpression()
         {
             Expression<Func<int>> expression = () => 0;
@@ -82,7 +82,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Provided expression is not a valid member expression.")]
         public void GetPropertyNameShouldThrowExceptionWithInvalidMemberExpression()
         {
             Expression<Func<WebApiController, object>> expression = c => c.OkResultWithResponse();

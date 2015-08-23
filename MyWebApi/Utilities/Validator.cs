@@ -20,7 +20,7 @@
         {
             if (value == null)
             {
-                throw new ArgumentNullException(parameterName, string.Format("{0} cannot be null", errorMessageName));
+                throw new ArgumentNullException(parameterName, string.Format("{0} cannot be null.", errorMessageName));
             }
         }
 
@@ -30,14 +30,14 @@
         /// <param name="value">String to be validated.</param>
         /// <param name="parameterName">Name of the parameter to be checked.</param>
         /// <param name="errorMessageName">Name of the parameter to be included in the error message.</param>
-        public static void CheckForNotEmptyString(
+        public static void CheckForNotWhiteSpaceString(
             string value,
             string parameterName = "value",
             string errorMessageName = "Value")
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                throw new ArgumentNullException(parameterName, string.Format("{0} cannot be null or empty", errorMessageName));
+                throw new ArgumentNullException(parameterName, string.Format("{0} cannot be null or white space.", errorMessageName));
             }
         }
     }

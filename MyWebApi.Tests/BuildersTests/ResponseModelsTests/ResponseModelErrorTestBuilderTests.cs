@@ -4,6 +4,7 @@
     using Exceptions;
 
     using NUnit.Framework;
+
     using Setups;
     using Setups.Models;
 
@@ -24,7 +25,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelErrorAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelErrorAssertionException),
+            ExpectedMessage = "When calling OkResultActionWithRequestBody action in WebApiController expected to have valid model state with no errors, but it had some.")]
         public void ContainingNoErrorsShouldThrowExceptionWhenThereAreModelStateErrors()
         {
             var requestBodyWithErrors = TestObjectFactory.GetRequestModelWithErrors();
@@ -51,7 +54,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelErrorAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelErrorAssertionException),
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have a model error against key Name, but none found.")]
         public void AndModelStateErrorShouldThrowExceptionWhenTheProvidedModelStateErrorDoesNotExist()
         {
             var requestBody = TestObjectFactory.GetValidRequestModel();
@@ -78,7 +83,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelErrorAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelErrorAssertionException),
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have a model error against key RequiredString, but none found.")]
         public void AndModelStateErrorForShouldThrowExceptionWhenTheProvidedPropertyDoesNotHaveErrors()
         {
             var requestBody = TestObjectFactory.GetValidRequestModel();
@@ -105,7 +112,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelErrorAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelErrorAssertionException),
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have no model errors against key RequiredString, but found some.")]
         public void AndNoModelStateErrorForShouldThrowExceptionWhenTheProvidedPropertyHasErrors()
         {
             var requestBodyWithErrors = TestObjectFactory.GetRequestModelWithErrors();
@@ -133,7 +142,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelErrorAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelErrorAssertionException),
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have no model errors against key Integer, but found some.")]
         public void AndNoModelStateErrorForShouldThrowExceptionWhenChainedWithInvalidModel()
         {
             var requestBodyWithErrors = TestObjectFactory.GetRequestModelWithErrors();

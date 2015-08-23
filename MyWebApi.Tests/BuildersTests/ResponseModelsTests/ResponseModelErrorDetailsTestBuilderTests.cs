@@ -19,11 +19,18 @@
                 .ShouldHaveModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(m => m.NonRequiredString)
                 .ContainingModelStateErrorFor(m => m.RequiredString).ThatEquals("The RequiredString field is required.")
-                .ContainingModelStateErrorFor(m => m.Integer).ThatEquals(string.Format("The field Integer must be between {0} and {1}.", 1, int.MaxValue));
+                .ContainingModelStateErrorFor(m => m.RequiredString)
+                .ContainingNoModelStateErrorFor(m => m.NotValidateInteger)
+                .ContainingModelStateError("RequiredString")
+                .ContainingModelStateErrorFor(m => m.Integer).ThatEquals(string.Format("The field Integer must be between {0} and {1}.", 1, int.MaxValue))
+                .ContainingModelStateError("RequiredString")
+                .ContainingModelStateError("Integer");
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelErrorAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelErrorAssertionException),
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected error message for key RequiredString to be 'RequiredString field is required.', but instead found 'The RequiredString field is required.'.")]
         public void ThatEqualsShouldThrowExceptionWhenProvidedMessageIsValid()
         {
             var requestModelWithErrors = TestObjectFactory.GetRequestModelWithErrors();
@@ -52,7 +59,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelErrorAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelErrorAssertionException),
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected error message for key 'RequiredString' to start with 'RequiredString', but instead found 'The RequiredString field is required.'.")]
         public void BeginningWithShouldThrowExceptionWhenProvidedMessageIsValid()
         {
             var requestModelWithErrors = TestObjectFactory.GetRequestModelWithErrors();
@@ -81,7 +90,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelErrorAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelErrorAssertionException),
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected error message for key 'RequiredString' to end with 'required!', but instead found 'The RequiredString field is required.'.")]
         public void EngingWithShouldThrowExceptionWhenProvidedMessageIsValid()
         {
             var requestModelWithErrors = TestObjectFactory.GetRequestModelWithErrors();
@@ -110,7 +121,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelErrorAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelErrorAssertionException),
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected error message for key 'RequiredString' to contain 'invalid', but instead found 'The RequiredString field is required.'.")]
         public void ContainingShouldThrowExceptionWhenProvidedMessageIsValid()
         {
             var requestModelWithErrors = TestObjectFactory.GetRequestModelWithErrors();

@@ -26,27 +26,27 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void CheckForNotEmptyStringShouldThrowArgumentNullExceptionWithNullString()
         {
-            Validator.CheckForNotEmptyString(null);
+            Validator.CheckForNotWhiteSpaceString(null);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void CheckForNotEmptyStringShouldThrowArgumentNullExceptionWithEmptyString()
         {
-            Validator.CheckForNotEmptyString(string.Empty);
+            Validator.CheckForNotWhiteSpaceString(string.Empty);
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void CheckForNotEmptyStringShouldThrowArgumentNullExceptionWithWhiteSpace()
         {
-            Validator.CheckForNotEmptyString("      ");
+            Validator.CheckForNotWhiteSpaceString("      ");
         }
 
         [Test]
         public void CheckForNotEmptyStringShouldNotThrowExceptionWithNormalString()
         {
-            Validator.CheckForNotEmptyString(new string('a', 10));
+            Validator.CheckForNotWhiteSpaceString(new string('a', 10));
         }
     }
 }

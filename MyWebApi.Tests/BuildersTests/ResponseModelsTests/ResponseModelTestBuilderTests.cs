@@ -32,7 +32,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelAssertionException),
+            ExpectedMessage = "When calling OkResultWithResponse action in WebApiController expected response model to be a ResponseModel, but instead received a ICollection<ResponseModel>.")]
         public void WithResponseModelShouldThrowExceptionWithIncorrectResponseModel()
         {
             MyWebApi
@@ -43,7 +45,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelAssertionException),
+            ExpectedMessage = "When calling OkResultWithResponse action in WebApiController expected response model to be a ICollection<Int32>, but instead received a ICollection<ResponseModel>.")]
         public void WithResponseModelShouldThrowExceptionWithIncorrectGenericTypeArgument()
         {
             MyWebApi
@@ -66,7 +70,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelAssertionException),
+            ExpectedMessage = "When calling OkResultWithResponse action in WebApiController expected response model ICollection<ResponseModel> to be the given model, but in fact it was a different model.")]
         public void WithResponceModelShouldThrowExceptionWithDifferentPassedExpectedObject()
         {
             var controller = new WebApiController();
@@ -93,7 +99,8 @@
         }
 
         [Test]
-        [ExpectedException(typeof(AssertionException))]
+        [ExpectedException(
+            typeof(AssertionException))]
         public void WithResponseModelShouldThrowExceptionWithIncorrectAssertions()
         {
             MyWebApi
@@ -118,7 +125,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelAssertionException),
+            ExpectedMessage = "When calling OkResultWithResponse action in WebApiController expected response model IList<ResponseModel> to pass the given condition, but it failed.")]
         public void WithResponseModelShouldThrowExceptionWithWrongPredicate()
         {
             MyWebApi
@@ -139,7 +148,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelAssertionException),
+            ExpectedMessage = "When calling OkResultWithResponse action in WebApiController expected to not have response model but in fact response model was found.")]
         public void WithNoResponseModelShouldThrowExceptionWhenResponseModelExists()
         {
             MyWebApi

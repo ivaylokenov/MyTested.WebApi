@@ -19,7 +19,7 @@
         [Test]
         [ExpectedException(
             typeof(HttpActionResultAssertionException),
-            ExpectedMessage = "When calling BadRequestAction action in WebApiController expected action result to be a OkNegotiatedContentResult<T>, but instead received a BadRequestResult.")]
+            ExpectedMessage = "When calling BadRequestAction action in WebApiController expected action result to be OkNegotiatedContentResult<T>, but instead received BadRequestResult.")]
         public void ShouldReturnOkResultShouldThrowExceptionWithOtherThanOkResult()
         {
             MyWebApi
