@@ -84,6 +84,39 @@
         }
 
         [Test]
+        public void WithAuthorizedUserShouldPopulateProperUserWhenUserWithUserBuilder()
+        {
+            var controllerBuilder = MyWebApi
+                .Controller<WebApiController>()
+                .WithAuthorizedUser(user => user
+                    .WithUsername("NewUserName")
+                    .WithAuthenticationType("Custom")
+                    .InRole("NormalUser")
+                    .InRoles("Moderator", "Administrator")
+                    .InRoles(new[]
+                    {
+                        "SuperUser",
+                        "MegaUser"
+                    }));
+
+            controllerBuilder
+                .Calling(c => c.Authorized())
+                .ShouldReturnOk();
+
+            var controllerUser = controllerBuilder.Controller.User;
+
+            Assert.AreEqual("NewUserName", controllerUser.Identity.Name);
+            Assert.AreEqual("Custom", controllerUser.Identity.AuthenticationType);
+            Assert.AreEqual(true, controllerUser.Identity.IsAuthenticated);
+            Assert.AreEqual(true, controllerUser.IsInRole("NormalUser"));
+            Assert.AreEqual(true, controllerUser.IsInRole("Moderator"));
+            Assert.AreEqual(true, controllerUser.IsInRole("Administrator"));
+            Assert.AreEqual(true, controllerUser.IsInRole("SuperUser"));
+            Assert.AreEqual(true, controllerUser.IsInRole("MegaUser"));
+            Assert.AreEqual(false, controllerUser.IsInRole("AnotherRole"));
+        }
+
+        [Test]
         public void WithAuthorizedNotCalledShouldNotHaveAuthorizedUser()
         {
             var controllerBuilder = MyWebApi
@@ -107,7 +140,7 @@
         {
             var actionName = actionResultTestBuilder.ActionName;
             var actionResult = actionResultTestBuilder.ActionResult;
-            
+
             Assert.IsNotNullOrEmpty(actionName);
             Assert.IsNotNull(actionResult);
 
