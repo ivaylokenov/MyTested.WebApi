@@ -2,9 +2,11 @@
 {
     using System;
     using System.Linq.Expressions;
+    using System.Security.Principal;
     using System.Threading.Tasks;
     using System.Web.Http;
     using Actions;
+    using Common.Identity;
     using Contracts;
     using Utilities;
 
@@ -29,6 +31,12 @@
         /// </summary>
         /// <value>Instance of the ASP.NET Web API controller.</value>
         public TController Controller { get; private set; }
+
+        public IControllerBuilder<TController> WithAuthorizedUser()
+        {
+            this.Controller.User = MockedIPrinciple.CreateDefaultAuthorized();
+            return this;
+        }
 
         /// <summary>
         /// Indicates which action should be invoked and tested.

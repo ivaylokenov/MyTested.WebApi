@@ -18,6 +18,8 @@
         /// <value>Instance of the ASP.NET Web API controller.</value>
         TController Controller { get; }
 
+        IControllerBuilder<TController> WithAuthorizedUser();
+
         /// <summary>
         /// Indicates which action should be invoked and tested.
         /// </summary>
