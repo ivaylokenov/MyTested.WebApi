@@ -1,9 +1,9 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.ResponseModelsTests
 {
-    using ControllerSetups;
-    using ControllerSetups.Models;
     using Exceptions;
     using NUnit.Framework;
+    using Setups;
+    using Setups.Models;
 
     [TestFixture]
     public class ResponseModelErrorDetailsTestBuilderTests

@@ -1,8 +1,8 @@
-﻿namespace MyWebApi.Tests.ControllerSetups
+﻿namespace MyWebApi.Tests.Setups
 {
     using System.Collections.Generic;
+    
     using Models;
-    using NUnit.Framework;
 
     public static class TestObjectFactory
     {

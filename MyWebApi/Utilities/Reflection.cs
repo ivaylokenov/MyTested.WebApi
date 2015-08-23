@@ -126,5 +126,19 @@
             var ret = run.DynamicInvoke(data);
             return (TResult)ret;
         }
+
+        public static string ToFriendlyGenericTypeName(this Type type)
+        {
+            if (!type.IsGenericType)
+            {
+                return type.Name;
+            }
+
+            var genericArgumentNames = type.GetGenericArguments().Select(ga => ga.Name);
+            var friendlyGenericName = type.Name.Split('`')[0];
+            var joinedGenericArgumentNames = string.Join(", ", genericArgumentNames);
+
+            return string.Format("{0}<{1}>", friendlyGenericName, joinedGenericArgumentNames);
+        }
     }
 }

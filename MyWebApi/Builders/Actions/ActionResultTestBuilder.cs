@@ -61,7 +61,7 @@
                     "When calling {0} action in {1} expected action result to be a {2}, but instead received a {3}.",
                     ActionName,
                     Controller.GetType().Name,
-                    typeOfExpectedReturnValue.Name,
+                    typeOfExpectedReturnValue.ToFriendlyGenericTypeName(),
                     typeOfActionResult.Name));
             }
         }

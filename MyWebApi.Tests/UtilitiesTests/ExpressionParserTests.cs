@@ -7,10 +7,9 @@
     using System.Web.Http;
 
     using Common;
-    using ControllerSetups;
-    using ControllerSetups.Models;
     using NUnit.Framework;
-
+    using Setups;
+    using Setups.Models;
     using Utilities;
 
     [TestFixture]

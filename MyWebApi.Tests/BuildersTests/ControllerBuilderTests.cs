@@ -5,10 +5,8 @@
     using System.Web.Http.Results;
 
     using Builders.Contracts;
-    using ControllerSetups;
-    using ControllerSetups.Models;
-
     using NUnit.Framework;
+    using Setups;
 
     [TestFixture]
     public class ControllerBuilderTests

@@ -2,12 +2,11 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-
-    using ControllerSetups;
-    using ControllerSetups.Models;
     using Exceptions;
     
     using NUnit.Framework;
+    using Setups;
+    using Setups.Models;
 
     [TestFixture]
     public class ResponseModelTestBuilderTests

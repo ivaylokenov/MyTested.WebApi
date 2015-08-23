@@ -1,10 +1,9 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
 {
     using Exceptions;
-    using ControllerSetups;
-    using ControllerSetups.Models;
-
     using NUnit.Framework;
+    using Setups;
+    using Setups.Models;
 
     [TestFixture]
     public class ShouldHaveModelStateTests
@@ -35,7 +34,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelErrorAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelErrorAssertionException),
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have valid model state with no errors, but it had some.")]
         public void ShouldHaveValidModelStateShouldThrowExceptionWithInvalidRequestModel()
         {
             var requestModelWithErrors = TestObjectFactory.GetRequestModelWithErrors();
@@ -58,7 +59,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ResponseModelErrorAssertionException))]
+        [ExpectedException(
+            typeof(ResponseModelErrorAssertionException),
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have invalid model state, but was in fact valid.")]
         public void ShouldHaveInvalidModelStateShouldThrowExceptionWithValidRequestModel()
         {
             var requestModel = TestObjectFactory.GetValidRequestModel();

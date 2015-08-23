@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Tests.ControllerSetups.Services
+﻿namespace MyWebApi.Tests.Setups.Services
 {
     internal interface IInjectedService
     {

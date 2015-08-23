@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Tests.ControllerSetups
+﻿namespace MyWebApi.Tests.Setups
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -6,7 +6,6 @@
     using System.Web.Http.Results;
 
     using Models;
-
     using Services;
 
     internal class WebApiController : ApiController

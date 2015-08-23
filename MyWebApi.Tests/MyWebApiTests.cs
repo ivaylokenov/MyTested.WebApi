@@ -1,8 +1,8 @@
 ﻿namespace MyWebApi.Tests
 {
-    using ControllerSetups;
-    using ControllerSetups.Services;
     using NUnit.Framework;
+    using Setups;
+    using Setups.Services;
 
     [TestFixture]
     public class MyWebApiTests

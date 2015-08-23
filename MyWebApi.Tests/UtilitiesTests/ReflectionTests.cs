@@ -199,5 +199,40 @@
             IEnumerable<int> original = new List<int>();
             typeof(IEnumerable<int>).CastTo<int>(original);
         }
+
+        [Test]
+        public void ToFriendlyGenericTypeNameShouldReturnTheOriginalNameWhenTypeIsNotGeneric()
+        {
+            var name = typeof(object).ToFriendlyGenericTypeName();
+            Assert.AreEqual("Object", name);
+        }
+
+        [Test]
+        public void ToFriendlyGenericTypeNameShouldReturnProperNameWhenTypeIsGenericWithoutArguments()
+        {
+            var name = typeof(List<>).ToFriendlyGenericTypeName();
+            Assert.AreEqual("List<T>", name);
+        }
+
+        [Test]
+        public void ToFriendlyGenericTypeNameShouldReturnProperNameWhenTypeIsGenericWithoutMoreThanOneArguments()
+        {
+            var name = typeof(Dictionary<,>).ToFriendlyGenericTypeName();
+            Assert.AreEqual("Dictionary<TKey, TValue>", name);
+        }
+
+        [Test]
+        public void ToFriendlyGenericTypeNameShouldReturnProperNameWhenTypeIsGenericWithOneArgument()
+        {
+            var name = typeof(List<int>).ToFriendlyGenericTypeName();
+            Assert.AreEqual("List<Int32>", name);
+        }
+
+        [Test]
+        public void ToFriendlyGenericTypeNameShouldReturnProperNameWhenTypeIsGenericWithMoreThanOneArguments()
+        {
+            var name = typeof(Dictionary<string, int>).ToFriendlyGenericTypeName();
+            Assert.AreEqual("Dictionary<String, Int32>", name);
+        }
     }
 }

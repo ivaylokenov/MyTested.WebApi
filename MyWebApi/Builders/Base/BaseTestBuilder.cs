@@ -69,7 +69,7 @@
             if (!this.controller.ModelState.IsValid)
             {
                 throw new ResponseModelErrorAssertionException(string.Format(
-                    "When calling {0} action in {1} expected response model to have no errors, but it had some.",
+                    "When calling {0} action in {1} expected to have valid model state with no errors, but it had some.",
                     this.ActionName,
                     this.Controller.GetType().Name));
             }
