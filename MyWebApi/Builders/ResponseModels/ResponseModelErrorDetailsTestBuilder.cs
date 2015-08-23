@@ -11,12 +11,24 @@
     using Contracts;
     using Exceptions;
 
+    /// <summary>
+    /// Used for testing specific response model errors.
+    /// </summary>
+    /// <typeparam name="TResponseModel">Response model from invoked action in ASP.NET Web API controller.</typeparam>
     public class ResponseModelErrorDetailsTestBuilder<TResponseModel> : BaseTestBuilder, IResponseModelErrorDetailsTestBuilder<TResponseModel>
     {
         private readonly IResponseModelErrorTestBuilder<TResponseModel> responseModelErrorTestBuilder;
         private readonly string currentErrorKey;
         private readonly IEnumerable<string> aggregatedErrors;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResponseModelErrorDetailsTestBuilder{TResponseModel}" /> class.
+        /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="responseModelErrorTestBuilder">Original response model error test builder.</param>
+        /// <param name="errorKey">Key in ModelStateDictionary corresponding to this particular error.</param>
+        /// <param name="aggregatedErrors">All errors found in ModelStateDictionary for given error key.</param>
         public ResponseModelErrorDetailsTestBuilder(
             ApiController controller,
             string actionName,
@@ -26,82 +38,119 @@
             : base(controller, actionName)
         {
             this.responseModelErrorTestBuilder = responseModelErrorTestBuilder;
-            currentErrorKey = errorKey;
+            this.currentErrorKey = errorKey;
             this.aggregatedErrors = aggregatedErrors.Select(me => me.ErrorMessage);
         }
 
+        /// <summary>
+        /// Tests whether particular error message is equal to given message.
+        /// </summary>
+        /// <param name="errorMessage">Expected error message for particular key.</param>
+        /// <returns>The original response model error test builder.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> ThatEquals(string errorMessage)
         {
-            if (aggregatedErrors.All(e => e != errorMessage))
+            if (this.aggregatedErrors.All(e => e != errorMessage))
             {
                 this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected error message for key {2} to be '{3}', but instead found '{4}'.",
-                    currentErrorKey);
+                    this.currentErrorKey);
             }
 
-            return responseModelErrorTestBuilder;
+            return this.responseModelErrorTestBuilder;
         }
 
+        /// <summary>
+        /// Tests whether particular error message begins with given message.
+        /// </summary>
+        /// <param name="beginMessage">Expected beginning for particular error message.</param>
+        /// <returns>The original response model error test builder.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> BeginningWith(string beginMessage)
         {
-            if (!aggregatedErrors.Any(e => e.StartsWith(beginMessage)))
+            if (!this.aggregatedErrors.Any(e => e.StartsWith(beginMessage)))
             {
                 this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected error message for key '{2}' to start with '{3}', but instead found '{4}'.",
                     beginMessage);
             }
 
-            return responseModelErrorTestBuilder;
+            return this.responseModelErrorTestBuilder;
         }
 
+        /// <summary>
+        /// Tests whether particular error message ends with given message.
+        /// </summary>
+        /// <param name="endMessage">Expected ending for particular error message.</param>
+        /// <returns>The original response model error test builder.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> EndingWith(string endMessage)
         {
-            if (!aggregatedErrors.Any(e => e.EndsWith(endMessage)))
+            if (!this.aggregatedErrors.Any(e => e.EndsWith(endMessage)))
             {
                 this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected error message for key '{2}' to end with '{3}', but instead found '{4}'.",
                     endMessage);
             }
 
-            return responseModelErrorTestBuilder;
+            return this.responseModelErrorTestBuilder;
         }
 
+        /// <summary>
+        /// Tests whether particular error message contains given message.
+        /// </summary>
+        /// <param name="containsMessage">Expected containing string for particular error message.</param>
+        /// <returns>The original response model error test builder.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> Containing(string containsMessage)
         {
-            if (!aggregatedErrors.Any(e => e.Contains(containsMessage)))
+            if (!this.aggregatedErrors.Any(e => e.Contains(containsMessage)))
             {
                 this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected error message for key '{2}' to contain '{3}', but instead found '{4}'.",
                     containsMessage);
             }
 
-            return responseModelErrorTestBuilder;
+            return this.responseModelErrorTestBuilder;
         }
 
-        public IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateErrorFor<TAttribute>(Expression<Func<TResponseModel, TAttribute>> memberWithError)
-        {
-            return responseModelErrorTestBuilder.ContainingModelStateErrorFor(memberWithError);
-        }
-
+        /// <summary>
+        /// Tests whether tested action's model state contains error by key.
+        /// </summary>
+        /// <param name="errorKey">Error key to search for.</param>
+        /// <returns>Response model error details test builder.</returns>
         public IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateError(string errorKey)
         {
-            return responseModelErrorTestBuilder.ContainingModelStateError(errorKey);
+            return this.responseModelErrorTestBuilder.ContainingModelStateError(errorKey);
         }
 
-        public IResponseModelErrorTestBuilder<TResponseModel> ContainingNoModelStateErrorFor<TAttribute>(Expression<Func<TResponseModel, TAttribute>> memberWithNoError)
+        /// <summary>
+        /// Tests whether tested action's model state contains error by member expression.
+        /// </summary>
+        /// <typeparam name="TMember">Type of the member which will be tested for errors.</typeparam>
+        /// <param name="memberWithError">Member expression for the tested member.</param>
+        /// <returns>Response model error details test builder.</returns>
+        public IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateErrorFor<TMember>(Expression<Func<TResponseModel, TMember>> memberWithError)
         {
-            return responseModelErrorTestBuilder.ContainingNoModelStateErrorFor(memberWithNoError);
+            return this.responseModelErrorTestBuilder.ContainingModelStateErrorFor(memberWithError);
+        }
+
+        /// <summary>
+        /// Tests whether tested action's model state contains no error by member expression.
+        /// </summary>
+        /// <typeparam name="TMember">Type of the member which will be tested for no errors.</typeparam>
+        /// <param name="memberWithNoError">Member expression for the tested member.</param>
+        /// <returns>Response model error details test builder.</returns>
+        public IResponseModelErrorTestBuilder<TResponseModel> ContainingNoModelStateErrorFor<TMember>(Expression<Func<TResponseModel, TMember>> memberWithNoError)
+        {
+            return this.responseModelErrorTestBuilder.ContainingNoModelStateErrorFor(memberWithNoError);
         }
 
         private void ThrowNewResponseModelErrorAssertionException(string messageFormat, string operation)
         {
             throw new ResponseModelErrorAssertionException(string.Format(
                     messageFormat,
-                    ActionName,
-                    Controller,
-                    currentErrorKey,
+                    this.ActionName,
+                    this.Controller,
+                    this.currentErrorKey,
                     operation,
-                    string.Join(", ", aggregatedErrors)));  
+                    string.Join(", ", this.aggregatedErrors)));  
         }
     }
 }

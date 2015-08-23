@@ -21,8 +21,8 @@
         /// <param name="actionName">Name of the tested action.</param>
         protected BaseTestBuilder(ApiController controller, string actionName)
         {
-            Controller = controller;
-            ActionName = actionName;
+            this.Controller = controller;
+            this.ActionName = actionName;
         }
 
         /// <summary>
@@ -33,13 +33,13 @@
         {
             get
             {
-                return controller;
+                return this.controller;
             }
 
             private set
             {
                 Validator.CheckForNullReference(value, errorMessageName: "Controller");
-                controller = value;
+                this.controller = value;
             }
         }
 
@@ -51,13 +51,13 @@
         {
             get
             {
-                return actionName;
+                return this.actionName;
             }
 
             private set
             {
                 Validator.CheckForNotEmptyString(value, errorMessageName: "ActionName");
-                actionName = value;
+                this.actionName = value;
             }
         }
 
@@ -66,12 +66,12 @@
         /// </summary>
         protected void CheckValidModelState()
         {
-            if (!controller.ModelState.IsValid)
+            if (!this.controller.ModelState.IsValid)
             {
                 throw new ResponseModelErrorAssertionException(string.Format(
                     "When calling {0} action in {1} expected response model to have no errors, but it had some.",
-                    ActionName,
-                    Controller.GetType().Name));
+                    this.ActionName,
+                    this.Controller.GetType().Name));
             }
         }
     }

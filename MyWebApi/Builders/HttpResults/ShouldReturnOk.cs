@@ -20,11 +20,11 @@
             var actionResultAsOkResult = ActionResult as OkResult;
             if (actionResultAsOkResult != null)
             {
-                ShouldReturn<OkResult>();
+                this.ShouldReturn<OkResult>();
             }
             else
             {
-                ValidateActionReturnType(typeof(OkNegotiatedContentResult<>), allowDifferentGenericTypeDefinitions: true);
+                this.ValidateActionReturnType(typeof(OkNegotiatedContentResult<>), allowDifferentGenericTypeDefinitions: true);
             }
 
             return new ResponseModelTestBuilder<TActionResult>(Controller, ActionName, ActionResult);

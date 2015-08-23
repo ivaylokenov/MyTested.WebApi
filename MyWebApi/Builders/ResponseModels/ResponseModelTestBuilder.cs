@@ -89,15 +89,15 @@
         public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
             where TResponseModel : class
         {
-            WithResponseModel<TResponseModel>();
+            this.WithResponseModel<TResponseModel>();
 
-            var actualModel = GetActualModel<TResponseModel>();
+            var actualModel = this.GetActualModel<TResponseModel>();
             if (actualModel != expectedModel)
             {
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model {2} to be the given model, but in fact it was a different model.",
-                            ActionName,
-                            Controller.GetType().Name,
+                            this.ActionName,
+                            this.Controller.GetType().Name,
                             typeof(TResponseModel).Name));
             }
 
@@ -112,9 +112,9 @@
         /// <returns>Builder for testing the response model errors.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(Action<TResponseModel> assertions)
         {
-            WithResponseModel<TResponseModel>();
+            this.WithResponseModel<TResponseModel>();
 
-            var actualModel = GetActualModel<TResponseModel>();
+            var actualModel = this.GetActualModel<TResponseModel>();
             assertions(actualModel);
 
             return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
@@ -128,9 +128,9 @@
         /// <returns>Builder for testing the response model errors.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(Func<TResponseModel, bool> predicate)
         {
-            WithResponseModel<TResponseModel>();
+            this.WithResponseModel<TResponseModel>();
 
-            var actualModel = GetActualModel<TResponseModel>();
+            var actualModel = this.GetActualModel<TResponseModel>();
             if (!predicate(actualModel))
             {
                 throw new ResponseModelAssertionException(string.Format(

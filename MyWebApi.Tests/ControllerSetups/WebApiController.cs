@@ -20,50 +20,50 @@
 
         public WebApiController(IInjectedService injectedService)
         {
-            InjectedService = injectedService;
-            responseModel = TestObjectFactory.GetListOfResponseModels();
+            this.InjectedService = injectedService;
+            this.responseModel = TestObjectFactory.GetListOfResponseModels();
         }
 
         public ICollection<ResponseModel> ResponseModel
         {
-            get { return responseModel; }
+            get { return this.responseModel; }
         }
 
         public IInjectedService InjectedService { get; private set; }
 
         public IHttpActionResult OkResultAction()
         {
-            return Ok();
+            return this.Ok();
         }
 
         public IHttpActionResult OkResultActionWithRequestBody(int id, RequestModel model)
         {
-            return Ok(responseModel);
+            return this.Ok(this.responseModel);
         }
 
         public IHttpActionResult ModelStateCheck(RequestModel model)
         {
             if (ModelState.IsValid)
             {
-                return Ok(model);
+                return this.Ok(model);
             }
 
-            return Ok(model);
+            return this.Ok(model);
         }
 
         public IHttpActionResult OkResultWithResponse()
         {
-            return Ok(responseModel);
+            return this.Ok(this.responseModel);
         }
 
         public async Task<OkResult> AsyncOkResultAction()
         {
-            return await Task.Run(() => Ok());
+            return await Task.Run(() => this.Ok());
         }
 
         public IHttpActionResult BadRequestAction()
         {
-            return BadRequest();
+            return this.BadRequest();
         }
 
         public bool GenericStructAction()
@@ -73,7 +73,7 @@
 
         public ICollection<ResponseModel> GenericAction()
         {
-            return responseModel;
+            return this.responseModel;
         }
     }
 }

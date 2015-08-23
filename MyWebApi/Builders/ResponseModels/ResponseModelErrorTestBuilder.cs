@@ -19,7 +19,7 @@
         public ResponseModelErrorTestBuilder(ApiController controller, string actionName)
             : base(controller, actionName)
         {
-            ModelState = controller.ModelState;
+            this.ModelState = controller.ModelState;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@
         /// </summary>
         public void ContainingNoModelStateErrors()
         {
-            CheckValidModelState();
+            this.CheckValidModelState();
         }
     }
 }

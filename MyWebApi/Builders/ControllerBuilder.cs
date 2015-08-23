@@ -22,7 +22,7 @@
         /// <param name="controllerInstance">Instance of the tested ASP.NET Web API controller.</param>
         public ControllerBuilder(TController controllerInstance)
         {
-            Controller = controllerInstance;
+            this.Controller = controllerInstance;
         }
 
         /// <summary>
@@ -41,8 +41,8 @@
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
             ValidateModelState(actionCall);
-            var actionResult = actionCall.Compile().Invoke(Controller);
-            return new ActionResultTestBuilder<TActionResult>(Controller, actionName, actionResult);
+            var actionResult = actionCall.Compile().Invoke(this.Controller);
+            return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
         }
 
         /// <summary>
@@ -55,8 +55,8 @@
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
             ValidateModelState(actionCall);
-            var actionResult = actionCall.Compile().Invoke(Controller).Result;
-            return new ActionResultTestBuilder<TActionResult>(Controller, actionName, actionResult);
+            var actionResult = actionCall.Compile().Invoke(this.Controller).Result;
+            return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
         }
 
         private void ValidateModelState<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
@@ -64,7 +64,7 @@
             var arguments = ExpressionParser.ResolveMethodArguments(actionCall);
             foreach (var argument in arguments)
             {
-                Controller.Validate(argument.Value);
+                this.Controller.Validate(argument.Value);
             }
         }
     }
