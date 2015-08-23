@@ -194,6 +194,15 @@ MyWebApi
 	.ShouldReturnStatusCode(HttpStatusCode.Created);
 ```
 
+#### NotFound result
+```c#
+// tests whether the action returns NotFoundResult
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnNotFound();
+```
+
 ## Any questions, comments or additions?
 
 Leave an issue on the [issues page](https://github.com/ivaylokenov/MyWebApi/issues) or send a [pull request](https://github.com/ivaylokenov/MyWebApi/pulls).
