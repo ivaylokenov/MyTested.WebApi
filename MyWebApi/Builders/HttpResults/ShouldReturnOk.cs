@@ -3,6 +3,7 @@
     using System.Web.Http.Results;
 
     using Contracts;
+    using ResponseModels;
 
     /// <summary>
     /// Class containing methods for testing OkResult.
@@ -16,17 +17,17 @@
         /// <returns>Response model test builder.</returns>
         public IResponseModelTestBuilder ShouldReturnOk()
         {
-            var actionResultAsOkResult = this.ActionResult as OkResult;
+            var actionResultAsOkResult = ActionResult as OkResult;
             if (actionResultAsOkResult != null)
             {
-                this.ShouldReturn<OkResult>();
+                ShouldReturn<OkResult>();
             }
             else
             {
-                this.ValidateActionReturnType(typeof(OkNegotiatedContentResult<>), allowDifferentGenericTypeDefinitions: true);
+                ValidateActionReturnType(typeof(OkNegotiatedContentResult<>), allowDifferentGenericTypeDefinitions: true);
             }
 
-            return new ResponseModelTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
+            return new ResponseModelTestBuilder<TActionResult>(Controller, ActionName, ActionResult);
         }
     }
 }

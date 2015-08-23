@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders
+﻿namespace MyWebApi.Builders.ResponseModels
 {
     using System;
     using System.Web.Http;
@@ -32,13 +32,13 @@
         /// </summary>
         public void WithNoResponseModel()
         {
-            var actualResult = this.ActionResult as OkResult;
+            var actualResult = ActionResult as OkResult;
             if (actualResult == null)
             {
                 throw new ResponseModelAssertionException(string.Format(
                         "When calling {0} action in {1} expected to not have response model but in fact response model was found",
-                        this.ActionName,
-                        this.Controller.GetType().Name));
+                        ActionName,
+                        Controller.GetType().Name));
             }
         }
 
@@ -49,7 +49,7 @@
         /// <returns>Builder for testing the response model errors.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>()
         {
-            var actionResultType = this.ActionResult.GetType();
+            var actionResultType = ActionResult.GetType();
             var negotiatedContentResultType = typeof(OkNegotiatedContentResult<TResponseModel>);
 
             var negotiatedActionResultIsAssignable = Reflection.AreAssignable(
@@ -69,15 +69,15 @@
                     {
                         throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model to be a {2}, but instead received a {3}.",
-                            this.ActionName,
-                            this.Controller.GetType().Name,
+                            ActionName,
+                            Controller.GetType().Name,
                             typeof(TResponseModel).Name,
                             actualResponseDataType.Name));
                     }
                 }
             }
 
-            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
+            return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
         }
 
         /// <summary>
@@ -89,19 +89,19 @@
         public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
             where TResponseModel : class
         {
-            this.WithResponseModel<TResponseModel>();
+            WithResponseModel<TResponseModel>();
 
-            var actualModel = this.GetActualModel<TResponseModel>();
+            var actualModel = GetActualModel<TResponseModel>();
             if (actualModel != expectedModel)
             {
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model {2} to be the given model, but in fact it was a different model.",
-                            this.ActionName,
-                            this.Controller.GetType().Name,
+                            ActionName,
+                            Controller.GetType().Name,
                             typeof(TResponseModel).Name));
             }
 
-            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
+            return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
         }
 
         /// <summary>
@@ -112,12 +112,12 @@
         /// <returns>Builder for testing the response model errors.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(Action<TResponseModel> assertions)
         {
-            this.WithResponseModel<TResponseModel>();
+            WithResponseModel<TResponseModel>();
 
-            var actualModel = this.GetActualModel<TResponseModel>();
+            var actualModel = GetActualModel<TResponseModel>();
             assertions(actualModel);
 
-            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
+            return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
         }
 
         /// <summary>
@@ -128,24 +128,24 @@
         /// <returns>Builder for testing the response model errors.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(Func<TResponseModel, bool> predicate)
         {
-            this.WithResponseModel<TResponseModel>();
+            WithResponseModel<TResponseModel>();
 
-            var actualModel = this.GetActualModel<TResponseModel>();
+            var actualModel = GetActualModel<TResponseModel>();
             if (!predicate(actualModel))
             {
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model {2} to pass the given condition, but it failed.",
-                            this.ActionName,
-                            this.Controller.GetType().Name,
+                            ActionName,
+                            Controller.GetType().Name,
                             typeof(TResponseModel).Name));
             }
 
-            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
+            return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
         }
 
         private TResponseModel GetActualModel<TResponseModel>()
         {
-            return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult).Content;
+            return ActionResult.GetType().CastTo<dynamic>(ActionResult).Content;
         }
     }
 }

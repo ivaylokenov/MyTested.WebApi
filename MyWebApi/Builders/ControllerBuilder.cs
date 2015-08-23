@@ -22,7 +22,7 @@
         /// <param name="controllerInstance">Instance of the tested ASP.NET Web API controller.</param>
         public ControllerBuilder(TController controllerInstance)
         {
-            this.Controller = controllerInstance;
+            Controller = controllerInstance;
         }
 
         /// <summary>
@@ -40,9 +40,9 @@
         public IActionResultTestBuilder<TActionResult> Calling<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
-            this.ValidateModelState(actionCall);
-            var actionResult = actionCall.Compile().Invoke(this.Controller);
-            return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
+            ValidateModelState(actionCall);
+            var actionResult = actionCall.Compile().Invoke(Controller);
+            return new ActionResultTestBuilder<TActionResult>(Controller, actionName, actionResult);
         }
 
         /// <summary>
@@ -54,9 +54,9 @@
         public IActionResultTestBuilder<TActionResult> CallingAsync<TActionResult>(Expression<Func<TController, Task<TActionResult>>> actionCall)
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
-            this.ValidateModelState(actionCall);
-            var actionResult = actionCall.Compile().Invoke(this.Controller).Result;
-            return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
+            ValidateModelState(actionCall);
+            var actionResult = actionCall.Compile().Invoke(Controller).Result;
+            return new ActionResultTestBuilder<TActionResult>(Controller, actionName, actionResult);
         }
 
         private void ValidateModelState<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
@@ -64,7 +64,7 @@
             var arguments = ExpressionParser.ResolveMethodArguments(actionCall);
             foreach (var argument in arguments)
             {
-                this.Controller.Validate(argument.Value);
+                Controller.Validate(argument.Value);
             }
         }
     }

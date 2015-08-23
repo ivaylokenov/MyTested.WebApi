@@ -20,7 +20,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultAction());
 
-            this.CheckActionResultTestBuilder(actionResultTestBuilder, "OkResultAction");
+            CheckActionResultTestBuilder(actionResultTestBuilder, "OkResultAction");
         }
 
         [Test]
@@ -30,7 +30,7 @@
                 .Controller<WebApiController>()
                 .CallingAsync(c => c.AsyncOkResultAction());
 
-            this.CheckActionResultTestBuilder(actionResultTestBuilder, "AsyncOkResultAction");
+            CheckActionResultTestBuilder(actionResultTestBuilder, "AsyncOkResultAction");
         }
 
         [Test]

@@ -28,7 +28,7 @@
 
         private void ValidateActionReturnType(Type typeOfExpectedReturnValue, bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
         {
-            var typeOfActionResult = this.ActionResult.GetType();
+            var typeOfActionResult = ActionResult.GetType();
 
             var isAssignableCheck = canBeAssignable && Reflection.AreNotAssignable(typeOfExpectedReturnValue, typeOfActionResult);
             var haveDifferentGenericArguments = false;
@@ -59,8 +59,8 @@
             {
                 throw new HttpActionResultAssertionException(string.Format(
                     "When calling {0} action in {1} expected action result to be a {2}, but instead received a {3}.",
-                    this.ActionName,
-                    this.Controller.GetType().Name,
+                    ActionName,
+                    Controller.GetType().Name,
                     typeOfExpectedReturnValue.Name,
                     typeOfActionResult.Name));
             }
@@ -69,7 +69,7 @@
         private void ValidateActionReturnType<TExpectedType>(bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
         {
             var typeOfResponseData = typeof(TExpectedType);
-            this.ValidateActionReturnType(typeOfResponseData, canBeAssignable, allowDifferentGenericTypeDefinitions);
+            ValidateActionReturnType(typeOfResponseData, canBeAssignable, allowDifferentGenericTypeDefinitions);
         }
     }
 }

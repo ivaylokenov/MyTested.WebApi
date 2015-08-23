@@ -2,6 +2,7 @@
 {
     using System;
     using Contracts;
+    using ResponseModels;
 
     /// <summary>
     /// Class containing methods for testing return type.
@@ -16,8 +17,8 @@
         /// <returns>Response model test builder.</returns>
         public IResponseModelErrorTestBuilder ShouldReturn(Type returnType)
         {
-            this.ValidateActionReturnType(returnType, true, true);
-            return new ResponseModelErrorTestBuilder(this.Controller, this.ActionName);
+            ValidateActionReturnType(returnType, true, true);
+            return new ResponseModelErrorTestBuilder(Controller, ActionName);
         }
 
         /// <summary>
@@ -27,8 +28,8 @@
         /// <returns>Response model test builder.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>()
         {
-            this.ValidateActionReturnType<TResponseModel>(true);
-            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
+            ValidateActionReturnType<TResponseModel>(true);
+            return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
         }
     }
 }

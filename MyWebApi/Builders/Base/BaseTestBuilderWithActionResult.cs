@@ -22,7 +22,7 @@
         protected BaseTestBuilderWithActionResult(ApiController controller, string actionName, TActionResult actionResult)
             : base(controller, actionName)
         {
-            this.ActionResult = actionResult;
+            ActionResult = actionResult;
         }
 
         /// <summary>
@@ -33,13 +33,13 @@
         {
             get
             {
-                return this.actionResult;
+                return actionResult;
             }
 
             private set
             {
                 Validator.CheckForNullReference(value, errorMessageName: "ActionResult");
-                this.actionResult = value;
+                actionResult = value;
             }
         }
     }

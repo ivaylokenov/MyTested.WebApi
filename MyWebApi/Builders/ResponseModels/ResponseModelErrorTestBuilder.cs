@@ -1,11 +1,10 @@
-﻿namespace MyWebApi.Builders
+﻿namespace MyWebApi.Builders.ResponseModels
 {
     using System.Web.Http;
     using System.Web.Http.ModelBinding;
 
     using Base;
     using Contracts;
-    using Exceptions;
 
     /// <summary>
     /// Used for testing the response model errors.
@@ -20,7 +19,7 @@
         public ResponseModelErrorTestBuilder(ApiController controller, string actionName)
             : base(controller, actionName)
         {
-            this.ModelState = controller.ModelState;
+            ModelState = controller.ModelState;
         }
 
         /// <summary>
@@ -34,7 +33,7 @@
         /// </summary>
         public void ContainingNoModelStateErrors()
         {
-            this.CheckValidModelState();
+            CheckValidModelState();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders
+﻿namespace MyWebApi.Builders.ResponseModels
 {
     using System;
     using System.Linq.Expressions;
@@ -30,21 +30,21 @@
         /// <param name="errorKey">Error key to search for.</param>
         public IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateError(string errorKey)
         {
-            if (!this.ModelState.ContainsKey(errorKey) || this.ModelState.Count == 0)
+            if (!ModelState.ContainsKey(errorKey) || ModelState.Count == 0)
             {
                 throw new ResponseModelErrorAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have a model error against key {2}, but none found.",
-                    this.ActionName,
-                    this.Controller.GetType().Name,
+                    ActionName,
+                    Controller.GetType().Name,
                     errorKey));
             }
 
             return new ResponseModelErrorDetailsTestBuilder<TResponseModel>(
-                this.Controller,
-                this.ActionName,
+                Controller,
+                ActionName,
                 this,
                 errorKey,
-                this.ModelState[errorKey].Errors);
+                ModelState[errorKey].Errors);
         }
 
         /// <summary>
@@ -55,14 +55,14 @@
         public IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithError)
         {
             var memberName = ExpressionParser.GetPropertyName(memberWithError);
-            this.ContainingModelStateError(memberName);
+            ContainingModelStateError(memberName);
 
             return new ResponseModelErrorDetailsTestBuilder<TResponseModel>(
-                this.Controller,
-                this.ActionName,
+                Controller,
+                ActionName,
                 this,
                 memberName,
-                this.ModelState[memberName].Errors);
+                ModelState[memberName].Errors);
         }
 
         /// <summary>
@@ -74,12 +74,12 @@
         public IResponseModelErrorTestBuilder<TResponseModel> ContainingNoModelStateErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithNoError)
         {
             var memberName = ExpressionParser.GetPropertyName(memberWithNoError);
-            if (this.ModelState.ContainsKey(memberName))
+            if (ModelState.ContainsKey(memberName))
             {
                 throw new ResponseModelErrorAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have no model errors against key {2}, but found some.",
-                    this.ActionName,
-                    this.Controller.GetType().Name,
+                    ActionName,
+                    Controller.GetType().Name,
                     memberName));
             }
 
