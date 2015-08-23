@@ -68,7 +68,7 @@
 
         public IHttpActionResult StatusCodeAction()
         {
-            return this.StatusCode(HttpStatusCode.Found);
+            return this.StatusCode(HttpStatusCode.Redirect);
         }
 
         public bool GenericStructAction()
