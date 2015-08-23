@@ -51,8 +51,8 @@
 
             Assert.AreEqual(typeof(RequestModel), secondArgument.Type);
             Assert.IsNotNull(secondArgumentAsRequestModel);
-            Assert.AreEqual(2, secondArgumentAsRequestModel.Id);
-            Assert.AreEqual("Test", secondArgumentAsRequestModel.Name);
+            Assert.AreEqual(2, secondArgumentAsRequestModel.Integer);
+            Assert.AreEqual("Test", secondArgumentAsRequestModel.RequiredString);
         }
 
         [Test]

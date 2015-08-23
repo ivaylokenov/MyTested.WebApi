@@ -48,7 +48,7 @@
                 .Calling(c => c.ModelStateCheck(requestBodyWithErrors))
                 .ShouldReturnOk()
                 .WithResponseModel(requestBodyWithErrors)
-                .ContainingModelStateError("Name");
+                .ContainingModelStateError("RequiredString");
         }
 
         [Test]
@@ -75,7 +75,7 @@
                 .Calling(c => c.ModelStateCheck(requestBodyWithErrors))
                 .ShouldReturnOk()
                 .WithResponseModel(requestBodyWithErrors)
-                .ContainingModelStateErrorFor(r => r.Name);
+                .ContainingModelStateErrorFor(r => r.RequiredString);
         }
 
         [Test]
@@ -89,7 +89,7 @@
                 .Calling(c => c.ModelStateCheck(requestBody))
                 .ShouldReturnOk()
                 .WithResponseModel(requestBody)
-                .ContainingModelStateErrorFor(r => r.Name);
+                .ContainingModelStateErrorFor(r => r.RequiredString);
         }
 
         [Test]
@@ -102,7 +102,7 @@
                 .Calling(c => c.ModelStateCheck(requestBody))
                 .ShouldReturnOk()
                 .WithResponseModel(requestBody)
-                .ContainingNoModelStateErrorFor(r => r.Name);
+                .ContainingNoModelStateErrorFor(r => r.RequiredString);
         }
 
         [Test]
@@ -116,7 +116,7 @@
                 .Calling(c => c.ModelStateCheck(requestBodyWithErrors))
                 .ShouldReturnOk()
                 .WithResponseModel(requestBodyWithErrors)
-                .ContainingNoModelStateErrorFor(r => r.Name);
+                .ContainingNoModelStateErrorFor(r => r.RequiredString);
         }
 
         [Test]
@@ -129,8 +129,8 @@
                 .Calling(c => c.ModelStateCheck(requestBody))
                 .ShouldReturnOk()
                 .WithResponseModel(requestBody)
-                .ContainingNoModelStateErrorFor(r => r.Id)
-                .ContainingNoModelStateErrorFor(r => r.Name);
+                .ContainingNoModelStateErrorFor(r => r.Integer)
+                .ContainingNoModelStateErrorFor(r => r.RequiredString);
         }
 
         [Test]
@@ -144,8 +144,8 @@
                 .Calling(c => c.ModelStateCheck(requestBodyWithErrors))
                 .ShouldReturnOk()
                 .WithResponseModel(requestBodyWithErrors)
-                .ContainingNoModelStateErrorFor(r => r.Id)
-                .ContainingNoModelStateErrorFor(r => r.Name);
+                .ContainingNoModelStateErrorFor(r => r.Integer)
+                .ContainingNoModelStateErrorFor(r => r.RequiredString);
         }
     }
 }

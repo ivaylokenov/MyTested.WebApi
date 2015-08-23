@@ -1,8 +1,9 @@
-﻿namespace MyWebApi.Tests.BuildersTests.ResultsTests
+﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
 {
+    using Exceptions;
     using ControllerSetups;
     using ControllerSetups.Models;
-    using Exceptions;
+
     using NUnit.Framework;
 
     [TestFixture]
@@ -17,8 +18,9 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
                 .ShouldHaveModelStateFor<RequestModel>()
-                .ContainingNoModelStateErrorFor(r => r.Id)
-                .ContainingModelStateErrorFor(r => r.Name);
+                .ContainingNoModelStateErrorFor(r => r.NonRequiredString)
+                .ContainingModelStateErrorFor(r => r.Integer)
+                .ContainingModelStateErrorFor(r => r.RequiredString);
         }
 
         [Test]

@@ -1,6 +1,7 @@
-﻿namespace MyWebApi.Builders.HttpResults
+﻿namespace MyWebApi.Builders.Actions
 {
     using System;
+
     using Contracts;
     using ResponseModels;
 
@@ -17,7 +18,7 @@
         /// <returns>Response model test builder.</returns>
         public IResponseModelErrorTestBuilder ShouldReturn(Type returnType)
         {
-            this.ValidateActionReturnType(returnType, true, true);
+            ValidateActionReturnType(returnType, true, true);
             return new ResponseModelErrorTestBuilder(Controller, ActionName);
         }
 
@@ -28,7 +29,7 @@
         /// <returns>Response model test builder.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>()
         {
-            this.ValidateActionReturnType<TResponseModel>(true);
+            ValidateActionReturnType<TResponseModel>(true);
             return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
         }
     }

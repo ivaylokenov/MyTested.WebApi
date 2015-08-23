@@ -10,8 +10,8 @@
         {
             return new RequestModel
             {
-                Id = 2,
-                Name = "Test"
+                Integer = 2,
+                RequiredString = "Test"
             };
         }
 
@@ -24,8 +24,8 @@
         {
             return new List<ResponseModel>
             {
-                new ResponseModel { Id = 1, Name = "Test" },
-                new ResponseModel { Id = 2, Name = "Another Test" }
+                new ResponseModel { IntegerValue = 1, StringValue = "Test" },
+                new ResponseModel { IntegerValue = 2, StringValue = "Another Test" }
             };
         }
     }

@@ -1,8 +1,8 @@
-﻿namespace MyWebApi.Builders.HttpResults
+﻿namespace MyWebApi.Builders.Actions
 {
     using Contracts;
-    using Exceptions;
     using ResponseModels;
+    using Exceptions;
 
     /// <summary>
     /// Class containing methods for testing return type.

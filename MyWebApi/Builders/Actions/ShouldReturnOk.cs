@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.HttpResults
+﻿namespace MyWebApi.Builders.Actions
 {
     using System.Web.Http.Results;
 
@@ -20,11 +20,11 @@
             var actionResultAsOkResult = ActionResult as OkResult;
             if (actionResultAsOkResult != null)
             {
-                this.ShouldReturn<OkResult>();
+                ShouldReturn<OkResult>();
             }
             else
             {
-                this.ValidateActionReturnType(typeof(OkNegotiatedContentResult<>), allowDifferentGenericTypeDefinitions: true);
+                ValidateActionReturnType(typeof(OkNegotiatedContentResult<>), allowDifferentGenericTypeDefinitions: true);
             }
 
             return new ResponseModelTestBuilder<TActionResult>(Controller, ActionName, ActionResult);

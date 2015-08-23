@@ -2,8 +2,8 @@
 {
     public class ResponseModel
     {
-        public int Id { get; set; }
+        public int IntegerValue { get; set; }
 
-        public string Name { get; set; }
+        public string StringValue { get; set; }
     }
 }

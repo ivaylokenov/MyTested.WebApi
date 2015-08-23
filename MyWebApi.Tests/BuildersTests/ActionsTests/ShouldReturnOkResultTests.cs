@@ -1,8 +1,7 @@
-﻿namespace MyWebApi.Tests.BuildersTests.ResultsTests
+﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
 {
-    using ControllerSetups;
-
     using Exceptions;
+    using ControllerSetups;
 
     using NUnit.Framework;
 

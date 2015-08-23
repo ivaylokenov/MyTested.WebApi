@@ -4,9 +4,12 @@
 
     public class RequestModel
     {
-        public int Id { get; set; }
+        [Range(1, int.MaxValue)]
+        public int Integer { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string RequiredString { get; set; }
+
+        public string NonRequiredString { get; set; }
     }
 }

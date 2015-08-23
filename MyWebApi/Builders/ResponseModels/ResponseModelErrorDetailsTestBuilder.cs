@@ -53,7 +53,7 @@
             {
                 this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected error message for key {2} to be '{3}', but instead found '{4}'.",
-                    this.currentErrorKey);
+                    errorMessage);
             }
 
             return this.responseModelErrorTestBuilder;

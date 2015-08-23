@@ -36,7 +36,7 @@
         [Test]
         public void CallingShouldPopulateModelStateWhenThereAreModelErrors()
         {
-            var requestBody = new RequestModel();
+            var requestBody = TestObjectFactory.GetRequestModelWithErrors();
 
             var actionResultTestBuilder = MyWebApi
                 .Controller<WebApiController>()
@@ -45,8 +45,9 @@
             var modelState = actionResultTestBuilder.Controller.ModelState;
 
             Assert.IsFalse(modelState.IsValid);
-            Assert.AreEqual(1, modelState.Values.Count);
-            Assert.AreEqual("Name", modelState.Keys.First());
+            Assert.AreEqual(2, modelState.Values.Count);
+            Assert.AreEqual("Integer", modelState.Keys.First());
+            Assert.AreEqual("RequiredString", modelState.Keys.Last());
         }
 
         [Test]

@@ -89,7 +89,7 @@
                 .WithResponseModel<ICollection<ResponseModel>>(m =>
                 {
                     Assert.AreEqual(2, m.Count);
-                    Assert.AreEqual(1, m.First().Id);
+                    Assert.AreEqual(1, m.First().IntegerValue);
                 });
         }
 
@@ -103,7 +103,7 @@
                 .ShouldReturnOk()
                 .WithResponseModel<ICollection<ResponseModel>>(m =>
                 {
-                    Assert.AreEqual(1, m.First().Id);
+                    Assert.AreEqual(1, m.First().IntegerValue);
                     Assert.AreEqual(3, m.Count);
                 });
         }
@@ -115,7 +115,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<ICollection<ResponseModel>>(m => m.First().Id == 1);
+                .WithResponseModel<ICollection<ResponseModel>>(m => m.First().IntegerValue == 1);
         }
 
         [Test]
@@ -126,7 +126,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<IList<ResponseModel>>(m => m.First().Id == 2);
+                .WithResponseModel<IList<ResponseModel>>(m => m.First().IntegerValue == 2);
         }
 
         [Test]

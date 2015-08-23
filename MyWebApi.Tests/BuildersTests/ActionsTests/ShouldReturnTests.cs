@@ -1,10 +1,10 @@
-﻿namespace MyWebApi.Tests.BuildersTests.ResultsTests
+﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
 {
     using System.Collections.Generic;
 
+    using Exceptions;
     using ControllerSetups;
     using ControllerSetups.Models;
-    using Exceptions;
 
     using NUnit.Framework;
 

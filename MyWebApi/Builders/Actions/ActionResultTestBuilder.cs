@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.HttpResults
+﻿namespace MyWebApi.Builders.Actions
 {
     using System;
     using System.Web.Http;
@@ -69,7 +69,7 @@
         private void ValidateActionReturnType<TExpectedType>(bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
         {
             var typeOfResponseData = typeof(TExpectedType);
-            this.ValidateActionReturnType(typeOfResponseData, canBeAssignable, allowDifferentGenericTypeDefinitions);
+            ValidateActionReturnType(typeOfResponseData, canBeAssignable, allowDifferentGenericTypeDefinitions);
         }
     }
 }
