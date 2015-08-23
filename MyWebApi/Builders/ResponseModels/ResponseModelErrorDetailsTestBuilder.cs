@@ -20,7 +20,7 @@
         public ResponseModelErrorDetailsTestBuilder(
             ApiController controller,
             string actionName,
-            ResponseModelErrorTestBuilder<TResponseModel> responseModelErrorTestBuilder,
+            IResponseModelErrorTestBuilder<TResponseModel> responseModelErrorTestBuilder,
             string errorKey,
             IEnumerable<ModelError> aggregatedErrors)
             : base(controller, actionName)
@@ -34,13 +34,9 @@
         {
             if (aggregatedErrors.All(e => e != errorMessage))
             {
-                throw new ResponseModelErrorAssertionException(string.Format(
+                this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected error message for key {2} to be '{3}', but instead found '{4}'.",
-                    ActionName,
-                    Controller,
-                    currentErrorKey,
-                    errorMessage,
-                    string.Join(", ", aggregatedErrors)));
+                    currentErrorKey);
             }
 
             return responseModelErrorTestBuilder;
@@ -50,13 +46,9 @@
         {
             if (!aggregatedErrors.Any(e => e.StartsWith(beginMessage)))
             {
-                throw new ResponseModelErrorAssertionException(string.Format(
+                this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected error message for key '{2}' to start with '{3}', but instead found '{4}'.",
-                    ActionName,
-                    Controller,
-                    currentErrorKey,
-                    beginMessage,
-                    string.Join(", ", aggregatedErrors)));
+                    beginMessage);
             }
 
             return responseModelErrorTestBuilder;
@@ -66,13 +58,9 @@
         {
             if (!aggregatedErrors.Any(e => e.EndsWith(endMessage)))
             {
-                throw new ResponseModelErrorAssertionException(string.Format(
+                this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected error message for key '{2}' to end with '{3}', but instead found '{4}'.",
-                    ActionName,
-                    Controller,
-                    currentErrorKey,
-                    endMessage,
-                    string.Join(", ", aggregatedErrors)));
+                    endMessage);
             }
 
             return responseModelErrorTestBuilder;
@@ -82,13 +70,9 @@
         {
             if (!aggregatedErrors.Any(e => e.Contains(containsMessage)))
             {
-                throw new ResponseModelErrorAssertionException(string.Format(
+                this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected error message for key '{2}' to contain '{3}', but instead found '{4}'.",
-                    ActionName,
-                    Controller,
-                    currentErrorKey,
-                    containsMessage,
-                    string.Join(", ", aggregatedErrors)));    
+                    containsMessage);
             }
 
             return responseModelErrorTestBuilder;
@@ -107,6 +91,17 @@
         public IResponseModelErrorTestBuilder<TResponseModel> ContainingNoModelStateErrorFor<TAttribute>(Expression<Func<TResponseModel, TAttribute>> memberWithNoError)
         {
             return responseModelErrorTestBuilder.ContainingNoModelStateErrorFor(memberWithNoError);
+        }
+
+        private void ThrowNewResponseModelErrorAssertionException(string messageFormat, string operation)
+        {
+            throw new ResponseModelErrorAssertionException(string.Format(
+                    messageFormat,
+                    ActionName,
+                    Controller,
+                    currentErrorKey,
+                    operation,
+                    string.Join(", ", aggregatedErrors)));  
         }
     }
 }

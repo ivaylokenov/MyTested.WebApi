@@ -32,11 +32,9 @@
         {
             if (!ModelState.ContainsKey(errorKey) || ModelState.Count == 0)
             {
-                throw new ResponseModelErrorAssertionException(string.Format(
+                this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected to have a model error against key {2}, but none found.",
-                    ActionName,
-                    Controller.GetType().Name,
-                    errorKey));
+                    errorKey);
             }
 
             return new ResponseModelErrorDetailsTestBuilder<TResponseModel>(
@@ -55,7 +53,7 @@
         public IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateErrorFor<TProperty>(Expression<Func<TResponseModel, TProperty>> memberWithError)
         {
             var memberName = ExpressionParser.GetPropertyName(memberWithError);
-            ContainingModelStateError(memberName);
+            this.ContainingModelStateError(memberName);
 
             return new ResponseModelErrorDetailsTestBuilder<TResponseModel>(
                 Controller,
@@ -76,14 +74,21 @@
             var memberName = ExpressionParser.GetPropertyName(memberWithNoError);
             if (ModelState.ContainsKey(memberName))
             {
-                throw new ResponseModelErrorAssertionException(string.Format(
+                this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected to have no model errors against key {2}, but found some.",
-                    ActionName,
-                    Controller.GetType().Name,
-                    memberName));
+                    memberName);
             }
 
             return this;
+        }
+
+        private void ThrowNewResponseModelErrorAssertionException(string messageFormat, string errorKey)
+        {
+            throw new ResponseModelErrorAssertionException(string.Format(
+                    messageFormat,
+                    ActionName,
+                    Controller.GetType().Name,
+                    errorKey));
         }
     }
 }
