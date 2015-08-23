@@ -71,6 +71,11 @@
             return this.StatusCode(HttpStatusCode.Redirect);
         }
 
+        public IHttpActionResult NotFoundAction()
+        {
+            return this.NotFound();
+        }
+
         public bool GenericStructAction()
         {
             return true;

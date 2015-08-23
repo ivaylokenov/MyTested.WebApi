@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturnNotFoundTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnStatusCodeTests.cs" />
     <Compile Include="BuildersTests\ControllerBuilderTests.cs" />
     <Compile Include="BuildersTests\ResponseModelsTests\ResponseModelErrorDetailsTestBuilderTests.cs" />
