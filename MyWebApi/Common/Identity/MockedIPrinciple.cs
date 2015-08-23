@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Security.Principal;
+    using Builders.Contracts;
 
     public class MockedIPrinciple : IPrincipal
     {
@@ -22,6 +23,8 @@
                 principalType ?? DefaultIPrincipalType,
                 true);
         }
+
+        public IIdentity Identity { get; private set; }
 
         public static IPrincipal CreateUnauthorized()
         {
@@ -43,7 +46,5 @@
         {
             return this.roles.Contains(role);
         }
-
-        public IIdentity Identity { get; private set; }
     }
 }

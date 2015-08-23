@@ -15,10 +15,28 @@
             this.isAuthenticated = isAuthenticated;
         }
 
-        public string Name { get { return name; } }
+        public string Name
+        {
+            get
+            {
+                return this.name;
+            }
+        }
 
-        public string AuthenticationType { get { return authenticationType; } }
+        public string AuthenticationType
+        {
+            get
+            {
+                return this.authenticationType;
+            }
+        }
 
-        public bool IsAuthenticated { get { return isAuthenticated; } }
+        public bool IsAuthenticated
+        {
+            get
+            {
+                return this.isAuthenticated;
+            }
+        }
     }
 }

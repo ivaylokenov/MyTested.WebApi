@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Builders
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Security.Principal;
 
     using Common.Extensions;
@@ -10,9 +11,10 @@
 
     public class UserBuilder : IUserBuilder
     {
+        private readonly ICollection<string> constructedRoles;
+
         private string constructedUsername;
         private string constructedAuthenticationType;
-        private readonly ICollection<string> constructedRoles;
 
         public UserBuilder()
         {
@@ -43,9 +45,17 @@
             return this;
         }
 
+        public IUserBuilder InRoles(params string[] roles)
+        {
+            return this.InRoles(roles.AsEnumerable());
+        }
+
         internal IPrincipal GetUser()
         {
-            return new MockedIPrinciple(constructedUsername, constructedAuthenticationType, constructedRoles);
+            return new MockedIPrinciple(
+                this.constructedUsername, 
+                this.constructedAuthenticationType, 
+                this.constructedRoles);
         }
     }
 }
