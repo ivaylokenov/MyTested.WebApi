@@ -178,6 +178,22 @@ MyWebApi
 	.ContainingNoModelStateErrorFor(m => m.AnotherProperty);
 ```
 
+#### StatusCode result
+
+```c#
+// tests whether the action returns StatusCodeResult
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnStatusCode();
+	
+// tests whether the action returns StatusCodeResult with status code equal to the provided
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnStatusCode(HttpStatusCode.Created);
+```
+
 ## Any questions, comments or additions?
 
 Leave an issue on the [issues page](https://github.com/ivaylokenov/MyWebApi/issues) or send a [pull request](https://github.com/ivaylokenov/MyWebApi/pulls).

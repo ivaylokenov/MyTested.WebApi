@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Builders.Contracts
 {
     using System;
+    using System.Net;
 
     /// <summary>
     /// Used for building the action result which will be tested.
@@ -30,6 +31,17 @@
         /// </summary>
         /// <returns>Response model test builder.</returns>
         IResponseModelTestBuilder ShouldReturnOk();
+
+        /// <summary>
+        /// Tests whether action result is StatusCodeResult.
+        /// </summary>
+        void ShouldReturnStatusCode();
+
+        /// <summary>
+        /// Tests whether action result is StatusCodeResult and is the same as provided HttpStatusCode.
+        /// </summary>
+        /// <param name="statusCode">HttpStatusCode enumeration.</param>
+        void ShouldReturnStatusCode(HttpStatusCode statusCode);
 
         /// <summary>
         /// Tests whether action result is of the provided generic type.
