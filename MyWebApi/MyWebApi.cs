@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi
 {
     using System;
+    using System.Net.Http;
     using System.Web.Http;
 
     using Builders;
@@ -19,8 +20,7 @@
         public static IControllerBuilder<TController> Controller<TController>()
             where TController : ApiController
         {
-            var controllerInstance = Activator.CreateInstance<TController>();
-            return new ControllerBuilder<TController>(controllerInstance);
+            return Controller(Activator.CreateInstance<TController>);
         }
 
         /// <summary>
@@ -32,7 +32,15 @@
         public static IControllerBuilder<TController> Controller<TController>(Func<TController> construction)
             where TController : ApiController
         {
-            return new ControllerBuilder<TController>(construction());
+            var controllerInstance = construction();
+            PrepareController(controllerInstance);
+            return new ControllerBuilder<TController>(controllerInstance);
+        }
+
+        private static void PrepareController(ApiController controller)
+        {
+            controller.Request = new HttpRequestMessage();
+            controller.Configuration = new HttpConfiguration();
         }
     }
 }

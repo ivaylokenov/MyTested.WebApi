@@ -1,11 +1,12 @@
-﻿namespace MyWebApi.Tests.BuildersTests
+﻿namespace MyWebApi.Tests.BuildersTests.ResponseModelsTests
 {
     using System.Collections.Generic;
     using System.Linq;
 
     using ControllerSetups;
+    using ControllerSetups.Models;
     using Exceptions;
-
+    
     using NUnit.Framework;
 
     [TestFixture]
@@ -88,7 +89,7 @@
                 .WithResponseModel<ICollection<ResponseModel>>(m =>
                 {
                     Assert.AreEqual(2, m.Count);
-                    Assert.AreEqual(1, m.First().Id);
+                    Assert.AreEqual(1, m.First().IntegerValue);
                 });
         }
 
@@ -102,8 +103,8 @@
                 .ShouldReturnOk()
                 .WithResponseModel<ICollection<ResponseModel>>(m =>
                 {
+                    Assert.AreEqual(1, m.First().IntegerValue);
                     Assert.AreEqual(3, m.Count);
-                    Assert.AreEqual(1, m.First().Id);
                 });
         }
 
@@ -114,7 +115,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<ICollection<ResponseModel>>(m => m.First().Id == 1);
+                .WithResponseModel<ICollection<ResponseModel>>(m => m.First().IntegerValue == 1);
         }
 
         [Test]
@@ -125,7 +126,28 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<IList<ResponseModel>>(m => m.First().Id == 2);
+                .WithResponseModel<IList<ResponseModel>>(m => m.First().IntegerValue == 2);
+        }
+
+        [Test]
+        public void WithNoResponseModelShouldNotThrowExceptionWhenNoResponseModel()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultAction())
+                .ShouldReturnOk()
+                .WithNoResponseModel();
+        }
+
+        [Test]
+        [ExpectedException(typeof(ResponseModelAssertionException))]
+        public void WithNoResponseModelShouldThrowExceptionWhenResponseModelExists()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturnOk()
+                .WithNoResponseModel();
         }
     }
 }

@@ -4,9 +4,8 @@
     using System.Linq.Expressions;
     using System.Threading.Tasks;
     using System.Web.Http;
-
+    using Actions;
     using Contracts;
-    using Results;
     using Utilities;
 
     /// <summary>
@@ -40,6 +39,7 @@
         public IActionResultTestBuilder<TActionResult> Calling<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
+            ValidateModelState(actionCall);
             var actionResult = actionCall.Compile().Invoke(this.Controller);
             return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
         }
@@ -53,8 +53,18 @@
         public IActionResultTestBuilder<TActionResult> CallingAsync<TActionResult>(Expression<Func<TController, Task<TActionResult>>> actionCall)
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
+            ValidateModelState(actionCall);
             var actionResult = actionCall.Compile().Invoke(this.Controller).Result;
             return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
+        }
+
+        private void ValidateModelState<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
+        {
+            var arguments = ExpressionParser.ResolveMethodArguments(actionCall);
+            foreach (var argument in arguments)
+            {
+                this.Controller.Validate(argument.Value);
+            }
         }
     }
 }

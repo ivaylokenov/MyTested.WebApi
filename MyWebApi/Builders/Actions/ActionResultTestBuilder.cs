@@ -1,7 +1,9 @@
-﻿namespace MyWebApi.Builders.Results
+﻿namespace MyWebApi.Builders.Actions
 {
     using System;
     using System.Web.Http;
+
+    using Base;
     using Contracts;
     using Exceptions;
     using Utilities;
@@ -26,13 +28,13 @@
 
         private void ValidateActionReturnType(Type typeOfExpectedReturnValue, bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
         {
-            var typeOfActionResult = this.ActionResult.GetType();
+            var typeOfActionResult = ActionResult.GetType();
 
             var isAssignableCheck = canBeAssignable && Reflection.AreNotAssignable(typeOfExpectedReturnValue, typeOfActionResult);
             var haveDifferentGenericArguments = false;
             if (isAssignableCheck && allowDifferentGenericTypeDefinitions && Reflection.IsGeneric(typeOfExpectedReturnValue))
             {
-                isAssignableCheck = Reflection.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
+                isAssignableCheck = Reflection.AreAssignableByGeneric(typeOfExpectedReturnValue, typeOfActionResult);
 
                 if (!Reflection.IsGenericTypeDefinition(typeOfExpectedReturnValue))
                 {
@@ -45,7 +47,7 @@
             var invalid = isAssignableCheck || strictlyEqualCheck || haveDifferentGenericArguments;
             if (strictlyEqualCheck)
             {
-                var genericTypeDefinitionCheck = Reflection.AreAssignableByGenericDefinition(typeOfExpectedReturnValue, typeOfActionResult);
+                var genericTypeDefinitionCheck = Reflection.AreAssignableByGeneric(typeOfExpectedReturnValue, typeOfActionResult);
 
                 if (genericTypeDefinitionCheck)
                 {
@@ -56,8 +58,9 @@
             if (invalid)
             {
                 throw new HttpActionResultAssertionException(string.Format(
-                    "When calling {0} expected action result to be a {1}, but instead received a {2}.",
-                    this.ActionName,
+                    "When calling {0} action in {1} expected action result to be a {2}, but instead received a {3}.",
+                    ActionName,
+                    Controller.GetType().Name,
                     typeOfExpectedReturnValue.Name,
                     typeOfActionResult.Name));
             }
@@ -66,7 +69,7 @@
         private void ValidateActionReturnType<TExpectedType>(bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
         {
             var typeOfResponseData = typeof(TExpectedType);
-            this.ValidateActionReturnType(typeOfResponseData, canBeAssignable, allowDifferentGenericTypeDefinitions);
+            ValidateActionReturnType(typeOfResponseData, canBeAssignable, allowDifferentGenericTypeDefinitions);
         }
     }
 }

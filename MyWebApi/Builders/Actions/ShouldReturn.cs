@@ -1,6 +1,9 @@
-﻿namespace MyWebApi.Builders.Results
+﻿namespace MyWebApi.Builders.Actions
 {
     using System;
+
+    using Contracts;
+    using ResponseModels;
 
     /// <summary>
     /// Class containing methods for testing return type.
@@ -12,18 +15,22 @@
         /// Tests whether action result is of the provided type.
         /// </summary>
         /// <param name="returnType">Expected response type.</param>
-        public void ShouldReturn(Type returnType)
+        /// <returns>Response model test builder.</returns>
+        public IResponseModelErrorTestBuilder ShouldReturn(Type returnType)
         {
-            this.ValidateActionReturnType(returnType, true, true);
+            ValidateActionReturnType(returnType, true, true);
+            return new ResponseModelErrorTestBuilder(Controller, ActionName);
         }
 
         /// <summary>
         /// Tests whether action result is of the provided generic type.
         /// </summary>
         /// <typeparam name="TResponseModel">Expected response type.</typeparam>
-        public void ShouldReturn<TResponseModel>()
+        /// <returns>Response model test builder.</returns>
+        public IResponseModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>()
         {
-            this.ValidateActionReturnType<TResponseModel>(true);
+            ValidateActionReturnType<TResponseModel>(true);
+            return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
         }
     }
 }

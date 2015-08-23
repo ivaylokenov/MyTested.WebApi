@@ -52,20 +52,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\BaseTestBuilderWithActionResult.cs" />
+    <Compile Include="Builders\Base\BaseTestBuilder.cs" />
+    <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Contracts\IBaseTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\IBaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Contracts\IControllerBuilder.cs" />
     <Compile Include="Builders\Contracts\IActionResultTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\IResponseModelErrorDetailsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IResponseModelErrorTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\IResponseModelErrorTestBuilder{TResponseModel}.cs" />
     <Compile Include="Builders\Contracts\IResponseModelTestBuilder.cs" />
     <Compile Include="Builders\ControllerBuilder.cs" />
-    <Compile Include="Builders\ResponseModelErrorTestBuilder.cs" />
-    <Compile Include="Builders\ResponseModelTestBuilder.cs" />
-    <Compile Include="Builders\Results\ActionResultTestBuilder.cs" />
-    <Compile Include="Builders\Results\ShouldReturn.cs" />
-    <Compile Include="Builders\Results\ShouldReturnOk.cs" />
+    <Compile Include="Builders\Actions\ShouldHaveModelState.cs" />
+    <Compile Include="Builders\ResponseModels\ResponseModelErrorDetailsTestBuilder.cs" />
+    <Compile Include="Builders\ResponseModels\ResponseModelErrorTestBuilder.cs" />
+    <Compile Include="Builders\ResponseModels\ResponseModelErrorTestBuilder{TResponseModel}.cs" />
+    <Compile Include="Builders\ResponseModels\ResponseModelTestBuilder.cs" />
+    <Compile Include="Builders\Actions\ActionResultTestBuilder.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn.cs" />
+    <Compile Include="Builders\Actions\ShouldReturnOk.cs" />
+    <Compile Include="Common\TypeValuePair.cs" />
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
+    <Compile Include="Exceptions\ResponseModelErrorAssertionException.cs" />
     <Compile Include="MyWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ExpressionParser.cs" />

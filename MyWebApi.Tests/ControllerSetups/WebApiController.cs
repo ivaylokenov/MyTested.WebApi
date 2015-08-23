@@ -5,6 +5,10 @@
     using System.Web.Http;
     using System.Web.Http.Results;
 
+    using Models;
+
+    using Services;
+
     internal class WebApiController : ApiController
     {
         private readonly ICollection<ResponseModel> responseModel;
@@ -17,11 +21,7 @@
         public WebApiController(IInjectedService injectedService)
         {
             this.InjectedService = injectedService;
-            this.responseModel = new List<ResponseModel>
-            {
-                new ResponseModel { Id = 1, Name = "Test" },
-                new ResponseModel { Id = 2, Name = "Another Test" }
-            };
+            this.responseModel = TestObjectFactory.GetListOfResponseModels();
         }
 
         public ICollection<ResponseModel> ResponseModel
@@ -34,6 +34,21 @@
         public IHttpActionResult OkResultAction()
         {
             return this.Ok();
+        }
+
+        public IHttpActionResult OkResultActionWithRequestBody(int id, RequestModel model)
+        {
+            return this.Ok(this.responseModel);
+        }
+
+        public IHttpActionResult ModelStateCheck(RequestModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return this.Ok(model);
+            }
+
+            return this.Ok(model);
         }
 
         public IHttpActionResult OkResultWithResponse()
