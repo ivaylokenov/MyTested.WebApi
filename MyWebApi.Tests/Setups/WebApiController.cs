@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Tests.Setups
 {
     using System.Collections.Generic;
+    using System.Net;
     using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Results;
@@ -63,6 +64,11 @@
         public IHttpActionResult BadRequestAction()
         {
             return this.BadRequest();
+        }
+
+        public IHttpActionResult StatusCodeAction()
+        {
+            return this.StatusCode(HttpStatusCode.Found);
         }
 
         public bool GenericStructAction()
