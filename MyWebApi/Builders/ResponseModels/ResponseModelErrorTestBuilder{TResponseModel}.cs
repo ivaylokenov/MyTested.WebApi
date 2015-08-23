@@ -31,7 +31,7 @@
         /// <returns>Response model error details test builder.</returns>
         public IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateError(string errorKey)
         {
-            if (!ModelState.ContainsKey(errorKey) || ModelState.Count == 0)
+            if (!this.ModelState.ContainsKey(errorKey) || this.ModelState.Count == 0)
             {
                 this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected to have a model error against key {2}, but none found.",
@@ -39,11 +39,11 @@
             }
 
             return new ResponseModelErrorDetailsTestBuilder<TResponseModel>(
-                Controller,
-                ActionName,
+                this.Controller,
+                this.ActionName,
                 this,
                 errorKey,
-                ModelState[errorKey].Errors);
+                this.ModelState[errorKey].Errors);
         }
 
         /// <summary>
@@ -58,11 +58,11 @@
             this.ContainingModelStateError(memberName);
 
             return new ResponseModelErrorDetailsTestBuilder<TResponseModel>(
-                Controller,
-                ActionName,
+                this.Controller,
+                this.ActionName,
                 this,
                 memberName,
-                ModelState[memberName].Errors);
+                this.ModelState[memberName].Errors);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@
         public IResponseModelErrorTestBuilder<TResponseModel> ContainingNoModelStateErrorFor<TMember>(Expression<Func<TResponseModel, TMember>> memberWithNoError)
         {
             var memberName = ExpressionParser.GetPropertyName(memberWithNoError);
-            if (ModelState.ContainsKey(memberName))
+            if (this.ModelState.ContainsKey(memberName))
             {
                 this.ThrowNewResponseModelErrorAssertionException(
                     "When calling {0} action in {1} expected to have no model errors against key {2}, but found some.",
@@ -88,8 +88,8 @@
         {
             throw new ResponseModelErrorAssertionException(string.Format(
                     messageFormat,
-                    ActionName,
-                    Controller.GetType().Name,
+                    this.ActionName,
+                    this.Controller.GetType().ToFriendlyGenericTypeName(),
                     errorKey));
         }
     }

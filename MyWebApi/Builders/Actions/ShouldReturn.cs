@@ -18,8 +18,8 @@
         /// <returns>Response model test builder.</returns>
         public IResponseModelErrorTestBuilder ShouldReturn(Type returnType)
         {
-            ValidateActionReturnType(returnType, true, true);
-            return new ResponseModelErrorTestBuilder(Controller, ActionName);
+            this.ValidateActionReturnType(returnType, true, true);
+            return new ResponseModelErrorTestBuilder(this.Controller, this.ActionName);
         }
 
         /// <summary>
@@ -29,8 +29,8 @@
         /// <returns>Response model test builder.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>()
         {
-            ValidateActionReturnType<TResponseModel>(true);
-            return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
+            this.ValidateActionReturnType<TResponseModel>(true);
+            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
     }
 }

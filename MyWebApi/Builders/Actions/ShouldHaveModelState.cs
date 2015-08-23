@@ -1,8 +1,9 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
     using Contracts;
-    using ResponseModels;
     using Exceptions;
+    using ResponseModels;
+    using Utilities;
 
     /// <summary>
     /// Class containing methods for testing return type.
@@ -37,8 +38,8 @@
             {
                 throw new ResponseModelErrorAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have invalid model state, but was in fact valid.",
-                    ActionName,
-                    Controller.GetType().Name));
+                    this.ActionName,
+                    this.Controller.GetType().ToFriendlyGenericTypeName()));
             }
         }
     }

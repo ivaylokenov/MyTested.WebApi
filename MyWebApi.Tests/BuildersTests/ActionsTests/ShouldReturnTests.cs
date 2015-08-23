@@ -3,7 +3,9 @@
     using System.Collections.Generic;
 
     using Exceptions;
+
     using NUnit.Framework;
+
     using Setups;
     using Setups.Models;
 
@@ -83,7 +85,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(HttpActionResultAssertionException))]
+        [ExpectedException(
+            typeof(HttpActionResultAssertionException),
+            ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be a ResponseModel, but instead received a List<ResponseModel>.")]
         public void ShouldReturnShouldThrowExceptionWithDifferentResult()
         {
             MyWebApi
@@ -93,7 +97,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(HttpActionResultAssertionException))]
+        [ExpectedException(
+            typeof(HttpActionResultAssertionException),
+            ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be a ResponseModel, but instead received a List<ResponseModel>.")]
         public void ShouldReturnShouldThrowExceptionWithDifferentResultAndTypeOf()
         {
             MyWebApi
@@ -103,7 +109,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(HttpActionResultAssertionException))]
+        [ExpectedException(
+            typeof(HttpActionResultAssertionException),
+            ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be a ICollection<Int32>, but instead received a List<ResponseModel>.")]
         public void ShouldReturnShouldThrowExceptionWithDifferentGenericResult()
         {
             MyWebApi
@@ -113,7 +121,9 @@
         }
 
         [Test]
-        [ExpectedException(typeof(HttpActionResultAssertionException))]
+        [ExpectedException(
+            typeof(HttpActionResultAssertionException),
+            ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be a ICollection<Int32>, but instead received a List<ResponseModel>.")]
         public void ShouldReturnShouldThrowExceptionWithDifferentGenericResultAndTypeOf()
         {
             MyWebApi

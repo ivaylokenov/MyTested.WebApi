@@ -32,13 +32,13 @@
         /// </summary>
         public void WithNoResponseModel()
         {
-            var actualResult = ActionResult as OkResult;
+            var actualResult = this.ActionResult as OkResult;
             if (actualResult == null)
             {
                 throw new ResponseModelAssertionException(string.Format(
                         "When calling {0} action in {1} expected to not have response model but in fact response model was found",
-                        ActionName,
-                        Controller.GetType().Name));
+                        this.ActionName,
+                        this.Controller.GetType().ToFriendlyGenericTypeName()));
             }
         }
 
@@ -49,7 +49,7 @@
         /// <returns>Builder for testing the response model errors.</returns>
         public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>()
         {
-            var actionResultType = ActionResult.GetType();
+            var actionResultType = this.ActionResult.GetType();
             var negotiatedContentResultType = typeof(OkNegotiatedContentResult<TResponseModel>);
 
             var negotiatedActionResultIsAssignable = Reflection.AreAssignable(
@@ -69,10 +69,10 @@
                     {
                         throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model to be a {2}, but instead received a {3}.",
-                            ActionName,
-                            Controller.GetType().Name,
-                            typeof(TResponseModel).Name,
-                            actualResponseDataType.Name));
+                            this.ActionName,
+                            this.Controller.GetType().ToFriendlyGenericTypeName(),
+                            typeof(TResponseModel).ToFriendlyGenericTypeName(),
+                            actualResponseDataType.ToFriendlyGenericTypeName()));
                     }
                 }
             }
@@ -97,8 +97,8 @@
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model {2} to be the given model, but in fact it was a different model.",
                             this.ActionName,
-                            this.Controller.GetType().Name,
-                            typeof(TResponseModel).Name));
+                            this.Controller.GetType().ToFriendlyGenericTypeName(),
+                            typeof(TResponseModel).ToFriendlyGenericTypeName()));
             }
 
             return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
@@ -117,7 +117,7 @@
             var actualModel = this.GetActualModel<TResponseModel>();
             assertions(actualModel);
 
-            return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
+            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
 
         /// <summary>
@@ -135,9 +135,9 @@
             {
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model {2} to pass the given condition, but it failed.",
-                            ActionName,
-                            Controller.GetType().Name,
-                            typeof(TResponseModel).Name));
+                            this.ActionName,
+                            this.Controller.GetType().ToFriendlyGenericTypeName(),
+                            typeof(TResponseModel).ToFriendlyGenericTypeName()));
             }
 
             return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
@@ -145,7 +145,7 @@
 
         private TResponseModel GetActualModel<TResponseModel>()
         {
-            return ActionResult.GetType().CastTo<dynamic>(ActionResult).Content;
+            return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult).Content;
         }
     }
 }

@@ -10,6 +10,7 @@
     using Base;
     using Contracts;
     using Exceptions;
+    using Utilities;
 
     /// <summary>
     /// Used for testing specific response model errors.
@@ -147,7 +148,7 @@
             throw new ResponseModelErrorAssertionException(string.Format(
                     messageFormat,
                     this.ActionName,
-                    this.Controller,
+                    this.Controller.GetType().ToFriendlyGenericTypeName(),
                     this.currentErrorKey,
                     operation,
                     string.Join(", ", this.aggregatedErrors)));  

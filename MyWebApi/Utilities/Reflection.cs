@@ -127,6 +127,11 @@
             return (TResult)ret;
         }
 
+        /// <summary>
+        /// Transforms generic type name to friendly one, showing generic type arguments.
+        /// </summary>
+        /// <param name="type">Type which name will be transformed.</param>
+        /// <returns>Transformed name as string.</returns>
         public static string ToFriendlyGenericTypeName(this Type type)
         {
             if (!type.IsGenericType)

@@ -17,17 +17,17 @@
         /// <returns>Response model test builder.</returns>
         public IResponseModelTestBuilder ShouldReturnOk()
         {
-            var actionResultAsOkResult = ActionResult as OkResult;
+            var actionResultAsOkResult = this.ActionResult as OkResult;
             if (actionResultAsOkResult != null)
             {
-                ShouldReturn<OkResult>();
+                this.ShouldReturn<OkResult>();
             }
             else
             {
-                ValidateActionReturnType(typeof(OkNegotiatedContentResult<>), allowDifferentGenericTypeDefinitions: true);
+                this.ValidateActionReturnType(typeof(OkNegotiatedContentResult<>), allowDifferentGenericTypeDefinitions: true);
             }
 
-            return new ResponseModelTestBuilder<TActionResult>(Controller, ActionName, ActionResult);
+            return new ResponseModelTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
         }
     }
 }

@@ -39,7 +39,7 @@
         public IActionResultTestBuilder<TActionResult> Calling<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
-            ValidateModelState(actionCall);
+            this.ValidateModelState(actionCall);
             var actionResult = actionCall.Compile().Invoke(this.Controller);
             return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
         }
@@ -53,7 +53,7 @@
         public IActionResultTestBuilder<TActionResult> CallingAsync<TActionResult>(Expression<Func<TController, Task<TActionResult>>> actionCall)
         {
             var actionName = ExpressionParser.GetMethodName(actionCall);
-            ValidateModelState(actionCall);
+            this.ValidateModelState(actionCall);
             var actionResult = actionCall.Compile().Invoke(this.Controller).Result;
             return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
         }

@@ -71,7 +71,7 @@
                 throw new ResponseModelErrorAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have valid model state with no errors, but it had some.",
                     this.ActionName,
-                    this.Controller.GetType().Name));
+                    this.Controller.GetType().ToFriendlyGenericTypeName()));
             }
         }
     }
