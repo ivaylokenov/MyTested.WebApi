@@ -33,6 +33,17 @@
         IResponseModelTestBuilder ShouldReturnOk();
 
         /// <summary>
+        /// Tests whether action result is StatusCodeResult.
+        /// </summary>
+        void ShouldReturnStatusCode();
+
+        /// <summary>
+        /// Tests whether action result is StatusCodeResult and is the same as provided HttpStatusCode.
+        /// </summary>
+        /// <param name="statusCode">HttpStatusCode enumeration.</param>
+        void ShouldReturnStatusCode(HttpStatusCode statusCode);
+
+        /// <summary>
         /// Tests whether action result is of the provided generic type.
         /// </summary>
         /// <typeparam name="TResponseModel">Expected response type.</typeparam>
@@ -45,9 +56,5 @@
         /// <param name="returnType">Expected return type.</param>
         /// <returns>Response model test builder.</returns>
         IResponseModelErrorTestBuilder ShouldReturn(Type returnType);
-
-        void ShouldReturnStatusCode();
-
-        void ShouldReturnStatusCode(HttpStatusCode statusCode);
     }
 }

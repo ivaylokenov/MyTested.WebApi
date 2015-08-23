@@ -6,13 +6,24 @@
     using Exceptions;
     using Utilities;
 
+    /// <summary>
+    /// Class containing methods for testing OkResult.
+    /// </summary>
+    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ActionResultTestBuilder<TActionResult>
     {
+        /// <summary>
+        /// Tests whether action result is StatusCodeResult.
+        /// </summary>
         public void ShouldReturnStatusCode()
         {
             this.ShouldReturn<StatusCodeResult>();
         }
 
+        /// <summary>
+        /// Tests whether action result is StatusCodeResult and is the same as provided HttpStatusCode.
+        /// </summary>
+        /// <param name="statusCode">HttpStatusCode enumeration.</param>
         public void ShouldReturnStatusCode(HttpStatusCode statusCode)
         {
             this.ShouldReturnStatusCode();
