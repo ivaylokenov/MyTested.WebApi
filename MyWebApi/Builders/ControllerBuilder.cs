@@ -2,9 +2,9 @@
 {
     using System;
     using System.Linq.Expressions;
-    using System.Security.Principal;
     using System.Threading.Tasks;
     using System.Web.Http;
+
     using Actions;
     using Common.Identity;
     using Contracts;
@@ -35,6 +35,14 @@
         public IControllerBuilder<TController> WithAuthorizedUser()
         {
             this.Controller.User = MockedIPrinciple.CreateDefaultAuthorized();
+            return this;
+        }
+
+        public IControllerBuilder<TController> WithAuthorizedUser(Action<IUserBuilder> userBuilder)
+        {
+            var newUserBuilder = new UserBuilder();
+            userBuilder(newUserBuilder);
+            this.Controller.User = newUserBuilder.GetUser();
             return this;
         }
 
