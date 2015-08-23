@@ -11,9 +11,16 @@
 
         private readonly IEnumerable<string> roles;
 
-        public MockedIPrinciple()
+        public MockedIPrinciple(
+            string username = null,
+            string principalType = null,
+            IEnumerable<string> roles = null)
         {
-            this.roles = new HashSet<string>();
+            this.roles = roles ?? new HashSet<string>();
+            this.Identity = new MockedIIdentity(
+                username ?? DefaultUsername,
+                principalType ?? DefaultIPrincipalType,
+                true);
         }
 
         public static IPrincipal CreateUnauthorized()
