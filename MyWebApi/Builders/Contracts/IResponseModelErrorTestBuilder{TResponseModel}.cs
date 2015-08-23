@@ -32,5 +32,11 @@
         /// <returns>This instance in order to support method chaining.</returns>
         IResponseModelErrorTestBuilder<TResponseModel> ContainingNoModelStateErrorFor<TMember>(
             Expression<Func<TResponseModel, TMember>> memberWithNoError);
+
+        /// <summary>
+        /// And method for better readability when chaining error message tests.
+        /// </summary>
+        /// <returns>Response model error details test builder.</returns>
+        IResponseModelErrorTestBuilder<TResponseModel> And();
     }
 }

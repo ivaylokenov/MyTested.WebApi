@@ -84,6 +84,15 @@
             return this;
         }
 
+        /// <summary>
+        /// And method for better readability when chaining error message tests.
+        /// </summary>
+        /// <returns>Response model error details test builder.</returns>
+        public IResponseModelErrorTestBuilder<TResponseModel> And()
+        {
+            return this;
+        }
+
         private void ThrowNewResponseModelErrorAssertionException(string messageFormat, string errorKey)
         {
             throw new ResponseModelErrorAssertionException(string.Format(

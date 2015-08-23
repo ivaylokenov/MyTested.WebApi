@@ -34,11 +34,11 @@
         [Test]
         public void CallingShouldPopulateModelStateWhenThereAreModelErrors()
         {
-            var requestBody = TestObjectFactory.GetRequestModelWithErrors();
+            var requestModel = TestObjectFactory.GetRequestModelWithErrors();
 
             var actionResultTestBuilder = MyWebApi
                 .Controller<WebApiController>()
-                .Calling(c => c.OkResultActionWithRequestBody(1, requestBody));
+                .Calling(c => c.OkResultActionWithRequestBody(1, requestModel));
 
             var modelState = actionResultTestBuilder.Controller.ModelState;
 
@@ -51,11 +51,11 @@
         [Test]
         public void CallingShouldHaveValidModelStateWhenThereAreNoModelErrors()
         {
-            var requestBody = TestObjectFactory.GetValidRequestModel();
+            var requestModel = TestObjectFactory.GetValidRequestModel();
 
             var actionResultTestBuilder = MyWebApi
                 .Controller<WebApiController>()
-                .Calling(c => c.OkResultActionWithRequestBody(1, requestBody));
+                .Calling(c => c.OkResultActionWithRequestBody(1, requestModel));
 
             var modelState = actionResultTestBuilder.Controller.ModelState;
 
