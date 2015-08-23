@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Builders.Contracts
 {
     using System;
+    using System.Net;
 
     /// <summary>
     /// Used for building the action result which will be tested.
@@ -44,5 +45,9 @@
         /// <param name="returnType">Expected return type.</param>
         /// <returns>Response model test builder.</returns>
         IResponseModelErrorTestBuilder ShouldReturn(Type returnType);
+
+        void ShouldReturnStatusCode();
+
+        void ShouldReturnStatusCode(HttpStatusCode statusCode);
     }
 }

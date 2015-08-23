@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\Actions\ShouldReturnStatusCode.cs" />
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Contracts\IBaseTestBuilder.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Builders\Actions\ShouldReturnOk.cs" />
     <Compile Include="Common\TypeValuePair.cs" />
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
+    <Compile Include="Exceptions\HttpStatusCodeAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelErrorAssertionException.cs" />
     <Compile Include="MyWebApi.cs" />
