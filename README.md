@@ -7,7 +7,7 @@ MyWebApi is unit testing framework providing easy fluent interface to test the A
 
 ## How to use
 
-### Controllers
+### Controller instantiation
 
 You have a couple of options from which you can setup the controller you want to test. The framework gives you static `MyWebApi` class from which the test builder starts.
 
@@ -19,6 +19,27 @@ MyWebApi
 // instantiates controller with constructor function to resolve dependencies
 MyWebApi
 	.Controller(() => new WebApiController(mockedInjectedService));
+```
+
+### Calling actions
+
+You can call any action using lambda expression. All parameter values will be resolved and model state validation will be performed on them.
+
+```c#
+// calls action with no parameters
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction());
+	
+// calls action with parameters
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(requestModel));
+
+// calls async action
+MyWebApi
+	.Controller<WebApiController>()
+	.CallingAsync(c => c.SomeActionAsync());
 ```
 
 ## Any questions, comments or additions?
