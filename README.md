@@ -119,7 +119,7 @@ MyWebApi
 	.ShouldReturn(typeof(IList<>)); // works with IEnumerable<> (or IList<ResponseModel>) too by using polymorphism
 ```
 
-#### OkResult
+#### Ok result
 
 ```c#
 // tests whether the action returns OkResult
@@ -166,6 +166,16 @@ MyWebApi
 	.Calling(c => c.SomeAction())
 	.ShouldReturnOk()
 	.WithResponseModel<ResponseModel>(m => m.Id == 1);
+	
+// tests for model state errors for the response model (not very useful in practice)
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.WithResponseModel<ResponseModel>()
+	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message")
+	.And()
+	.ContainingNoModelStateErrorFor(m => m.AnotherProperty);
 ```
 
 ## Any questions, comments or additions?
