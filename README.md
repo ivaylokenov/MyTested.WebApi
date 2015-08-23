@@ -9,7 +9,7 @@ MyWebApi is unit testing framework providing easy fluent interface to test the A
 
 ### Controller instantiation
 
-You have a couple of options from which you can setup the controller you want to test. The framework gives you static `MyWebApi` class from which the test builder starts.
+You have a couple of options from which you can setup the controller you want to test. The framework gives you static `MyWebApi` class from which the test builder starts:
 
 ```c#
 // instantiates controller with parameterless constructor
@@ -23,7 +23,7 @@ MyWebApi
 
 ### Calling actions
 
-You can call any action using lambda expression. All parameter values will be resolved and model state validation will be performed on them.
+You can call any action using lambda expression. All parameter values will be resolved and model state validation will be performed on them:
 
 ```c#
 // calls action with no parameters
@@ -40,6 +40,55 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.CallingAsync(c => c.SomeActionAsync());
+```
+
+### Model state validation
+
+You can test whether model state is valid/invalid or contains any specific error:
+
+```c#
+// tests whether model state is valid
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(requestModel))
+	.ShouldHaveValidModelState();
+	
+// tests whether model state is not valid
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(requestModel))
+	.ShouldHaveInvalidModelState();
+	
+// tests whether model state error exists (or does not exist) for specific key (not recommended because of magic string)
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(requestModel))
+	.ShouldHaveModelStateFor<RequestModel>()
+	.ContainingModelStateError("propertyName")
+	.And() // calling And method is not necessary but provides better readability
+	.ContainingNoModelStateError("anotherPropertyName");
+	
+// tests whether model state error exists by using lambda expression
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(requestModel))
+	.ShouldHaveModelStateFor<RequestModel>()
+	.ContainingModelStateErrorFor(m => m.SomeProperty)
+	.And()
+	.ContainingNoModelStateErrorFor(m => m.AnotherProperty);
+	
+// tests the error message for specific property
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(requestModel))
+	.ShouldHaveModelStateFor<RequestModel>()
+	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message") // error message must be equal to the provided string
+	.And()
+	.ContainingModelStateErrorFor(m => m.SecondProperty).BeginningWith("Error") // error message must begin with the provided string
+	.And()
+	.ContainingModelStateErrorFor(m => m.ThirdProperty).EndingWith("message") // error message must end with the provided string
+	.And()
+	.ContainingModelStateErrorFor(m => m.SecondProperty).Containing("ror mes"); // error message must contain the provided string
 ```
 
 ## Any questions, comments or additions?

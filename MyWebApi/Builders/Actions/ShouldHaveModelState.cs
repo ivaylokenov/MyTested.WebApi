@@ -18,7 +18,7 @@
         /// <returns>Response model test builder.</returns>
         public IResponseModelErrorTestBuilder<TRequestModel> ShouldHaveModelStateFor<TRequestModel>()
         {
-            return new ResponseModelErrorTestBuilder<TRequestModel>(Controller, ActionName);
+            return new ResponseModelErrorTestBuilder<TRequestModel>(this.Controller, this.ActionName);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@
         /// </summary>
         public void ShouldHaveValidModelState()
         {
-            CheckValidModelState();
+            this.CheckValidModelState();
         }
 
         /// <summary>
@@ -34,7 +34,7 @@
         /// </summary>
         public void ShouldHaveInvalidModelState()
         {
-            if (Controller.ModelState.Count == 0)
+            if (this.Controller.ModelState.Count == 0)
             {
                 throw new ResponseModelErrorAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have invalid model state, but was in fact valid.",

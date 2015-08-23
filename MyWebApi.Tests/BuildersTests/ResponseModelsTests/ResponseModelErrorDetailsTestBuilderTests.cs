@@ -19,8 +19,11 @@
                 .ShouldHaveModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(m => m.NonRequiredString)
                 .ContainingModelStateErrorFor(m => m.RequiredString).ThatEquals("The RequiredString field is required.")
+                .And()
                 .ContainingModelStateErrorFor(m => m.RequiredString)
+                .And()
                 .ContainingNoModelStateErrorFor(m => m.NotValidateInteger)
+                .And()
                 .ContainingModelStateError("RequiredString")
                 .ContainingModelStateErrorFor(m => m.Integer).ThatEquals(string.Format("The field Integer must be between {0} and {1}.", 1, int.MaxValue))
                 .ContainingModelStateError("RequiredString")
@@ -41,6 +44,7 @@
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
                 .ShouldHaveModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(m => m.NonRequiredString)
+                .And()
                 .ContainingModelStateErrorFor(m => m.RequiredString).ThatEquals("RequiredString field is required.")
                 .ContainingModelStateErrorFor(m => m.Integer).ThatEquals(string.Format("Integer must be between {0} and {1}.", 1, int.MaxValue));
         }
