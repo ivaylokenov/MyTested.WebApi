@@ -6,6 +6,7 @@
 
     using Builders;
     using Builders.Contracts;
+    using Common.Identity;
 
     /// <summary>
     /// Starting point of the testing framework, which provides a way to specify the ASP.NET Web API controller to be tested.
@@ -41,6 +42,7 @@
         {
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
+            controller.User = MockedIPrinciple.CreateUnauthorized();
         }
     }
 }
