@@ -6,6 +6,9 @@
 
     public class MockedIPrinciple : IPrincipal
     {
+        private const string DefaultUsername = "TestUser";
+        private const string DefaultIPrincipalType = "Passport";
+
         private readonly IEnumerable<string> roles;
 
         public MockedIPrinciple()
@@ -18,6 +21,14 @@
             return new MockedIPrinciple
             {
                 Identity = new MockedIIdentity()
+            };
+        }
+
+        public static IPrincipal CreateDefaultAuthorized()
+        {
+            return new MockedIPrinciple()
+            {
+                Identity = new MockedIIdentity(DefaultUsername, DefaultIPrincipalType, true)
             };
         }
 
