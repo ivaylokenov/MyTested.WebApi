@@ -4,7 +4,9 @@
     using System.Collections.Generic;
 
     using NUnit.Framework;
-
+    using Setups;
+    using Setups.Models;
+    using Setups.Services;
     using Utilities;
 
     [TestFixture]
@@ -233,6 +235,71 @@
         {
             var name = typeof(Dictionary<string, int>).ToFriendlyGenericTypeName();
             Assert.AreEqual("Dictionary<String, Int32>", name);
+        }
+
+        [Test]
+        public void TryGetInstanceShouldReturnObjectWithDefaultConstructorWhenNoParametersAreProvided()
+        {
+            var instance = Reflection.TryGetInstanceByUnorderedConstructorParameters<WebApiController>();
+
+            Assert.IsNotNull(instance);
+            Assert.AreEqual(typeof(WebApiController), instance.GetType());
+            Assert.IsNull(instance.InjectedRequestModel);
+            Assert.IsNotNull(instance.InjectedService);
+        }
+
+        [Test]
+        public void TryGetInstanceShouldReturnCorrectInitializationWithPartOfAllParameters()
+        {
+            var instance =
+                Reflection.TryGetInstanceByUnorderedConstructorParameters<WebApiController>(new InjectedService());
+
+            Assert.IsNotNull(instance);
+            Assert.AreEqual(typeof(WebApiController), instance.GetType());
+            Assert.IsNull(instance.InjectedRequestModel);
+            Assert.IsNotNull(instance.InjectedService);
+        }
+
+        [Test]
+        public void TryGetInstanceShouldReturnInitializedObjectWhenCorrectOrderOfParametersAreProvided()
+        {
+            var instance = Reflection.TryGetInstanceByUnorderedConstructorParameters<WebApiController>(
+                new InjectedService(), new RequestModel());
+
+            Assert.IsNotNull(instance);
+            Assert.AreEqual(typeof(WebApiController), instance.GetType());
+            Assert.IsNotNull(instance.InjectedRequestModel);
+            Assert.IsNotNull(instance.InjectedService);
+        }
+
+        [Test]
+        public void TryGetInstanceShouldReturnInitializedObjectWhenIncorrectOrderOfParametersAreProvided()
+        {
+            var instance = Reflection.TryGetInstanceByUnorderedConstructorParameters<WebApiController>(
+                new RequestModel(), new InjectedService());
+
+            Assert.IsNotNull(instance);
+            Assert.AreEqual(typeof(WebApiController), instance.GetType());
+            Assert.IsNotNull(instance.InjectedRequestModel);
+            Assert.IsNotNull(instance.InjectedService);
+        }
+
+        [Test]
+        public void TryGetInstanceShouldReturnNullWhenConstructorArgumentsDoNotMatch()
+        {
+            var instance = Reflection.TryGetInstanceByUnorderedConstructorParameters<WebApiController>(
+                new ResponseModel());
+
+            Assert.IsNull(instance);
+        }
+
+        [Test]
+        public void TryGetInstanceShouldReturnNullWhenConstructorArgumentsDoNotMatchAndAreTooMany()
+        {
+            var instance = Reflection.TryGetInstanceByUnorderedConstructorParameters<WebApiController>(
+                new RequestModel(), new InjectedService(), new ResponseModel());
+
+            Assert.IsNull(instance);
         }
     }
 }
