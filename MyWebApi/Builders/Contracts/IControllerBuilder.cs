@@ -20,7 +20,7 @@
 
         IControllerBuilder<TController> WithAuthorizedUser();
 
-        IControllerBuilder<TController> WithAuthorizedUser(Action<IUserBuilder> userBuilder);
+        IControllerBuilder<TController> WithAuthenticatedUser(Action<IUserBuilder> userBuilder);
             
         /// <summary>
         /// Indicates which action should be invoked and tested.

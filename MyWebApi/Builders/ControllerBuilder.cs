@@ -38,7 +38,7 @@
             return this;
         }
 
-        public IControllerBuilder<TController> WithAuthorizedUser(Action<IUserBuilder> userBuilder)
+        public IControllerBuilder<TController> WithAuthenticatedUser(Action<IUserBuilder> userBuilder)
         {
             var newUserBuilder = new UserBuilder();
             userBuilder(newUserBuilder);

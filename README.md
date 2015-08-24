@@ -65,7 +65,7 @@ MyWebApi
 	.Calling(c => c.SomeAction(requestModel))
 	.ShouldHaveModelStateFor<RequestModel>()
 	.ContainingModelStateError("propertyName")
-	.And() // calling And method is not necessary but provides better readability
+	.And() // calling And method is not necessary but provides better readability (and because it looks cool)
 	.ContainingNoModelStateError("anotherPropertyName");
 	
 // tests whether model state error exists by using lambda expression
@@ -187,7 +187,7 @@ MyWebApi
 	.Calling(c => c.SomeAction())
 	.ShouldReturnStatusCode();
 	
-// tests whether the action returns StatusCodeResult with status code equal to the provided
+// tests whether the action returns StatusCodeResult with status code equal to the provided one
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())

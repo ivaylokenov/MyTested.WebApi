@@ -65,7 +65,7 @@
         }
 
         [Test]
-        public void WithAuthorizedUserShouldPopulateUserPropertyWithDefaultValues()
+        public void WithAuthenticatedUserShouldPopulateUserPropertyWithDefaultValues()
         {
             var controllerBuilder = MyWebApi
                 .Controller<WebApiController>()
@@ -84,11 +84,11 @@
         }
 
         [Test]
-        public void WithAuthorizedUserShouldPopulateProperUserWhenUserWithUserBuilder()
+        public void WithAuthenticatedUserShouldPopulateProperUserWhenUserWithUserBuilder()
         {
             var controllerBuilder = MyWebApi
                 .Controller<WebApiController>()
-                .WithAuthorizedUser(user => user
+                .WithAuthenticatedUser(user => user
                     .WithUsername("NewUserName")
                     .WithAuthenticationType("Custom")
                     .InRole("NormalUser")
@@ -117,7 +117,7 @@
         }
 
         [Test]
-        public void WithAuthorizedNotCalledShouldNotHaveAuthorizedUser()
+        public void WithAuthenticatedNotCalledShouldNotHaveAuthorizedUser()
         {
             var controllerBuilder = MyWebApi
                 .Controller<WebApiController>();
