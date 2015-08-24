@@ -33,7 +33,7 @@
                 throw new HttpStatusCodeAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have {2} ({3}) status code, but received {4} ({5}).",
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyGenericTypeName(),
+                    this.Controller.GetType().ToFriendlyTypeName(),
                     (int)statusCode,
                     statusCode,
                     (int)statusCodeResult.StatusCode,

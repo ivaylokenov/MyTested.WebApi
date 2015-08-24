@@ -16,6 +16,24 @@ You have a couple of options from which you can setup the controller you want to
 MyWebApi
 	.Controller<WebApiController>();
 	
+// instantiates controller with provided resolved dependencies one by one
+// * dependencies do not need to be in any particular order
+// * works even without the generic interface explicit specification
+MyWebApi
+	.Controller<WebApiController>()
+	.WithResolvedDependencyFor<IInjectedService>(mockedInjectedService)
+	.WithResolvedDependencyFor<IAnotherInjectedService>(anotherMockedInjectedService);
+	
+// instantiates controller with provided dependencies all at once
+MyWebApi
+	.Controller<WebApiController>()
+	.WithResolvedDependencies(mockedInjectedService, anotherMockedInjectedService);
+	
+// instantiates controller with provided collection of dependencies
+MyWebApi
+	.Controller<WebApiController>()
+	.WithResolvedDependencies(new List<object> { mockedInjectedService, anotherMockedInjectedService });
+	
 // instantiates controller with constructor function to resolve dependencies
 MyWebApi
 	.Controller(() => new WebApiController(mockedInjectedService));
@@ -25,7 +43,7 @@ MyWebApi
 
 ```c#
 // by default Controller.User will be unauthenticated 
-// User.Identity.Name will be null and User.Identity.IsAuthenticated will be false
+// * User.Identity.Name will be null and User.Identity.IsAuthenticated will be false
 MyWebApi
 	.Controller<WebApiController>();
 	
@@ -86,7 +104,7 @@ MyWebApi
 	.ShouldHaveInvalidModelState();
 	
 // tests whether model state error exists (or does not exist) for specific key 
-// (not recommended because of magic string)
+// * not recommended because of magic string
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
@@ -140,7 +158,7 @@ MyWebApi
 	.ShouldReturn(typeof(ResponseModel));
 	
 // tests whether the action returns generic model
-// works with IEnumerable<> (or IList<ResponseModel>) too by using polymorphism
+// * works with IEnumerable<> (or IList<ResponseModel>) too by using polymorphism
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
@@ -197,7 +215,8 @@ MyWebApi
 	.ShouldReturnOk()
 	.WithResponseModel<ResponseModel>(m => m.Id == 1);
 	
-// tests for model state errors for the response model (not very useful in practice)
+// tests for model state errors for the response model 
+// * not very useful in practice
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())

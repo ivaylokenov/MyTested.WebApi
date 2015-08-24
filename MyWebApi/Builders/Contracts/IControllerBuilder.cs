@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Builders.Contracts
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
     using System.Web.Http;
@@ -17,6 +18,28 @@
         /// </summary>
         /// <value>Instance of the ASP.NET Web API controller.</value>
         TController Controller { get; }
+
+        /// <summary>
+        /// Tries to resolve constructor dependency of given type.
+        /// </summary>
+        /// <typeparam name="TDependency">Type of dependency to resolve.</typeparam>
+        /// <param name="dependency">Instance of dependency to inject into constructor.</param>
+        /// <returns>The same controller builder.</returns>
+        IControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency);
+
+        /// <summary>
+        /// Tries to resolve constructor dependencies by the provided collection of dependencies.
+        /// </summary>
+        /// <param name="dependencies">Collection of dependencies to inject into constructor.</param>
+        /// <returns>The same controller builder.</returns>
+        IControllerBuilder<TController> WithResolvedDependencies(IEnumerable<object> dependencies);
+
+        /// <summary>
+        /// Tries to resolve constructor dependencies by the provided dependencies.
+        /// </summary>
+        /// <param name="dependencies">Dependencies to inject into constructor.</param>
+        /// <returns>The same controller builder.</returns>
+        IControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies);
 
         /// <summary>
         /// Sets default authenticated user to the built controller with "TestUser" username.

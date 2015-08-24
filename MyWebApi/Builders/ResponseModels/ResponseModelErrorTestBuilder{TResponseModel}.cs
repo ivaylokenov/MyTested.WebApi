@@ -98,7 +98,7 @@
             throw new ResponseModelErrorAssertionException(string.Format(
                     messageFormat,
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyGenericTypeName(),
+                    this.Controller.GetType().ToFriendlyTypeName(),
                     errorKey));
         }
     }
