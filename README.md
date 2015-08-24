@@ -36,9 +36,14 @@ MyWebApi
 // sets custom authenticated user using delegate action
 MyWebApi
 	.Controller<WebApiController>()
+	.WithAuthenticatedUser(user => user.WithUsername("NewUserName"));
+		
+// sets custom authenticated user in user roles using delegate action
+MyWebApi
+	.Controller<WebApiController>()
 	.WithAuthenticatedUser(user => user
 		.WithUsername("NewUserName")
-		.InRoles("Moderator", "Administrator"));
+		.InRoles("Moderator", "Administrator")); // or InRole("Moderator")
 ```
 
 ### Calling actions
