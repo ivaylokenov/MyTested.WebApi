@@ -24,7 +24,8 @@ MyWebApi
 ### Authenticated user
 
 ```c#
-// by default Controller.User will be unauthenticated - User.Identity.Name will be null and User.Identity.IsAuthenticated will be false
+// by default Controller.User will be unauthenticated 
+// User.Identity.Name will be null and User.Identity.IsAuthenticated will be false
 MyWebApi
 	.Controller<WebApiController>();
 	
@@ -84,13 +85,14 @@ MyWebApi
 	.Calling(c => c.SomeAction(requestModel))
 	.ShouldHaveInvalidModelState();
 	
-// tests whether model state error exists (or does not exist) for specific key (not recommended because of magic string)
+// tests whether model state error exists (or does not exist) for specific key 
+// (not recommended because of magic string)
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
 	.ShouldHaveModelStateFor<RequestModel>()
 	.ContainingModelStateError("propertyName")
-	.And() // calling And method is not necessary but provides better readability (and because it looks cool)
+	.And() // And method is not necessary but provides better readability (and it is cool)
 	.ContainingNoModelStateError("anotherPropertyName");
 	
 // tests whether model state error exists by using lambda expression
@@ -106,14 +108,14 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveModelStateFor<RequestModel>()
-	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message") // error message must be equal to the provided string
-	.And()
-	.ContainingModelStateErrorFor(m => m.SecondProperty).BeginningWith("Error") // error message must begin with the provided string
-	.And()
-	.ContainingModelStateErrorFor(m => m.ThirdProperty).EndingWith("message") // error message must end with the provided string
-	.And()
-	.ContainingModelStateErrorFor(m => m.SecondProperty).Containing("ror mes"); // error message must contain the provided string
+	.ShouldHaveModelStateFor<RequestModel>() // error message must be equal to the provided string
+	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message") 
+	.And() // error message must begin with the provided string
+	.ContainingModelStateErrorFor(m => m.SecondProperty).BeginningWith("Error") 
+	.And() // error message must end with the provided string
+	.ContainingModelStateErrorFor(m => m.ThirdProperty).EndingWith("message") 
+	.And() // error message must contain the provided string
+	.ContainingModelStateErrorFor(m => m.SecondProperty).Containing("ror mes"); 
 ```
 
 ### Action results
@@ -138,10 +140,11 @@ MyWebApi
 	.ShouldReturn(typeof(ResponseModel));
 	
 // tests whether the action returns generic model
+// works with IEnumerable<> (or IList<ResponseModel>) too by using polymorphism
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturn(typeof(IList<>)); // works with IEnumerable<> (or IList<ResponseModel>) too by using polymorphism
+	.ShouldReturn(typeof(IList<>)); 
 ```
 
 #### Ok result
@@ -174,7 +177,8 @@ MyWebApi
 	.ShouldReturnOk()
 	.WithResponseModel(someResponseModelObject);
 
-// tests whether the action returns OkResult with specific response model passing certain assertions
+// tests whether the action returns OkResult 
+// with specific response model passing certain assertions
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
@@ -185,7 +189,8 @@ MyWebApi
 		Assert.AreEqual("Some property value", m.SomeProperty);
 	});
 	
-// tests whether the action returns OkResult with specific response model passing a predicate
+// tests whether the action returns OkResult 
+// with specific response model passing a predicate
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
