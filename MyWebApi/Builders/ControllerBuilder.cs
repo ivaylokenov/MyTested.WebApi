@@ -78,12 +78,22 @@
             return this;
         }
 
+        /// <summary>
+        /// Tries to resolve constructor dependencies by the provided collection of dependencies.
+        /// </summary>
+        /// <param name="dependencies">Collection of dependencies to inject into constructor.</param>
+        /// <returns>The same controller builder.</returns>
         public IControllerBuilder<TController> WithResolvedDependencies(IEnumerable<object> dependencies)
         {
             dependencies.ForEach(d => this.WithResolvedDependencyFor(d));
             return this;
         }
 
+        /// <summary>
+        /// Tries to resolve constructor dependencies by the provided dependencies.
+        /// </summary>
+        /// <param name="dependencies">Dependencies to inject into constructor.</param>
+        /// <returns>The same controller builder.</returns>
         public IControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies)
         {
             dependencies.ForEach(d => this.WithResolvedDependencyFor(d));
