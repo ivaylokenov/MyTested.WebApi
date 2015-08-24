@@ -83,6 +83,7 @@
     <Compile Include="Exceptions\HttpStatusCodeAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelErrorAssertionException.cs" />
+    <Compile Include="Exceptions\UnresolvedDependenciesException.cs" />
     <Compile Include="MyWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ExpressionParser.cs" />

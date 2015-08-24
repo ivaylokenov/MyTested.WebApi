@@ -134,7 +134,7 @@
         /// </summary>
         /// <param name="type">Type which name will be transformed.</param>
         /// <returns>Transformed name as string.</returns>
-        public static string ToFriendlyGenericTypeName(this Type type)
+        public static string ToFriendlyTypeName(this Type type)
         {
             if (!type.IsGenericType)
             {
@@ -148,7 +148,7 @@
             return string.Format("{0}<{1}>", friendlyGenericName, joinedGenericArgumentNames);
         }
 
-        public static T TryGetInstanceByUnorderedConstructorParameters<T>(params object[] constructorParameters)
+        public static T TryCreateInstance<T>(params object[] constructorParameters)
             where T : class
         {
             var type = typeof (T);
