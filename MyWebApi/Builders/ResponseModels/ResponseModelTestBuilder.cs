@@ -77,7 +77,7 @@
                 }
             }
 
-            return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
+            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@
                             typeof(TResponseModel).ToFriendlyGenericTypeName()));
             }
 
-            return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
+            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@
                             typeof(TResponseModel).ToFriendlyGenericTypeName()));
             }
 
-            return new ResponseModelErrorTestBuilder<TResponseModel>(Controller, ActionName);
+            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
 
         private TResponseModel GetActualModel<TResponseModel>()

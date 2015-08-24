@@ -1,8 +1,10 @@
 ﻿namespace MyWebApi.Utilities
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Reflection;
 
     /// <summary>
     /// Class for validating reflection checks.
@@ -144,6 +146,79 @@
             var joinedGenericArgumentNames = string.Join(", ", genericArgumentNames);
 
             return string.Format("{0}<{1}>", friendlyGenericName, joinedGenericArgumentNames);
+        }
+
+        public static T TryGetInstanceByUnorderedConstructorParameters<T>(params object[] constructorParameters)
+            where T : class
+        {
+            var type = typeof (T);
+            T instance = null;
+            try
+            {
+                instance = Activator.CreateInstance(type, constructorParameters) as T;
+            }
+            catch (Exception)
+            {
+                var constructorParameterTypes = constructorParameters
+                    .Select(cp => cp.GetType())
+                    .ToList();
+
+                var constructor = type.GetConstructorByUnorderedParameters(constructorParameterTypes);
+                if (constructor == null)
+                {
+                    return instance;
+                }
+
+                var selectedConstructorParameters = constructor
+                    .GetParameters()
+                    .Select(cp => cp.ParameterType)
+                    .ToList();
+
+                var typeObjectDictionary = constructorParameters.ToDictionary(k => k.GetType());
+                var resultParameters = new List<object>();
+                foreach (var selectedConstructorParameterType in selectedConstructorParameters)
+                {
+                    foreach (var constructorParameterType in constructorParameterTypes)
+                    {
+                        if (selectedConstructorParameterType.IsAssignableFrom(constructorParameterType))
+                        {
+                            resultParameters.Add(typeObjectDictionary[constructorParameterType]);
+                            break;
+                        }
+                    }
+                }
+
+                instance = Activator.CreateInstance(type, resultParameters.ToArray()) as T;
+            }
+
+            return instance;
+        }
+
+        private static ConstructorInfo GetConstructorByUnorderedParameters(this Type type, IEnumerable<Type> types)
+        {
+            var orderedTypes = types
+                .OrderBy(t => t.FullName)
+                .ToList();
+
+            var constructor = type
+                .GetConstructors()
+                .Where(c =>
+                {
+                    var parameters = c.GetParameters()
+                        .OrderBy(p => p.ParameterType.FullName)
+                        .Select(p => p.ParameterType)
+                        .ToList();
+
+                    if (orderedTypes.Count != parameters.Count)
+                    {
+                        return false;
+                    }
+
+                    return !orderedTypes.Where((t, i) => !parameters[i].IsAssignableFrom(t)).Any();
+                })
+                .FirstOrDefault();
+
+            return constructor;
         }
     }
 }
