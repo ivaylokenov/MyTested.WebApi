@@ -148,10 +148,16 @@
             return string.Format("{0}<{1}>", friendlyGenericName, joinedGenericArgumentNames);
         }
 
+        /// <summary>
+        /// Tries to create instance of type T by using the provided unordered constructor parameters.
+        /// </summary>
+        /// <typeparam name="T">Type of created instance.</typeparam>
+        /// <param name="constructorParameters">Unordered constructor parameters.</param>
+        /// <returns>Created instance or null, if no suitable constructor found.</returns>
         public static T TryCreateInstance<T>(params object[] constructorParameters)
             where T : class
         {
-            var type = typeof (T);
+            var type = typeof(T);
             T instance = null;
             try
             {

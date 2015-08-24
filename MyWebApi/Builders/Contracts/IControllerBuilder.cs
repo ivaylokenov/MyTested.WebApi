@@ -18,6 +18,12 @@
         /// <value>Instance of the ASP.NET Web API controller.</value>
         TController Controller { get; }
 
+        /// <summary>
+        /// Tries to resolve constructor dependency of given type.
+        /// </summary>
+        /// <typeparam name="TDependency">Type of dependency to resolve.</typeparam>
+        /// <param name="dependency">Instance of dependency to inject into constructor.</param>
+        /// <returns>The same controller builder.</returns>
         IControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency);
 
         /// <summary>

@@ -21,9 +21,9 @@
     public class ControllerBuilder<TController> : IControllerBuilder<TController>
         where TController : ApiController
     {
-        private TController controller;
-
         private readonly IDictionary<Type, object> dependencies;
+
+        private TController controller;
         private bool isPreparedForTesting;
 
         /// <summary>
@@ -45,29 +45,22 @@
         {
             get
             {
-                if (this.controller == null)
-                {
-                    this.controller = Reflection.TryCreateInstance<TController>(this.dependencies.Select(v => v.Value).ToArray());
-                    if (this.controller == null)
-                    {
-                        var friendlyDependanciesNames = this.dependencies
-                            .Keys
-                            .Select(k => k.ToFriendlyTypeName());
-
-                        throw new UnresolvedDependenciesException(string.Format(
-                            "{0} controller could not be instantiated because it contains no constructor taking {1} as parameters.",
-                            typeof(TController).ToFriendlyTypeName(),
-                            string.Join(", ", friendlyDependanciesNames)));
-                    }
-                }
-
-                this.PrepareController();
-
+                this.BuildControllerIfNotExists();
                 return this.controller;
             }
-            private set { this.controller = value; }
+
+            private set
+            {
+                this.controller = value;
+            }
         }
 
+        /// <summary>
+        /// Tries to resolve constructor dependency of given type.
+        /// </summary>
+        /// <typeparam name="TDependency">Type of dependency to resolve.</typeparam>
+        /// <param name="dependency">Instance of dependency to inject into constructor.</param>
+        /// <returns>The same controller builder.</returns>
         public IControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency)
         {
             var typeOfDependency = typeof(TDependency);
@@ -135,14 +128,33 @@
             return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
         }
 
-        private void PrepareController()
+        private void BuildControllerIfNotExists()
         {
-            if (this.isPreparedForTesting)
+            if (this.controller == null)
             {
-                return;
+                this.controller = Reflection.TryCreateInstance<TController>(this.dependencies.Select(v => v.Value).ToArray());
+                if (this.controller == null)
+                {
+                    var friendlyDependanciesNames = this.dependencies
+                        .Keys
+                        .Select(k => k.ToFriendlyTypeName());
+
+                    throw new UnresolvedDependenciesException(string.Format(
+                        "{0} controller could not be instantiated because it contains no constructor taking {1} as parameters.",
+                        typeof(TController).ToFriendlyTypeName(),
+                        string.Join(", ", friendlyDependanciesNames)));
+                }
             }
 
-            this.isPreparedForTesting = true;
+            if (!this.isPreparedForTesting)
+            {
+                this.PrepareController();
+                this.isPreparedForTesting = true;
+            }
+        }
+
+        private void PrepareController()
+        {
             this.controller.Request = new HttpRequestMessage();
             this.controller.Configuration = new HttpConfiguration();
             this.controller.User = MockedIPrinciple.CreateUnauthenticated();

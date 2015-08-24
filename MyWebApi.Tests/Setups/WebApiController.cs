@@ -29,7 +29,7 @@
             this.InjectedRequestModel = requestModel;
         }
 
-        public WebApiController(IInjectedService injectedService, RequestModel requestModel) 
+        public WebApiController(IInjectedService injectedService, RequestModel requestModel)
             : this(injectedService)
         {
             this.InjectedRequestModel = requestModel;
@@ -42,7 +42,7 @@
         }
 
         public WebApiController(IInjectedService injectedService, IAnotherInjectedService anotherInjectedService, RequestModel requestModel)
-            :this(injectedService, anotherInjectedService)
+            : this(injectedService, anotherInjectedService)
         {
             this.InjectedRequestModel = requestModel;
         }
