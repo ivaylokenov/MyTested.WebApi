@@ -18,8 +18,17 @@
         /// <value>Instance of the ASP.NET Web API controller.</value>
         TController Controller { get; }
 
-        IControllerBuilder<TController> WithAuthorizedUser();
+        /// <summary>
+        /// Sets default authenticated user to the built controller with "TestUser" username.
+        /// </summary>
+        /// <returns>The same controller builder.</returns>
+        IControllerBuilder<TController> WithAuthenticatedUser();
 
+        /// <summary>
+        /// Sets custom authenticated user using provided user builder.
+        /// </summary>
+        /// <param name="userBuilder">User builder to create mocked user object.</param>
+        /// <returns>The same controller builder.</returns>
         IControllerBuilder<TController> WithAuthenticatedUser(Action<IUserBuilder> userBuilder);
             
         /// <summary>

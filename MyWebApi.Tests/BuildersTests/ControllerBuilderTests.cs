@@ -69,7 +69,7 @@
         {
             var controllerBuilder = MyWebApi
                 .Controller<WebApiController>()
-                .WithAuthorizedUser();
+                .WithAuthenticatedUser();
 
             controllerBuilder
                 .Calling(c => c.Authorized())

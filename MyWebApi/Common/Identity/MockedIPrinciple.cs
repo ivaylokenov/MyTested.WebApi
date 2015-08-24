@@ -3,8 +3,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Security.Principal;
-    using Builders.Contracts;
 
+    /// <summary>
+    /// Mocked IPrinciple object.
+    /// </summary>
     public class MockedIPrinciple : IPrincipal
     {
         private const string DefaultUsername = "TestUser";
@@ -12,6 +14,12 @@
 
         private readonly IEnumerable<string> roles;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MockedIPrinciple" /> class.
+        /// </summary>
+        /// <param name="username">Initial username.</param>
+        /// <param name="principalType">Initial principal type.</param>
+        /// <param name="roles">Initial user roles.</param>
         public MockedIPrinciple(
             string username = null,
             string principalType = null,
@@ -24,8 +32,16 @@
                 true);
         }
 
+        /// <summary>
+        /// Gets the IIdentity of the IPrinciple.
+        /// </summary>
+        /// <value>IIdentity object.</value>
         public IIdentity Identity { get; private set; }
 
+        /// <summary>
+        /// Static constructor for creating default unauthorized mocked user object.
+        /// </summary>
+        /// <returns>Unauthorized IPrincipal.</returns>
         public static IPrincipal CreateUnauthorized()
         {
             return new MockedIPrinciple
@@ -34,6 +50,10 @@
             };
         }
 
+        /// <summary>
+        /// Static constructor for creating default authorized mocked user object with "TestUser" username.
+        /// </summary>
+        /// <returns>Authorized IPrincipal.</returns>
         public static IPrincipal CreateDefaultAuthorized()
         {
             return new MockedIPrinciple()
@@ -42,6 +62,11 @@
             };
         }
 
+        /// <summary>
+        /// Checks whether the current user is in user role.
+        /// </summary>
+        /// <param name="role">User role to check.</param>
+        /// <returns>True or False.</returns>
         public bool IsInRole(string role)
         {
             return this.roles.Contains(role);

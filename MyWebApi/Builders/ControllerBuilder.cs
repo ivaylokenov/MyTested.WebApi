@@ -32,12 +32,21 @@
         /// <value>Instance of the ASP.NET Web API controller.</value>
         public TController Controller { get; private set; }
 
-        public IControllerBuilder<TController> WithAuthorizedUser()
+        /// <summary>
+        /// Sets default authenticated user to the built controller with "TestUser" username.
+        /// </summary>
+        /// <returns>The same controller builder.</returns>
+        public IControllerBuilder<TController> WithAuthenticatedUser()
         {
             this.Controller.User = MockedIPrinciple.CreateDefaultAuthorized();
             return this;
         }
 
+        /// <summary>
+        /// Sets custom authenticated user using provided user builder.
+        /// </summary>
+        /// <param name="userBuilder">User builder to create mocked user object.</param>
+        /// <returns>The same controller builder.</returns>
         public IControllerBuilder<TController> WithAuthenticatedUser(Action<IUserBuilder> userBuilder)
         {
             var newUserBuilder = new UserBuilder();
