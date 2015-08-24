@@ -7,6 +7,7 @@
     using Builders;
     using Builders.Contracts;
     using Common.Identity;
+    using Utilities;
 
     /// <summary>
     /// Starting point of the testing framework, which provides a way to specify the ASP.NET Web API controller to be tested.
@@ -21,7 +22,8 @@
         public static IControllerBuilder<TController> Controller<TController>()
             where TController : ApiController
         {
-            return Controller(Activator.CreateInstance<TController>);
+            var controller = Reflection.TryCreateInstance<TController>();
+            return Controller(() => controller);
         }
 
         /// <summary>
@@ -34,15 +36,7 @@
             where TController : ApiController
         {
             var controllerInstance = construction();
-            PrepareController(controllerInstance);
             return new ControllerBuilder<TController>(controllerInstance);
-        }
-
-        private static void PrepareController(ApiController controller)
-        {
-            controller.Request = new HttpRequestMessage();
-            controller.Configuration = new HttpConfiguration();
-            controller.User = MockedIPrinciple.CreateUnauthenticated();
         }
     }
 }

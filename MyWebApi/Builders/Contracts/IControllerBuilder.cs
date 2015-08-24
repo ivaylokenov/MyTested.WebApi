@@ -18,6 +18,8 @@
         /// <value>Instance of the ASP.NET Web API controller.</value>
         TController Controller { get; }
 
+        IControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency);
+
         /// <summary>
         /// Sets default authenticated user to the built controller with "TestUser" username.
         /// </summary>

@@ -60,9 +60,9 @@
                 throw new HttpActionResultAssertionException(string.Format(
                     "When calling {0} action in {1} expected action result to be {2}, but instead received {3}.",
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyGenericTypeName(),
-                    typeOfExpectedReturnValue.ToFriendlyGenericTypeName(),
-                    typeOfActionResult.ToFriendlyGenericTypeName()));
+                    this.Controller.GetType().ToFriendlyTypeName(),
+                    typeOfExpectedReturnValue.ToFriendlyTypeName(),
+                    typeOfActionResult.ToFriendlyTypeName()));
             }
         }
 

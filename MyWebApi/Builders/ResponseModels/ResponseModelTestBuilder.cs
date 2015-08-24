@@ -38,7 +38,7 @@
                 throw new ResponseModelAssertionException(string.Format(
                         "When calling {0} action in {1} expected to not have response model but in fact response model was found.",
                         this.ActionName,
-                        this.Controller.GetType().ToFriendlyGenericTypeName()));
+                        this.Controller.GetType().ToFriendlyTypeName()));
             }
         }
 
@@ -70,9 +70,9 @@
                         throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model to be a {2}, but instead received a {3}.",
                             this.ActionName,
-                            this.Controller.GetType().ToFriendlyGenericTypeName(),
-                            typeof(TResponseModel).ToFriendlyGenericTypeName(),
-                            actualResponseDataType.ToFriendlyGenericTypeName()));
+                            this.Controller.GetType().ToFriendlyTypeName(),
+                            typeof(TResponseModel).ToFriendlyTypeName(),
+                            actualResponseDataType.ToFriendlyTypeName()));
                     }
                 }
             }
@@ -97,8 +97,8 @@
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model {2} to be the given model, but in fact it was a different model.",
                             this.ActionName,
-                            this.Controller.GetType().ToFriendlyGenericTypeName(),
-                            typeof(TResponseModel).ToFriendlyGenericTypeName()));
+                            this.Controller.GetType().ToFriendlyTypeName(),
+                            typeof(TResponseModel).ToFriendlyTypeName()));
             }
 
             return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
@@ -136,8 +136,8 @@
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model {2} to pass the given condition, but it failed.",
                             this.ActionName,
-                            this.Controller.GetType().ToFriendlyGenericTypeName(),
-                            typeof(TResponseModel).ToFriendlyGenericTypeName()));
+                            this.Controller.GetType().ToFriendlyTypeName(),
+                            typeof(TResponseModel).ToFriendlyTypeName()));
             }
 
             return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
