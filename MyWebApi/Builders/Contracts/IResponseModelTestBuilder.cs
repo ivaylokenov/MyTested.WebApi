@@ -17,7 +17,7 @@
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <returns>Builder for testing the response model errors.</returns>
-        IResponseModelErrorTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>();
+        IResponseModelDetailsTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>();
 
         /// <summary>
         /// Tests whether an object is returned from the invoked action.
@@ -25,23 +25,7 @@
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="expectedModel">Expected model to be returned.</param>
         /// <returns>Builder for testing the response model errors.</returns>
-        IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
+        IResponseModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
             where TResponseModel : class;
-
-        /// <summary>
-        /// Tests whether the returned response model from the invoked action passes given assertions.
-        /// </summary>
-        /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
-        /// <param name="assertions">Action containing all assertions on the response model.</param>
-        /// <returns>Builder for testing the response model errors.</returns>
-        IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(Action<TResponseModel> assertions);
-
-        /// <summary>
-        /// Tests whether the returned response model from the invoked action passes given predicate.
-        /// </summary>
-        /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
-        /// <param name="predicate">Predicate testing the response model.</param>
-        /// <returns>Builder for testing the response model errors.</returns>
-        IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(Func<TResponseModel, bool> predicate);
     }
 }

@@ -42,5 +42,10 @@
                 this.actionResult = value;
             }
         }
+
+        protected TResponseModel GetActualModel<TResponseModel>()
+        {
+            return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult).Content;
+        }
     }
 }
