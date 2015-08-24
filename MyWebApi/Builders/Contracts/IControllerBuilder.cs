@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Builders.Contracts
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
     using System.Web.Http;
@@ -25,6 +26,10 @@
         /// <param name="dependency">Instance of dependency to inject into constructor.</param>
         /// <returns>The same controller builder.</returns>
         IControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency);
+
+        IControllerBuilder<TController> WithResolvedDependencies(IEnumerable<object> dependencies);
+
+        IControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies);
 
         /// <summary>
         /// Sets default authenticated user to the built controller with "TestUser" username.

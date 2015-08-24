@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Tests.BuildersTests
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Http.Results;
@@ -184,13 +185,35 @@
         }
 
         [Test]
-        public void WithResolvedDependencyForShouldChooseContinueTheNormalExecutionFlowOfTestBuilders()
+        public void WithResolvedDependencyForShouldContinueTheNormalExecutionFlowOfTestBuilders()
         {
             MyWebApi
                 .Controller<WebApiController>()
-                .WithResolvedDependencyFor<RequestModel>(new RequestModel())
-                .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
-                .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
+                .WithResolvedDependencyFor(new RequestModel())
+                .WithResolvedDependencyFor(new AnotherInjectedService())
+                .WithResolvedDependencyFor(new InjectedService())
+                .WithAuthenticatedUser()
+                .Calling(c => c.AuthorizedAction())
+                .ShouldReturnOk();
+        }
+
+        [Test]
+        public void WithResolvedDependenciesShouldWorkCorrectWithCollectionOfObjects()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencies(new List<object> { new RequestModel(), new AnotherInjectedService(), new InjectedService() })
+                .WithAuthenticatedUser()
+                .Calling(c => c.AuthorizedAction())
+                .ShouldReturnOk();
+        }
+
+        [Test]
+        public void WithResolvedDependenciesShouldWorkCorrectWithParamsOfObjects()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencies(new RequestModel(), new AnotherInjectedService(), new InjectedService())
                 .WithAuthenticatedUser()
                 .Calling(c => c.AuthorizedAction())
                 .ShouldReturnOk();
@@ -199,7 +222,7 @@
         [Test]
         [ExpectedException(
             typeof(InvalidOperationException),
-            ExpectedMessage = "Dependency IAnotherInjectedService is already registered for WebApiController controller.")]
+            ExpectedMessage = "Dependency AnotherInjectedService is already registered for WebApiController controller.")]
         public void WithResolvedDependencyForShouldThrowExceptionWhenSameDependenciesAreRegistered()
         {
             MyWebApi
@@ -213,7 +236,7 @@
         [Test]
         [ExpectedException(
             typeof(UnresolvedDependenciesException),
-            ExpectedMessage = "WebApiController controller could not be instantiated because it contains no constructor taking RequestModel, IAnotherInjectedService, IInjectedService, ResponseModel as parameters.")]
+            ExpectedMessage = "WebApiController controller could not be instantiated because it contains no constructor taking RequestModel, AnotherInjectedService, InjectedService, ResponseModel as parameters.")]
         public void WithResolvedDependencyForShouldThrowExceptionWhenNoConstructorExistsForDependencies()
         {
             MyWebApi

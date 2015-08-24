@@ -9,6 +9,7 @@
     using System.Web.Http;
 
     using Actions;
+    using Common.Extensions;
     using Common.Identity;
     using Contracts;
     using Exceptions;
@@ -21,7 +22,7 @@
     public class ControllerBuilder<TController> : IControllerBuilder<TController>
         where TController : ApiController
     {
-        private readonly IDictionary<Type, object> dependencies;
+        private readonly IDictionary<Type, object> aggregatedDependencies;
 
         private TController controller;
         private bool isPreparedForTesting;
@@ -33,7 +34,7 @@
         public ControllerBuilder(TController controllerInstance)
         {
             this.Controller = controllerInstance;
-            this.dependencies = new Dictionary<Type, object>();
+            this.aggregatedDependencies = new Dictionary<Type, object>();
             this.isPreparedForTesting = false;
         }
 
@@ -63,8 +64,8 @@
         /// <returns>The same controller builder.</returns>
         public IControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency)
         {
-            var typeOfDependency = typeof(TDependency);
-            if (this.dependencies.ContainsKey(typeOfDependency))
+            var typeOfDependency = dependency.GetType();
+            if (this.aggregatedDependencies.ContainsKey(typeOfDependency))
             {
                 throw new InvalidOperationException(string.Format(
                     "Dependency {0} is already registered for {1} controller.",
@@ -72,8 +73,20 @@
                     typeof(TController).ToFriendlyTypeName()));
             }
 
-            this.dependencies.Add(typeOfDependency, dependency);
+            this.aggregatedDependencies.Add(typeOfDependency, dependency);
             this.controller = null;
+            return this;
+        }
+
+        public IControllerBuilder<TController> WithResolvedDependencies(IEnumerable<object> dependencies)
+        {
+            dependencies.ForEach(d => this.WithResolvedDependencyFor(d));
+            return this;
+        }
+
+        public IControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies)
+        {
+            dependencies.ForEach(d => this.WithResolvedDependencyFor(d));
             return this;
         }
 
@@ -132,10 +145,10 @@
         {
             if (this.controller == null)
             {
-                this.controller = Reflection.TryCreateInstance<TController>(this.dependencies.Select(v => v.Value).ToArray());
+                this.controller = Reflection.TryCreateInstance<TController>(this.aggregatedDependencies.Select(v => v.Value).ToArray());
                 if (this.controller == null)
                 {
-                    var friendlyDependanciesNames = this.dependencies
+                    var friendlyDependanciesNames = this.aggregatedDependencies
                         .Keys
                         .Select(k => k.ToFriendlyTypeName());
 
