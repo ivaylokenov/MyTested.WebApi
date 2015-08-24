@@ -18,18 +18,20 @@ MyWebApi
 	
 // instantiates controller with provided resolved dependencies one by one
 // * dependencies do not need to be in any particular order
-// * works even without the generic interface explicit specification
+// * works even without the explicit generic interface specification
 MyWebApi
 	.Controller<WebApiController>()
 	.WithResolvedDependencyFor<IInjectedService>(mockedInjectedService)
 	.WithResolvedDependencyFor<IAnotherInjectedService>(anotherMockedInjectedService);
 	
 // instantiates controller with provided dependencies all at once
+// * dependencies do not need to be in any particular order
 MyWebApi
 	.Controller<WebApiController>()
 	.WithResolvedDependencies(mockedInjectedService, anotherMockedInjectedService);
 	
 // instantiates controller with provided collection of dependencies
+// * dependencies do not need to be in any particular order
 MyWebApi
 	.Controller<WebApiController>()
 	.WithResolvedDependencies(new List<object> { mockedInjectedService, anotherMockedInjectedService });
