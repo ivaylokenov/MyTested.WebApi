@@ -42,5 +42,15 @@
                 this.actionResult = value;
             }
         }
+
+        /// <summary>
+        /// Gets response model from action result.
+        /// </summary>
+        /// <typeparam name="TResponseModel">Type of response model.</typeparam>
+        /// <returns>The response model.</returns>
+        protected TResponseModel GetActualModel<TResponseModel>()
+        {
+            return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult).Content;
+        }
     }
 }

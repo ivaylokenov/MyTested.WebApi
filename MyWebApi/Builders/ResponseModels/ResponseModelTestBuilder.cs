@@ -1,6 +1,5 @@
 ﻿namespace MyWebApi.Builders.ResponseModels
 {
-    using System;
     using System.Web.Http;
     using System.Web.Http.Results;
 
@@ -47,7 +46,7 @@
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <returns>Builder for testing the response model errors.</returns>
-        public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>()
+        public IResponseModelDetailsTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>()
         {
             var actionResultType = this.ActionResult.GetType();
             var negotiatedContentResultType = typeof(OkNegotiatedContentResult<TResponseModel>);
@@ -77,7 +76,7 @@
                 }
             }
 
-            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
+            return new ResponseModelDetailsTestBuilder<TResponseModel>(this.Controller, this.ActionName, this.GetActualModel<TResponseModel>());
         }
 
         /// <summary>
@@ -86,10 +85,10 @@
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="expectedModel">Expected model to be returned.</param>
         /// <returns>Builder for testing the response model errors.</returns>
-        public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
+        public IResponseModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
             where TResponseModel : class
         {
-            this.WithResponseModel<TResponseModel>();
+            this.WithResponseModelOfType<TResponseModel>();
 
             var actualModel = this.GetActualModel<TResponseModel>();
             if (actualModel != expectedModel)
@@ -101,51 +100,7 @@
                             typeof(TResponseModel).ToFriendlyTypeName()));
             }
 
-            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
-        }
-
-        /// <summary>
-        /// Tests whether the returned response model from the invoked action passes given assertions.
-        /// </summary>
-        /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
-        /// <param name="assertions">Action containing all assertions on the response model.</param>
-        /// <returns>Builder for testing the response model errors.</returns>
-        public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(Action<TResponseModel> assertions)
-        {
-            this.WithResponseModel<TResponseModel>();
-
-            var actualModel = this.GetActualModel<TResponseModel>();
-            assertions(actualModel);
-
-            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
-        }
-
-        /// <summary>
-        /// Tests whether the returned response model from the invoked action passes given predicate.
-        /// </summary>
-        /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
-        /// <param name="predicate">Predicate testing the response model.</param>
-        /// <returns>Builder for testing the response model errors.</returns>
-        public IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(Func<TResponseModel, bool> predicate)
-        {
-            this.WithResponseModel<TResponseModel>();
-
-            var actualModel = this.GetActualModel<TResponseModel>();
-            if (!predicate(actualModel))
-            {
-                throw new ResponseModelAssertionException(string.Format(
-                            "When calling {0} action in {1} expected response model {2} to pass the given condition, but it failed.",
-                            this.ActionName,
-                            this.Controller.GetType().ToFriendlyTypeName(),
-                            typeof(TResponseModel).ToFriendlyTypeName()));
-            }
-
-            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
-        }
-
-        private TResponseModel GetActualModel<TResponseModel>()
-        {
-            return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult).Content;
+            return new ResponseModelDetailsTestBuilder<TResponseModel>(this.Controller, this.ActionName, actualModel);
         }
     }
 }

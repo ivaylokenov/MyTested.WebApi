@@ -18,7 +18,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<ICollection<ResponseModel>>();
+                .WithResponseModelOfType<ICollection<ResponseModel>>();
         }
 
         [Test]
@@ -28,7 +28,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<IList<ResponseModel>>();
+                .WithResponseModelOfType<IList<ResponseModel>>();
         }
 
         [Test]
@@ -41,7 +41,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<ResponseModel>();
+                .WithResponseModelOfType<ResponseModel>();
         }
 
         [Test]
@@ -54,7 +54,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<ICollection<int>>();
+                .WithResponseModelOfType<ICollection<int>>();
         }
 
         [Test]
@@ -91,7 +91,8 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<ICollection<ResponseModel>>(m =>
+                .WithResponseModelOfType<ICollection<ResponseModel>>()
+                .Passing(m =>
                 {
                     Assert.AreEqual(2, m.Count);
                     Assert.AreEqual(1, m.First().IntegerValue);
@@ -107,7 +108,8 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<ICollection<ResponseModel>>(m =>
+                .WithResponseModelOfType<ICollection<ResponseModel>>()
+                .Passing(m =>
                 {
                     Assert.AreEqual(1, m.First().IntegerValue);
                     Assert.AreEqual(3, m.Count);
@@ -121,7 +123,8 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<ICollection<ResponseModel>>(m => m.First().IntegerValue == 1);
+                .WithResponseModelOfType<ICollection<ResponseModel>>()
+                .Passing(m => m.First().IntegerValue == 1);
         }
 
         [Test]
@@ -134,7 +137,8 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<IList<ResponseModel>>(m => m.First().IntegerValue == 2);
+                .WithResponseModelOfType<IList<ResponseModel>>()
+                .Passing(m => m.First().IntegerValue == 2);
         }
 
         [Test]

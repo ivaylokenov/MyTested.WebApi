@@ -183,19 +183,19 @@ MyWebApi
 	.ShouldReturnOk()
 	.WithNoResponseModel();
 	
-// tests whether the action returns OkResult with specific response model type
-MyWebApi
-	.Controller<WebApiController>()
-	.Calling(c => c.SomeAction())
-	.ShouldReturnOk()
-	.WithResponseModel<ResponseModel>();
-	
 // tests whether the action returns OkResult with specific object
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
 	.ShouldReturnOk()
 	.WithResponseModel(someResponseModelObject);
+	
+// tests whether the action returns OkResult with specific response model type
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.WithResponseModelOfType<ResponseModel>();
 
 // tests whether the action returns OkResult 
 // with specific response model passing certain assertions
@@ -203,7 +203,8 @@ MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
 	.ShouldReturnOk()
-	.WithResponseModel<ResponseModel>(m =>
+	.WithResponseModelOfType<ResponseModel>()
+	.Passing(m =>
 	{
 		Assert.AreEqual(1, m.Id);
 		Assert.AreEqual("Some property value", m.SomeProperty);
@@ -215,7 +216,8 @@ MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
 	.ShouldReturnOk()
-	.WithResponseModel<ResponseModel>(m => m.Id == 1);
+	.WithResponseModelOfType<ResponseModel>()
+	.Passing(m => m.Id == 1);
 	
 // tests for model state errors for the response model 
 // * not very useful in practice
@@ -223,7 +225,7 @@ MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
 	.ShouldReturnOk()
-	.WithResponseModel<ResponseModel>()
+	.WithResponseModelOfType<ResponseModel>()
 	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message")
 	.And()
 	.ContainingNoModelStateErrorFor(m => m.AnotherProperty);
