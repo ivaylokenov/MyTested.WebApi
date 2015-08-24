@@ -38,7 +38,7 @@
         /// <returns>The same controller builder.</returns>
         public IControllerBuilder<TController> WithAuthenticatedUser()
         {
-            this.Controller.User = MockedIPrinciple.CreateDefaultAuthorized();
+            this.Controller.User = MockedIPrinciple.CreateDefaultAuthenticated();
             return this;
         }
 

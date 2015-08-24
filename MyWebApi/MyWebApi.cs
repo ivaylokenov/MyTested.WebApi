@@ -42,7 +42,7 @@
         {
             controller.Request = new HttpRequestMessage();
             controller.Configuration = new HttpConfiguration();
-            controller.User = MockedIPrinciple.CreateUnauthorized();
+            controller.User = MockedIPrinciple.CreateUnauthenticated();
         }
     }
 }

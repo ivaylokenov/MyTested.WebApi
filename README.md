@@ -21,6 +21,26 @@ MyWebApi
 	.Controller(() => new WebApiController(mockedInjectedService));
 ```
 
+### Authenticated user
+
+```c#
+// by default Controller.User will be unauthenticated - User.Identity.Name will be null and User.Identity.IsAuthenticated will be false
+MyWebApi
+	.Controller<WebApiController>();
+	
+// sets default authenticated user - with username "TestUser" and no user roles
+MyWebApi
+	.Controller<WebApiController>()
+	.WithAuthenticatedUser();
+	
+// sets custom authenticated user using delegate action
+MyWebApi
+	.Controller<WebApiController>()
+	.WithAuthenticatedUser(user => user
+		.WithUsername("NewUserName")
+		.InRoles("Moderator", "Administrator"));
+```
+
 ### Calling actions
 
 You can call any action using lambda expression. All parameter values will be resolved and model state validation will be performed on them:

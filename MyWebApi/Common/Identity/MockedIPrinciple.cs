@@ -39,10 +39,10 @@
         public IIdentity Identity { get; private set; }
 
         /// <summary>
-        /// Static constructor for creating default unauthorized mocked user object.
+        /// Static constructor for creating default unauthenticated mocked user object.
         /// </summary>
-        /// <returns>Unauthorized IPrincipal.</returns>
-        public static IPrincipal CreateUnauthorized()
+        /// <returns>Unauthenticated IPrincipal.</returns>
+        public static IPrincipal CreateUnauthenticated()
         {
             return new MockedIPrinciple
             {
@@ -51,10 +51,10 @@
         }
 
         /// <summary>
-        /// Static constructor for creating default authorized mocked user object with "TestUser" username.
+        /// Static constructor for creating default authenticated mocked user object with "TestUser" username.
         /// </summary>
-        /// <returns>Authorized IPrincipal.</returns>
-        public static IPrincipal CreateDefaultAuthorized()
+        /// <returns>Authenticated IPrincipal.</returns>
+        public static IPrincipal CreateDefaultAuthenticated()
         {
             return new MockedIPrinciple()
             {
