@@ -1,12 +1,16 @@
 ﻿namespace MyWebApi.Tests.BuildersTests
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Http.Results;
 
     using Builders.Contracts;
+    using Exceptions;
     using NUnit.Framework;
     using Setups;
+    using Setups.Models;
+    using Setups.Services;
 
     [TestFixture]
     public class ControllerBuilderTests
@@ -72,7 +76,7 @@
                 .WithAuthenticatedUser();
 
             controllerBuilder
-                .Calling(c => c.Authorized())
+                .Calling(c => c.AuthorizedAction())
                 .ShouldReturnOk();
 
             var controllerUser = controllerBuilder.Controller.User;
@@ -100,7 +104,7 @@
                     }));
 
             controllerBuilder
-                .Calling(c => c.Authorized())
+                .Calling(c => c.AuthorizedAction())
                 .ShouldReturnOk();
 
             var controllerUser = controllerBuilder.Controller.User;
@@ -123,7 +127,7 @@
                 .Controller<WebApiController>();
 
             controllerBuilder
-                .Calling(c => c.Authorized())
+                .Calling(c => c.AuthorizedAction())
                 .ShouldReturnNotFound();
 
             var controllerUser = controllerBuilder.Controller.User;
@@ -132,6 +136,94 @@
             Assert.AreEqual(null, controllerUser.Identity.Name);
             Assert.AreEqual(null, controllerUser.Identity.AuthenticationType);
             Assert.AreEqual(false, controllerUser.Identity.IsAuthenticated);
+        }
+
+        [Test]
+        public void WithResolvedDependencyForShouldChooseCorrectConstructorWithLessDependencies()
+        {
+            var controller = MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
+                .Controller;
+
+            Assert.IsNotNull(controller);
+            Assert.IsNotNull(controller.InjectedService);
+            Assert.IsNull(controller.AnotherInjectedService);
+            Assert.IsNull(controller.InjectedRequestModel);
+        }
+
+        [Test]
+        public void WithResolvedDependencyForShouldChooseCorrectConstructorWithMoreDependencies()
+        {
+            var controller = MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
+                .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
+                .Controller;
+
+            Assert.IsNotNull(controller);
+            Assert.IsNotNull(controller.InjectedService);
+            Assert.IsNotNull(controller.AnotherInjectedService);
+            Assert.IsNull(controller.InjectedRequestModel);
+        }
+
+        [Test]
+        public void WithResolvedDependencyForShouldChooseCorrectConstructorWithAllDependencies()
+        {
+            var controller = MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
+                .WithResolvedDependencyFor<RequestModel>(new RequestModel())
+                .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
+                .Controller;
+
+            Assert.IsNotNull(controller);
+            Assert.IsNotNull(controller.InjectedService);
+            Assert.IsNotNull(controller.AnotherInjectedService);
+            Assert.IsNotNull(controller.InjectedRequestModel);
+        }
+
+        [Test]
+        public void WithResolvedDependencyForShouldChooseContinueTheNormalExecutionFlowOfTestBuilders()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<RequestModel>(new RequestModel())
+                .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
+                .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
+                .WithAuthenticatedUser()
+                .Calling(c => c.AuthorizedAction())
+                .ShouldReturnOk();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(InvalidOperationException),
+            ExpectedMessage = "Dependency IAnotherInjectedService is already registered for WebApiController controller.")]
+        public void WithResolvedDependencyForShouldThrowExceptionWhenSameDependenciesAreRegistered()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<RequestModel>(new RequestModel())
+                .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
+                .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
+                .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService());
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnresolvedDependenciesException),
+            ExpectedMessage = "WebApiController controller could not be instantiated because it contains no constructor taking RequestModel, IAnotherInjectedService, IInjectedService, ResponseModel as parameters.")]
+        public void WithResolvedDependencyForShouldThrowExceptionWhenNoConstructorExistsForDependencies()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<RequestModel>(new RequestModel())
+                .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
+                .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
+                .WithResolvedDependencyFor<ResponseModel>(new ResponseModel())
+                .Calling(c => c.OkResultAction())
+                .ShouldReturnOk();
         }
 
         private void CheckActionResultTestBuilder<TActionResult>(
