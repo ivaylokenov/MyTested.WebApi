@@ -21,6 +21,8 @@
     public class ControllerBuilder<TController> : IControllerBuilder<TController>
         where TController : ApiController
     {
+        private TController controller;
+
         private readonly IDictionary<Type, object> dependencies;
         private bool isPreparedForTesting;
 
@@ -39,7 +41,32 @@
         /// Gets the ASP.NET Web API controller instance to be tested.
         /// </summary>
         /// <value>Instance of the ASP.NET Web API controller.</value>
-        public TController Controller { get; private set; }
+        public TController Controller
+        {
+            get
+            {
+                if (this.controller == null)
+                {
+                    this.controller = Reflection.TryCreateInstance<TController>(this.dependencies.Select(v => v.Value).ToArray());
+                    if (this.controller == null)
+                    {
+                        var friendlyDependanciesNames = this.dependencies
+                            .Keys
+                            .Select(k => k.ToFriendlyTypeName());
+
+                        throw new UnresolvedDependenciesException(string.Format(
+                            "{0} controller could not be instantiated because it contains no constructor taking {1} as parameters.",
+                            typeof(TController).ToFriendlyTypeName(),
+                            string.Join(", ", friendlyDependanciesNames)));
+                    }
+                }
+
+                this.PrepareController();
+
+                return this.controller;
+            }
+            private set { this.controller = value; }
+        }
 
         public IControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency)
         {
@@ -47,12 +74,13 @@
             if (this.dependencies.ContainsKey(typeOfDependency))
             {
                 throw new InvalidOperationException(string.Format(
-                    "Dependency {0} was already registered for {1} controller.",
+                    "Dependency {0} is already registered for {1} controller.",
                     typeOfDependency.ToFriendlyTypeName(),
                     typeof(TController).ToFriendlyTypeName()));
             }
 
             this.dependencies.Add(typeOfDependency, dependency);
+            this.controller = null;
             return this;
         }
 
@@ -62,7 +90,6 @@
         /// <returns>The same controller builder.</returns>
         public IControllerBuilder<TController> WithAuthenticatedUser()
         {
-            this.TryInstantiateController();
             this.Controller.User = MockedIPrinciple.CreateDefaultAuthenticated();
             return this;
         }
@@ -74,7 +101,6 @@
         /// <returns>The same controller builder.</returns>
         public IControllerBuilder<TController> WithAuthenticatedUser(Action<IUserBuilder> userBuilder)
         {
-            this.TryInstantiateController();
             var newUserBuilder = new UserBuilder();
             userBuilder(newUserBuilder);
             this.Controller.User = newUserBuilder.GetUser();
@@ -89,7 +115,6 @@
         /// <returns>Builder for testing the action result.</returns>
         public IActionResultTestBuilder<TActionResult> Calling<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
         {
-            this.TryInstantiateController();
             var actionName = ExpressionParser.GetMethodName(actionCall);
             this.ValidateModelState(actionCall);
             var actionResult = actionCall.Compile().Invoke(this.Controller);
@@ -104,32 +129,10 @@
         /// <returns>Builder for testing the action result.</returns>
         public IActionResultTestBuilder<TActionResult> CallingAsync<TActionResult>(Expression<Func<TController, Task<TActionResult>>> actionCall)
         {
-            this.TryInstantiateController();
             var actionName = ExpressionParser.GetMethodName(actionCall);
             this.ValidateModelState(actionCall);
             var actionResult = actionCall.Compile().Invoke(this.Controller).Result;
             return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
-        }
-
-        private void TryInstantiateController()
-        {
-            if (this.Controller == null)
-            {
-                this.Controller = Reflection.TryCreateInstance<TController>(this.dependencies);
-                if (this.Controller == null)
-                {
-                    var friendlyDependanciesNames = this.dependencies
-                        .Keys
-                        .Select(k => k.ToFriendlyTypeName());
-
-                    throw new UnresolvedDependenciesException(string.Format(
-                        "{0} controller could not be instantiated because it contains no constructor taking {1} as parameters.",
-                        typeof(TController).ToFriendlyTypeName(),
-                        string.Join(", ", friendlyDependanciesNames)));
-                }
-            }
-
-            this.PrepareController();
         }
 
         private void PrepareController()
@@ -140,9 +143,9 @@
             }
 
             this.isPreparedForTesting = true;
-            this.Controller.Request = new HttpRequestMessage();
-            this.Controller.Configuration = new HttpConfiguration();
-            this.Controller.User = MockedIPrinciple.CreateUnauthenticated();
+            this.controller.Request = new HttpRequestMessage();
+            this.controller.Configuration = new HttpConfiguration();
+            this.controller.User = MockedIPrinciple.CreateUnauthenticated();
         }
 
         private void ValidateModelState<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
