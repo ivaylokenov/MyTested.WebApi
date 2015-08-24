@@ -18,7 +18,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<ICollection<ResponseModel>>();
+                .WithResponseModelOfType<ICollection<ResponseModel>>();
         }
 
         [Test]
@@ -28,7 +28,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<IList<ResponseModel>>();
+                .WithResponseModelOfType<IList<ResponseModel>>();
         }
 
         [Test]
@@ -41,7 +41,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<ResponseModel>();
+                .WithResponseModelOfType<ResponseModel>();
         }
 
         [Test]
@@ -54,7 +54,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
                 .ShouldReturnOk()
-                .WithResponseModel<ICollection<int>>();
+                .WithResponseModelOfType<ICollection<int>>();
         }
 
         [Test]

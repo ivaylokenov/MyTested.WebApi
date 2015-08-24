@@ -17,7 +17,7 @@
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <returns>Builder for testing the response model errors.</returns>
-        IResponseModelErrorTestBuilder<TResponseModel> WithResponseModel<TResponseModel>();
+        IResponseModelErrorTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>();
 
         /// <summary>
         /// Tests whether an object is returned from the invoked action.

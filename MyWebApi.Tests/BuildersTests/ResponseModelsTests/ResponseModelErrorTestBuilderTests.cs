@@ -20,7 +20,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestBody))
                 .ShouldReturnOk()
-                .WithResponseModel<List<ResponseModel>>()
+                .WithResponseModelOfType<List<ResponseModel>>()
                 .ContainingNoModelStateErrors();
         }
 
@@ -36,7 +36,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestBodyWithErrors))
                 .ShouldReturnOk()
-                .WithResponseModel<List<ResponseModel>>()
+                .WithResponseModelOfType<List<ResponseModel>>()
                 .ContainingNoModelStateErrors();
         }
 
