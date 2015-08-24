@@ -19,6 +19,19 @@
         TController Controller { get; }
 
         /// <summary>
+        /// Sets default authenticated user to the built controller with "TestUser" username.
+        /// </summary>
+        /// <returns>The same controller builder.</returns>
+        IControllerBuilder<TController> WithAuthenticatedUser();
+
+        /// <summary>
+        /// Sets custom authenticated user using provided user builder.
+        /// </summary>
+        /// <param name="userBuilder">User builder to create mocked user object.</param>
+        /// <returns>The same controller builder.</returns>
+        IControllerBuilder<TController> WithAuthenticatedUser(Action<IUserBuilder> userBuilder);
+            
+        /// <summary>
         /// Indicates which action should be invoked and tested.
         /// </summary>
         /// <typeparam name="TActionResult">Type of result from action.</typeparam>

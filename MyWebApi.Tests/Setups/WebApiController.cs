@@ -76,6 +76,17 @@
             return this.NotFound();
         }
 
+        [Authorize]
+        public IHttpActionResult Authorized()
+        {
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return this.Ok();
+            }
+
+            return this.NotFound();
+        }
+
         public bool GenericStructAction()
         {
             return true;

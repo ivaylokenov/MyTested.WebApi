@@ -21,6 +21,31 @@ MyWebApi
 	.Controller(() => new WebApiController(mockedInjectedService));
 ```
 
+### Authenticated user
+
+```c#
+// by default Controller.User will be unauthenticated - User.Identity.Name will be null and User.Identity.IsAuthenticated will be false
+MyWebApi
+	.Controller<WebApiController>();
+	
+// sets default authenticated user - with username "TestUser" and no user roles
+MyWebApi
+	.Controller<WebApiController>()
+	.WithAuthenticatedUser();
+	
+// sets custom authenticated user using delegate action
+MyWebApi
+	.Controller<WebApiController>()
+	.WithAuthenticatedUser(user => user.WithUsername("NewUserName"));
+		
+// sets custom authenticated user in user roles using delegate action
+MyWebApi
+	.Controller<WebApiController>()
+	.WithAuthenticatedUser(user => user
+		.WithUsername("NewUserName")
+		.InRoles("Moderator", "Administrator")); // or InRole("Moderator")
+```
+
 ### Calling actions
 
 You can call any action using lambda expression. All parameter values will be resolved and model state validation will be performed on them:
@@ -65,7 +90,7 @@ MyWebApi
 	.Calling(c => c.SomeAction(requestModel))
 	.ShouldHaveModelStateFor<RequestModel>()
 	.ContainingModelStateError("propertyName")
-	.And() // calling And method is not necessary but provides better readability
+	.And() // calling And method is not necessary but provides better readability (and because it looks cool)
 	.ContainingNoModelStateError("anotherPropertyName");
 	
 // tests whether model state error exists by using lambda expression
@@ -187,7 +212,7 @@ MyWebApi
 	.Calling(c => c.SomeAction())
 	.ShouldReturnStatusCode();
 	
-// tests whether the action returns StatusCodeResult with status code equal to the provided
+// tests whether the action returns StatusCodeResult with status code equal to the provided one
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
