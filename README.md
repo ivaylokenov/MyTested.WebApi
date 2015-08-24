@@ -108,13 +108,13 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveModelStateFor<RequestModel>() // error message must be equal to the provided string
+	.ShouldHaveModelStateFor<RequestModel>() // error must be equal to the provided string
 	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message") 
-	.And() // error message must begin with the provided string
+	.And() // error must begin with the provided string
 	.ContainingModelStateErrorFor(m => m.SecondProperty).BeginningWith("Error") 
-	.And() // error message must end with the provided string
+	.And() // error must end with the provided string
 	.ContainingModelStateErrorFor(m => m.ThirdProperty).EndingWith("message") 
-	.And() // error message must contain the provided string
+	.And() // error must contain the provided string
 	.ContainingModelStateErrorFor(m => m.SecondProperty).Containing("ror mes"); 
 ```
 
@@ -217,7 +217,8 @@ MyWebApi
 	.Calling(c => c.SomeAction())
 	.ShouldReturnStatusCode();
 	
-// tests whether the action returns StatusCodeResult with status code equal to the provided one
+// tests whether the action returns StatusCodeResult
+// with status code equal to the provided one
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
