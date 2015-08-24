@@ -1,6 +1,5 @@
 ﻿namespace MyWebApi.Builders.ResponseModels
 {
-    using System;
     using System.Web.Http;
     using System.Web.Http.Results;
 
