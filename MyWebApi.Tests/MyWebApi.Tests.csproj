@@ -61,6 +61,8 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnNotFoundTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnStatusCodeTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnUnauthorizedTests.cs" />
+    <Compile Include="BuildersTests\BadRequestsTests\BadRequestErrorMessageTestBuilder.cs" />
+    <Compile Include="BuildersTests\BadRequestsTests\BadRequestTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ControllerBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ModelErrorDetailsTestBuilderTests.cs" />

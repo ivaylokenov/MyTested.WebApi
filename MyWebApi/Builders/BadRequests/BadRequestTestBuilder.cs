@@ -8,7 +8,6 @@
 
     using Base;
     using Common.Extensions;
-    using Contracts;
     using Contracts.BadRequests;
     using Contracts.Models;
     using Exceptions;
@@ -46,8 +45,21 @@
             var invalidModelStateResult = this.GetBadRequestResult<InvalidModelStateResult>(ModelStateDictionary);
             var actualModelState = invalidModelStateResult.ModelState;
 
-            var actualModelStateSortedKeys = actualModelState.Keys.OrderBy(k => k);
-            var expectedModelStateSortedKeys = modelState.Keys.OrderBy(k => k);
+            var expectedKeysCount = modelState.Keys.Count;
+            var actualKeysCount = actualModelState.Keys.Count;
+
+            if (expectedKeysCount != actualKeysCount)
+            {
+                throw new BadRequestResultAssertionException(string.Format(
+                        "When calling {0} action in {1} expected bad request model state dictionary to contain {2} keys, but found {3}.",
+                        this.ActionName,
+                        this.Controller.GetName(),
+                        expectedKeysCount,
+                        actualKeysCount));
+            }
+
+            var actualModelStateSortedKeys = actualModelState.Keys.OrderBy(k => k).ToList();
+            var expectedModelStateSortedKeys = modelState.Keys.OrderBy(k => k).ToList();
 
             foreach (var expectedKey in expectedModelStateSortedKeys)
             {
