@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.Contracts
 {
+    using System;
     using System.Collections.Generic;
     using System.Net.Http.Headers;
 
@@ -38,6 +39,14 @@
         /// <param name="challenge">AuthenticationHeaderValue containing scheme and parameter.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
         IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationHeaderValue challenge);
+
+        /// <summary>
+        /// Tests whether an unauthorized result contains authenticated header using the provided authenticated header value builder.
+        /// </summary>
+        /// <param name="challengeBuilder">Builder for creating AuthenticationHeaderValue.</param>
+        /// <returns>Unauthorized result test builder with And() method.</returns>
+        IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(
+            Action<IAuthenticationHeaderValueBuilder> challengeBuilder);
 
         /// <summary>
         /// Tests whether an unauthorized result has exactly the same authenticated header values as the provided collection.

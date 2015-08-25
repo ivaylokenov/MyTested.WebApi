@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.UnauthorizedResults
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http.Headers;
@@ -13,7 +14,7 @@
     using Utilities;
 
     /// <summary>
-    /// Used for testing the authenticated header challenges in unauthorized results.
+    /// Used for testing the authentication header challenges in unauthorized results.
     /// </summary>
     public class UnauthorizedResultTestBuilder : BaseTestBuilderWithActionResult<UnauthorizedResult>,
         IUnauthorizedResultTestBuilder
@@ -33,7 +34,7 @@
         }
 
         /// <summary>
-        /// Tests whether an unauthorized result contains authenticated header with the provided default scheme.
+        /// Tests whether an unauthorized result contains authentication header with the provided default scheme.
         /// </summary>
         /// <param name="scheme">Enumeration containing default schemes.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
@@ -43,7 +44,7 @@
         }
 
         /// <summary>
-        /// Tests whether an unauthorized result contains authenticated header with the provided scheme as string.
+        /// Tests whether an unauthorized result contains authentication header with the provided scheme as string.
         /// </summary>
         /// <param name="scheme">Scheme as string.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
@@ -58,7 +59,7 @@
         }
 
         /// <summary>
-        /// Tests whether an unauthorized result contains authenticated header with the provided scheme and parameter.
+        /// Tests whether an unauthorized result contains authentication header with the provided scheme and parameter.
         /// </summary>
         /// <param name="scheme">Scheme as string.</param>
         /// <param name="parameter">Parameter as string.</param>
@@ -75,7 +76,7 @@
         }
 
         /// <summary>
-        /// Tests whether an unauthorized result contains authenticated header with the provided authenticated header value.
+        /// Tests whether an unauthorized result contains authentication header with the provided authenticated header value.
         /// </summary>
         /// <param name="challenge">AuthenticationHeaderValue containing scheme and parameter.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
@@ -90,9 +91,24 @@
         }
 
         /// <summary>
-        /// Tests whether an unauthorized result has exactly the same authenticated header values as the provided collection.
+        /// Tests whether an unauthorized result contains authenticated header using the provided authenticated header value builder.
         /// </summary>
-        /// <param name="challenges">Collection of authenticated header values.</param>
+        /// <param name="challengeBuilder">Builder for creating AuthenticationHeaderValue.</param>
+        /// <returns>Unauthorized result test builder with And() method.</returns>
+        public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(
+            Action<IAuthenticationHeaderValueBuilder> challengeBuilder)
+        {
+            var authenticationHeaderValueBuilder = new AuthenticationHeaderValueBuilder();
+            challengeBuilder(authenticationHeaderValueBuilder);
+            return
+                this.ContainingAuthenticationHeaderChallenge(
+                    authenticationHeaderValueBuilder.GetAuthenticationHeaderValue());
+        }
+
+        /// <summary>
+        /// Tests whether an unauthorized result has exactly the same authentication header values as the provided collection.
+        /// </summary>
+        /// <param name="challenges">Collection of authentication header values.</param>
         public void WithAuthenticationHeaderChallenges(IEnumerable<AuthenticationHeaderValue> challenges)
         {
             var actualChallenges = SortChallenges(this.ActionResult.Challenges);
@@ -121,9 +137,9 @@
         }
 
         /// <summary>
-        /// Tests whether an unauthorized result has exactly the same authenticated header values as the provided ones as parameters.
+        /// Tests whether an unauthorized result has exactly the same authentication header values as the provided ones as parameters.
         /// </summary>
-        /// <param name="challenges">Parameters of authenticated header values.</param>
+        /// <param name="challenges">Parameters of authentication header values.</param>
         public void WithAuthenticationHeaderChallenges(params AuthenticationHeaderValue[] challenges)
         {
             this.WithAuthenticationHeaderChallenges(challenges.AsEnumerable());
