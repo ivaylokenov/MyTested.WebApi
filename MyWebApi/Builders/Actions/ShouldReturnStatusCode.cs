@@ -4,7 +4,6 @@
     using System.Web.Http.Results;
     using Common.Extensions;
     using Exceptions;
-    using Utilities;
 
     /// <summary>
     /// Class containing methods for testing OkResult.

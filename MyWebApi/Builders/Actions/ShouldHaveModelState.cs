@@ -4,7 +4,6 @@
     using Contracts.ResponseModels;
     using Exceptions;
     using ResponseModels;
-    using Utilities;
 
     /// <summary>
     /// Class containing methods for testing return type.

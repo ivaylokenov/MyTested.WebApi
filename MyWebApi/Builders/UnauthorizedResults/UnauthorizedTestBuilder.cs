@@ -12,7 +12,6 @@
     using Common.Extensions;
     using Contracts.UnauthorizedResults;
     using Exceptions;
-    using Utilities;
 
     /// <summary>
     /// Used for testing the authentication header challenges in unauthorized results.

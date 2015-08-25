@@ -11,7 +11,6 @@
     using Common.Extensions;
     using Contracts.ResponseModels;
     using Exceptions;
-    using Utilities;
 
     /// <summary>
     /// Used for testing specific response model errors.
