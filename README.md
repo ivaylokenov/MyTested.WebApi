@@ -231,6 +231,68 @@ MyWebApi
 	.ContainingNoModelStateErrorFor(m => m.AnotherProperty);
 ```
 
+#### Unauthorized result
+
+```c#
+// tests whether the action returns UnauthorizedResult
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized();
+	
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()
+	.ContainingAuthenticationHeaderChallenge(AuthenticationScheme.Basic);
+	
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()
+	.ContainingAuthenticationHeaderChallenge("Basic");
+	
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()
+	.ContainingAuthenticationHeaderChallenge("Basic", "Value");
+	
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()	
+	.ContainingAuthenticationHeaderChallenge(new AuthenticationHeaderValue("Basic", "Value"));
+	
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()	
+	.ContainingAuthenticationHeaderChallenge(
+		authHeader =>
+			authHeader
+				.WithScheme(AuthenticationScheme.Basic)
+				.WithParameter("TestParameter"));
+		
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()	
+	.WithAuthenticationHeaderChallenges(new[]
+	{
+		new AuthenticationHeaderValue("Basic", "Value"),
+		new AuthenticationHeaderValue("Basic", "AnotherValue")
+	});
+	
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()	
+	.WithAuthenticationHeaderChallenges(
+		new AuthenticationHeaderValue("Basic", "Value"),
+		new AuthenticationHeaderValue("Basic", "AnotherValue"));
+```
+
 #### StatusCode result
 
 ```c#

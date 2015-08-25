@@ -66,7 +66,7 @@
         /// <returns>Unauthorized result test builder with And() method.</returns>
         public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string scheme, string parameter)
         {
-            if (!this.ActionResult.Challenges.Any(c => c.Scheme == scheme 
+            if (!this.ActionResult.Challenges.Any(c => c.Scheme == scheme
                 && c.Parameter == parameter))
             {
                 this.ThrowNewUnathorizedResultAssertionException(scheme, parameter);
@@ -98,11 +98,8 @@
         public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(
             Action<IAuthenticationHeaderValueBuilder> challengeBuilder)
         {
-            var authenticationHeaderValueBuilder = new AuthenticationHeaderValueBuilder();
-            challengeBuilder(authenticationHeaderValueBuilder);
-            return
-                this.ContainingAuthenticationHeaderChallenge(
-                    authenticationHeaderValueBuilder.GetAuthenticationHeaderValue());
+            var authenticationHeaderValue = this.GetAuthenticationHeaderValue(challengeBuilder);
+            return this.ContainingAuthenticationHeaderChallenge(authenticationHeaderValue);
         }
 
         /// <summary>
@@ -145,6 +142,23 @@
             this.WithAuthenticationHeaderChallenges(challenges.AsEnumerable());
         }
 
+        /// <summary>
+        /// Tests whether an unauthorized result has exactly the same authentication header values as the provided ones from the challenges builder.
+        /// </summary>
+        /// <param name="challengesBuilder">Builder for creating collection of authentication header values.</param>
+        public void WithAuthenticationHeaderChallenges(Action<IChallengesBuilder> challengesBuilder)
+        {
+            var newChallengesBuilder = new ChallengesBuilder();
+            challengesBuilder(new ChallengesBuilder());
+            var authenticationHeaderBuilders = newChallengesBuilder.GetAuthenticationHeaderValueBuilders();
+
+            var authenticationHeaders = authenticationHeaderBuilders
+                .Select(this.GetAuthenticationHeaderValue)
+                .AsEnumerable();
+
+            this.WithAuthenticationHeaderChallenges(authenticationHeaders);
+        }
+
         private static IList<AuthenticationHeaderValue> SortChallenges(
             IEnumerable<AuthenticationHeaderValue> challenges)
         {
@@ -152,6 +166,13 @@
                 .OrderBy(c => c.Parameter)
                 .ThenBy(c => c.Scheme)
                 .ToList();
+        }
+
+        private AuthenticationHeaderValue GetAuthenticationHeaderValue(Action<AuthenticationHeaderValueBuilder> challengeBuilder)
+        {
+            var authenticationHeaderValueBuilder = new AuthenticationHeaderValueBuilder();
+            challengeBuilder(authenticationHeaderValueBuilder);
+            return authenticationHeaderValueBuilder.GetAuthenticationHeaderValue();
         }
 
         private void ThrowNewUnathorizedResultAssertionException(string scheme, string parameter = null)

@@ -6,7 +6,7 @@
     using Contracts;
 
     /// <summary>
-    /// Used for builder mocked AuthenticationHeaderValue.
+    /// Used for building mocked AuthenticationHeaderValue.
     /// </summary>
     public class AuthenticationHeaderValueBuilder : IAuthenticationHeaderValueBuilder, IAuthenticationHeaderValueParameterBuilder
     {
