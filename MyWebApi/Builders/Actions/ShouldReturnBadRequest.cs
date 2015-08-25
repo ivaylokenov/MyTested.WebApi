@@ -1,6 +1,8 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
+    using System.Web.Http;
     using System.Web.Http.Results;
+    using Contracts;
 
     /// <summary>
     /// Class containing methods for testing BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.
@@ -8,20 +10,26 @@
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ActionResultTestBuilder<TActionResult>
     {
-        public void ShouldReturnBadRequest()
+        public IBadRequestTestBuilder ShouldReturnBadRequest()
         {
             if (this.ActionResult as BadRequestResult != null)
             {
-                this.ShouldReturn<BadRequestResult>();
+                return this.ReturnBadRequestTestBuilder<BadRequestResult>();
             }
-            else if (this.ActionResult as InvalidModelStateResult != null)
+
+            if (this.ActionResult as InvalidModelStateResult != null)
             {
-                this.ShouldReturn<InvalidModelStateResult>();
+                return this.ReturnBadRequestTestBuilder<InvalidModelStateResult>();
             }
-            else
-            {
-                this.ShouldReturn<BadRequestErrorMessageResult>();
-            }
+
+            return this.ReturnBadRequestTestBuilder<BadRequestErrorMessageResult>();
+        }
+
+        private IBadRequestTestBuilder ReturnBadRequestTestBuilder<TBadRequestResult>()
+            where TBadRequestResult : class
+        {
+            var badRequestResult = this.GetReturnObject<TBadRequestResult>();
+            return new BadRequestTestBuilder<TBadRequestResult>(this.Controller, this.ActionName, badRequestResult);
         }
     }
 }

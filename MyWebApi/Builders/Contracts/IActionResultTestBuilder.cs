@@ -51,13 +51,13 @@
         /// </summary>
         void ShouldReturnNotFound();
 
-        void ShouldReturnBadRequest();
+        IBadRequestTestBuilder ShouldReturnBadRequest();
 
         /// <summary>
         /// Tests whether action result is UnauthorizedResult.
         /// </summary>
         /// <returns>Unauthorized result test builder.</returns>
-        IUnauthorizedResultTestBuilder ShouldReturnUnauthorized();
+        IUnauthorizedTestBuilder ShouldReturnUnauthorized();
 
         /// <summary>
         /// Tests whether action result is of the provided generic type.

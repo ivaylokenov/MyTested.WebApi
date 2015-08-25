@@ -8,9 +8,9 @@
     /// <summary>
     /// Used for adding And() method to the the unauthorized response tests.
     /// </summary>
-    public class AndUnauthorizedTestBuilder : UnauthorizedResultTestBuilder, IAndUnauthorizedResultTestBuilder
+    public class AndUnauthorizedTestBuilder : UnauthorizedTestBuilder, IAndUnauthorizedTestBuilder
     {
-        private readonly IUnauthorizedResultTestBuilder unauthorizedResultTestBuilder;
+        private readonly IUnauthorizedTestBuilder unauthorizedResultTestBuilder;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AndUnauthorizedTestBuilder" /> class.
@@ -23,7 +23,7 @@
             ApiController controller,
             string actionName,
             UnauthorizedResult actionResult,
-            IUnauthorizedResultTestBuilder unauthorizedResultTestBuilder)
+            IUnauthorizedTestBuilder unauthorizedResultTestBuilder)
             : base(controller, actionName, actionResult)
         {
             this.unauthorizedResultTestBuilder = unauthorizedResultTestBuilder;
@@ -33,7 +33,7 @@
         /// And method for better readability when chaining unauthorized result tests.
         /// </summary>
         /// <returns>Unauthorized result test builder.</returns>
-        public IUnauthorizedResultTestBuilder And()
+        public IUnauthorizedTestBuilder And()
         {
             return this.unauthorizedResultTestBuilder;
         }

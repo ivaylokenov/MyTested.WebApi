@@ -16,16 +16,16 @@
     /// <summary>
     /// Used for testing the authentication header challenges in unauthorized results.
     /// </summary>
-    public class UnauthorizedResultTestBuilder : BaseTestBuilderWithActionResult<UnauthorizedResult>,
-        IUnauthorizedResultTestBuilder
+    public class UnauthorizedTestBuilder : BaseTestBuilderWithActionResult<UnauthorizedResult>,
+        IUnauthorizedTestBuilder
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnauthorizedResultTestBuilder" /> class.
+        /// Initializes a new instance of the <see cref="UnauthorizedTestBuilder" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="actionResult">Result from the tested action.</param>
-        public UnauthorizedResultTestBuilder(
+        public UnauthorizedTestBuilder(
             ApiController controller,
             string actionName,
             UnauthorizedResult actionResult)
@@ -38,7 +38,7 @@
         /// </summary>
         /// <param name="scheme">Enumeration containing default schemes.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
-        public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationScheme scheme)
+        public IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationScheme scheme)
         {
             return this.ContainingAuthenticationHeaderChallenge(scheme.ToString());
         }
@@ -48,7 +48,7 @@
         /// </summary>
         /// <param name="scheme">Scheme as string.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
-        public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string scheme)
+        public IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(string scheme)
         {
             if (this.ActionResult.Challenges.All(c => c.Scheme != scheme))
             {
@@ -64,7 +64,7 @@
         /// <param name="scheme">Scheme as string.</param>
         /// <param name="parameter">Parameter as string.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
-        public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string scheme, string parameter)
+        public IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(string scheme, string parameter)
         {
             if (!this.ActionResult.Challenges.Any(c => c.Scheme == scheme
                 && c.Parameter == parameter))
@@ -80,7 +80,7 @@
         /// </summary>
         /// <param name="challenge">AuthenticationHeaderValue containing scheme and parameter.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
-        public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationHeaderValue challenge)
+        public IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationHeaderValue challenge)
         {
             if (string.IsNullOrEmpty(challenge.Parameter))
             {
@@ -95,7 +95,7 @@
         /// </summary>
         /// <param name="challengeBuilder">Builder for creating AuthenticationHeaderValue.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
-        public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(
+        public IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(
             Action<IAuthenticationHeaderValueBuilder> challengeBuilder)
         {
             var authenticationHeaderValue = this.GetAuthenticationHeaderValue(challengeBuilder);

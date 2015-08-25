@@ -15,10 +15,10 @@
         /// Tests whether action result is UnauthorizedResult.
         /// </summary>
         /// <returns>Unauthorized result test builder.</returns>
-        public IUnauthorizedResultTestBuilder ShouldReturnUnauthorized()
+        public IUnauthorizedTestBuilder ShouldReturnUnauthorized()
         {
             var unathorizedResult = this.GetReturnObject<UnauthorizedResult>();
-            return new UnauthorizedResultTestBuilder(this.Controller, this.ActionName, unathorizedResult);
+            return new UnauthorizedTestBuilder(this.Controller, this.ActionName, unathorizedResult);
         }
     }
 }

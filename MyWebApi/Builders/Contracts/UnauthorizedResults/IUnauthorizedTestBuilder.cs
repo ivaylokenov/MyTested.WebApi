@@ -9,21 +9,21 @@
     /// <summary>
     /// Used for testing the authenticated header challenges in unauthorized results.
     /// </summary>
-    public interface IUnauthorizedResultTestBuilder
+    public interface IUnauthorizedTestBuilder
     {
         /// <summary>
         /// Tests whether an unauthorized result contains authenticated header with the provided default scheme.
         /// </summary>
         /// <param name="scheme">Enumeration containing default schemes.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
-        IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationScheme scheme);
+        IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationScheme scheme);
 
         /// <summary>
         /// Tests whether an unauthorized result contains authenticated header with the provided scheme as string.
         /// </summary>
         /// <param name="scheme">Scheme as string.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
-        IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string scheme);
+        IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(string scheme);
 
         /// <summary>
         /// Tests whether an unauthorized result contains authenticated header with the provided scheme and parameter.
@@ -31,21 +31,21 @@
         /// <param name="scheme">Scheme as string.</param>
         /// <param name="parameter">Parameter as string.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
-        IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string scheme, string parameter);
+        IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(string scheme, string parameter);
 
         /// <summary>
         /// Tests whether an unauthorized result contains authenticated header with the provided authenticated header value.
         /// </summary>
         /// <param name="challenge">AuthenticationHeaderValue containing scheme and parameter.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
-        IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationHeaderValue challenge);
+        IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationHeaderValue challenge);
 
         /// <summary>
         /// Tests whether an unauthorized result contains authenticated header using the provided authenticated header value builder.
         /// </summary>
         /// <param name="challengeBuilder">Builder for creating AuthenticationHeaderValue.</param>
         /// <returns>Unauthorized result test builder with And() method.</returns>
-        IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(
+        IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(
             Action<IAuthenticationHeaderValueBuilder> challengeBuilder);
 
         /// <summary>
