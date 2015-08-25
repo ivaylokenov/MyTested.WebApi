@@ -45,6 +45,11 @@
 
         public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationHeaderValue challenge)
         {
+            if (string.IsNullOrEmpty(challenge.Parameter))
+            {
+                return this.ContainingAuthenticationHeaderChallenge(challenge.Scheme);
+            }
+
             return this.ContainingAuthenticationHeaderChallenge(challenge.Scheme, challenge.Parameter);
         }
 

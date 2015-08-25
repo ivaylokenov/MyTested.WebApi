@@ -1,5 +1,7 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.UnauthorizedResultsTests
 {
+    using System.Collections.Generic;
+    using System.Net.Http.Headers;
     using Exceptions;
     using NUnit.Framework;
     using Setups;
@@ -51,6 +53,174 @@
                 .Calling(c => c.UnauthorizedActionWithChallenges())
                 .ShouldReturnUnauthorized()
                 .ContainingAuthenticationHeaderChallenge("Scheme", "Parameter");
+        }
+
+        [Test]
+        public void ContainingAuthenticationHeaderChallengeShouldNotThrowExceptionWhenResultContainsTheProvidedHeader()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .ContainingAuthenticationHeaderChallenge(new AuthenticationHeaderValue("TestScheme"));
+        }
+
+        [Test]
+        public void ContainingAuthenticationHeaderChallengeShouldNotThrowExceptionWhenResultContainsTheProvidedHeaderWithParameter()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .ContainingAuthenticationHeaderChallenge(new AuthenticationHeaderValue("TestScheme", "TestParameter"));
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnauthorizedResultAssertionException),
+            ExpectedMessage = "When calling UnauthorizedActionWithChallenges action in WebApiController expected to have authentication header challenge with Scheme scheme and no matter what parameter, but none found.")]
+        public void ContainingAuthenticationHeaderChallengeShouldThrowExceptionWhenResultDoesNotContainTheProvidedHeader()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .ContainingAuthenticationHeaderChallenge(new AuthenticationHeaderValue("Scheme"));
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnauthorizedResultAssertionException),
+            ExpectedMessage = "When calling UnauthorizedActionWithChallenges action in WebApiController expected to have authentication header challenge with Scheme scheme and Parameter parameter, but none found.")]
+        public void ContainingAuthenticationHeaderChallengeShouldThrowExceptionWhenResultDoesNotContainTheProvidedHeaderWithParameter()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .ContainingAuthenticationHeaderChallenge(new AuthenticationHeaderValue("Scheme", "Parameter"));
+        }
+
+        [Test]
+        public void WithAuthenticationHeaderChallengesShouldNotThrowExceptionWhenResultContainsExactlyAllProvidedHeaders()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .WithAuthenticationHeaderChallenges(new[]
+                {
+                    new AuthenticationHeaderValue("TestScheme", "TestParameter"),
+                    new AuthenticationHeaderValue("AnotherScheme"),
+                    new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter")
+                });
+        }
+
+        [Test]
+        public void WithAuthenticationHeaderChallengesShouldNotThrowExceptionWhenResultContainsExactlyAllProvidedHeadersInDifferentOrder()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .WithAuthenticationHeaderChallenges(new[]
+                {
+                    new AuthenticationHeaderValue("TestScheme", "TestParameter"),
+                    new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
+                    new AuthenticationHeaderValue("AnotherScheme")
+                });
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnauthorizedResultAssertionException),
+            ExpectedMessage = "When calling UnauthorizedActionWithChallenges action in WebApiController expected to have 2 authentication header challenges, but found 3.")]
+        public void WithAuthenticationHeaderChallengesShouldThrowExceptionWhenResultDoesNotContainExactlyNotAllProvidedHeadersInDifferentOrder()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .WithAuthenticationHeaderChallenges(new[]
+                {
+                    new AuthenticationHeaderValue("TestScheme", "TestParameter"),
+                    new AuthenticationHeaderValue("AnotherScheme")
+                });
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnauthorizedResultAssertionException),
+            ExpectedMessage = "When calling UnauthorizedActionWithChallenges action in WebApiController expected to have authentication header challenge with Scheme scheme and no matter what parameter, but none found.")]
+        public void WithAuthenticationHeaderChallengesShouldThrowExceptionWhenResultDoesNotContainExactlyAllProvidedHeadersWithWrongData()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .WithAuthenticationHeaderChallenges(new[]
+                {
+                    new AuthenticationHeaderValue("TestScheme", "TestParameter"),
+                    new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
+                    new AuthenticationHeaderValue("Scheme")
+                });
+        }
+
+        [Test]
+        public void WithAuthenticationHeaderChallengesShouldNotThrowExceptionWhenResultContainsExactlyAllProvidedHeadersAndParams()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .WithAuthenticationHeaderChallenges(
+                    new AuthenticationHeaderValue("TestScheme", "TestParameter"),
+                    new AuthenticationHeaderValue("AnotherScheme"),
+                    new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"));
+        }
+
+        [Test]
+        public void WithAuthenticationHeaderChallengesShouldNotThrowExceptionWhenResultContainsExactlyAllProvidedHeadersInDifferentOrderAndParams()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .WithAuthenticationHeaderChallenges(
+                    new AuthenticationHeaderValue("TestScheme", "TestParameter"),
+                    new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
+                    new AuthenticationHeaderValue("AnotherScheme"));
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnauthorizedResultAssertionException),
+            ExpectedMessage = "When calling UnauthorizedActionWithChallenges action in WebApiController expected to have 2 authentication header challenges, but found 3.")]
+        public void WithAuthenticationHeaderChallengesShouldThrowExceptionWhenResultDoesNotContainExactlyNotAllProvidedHeadersInDifferentOrderAndParams()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .WithAuthenticationHeaderChallenges(
+                    new AuthenticationHeaderValue("TestScheme", "TestParameter"),
+                    new AuthenticationHeaderValue("AnotherScheme"));
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnauthorizedResultAssertionException),
+            ExpectedMessage = "When calling UnauthorizedActionWithChallenges action in WebApiController expected to have authentication header challenge with Scheme scheme and no matter what parameter, but none found.")]
+        public void WithAuthenticationHeaderChallengesShouldThrowExceptionWhenResultDoesNotContainExactlyAllProvidedHeadersWithWrongDataAndParams()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .WithAuthenticationHeaderChallenges(
+                    new AuthenticationHeaderValue("TestScheme", "TestParameter"),
+                    new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
+                    new AuthenticationHeaderValue("Scheme"));
         }
     }
 }
