@@ -3,15 +3,15 @@
     using System;
 
     /// <summary>
-    /// Exception for response model with errors.
+    /// Exception for model with errors.
     /// </summary>
-    public class ResponseModelErrorAssertionException : Exception
+    public class ModelErrorAssertionException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the ResponseModelErrorAssertionException class.
+        /// Initializes a new instance of the ModelErrorAssertionException class.
         /// </summary>
         /// <param name="message">Message for System.Exception class.</param>
-        public ResponseModelErrorAssertionException(string message)
+        public ModelErrorAssertionException(string message)
             : base(message)
         {
         }

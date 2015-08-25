@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net;
+
     using Models;
     using UnauthorizedResults;
 
@@ -15,8 +16,8 @@
         /// Provides way to continue test case with specific model state errors.
         /// </summary>
         /// <typeparam name="TRequestModel">Request model type to be tested for errors.</typeparam>
-        /// <returns>Response model test builder.</returns>
-        IResponseModelErrorTestBuilder<TRequestModel> ShouldHaveModelStateFor<TRequestModel>();
+        /// <returns>Model test builder.</returns>
+        IModelErrorTestBuilder<TRequestModel> ShouldHaveModelStateFor<TRequestModel>();
 
         /// <summary>
         /// Checks whether the tested action's provided model state is valid.
@@ -63,13 +64,13 @@
         /// </summary>
         /// <typeparam name="TResponseModel">Expected response type.</typeparam>
         /// <returns>Response model test builder.</returns>
-        IResponseModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>();
+        IModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>();
 
         /// <summary>
         /// Tests whether action result is of the provided type.
         /// </summary>
         /// <param name="returnType">Expected return type.</param>
         /// <returns>Response model test builder.</returns>
-        IResponseModelErrorTestBuilder ShouldReturn(Type returnType);
+        IModelErrorTestBuilder ShouldReturn(Type returnType);
     }
 }

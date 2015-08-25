@@ -1,9 +1,9 @@
 ﻿namespace MyWebApi.Builders.Contracts.Models
 {
     /// <summary>
-    /// Used for testing the response model errors.
+    /// Used for testing model errors.
     /// </summary>
-    public interface IResponseModelErrorTestBuilder
+    public interface IModelErrorTestBuilder
     {
         /// <summary>
         /// Tests whether tested action's model state is valid.

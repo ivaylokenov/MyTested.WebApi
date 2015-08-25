@@ -13,7 +13,7 @@
     /// </summary>
     /// <typeparam name="TResponseModel">Response model from invoked action in ASP.NET Web API controller.</typeparam>
     public class ResponseModelDetailsTestBuilder<TResponseModel>
-        : ResponseModelErrorTestBuilder<TResponseModel>, IResponseModelDetailsTestBuilder<TResponseModel>
+        : ModelErrorTestBuilder<TResponseModel>, IResponseModelDetailsTestBuilder<TResponseModel>
     {
         private readonly TResponseModel responseModel;
 
@@ -34,10 +34,10 @@
         /// </summary>
         /// <param name="assertions">Action containing all assertions on the response model.</param>
         /// <returns>Builder for testing the response model errors.</returns>
-        public IResponseModelErrorTestBuilder<TResponseModel> Passing(Action<TResponseModel> assertions)
+        public IModelErrorTestBuilder<TResponseModel> Passing(Action<TResponseModel> assertions)
         {
             assertions(this.responseModel);
-            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
+            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@
         /// </summary>
         /// <param name="predicate">Predicate testing the response model.</param>
         /// <returns>Builder for testing the response model errors.</returns>
-        public IResponseModelErrorTestBuilder<TResponseModel> Passing(Func<TResponseModel, bool> predicate)
+        public IModelErrorTestBuilder<TResponseModel> Passing(Func<TResponseModel, bool> predicate)
         {
             if (!predicate(this.responseModel))
             {
@@ -56,7 +56,7 @@
                             typeof(TResponseModel).ToFriendlyTypeName()));
             }
 
-            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
+            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
     }
 }

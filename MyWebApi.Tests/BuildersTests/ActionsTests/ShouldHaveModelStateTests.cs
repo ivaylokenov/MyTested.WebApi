@@ -35,7 +35,7 @@
 
         [Test]
         [ExpectedException(
-            typeof(ResponseModelErrorAssertionException),
+            typeof(ModelErrorAssertionException),
             ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have valid model state with no errors, but it had some.")]
         public void ShouldHaveValidModelStateShouldThrowExceptionWithInvalidRequestModel()
         {
@@ -60,7 +60,7 @@
 
         [Test]
         [ExpectedException(
-            typeof(ResponseModelErrorAssertionException),
+            typeof(ModelErrorAssertionException),
             ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have invalid model state, but was in fact valid.")]
         public void ShouldHaveInvalidModelStateShouldThrowExceptionWithValidRequestModel()
         {

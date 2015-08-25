@@ -69,9 +69,9 @@
     <Compile Include="Builders\Contracts\UnauthorizedResults\IChallengesBuilder.cs" />
     <Compile Include="Builders\Contracts\IControllerBuilder.cs" />
     <Compile Include="Builders\Contracts\IActionResultTestBuilder.cs" />
-    <Compile Include="Builders\Contracts\Models\IResponseModelErrorDetailsTestBuilder.cs" />
-    <Compile Include="Builders\Contracts\Models\IResponseModelErrorTestBuilder.cs" />
-    <Compile Include="Builders\Contracts\Models\IResponseModelErrorTestBuilder{TResponseModel}.cs" />
+    <Compile Include="Builders\Contracts\Models\IModelErrorDetailsTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Models\IModelErrorTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Models\IModelErrorTestBuilder{TModel}.cs" />
     <Compile Include="Builders\Contracts\Models\IResponseModelTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IResponseModelDetailsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\UnauthorizedResults\IUnauthorizedTestBuilder.cs" />
@@ -79,9 +79,9 @@
     <Compile Include="Builders\ControllerBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldHaveModelState.cs" />
     <Compile Include="Builders\Models\ResponseModelDetailsTestBuilder.cs" />
-    <Compile Include="Builders\Models\ResponseModelErrorDetailsTestBuilder.cs" />
-    <Compile Include="Builders\Models\ResponseModelErrorTestBuilder.cs" />
-    <Compile Include="Builders\Models\ResponseModelErrorTestBuilder{TResponseModel}.cs" />
+    <Compile Include="Builders\Models\ModelErrorDetailsTestBuilder.cs" />
+    <Compile Include="Builders\Models\ModelErrorTestBuilder.cs" />
+    <Compile Include="Builders\Models\ModelErrorTestBuilder{TModel}.cs" />
     <Compile Include="Builders\Models\ResponseModelTestBuilder.cs" />
     <Compile Include="Builders\Actions\ActionResultTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn.cs" />
@@ -101,7 +101,7 @@
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
     <Compile Include="Exceptions\HttpStatusCodeAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
-    <Compile Include="Exceptions\ResponseModelErrorAssertionException.cs" />
+    <Compile Include="Exceptions\ModelErrorAssertionException.cs" />
     <Compile Include="Exceptions\UnauthorizedResultAssertionException.cs" />
     <Compile Include="Exceptions\UnresolvedDependenciesException.cs" />
     <Compile Include="MyWebApi.cs" />

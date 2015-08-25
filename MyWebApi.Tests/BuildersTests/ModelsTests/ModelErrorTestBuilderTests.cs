@@ -10,7 +10,7 @@
     using Setups.Models;
 
     [TestFixture]
-    public class ResponseModelErrorTestBuilderTests
+    public class ModelErrorTestBuilderTests
     {
         [Test]
         public void ContainingNoErrorsShouldNotThrowExceptionWhenThereAreNoModelStateErrors()
@@ -27,7 +27,7 @@
 
         [Test]
         [ExpectedException(
-            typeof(ResponseModelErrorAssertionException),
+            typeof(ModelErrorAssertionException),
             ExpectedMessage = "When calling OkResultActionWithRequestBody action in WebApiController expected to have valid model state with no errors, but it had some.")]
         public void ContainingNoErrorsShouldThrowExceptionWhenThereAreModelStateErrors()
         {
@@ -56,7 +56,7 @@
 
         [Test]
         [ExpectedException(
-            typeof(ResponseModelErrorAssertionException),
+            typeof(ModelErrorAssertionException),
             ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have a model error against key Name, but none found.")]
         public void AndModelStateErrorShouldThrowExceptionWhenTheProvidedModelStateErrorDoesNotExist()
         {
@@ -85,7 +85,7 @@
 
         [Test]
         [ExpectedException(
-            typeof(ResponseModelErrorAssertionException),
+            typeof(ModelErrorAssertionException),
             ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have a model error against key RequiredString, but none found.")]
         public void AndModelStateErrorForShouldThrowExceptionWhenTheProvidedPropertyDoesNotHaveErrors()
         {
@@ -114,7 +114,7 @@
 
         [Test]
         [ExpectedException(
-            typeof(ResponseModelErrorAssertionException),
+            typeof(ModelErrorAssertionException),
             ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have no model errors against key RequiredString, but found some.")]
         public void AndNoModelStateErrorForShouldThrowExceptionWhenTheProvidedPropertyHasErrors()
         {
@@ -144,7 +144,7 @@
 
         [Test]
         [ExpectedException(
-            typeof(ResponseModelErrorAssertionException),
+            typeof(ModelErrorAssertionException),
             ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have no model errors against key Integer, but found some.")]
         public void AndNoModelStateErrorForShouldThrowExceptionWhenChainedWithInvalidModel()
         {

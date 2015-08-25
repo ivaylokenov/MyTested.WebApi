@@ -15,10 +15,10 @@
         /// </summary>
         /// <param name="returnType">Expected response type.</param>
         /// <returns>Response model test builder.</returns>
-        public IResponseModelErrorTestBuilder ShouldReturn(Type returnType)
+        public IModelErrorTestBuilder ShouldReturn(Type returnType)
         {
             this.ValidateActionReturnType(returnType, true, true);
-            return new ResponseModelErrorTestBuilder(this.Controller, this.ActionName);
+            return new ModelErrorTestBuilder(this.Controller, this.ActionName);
         }
 
         /// <summary>
@@ -26,10 +26,10 @@
         /// </summary>
         /// <typeparam name="TResponseModel">Expected response type.</typeparam>
         /// <returns>Response model test builder.</returns>
-        public IResponseModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>()
+        public IModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>()
         {
             this.ValidateActionReturnType<TResponseModel>(true);
-            return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
+            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
 
         private TReturnObject GetReturnObject<TReturnObject>()

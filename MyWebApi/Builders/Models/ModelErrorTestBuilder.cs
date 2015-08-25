@@ -7,16 +7,16 @@
     using Contracts.Models;
 
     /// <summary>
-    /// Used for testing the response model errors.
+    /// Used for testing the model errors.
     /// </summary>
-    public class ResponseModelErrorTestBuilder : BaseTestBuilder, IResponseModelErrorTestBuilder
+    public class ModelErrorTestBuilder : BaseTestBuilder, IModelErrorTestBuilder
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResponseModelErrorTestBuilder" /> class.
+        /// Initializes a new instance of the <see cref="ModelErrorTestBuilder" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
-        public ResponseModelErrorTestBuilder(ApiController controller, string actionName)
+        public ModelErrorTestBuilder(ApiController controller, string actionName)
             : base(controller, actionName)
         {
             this.ModelState = controller.ModelState;
