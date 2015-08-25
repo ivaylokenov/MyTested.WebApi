@@ -125,7 +125,7 @@
             return this.Unauthorized(new[]
             {
                 new AuthenticationHeaderValue("TestScheme", "TestParameter"),
-                new AuthenticationHeaderValue("AnotherScheme"),
+                new AuthenticationHeaderValue("Basic"),
                 new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
             });
         }

@@ -3,8 +3,12 @@
     using System.Collections.Generic;
     using System.Net.Http.Headers;
 
+    using Common;
+
     public interface IUnauthorizedResultTestBuilder
     {
+        IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationScheme scheme);
+
         IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string scheme);
 
         IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string scheme, string parameter);

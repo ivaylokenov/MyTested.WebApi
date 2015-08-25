@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Net.Http.Headers;
+    using Common;
     using Exceptions;
     using NUnit.Framework;
     using Setups;
@@ -30,6 +31,29 @@
                 .Calling(c => c.UnauthorizedActionWithChallenges())
                 .ShouldReturnUnauthorized()
                 .ContainingAuthenticationHeaderChallenge("Scheme");
+        }
+
+        [Test]
+        public void ContainingAuthenticationHeaderChallengeShouldNotThrowExceptionWhenResultContainsTheProvidedHeaderWithSchemeEnum()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .ContainingAuthenticationHeaderChallenge(AuthenticationScheme.Basic);
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnauthorizedResultAssertionException),
+            ExpectedMessage = "When calling UnauthorizedActionWithChallenges action in WebApiController expected to have authentication header challenge with Anonymous scheme and no matter what parameter, but none found.")]
+        public void ContainingAuthenticationHeaderChallengeShouldThrowExceptionWhenResultDoesNotContainTheProvidedHeaderWithSchemeEnum()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .ContainingAuthenticationHeaderChallenge(AuthenticationScheme.Anonymous);
         }
 
         [Test]
@@ -111,7 +135,7 @@
                 .WithAuthenticationHeaderChallenges(new[]
                 {
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
-                    new AuthenticationHeaderValue("AnotherScheme"),
+                    new AuthenticationHeaderValue("Basic"),
                     new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter")
                 });
         }
@@ -127,7 +151,7 @@
                 {
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
                     new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
-                    new AuthenticationHeaderValue("AnotherScheme")
+                    new AuthenticationHeaderValue("Basic")
                 });
         }
 
@@ -144,7 +168,7 @@
                 .WithAuthenticationHeaderChallenges(new[]
                 {
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
-                    new AuthenticationHeaderValue("AnotherScheme")
+                    new AuthenticationHeaderValue("Basic")
                 });
         }
 
@@ -175,7 +199,7 @@
                 .ShouldReturnUnauthorized()
                 .WithAuthenticationHeaderChallenges(
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
-                    new AuthenticationHeaderValue("AnotherScheme"),
+                    new AuthenticationHeaderValue("Basic"),
                     new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"));
         }
 
@@ -189,7 +213,7 @@
                 .WithAuthenticationHeaderChallenges(
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
                     new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
-                    new AuthenticationHeaderValue("AnotherScheme"));
+                    new AuthenticationHeaderValue("Basic"));
         }
 
         [Test]
@@ -204,7 +228,7 @@
                 .ShouldReturnUnauthorized()
                 .WithAuthenticationHeaderChallenges(
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
-                    new AuthenticationHeaderValue("AnotherScheme"));
+                    new AuthenticationHeaderValue("Basic"));
         }
 
         [Test]

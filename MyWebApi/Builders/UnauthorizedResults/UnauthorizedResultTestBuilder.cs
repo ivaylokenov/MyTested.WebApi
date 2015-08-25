@@ -7,6 +7,7 @@
     using System.Web.Http.Results;
 
     using Base;
+    using Common;
     using Contracts;
     using Exceptions;
     using Utilities;
@@ -20,6 +21,11 @@
             UnauthorizedResult actionResult)
             : base(controller, actionName, actionResult)
         {
+        }
+
+        public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationScheme scheme)
+        {
+            return this.ContainingAuthenticationHeaderChallenge(scheme.ToString());
         }
 
         public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string scheme)
