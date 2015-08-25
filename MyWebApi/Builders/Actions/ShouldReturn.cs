@@ -1,9 +1,8 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
     using System;
-
-    using Contracts.ResponseModels;
-    using ResponseModels;
+    using Contracts.Models;
+    using Models;
 
     /// <summary>
     /// Class containing methods for testing return type.

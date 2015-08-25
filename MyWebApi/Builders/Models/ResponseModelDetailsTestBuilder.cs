@@ -3,11 +3,10 @@
     using System;
     using System.Web.Http;
 
-    using Contracts.ResponseModels;
     using Common.Extensions;
+    using Contracts.Models;
     using Exceptions;
     using Utilities;
-    using ResponseModels;
 
     /// <summary>
     /// Used for testing the response model members.

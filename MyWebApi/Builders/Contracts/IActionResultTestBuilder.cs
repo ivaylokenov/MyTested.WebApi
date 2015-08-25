@@ -2,8 +2,7 @@
 {
     using System;
     using System.Net;
-
-    using ResponseModels;
+    using Models;
     using UnauthorizedResults;
 
     /// <summary>

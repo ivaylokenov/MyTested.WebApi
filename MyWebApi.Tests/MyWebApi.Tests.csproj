@@ -62,10 +62,10 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnStatusCodeTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnUnauthorizedTests.cs" />
     <Compile Include="BuildersTests\ControllerBuilderTests.cs" />
-    <Compile Include="BuildersTests\ResponseModelsTests\ResponseModelDetailsTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\ResponseModelsTests\ResponseModelErrorDetailsTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\ResponseModelsTests\ResponseModelTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\ResponseModelsTests\ResponseModelErrorTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\ModelsTests\ResponseModelDetailsTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\ModelsTests\ResponseModelErrorDetailsTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\ModelsTests\ResponseModelTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\ModelsTests\ResponseModelErrorTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldHaveModelStateTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnOkResultTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnTests.cs" />

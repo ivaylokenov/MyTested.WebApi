@@ -8,8 +8,8 @@
     using System.Web.Http.ModelBinding;
 
     using Base;
-    using Contracts.ResponseModels;
     using Common.Extensions;
+    using Contracts.Models;
     using Exceptions;
 
     /// <summary>

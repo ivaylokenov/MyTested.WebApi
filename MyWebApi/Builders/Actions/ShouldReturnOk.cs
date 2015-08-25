@@ -1,9 +1,8 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
     using System.Web.Http.Results;
-
-    using Contracts.ResponseModels;
-    using ResponseModels;
+    using Contracts.Models;
+    using Models;
 
     /// <summary>
     /// Class containing methods for testing OkResult and OkNegotiatedContentResult.

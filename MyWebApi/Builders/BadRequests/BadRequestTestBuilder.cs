@@ -28,6 +28,7 @@
         public void WithErrorMessage()
         {
             var badRequestErrorMessageResult = this.GetBadRequestResult<BadRequestErrorMessageResult>(ErrorMessage);
+
             // TODO: return error message test builder
         }
 
@@ -83,7 +84,16 @@
         public void WithModelStateFor<TRequestModel>()
         {
             var invalidModelStateResult = this.GetBadRequestResult<InvalidModelStateResult>(ModelStateDictionary);
+
             // TODO: return model state error builder
+        }
+
+        private static IList<string> GetSortedErrorMessagesForModelStateKey(IEnumerable<ModelError> errors)
+        {
+            return errors
+                .OrderBy(er => er.ErrorMessage)
+                .Select(er => er.ErrorMessage)
+                .ToList();
         }
 
         private TExpectedBadRequestResult GetBadRequestResult<TExpectedBadRequestResult>(string containment)
@@ -113,14 +123,6 @@
                     expectedMessage,
                     actualMessage));
             }
-        }
-
-        private static IList<string> GetSortedErrorMessagesForModelStateKey(IEnumerable<ModelError> errors)
-        {
-            return errors
-                .OrderBy(er => er.ErrorMessage)
-                .Select(er => er.ErrorMessage)
-                .ToList();
         }
     }
 }

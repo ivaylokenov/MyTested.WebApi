@@ -3,10 +3,11 @@
     using System.Collections.Generic;
 
     using Exceptions;
-    using Setups;
-    using Setups.Models;
 
     using NUnit.Framework;
+
+    using Setups;
+    using Setups.Models;
 
     [TestFixture]
     public class ResponseModelTestBuilderTests

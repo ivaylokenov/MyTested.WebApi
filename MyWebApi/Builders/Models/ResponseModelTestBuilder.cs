@@ -4,8 +4,8 @@
     using System.Web.Http.Results;
 
     using Base;
-    using Contracts.ResponseModels;
     using Common.Extensions;
+    using Contracts.Models;
     using Exceptions;
     using Utilities;
 
