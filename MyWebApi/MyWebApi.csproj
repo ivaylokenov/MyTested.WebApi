@@ -54,10 +54,16 @@
   <ItemGroup>
     <Compile Include="Builders\Actions\ShouldReturnNotFound.cs" />
     <Compile Include="Builders\Actions\ShouldReturnStatusCode.cs" />
+    <Compile Include="Builders\Actions\ShouldReturnUnauthorized.cs" />
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
+    <Compile Include="Builders\Contracts\IAndChallengesBuilder.cs" />
+    <Compile Include="Builders\Contracts\IAndUnauthorizedResultTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\IAuthenticationHeaderValueParameterBuilder.cs" />
+    <Compile Include="Builders\Contracts\IAuthenticationHeaderValueBuilder.cs" />
     <Compile Include="Builders\Contracts\IBaseTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IBaseTestBuilderWithActionResult.cs" />
+    <Compile Include="Builders\Contracts\IChallengesBuilder.cs" />
     <Compile Include="Builders\Contracts\IControllerBuilder.cs" />
     <Compile Include="Builders\Contracts\IActionResultTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IResponseModelErrorDetailsTestBuilder.cs" />
@@ -65,6 +71,7 @@
     <Compile Include="Builders\Contracts\IResponseModelErrorTestBuilder{TResponseModel}.cs" />
     <Compile Include="Builders\Contracts\IResponseModelTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IResponseModelDetailsTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\IUnauthorizedResultTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IUserBuilder.cs" />
     <Compile Include="Builders\ControllerBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldHaveModelState.cs" />
@@ -76,7 +83,12 @@
     <Compile Include="Builders\Actions\ActionResultTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn.cs" />
     <Compile Include="Builders\Actions\ShouldReturnOk.cs" />
+    <Compile Include="Builders\UnauthorizedResults\AndUnauthorizedTestBuilder.cs" />
+    <Compile Include="Builders\UnauthorizedResults\AuthenticationHeaderValueBuilder.cs" />
+    <Compile Include="Builders\UnauthorizedResults\ChallengesBuilder.cs" />
+    <Compile Include="Builders\UnauthorizedResults\UnauthorizedResultTestBuilder.cs" />
     <Compile Include="Builders\UserBuilder.cs" />
+    <Compile Include="Common\AuthenticationSchemes.cs" />
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Common\TypeValuePair.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
@@ -85,6 +97,7 @@
     <Compile Include="Exceptions\HttpStatusCodeAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelErrorAssertionException.cs" />
+    <Compile Include="Exceptions\UnauthorizedResultAssertionException.cs" />
     <Compile Include="Exceptions\UnresolvedDependenciesException.cs" />
     <Compile Include="MyWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Used for testing the response model type of test.
+    /// Used for testing the response model type of action.
     /// </summary>
     public interface IResponseModelTestBuilder
     {

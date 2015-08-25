@@ -49,6 +49,12 @@
         void ShouldReturnNotFound();
 
         /// <summary>
+        /// Tests whether action result is UnauthorizedResult.
+        /// </summary>
+        /// <returns>Unauthorized result test builder.</returns>
+        IUnauthorizedResultTestBuilder ShouldReturnUnauthorized();
+
+        /// <summary>
         /// Tests whether action result is of the provided generic type.
         /// </summary>
         /// <typeparam name="TResponseModel">Expected response type.</typeparam>

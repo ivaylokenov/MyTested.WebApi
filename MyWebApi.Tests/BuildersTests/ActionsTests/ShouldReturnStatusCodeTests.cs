@@ -52,5 +52,17 @@
                 .Calling(c => c.StatusCodeAction())
                 .ShouldReturnStatusCode(HttpStatusCode.Created);
         }
+
+        [Test]
+        [ExpectedException(
+            typeof(HttpActionResultAssertionException),
+            ExpectedMessage = "When calling BadRequestAction action in WebApiController expected action result to be StatusCodeResult, but instead received BadRequestResult.")]
+        public void ShouldReturnStatusCodeShouldThrowExceptionWhenActionDoesNotReturnStatusCodeAndPassingStatusCode()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.BadRequestAction())
+                .ShouldReturnStatusCode(HttpStatusCode.Created);
+        }
     }
 }

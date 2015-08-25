@@ -231,6 +231,98 @@ MyWebApi
 	.ContainingNoModelStateErrorFor(m => m.AnotherProperty);
 ```
 
+#### Unauthorized result
+
+```c#
+// tests whether the action returns UnauthorizedResult
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized();
+	
+// tests whether the action returns UnauthorizedResult
+// and result contains authentication header value with certain scheme
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()
+	.ContainingAuthenticationHeaderChallenge(AuthenticationScheme.Basic);
+	
+// tests whether the action returns UnauthorizedResult
+// and result contains authentication header value with certain scheme as string
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()
+	.ContainingAuthenticationHeaderChallenge("Basic");
+	
+// tests whether the action returns UnauthorizedResult
+// and result contains authentication header value with certain scheme and parameter
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()
+	.ContainingAuthenticationHeaderChallenge("Basic", "Value");
+	
+// tests whether the action returns UnauthorizedResult
+// and result contains authentication header value equal to the provided AuthenticationHeaderValue
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()	
+	.ContainingAuthenticationHeaderChallenge(new AuthenticationHeaderValue("Basic", "Value"));
+	
+// tests whether the action returns UnauthorizedResult
+// and result contains authentication header by using AuthenticationHeaderValue builder
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()	
+	.ContainingAuthenticationHeaderChallenge(
+		authHeader =>
+			authHeader
+				.WithScheme(AuthenticationScheme.Basic)
+				.WithParameter("TestParameter"));
+				
+// tests whether the action returns UnauthorizedResult
+// and result has exactly the provided authentication header values as collection
+// * order of header values does not matter
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()	
+	.WithAuthenticationHeaderChallenges(new[]
+	{
+		new AuthenticationHeaderValue("Basic", "Value"),
+		new AuthenticationHeaderValue("Basic", "AnotherValue")
+	});
+
+// tests whether the action returns UnauthorizedResult
+// and result has exactly the provided authentication header values as params
+// * order of header values does not matter
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()	
+	.WithAuthenticationHeaderChallenges(
+		new AuthenticationHeaderValue("Basic", "Value"),
+		new AuthenticationHeaderValue("Basic", "AnotherValue"));
+
+// tests whether the action returns UnauthorizedResult
+// and result has exactly the provided authentication header values using a builder
+// * order of header values does not matter
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnUnauthorized()
+	.WithAuthenticationHeaderChallenges(
+		authHeaders =>
+			authHeaders
+				.ContainingHeader(header => header.WithScheme("Basic").WithParameter("Value"))
+				.And() // And() is not necessary
+				.ContainingHeader(header => header.WithScheme(AuthenticationScheme.Basic)));
+```
+
 #### StatusCode result
 
 ```c#

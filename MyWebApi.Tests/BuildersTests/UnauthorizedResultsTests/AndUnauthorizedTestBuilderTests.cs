@@ -1,0 +1,37 @@
+﻿namespace MyWebApi.Tests.BuildersTests.UnauthorizedResultsTests
+{
+    using Exceptions;
+    using NUnit.Framework;
+    using Setups;
+
+    [TestFixture]
+    public class AndUnauthorizedTestBuilderTests
+    {
+        [Test]
+        public void AndShouldReturnCorrectResultsWhenHeadersAreCorrect()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .ContainingAuthenticationHeaderChallenge("TestScheme", "TestParameter")
+                .And()
+                .ContainingAuthenticationHeaderChallenge("Basic");
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnauthorizedResultAssertionException),
+            ExpectedMessage = "When calling UnauthorizedActionWithChallenges action in WebApiController expected to have authentication header challenge with Scheme scheme and Parameter parameter, but none found.")]
+        public void AndShouldThrowExceptionWhenHeadersAreInCorrect()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .ContainingAuthenticationHeaderChallenge("TestScheme", "TestParameter")
+                .And()
+                .ContainingAuthenticationHeaderChallenge("Scheme", "Parameter");
+        }
+    }
+}

@@ -32,5 +32,12 @@
             this.ValidateActionReturnType<TResponseModel>(true);
             return new ResponseModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
+
+        private TReturnObject GetReturnObject<TReturnObject>()
+            where TReturnObject : class 
+        {
+            this.ValidateActionReturnType<TReturnObject>(true);
+            return this.ActionResult as TReturnObject;
+        }
     }
 }
