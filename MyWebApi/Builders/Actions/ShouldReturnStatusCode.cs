@@ -2,9 +2,8 @@
 {
     using System.Net;
     using System.Web.Http.Results;
-
+    using Common.Extensions;
     using Exceptions;
-    using Utilities;
 
     /// <summary>
     /// Class containing methods for testing OkResult.
@@ -32,7 +31,7 @@
                 throw new HttpStatusCodeAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have {2} ({3}) status code, but received {4} ({5}).",
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyTypeName(),
+                    this.Controller.GetName(),
                     (int)statusCode,
                     statusCode,
                     (int)statusCodeResult.StatusCode,

@@ -2,8 +2,8 @@
 {
     using System;
     using System.Net;
-
-    using ResponseModels;
+    using BadRequests;
+    using Models;
     using UnauthorizedResults;
 
     /// <summary>
@@ -16,8 +16,8 @@
         /// Provides way to continue test case with specific model state errors.
         /// </summary>
         /// <typeparam name="TRequestModel">Request model type to be tested for errors.</typeparam>
-        /// <returns>Response model test builder.</returns>
-        IResponseModelErrorTestBuilder<TRequestModel> ShouldHaveModelStateFor<TRequestModel>();
+        /// <returns>Model test builder.</returns>
+        IModelErrorTestBuilder<TRequestModel> ShouldHaveModelStateFor<TRequestModel>();
 
         /// <summary>
         /// Checks whether the tested action's provided model state is valid.
@@ -30,7 +30,7 @@
         void ShouldHaveInvalidModelState();
 
         /// <summary>
-        /// Tests whether action result is OkResult.
+        /// Tests whether action result is OkResult or OkNegotiatedContentResult{T}.
         /// </summary>
         /// <returns>Response model test builder.</returns>
         IResponseModelTestBuilder ShouldReturnOk();
@@ -52,23 +52,29 @@
         void ShouldReturnNotFound();
 
         /// <summary>
+        /// Tests whether action result is BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.
+        /// </summary>
+        /// <returns>Bad request test builder.</returns>
+        IBadRequestTestBuilder ShouldReturnBadRequest();
+
+        /// <summary>
         /// Tests whether action result is UnauthorizedResult.
         /// </summary>
         /// <returns>Unauthorized result test builder.</returns>
-        IUnauthorizedResultTestBuilder ShouldReturnUnauthorized();
+        IUnauthorizedTestBuilder ShouldReturnUnauthorized();
 
         /// <summary>
         /// Tests whether action result is of the provided generic type.
         /// </summary>
         /// <typeparam name="TResponseModel">Expected response type.</typeparam>
         /// <returns>Response model test builder.</returns>
-        IResponseModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>();
+        IModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>();
 
         /// <summary>
         /// Tests whether action result is of the provided type.
         /// </summary>
         /// <param name="returnType">Expected return type.</param>
         /// <returns>Response model test builder.</returns>
-        IResponseModelErrorTestBuilder ShouldReturn(Type returnType);
+        IModelErrorTestBuilder ShouldReturn(Type returnType);
     }
 }

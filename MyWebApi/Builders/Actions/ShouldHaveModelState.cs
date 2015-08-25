@@ -1,9 +1,9 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
-    using Contracts.ResponseModels;
+    using Common.Extensions;
+    using Contracts.Models;
     using Exceptions;
-    using ResponseModels;
-    using Utilities;
+    using Models;
 
     /// <summary>
     /// Class containing methods for testing return type.
@@ -16,9 +16,9 @@
         /// </summary>
         /// <typeparam name="TRequestModel">Request model type to be tested for errors.</typeparam>
         /// <returns>Response model test builder.</returns>
-        public IResponseModelErrorTestBuilder<TRequestModel> ShouldHaveModelStateFor<TRequestModel>()
+        public IModelErrorTestBuilder<TRequestModel> ShouldHaveModelStateFor<TRequestModel>()
         {
-            return new ResponseModelErrorTestBuilder<TRequestModel>(this.Controller, this.ActionName);
+            return new ModelErrorTestBuilder<TRequestModel>(this.Controller, this.ActionName);
         }
 
         /// <summary>
@@ -36,10 +36,10 @@
         {
             if (this.Controller.ModelState.Count == 0)
             {
-                throw new ResponseModelErrorAssertionException(string.Format(
+                throw new ModelErrorAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have invalid model state, but was in fact valid.",
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyTypeName()));
+                    this.Controller.GetName()));
             }
         }
     }

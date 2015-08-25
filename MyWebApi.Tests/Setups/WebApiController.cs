@@ -94,6 +94,21 @@
             return this.BadRequest();
         }
 
+        public IHttpActionResult BadRequestWithErrorAction()
+        {
+            return this.BadRequest("Bad request");
+        }
+
+        public IHttpActionResult BadRequestWithModelState(RequestModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                return this.Ok();
+            }
+
+            return this.BadRequest(this.ModelState);
+        }
+
         public IHttpActionResult StatusCodeAction()
         {
             return this.StatusCode(HttpStatusCode.Redirect);
