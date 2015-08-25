@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
+    using Common.Extensions;
     using Contracts.ResponseModels;
     using Exceptions;
     using ResponseModels;
@@ -39,7 +40,7 @@
                 throw new ResponseModelErrorAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have invalid model state, but was in fact valid.",
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyTypeName()));
+                    this.Controller.GetName()));
             }
         }
     }

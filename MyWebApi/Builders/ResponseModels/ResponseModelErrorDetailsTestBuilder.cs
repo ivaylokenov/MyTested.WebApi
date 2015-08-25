@@ -8,6 +8,7 @@
     using System.Web.Http.ModelBinding;
 
     using Base;
+    using Common.Extensions;
     using Contracts.ResponseModels;
     using Exceptions;
     using Utilities;
@@ -157,7 +158,7 @@
             throw new ResponseModelErrorAssertionException(string.Format(
                     messageFormat,
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyTypeName(),
+                    this.Controller.GetName(),
                     this.currentErrorKey,
                     operation,
                     string.Join(", ", this.aggregatedErrors)));  

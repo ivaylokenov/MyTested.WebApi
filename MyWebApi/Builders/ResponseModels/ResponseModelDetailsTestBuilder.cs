@@ -2,7 +2,7 @@
 {
     using System;
     using System.Web.Http;
-
+    using Common.Extensions;
     using Contracts.ResponseModels;
     using Exceptions;
     using Utilities;
@@ -51,7 +51,7 @@
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model {2} to pass the given condition, but it failed.",
                             this.ActionName,
-                            this.Controller.GetType().ToFriendlyTypeName(),
+                            this.Controller.GetName(),
                             typeof(TResponseModel).ToFriendlyTypeName()));
             }
 

@@ -2,7 +2,7 @@
 {
     using System;
     using System.Web.Http;
-
+    using Common.Extensions;
     using Contracts;
     using Exceptions;
     using Microsoft.CSharp.RuntimeBinder;
@@ -62,7 +62,7 @@
                 throw new ResponseModelAssertionException(string.Format(
                     "When calling {0} action in {1} expected response model of type {2}, but instead received null.",
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyTypeName(),
+                    this.Controller.GetName(),
                     typeof(TResponseModel).ToFriendlyTypeName()));
             }
         }

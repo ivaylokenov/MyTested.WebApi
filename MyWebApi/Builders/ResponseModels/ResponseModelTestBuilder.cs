@@ -4,6 +4,7 @@
     using System.Web.Http.Results;
 
     using Base;
+    using Common.Extensions;
     using Contracts.ResponseModels;
     using Exceptions;
     using Utilities;
@@ -37,7 +38,7 @@
                 throw new ResponseModelAssertionException(string.Format(
                         "When calling {0} action in {1} expected to not have response model but in fact response model was found.",
                         this.ActionName,
-                        this.Controller.GetType().ToFriendlyTypeName()));
+                        this.Controller.GetName()));
             }
         }
 
@@ -69,7 +70,7 @@
                         throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model to be a {2}, but instead received a {3}.",
                             this.ActionName,
-                            this.Controller.GetType().ToFriendlyTypeName(),
+                            this.Controller.GetName(),
                             typeof(TResponseModel).ToFriendlyTypeName(),
                             actualResponseDataType.ToFriendlyTypeName()));
                     }
@@ -96,7 +97,7 @@
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model {2} to be the given model, but in fact it was a different model.",
                             this.ActionName,
-                            this.Controller.GetType().ToFriendlyTypeName(),
+                            this.Controller.GetName(),
                             typeof(TResponseModel).ToFriendlyTypeName()));
             }
 

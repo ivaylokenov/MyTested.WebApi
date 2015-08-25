@@ -3,7 +3,7 @@
     using System;
     using System.Linq.Expressions;
     using System.Web.Http;
-
+    using Common.Extensions;
     using Contracts.ResponseModels;
     using Exceptions;
     using Utilities;
@@ -98,7 +98,7 @@
             throw new ResponseModelErrorAssertionException(string.Format(
                     messageFormat,
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyTypeName(),
+                    this.Controller.GetName(),
                     errorKey));
         }
     }

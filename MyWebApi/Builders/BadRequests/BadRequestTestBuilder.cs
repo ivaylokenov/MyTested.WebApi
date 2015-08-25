@@ -5,6 +5,7 @@
     using System.Web.Http.Results;
 
     using Base;
+    using Common.Extensions;
     using Contracts;
     using Exceptions;
     using Utilities;
@@ -32,7 +33,16 @@
         public void WithErrorMessage(string message)
         {
             var badRequestErrorMessageResult = this.GetBadRequestResult<BadRequestErrorMessageResult>(ErrorMessage);
-            // TODO: validate message
+            var actualMessage = badRequestErrorMessageResult.Message;
+            if (actualMessage != message)
+            {
+                throw new BadRequestResultAssertionException(string.Format(
+                    "When calling {0} action in {1} expected bad request with message '{2}', but instead received '{3}'.",
+                    this.ActionName,
+                    this.Controller.GetName(),
+                    message,
+                    actualMessage));
+            }
         }
 
         public void WithModelState(ModelStateDictionary modelState)
@@ -58,7 +68,7 @@
                 throw new BadRequestResultAssertionException(string.Format(
                     "When calling {0} action in {1} expected bad request result to contains {2}, but it could not be found.",
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyTypeName(),
+                    this.Controller.GetName(),
                     containment));
             }
 

@@ -9,6 +9,7 @@
 
     using Base;
     using Common;
+    using Common.Extensions;
     using Contracts.UnauthorizedResults;
     using Exceptions;
     using Utilities;
@@ -116,7 +117,7 @@
                 throw new UnauthorizedResultAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have {2} authentication header challenges, but found {3}.",
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyTypeName(),
+                    this.Controller.GetName(),
                     expectedChallenges.Count,
                     actualChallenges.Count));
             }
@@ -180,7 +181,7 @@
             throw new UnauthorizedResultAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have authentication header challenge with {2} scheme and {3} parameter, but none found.",
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyTypeName(),
+                    this.Controller.GetName(),
                     scheme,
                     parameter ?? "no matter what"));
         }

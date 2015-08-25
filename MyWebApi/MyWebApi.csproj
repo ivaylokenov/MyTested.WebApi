@@ -92,6 +92,7 @@
     <Compile Include="Builders\UnauthorizedResults\UnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\UserBuilder.cs" />
     <Compile Include="Common\AuthenticationSchemes.cs" />
+    <Compile Include="Common\Extensions\ApiControllerExtensions.cs" />
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Common\TypeValuePair.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
