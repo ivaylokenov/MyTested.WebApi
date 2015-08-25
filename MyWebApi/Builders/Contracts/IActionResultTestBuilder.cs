@@ -51,6 +51,8 @@
         /// </summary>
         void ShouldReturnNotFound();
 
+        void ShouldReturnBadRequest();
+
         /// <summary>
         /// Tests whether action result is UnauthorizedResult.
         /// </summary>
