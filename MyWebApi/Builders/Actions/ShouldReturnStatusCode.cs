@@ -26,8 +26,7 @@
         /// <param name="statusCode">HttpStatusCode enumeration.</param>
         public void ShouldReturnStatusCode(HttpStatusCode statusCode)
         {
-            this.ShouldReturnStatusCode();
-            var statusCodeResult = this.ActionResult as StatusCodeResult;
+            var statusCodeResult = this.GetReturnObject<StatusCodeResult>();
             if (statusCodeResult.StatusCode != statusCode)
             {
                 throw new HttpStatusCodeAssertionException(string.Format(
