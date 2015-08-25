@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.UnauthorizedResults
+﻿namespace MyWebApi.Builders.Unauthorized
 {
     using System.Net.Http.Headers;
 

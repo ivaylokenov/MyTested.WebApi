@@ -1,8 +1,11 @@
-﻿namespace MyWebApi.Tests.BuildersTests.UnauthorizedResultsTests
+﻿namespace MyWebApi.Tests.BuildersTests.UnauthorizedTests
 {
     using Exceptions;
+
     using NUnit.Framework;
+
     using Setups;
+    
 
     [TestFixture]
     public class AndUnauthorizedTestBuilderTests

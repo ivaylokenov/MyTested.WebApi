@@ -88,10 +88,10 @@
     <Compile Include="Builders\Actions\ActionResultTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn.cs" />
     <Compile Include="Builders\Actions\ShouldReturnOk.cs" />
-    <Compile Include="Builders\UnauthorizedResults\AndUnauthorizedTestBuilder.cs" />
-    <Compile Include="Builders\UnauthorizedResults\AuthenticationHeaderValueBuilder.cs" />
-    <Compile Include="Builders\UnauthorizedResults\ChallengesBuilder.cs" />
-    <Compile Include="Builders\UnauthorizedResults\UnauthorizedTestBuilder.cs" />
+    <Compile Include="Builders\Unauthorized\AndUnauthorizedTestBuilder.cs" />
+    <Compile Include="Builders\Unauthorized\AuthenticationHeaderValueBuilder.cs" />
+    <Compile Include="Builders\Unauthorized\ChallengesBuilder.cs" />
+    <Compile Include="Builders\Unauthorized\UnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\UserBuilder.cs" />
     <Compile Include="Common\AuthenticationSchemes.cs" />
     <Compile Include="Common\Extensions\ApiControllerExtensions.cs" />

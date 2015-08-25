@@ -3,7 +3,7 @@
     using System.Web.Http.Results;
 
     using Contracts.UnauthorizedResults;
-    using UnauthorizedResults;
+    using Unauthorized;
 
     /// <summary>
     /// Class containing methods for testing UnauthorizedResult.

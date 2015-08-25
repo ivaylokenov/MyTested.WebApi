@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Tests.BuildersTests.UnauthorizedResultsTests
+﻿namespace MyWebApi.Tests.BuildersTests.UnauthorizedTests
 {
     using System.Net.Http.Headers;
 

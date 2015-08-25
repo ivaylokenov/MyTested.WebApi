@@ -69,8 +69,8 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldHaveModelStateTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnOkResultTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnTests.cs" />
-    <Compile Include="BuildersTests\UnauthorizedResultsTests\AndUnauthorizedTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\UnauthorizedResultsTests\UnauthorizedResultTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\UnauthorizedTests\AndUnauthorizedTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\UnauthorizedTests\UnauthorizedResultTestBuilderTests.cs" />
     <Compile Include="Setups\Services\AnotherInjectedService.cs" />
     <Compile Include="Setups\Services\IAnotherInjectedService.cs" />
     <Compile Include="Setups\Services\IInjectedService.cs" />
