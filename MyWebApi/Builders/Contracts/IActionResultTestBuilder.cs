@@ -3,6 +3,9 @@
     using System;
     using System.Net;
 
+    using ResponseModels;
+    using UnauthorizedResults;
+
     /// <summary>
     /// Used for building the action result which will be tested.
     /// </summary>

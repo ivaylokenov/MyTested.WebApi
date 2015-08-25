@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Contracts
+﻿namespace MyWebApi.Builders.Contracts.UnauthorizedResults
 {
     /// <summary>
     /// Used for adding And() method to the the unauthorized response tests.

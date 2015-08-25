@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Contracts
+﻿namespace MyWebApi.Builders.Contracts.ResponseModels
 {
     /// <summary>
     /// Used for testing the response model errors.

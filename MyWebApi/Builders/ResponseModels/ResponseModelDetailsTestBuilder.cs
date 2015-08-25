@@ -3,7 +3,7 @@
     using System;
     using System.Web.Http;
 
-    using Contracts;
+    using Contracts.ResponseModels;
     using Exceptions;
     using Utilities;
 

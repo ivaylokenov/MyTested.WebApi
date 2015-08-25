@@ -1,6 +1,6 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
-    using Contracts;
+    using Contracts.ResponseModels;
     using Exceptions;
     using ResponseModels;
     using Utilities;

@@ -1,12 +1,10 @@
 ﻿namespace MyWebApi
 {
     using System;
-    using System.Net.Http;
     using System.Web.Http;
 
     using Builders;
     using Builders.Contracts;
-    using Common.Identity;
     using Utilities;
 
     /// <summary>

@@ -9,7 +9,7 @@
 
     using Base;
     using Common;
-    using Contracts;
+    using Contracts.UnauthorizedResults;
     using Exceptions;
     using Utilities;
 

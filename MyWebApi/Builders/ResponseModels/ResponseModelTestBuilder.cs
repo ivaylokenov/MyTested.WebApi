@@ -4,7 +4,7 @@
     using System.Web.Http.Results;
 
     using Base;
-    using Contracts;
+    using Contracts.ResponseModels;
     using Exceptions;
     using Utilities;
 

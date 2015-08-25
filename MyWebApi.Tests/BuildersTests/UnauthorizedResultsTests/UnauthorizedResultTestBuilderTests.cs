@@ -1,10 +1,12 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.UnauthorizedResultsTests
 {
-    using System.Collections.Generic;
     using System.Net.Http.Headers;
+
     using Common;
     using Exceptions;
+
     using NUnit.Framework;
+
     using Setups;
 
     [TestFixture]

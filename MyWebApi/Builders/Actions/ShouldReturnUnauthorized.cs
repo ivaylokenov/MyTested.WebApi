@@ -2,7 +2,7 @@
 {
     using System.Web.Http.Results;
 
-    using Contracts;
+    using Contracts.UnauthorizedResults;
     using UnauthorizedResults;
 
     /// <summary>

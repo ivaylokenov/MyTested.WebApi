@@ -8,7 +8,7 @@
     using System.Web.Http.ModelBinding;
 
     using Base;
-    using Contracts;
+    using Contracts.ResponseModels;
     using Exceptions;
     using Utilities;
 

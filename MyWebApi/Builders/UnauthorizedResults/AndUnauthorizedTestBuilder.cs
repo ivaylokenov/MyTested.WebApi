@@ -3,7 +3,7 @@
     using System.Web.Http;
     using System.Web.Http.Results;
 
-    using Contracts;
+    using Contracts.UnauthorizedResults;
 
     /// <summary>
     /// Used for adding And() method to the the unauthorized response tests.

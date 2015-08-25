@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Contracts
+﻿namespace MyWebApi.Builders.Contracts.UnauthorizedResults
 {
     using System;
     using System.Collections.Generic;

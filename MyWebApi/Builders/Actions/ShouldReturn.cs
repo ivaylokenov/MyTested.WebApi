@@ -2,7 +2,7 @@
 {
     using System;
 
-    using Contracts;
+    using Contracts.ResponseModels;
     using ResponseModels;
 
     /// <summary>

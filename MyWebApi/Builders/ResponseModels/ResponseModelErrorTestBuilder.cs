@@ -4,7 +4,7 @@
     using System.Web.Http.ModelBinding;
 
     using Base;
-    using Contracts;
+    using Contracts.ResponseModels;
 
     /// <summary>
     /// Used for testing the response model errors.

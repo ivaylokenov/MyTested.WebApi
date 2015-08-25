@@ -1,7 +1,5 @@
-﻿namespace MyWebApi.Builders.Contracts
+﻿namespace MyWebApi.Builders.Contracts.ResponseModels
 {
-    using System;
-
     /// <summary>
     /// Used for testing the response model type of action.
     /// </summary>

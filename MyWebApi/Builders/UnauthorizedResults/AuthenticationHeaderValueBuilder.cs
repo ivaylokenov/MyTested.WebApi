@@ -3,7 +3,7 @@
     using System.Net.Http.Headers;
 
     using Common;
-    using Contracts;
+    using Contracts.UnauthorizedResults;
 
     /// <summary>
     /// Used for building mocked AuthenticationHeaderValue.
