@@ -33,6 +33,19 @@
         [Test]
         [ExpectedException(
             typeof(ResponseModelAssertionException),
+            ExpectedMessage = "When calling OkResultAction action in WebApiController expected response model of type ResponseModel, but instead received null.")]
+        public void WithResponseModelShouldThrowExceptionWithNoResponseModel()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultAction())
+                .ShouldReturnOk()
+                .WithResponseModelOfType<ResponseModel>();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ResponseModelAssertionException),
             ExpectedMessage = "When calling OkResultWithResponse action in WebApiController expected response model to be a ResponseModel, but instead received a ICollection<ResponseModel>.")]
         public void WithResponseModelShouldThrowExceptionWithIncorrectResponseModel()
         {

@@ -1,7 +1,7 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
-    using System.Web.Http;
     using System.Web.Http.Results;
+    using BadRequests;
     using Contracts;
 
     /// <summary>

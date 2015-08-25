@@ -56,7 +56,7 @@
     <Compile Include="Builders\Actions\ShouldReturnNotFound.cs" />
     <Compile Include="Builders\Actions\ShouldReturnStatusCode.cs" />
     <Compile Include="Builders\Actions\ShouldReturnUnauthorized.cs" />
-    <Compile Include="Builders\BadRequestTestBuilder.cs" />
+    <Compile Include="Builders\BadRequests\BadRequestTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Contracts\IBadRequestTestBuilder.cs" />
@@ -96,6 +96,7 @@
     <Compile Include="Common\TypeValuePair.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
+    <Compile Include="Exceptions\BadRequestResultAssertionException.cs" />
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
     <Compile Include="Exceptions\HttpStatusCodeAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />

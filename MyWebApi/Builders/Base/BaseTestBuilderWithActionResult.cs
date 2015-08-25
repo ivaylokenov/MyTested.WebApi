@@ -1,8 +1,11 @@
 ﻿namespace MyWebApi.Builders.Base
 {
+    using System;
     using System.Web.Http;
 
     using Contracts;
+    using Exceptions;
+    using Microsoft.CSharp.RuntimeBinder;
     using Utilities;
 
     /// <summary>
@@ -50,7 +53,18 @@
         /// <returns>The response model.</returns>
         protected TResponseModel GetActualModel<TResponseModel>()
         {
-            return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult).Content;
+            try
+            {
+                return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult).Content;
+            }
+            catch (RuntimeBinderException)
+            {
+                throw new ResponseModelAssertionException(string.Format(
+                    "When calling {0} action in {1} expected response model of type {2}, but instead received null.",
+                    this.ActionName,
+                    this.Controller.GetType().ToFriendlyTypeName(),
+                    typeof(TResponseModel).ToFriendlyTypeName()));
+            }
         }
     }
 }
