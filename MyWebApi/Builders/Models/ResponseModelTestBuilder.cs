@@ -1,11 +1,11 @@
-﻿namespace MyWebApi.Builders.ResponseModels
+﻿namespace MyWebApi.Builders.Models
 {
     using System.Web.Http;
     using System.Web.Http.Results;
 
     using Base;
-    using Common.Extensions;
     using Contracts.ResponseModels;
+    using Common.Extensions;
     using Exceptions;
     using Utilities;
 

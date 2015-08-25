@@ -1,9 +1,10 @@
-﻿namespace MyWebApi.Tests.BuildersTests.ResponseModelsTests
+﻿namespace MyWebApi.Tests.BuildersTests.ModelsTests
 {
     using Exceptions;
-    using NUnit.Framework;
     using Setups;
     using Setups.Models;
+
+    using NUnit.Framework;
 
     [TestFixture]
     public class ResponseModelErrorDetailsTestBuilderTests

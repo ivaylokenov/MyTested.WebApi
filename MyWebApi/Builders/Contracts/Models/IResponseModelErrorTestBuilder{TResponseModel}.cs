@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Contracts.ResponseModels
+﻿namespace MyWebApi.Builders.Contracts.Models
 {
     using System;
     using System.Linq.Expressions;

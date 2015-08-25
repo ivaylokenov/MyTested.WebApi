@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.ResponseModels
+﻿namespace MyWebApi.Builders.Models
 {
     using System.Web.Http;
     using System.Web.Http.ModelBinding;

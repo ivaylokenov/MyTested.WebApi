@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.ResponseModels
+﻿namespace MyWebApi.Builders.Models
 {
     using System;
     using System.Collections.Generic;
@@ -8,8 +8,8 @@
     using System.Web.Http.ModelBinding;
 
     using Base;
-    using Common.Extensions;
     using Contracts.ResponseModels;
+    using Common.Extensions;
     using Exceptions;
 
     /// <summary>

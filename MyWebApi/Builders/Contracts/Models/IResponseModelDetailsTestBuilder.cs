@@ -1,6 +1,7 @@
-﻿namespace MyWebApi.Builders.Contracts.ResponseModels
+﻿namespace MyWebApi.Builders.Contracts.Models
 {
     using System;
+    using ResponseModels;
 
     /// <summary>
     /// Used for testing the response model members.

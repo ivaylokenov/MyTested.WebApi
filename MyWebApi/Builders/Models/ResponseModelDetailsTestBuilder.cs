@@ -1,11 +1,13 @@
-﻿namespace MyWebApi.Builders.ResponseModels
+﻿namespace MyWebApi.Builders.Models
 {
     using System;
     using System.Web.Http;
-    using Common.Extensions;
+
     using Contracts.ResponseModels;
+    using Common.Extensions;
     using Exceptions;
     using Utilities;
+    using ResponseModels;
 
     /// <summary>
     /// Used for testing the response model members.
