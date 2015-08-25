@@ -43,6 +43,16 @@
             var actualChallenges = SortChallenges(this.ActionResult.Challenges);
             var expectedChallenges = SortChallenges(challenges);
 
+            if (actualChallenges.Count != expectedChallenges.Count)
+            {
+                throw new UnauthorizedResultAssertionException(string.Format(
+                    "When calling {0} action in {1} expected to have {2} authentication header challenges, but found {3}.",
+                    this.ActionName,
+                    this.Controller.GetType().ToFriendlyTypeName(),
+                    expectedChallenges.Count,
+                    actualChallenges.Count));
+            }
+
             for (int i = 0; i < actualChallenges.Count; i++)
             {
                 var actualChallenge = actualChallenges[i];
