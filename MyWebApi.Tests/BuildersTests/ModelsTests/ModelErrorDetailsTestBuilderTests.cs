@@ -68,7 +68,7 @@
         [Test]
         [ExpectedException(
             typeof(ModelErrorAssertionException),
-            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected error message for key 'RequiredString' to start with 'RequiredString', but instead found 'The RequiredString field is required.'.")]
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected error message for key 'RequiredString' to begin with 'RequiredString', but instead found 'The RequiredString field is required.'.")]
         public void BeginningWithShouldThrowExceptionWhenProvidedMessageIsValid()
         {
             var requestModelWithErrors = TestObjectFactory.GetRequestModelWithErrors();

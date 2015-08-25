@@ -9,6 +9,7 @@
     using Base;
     using Common.Extensions;
     using Contracts;
+    using Contracts.BadRequests;
     using Contracts.Models;
     using Exceptions;
     using Models;
@@ -27,11 +28,10 @@
         {
         }
 
-        public void WithErrorMessage()
+        public IBadRequestErrorMessageTestBuilder WithErrorMessage()
         {
             var badRequestErrorMessageResult = this.GetBadRequestResult<BadRequestErrorMessageResult>(ErrorMessage);
-
-            // TODO: return error message test builder
+            return new BadRequestErrorMessageTestBuilder(this.Controller, this.ActionName, badRequestErrorMessageResult.Message);
         }
 
         public void WithErrorMessage(string message)

@@ -3,6 +3,7 @@
     using System.Web.Http.Results;
     using BadRequests;
     using Contracts;
+    using Contracts.BadRequests;
 
     /// <summary>
     /// Class containing methods for testing BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.

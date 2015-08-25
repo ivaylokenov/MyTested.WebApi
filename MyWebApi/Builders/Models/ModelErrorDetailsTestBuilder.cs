@@ -70,7 +70,7 @@
             if (!this.aggregatedErrors.Any(e => e.StartsWith(beginMessage)))
             {
                 this.ThrowNewModelErrorAssertionException(
-                    "When calling {0} action in {1} expected error message for key '{2}' to start with '{3}', but instead found '{4}'.",
+                    "When calling {0} action in {1} expected error message for key '{2}' to begin with '{3}', but instead found '{4}'.",
                     beginMessage);
             }
 
