@@ -8,7 +8,7 @@
     /// <summary>
     /// Used for building collection of AuthenticationHeaderValue.
     /// </summary>
-    public class ChallengesBuilder : IChallengesBuilder
+    public class ChallengesBuilder : IAndChallengesBuilder
     {
         private readonly ICollection<Action<IAuthenticationHeaderValueBuilder>> authenticationHeaderValueBuilders;
 
@@ -25,7 +25,7 @@
         /// </summary>
         /// <param name="authenticationHeaderValueBuilder">Action providing authentication header value builder.</param>
         /// <returns>The same challenge builder.</returns>
-        public IChallengesBuilder ContainingHeader(Action<IAuthenticationHeaderValueBuilder> authenticationHeaderValueBuilder)
+        public IAndChallengesBuilder ContainingHeader(Action<IAuthenticationHeaderValueBuilder> authenticationHeaderValueBuilder)
         {
             this.authenticationHeaderValueBuilders.Add(authenticationHeaderValueBuilder);
             return this;

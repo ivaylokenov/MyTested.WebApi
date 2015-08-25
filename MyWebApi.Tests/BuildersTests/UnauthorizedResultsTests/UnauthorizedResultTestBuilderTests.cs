@@ -298,5 +298,77 @@
                     new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
                     new AuthenticationHeaderValue("Scheme"));
         }
+
+        [Test]
+        public void WithAuthenticationHeaderChallengesShouldNotThrowExceptionWhenResultContainsExactlyAllProvidedHeadersAndParamsAndBuilder()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .WithAuthenticationHeaderChallenges(
+                    authHeaders =>
+                        authHeaders
+                            .ContainingHeader(header => header.WithScheme("Basic"))
+                            .And()
+                            .ContainingHeader(header => header.WithScheme("TestScheme").WithParameter("TestParameter"))
+                            .And()
+                            .ContainingHeader(header => header.WithScheme("YetAnotherScheme").WithParameter("YetAnotherParameter")));
+        }
+
+        [Test]
+        public void WithAuthenticationHeaderChallengesShouldNotThrowExceptionWhenResultContainsExactlyAllProvidedHeadersInDifferentOrderAndParamsAndBuilder()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .WithAuthenticationHeaderChallenges(
+                    authHeaders =>
+                        authHeaders
+                            .ContainingHeader(header => header.WithScheme("TestScheme").WithParameter("TestParameter"))
+                            .And()
+                            .ContainingHeader(header => header.WithScheme("YetAnotherScheme").WithParameter("YetAnotherParameter"))
+                            .And()
+                            .ContainingHeader(header => header.WithScheme("Basic")));
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnauthorizedResultAssertionException),
+            ExpectedMessage = "When calling UnauthorizedActionWithChallenges action in WebApiController expected to have 2 authentication header challenges, but found 3.")]
+        public void WithAuthenticationHeaderChallengesShouldThrowExceptionWhenResultDoesNotContainExactlyNotAllProvidedHeadersInDifferentOrderAndParamsAndBuilder()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .WithAuthenticationHeaderChallenges(
+                    authHeaders =>
+                        authHeaders
+                            .ContainingHeader(header => header.WithScheme("TestScheme").WithParameter("TestParameter"))
+                            .And()
+                            .ContainingHeader(header => header.WithScheme("Basic")));
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnauthorizedResultAssertionException),
+            ExpectedMessage = "When calling UnauthorizedActionWithChallenges action in WebApiController expected to have authentication header challenge with Scheme scheme and no matter what parameter, but none found.")]
+        public void WithAuthenticationHeaderChallengesShouldThrowExceptionWhenResultDoesNotContainExactlyAllProvidedHeadersWithWrongDataAndBuilder()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.UnauthorizedActionWithChallenges())
+                .ShouldReturnUnauthorized()
+                .WithAuthenticationHeaderChallenges(
+                    authHeaders =>
+                        authHeaders
+                            .ContainingHeader(header => header.WithScheme("TestScheme").WithParameter("TestParameter"))
+                            .And()
+                            .ContainingHeader(header => header.WithScheme("YetAnotherScheme").WithParameter("YetAnotherParameter"))
+                            .And()
+                            .ContainingHeader(header => header.WithScheme("Scheme")));
+        }
     }
 }

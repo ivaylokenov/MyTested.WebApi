@@ -12,12 +12,6 @@
         /// </summary>
         /// <param name="authenticationHeaderValueBuilder">Action providing authentication header value builder.</param>
         /// <returns>The same challenge builder.</returns>
-        IChallengesBuilder ContainingHeader(Action<IAuthenticationHeaderValueBuilder> authenticationHeaderValueBuilder);
-
-        /// <summary>
-        /// And method for better readability when chaining header builders.
-        /// </summary>
-        /// <returns>The same challenge builder.</returns>
-        IChallengesBuilder And();
+        IAndChallengesBuilder ContainingHeader(Action<IAuthenticationHeaderValueBuilder> authenticationHeaderValueBuilder);
     }
 }

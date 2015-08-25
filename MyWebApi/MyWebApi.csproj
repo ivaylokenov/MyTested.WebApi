@@ -57,6 +57,7 @@
     <Compile Include="Builders\Actions\ShouldReturnUnauthorized.cs" />
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
+    <Compile Include="Builders\Contracts\IAndChallengesBuilder.cs" />
     <Compile Include="Builders\Contracts\IAndUnauthorizedResultTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IAuthenticationHeaderValueParameterBuilder.cs" />
     <Compile Include="Builders\Contracts\IAuthenticationHeaderValueBuilder.cs" />

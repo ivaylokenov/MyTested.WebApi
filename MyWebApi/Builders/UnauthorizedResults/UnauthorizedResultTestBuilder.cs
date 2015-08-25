@@ -149,7 +149,7 @@
         public void WithAuthenticationHeaderChallenges(Action<IChallengesBuilder> challengesBuilder)
         {
             var newChallengesBuilder = new ChallengesBuilder();
-            challengesBuilder(new ChallengesBuilder());
+            challengesBuilder(newChallengesBuilder);
             var authenticationHeaderBuilders = newChallengesBuilder.GetAuthenticationHeaderValueBuilders();
 
             var authenticationHeaders = authenticationHeaderBuilders
