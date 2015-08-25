@@ -9,7 +9,9 @@
     using Base;
     using Common.Extensions;
     using Contracts;
+    using Contracts.Models;
     using Exceptions;
+    using Models;
 
     public class BadRequestTestBuilder<TBadRequestResult> : BaseTestBuilderWithActionResult<TBadRequestResult>,
         IBadRequestTestBuilder
@@ -81,11 +83,10 @@
             }
         }
 
-        public void WithModelStateFor<TRequestModel>()
+        public IModelErrorTestBuilder<TRequestModel> WithModelStateFor<TRequestModel>()
         {
             var invalidModelStateResult = this.GetBadRequestResult<InvalidModelStateResult>(ModelStateDictionary);
-
-            // TODO: return model state error builder
+            return new ModelErrorTestBuilder<TRequestModel>(this.Controller, this.ActionName, invalidModelStateResult.ModelState);
         }
 
         private static IList<string> GetSortedErrorMessagesForModelStateKey(IEnumerable<ModelError> errors)

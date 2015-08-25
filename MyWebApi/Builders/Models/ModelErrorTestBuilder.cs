@@ -16,10 +16,10 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
-        public ModelErrorTestBuilder(ApiController controller, string actionName)
+        public ModelErrorTestBuilder(ApiController controller, string actionName, ModelStateDictionary modelState = null)
             : base(controller, actionName)
         {
-            this.ModelState = controller.ModelState;
+            this.ModelState = modelState ?? controller.ModelState;
         }
 
         /// <summary>
