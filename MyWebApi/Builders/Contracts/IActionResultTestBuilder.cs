@@ -48,6 +48,8 @@
         /// </summary>
         void ShouldReturnNotFound();
 
+        IUnauthorizedResultTestBuilder ShouldReturnUnauthorized();
+
         /// <summary>
         /// Tests whether action result is of the provided generic type.
         /// </summary>

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Net;
+    using System.Net.Http.Headers;
     using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Results;
@@ -112,6 +113,21 @@
             }
 
             return this.NotFound();
+        }
+
+        public IHttpActionResult UnauthorizedAction()
+        {
+            return this.Unauthorized();
+        }
+
+        public IHttpActionResult UnauthorizedActionWithChallenges()
+        {
+            return this.Unauthorized(new[]
+            {
+                new AuthenticationHeaderValue("TestScheme", "TestParameter"),
+                new AuthenticationHeaderValue("AnotherScheme"),
+                new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
+            });
         }
 
         public bool GenericStructAction()

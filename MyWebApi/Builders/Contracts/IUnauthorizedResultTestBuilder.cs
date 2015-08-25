@@ -5,7 +5,9 @@
 
     public interface IUnauthorizedResultTestBuilder
     {
-        IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string parameter, string scheme);
+        IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string scheme);
+
+        IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string scheme, string parameter);
 
         IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationHeaderValue challenge);
 

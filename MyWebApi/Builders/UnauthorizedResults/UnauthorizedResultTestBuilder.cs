@@ -22,12 +22,22 @@
         {
         }
 
-
-        public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string parameter, string scheme)
+        public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string scheme)
         {
-            if (!this.ActionResult.Challenges.Any(c => c.Parameter != parameter || c.Scheme != scheme))
+            if (this.ActionResult.Challenges.All(c => c.Scheme != scheme))
             {
-                this.ThrowNewUnathorizedResultAssertionException(parameter, scheme);
+                this.ThrowNewUnathorizedResultAssertionException(scheme);
+            }
+
+            return new AndUnauthorizedTestBuilder(this.Controller, this.ActionName, this.ActionResult, this);
+        }
+
+        public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(string scheme, string parameter)
+        {
+            if (!this.ActionResult.Challenges.Any(c => c.Scheme == scheme 
+                && c.Parameter == parameter))
+            {
+                this.ThrowNewUnathorizedResultAssertionException(scheme, parameter);
             }
 
             return new AndUnauthorizedTestBuilder(this.Controller, this.ActionName, this.ActionResult, this);
@@ -35,7 +45,7 @@
 
         public IAndUnauthorizedResultTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationHeaderValue challenge)
         {
-            return this.ContainingAuthenticationHeaderChallenge(challenge.Parameter, challenge.Scheme);
+            return this.ContainingAuthenticationHeaderChallenge(challenge.Scheme, challenge.Parameter);
         }
 
         public void WithAuthenticationHeaderChallenges(IEnumerable<AuthenticationHeaderValue> challenges)
@@ -57,10 +67,10 @@
             {
                 var actualChallenge = actualChallenges[i];
                 var expectedChallenge = expectedChallenges[i];
-                if (actualChallenge.Parameter != expectedChallenge.Parameter
-                    || actualChallenge.Scheme != expectedChallenge.Scheme)
+                if (actualChallenge.Scheme != expectedChallenge.Scheme
+                    || actualChallenge.Parameter != expectedChallenge.Parameter)
                 {
-                    this.ThrowNewUnathorizedResultAssertionException(expectedChallenge.Parameter, expectedChallenge.Scheme);
+                    this.ThrowNewUnathorizedResultAssertionException(expectedChallenge.Scheme, expectedChallenge.Parameter);
                 }
             }
         }
@@ -79,14 +89,14 @@
                 .ToList();
         }
 
-        private void ThrowNewUnathorizedResultAssertionException(string parameter, string scheme)
+        private void ThrowNewUnathorizedResultAssertionException(string scheme, string parameter = null)
         {
             throw new UnauthorizedResultAssertionException(string.Format(
-                    "When calling {0} action in {1} expected to have authentication header challenge with {2} parameter and {3} scheme, but none found.",
+                    "When calling {0} action in {1} expected to have authentication header challenge with {2} scheme and {3} parameter, but none found.",
                     this.ActionName,
                     this.Controller.GetType().ToFriendlyTypeName(),
-                    parameter,
-                    scheme));
+                    scheme,
+                    parameter ?? "no matter what"));
         }
     }
 }

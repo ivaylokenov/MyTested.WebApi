@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Exception for invalid unathorized result when authentication header challenges do not match.
+    /// Exception for invalid unauthorized result when authentication header challenges do not match.
     /// </summary>
     public class UnauthorizedResultAssertionException : Exception
     {
