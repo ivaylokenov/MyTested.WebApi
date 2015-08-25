@@ -1,6 +1,5 @@
 ﻿namespace MyWebApi.Builders.UnauthorizedResults
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http.Headers;
@@ -9,6 +8,8 @@
 
     using Base;
     using Contracts;
+    using Exceptions;
+    using Utilities;
 
     public class UnauthorizedResultTestBuilder : BaseTestBuilderWithActionResult<UnauthorizedResult>,
         IUnauthorizedResultTestBuilder
@@ -26,7 +27,7 @@
         {
             if (!this.ActionResult.Challenges.Any(c => c.Parameter != parameter || c.Scheme != scheme))
             {
-                // TODO: error
+                this.ThrowNewUnathorizedResultAssertionException(parameter, scheme);
             }
 
             return new AndUnauthorizedTestBuilder(this.Controller, this.ActionName, this.ActionResult, this);
@@ -49,7 +50,7 @@
                 if (actualChallenge.Parameter != expectedChallenge.Parameter
                     || actualChallenge.Scheme != expectedChallenge.Scheme)
                 {
-                    // todo: ERROR
+                    this.ThrowNewUnathorizedResultAssertionException(expectedChallenge.Parameter, expectedChallenge.Scheme);
                 }
             }
         }
@@ -66,6 +67,16 @@
                 .OrderBy(c => c.Parameter)
                 .ThenBy(c => c.Scheme)
                 .ToList();
+        }
+
+        private void ThrowNewUnathorizedResultAssertionException(string parameter, string scheme)
+        {
+            throw new UnauthorizedResultAssertionException(string.Format(
+                    "When calling {0} action in {1} expected to have authentication header challenge with {2} parameter and {3} scheme, but none found.",
+                    this.ActionName,
+                    this.Controller.GetType().ToFriendlyTypeName(),
+                    parameter,
+                    scheme));
         }
     }
 }
