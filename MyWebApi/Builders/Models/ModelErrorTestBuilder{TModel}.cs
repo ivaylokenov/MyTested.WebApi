@@ -4,6 +4,7 @@
     using System.Linq.Expressions;
     using System.Web.Http;
     using System.Web.Http.ModelBinding;
+
     using Common.Extensions;
     using Contracts.Models;
     using Exceptions;
@@ -20,6 +21,7 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="modelState">Optional model state dictionary to use the class with. Default is controller's model state.</param>
         public ModelErrorTestBuilder(ApiController controller, string actionName, ModelStateDictionary modelState = null)
             : base(controller, actionName, modelState)
         {

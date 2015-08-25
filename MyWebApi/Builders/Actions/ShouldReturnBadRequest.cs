@@ -1,8 +1,9 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
     using System.Web.Http.Results;
+
     using BadRequests;
-    using Contracts;
+
     using Contracts.BadRequests;
 
     /// <summary>
@@ -11,6 +12,10 @@
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ActionResultTestBuilder<TActionResult>
     {
+        /// <summary>
+        /// Tests whether action result is BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.
+        /// </summary>
+        /// <returns>Bad request test builder.</returns>
         public IBadRequestTestBuilder ShouldReturnBadRequest()
         {
             if (this.ActionResult as BadRequestResult != null)

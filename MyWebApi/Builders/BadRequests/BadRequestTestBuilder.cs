@@ -13,12 +13,22 @@
     using Exceptions;
     using Models;
 
+    /// <summary>
+    /// Used for testing bad request results.
+    /// </summary>
+    /// <typeparam name="TBadRequestResult">Type of bad request result - BadRequestResult, InvalidModelStateResult, BadRequestErrorMessageResult.</typeparam>
     public class BadRequestTestBuilder<TBadRequestResult> : BaseTestBuilderWithActionResult<TBadRequestResult>,
         IBadRequestTestBuilder
     {
         private const string ErrorMessage = "error message";
         private const string ModelStateDictionary = "model state dictionary";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BadRequestTestBuilder{TBadRequestResult}" /> class.
+        /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="actionResult">Result from the tested action.</param>
         public BadRequestTestBuilder(
             ApiController controller,
             string actionName,
@@ -27,12 +37,20 @@
         {
         }
 
+        /// <summary>
+        /// Tests bad request result with specific error message using test builder.
+        /// </summary>
+        /// <returns>Bad request with error message test builder.</returns>
         public IBadRequestErrorMessageTestBuilder WithErrorMessage()
         {
             var badRequestErrorMessageResult = this.GetBadRequestResult<BadRequestErrorMessageResult>(ErrorMessage);
             return new BadRequestErrorMessageTestBuilder(this.Controller, this.ActionName, badRequestErrorMessageResult.Message);
         }
 
+        /// <summary>
+        /// Tests bad request result with specific error message provided by string.
+        /// </summary>
+        /// <param name="message">Expected error message from bad request result.</param>
         public void WithErrorMessage(string message)
         {
             var badRequestErrorMessageResult = this.GetBadRequestResult<BadRequestErrorMessageResult>(ErrorMessage);
@@ -40,6 +58,10 @@
             this.ValidateErrorMessage(message, actualMessage);
         }
 
+        /// <summary>
+        /// Tests bad request result with specific model state dictionary.
+        /// </summary>
+        /// <param name="modelState">Model state dictionary to deeply compare to the actual one.</param>
         public void WithModelState(ModelStateDictionary modelState)
         {
             var invalidModelStateResult = this.GetBadRequestResult<InvalidModelStateResult>(ModelStateDictionary);
@@ -95,6 +117,11 @@
             }
         }
 
+        /// <summary>
+        /// Tests bad request result for model state errors using test builder.
+        /// </summary>
+        /// <typeparam name="TRequestModel">Type of model for which the model state errors will be tested.</typeparam>
+        /// <returns>Model error test builder.</returns>
         public IModelErrorTestBuilder<TRequestModel> WithModelStateFor<TRequestModel>()
         {
             var invalidModelStateResult = this.GetBadRequestResult<InvalidModelStateResult>(ModelStateDictionary);

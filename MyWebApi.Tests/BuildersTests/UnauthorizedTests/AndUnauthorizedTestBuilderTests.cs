@@ -6,7 +6,6 @@
 
     using Setups;
     
-
     [TestFixture]
     public class AndUnauthorizedTestBuilderTests
     {

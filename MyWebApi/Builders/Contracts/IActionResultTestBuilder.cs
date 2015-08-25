@@ -30,7 +30,7 @@
         void ShouldHaveInvalidModelState();
 
         /// <summary>
-        /// Tests whether action result is OkResult.
+        /// Tests whether action result is OkResult or OkNegotiatedContentResult{T}.
         /// </summary>
         /// <returns>Response model test builder.</returns>
         IResponseModelTestBuilder ShouldReturnOk();
@@ -51,6 +51,10 @@
         /// </summary>
         void ShouldReturnNotFound();
 
+        /// <summary>
+        /// Tests whether action result is BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.
+        /// </summary>
+        /// <returns>Bad request test builder.</returns>
         IBadRequestTestBuilder ShouldReturnBadRequest();
 
         /// <summary>
