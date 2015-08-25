@@ -9,7 +9,7 @@
     using Utilities;
 
     /// <summary>
-    /// Used for testing the response model type of test.
+    /// Used for testing the response model type of action.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public class ResponseModelTestBuilder<TActionResult>

@@ -48,6 +48,10 @@
         /// </summary>
         void ShouldReturnNotFound();
 
+        /// <summary>
+        /// Tests whether action result is UnauthorizedResult.
+        /// </summary>
+        /// <returns>Unauthorized result test builder.</returns>
         IUnauthorizedResultTestBuilder ShouldReturnUnauthorized();
 
         /// <summary>
