@@ -265,7 +265,8 @@ MyWebApi
 	.ContainingAuthenticationHeaderChallenge("Basic", "Value");
 	
 // tests whether the action returns UnauthorizedResult
-// and result contains authentication header value equal to the provided AuthenticationHeaderValue
+// and result contains authentication header value
+// equal to the provided AuthenticationHeaderValue
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
