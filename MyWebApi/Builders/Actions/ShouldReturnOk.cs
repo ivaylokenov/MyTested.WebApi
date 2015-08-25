@@ -6,7 +6,7 @@
     using ResponseModels;
 
     /// <summary>
-    /// Class containing methods for testing OkResult.
+    /// Class containing methods for testing OkResult and OkNegotiatedContentResult.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ActionResultTestBuilder<TActionResult>

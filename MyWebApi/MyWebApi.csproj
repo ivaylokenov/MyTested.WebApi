@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\Actions\ShouldReturnBadRequest.cs" />
     <Compile Include="Builders\Actions\ShouldReturnNotFound.cs" />
     <Compile Include="Builders\Actions\ShouldReturnStatusCode.cs" />
     <Compile Include="Builders\Actions\ShouldReturnUnauthorized.cs" />
