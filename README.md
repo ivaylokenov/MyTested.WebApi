@@ -324,6 +324,84 @@ MyWebApi
 				.ContainingHeader(header => header.WithScheme(AuthenticationScheme.Basic)));
 ```
 
+#### BadRequest result
+
+```c#
+// tests whether the action returns BadRequestResult,
+// InvalidModelStateResult or BadRequestErrorMessageResult
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnBadRequest();
+	
+// tests whether the action returns bad request with specific error
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnBadRequest()
+	.WithErrorMessage("Undefined is not a function");	
+
+// tests whether the action returns bad request with specific error
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnBadRequest()
+	.WithErrorMessage()
+	.ThatEquals("Undefined is not a function");	
+
+// tests whether the action returns bad request with error
+// beginning with provided string
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnBadRequest()
+	.WithErrorMessage()
+	.BeginningWith("Undefined");	
+
+// tests whether the action returns bad request with error
+// ending with provided string
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnBadRequest()
+	.WithErrorMessage()
+	.EndingWith("function");	
+
+// tests whether the action returns bad request with error
+// containing the provided string
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnBadRequest()
+	.WithErrorMessage()
+	.Containing("is not");	
+
+// tests whether the action returns bad request
+// with model state deeply equal to the provided one
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnBadRequest()
+	.WithModelState(modelState);
+
+// tests whether the action returns bad request
+// with model errors built by test builder
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnBadRequest()
+	.WithModelStateFor<RequestModel>()
+		.ContainingModelStateErrorFor(m => m.Integer).ThatEquals("The field Integer must be stopped!")
+		.And()
+		.ContainingModelStateErrorFor(m => m.RequiredString).BeginningWith("The RequiredString")
+		.And()
+		.ContainingModelStateErrorFor(m => m.RequiredString).EndingWith("required.")
+		.And()
+		.ContainingModelStateErrorFor(m => m.RequiredString).Containing("field")
+		.And()
+		.ContainingNoModelStateErrorFor(m => m.NonRequiredString);
+```
+
 #### StatusCode result
 
 ```c#
