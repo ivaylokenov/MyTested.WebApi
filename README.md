@@ -112,7 +112,7 @@ MyWebApi
 	.Calling(c => c.SomeAction(requestModel))
 	.ShouldHaveModelStateFor<RequestModel>()
 	.ContainingModelStateError("propertyName")
-	.And() // And method is not necessary but provides better readability (and it is cool)
+	.AndAlso() // AndAlso method is not necessary but provides better readability (and it's cool)
 	.ContainingNoModelStateError("anotherPropertyName");
 	
 // tests whether model state error exists by using lambda expression
@@ -121,7 +121,7 @@ MyWebApi
 	.Calling(c => c.SomeAction(requestModel))
 	.ShouldHaveModelStateFor<RequestModel>()
 	.ContainingModelStateErrorFor(m => m.SomeProperty)
-	.And()
+	.AndAlso()
 	.ContainingNoModelStateErrorFor(m => m.AnotherProperty);
 	
 // tests the error message for specific property
@@ -130,11 +130,11 @@ MyWebApi
 	.Calling(c => c.SomeAction(requestModel))
 	.ShouldHaveModelStateFor<RequestModel>() // error must be equal to the provided string
 	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message") 
-	.And() // error must begin with the provided string
+	.AndAlso() // error must begin with the provided string
 	.ContainingModelStateErrorFor(m => m.SecondProperty).BeginningWith("Error") 
-	.And() // error must end with the provided string
+	.AndAlso() // error must end with the provided string
 	.ContainingModelStateErrorFor(m => m.ThirdProperty).EndingWith("message") 
-	.And() // error must contain the provided string
+	.AndAlso() // error must contain the provided string
 	.ContainingModelStateErrorFor(m => m.SecondProperty).Containing("ror mes"); 
 ```
 
@@ -227,7 +227,7 @@ MyWebApi
 	.ShouldReturnOk()
 	.WithResponseModelOfType<ResponseModel>()
 	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message")
-	.And()
+	.AndAlso()
 	.ContainingNoModelStateErrorFor(m => m.AnotherProperty);
 ```
 
@@ -320,7 +320,7 @@ MyWebApi
 		authHeaders =>
 			authHeaders
 				.ContainingHeader(header => header.WithScheme("Basic").WithParameter("Value"))
-				.And() // And() is not necessary
+				.AndAlso() // AndAlso() is not necessary
 				.ContainingHeader(header => header.WithScheme(AuthenticationScheme.Basic)));
 ```
 
@@ -392,13 +392,13 @@ MyWebApi
 	.ShouldReturnBadRequest()
 	.WithModelStateFor<RequestModel>()
 		.ContainingModelStateErrorFor(m => m.Integer).ThatEquals("The field Integer must be stopped!")
-		.And()
+		.AndAlso()
 		.ContainingModelStateErrorFor(m => m.RequiredString).BeginningWith("The RequiredString")
-		.And()
+		.AndAlso()
 		.ContainingModelStateErrorFor(m => m.RequiredString).EndingWith("required.")
-		.And()
+		.AndAlso()
 		.ContainingModelStateErrorFor(m => m.RequiredString).Containing("field")
-		.And()
+		.AndAlso()
 		.ContainingNoModelStateErrorFor(m => m.NonRequiredString);
 ```
 
