@@ -3,15 +3,15 @@
     using System;
 
     /// <summary>
-    /// Exception for response model with errors.
+    /// Exception for controller unresolved dependencies.
     /// </summary>
-    public class ResponseModelErrorAssertionException : Exception
+    public class UnresolvedDependenciesException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the ResponseModelErrorAssertionException class.
+        /// Initializes a new instance of the UnresolvedDependenciesException class.
         /// </summary>
         /// <param name="message">Message for System.Exception class.</param>
-        public ResponseModelErrorAssertionException(string message)
+        public UnresolvedDependenciesException(string message)
             : base(message)
         {
         }

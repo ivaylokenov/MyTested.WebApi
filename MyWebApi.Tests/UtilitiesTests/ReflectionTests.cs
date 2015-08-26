@@ -4,7 +4,9 @@
     using System.Collections.Generic;
 
     using NUnit.Framework;
-
+    using Setups;
+    using Setups.Models;
+    using Setups.Services;
     using Utilities;
 
     [TestFixture]
@@ -201,38 +203,98 @@
         }
 
         [Test]
-        public void ToFriendlyGenericTypeNameShouldReturnTheOriginalNameWhenTypeIsNotGeneric()
+        public void ToFriendlyTypeNameShouldReturnTheOriginalNameWhenTypeIsNotGeneric()
         {
-            var name = typeof(object).ToFriendlyGenericTypeName();
+            var name = typeof(object).ToFriendlyTypeName();
             Assert.AreEqual("Object", name);
         }
 
         [Test]
-        public void ToFriendlyGenericTypeNameShouldReturnProperNameWhenTypeIsGenericWithoutArguments()
+        public void ToFriendlyTypeNameShouldReturnProperNameWhenTypeIsGenericWithoutArguments()
         {
-            var name = typeof(List<>).ToFriendlyGenericTypeName();
+            var name = typeof(List<>).ToFriendlyTypeName();
             Assert.AreEqual("List<T>", name);
         }
 
         [Test]
-        public void ToFriendlyGenericTypeNameShouldReturnProperNameWhenTypeIsGenericWithoutMoreThanOneArguments()
+        public void ToFriendlyTypeNameShouldReturnProperNameWhenTypeIsGenericWithoutMoreThanOneArguments()
         {
-            var name = typeof(Dictionary<,>).ToFriendlyGenericTypeName();
+            var name = typeof(Dictionary<,>).ToFriendlyTypeName();
             Assert.AreEqual("Dictionary<TKey, TValue>", name);
         }
 
         [Test]
-        public void ToFriendlyGenericTypeNameShouldReturnProperNameWhenTypeIsGenericWithOneArgument()
+        public void ToFriendlyTypeNameShouldReturnProperNameWhenTypeIsGenericWithOneArgument()
         {
-            var name = typeof(List<int>).ToFriendlyGenericTypeName();
+            var name = typeof(List<int>).ToFriendlyTypeName();
             Assert.AreEqual("List<Int32>", name);
         }
 
         [Test]
-        public void ToFriendlyGenericTypeNameShouldReturnProperNameWhenTypeIsGenericWithMoreThanOneArguments()
+        public void ToFriendlyTypeNameShouldReturnProperNameWhenTypeIsGenericWithMoreThanOneArguments()
         {
-            var name = typeof(Dictionary<string, int>).ToFriendlyGenericTypeName();
+            var name = typeof(Dictionary<string, int>).ToFriendlyTypeName();
             Assert.AreEqual("Dictionary<String, Int32>", name);
+        }
+
+        [Test]
+        public void TryGetInstanceShouldReturnObjectWithDefaultConstructorWhenNoParametersAreProvided()
+        {
+            var instance = Reflection.TryCreateInstance<WebApiController>();
+
+            Assert.IsNotNull(instance);
+            Assert.AreEqual(typeof(WebApiController), instance.GetType());
+            Assert.IsNull(instance.InjectedRequestModel);
+            Assert.IsNotNull(instance.InjectedService);
+        }
+
+        [Test]
+        public void TryGetInstanceShouldReturnCorrectInitializationWithPartOfAllParameters()
+        {
+            var instance = Reflection.TryCreateInstance<WebApiController>(new InjectedService());
+
+            Assert.IsNotNull(instance);
+            Assert.AreEqual(typeof(WebApiController), instance.GetType());
+            Assert.IsNull(instance.InjectedRequestModel);
+            Assert.IsNotNull(instance.InjectedService);
+        }
+
+        [Test]
+        public void TryGetInstanceShouldReturnInitializedObjectWhenCorrectOrderOfParametersAreProvided()
+        {
+            var instance = Reflection.TryCreateInstance<WebApiController>(new InjectedService(), new RequestModel());
+
+            Assert.IsNotNull(instance);
+            Assert.AreEqual(typeof(WebApiController), instance.GetType());
+            Assert.IsNotNull(instance.InjectedRequestModel);
+            Assert.IsNotNull(instance.InjectedService);
+        }
+
+        [Test]
+        public void TryCreateInstanceShouldReturnInitializedObjectWhenIncorrectOrderOfParametersAreProvided()
+        {
+            var instance = Reflection.TryCreateInstance<WebApiController>(new RequestModel(), new InjectedService());
+
+            Assert.IsNotNull(instance);
+            Assert.AreEqual(typeof(WebApiController), instance.GetType());
+            Assert.IsNotNull(instance.InjectedRequestModel);
+            Assert.IsNotNull(instance.InjectedService);
+        }
+
+        [Test]
+        public void TryCreateInstanceShouldReturnNullWhenConstructorArgumentsDoNotMatch()
+        {
+            var instance = Reflection.TryCreateInstance<WebApiController>(new ResponseModel());
+
+            Assert.IsNull(instance);
+        }
+
+        [Test]
+        public void TryCreateInstanceShouldReturnNullWhenConstructorArgumentsDoNotMatchAndAreTooMany()
+        {
+            var instance = Reflection.TryCreateInstance<WebApiController>(new RequestModel(), new InjectedService(), new ResponseModel());
+
+            Assert.IsNull(instance);
         }
     }
 }

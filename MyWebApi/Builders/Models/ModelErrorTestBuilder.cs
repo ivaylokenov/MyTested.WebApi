@@ -1,25 +1,26 @@
-﻿namespace MyWebApi.Builders.ResponseModels
+﻿namespace MyWebApi.Builders.Models
 {
     using System.Web.Http;
     using System.Web.Http.ModelBinding;
 
     using Base;
-    using Contracts;
+    using Contracts.Models;
 
     /// <summary>
-    /// Used for testing the response model errors.
+    /// Used for testing the model errors.
     /// </summary>
-    public class ResponseModelErrorTestBuilder : BaseTestBuilder, IResponseModelErrorTestBuilder
+    public class ModelErrorTestBuilder : BaseTestBuilder, IModelErrorTestBuilder
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResponseModelErrorTestBuilder" /> class.
+        /// Initializes a new instance of the <see cref="ModelErrorTestBuilder" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
-        public ResponseModelErrorTestBuilder(ApiController controller, string actionName)
+        /// <param name="modelState">Optional model state dictionary to use the class with. Default is controller's model state.</param>
+        public ModelErrorTestBuilder(ApiController controller, string actionName, ModelStateDictionary modelState = null)
             : base(controller, actionName)
         {
-            this.ModelState = controller.ModelState;
+            this.ModelState = modelState ?? controller.ModelState;
         }
 
         /// <summary>

@@ -1,26 +1,29 @@
-﻿namespace MyWebApi.Builders.ResponseModels
+﻿namespace MyWebApi.Builders.Models
 {
     using System;
     using System.Linq.Expressions;
     using System.Web.Http;
+    using System.Web.Http.ModelBinding;
 
-    using Contracts;
+    using Common.Extensions;
+    using Contracts.Models;
     using Exceptions;
     using Utilities;
 
     /// <summary>
-    /// Used for testing the response model errors.
+    /// Used for testing the model errors.
     /// </summary>
-    /// <typeparam name="TResponseModel">Response model from invoked action in ASP.NET Web API controller.</typeparam>
-    public class ResponseModelErrorTestBuilder<TResponseModel> : ResponseModelErrorTestBuilder, IResponseModelErrorTestBuilder<TResponseModel>
+    /// <typeparam name="TModel">Model from invoked action in ASP.NET Web API controller.</typeparam>
+    public class ModelErrorTestBuilder<TModel> : ModelErrorTestBuilder, IModelErrorTestBuilder<TModel>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResponseModelErrorTestBuilder{TResponseModel}" /> class.
+        /// Initializes a new instance of the <see cref="ModelErrorTestBuilder{TModel}" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
-        public ResponseModelErrorTestBuilder(ApiController controller, string actionName)
-            : base(controller, actionName)
+        /// <param name="modelState">Optional model state dictionary to use the class with. Default is controller's model state.</param>
+        public ModelErrorTestBuilder(ApiController controller, string actionName, ModelStateDictionary modelState = null)
+            : base(controller, actionName, modelState)
         {
         }
 
@@ -28,17 +31,17 @@
         /// Tests whether tested action's model state contains error by key.
         /// </summary>
         /// <param name="errorKey">Error key to search for.</param>
-        /// <returns>Response model error details test builder.</returns>
-        public IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateError(string errorKey)
+        /// <returns>Model error details test builder.</returns>
+        public IModelErrorDetailsTestBuilder<TModel> ContainingModelStateError(string errorKey)
         {
             if (!this.ModelState.ContainsKey(errorKey) || this.ModelState.Count == 0)
             {
-                this.ThrowNewResponseModelErrorAssertionException(
+                this.ThrowNewModelErrorAssertionException(
                     "When calling {0} action in {1} expected to have a model error against key {2}, but none found.",
                     errorKey);
             }
 
-            return new ResponseModelErrorDetailsTestBuilder<TResponseModel>(
+            return new ModelErrorDetailsTestBuilder<TModel>(
                 this.Controller,
                 this.ActionName,
                 this,
@@ -51,13 +54,13 @@
         /// </summary>
         /// <typeparam name="TMember">Type of the member which will be tested for errors.</typeparam>
         /// <param name="memberWithError">Member expression for the tested member.</param>
-        /// <returns>Response model error details test builder.</returns>
-        public IResponseModelErrorDetailsTestBuilder<TResponseModel> ContainingModelStateErrorFor<TMember>(Expression<Func<TResponseModel, TMember>> memberWithError)
+        /// <returns>Model error details test builder.</returns>
+        public IModelErrorDetailsTestBuilder<TModel> ContainingModelStateErrorFor<TMember>(Expression<Func<TModel, TMember>> memberWithError)
         {
             var memberName = ExpressionParser.GetPropertyName(memberWithError);
             this.ContainingModelStateError(memberName);
 
-            return new ResponseModelErrorDetailsTestBuilder<TResponseModel>(
+            return new ModelErrorDetailsTestBuilder<TModel>(
                 this.Controller,
                 this.ActionName,
                 this,
@@ -71,12 +74,12 @@
         /// <typeparam name="TMember">Type of the member which will be tested for no errors.</typeparam>
         /// <param name="memberWithNoError">Member expression for the tested member.</param>
         /// <returns>This instance in order to support method chaining.</returns>
-        public IResponseModelErrorTestBuilder<TResponseModel> ContainingNoModelStateErrorFor<TMember>(Expression<Func<TResponseModel, TMember>> memberWithNoError)
+        public IModelErrorTestBuilder<TModel> ContainingNoModelStateErrorFor<TMember>(Expression<Func<TModel, TMember>> memberWithNoError)
         {
             var memberName = ExpressionParser.GetPropertyName(memberWithNoError);
             if (this.ModelState.ContainsKey(memberName))
             {
-                this.ThrowNewResponseModelErrorAssertionException(
+                this.ThrowNewModelErrorAssertionException(
                     "When calling {0} action in {1} expected to have no model errors against key {2}, but found some.",
                     memberName);
             }
@@ -87,18 +90,18 @@
         /// <summary>
         /// And method for better readability when chaining error message tests.
         /// </summary>
-        /// <returns>Response model error details test builder.</returns>
-        public IResponseModelErrorTestBuilder<TResponseModel> And()
+        /// <returns>Model error details test builder.</returns>
+        public IModelErrorTestBuilder<TModel> And()
         {
             return this;
         }
 
-        private void ThrowNewResponseModelErrorAssertionException(string messageFormat, string errorKey)
+        private void ThrowNewModelErrorAssertionException(string messageFormat, string errorKey)
         {
-            throw new ResponseModelErrorAssertionException(string.Format(
+            throw new ModelErrorAssertionException(string.Format(
                     messageFormat,
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyGenericTypeName(),
+                    this.Controller.GetName(),
                     errorKey));
         }
     }
