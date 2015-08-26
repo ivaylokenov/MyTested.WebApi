@@ -63,9 +63,9 @@
             Expression<Func<TModel, TMember>> memberWithNoError);
 
         /// <summary>
-        /// And method for better readability when chaining error message tests.
+        /// AndAlso method for better readability when chaining error message tests.
         /// </summary>
         /// <returns>Model error details test builder.</returns>
-        IModelErrorTestBuilder<TModel> And();
+        IModelErrorTestBuilder<TModel> AndAlso();
     }
 }

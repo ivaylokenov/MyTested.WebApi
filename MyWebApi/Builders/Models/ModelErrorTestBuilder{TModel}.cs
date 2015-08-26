@@ -88,10 +88,10 @@
         }
 
         /// <summary>
-        /// And method for better readability when chaining error message tests.
+        /// AndAlso method for better readability when chaining error message tests.
         /// </summary>
         /// <returns>Model error details test builder.</returns>
-        public IModelErrorTestBuilder<TModel> And()
+        public IModelErrorTestBuilder<TModel> AndAlso()
         {
             return this;
         }

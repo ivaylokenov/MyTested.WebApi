@@ -6,7 +6,7 @@
     using Contracts.UnauthorizedResults;
 
     /// <summary>
-    /// Used for adding And() method to the the unauthorized response tests.
+    /// Used for adding AndAlso() method to the the unauthorized response tests.
     /// </summary>
     public class AndUnauthorizedTestBuilder : UnauthorizedTestBuilder, IAndUnauthorizedTestBuilder
     {
@@ -30,10 +30,10 @@
         }
 
         /// <summary>
-        /// And method for better readability when chaining unauthorized result tests.
+        /// AndAlso method for better readability when chaining unauthorized result tests.
         /// </summary>
         /// <returns>Unauthorized result test builder.</returns>
-        public IUnauthorizedTestBuilder And()
+        public IUnauthorizedTestBuilder AndAlso()
         {
             return this.unauthorizedResultTestBuilder;
         }

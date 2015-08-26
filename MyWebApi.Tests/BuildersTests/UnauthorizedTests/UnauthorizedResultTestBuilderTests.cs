@@ -312,9 +312,9 @@
                     authHeaders =>
                         authHeaders
                             .ContainingHeader(header => header.WithScheme("Basic"))
-                            .And()
+                            .AndAlso()
                             .ContainingHeader(header => header.WithScheme("TestScheme").WithParameter("TestParameter"))
-                            .And()
+                            .AndAlso()
                             .ContainingHeader(header => header.WithScheme("YetAnotherScheme").WithParameter("YetAnotherParameter")));
         }
 
@@ -329,9 +329,9 @@
                     authHeaders =>
                         authHeaders
                             .ContainingHeader(header => header.WithScheme("TestScheme").WithParameter("TestParameter"))
-                            .And()
+                            .AndAlso()
                             .ContainingHeader(header => header.WithScheme("YetAnotherScheme").WithParameter("YetAnotherParameter"))
-                            .And()
+                            .AndAlso()
                             .ContainingHeader(header => header.WithScheme("Basic")));
         }
 
@@ -349,7 +349,7 @@
                     authHeaders =>
                         authHeaders
                             .ContainingHeader(header => header.WithScheme("TestScheme").WithParameter("TestParameter"))
-                            .And()
+                            .AndAlso()
                             .ContainingHeader(header => header.WithScheme("Basic")));
         }
 
@@ -367,9 +367,9 @@
                     authHeaders =>
                         authHeaders
                             .ContainingHeader(header => header.WithScheme("TestScheme").WithParameter("TestParameter"))
-                            .And()
+                            .AndAlso()
                             .ContainingHeader(header => header.WithScheme("YetAnotherScheme").WithParameter("YetAnotherParameter"))
-                            .And()
+                            .AndAlso()
                             .ContainingHeader(header => header.WithScheme("Scheme")));
         }
     }
