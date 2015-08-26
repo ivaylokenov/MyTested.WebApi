@@ -18,7 +18,7 @@
     /// <typeparam name="TModel">Model from invoked action in ASP.NET Web API controller.</typeparam>
     public class ModelErrorDetailsTestBuilder<TModel> : BaseTestBuilder, IModelErrorDetailsTestBuilder<TModel>
     {
-        private readonly IModelErrorTestBuilder<TModel> modelErrorTestBuilder;
+        private readonly IAndModelErrorTestBuilder<TModel> modelErrorTestBuilder;
         private readonly string currentErrorKey;
         private readonly IEnumerable<string> aggregatedErrors;
 
@@ -33,7 +33,7 @@
         public ModelErrorDetailsTestBuilder(
             ApiController controller,
             string actionName,
-            IModelErrorTestBuilder<TModel> modelErrorTestBuilder,
+            IAndModelErrorTestBuilder<TModel> modelErrorTestBuilder,
             string errorKey,
             IEnumerable<ModelError> aggregatedErrors)
             : base(controller, actionName)
@@ -48,7 +48,7 @@
         /// </summary>
         /// <param name="errorMessage">Expected error message for particular key.</param>
         /// <returns>The original model error test builder.</returns>
-        public IModelErrorTestBuilder<TModel> ThatEquals(string errorMessage)
+        public IAndModelErrorTestBuilder<TModel> ThatEquals(string errorMessage)
         {
             if (this.aggregatedErrors.All(e => e != errorMessage))
             {
@@ -65,7 +65,7 @@
         /// </summary>
         /// <param name="beginMessage">Expected beginning for particular error message.</param>
         /// <returns>The original model error test builder.</returns>
-        public IModelErrorTestBuilder<TModel> BeginningWith(string beginMessage)
+        public IAndModelErrorTestBuilder<TModel> BeginningWith(string beginMessage)
         {
             if (!this.aggregatedErrors.Any(e => e.StartsWith(beginMessage)))
             {
@@ -82,7 +82,7 @@
         /// </summary>
         /// <param name="endMessage">Expected ending for particular error message.</param>
         /// <returns>The original model error test builder.</returns>
-        public IModelErrorTestBuilder<TModel> EndingWith(string endMessage)
+        public IAndModelErrorTestBuilder<TModel> EndingWith(string endMessage)
         {
             if (!this.aggregatedErrors.Any(e => e.EndsWith(endMessage)))
             {
@@ -99,7 +99,7 @@
         /// </summary>
         /// <param name="containsMessage">Expected containing string for particular error message.</param>
         /// <returns>The original model error test builder.</returns>
-        public IModelErrorTestBuilder<TModel> Containing(string containsMessage)
+        public IAndModelErrorTestBuilder<TModel> Containing(string containsMessage)
         {
             if (!this.aggregatedErrors.Any(e => e.Contains(containsMessage)))
             {

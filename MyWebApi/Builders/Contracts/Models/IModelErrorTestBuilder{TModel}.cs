@@ -30,13 +30,7 @@
         /// <typeparam name="TMember">Type of the member which will be tested for no errors.</typeparam>
         /// <param name="memberWithNoError">Member expression for the tested member.</param>
         /// <returns>This instance in order to support method chaining.</returns>
-        IModelErrorTestBuilder<TModel> ContainingNoModelStateErrorFor<TMember>(
+        IAndModelErrorTestBuilder<TModel> ContainingNoModelStateErrorFor<TMember>(
             Expression<Func<TModel, TMember>> memberWithNoError);
-
-        /// <summary>
-        /// And method for better readability when chaining error message tests.
-        /// </summary>
-        /// <returns>Model error details test builder.</returns>
-        IModelErrorTestBuilder<TModel> And();
     }
 }

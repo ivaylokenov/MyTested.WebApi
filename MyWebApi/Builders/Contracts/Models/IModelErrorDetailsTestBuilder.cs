@@ -14,28 +14,28 @@
         /// </summary>
         /// <param name="errorMessage">Expected error message for particular key.</param>
         /// <returns>The original model error test builder.</returns>
-        IModelErrorTestBuilder<TModel> ThatEquals(string errorMessage);
+        IAndModelErrorTestBuilder<TModel> ThatEquals(string errorMessage);
 
         /// <summary>
         /// Tests whether particular error message begins with given message.
         /// </summary>
         /// <param name="beginMessage">Expected beginning for particular error message.</param>
         /// <returns>The original model error test builder.</returns>
-        IModelErrorTestBuilder<TModel> BeginningWith(string beginMessage);
+        IAndModelErrorTestBuilder<TModel> BeginningWith(string beginMessage);
 
         /// <summary>
         /// Tests whether particular error message ends with given message.
         /// </summary>
         /// <param name="endMessage">Expected ending for particular error message.</param>
         /// <returns>The original model error test builder.</returns>
-        IModelErrorTestBuilder<TModel> EndingWith(string endMessage);
+        IAndModelErrorTestBuilder<TModel> EndingWith(string endMessage);
 
         /// <summary>
         /// Tests whether particular error message contains given message.
         /// </summary>
         /// <param name="containsMessage">Expected containing string for particular error message.</param>
         /// <returns>The original model error test builder.</returns>
-        IModelErrorTestBuilder<TModel> Containing(string containsMessage);
+        IAndModelErrorTestBuilder<TModel> Containing(string containsMessage);
 
         /// <summary>
         /// Tests whether tested action's model state contains error by key.
