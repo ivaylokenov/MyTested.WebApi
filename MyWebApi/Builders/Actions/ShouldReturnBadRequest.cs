@@ -16,22 +16,25 @@
         /// Tests whether action result is BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.
         /// </summary>
         /// <returns>Bad request test builder.</returns>
-        public IBadRequestTestBuilder ShouldReturnBadRequest()
+        public IBadRequestTestBuilder<TActionResult> ShouldReturnBadRequest()
         {
             if (this.ActionResult as BadRequestResult != null)
             {
-                return this.ReturnBadRequestTestBuilder<BadRequestResult>();
+                return this.ReturnBadRequestTestBuilder<BadRequestResult>()
+                    as IBadRequestTestBuilder<TActionResult>;
             }
 
             if (this.ActionResult as InvalidModelStateResult != null)
             {
-                return this.ReturnBadRequestTestBuilder<InvalidModelStateResult>();
+                return this.ReturnBadRequestTestBuilder<InvalidModelStateResult>()
+                    as IBadRequestTestBuilder<TActionResult>;
             }
 
-            return this.ReturnBadRequestTestBuilder<BadRequestErrorMessageResult>();
+            return this.ReturnBadRequestTestBuilder<BadRequestErrorMessageResult>()
+                as IBadRequestTestBuilder<TActionResult>;
         }
 
-        private IBadRequestTestBuilder ReturnBadRequestTestBuilder<TBadRequestResult>()
+        private IBadRequestTestBuilder<TBadRequestResult> ReturnBadRequestTestBuilder<TBadRequestResult>()
             where TBadRequestResult : class
         {
             var badRequestResult = this.GetReturnObject<TBadRequestResult>();

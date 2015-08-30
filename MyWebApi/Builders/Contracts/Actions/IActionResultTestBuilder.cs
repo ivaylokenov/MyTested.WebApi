@@ -58,7 +58,7 @@
         /// Tests whether action result is BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.
         /// </summary>
         /// <returns>Bad request test builder.</returns>
-        IBadRequestTestBuilder ShouldReturnBadRequest();
+        IBadRequestTestBuilder<TActionResult> ShouldReturnBadRequest();
 
         /// <summary>
         /// Tests whether action result is UnauthorizedResult.

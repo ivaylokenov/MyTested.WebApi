@@ -1,9 +1,7 @@
 ﻿namespace MyWebApi.Builders.Base
 {
     using System.Web.Http;
-
     using Common.Extensions;
-    using Contracts;
     using Contracts.Base;
     using Exceptions;
     using Utilities;
