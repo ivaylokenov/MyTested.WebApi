@@ -3,6 +3,7 @@
     using System;
     using System.Net;
 
+    using And;
     using BadRequests;
     using Base;
     using Models;
@@ -24,7 +25,7 @@
         /// <summary>
         /// Checks whether the tested action's provided model state is valid.
         /// </summary>
-        void ShouldHaveValidModelState();
+        IAndTestBuilder<TActionResult> ShouldHaveValidModelState();
 
         /// <summary>
         /// Checks whether the tested action's provided model state is not valid.

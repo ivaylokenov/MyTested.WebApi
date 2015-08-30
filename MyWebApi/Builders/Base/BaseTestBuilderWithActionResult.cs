@@ -1,8 +1,8 @@
 ﻿namespace MyWebApi.Builders.Base
 {
     using System.Web.Http;
+
     using Common.Extensions;
-    using Contracts;
     using Contracts.Base;
     using Exceptions;
     using Microsoft.CSharp.RuntimeBinder;
@@ -12,7 +12,8 @@
     /// Base class for all test builders with action result.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public abstract class BaseTestBuilderWithActionResult<TActionResult> : BaseTestBuilder, IBaseTestBuilderWithActionResult<TActionResult>
+    public abstract class BaseTestBuilderWithActionResult<TActionResult>
+        : BaseTestBuilder, IBaseTestBuilderWithActionResult<TActionResult>
     {
         private TActionResult actionResult;
 

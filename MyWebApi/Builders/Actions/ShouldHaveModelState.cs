@@ -1,6 +1,9 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
+    using And;
     using Common.Extensions;
+    using Contracts.Actions;
+    using Contracts.And;
     using Contracts.Models;
     using Exceptions;
     using Models;
@@ -24,9 +27,10 @@
         /// <summary>
         /// Checks whether the tested action's provided model state is valid.
         /// </summary>
-        public void ShouldHaveValidModelState()
+        public IAndTestBuilder<TActionResult> ShouldHaveValidModelState()
         {
             this.CheckValidModelState();
+            return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
         }
 
         /// <summary>
