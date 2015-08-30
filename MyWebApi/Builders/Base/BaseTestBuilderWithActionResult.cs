@@ -1,8 +1,9 @@
 ﻿namespace MyWebApi.Builders.Base
 {
     using System.Web.Http;
-
+    using And;
     using Common.Extensions;
+    using Contracts.And;
     using Contracts.Base;
     using Exceptions;
     using Microsoft.CSharp.RuntimeBinder;
@@ -66,6 +67,11 @@
                     this.Controller.GetName(),
                     typeof(TResponseModel).ToFriendlyTypeName()));
             }
+        }
+
+        protected IAndTestBuilder<TActionResult> NewAndTestBuilder()
+        {
+            return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
         }
     }
 }

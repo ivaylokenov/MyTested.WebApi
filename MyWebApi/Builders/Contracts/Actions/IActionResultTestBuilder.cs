@@ -30,7 +30,7 @@
         /// <summary>
         /// Checks whether the tested action's provided model state is not valid.
         /// </summary>
-        void ShouldHaveInvalidModelState();
+        IAndTestBuilder<TActionResult> ShouldHaveInvalidModelState();
 
         /// <summary>
         /// Tests whether action result is OkResult or OkNegotiatedContentResult{T}.
@@ -41,18 +41,18 @@
         /// <summary>
         /// Tests whether action result is StatusCodeResult.
         /// </summary>
-        void ShouldReturnStatusCode();
+        IAndTestBuilder<TActionResult> ShouldReturnStatusCode();
 
         /// <summary>
         /// Tests whether action result is StatusCodeResult and is the same as provided HttpStatusCode.
         /// </summary>
         /// <param name="statusCode">HttpStatusCode enumeration.</param>
-        void ShouldReturnStatusCode(HttpStatusCode statusCode);
+        IAndTestBuilder<TActionResult> ShouldReturnStatusCode(HttpStatusCode statusCode);
 
         /// <summary>
         /// Tests whether action result is NotFoundResult.
         /// </summary>
-        void ShouldReturnNotFound();
+        IAndTestBuilder<TActionResult> ShouldReturnNotFound();
 
         /// <summary>
         /// Tests whether action result is BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.

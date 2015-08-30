@@ -30,13 +30,13 @@
         public IAndTestBuilder<TActionResult> ShouldHaveValidModelState()
         {
             this.CheckValidModelState();
-            return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
+            return this.NewAndTestBuilder();
         }
 
         /// <summary>
         /// Checks whether the tested action's provided model state is not valid.
         /// </summary>
-        public void ShouldHaveInvalidModelState()
+        public IAndTestBuilder<TActionResult> ShouldHaveInvalidModelState()
         {
             if (this.Controller.ModelState.Count == 0)
             {
@@ -45,6 +45,8 @@
                     this.ActionName,
                     this.Controller.GetName()));
             }
+
+            return this.NewAndTestBuilder();
         }
     }
 }
