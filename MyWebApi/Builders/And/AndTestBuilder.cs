@@ -13,9 +13,9 @@
         {
         }
 
-        public void And()
+        public IAndContinuityTestBuilder<TActionResult> And()
         {
-            throw new System.NotImplementedException();
+            return new AndContinuityTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
         }
     }
 }

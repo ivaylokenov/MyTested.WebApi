@@ -2,6 +2,6 @@
 {
     public interface IAndTestBuilder<out TActionResult>
     {
-        void And();
+        IAndContinuityTestBuilder<TActionResult> And();
     }
 }
