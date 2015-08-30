@@ -57,13 +57,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturnBadRequestTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturnNotFoundTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturnStatusCodeTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturnUnauthorizedTests.cs" />
+    <Compile Include="BuildersTests\BadRequestsTests\BadRequestErrorMessageTestBuilder.cs" />
+    <Compile Include="BuildersTests\BadRequestsTests\BadRequestTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ControllerBuilderTests.cs" />
-    <Compile Include="BuildersTests\ResponseModelsTests\ResponseModelErrorDetailsTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\ResponseModelsTests\ResponseModelTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\ResponseModelsTests\ResponseModelErrorTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\ModelsTests\ResponseModelDetailsTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\ModelsTests\ModelErrorDetailsTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\ModelsTests\ResponseModelTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\ModelsTests\ModelErrorTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldHaveModelStateTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnOkResultTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnTests.cs" />
+    <Compile Include="BuildersTests\UnauthorizedTests\AndUnauthorizedTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\UnauthorizedTests\UnauthorizedResultTestBuilderTests.cs" />
+    <Compile Include="Setups\Services\AnotherInjectedService.cs" />
+    <Compile Include="Setups\Services\IAnotherInjectedService.cs" />
     <Compile Include="Setups\Services\IInjectedService.cs" />
     <Compile Include="Setups\Services\InjectedService.cs" />
     <Compile Include="Setups\Models\RequestModel.cs" />

@@ -1,8 +1,8 @@
 ﻿namespace MyWebApi.Builders.Base
 {
     using System.Web.Http;
-
-    using Contracts;
+    using Common.Extensions;
+    using Contracts.Base;
     using Exceptions;
     using Utilities;
 
@@ -68,10 +68,10 @@
         {
             if (!this.controller.ModelState.IsValid)
             {
-                throw new ResponseModelErrorAssertionException(string.Format(
+                throw new ModelErrorAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have valid model state with no errors, but it had some.",
                     this.ActionName,
-                    this.Controller.GetType().ToFriendlyGenericTypeName()));
+                    this.Controller.GetName()));
             }
         }
     }

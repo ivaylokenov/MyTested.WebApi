@@ -1,11 +1,11 @@
 ﻿namespace MyWebApi
 {
     using System;
-    using System.Net.Http;
     using System.Web.Http;
 
     using Builders;
     using Builders.Contracts;
+    using Utilities;
 
     /// <summary>
     /// Starting point of the testing framework, which provides a way to specify the ASP.NET Web API controller to be tested.
@@ -20,7 +20,20 @@
         public static IControllerBuilder<TController> Controller<TController>()
             where TController : ApiController
         {
-            return Controller(Activator.CreateInstance<TController>);
+            var controller = Reflection.TryCreateInstance<TController>();
+            return Controller(() => controller);
+        }
+
+        /// <summary>
+        /// Selects controller on which the test will be executed.
+        /// </summary>
+        /// <typeparam name="TController">Class inheriting ASP.NET Web API controller.</typeparam>
+        /// <param name="controller">Instance of the ASP.NET Web API controller to use.</param>
+        /// <returns>Controller builder used to build the test case.</returns>
+        public static IControllerBuilder<TController> Controller<TController>(TController controller)
+            where TController : ApiController
+        {
+            return Controller(() => controller);
         }
 
         /// <summary>
@@ -33,14 +46,7 @@
             where TController : ApiController
         {
             var controllerInstance = construction();
-            PrepareController(controllerInstance);
             return new ControllerBuilder<TController>(controllerInstance);
-        }
-
-        private static void PrepareController(ApiController controller)
-        {
-            controller.Request = new HttpRequestMessage();
-            controller.Configuration = new HttpConfiguration();
         }
     }
 }

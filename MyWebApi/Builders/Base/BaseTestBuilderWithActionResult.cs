@@ -1,15 +1,20 @@
 ﻿namespace MyWebApi.Builders.Base
 {
     using System.Web.Http;
-
-    using Contracts;
+    using And;
+    using Common.Extensions;
+    using Contracts.And;
+    using Contracts.Base;
+    using Exceptions;
+    using Microsoft.CSharp.RuntimeBinder;
     using Utilities;
 
     /// <summary>
     /// Base class for all test builders with action result.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public abstract class BaseTestBuilderWithActionResult<TActionResult> : BaseTestBuilder, IBaseTestBuilderWithActionResult<TActionResult>
+    public abstract class BaseTestBuilderWithActionResult<TActionResult>
+        : BaseTestBuilder, IBaseTestBuilderWithActionResult<TActionResult>
     {
         private TActionResult actionResult;
 
@@ -41,6 +46,36 @@
                 Validator.CheckForNullReference(value, errorMessageName: "ActionResult");
                 this.actionResult = value;
             }
+        }
+
+        /// <summary>
+        /// Gets response model from action result.
+        /// </summary>
+        /// <typeparam name="TResponseModel">Type of response model.</typeparam>
+        /// <returns>The response model.</returns>
+        protected TResponseModel GetActualModel<TResponseModel>()
+        {
+            try
+            {
+                return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult).Content;
+            }
+            catch (RuntimeBinderException)
+            {
+                throw new ResponseModelAssertionException(string.Format(
+                    "When calling {0} action in {1} expected response model of type {2}, but instead received null.",
+                    this.ActionName,
+                    this.Controller.GetName(),
+                    typeof(TResponseModel).ToFriendlyTypeName()));
+            }
+        }
+
+        /// <summary>
+        /// Initializes new instance of builder providing AndAlso method.
+        /// </summary>
+        /// <returns>Test builder with AndAlso method.</returns>
+        protected IAndTestBuilder<TActionResult> NewAndTestBuilder()
+        {
+            return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
 {
     using Exceptions;
+
     using NUnit.Framework;
+
     using Setups;
     using Setups.Models;
 
@@ -35,7 +37,7 @@
 
         [Test]
         [ExpectedException(
-            typeof(ResponseModelErrorAssertionException),
+            typeof(ModelErrorAssertionException),
             ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have valid model state with no errors, but it had some.")]
         public void ShouldHaveValidModelStateShouldThrowExceptionWithInvalidRequestModel()
         {
@@ -60,7 +62,7 @@
 
         [Test]
         [ExpectedException(
-            typeof(ResponseModelErrorAssertionException),
+            typeof(ModelErrorAssertionException),
             ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have invalid model state, but was in fact valid.")]
         public void ShouldHaveInvalidModelStateShouldThrowExceptionWithValidRequestModel()
         {
@@ -70,6 +72,32 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModel))
                 .ShouldHaveInvalidModelState();
+        }
+
+        [Test]
+        public void AndShouldWorkCorrectlyWithValidModelState()
+        {
+            var requestModel = TestObjectFactory.GetValidRequestModel();
+            
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.ModelStateCheck(requestModel))
+                .ShouldHaveValidModelState()
+                .AndAlso()
+                .ShouldReturnOk();
+        }
+
+        [Test]
+        public void AndShouldWorkCorrectlyWithInvalidModelState()
+        {
+            var requestModelWithErrors = TestObjectFactory.GetRequestModelWithErrors();
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.ModelStateCheck(requestModelWithErrors))
+                .ShouldHaveInvalidModelState()
+                .AndAlso()
+                .ShouldReturnOk();
         }
     }
 }

@@ -1,12 +1,17 @@
 ﻿namespace MyWebApi.Tests.BuildersTests
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
     using System.Web.Http.Results;
 
     using Builders.Contracts;
+    using Builders.Contracts.Actions;
+    using Exceptions;
     using NUnit.Framework;
     using Setups;
+    using Setups.Models;
+    using Setups.Services;
 
     [TestFixture]
     public class ControllerBuilderTests
@@ -64,13 +69,193 @@
             Assert.AreEqual(0, modelState.Keys.Count);
         }
 
+        [Test]
+        public void WithAuthenticatedUserShouldPopulateUserPropertyWithDefaultValues()
+        {
+            var controllerBuilder = MyWebApi
+                .Controller<WebApiController>()
+                .WithAuthenticatedUser();
+
+            controllerBuilder
+                .Calling(c => c.AuthorizedAction())
+                .ShouldReturnOk();
+
+            var controllerUser = controllerBuilder.Controller.User;
+
+            Assert.AreEqual(false, controllerUser.IsInRole("Any"));
+            Assert.AreEqual("TestUser", controllerUser.Identity.Name);
+            Assert.AreEqual("Passport", controllerUser.Identity.AuthenticationType);
+            Assert.AreEqual(true, controllerUser.Identity.IsAuthenticated);
+        }
+
+        [Test]
+        public void WithAuthenticatedUserShouldPopulateProperUserWhenUserWithUserBuilder()
+        {
+            var controllerBuilder = MyWebApi
+                .Controller<WebApiController>()
+                .WithAuthenticatedUser(user => user
+                    .WithUsername("NewUserName")
+                    .WithAuthenticationType("Custom")
+                    .InRole("NormalUser")
+                    .InRoles("Moderator", "Administrator")
+                    .InRoles(new[]
+                    {
+                        "SuperUser",
+                        "MegaUser"
+                    }));
+
+            controllerBuilder
+                .Calling(c => c.AuthorizedAction())
+                .ShouldReturnOk();
+
+            var controllerUser = controllerBuilder.Controller.User;
+
+            Assert.AreEqual("NewUserName", controllerUser.Identity.Name);
+            Assert.AreEqual("Custom", controllerUser.Identity.AuthenticationType);
+            Assert.AreEqual(true, controllerUser.Identity.IsAuthenticated);
+            Assert.AreEqual(true, controllerUser.IsInRole("NormalUser"));
+            Assert.AreEqual(true, controllerUser.IsInRole("Moderator"));
+            Assert.AreEqual(true, controllerUser.IsInRole("Administrator"));
+            Assert.AreEqual(true, controllerUser.IsInRole("SuperUser"));
+            Assert.AreEqual(true, controllerUser.IsInRole("MegaUser"));
+            Assert.AreEqual(false, controllerUser.IsInRole("AnotherRole"));
+        }
+
+        [Test]
+        public void WithAuthenticatedNotCalledShouldNotHaveAuthorizedUser()
+        {
+            var controllerBuilder = MyWebApi
+                .Controller<WebApiController>();
+
+            controllerBuilder
+                .Calling(c => c.AuthorizedAction())
+                .ShouldReturnNotFound();
+
+            var controllerUser = controllerBuilder.Controller.User;
+
+            Assert.AreEqual(false, controllerUser.IsInRole("Any"));
+            Assert.AreEqual(null, controllerUser.Identity.Name);
+            Assert.AreEqual(null, controllerUser.Identity.AuthenticationType);
+            Assert.AreEqual(false, controllerUser.Identity.IsAuthenticated);
+        }
+
+        [Test]
+        public void WithResolvedDependencyForShouldChooseCorrectConstructorWithLessDependencies()
+        {
+            var controller = MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
+                .Controller;
+
+            Assert.IsNotNull(controller);
+            Assert.IsNotNull(controller.InjectedService);
+            Assert.IsNull(controller.AnotherInjectedService);
+            Assert.IsNull(controller.InjectedRequestModel);
+        }
+
+        [Test]
+        public void WithResolvedDependencyForShouldChooseCorrectConstructorWithMoreDependencies()
+        {
+            var controller = MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
+                .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
+                .Controller;
+
+            Assert.IsNotNull(controller);
+            Assert.IsNotNull(controller.InjectedService);
+            Assert.IsNotNull(controller.AnotherInjectedService);
+            Assert.IsNull(controller.InjectedRequestModel);
+        }
+
+        [Test]
+        public void WithResolvedDependencyForShouldChooseCorrectConstructorWithAllDependencies()
+        {
+            var controller = MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
+                .WithResolvedDependencyFor<RequestModel>(new RequestModel())
+                .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
+                .Controller;
+
+            Assert.IsNotNull(controller);
+            Assert.IsNotNull(controller.InjectedService);
+            Assert.IsNotNull(controller.AnotherInjectedService);
+            Assert.IsNotNull(controller.InjectedRequestModel);
+        }
+
+        [Test]
+        public void WithResolvedDependencyForShouldContinueTheNormalExecutionFlowOfTestBuilders()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor(new RequestModel())
+                .WithResolvedDependencyFor(new AnotherInjectedService())
+                .WithResolvedDependencyFor(new InjectedService())
+                .WithAuthenticatedUser()
+                .Calling(c => c.AuthorizedAction())
+                .ShouldReturnOk();
+        }
+
+        [Test]
+        public void WithResolvedDependenciesShouldWorkCorrectWithCollectionOfObjects()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencies(new List<object> { new RequestModel(), new AnotherInjectedService(), new InjectedService() })
+                .WithAuthenticatedUser()
+                .Calling(c => c.AuthorizedAction())
+                .ShouldReturnOk();
+        }
+
+        [Test]
+        public void WithResolvedDependenciesShouldWorkCorrectWithParamsOfObjects()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencies(new RequestModel(), new AnotherInjectedService(), new InjectedService())
+                .WithAuthenticatedUser()
+                .Calling(c => c.AuthorizedAction())
+                .ShouldReturnOk();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(InvalidOperationException),
+            ExpectedMessage = "Dependency AnotherInjectedService is already registered for WebApiController controller.")]
+        public void WithResolvedDependencyForShouldThrowExceptionWhenSameDependenciesAreRegistered()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<RequestModel>(new RequestModel())
+                .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
+                .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
+                .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService());
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnresolvedDependenciesException),
+            ExpectedMessage = "WebApiController controller could not be instantiated because it contains no constructor taking RequestModel, AnotherInjectedService, InjectedService, ResponseModel as parameters.")]
+        public void WithResolvedDependencyForShouldThrowExceptionWhenNoConstructorExistsForDependencies()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<RequestModel>(new RequestModel())
+                .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
+                .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
+                .WithResolvedDependencyFor<ResponseModel>(new ResponseModel())
+                .Calling(c => c.OkResultAction())
+                .ShouldReturnOk();
+        }
+
         private void CheckActionResultTestBuilder<TActionResult>(
             IActionResultTestBuilder<TActionResult> actionResultTestBuilder,
             string expectedActionName)
         {
             var actionName = actionResultTestBuilder.ActionName;
             var actionResult = actionResultTestBuilder.ActionResult;
-            
+
             Assert.IsNotNullOrEmpty(actionName);
             Assert.IsNotNull(actionResult);
 
