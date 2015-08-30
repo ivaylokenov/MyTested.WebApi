@@ -25,11 +25,13 @@
         /// <summary>
         /// Checks whether the tested action's provided model state is valid.
         /// </summary>
+        /// <returns>Test builder with And method.</returns>
         IAndTestBuilder<TActionResult> ShouldHaveValidModelState();
 
         /// <summary>
         /// Checks whether the tested action's provided model state is not valid.
         /// </summary>
+        /// <returns>Test builder with And method.</returns>
         IAndTestBuilder<TActionResult> ShouldHaveInvalidModelState();
 
         /// <summary>

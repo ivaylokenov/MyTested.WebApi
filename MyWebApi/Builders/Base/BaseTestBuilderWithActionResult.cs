@@ -69,6 +69,10 @@
             }
         }
 
+        /// <summary>
+        /// Initializes new instance of builder providing And method.
+        /// </summary>
+        /// <returns>Test builder with And method.</returns>
         protected IAndTestBuilder<TActionResult> NewAndTestBuilder()
         {
             return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
