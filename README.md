@@ -39,6 +39,10 @@ MyWebApi
 // instantiates controller with constructor function to resolve dependencies
 MyWebApi
 	.Controller(() => new WebApiController(mockedInjectedService));
+	
+// or provide already instantiated controller
+MyWebApi
+	.Controller(myWebApiControllerInstance);
 ```
 
 ### Authenticated user

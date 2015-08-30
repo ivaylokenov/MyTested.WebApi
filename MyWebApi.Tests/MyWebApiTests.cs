@@ -27,5 +27,15 @@
             Assert.IsNotNull(controller.InjectedService);
             Assert.IsAssignableFrom<InjectedService>(controller.InjectedService);
         }
+
+        [Test]
+        public void ControllerWithProvidedInstanceShouldPopulateCorrectInstanceOfControllerType()
+        {
+            var instance = new WebApiController();
+            var controller = MyWebApi.Controller(instance).Controller;
+
+            Assert.IsNotNull(controller);
+            Assert.IsAssignableFrom<WebApiController>(controller);
+        }
     }
 }
