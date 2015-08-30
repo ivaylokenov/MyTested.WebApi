@@ -109,6 +109,14 @@ MyWebApi
 	.Calling(c => c.SomeAction(requestModel))
 	.ShouldHaveInvalidModelState();
 	
+// tests whether model state is valid and returns some action result
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(requestModel))
+	.ShouldHaveInvalidModelState()
+	.And()
+	.ShouldReturnOk();;
+	
 // tests whether model state error exists (or does not exist) for specific key 
 // * not recommended because of magic string
 MyWebApi
