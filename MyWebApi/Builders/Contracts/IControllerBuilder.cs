@@ -6,6 +6,8 @@
     using System.Threading.Tasks;
     using System.Web.Http;
 
+    using Actions;
+
     /// <summary>
     /// Used for building the action which will be tested.
     /// </summary>

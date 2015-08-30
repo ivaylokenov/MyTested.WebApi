@@ -1,7 +1,7 @@
 ﻿namespace MyWebApi.Builders.Contracts.BadRequests
 {
     using System.Web.Http.ModelBinding;
-
+    using And;
     using Models;
 
     /// <summary>

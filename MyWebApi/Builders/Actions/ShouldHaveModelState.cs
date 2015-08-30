@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
     using Common.Extensions;
+    using Contracts.And;
     using Contracts.Models;
     using Exceptions;
     using Models;
@@ -24,15 +25,18 @@
         /// <summary>
         /// Checks whether the tested action's provided model state is valid.
         /// </summary>
-        public void ShouldHaveValidModelState()
+        /// <returns>Test builder with AndAlso method.</returns>
+        public IAndTestBuilder<TActionResult> ShouldHaveValidModelState()
         {
             this.CheckValidModelState();
+            return this.NewAndTestBuilder();
         }
 
         /// <summary>
         /// Checks whether the tested action's provided model state is not valid.
         /// </summary>
-        public void ShouldHaveInvalidModelState()
+        /// <returns>Test builder with AndAlso method.</returns>
+        public IAndTestBuilder<TActionResult> ShouldHaveInvalidModelState()
         {
             if (this.Controller.ModelState.Count == 0)
             {
@@ -41,6 +45,8 @@
                     this.ActionName,
                     this.Controller.GetName()));
             }
+
+            return this.NewAndTestBuilder();
         }
     }
 }

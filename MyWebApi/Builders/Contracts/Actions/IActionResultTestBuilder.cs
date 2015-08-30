@@ -1,8 +1,11 @@
-﻿namespace MyWebApi.Builders.Contracts
+﻿namespace MyWebApi.Builders.Contracts.Actions
 {
     using System;
     using System.Net;
+
+    using And;
     using BadRequests;
+    using Base;
     using Models;
     using UnauthorizedResults;
 
@@ -22,12 +25,14 @@
         /// <summary>
         /// Checks whether the tested action's provided model state is valid.
         /// </summary>
-        void ShouldHaveValidModelState();
+        /// <returns>Test builder with AndAlso method.</returns>
+        IAndTestBuilder<TActionResult> ShouldHaveValidModelState();
 
         /// <summary>
         /// Checks whether the tested action's provided model state is not valid.
         /// </summary>
-        void ShouldHaveInvalidModelState();
+        /// <returns>Test builder with AndAlso method.</returns>
+        IAndTestBuilder<TActionResult> ShouldHaveInvalidModelState();
 
         /// <summary>
         /// Tests whether action result is OkResult or OkNegotiatedContentResult{T}.

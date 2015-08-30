@@ -1,14 +1,14 @@
 ﻿namespace MyWebApi.Builders.Contracts.UnauthorizedResults
 {
     /// <summary>
-    /// Used for building collection of AuthenticationHeaderValue with And() method.
+    /// Used for building collection of AuthenticationHeaderValue with AndAlso() method.
     /// </summary>
     public interface IAndChallengesBuilder : IChallengesBuilder
     {
         /// <summary>
-        /// And method for better readability when chaining header builders.
+        /// AndAlso method for better readability when chaining header builders.
         /// </summary>
         /// <returns>The same challenge builder.</returns>
-        IChallengesBuilder And();
+        IChallengesBuilder AndAlso();
     }
 }

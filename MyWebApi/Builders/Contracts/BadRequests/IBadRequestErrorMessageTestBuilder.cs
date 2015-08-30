@@ -1,5 +1,7 @@
 ﻿namespace MyWebApi.Builders.Contracts.BadRequests
 {
+    using And;
+
     /// <summary>
     /// Used for testing specific bad request error messages.
     /// </summary>

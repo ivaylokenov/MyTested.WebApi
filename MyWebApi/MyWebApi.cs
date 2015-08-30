@@ -25,6 +25,18 @@
         }
 
         /// <summary>
+        /// Selects controller on which the test will be executed.
+        /// </summary>
+        /// <typeparam name="TController">Class inheriting ASP.NET Web API controller.</typeparam>
+        /// <param name="controller">Instance of the ASP.NET Web API controller to use.</param>
+        /// <returns>Controller builder used to build the test case.</returns>
+        public static IControllerBuilder<TController> Controller<TController>(TController controller)
+            where TController : ApiController
+        {
+            return Controller(() => controller);
+        }
+
+        /// <summary>
         /// Selects controller on which the test will be executed. Controller is instantiated using construction function.
         /// </summary>
         /// <typeparam name="TController">Class inheriting ASP.NET Web API controller.</typeparam>

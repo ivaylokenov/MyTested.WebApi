@@ -6,6 +6,7 @@
     using System.Web.Http.Results;
 
     using Builders.Contracts;
+    using Builders.Contracts.Actions;
     using Exceptions;
     using NUnit.Framework;
     using Setups;

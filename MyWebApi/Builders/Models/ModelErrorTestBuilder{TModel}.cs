@@ -14,7 +14,7 @@
     /// Used for testing the model errors.
     /// </summary>
     /// <typeparam name="TModel">Model from invoked action in ASP.NET Web API controller.</typeparam>
-    public class ModelErrorTestBuilder<TModel> : ModelErrorTestBuilder, IModelErrorTestBuilder<TModel>
+    public class ModelErrorTestBuilder<TModel> : ModelErrorTestBuilder, IAndModelErrorTestBuilder<TModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ModelErrorTestBuilder{TModel}" /> class.
@@ -74,7 +74,7 @@
         /// <typeparam name="TMember">Type of the member which will be tested for no errors.</typeparam>
         /// <param name="memberWithNoError">Member expression for the tested member.</param>
         /// <returns>This instance in order to support method chaining.</returns>
-        public IModelErrorTestBuilder<TModel> ContainingNoModelStateErrorFor<TMember>(Expression<Func<TModel, TMember>> memberWithNoError)
+        public IAndModelErrorTestBuilder<TModel> ContainingNoModelStateErrorFor<TMember>(Expression<Func<TModel, TMember>> memberWithNoError)
         {
             var memberName = ExpressionParser.GetPropertyName(memberWithNoError);
             if (this.ModelState.ContainsKey(memberName))
@@ -88,10 +88,10 @@
         }
 
         /// <summary>
-        /// And method for better readability when chaining error message tests.
+        /// AndAlso method for better readability when chaining error message tests.
         /// </summary>
         /// <returns>Model error details test builder.</returns>
-        public IModelErrorTestBuilder<TModel> And()
+        public IModelErrorTestBuilder<TModel> AndAlso()
         {
             return this;
         }

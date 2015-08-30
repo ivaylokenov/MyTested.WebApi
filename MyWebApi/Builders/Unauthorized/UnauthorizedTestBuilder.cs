@@ -37,7 +37,7 @@
         /// Tests whether an unauthorized result contains authentication header with the provided default scheme.
         /// </summary>
         /// <param name="scheme">Enumeration containing default schemes.</param>
-        /// <returns>Unauthorized result test builder with And() method.</returns>
+        /// <returns>Unauthorized result test builder with AndAlso() method.</returns>
         public IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationScheme scheme)
         {
             return this.ContainingAuthenticationHeaderChallenge(scheme.ToString());
@@ -47,7 +47,7 @@
         /// Tests whether an unauthorized result contains authentication header with the provided scheme as string.
         /// </summary>
         /// <param name="scheme">Scheme as string.</param>
-        /// <returns>Unauthorized result test builder with And() method.</returns>
+        /// <returns>Unauthorized result test builder with AndAlso() method.</returns>
         public IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(string scheme)
         {
             if (this.ActionResult.Challenges.All(c => c.Scheme != scheme))
@@ -63,7 +63,7 @@
         /// </summary>
         /// <param name="scheme">Scheme as string.</param>
         /// <param name="parameter">Parameter as string.</param>
-        /// <returns>Unauthorized result test builder with And() method.</returns>
+        /// <returns>Unauthorized result test builder with AndAlso() method.</returns>
         public IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(string scheme, string parameter)
         {
             if (!this.ActionResult.Challenges.Any(c => c.Scheme == scheme
@@ -79,7 +79,7 @@
         /// Tests whether an unauthorized result contains authentication header with the provided authenticated header value.
         /// </summary>
         /// <param name="challenge">AuthenticationHeaderValue containing scheme and parameter.</param>
-        /// <returns>Unauthorized result test builder with And() method.</returns>
+        /// <returns>Unauthorized result test builder with AndAlso() method.</returns>
         public IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(AuthenticationHeaderValue challenge)
         {
             if (string.IsNullOrEmpty(challenge.Parameter))
@@ -94,7 +94,7 @@
         /// Tests whether an unauthorized result contains authenticated header using the provided authenticated header value builder.
         /// </summary>
         /// <param name="challengeBuilder">Builder for creating AuthenticationHeaderValue.</param>
-        /// <returns>Unauthorized result test builder with And() method.</returns>
+        /// <returns>Unauthorized result test builder with AndAlso() method.</returns>
         public IAndUnauthorizedTestBuilder ContainingAuthenticationHeaderChallenge(
             Action<IAuthenticationHeaderValueBuilder> challengeBuilder)
         {

@@ -17,7 +17,7 @@
                 .Calling(c => c.UnauthorizedActionWithChallenges())
                 .ShouldReturnUnauthorized()
                 .ContainingAuthenticationHeaderChallenge("TestScheme", "TestParameter")
-                .And()
+                .AndAlso()
                 .ContainingAuthenticationHeaderChallenge("Basic");
         }
 
@@ -32,7 +32,7 @@
                 .Calling(c => c.UnauthorizedActionWithChallenges())
                 .ShouldReturnUnauthorized()
                 .ContainingAuthenticationHeaderChallenge("TestScheme", "TestParameter")
-                .And()
+                .AndAlso()
                 .ContainingAuthenticationHeaderChallenge("Scheme", "Parameter");
         }
     }

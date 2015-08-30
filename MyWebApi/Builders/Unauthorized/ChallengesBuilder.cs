@@ -32,10 +32,10 @@
         }
 
         /// <summary>
-        /// And method for better readability when chaining header builders.
+        /// AndAlso method for better readability when chaining header builders.
         /// </summary>
         /// <returns>The same challenge builder.</returns>
-        public IChallengesBuilder And()
+        public IChallengesBuilder AndAlso()
         {
             return this;
         }

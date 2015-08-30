@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Contracts
+﻿namespace MyWebApi.Builders.Contracts.Base
 {
     /// <summary>
     /// Base interface for all test builders with action result.

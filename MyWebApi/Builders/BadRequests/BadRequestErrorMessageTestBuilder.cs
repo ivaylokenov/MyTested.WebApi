@@ -1,7 +1,6 @@
 ﻿namespace MyWebApi.Builders.BadRequests
 {
     using System.Web.Http;
-
     using Base;
     using Common.Extensions;
     using Contracts.BadRequests;
@@ -10,7 +9,8 @@
     /// <summary>
     /// Used for testing specific bad request error messages.
     /// </summary>
-    public class BadRequestErrorMessageTestBuilder : BaseTestBuilder, IBadRequestErrorMessageTestBuilder
+    public class BadRequestErrorMessageTestBuilder
+        : BaseTestBuilder, IBadRequestErrorMessageTestBuilder
     {
         private readonly string actualMessage;
 
@@ -20,7 +20,10 @@
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="actualMessage">Actual error message received from bad request result.</param>
-        public BadRequestErrorMessageTestBuilder(ApiController controller, string actionName, string actualMessage)
+        public BadRequestErrorMessageTestBuilder(
+            ApiController controller,
+            string actionName,
+            string actualMessage)
             : base(controller, actionName)
         {
             this.actualMessage = actualMessage;
