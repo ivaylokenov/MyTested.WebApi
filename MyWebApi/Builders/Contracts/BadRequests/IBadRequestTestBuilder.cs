@@ -7,25 +7,25 @@
     /// <summary>
     /// Used for testing bad request results.
     /// </summary>
-    public interface IBadRequestTestBuilder<out TBadRequestResult>
+    public interface IBadRequestTestBuilder
     {
         /// <summary>
         /// Tests bad request result with specific error message using test builder.
         /// </summary>
         /// <returns>Bad request with error message test builder.</returns>
-        IBadRequestErrorMessageTestBuilder<TBadRequestResult> WithErrorMessage();
+        IBadRequestErrorMessageTestBuilder WithErrorMessage();
 
         /// <summary>
         /// Tests bad request result with specific error message provided by string.
         /// </summary>
         /// <param name="message">Expected error message from bad request result.</param>
-        IAndTestBuilder<TBadRequestResult> WithErrorMessage(string message);
+        void WithErrorMessage(string message);
 
         /// <summary>
         /// Tests bad request result with specific model state dictionary.
         /// </summary>
         /// <param name="modelState">Model state dictionary to deeply compare to the actual one.</param>
-        IAndTestBuilder<TBadRequestResult> WithModelState(ModelStateDictionary modelState);
+        void WithModelState(ModelStateDictionary modelState);
 
         /// <summary>
         /// Tests bad request result for model state errors using test builder.
