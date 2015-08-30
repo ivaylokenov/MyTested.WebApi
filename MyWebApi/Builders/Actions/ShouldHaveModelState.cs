@@ -25,7 +25,7 @@
         /// <summary>
         /// Checks whether the tested action's provided model state is valid.
         /// </summary>
-        /// <returns>Test builder with And method.</returns>
+        /// <returns>Test builder with AndAlso method.</returns>
         public IAndTestBuilder<TActionResult> ShouldHaveValidModelState()
         {
             this.CheckValidModelState();
@@ -35,7 +35,7 @@
         /// <summary>
         /// Checks whether the tested action's provided model state is not valid.
         /// </summary>
-        /// <returns>Test builder with And method.</returns>
+        /// <returns>Test builder with AndAlso method.</returns>
         public IAndTestBuilder<TActionResult> ShouldHaveInvalidModelState()
         {
             if (this.Controller.ModelState.Count == 0)

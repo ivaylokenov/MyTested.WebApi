@@ -7,7 +7,7 @@
     using Contracts.And;
 
     /// <summary>
-    /// Class containing And() method allowing additional assertions after model state tests.
+    /// Class containing AndAlso() method allowing additional assertions after model state tests.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public class AndTestBuilder<TActionResult> : BaseTestBuilderWithActionResult<TActionResult>,
@@ -28,7 +28,7 @@
         /// Method allowing additional assertions after the model state tests.
         /// </summary>
         /// <returns>Builder for testing the action result.</returns>
-        public IActionResultTestBuilder<TActionResult> And()
+        public IActionResultTestBuilder<TActionResult> AndAlso()
         {
             return new ActionResultTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
         }

@@ -70,9 +70,9 @@
         }
 
         /// <summary>
-        /// Initializes new instance of builder providing And method.
+        /// Initializes new instance of builder providing AndAlso method.
         /// </summary>
-        /// <returns>Test builder with And method.</returns>
+        /// <returns>Test builder with AndAlso method.</returns>
         protected IAndTestBuilder<TActionResult> NewAndTestBuilder()
         {
             return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);

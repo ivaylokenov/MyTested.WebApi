@@ -83,7 +83,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModel))
                 .ShouldHaveValidModelState()
-                .And()
+                .AndAlso()
                 .ShouldReturnOk();
         }
 
@@ -96,7 +96,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
                 .ShouldHaveInvalidModelState()
-                .And()
+                .AndAlso()
                 .ShouldReturnOk();
         }
     }

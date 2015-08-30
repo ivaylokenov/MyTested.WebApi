@@ -3,7 +3,7 @@
     using Actions;
 
     /// <summary>
-    /// Class containing And() method allowing additional assertions after model state tests.
+    /// Class containing AndAlso() method allowing additional assertions after model state tests.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public interface IAndTestBuilder<out TActionResult>
@@ -12,6 +12,6 @@
         /// Method allowing additional assertions after the model state tests.
         /// </summary>
         /// <returns>Builder for testing the action result.</returns>
-        IActionResultTestBuilder<TActionResult> And();
+        IActionResultTestBuilder<TActionResult> AndAlso();
     }
 }
