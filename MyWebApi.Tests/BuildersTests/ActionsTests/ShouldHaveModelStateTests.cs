@@ -73,5 +73,31 @@
                 .Calling(c => c.ModelStateCheck(requestModel))
                 .ShouldHaveInvalidModelState();
         }
+
+        [Test]
+        public void AndShouldWorkCorrectlyWithValidModelState()
+        {
+            var requestModel = TestObjectFactory.GetValidRequestModel();
+            
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.ModelStateCheck(requestModel))
+                .ShouldHaveValidModelState()
+                .And()
+                .ShouldReturnOk();
+        }
+
+        [Test]
+        public void AndShouldWorkCorrectlyWithInvalidModelState()
+        {
+            var requestModelWithErrors = TestObjectFactory.GetRequestModelWithErrors();
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.ModelStateCheck(requestModelWithErrors))
+                .ShouldHaveInvalidModelState()
+                .And()
+                .ShouldReturnOk();
+        }
     }
 }
