@@ -6,6 +6,7 @@
     using Base;
     using Common.Extensions;
     using Contracts;
+    using Contracts.Actions;
     using Exceptions;
     using Utilities;
 
@@ -13,7 +14,7 @@
     /// Used for testing the action result type of test.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public partial class ActionResultTestBuilder<TActionResult> 
+    public partial class ActionResultTestBuilder<TActionResult>
         : BaseTestBuilderWithActionResult<TActionResult>, IActionResultTestBuilder<TActionResult>
     {
         /// <summary>

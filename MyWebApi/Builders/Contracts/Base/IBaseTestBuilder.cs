@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Contracts
+﻿namespace MyWebApi.Builders.Contracts.Base
 {
     using System.Web.Http;
 

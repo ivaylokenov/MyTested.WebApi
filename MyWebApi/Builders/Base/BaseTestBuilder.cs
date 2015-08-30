@@ -4,6 +4,7 @@
 
     using Common.Extensions;
     using Contracts;
+    using Contracts.Base;
     using Exceptions;
     using Utilities;
 

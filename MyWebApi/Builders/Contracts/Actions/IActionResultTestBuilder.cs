@@ -1,8 +1,10 @@
-﻿namespace MyWebApi.Builders.Contracts
+﻿namespace MyWebApi.Builders.Contracts.Actions
 {
     using System;
     using System.Net;
+
     using BadRequests;
+    using Base;
     using Models;
     using UnauthorizedResults;
 

@@ -67,11 +67,11 @@
     <Compile Include="Builders\Contracts\UnauthorizedResults\IAndUnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\UnauthorizedResults\IAuthenticationHeaderValueParameterBuilder.cs" />
     <Compile Include="Builders\Contracts\UnauthorizedResults\IAuthenticationHeaderValueBuilder.cs" />
-    <Compile Include="Builders\Contracts\IBaseTestBuilder.cs" />
-    <Compile Include="Builders\Contracts\IBaseTestBuilderWithActionResult.cs" />
+    <Compile Include="Builders\Contracts\Base\IBaseTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Contracts\UnauthorizedResults\IChallengesBuilder.cs" />
     <Compile Include="Builders\Contracts\IControllerBuilder.cs" />
-    <Compile Include="Builders\Contracts\IActionResultTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Actions\IActionResultTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IModelErrorDetailsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IModelErrorTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IModelErrorTestBuilder{TModel}.cs" />
