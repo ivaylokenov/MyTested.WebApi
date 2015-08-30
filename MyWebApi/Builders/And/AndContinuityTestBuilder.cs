@@ -12,5 +12,15 @@
             : base(controller, actionName, actionResult)
         {
         }
+
+        public ApiController ProvideTheControllerInstance()
+        {
+            return this.Controller;
+        }
+
+        public TActionResult ProvideTheActionResult()
+        {
+            return this.ActionResult;
+        }
     }
 }
