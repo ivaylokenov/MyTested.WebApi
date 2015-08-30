@@ -41,18 +41,18 @@
         /// <summary>
         /// Tests whether action result is StatusCodeResult.
         /// </summary>
-        IAndTestBuilder<TActionResult> ShouldReturnStatusCode();
+        void ShouldReturnStatusCode();
 
         /// <summary>
         /// Tests whether action result is StatusCodeResult and is the same as provided HttpStatusCode.
         /// </summary>
         /// <param name="statusCode">HttpStatusCode enumeration.</param>
-        IAndTestBuilder<TActionResult> ShouldReturnStatusCode(HttpStatusCode statusCode);
+        void ShouldReturnStatusCode(HttpStatusCode statusCode);
 
         /// <summary>
         /// Tests whether action result is NotFoundResult.
         /// </summary>
-        IAndTestBuilder<TActionResult> ShouldReturnNotFound();
+        void ShouldReturnNotFound();
 
         /// <summary>
         /// Tests whether action result is BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.
