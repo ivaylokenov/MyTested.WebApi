@@ -57,13 +57,17 @@
     <Compile Include="Builders\Actions\ShouldReturnStatusCode.cs" />
     <Compile Include="Builders\Actions\ShouldReturnUnauthorized.cs" />
     <Compile Include="Builders\And\AndContinuityTestBuilder.cs" />
+    <Compile Include="Builders\And\AndContinuityTestBuilder{TActionResult}.cs" />
     <Compile Include="Builders\And\AndTestBuilder.cs" />
+    <Compile Include="Builders\And\AndTestBuilder{TActionResult}.cs" />
     <Compile Include="Builders\BadRequests\BadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\BadRequests\BadRequestTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Contracts\And\IAndContinuityTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\And\IAndContinuityTestBuilder{TActionResult}.cs" />
     <Compile Include="Builders\Contracts\And\IAndTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\And\IAndTestBuilder{TActionResult}.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IAndModelErrorTestBuilder.cs" />

@@ -5,10 +5,8 @@
     using System.Web.Http;
     using System.Web.Http.ModelBinding;
     using System.Web.Http.Results;
-
     using Base;
     using Common.Extensions;
-    using Contracts.And;
     using Contracts.BadRequests;
     using Contracts.Models;
     using Exceptions;

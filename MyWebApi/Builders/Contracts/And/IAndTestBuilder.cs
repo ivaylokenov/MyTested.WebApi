@@ -1,7 +1,7 @@
 ﻿namespace MyWebApi.Builders.Contracts.And
 {
-    public interface IAndTestBuilder<out TActionResult>
+    public interface IAndTestBuilder
     {
-        IAndContinuityTestBuilder<TActionResult> And();
+        IAndContinuityTestBuilder And();
     }
 }

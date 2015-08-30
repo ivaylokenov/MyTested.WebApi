@@ -2,12 +2,8 @@
 {
     using System.Web.Http;
 
-    using Actions;
-
-    public interface IAndContinuityTestBuilder<out TActionResult> : IActionResultTestBuilder<TActionResult>
+    public interface IAndContinuityTestBuilder
     {
         ApiController ProvideTheControllerInstance();
-
-        TActionResult ProvideTheActionResult();
     }
 }

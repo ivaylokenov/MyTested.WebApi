@@ -1,21 +1,19 @@
 ﻿namespace MyWebApi.Builders.And
 {
     using System.Web.Http;
-
     using Base;
     using Contracts.And;
 
-    public class AndTestBuilder<TActionResult> : BaseTestBuilderWithActionResult<TActionResult>,
-        IAndTestBuilder<TActionResult>
+    public class AndTestBuilder : BaseTestBuilder, IAndTestBuilder
     {
-        public AndTestBuilder(ApiController controller, string actionName, TActionResult actionResult)
-            : base(controller, actionName, actionResult)
+        protected AndTestBuilder(ApiController controller, string actionName)
+            : base(controller, actionName)
         {
         }
 
-        public IAndContinuityTestBuilder<TActionResult> And()
+        public IAndContinuityTestBuilder And()
         {
-            return new AndContinuityTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
+            return new AndContinuityTestBuilder(this.Controller, this.ActionName);
         }
     }
 }
