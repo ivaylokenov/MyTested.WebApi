@@ -440,6 +440,46 @@ MyWebApi
 	.ShouldReturnNotFound();
 ```
 
+### AndProvide... methods
+
+You can get controller, action, action result and response model information where applicable by using AndProvide... methods.
+Useful for integration tests where current action result model is needed for the next action assertion.
+
+```c#
+// get controller instance
+// * method is available almost everywhere throughout the API
+var controller = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.AndProvideTheController();
+	
+// get action name
+// * method is available almost everywhere throughout the API
+var actionName = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.AndProvideTheActionName();
+	
+// get the action result
+// * method is available on most methods which assert the action result
+var actionResult = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnStatusCode()
+	.AndProvideTheActionResult();
+	
+// get the response model
+// * method is available wherever there is response model assertion
+var responseModel = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.WithResponseModelOfType<ResponseModel>()
+	.AndProvideTheModel();
+```
+
 ## Any questions, comments or additions?
 
 Leave an issue on the [issues page](https://github.com/ivaylokenov/MyWebApi/issues) or send a [pull request](https://github.com/ivaylokenov/MyWebApi/pulls).
