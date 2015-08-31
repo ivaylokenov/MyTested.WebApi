@@ -11,7 +11,7 @@
     using Common;
     using Common.Extensions;
     using Contracts.Base;
-    using Contracts.UnauthorizedResults;
+    using Contracts.Unauthorized;
     using Exceptions;
 
     /// <summary>

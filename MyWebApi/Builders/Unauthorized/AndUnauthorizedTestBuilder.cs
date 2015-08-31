@@ -2,8 +2,7 @@
 {
     using System.Web.Http;
     using System.Web.Http.Results;
-
-    using Contracts.UnauthorizedResults;
+    using Contracts.Unauthorized;
 
     /// <summary>
     /// Used for adding AndAlso() method to the the unauthorized response tests.

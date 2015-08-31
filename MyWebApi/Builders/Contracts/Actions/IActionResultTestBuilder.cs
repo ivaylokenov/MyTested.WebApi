@@ -6,7 +6,7 @@
     using BadRequests;
     using Base;
     using Models;
-    using UnauthorizedResults;
+    using Unauthorized;
 
     /// <summary>
     /// Used for building the action result which will be tested.
