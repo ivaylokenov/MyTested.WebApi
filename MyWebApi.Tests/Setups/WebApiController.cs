@@ -1,12 +1,12 @@
 ﻿namespace MyWebApi.Tests.Setups
 {
+    using System;
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Results;
-
     using Models;
     using Services;
 
@@ -109,9 +109,20 @@
             return this.BadRequest(this.ModelState);
         }
 
+        public IHttpActionResult ConflictAction()
+        {
+            return this.Conflict();
+        }
+
         public IHttpActionResult StatusCodeAction()
         {
             return this.StatusCode(HttpStatusCode.Redirect);
+        }
+
+        public IHttpActionResult CustomModelStateError()
+        {
+            this.ModelState.AddModelError("Test", "Test error");
+            return this.Ok(this.responseModel);
         }
 
         public IHttpActionResult NotFoundAction()
@@ -143,6 +154,23 @@
                 new AuthenticationHeaderValue("Basic"),
                 new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
             });
+        }
+
+        public IHttpActionResult InternalServerErrorAction()
+        {
+            return this.InternalServerError();
+        }
+
+        public IHttpActionResult InternalServerErrorWithExceptionAction()
+        {
+            try
+            {
+                throw new NullReferenceException("Test exception message");
+            }
+            catch (NullReferenceException ex)
+            {
+                return this.InternalServerError(ex);
+            }
         }
 
         public bool GenericStructAction()

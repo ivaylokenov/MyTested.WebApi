@@ -1,9 +1,8 @@
 ﻿namespace MyWebApi.Builders.Unauthorized
 {
     using System.Net.Http.Headers;
-
     using Common;
-    using Contracts.UnauthorizedResults;
+    using Contracts.Unauthorized;
 
     /// <summary>
     /// Used for building mocked AuthenticationHeaderValue.
