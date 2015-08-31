@@ -2,9 +2,9 @@
 {
     using System.Web.Http;
     using System.Web.Http.Results;
+
     using Base;
     using Common.Extensions;
-    using Contracts.Base;
     using Contracts.Models;
     using Exceptions;
     using Utilities;
@@ -30,8 +30,7 @@
         /// <summary>
         /// Tests whether no response model is returned from the invoked action.
         /// </summary>
-        /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder WithNoResponseModel()
+        public void WithNoResponseModel()
         {
             var actualResult = this.ActionResult as OkResult;
             if (actualResult == null)
@@ -41,8 +40,6 @@
                         this.ActionName,
                         this.Controller.GetName()));
             }
-
-            return this.NewAndProvideTestBuilder();
         }
 
         /// <summary>

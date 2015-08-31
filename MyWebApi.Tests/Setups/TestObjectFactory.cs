@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Tests.Setups
 {
     using System.Collections.Generic;
+    
     using Models;
 
     public static class TestObjectFactory

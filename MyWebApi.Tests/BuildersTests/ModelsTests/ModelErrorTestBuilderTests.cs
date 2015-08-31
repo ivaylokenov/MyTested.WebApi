@@ -1,8 +1,11 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.ModelsTests
 {
     using System.Collections.Generic;
+
     using Exceptions;
+
     using NUnit.Framework;
+
     using Setups;
     using Setups.Models;
 
@@ -154,85 +157,6 @@
                 .WithResponseModel(requestBodyWithErrors)
                 .ContainingNoModelStateErrorFor(r => r.Integer)
                 .ContainingNoModelStateErrorFor(r => r.RequiredString);
-        }
-
-        [Test]
-        public void AndProvideTheModelShouldReturnProperModelWhenThereIsResponseModel()
-        {
-            var responseModel = MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
-                .WithResponseModelOfType<List<ResponseModel>>()
-                .AndProvideTheModel();
-
-            Assert.IsNotNull(responseModel);
-            Assert.IsAssignableFrom<List<ResponseModel>>(responseModel);
-            Assert.AreEqual(2, responseModel.Count);
-        }
-
-        [Test]
-        public void AndProvideTheModelShouldReturnProperModelWhenThereIsResponseModelWithPassing()
-        {
-            var responseModel = MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
-                .WithResponseModelOfType<List<ResponseModel>>()
-                .Passing(m => m.Count == 2)
-                .AndProvideTheModel();
-
-            Assert.IsNotNull(responseModel);
-            Assert.IsAssignableFrom<List<ResponseModel>>(responseModel);
-            Assert.AreEqual(2, responseModel.Count);
-        }
-
-        [Test]
-        public void AndProvideTheModelShouldReturnProperModelWhenThereIsResponseModelWithModelStateCheck()
-        {
-            var responseModel = MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
-                .WithResponseModelOfType<List<ResponseModel>>()
-                .ContainingNoModelStateErrorFor(m => m.Count)
-                .AndProvideTheModel();
-
-            Assert.IsNotNull(responseModel);
-            Assert.IsAssignableFrom<List<ResponseModel>>(responseModel);
-            Assert.AreEqual(2, responseModel.Count);
-        }
-
-        [Test]
-        public void AndProvideTheModelShouldReturnProperModelWhenThereIsResponseModelWithModelStateError()
-        {
-            var responseModel = MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.CustomModelStateError())
-                .ShouldReturnOk()
-                .WithResponseModelOfType<List<ResponseModel>>()
-                .ContainingModelStateError("Test")
-                .AndProvideTheModel();
-
-            Assert.IsNotNull(responseModel);
-            Assert.IsAssignableFrom<List<ResponseModel>>(responseModel);
-            Assert.AreEqual(2, responseModel.Count);
-        }
-
-        [Test]
-        public void AndProvideTheModelShouldReturnProperModelWhenThereIsResponseModelWithModelStateErrorAndErrorCheck()
-        {
-            var responseModel = MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.CustomModelStateError())
-                .ShouldReturnOk()
-                .WithResponseModelOfType<List<ResponseModel>>()
-                .ContainingModelStateError("Test").ThatEquals("Test error")
-                .AndProvideTheModel();
-
-            Assert.IsNotNull(responseModel);
-            Assert.IsAssignableFrom<List<ResponseModel>>(responseModel);
-            Assert.AreEqual(2, responseModel.Count);
         }
     }
 }

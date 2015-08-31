@@ -6,18 +6,18 @@
     using System.Net.Http.Headers;
     using System.Web.Http;
     using System.Web.Http.Results;
+
     using Base;
     using Common;
     using Common.Extensions;
-    using Contracts.Base;
-    using Contracts.Unauthorized;
+    using Contracts.UnauthorizedResults;
     using Exceptions;
 
     /// <summary>
     /// Used for testing the authentication header challenges in unauthorized results.
     /// </summary>
     public class UnauthorizedTestBuilder : BaseTestBuilderWithActionResult<UnauthorizedResult>,
-        IAndUnauthorizedTestBuilder
+        IUnauthorizedTestBuilder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UnauthorizedTestBuilder" /> class.
@@ -55,7 +55,7 @@
                 this.ThrowNewUnathorizedResultAssertionException(scheme);
             }
 
-            return this;
+            return new AndUnauthorizedTestBuilder(this.Controller, this.ActionName, this.ActionResult, this);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@
                 this.ThrowNewUnathorizedResultAssertionException(scheme, parameter);
             }
 
-            return this;
+            return new AndUnauthorizedTestBuilder(this.Controller, this.ActionName, this.ActionResult, this);
         }
 
         /// <summary>
@@ -106,8 +106,7 @@
         /// Tests whether an unauthorized result has exactly the same authentication header values as the provided collection.
         /// </summary>
         /// <param name="challenges">Collection of authentication header values.</param>
-        /// <returns>Base test builder with action result.</returns>
-        public IBaseTestBuilderWithActionResult<UnauthorizedResult> WithAuthenticationHeaderChallenges(IEnumerable<AuthenticationHeaderValue> challenges)
+        public void WithAuthenticationHeaderChallenges(IEnumerable<AuthenticationHeaderValue> challenges)
         {
             var actualChallenges = SortChallenges(this.ActionResult.Challenges);
             var expectedChallenges = SortChallenges(challenges);
@@ -132,27 +131,22 @@
                     this.ThrowNewUnathorizedResultAssertionException(expectedChallenge.Scheme, expectedChallenge.Parameter);
                 }
             }
-
-            return this.NewAndProvideTestBuilder();
         }
 
         /// <summary>
         /// Tests whether an unauthorized result has exactly the same authentication header values as the provided ones as parameters.
         /// </summary>
         /// <param name="challenges">Parameters of authentication header values.</param>
-        /// <returns>Base test builder with action result.</returns>
-        public IBaseTestBuilderWithActionResult<UnauthorizedResult> WithAuthenticationHeaderChallenges(params AuthenticationHeaderValue[] challenges)
+        public void WithAuthenticationHeaderChallenges(params AuthenticationHeaderValue[] challenges)
         {
             this.WithAuthenticationHeaderChallenges(challenges.AsEnumerable());
-            return this.NewAndProvideTestBuilder();
         }
 
         /// <summary>
         /// Tests whether an unauthorized result has exactly the same authentication header values as the provided ones from the challenges builder.
         /// </summary>
         /// <param name="challengesBuilder">Builder for creating collection of authentication header values.</param>
-        /// <returns>Base test builder with action result.</returns>
-        public IBaseTestBuilderWithActionResult<UnauthorizedResult> WithAuthenticationHeaderChallenges(Action<IChallengesBuilder> challengesBuilder)
+        public void WithAuthenticationHeaderChallenges(Action<IChallengesBuilder> challengesBuilder)
         {
             var newChallengesBuilder = new ChallengesBuilder();
             challengesBuilder(newChallengesBuilder);
@@ -163,16 +157,6 @@
                 .AsEnumerable();
 
             this.WithAuthenticationHeaderChallenges(authenticationHeaders);
-            return this.NewAndProvideTestBuilder();
-        }
-
-        /// <summary>
-        /// AndAlso method for better readability when chaining unauthorized result tests.
-        /// </summary>
-        /// <returns>Unauthorized result test builder.</returns>
-        public IUnauthorizedTestBuilder AndAlso()
-        {
-            return this;
         }
 
         private static IList<AuthenticationHeaderValue> SortChallenges(

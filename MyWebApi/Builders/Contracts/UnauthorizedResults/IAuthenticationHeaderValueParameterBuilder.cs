@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Contracts.Unauthorized
+﻿namespace MyWebApi.Builders.Contracts.UnauthorizedResults
 {
     /// <summary>
     /// Used for building mocked AuthenticationHeaderValue parameter.

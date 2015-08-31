@@ -1,8 +1,9 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
 {
-    using System;
     using Exceptions;
+
     using NUnit.Framework;
+
     using Setups;
     using Setups.Models;
 
@@ -97,24 +98,6 @@
                 .ShouldHaveInvalidModelState()
                 .AndAlso()
                 .ShouldReturnOk();
-        }
-
-        [Test]
-        [ExpectedException(
-            typeof(InvalidOperationException),
-            ExpectedMessage = "AndProvideTheModel can be used when there is response model from the action.")]
-        public void AndProvideModelShouldThrowExceptionWhenIsCalledOnTheRequest()
-        {
-            var requestModelWithErrors = TestObjectFactory.GetRequestModelWithErrors();
-
-            MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveModelStateFor<RequestModel>()
-                .ContainingNoModelStateErrorFor(r => r.NonRequiredString)
-                .ContainingModelStateErrorFor(r => r.Integer)
-                .ContainingModelStateErrorFor(r => r.RequiredString)
-                .AndProvideTheModel();
         }
     }
 }

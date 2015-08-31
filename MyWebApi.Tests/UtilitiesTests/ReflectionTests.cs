@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+
     using NUnit.Framework;
     using Setups;
     using Setups.Models;
@@ -11,24 +12,6 @@
     [TestFixture]
     public class ReflectionTests
     {
-        [Test]
-        public void AreDifferentTypesShouldReturnTrueWithObjectsOfDifferentTypes()
-        {
-            var first = 0;
-            var second = "Test";
-
-            Assert.IsTrue(Reflection.AreDifferentTypes(first, second));
-        }
-
-        [Test]
-        public void AreDifferentTypesShouldReturnFalseWithObjectsOfSameTypes()
-        {
-            var first = 1;
-            var second = 2;
-
-            Assert.IsFalse(Reflection.AreDifferentTypes(first, second));
-        }
-
         [Test]
         public void AreDifferentTypesShouldReturnTrueWithDifferentTypes()
         {

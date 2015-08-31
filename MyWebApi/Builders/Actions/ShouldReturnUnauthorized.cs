@@ -1,7 +1,8 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
     using System.Web.Http.Results;
-    using Contracts.Unauthorized;
+
+    using Contracts.UnauthorizedResults;
     using Unauthorized;
 
     /// <summary>

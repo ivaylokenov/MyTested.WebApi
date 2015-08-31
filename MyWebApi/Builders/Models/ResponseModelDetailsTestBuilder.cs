@@ -2,6 +2,7 @@
 {
     using System;
     using System.Web.Http;
+
     using Common.Extensions;
     using Contracts.Models;
     using Exceptions;
@@ -14,6 +15,8 @@
     public class ResponseModelDetailsTestBuilder<TResponseModel>
         : ModelErrorTestBuilder<TResponseModel>, IResponseModelDetailsTestBuilder<TResponseModel>
     {
+        private readonly TResponseModel responseModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseModelDetailsTestBuilder{TResponseModel}" /> class.
         /// </summary>
@@ -21,8 +24,9 @@
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="responseModel">Response model from invoked action.</param>
         public ResponseModelDetailsTestBuilder(ApiController controller, string actionName, TResponseModel responseModel)
-            : base(controller, actionName, responseModel)
+            : base(controller, actionName)
         {
+            this.responseModel = responseModel;
         }
 
         /// <summary>
@@ -32,8 +36,8 @@
         /// <returns>Builder for testing the response model errors.</returns>
         public IModelErrorTestBuilder<TResponseModel> Passing(Action<TResponseModel> assertions)
         {
-            assertions(this.Model);
-            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName, this.Model);
+            assertions(this.responseModel);
+            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
 
         /// <summary>
@@ -43,7 +47,7 @@
         /// <returns>Builder for testing the response model errors.</returns>
         public IModelErrorTestBuilder<TResponseModel> Passing(Func<TResponseModel, bool> predicate)
         {
-            if (!predicate(this.Model))
+            if (!predicate(this.responseModel))
             {
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model {2} to pass the given condition, but it failed.",
@@ -52,7 +56,7 @@
                             typeof(TResponseModel).ToFriendlyTypeName()));
             }
 
-            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName, this.Model);
+            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
         }
     }
 }

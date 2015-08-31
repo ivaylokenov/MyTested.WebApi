@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http.Results;
+
+    using Builders.Contracts;
     using Builders.Contracts.Actions;
     using Exceptions;
     using NUnit.Framework;
@@ -39,13 +41,11 @@
         {
             var requestModel = TestObjectFactory.GetRequestModelWithErrors();
 
-            var controller = MyWebApi
+            var actionResultTestBuilder = MyWebApi
                 .Controller<WebApiController>()
-                .Calling(c => c.OkResultActionWithRequestBody(1, requestModel))
-                .ShouldReturnOk()
-                .AndProvideTheController();
+                .Calling(c => c.OkResultActionWithRequestBody(1, requestModel));
 
-            var modelState = controller.ModelState;
+            var modelState = actionResultTestBuilder.Controller.ModelState;
 
             Assert.IsFalse(modelState.IsValid);
             Assert.AreEqual(2, modelState.Values.Count);
@@ -58,13 +58,11 @@
         {
             var requestModel = TestObjectFactory.GetValidRequestModel();
 
-            var controller = MyWebApi
+            var actionResultTestBuilder = MyWebApi
                 .Controller<WebApiController>()
-                .Calling(c => c.OkResultActionWithRequestBody(1, requestModel))
-                .ShouldReturnOk()
-                .AndProvideTheController();
+                .Calling(c => c.OkResultActionWithRequestBody(1, requestModel));
 
-            var modelState = controller.ModelState;
+            var modelState = actionResultTestBuilder.Controller.ModelState;
 
             Assert.IsTrue(modelState.IsValid);
             Assert.AreEqual(0, modelState.Values.Count);
@@ -255,8 +253,8 @@
             IActionResultTestBuilder<TActionResult> actionResultTestBuilder,
             string expectedActionName)
         {
-            var actionName = actionResultTestBuilder.AndProvideTheActionName();
-            var actionResult = actionResultTestBuilder.AndProvideTheActionResult();
+            var actionName = actionResultTestBuilder.ActionName;
+            var actionResult = actionResultTestBuilder.ActionResult;
 
             Assert.IsNotNullOrEmpty(actionName);
             Assert.IsNotNull(actionResult);

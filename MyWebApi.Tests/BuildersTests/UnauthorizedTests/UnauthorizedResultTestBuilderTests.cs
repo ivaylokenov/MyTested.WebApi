@@ -1,9 +1,12 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.UnauthorizedTests
 {
     using System.Net.Http.Headers;
+
     using Common;
     using Exceptions;
+
     using NUnit.Framework;
+
     using Setups;
 
     [TestFixture]

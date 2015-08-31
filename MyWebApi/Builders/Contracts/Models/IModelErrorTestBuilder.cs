@@ -1,16 +1,13 @@
 ﻿namespace MyWebApi.Builders.Contracts.Models
 {
-    using Base;
-
     /// <summary>
     /// Used for testing model errors.
     /// </summary>
-    public interface IModelErrorTestBuilder : IBaseTestBuilder
+    public interface IModelErrorTestBuilder
     {
         /// <summary>
         /// Tests whether tested action's model state is valid.
         /// </summary>
-        /// <returns>Base test builder.</returns>
-        IBaseTestBuilder ContainingNoModelStateErrors();
+        void ContainingNoModelStateErrors();
     }
 }
