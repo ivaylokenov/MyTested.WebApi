@@ -2,7 +2,7 @@
 {
     using System;
     using Base;
-    using Exceptions;
+    using ExceptionErrors;
 
     /// <summary>
     /// Used for testing internal server error results.

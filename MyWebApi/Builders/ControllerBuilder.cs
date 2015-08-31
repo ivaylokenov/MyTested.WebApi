@@ -12,6 +12,7 @@
     using Common.Identity;
     using Contracts;
     using Contracts.Actions;
+    using Exceptions;
     using Utilities;
 
     /// <summary>

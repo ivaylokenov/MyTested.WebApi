@@ -69,7 +69,8 @@
     <Compile Include="Builders\Contracts\And\IAndTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestTestBuilder.cs" />
-    <Compile Include="Builders\Contracts\Exceptions\IExceptionTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionMessageTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\InternalServerErrors\IInternalServerErrorTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IAndModelErrorTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithModel.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Builders\Contracts\IUserBuilder.cs" />
     <Compile Include="Builders\ControllerBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldHaveModelState.cs" />
+    <Compile Include="Builders\ExceptionErrors\ExceptionTestBuilder.cs" />
     <Compile Include="Builders\InternalServerErrors\InternalServerErrorTestBuilder.cs" />
     <Compile Include="Builders\Models\ResponseModelDetailsTestBuilder.cs" />
     <Compile Include="Builders\Models\ModelErrorDetailsTestBuilder.cs" />

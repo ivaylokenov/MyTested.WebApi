@@ -8,6 +8,7 @@
     using Contracts.Base;
     using Contracts.ExceptionErrors;
     using Contracts.InternalServerErrors;
+    using ExceptionErrors;
     using Exceptions;
     using Utilities;
 
@@ -39,8 +40,7 @@
         public IExceptionTestBuilder WithException()
         {
             var exceptionResult = this.GetExceptionResult();
-            // TODO: return exception test builder
-            return null;
+            return new ExceptionTestBuilder(this.Controller, this.ActionName, exceptionResult.Exception);
         }
 
         /// <summary>

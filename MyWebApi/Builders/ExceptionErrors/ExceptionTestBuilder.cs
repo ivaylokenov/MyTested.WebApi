@@ -3,7 +3,7 @@
     using System;
     using System.Web.Http;
     using Base;
-    using Contracts.Exceptions;
+    using Contracts.ExceptionErrors;
 
     public class ExceptionTestBuilder : BaseTestBuilder, IExceptionTestBuilder
     {
@@ -13,6 +13,21 @@
             : base(controller, actionName)
         {
             this.exception = exception;
+        }
+
+        public IExceptionTestBuilder OfType<TException>()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IExceptionMessageTestBuilder WithMessage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IExceptionTestBuilder WithMessage(string message)
+        {
+            throw new NotImplementedException();
         }
     }
 }
