@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.Contracts.InternalServerErrors
 {
+    using System;
     using Base;
     using Exceptions;
 
@@ -9,5 +10,7 @@
     public interface IInternalServerErrorTestBuilder : IBaseTestBuilder
     {
         IExceptionTestBuilder WithException();
+
+        IBaseTestBuilder WithException(Exception exception);
     }
 }

@@ -1,9 +1,11 @@
 ﻿namespace MyWebApi.Builders.InternalServerErrors
 {
+    using System;
     using System.Web.Http;
     using System.Web.Http.Results;
     using Base;
     using Common.Extensions;
+    using Contracts.Base;
     using Contracts.Exceptions;
     using Contracts.InternalServerErrors;
     using Exceptions;
@@ -29,10 +31,28 @@
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IExceptionTestBuilder WithException()
         {
-            var actualBadRequestResult = this.ActionResult as ExceptionResult;
-            if (actualBadRequestResult == null)
+            var exceptionResult = this.GetExceptionResult();
+            // TODO: return exception test builder
+            return null;
+        }
+
+        public IBaseTestBuilder WithException(Exception exception)
+        {
+            var exceptionResult = this.GetExceptionResult();
+            // TODO: test excception
+            return this.NewAndProvideTestBuilder();
+        }
+
+        private ExceptionResult GetExceptionResult()
+        {
+            var actualInternalServerErrorResult = this.ActionResult as ExceptionResult;
+            if (actualInternalServerErrorResult == null)
             {
                 throw new InternalServerErrorResultAssertionException(string.Format(
                     "When calling {0} action in {1} expected internal server error result to contain exception, but it could not be found.",
@@ -40,7 +60,7 @@
                     this.Controller.GetName()));
             }
 
-            return null;
+            return actualInternalServerErrorResult;
         }
     }
 }
