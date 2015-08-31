@@ -3,10 +3,10 @@
     using System.Web.Http;
     using Base;
 
-    public class AndProvideTestBuilder<TActionResult> : BaseTestBuilderWithActionResult<TActionResult>
+    public class AndProvideTestBuilder : BaseTestBuilder
     {
-        public AndProvideTestBuilder(ApiController controller, string actionName, TActionResult actionResult)
-            : base(controller, actionName, actionResult)
+        public AndProvideTestBuilder(ApiController controller, string actionName)
+            : base(controller, actionName)
         {
         }
     }

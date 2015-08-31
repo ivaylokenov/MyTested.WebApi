@@ -53,18 +53,18 @@
         /// Tests whether an unauthorized result has exactly the same authenticated header values as the provided collection.
         /// </summary>
         /// <param name="challenges">Collection of authenticated header values.</param>
-        void WithAuthenticationHeaderChallenges(IEnumerable<AuthenticationHeaderValue> challenges);
+        IBaseTestBuilderWithActionResult<UnauthorizedResult> WithAuthenticationHeaderChallenges(IEnumerable<AuthenticationHeaderValue> challenges);
 
         /// <summary>
         /// Tests whether an unauthorized result has exactly the same authenticated header values as the provided ones as parameters.
         /// </summary>
         /// <param name="challenges">Parameters of authenticated header values.</param>
-        void WithAuthenticationHeaderChallenges(params AuthenticationHeaderValue[] challenges);
+        IBaseTestBuilderWithActionResult<UnauthorizedResult> WithAuthenticationHeaderChallenges(params AuthenticationHeaderValue[] challenges);
 
         /// <summary>
         /// Tests whether an unauthorized result has exactly the same authentication header values as the provided ones from the challenges builder.
         /// </summary>
         /// <param name="challengesBuilder">Builder for creating collection of authentication header values.</param>
-        void WithAuthenticationHeaderChallenges(Action<IChallengesBuilder> challengesBuilder);
+        IBaseTestBuilderWithActionResult<UnauthorizedResult> WithAuthenticationHeaderChallenges(Action<IChallengesBuilder> challengesBuilder);
     }
 }

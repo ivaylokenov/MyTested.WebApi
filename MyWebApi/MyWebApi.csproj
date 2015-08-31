@@ -57,6 +57,7 @@
     <Compile Include="Builders\Actions\ShouldReturnStatusCode.cs" />
     <Compile Include="Builders\Actions\ShouldReturnUnauthorized.cs" />
     <Compile Include="Builders\And\AndProvideTestBuilder.cs" />
+    <Compile Include="Builders\And\AndProvideTestBuilder{TActionResult}.cs" />
     <Compile Include="Builders\And\AndTestBuilder.cs" />
     <Compile Include="Builders\BadRequests\BadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\BadRequests\BadRequestTestBuilder.cs" />

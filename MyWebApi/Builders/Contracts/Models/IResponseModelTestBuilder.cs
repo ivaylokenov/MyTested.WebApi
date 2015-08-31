@@ -10,7 +10,7 @@
         /// <summary>
         /// Tests whether no response model is returned from the invoked action.
         /// </summary>
-        void WithNoResponseModel();
+        IBaseTestBuilder WithNoResponseModel();
 
         /// <summary>
         /// Tests whether response model is returned from the invoked action.

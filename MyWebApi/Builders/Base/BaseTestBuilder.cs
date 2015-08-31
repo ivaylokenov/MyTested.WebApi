@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Builders.Base
 {
     using System.Web.Http;
+    using And;
     using Common.Extensions;
     using Contracts.Base;
     using Exceptions;
@@ -91,6 +92,11 @@
                     this.ActionName,
                     this.Controller.GetName()));
             }
+        }
+
+        protected IBaseTestBuilder NewAndProvideTestBuilder()
+        {
+            return new AndProvideTestBuilder(this.Controller, this.ActionName);
         }
     }
 }

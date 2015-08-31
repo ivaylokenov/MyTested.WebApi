@@ -82,5 +82,10 @@
         {
             return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
         }
+
+        protected new IBaseTestBuilderWithActionResult<TActionResult> NewAndProvideTestBuilder()
+        {
+            return new AndProvideTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
+        }
     }
 }

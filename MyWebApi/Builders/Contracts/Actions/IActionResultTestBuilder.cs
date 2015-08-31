@@ -2,7 +2,6 @@
 {
     using System;
     using System.Net;
-
     using And;
     using BadRequests;
     using Base;
@@ -43,18 +42,18 @@
         /// <summary>
         /// Tests whether action result is StatusCodeResult.
         /// </summary>
-        void ShouldReturnStatusCode();
+        IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnStatusCode();
 
         /// <summary>
         /// Tests whether action result is StatusCodeResult and is the same as provided HttpStatusCode.
         /// </summary>
         /// <param name="statusCode">HttpStatusCode enumeration.</param>
-        void ShouldReturnStatusCode(HttpStatusCode statusCode);
+        IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnStatusCode(HttpStatusCode statusCode);
 
         /// <summary>
         /// Tests whether action result is NotFoundResult.
         /// </summary>
-        void ShouldReturnNotFound();
+        IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnNotFound();
 
         /// <summary>
         /// Tests whether action result is BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.

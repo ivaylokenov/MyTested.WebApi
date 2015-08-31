@@ -10,6 +10,6 @@
         /// <summary>
         /// Tests whether tested action's model state is valid.
         /// </summary>
-        void ContainingNoModelStateErrors();
+        IBaseTestBuilder ContainingNoModelStateErrors();
     }
 }
