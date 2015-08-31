@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http.Results;
-
-    using Builders.Contracts;
     using Builders.Contracts.Actions;
     using Exceptions;
     using NUnit.Framework;
@@ -45,7 +43,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestModel))
                 .ShouldReturnOk()
-                .AndProvideTheControllerInstance();
+                .AndProvideTheController();
 
             var modelState = controller.ModelState;
 
@@ -64,7 +62,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestModel))
                 .ShouldReturnOk()
-                .AndProvideTheControllerInstance();
+                .AndProvideTheController();
 
             var modelState = controller.ModelState;
 

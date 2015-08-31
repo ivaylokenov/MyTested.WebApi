@@ -17,6 +17,6 @@
         /// Gets the controller on which the action is tested.
         /// </summary>
         /// <returns>ASP.NET Web API controller on which the action is tested.</returns>
-        ApiController AndProvideTheControllerInstance();
+        ApiController AndProvideTheController();
     }
 }

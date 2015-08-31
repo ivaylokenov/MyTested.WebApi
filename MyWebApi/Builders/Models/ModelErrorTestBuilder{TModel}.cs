@@ -22,10 +22,13 @@
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="modelState">Optional model state dictionary to use the class with. Default is controller's model state.</param>
-        public ModelErrorTestBuilder(ApiController controller, string actionName, ModelStateDictionary modelState = null)
+        public ModelErrorTestBuilder(ApiController controller, string actionName, TModel model = default(TModel), ModelStateDictionary modelState = null)
             : base(controller, actionName, modelState)
         {
+            this.Model = model;
         }
+
+        protected TModel Model { get; private set; }
 
         /// <summary>
         /// Tests whether tested action's model state contains error by key.
@@ -44,6 +47,7 @@
             return new ModelErrorDetailsTestBuilder<TModel>(
                 this.Controller,
                 this.ActionName,
+                this.Model,
                 this,
                 errorKey,
                 this.ModelState[errorKey].Errors);
@@ -63,6 +67,7 @@
             return new ModelErrorDetailsTestBuilder<TModel>(
                 this.Controller,
                 this.ActionName,
+                this.Model,
                 this,
                 memberName,
                 this.ModelState[memberName].Errors);
@@ -94,6 +99,16 @@
         public IModelErrorTestBuilder<TModel> AndAlso()
         {
             return this;
+        }
+
+        public TModel AndProvideTheModel()
+        {
+            if (this.Model.Equals(default(TModel)))
+            {
+                throw new InvalidOperationException("AndProvideTheModel can be used when there is response model from the action.");
+            }
+
+            return this.Model;
         }
 
         private void ThrowNewModelErrorAssertionException(string messageFormat, string errorKey)

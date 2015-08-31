@@ -8,7 +8,7 @@
     /// Used for testing specific model errors.
     /// </summary>
     /// <typeparam name="TModel">Model from invoked action in ASP.NET Web API controller.</typeparam>
-    public interface IModelErrorDetailsTestBuilder<TModel> : IBaseTestBuilder
+    public interface IModelErrorDetailsTestBuilder<TModel> : IBaseTestBuilderWithModel<TModel>
     {
         /// <summary>
         /// Tests whether particular error message is equal to given message.

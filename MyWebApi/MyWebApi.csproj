@@ -62,10 +62,12 @@
     <Compile Include="Builders\BadRequests\BadRequestTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
+    <Compile Include="Builders\Base\BaseTestBuilderWithModel.cs" />
     <Compile Include="Builders\Contracts\And\IAndTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IAndModelErrorTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithModel.cs" />
     <Compile Include="Builders\Contracts\UnauthorizedResults\IAndChallengesBuilder.cs" />
     <Compile Include="Builders\Contracts\UnauthorizedResults\IAndUnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\UnauthorizedResults\IAuthenticationHeaderValueParameterBuilder.cs" />

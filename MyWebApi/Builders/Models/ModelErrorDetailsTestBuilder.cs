@@ -16,7 +16,7 @@
     /// Used for testing specific model errors.
     /// </summary>
     /// <typeparam name="TModel">Model from invoked action in ASP.NET Web API controller.</typeparam>
-    public class ModelErrorDetailsTestBuilder<TModel> : BaseTestBuilder, IModelErrorDetailsTestBuilder<TModel>
+    public class ModelErrorDetailsTestBuilder<TModel> : BaseTestBuilderWithModel<TModel>, IModelErrorDetailsTestBuilder<TModel>
     {
         private readonly IAndModelErrorTestBuilder<TModel> modelErrorTestBuilder;
         private readonly string currentErrorKey;
@@ -33,10 +33,11 @@
         public ModelErrorDetailsTestBuilder(
             ApiController controller,
             string actionName,
+            TModel model,
             IAndModelErrorTestBuilder<TModel> modelErrorTestBuilder,
             string errorKey,
             IEnumerable<ModelError> aggregatedErrors)
-            : base(controller, actionName)
+            : base(controller, actionName, model)
         {
             this.modelErrorTestBuilder = modelErrorTestBuilder;
             this.currentErrorKey = errorKey;
