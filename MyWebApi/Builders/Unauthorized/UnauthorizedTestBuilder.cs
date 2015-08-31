@@ -17,7 +17,7 @@
     /// Used for testing the authentication header challenges in unauthorized results.
     /// </summary>
     public class UnauthorizedTestBuilder : BaseTestBuilderWithActionResult<UnauthorizedResult>,
-        IUnauthorizedTestBuilder
+        IAndUnauthorizedTestBuilder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UnauthorizedTestBuilder" /> class.
@@ -55,7 +55,7 @@
                 this.ThrowNewUnathorizedResultAssertionException(scheme);
             }
 
-            return new AndUnauthorizedTestBuilder(this.Controller, this.ActionName, this.ActionResult, this);
+            return this;
         }
 
         /// <summary>
@@ -72,7 +72,7 @@
                 this.ThrowNewUnathorizedResultAssertionException(scheme, parameter);
             }
 
-            return new AndUnauthorizedTestBuilder(this.Controller, this.ActionName, this.ActionResult, this);
+            return this;
         }
 
         /// <summary>
@@ -164,6 +164,15 @@
 
             this.WithAuthenticationHeaderChallenges(authenticationHeaders);
             return this.NewAndProvideTestBuilder();
+        }
+
+        /// <summary>
+        /// AndAlso method for better readability when chaining unauthorized result tests.
+        /// </summary>
+        /// <returns>Unauthorized result test builder.</returns>
+        public IUnauthorizedTestBuilder AndAlso()
+        {
+            return this;
         }
 
         private static IList<AuthenticationHeaderValue> SortChallenges(

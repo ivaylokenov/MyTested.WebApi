@@ -104,7 +104,6 @@
     <Compile Include="Builders\Actions\ActionResultTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn.cs" />
     <Compile Include="Builders\Actions\ShouldReturnOk.cs" />
-    <Compile Include="Builders\Unauthorized\AndUnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\Unauthorized\AuthenticationHeaderValueBuilder.cs" />
     <Compile Include="Builders\Unauthorized\ChallengesBuilder.cs" />
     <Compile Include="Builders\Unauthorized\UnauthorizedTestBuilder.cs" />
