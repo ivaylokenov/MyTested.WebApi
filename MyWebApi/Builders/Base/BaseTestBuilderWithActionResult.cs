@@ -34,7 +34,7 @@
         /// Gets the action result which will be tested.
         /// </summary>
         /// <value>Action result to be tested.</value>
-        public TActionResult ActionResult
+        internal TActionResult ActionResult
         {
             get
             {
@@ -46,6 +46,11 @@
                 Validator.CheckForNullReference(value, errorMessageName: "ActionResult");
                 this.actionResult = value;
             }
+        }
+
+        public TActionResult AndProvideTheActionResult()
+        {
+            return this.ActionResult;
         }
 
         /// <summary>
