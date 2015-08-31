@@ -16,7 +16,7 @@
     /// <summary>
     /// Used for testing bad request results.
     /// </summary>
-    /// <typeparam name="TBadRequestResult">Type of bad request result - BadRequestResult, InvalidModelStateResult, BadRequestErrorMessageResult.</typeparam>
+    /// <typeparam name="TBadRequestResult">Type of bad request result - BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.</typeparam>
     public class BadRequestTestBuilder<TBadRequestResult> : BaseTestBuilderWithActionResult<TBadRequestResult>,
         IBadRequestTestBuilder
     {
