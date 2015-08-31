@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Tests.Setups
 {
+    using System;
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http.Headers;
@@ -153,6 +154,23 @@
                 new AuthenticationHeaderValue("Basic"),
                 new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
             });
+        }
+
+        public IHttpActionResult InternalServerErrorAction()
+        {
+            return this.InternalServerError();
+        }
+
+        public IHttpActionResult InternalServerErrorWithExceptionAction()
+        {
+            try
+            {
+                throw new NullReferenceException("Test exception message");
+            }
+            catch (NullReferenceException ex)
+            {
+                return this.InternalServerError(ex);
+            }
         }
 
         public bool GenericStructAction()

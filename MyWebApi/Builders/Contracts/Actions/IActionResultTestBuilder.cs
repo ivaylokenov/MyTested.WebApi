@@ -5,6 +5,7 @@
     using And;
     using BadRequests;
     using Base;
+    using InternalServerErrors;
     using Models;
     using Unauthorized;
 
@@ -75,6 +76,12 @@
         /// </summary>
         /// <returns>Unauthorized result test builder.</returns>
         IUnauthorizedTestBuilder ShouldReturnUnauthorized();
+
+        /// <summary>
+        /// Tests whether action result is InternalServerErrorResult or ExceptionResult.
+        /// </summary>
+        /// <returns>Internal server error test builder.</returns>
+        IInternalServerErrorTestBuilder ShouldReturnInternalServerError();
 
         /// <summary>
         /// Tests whether action result is of the provided generic type.

@@ -18,9 +18,9 @@
         /// <returns>Bad request test builder.</returns>
         public IBadRequestTestBuilder ShouldReturnBadRequest()
         {
-            if (this.ActionResult as BadRequestResult != null)
+            if (this.ActionResult as BadRequestErrorMessageResult != null)
             {
-                return this.ReturnBadRequestTestBuilder<BadRequestResult>();
+                return this.ReturnBadRequestTestBuilder<BadRequestErrorMessageResult>();
             }
 
             if (this.ActionResult as InvalidModelStateResult != null)
@@ -28,7 +28,7 @@
                 return this.ReturnBadRequestTestBuilder<InvalidModelStateResult>();
             }
 
-            return this.ReturnBadRequestTestBuilder<BadRequestErrorMessageResult>();
+            return this.ReturnBadRequestTestBuilder<BadRequestResult>();
         }
 
         private IBadRequestTestBuilder ReturnBadRequestTestBuilder<TBadRequestResult>()

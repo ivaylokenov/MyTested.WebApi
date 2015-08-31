@@ -16,12 +16,12 @@
         /// <returns>Internal server error test builder.</returns>
         public IInternalServerErrorTestBuilder ShouldReturnInternalServerError()
         {
-            if (this.ActionResult as InternalServerErrorResult != null)
+            if (this.ActionResult as ExceptionResult != null)
             {
-                return this.ReturnInternalServerErrorTestBuilder<InternalServerErrorResult>();
+                return this.ReturnInternalServerErrorTestBuilder<ExceptionResult>();
             }
 
-            return this.ReturnInternalServerErrorTestBuilder<ExceptionResult>();
+            return this.ReturnInternalServerErrorTestBuilder<InternalServerErrorResult>();
         }
 
         private IInternalServerErrorTestBuilder ReturnInternalServerErrorTestBuilder<TInternalServerErrorResult>()
