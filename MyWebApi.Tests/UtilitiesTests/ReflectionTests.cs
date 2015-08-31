@@ -13,6 +13,24 @@
     public class ReflectionTests
     {
         [Test]
+        public void AreDifferentTypesShouldReturnTrueWithObjectsOfDifferentTypes()
+        {
+            const int first = 0;
+            const string second = "Test";
+
+            Assert.IsTrue(Reflection.AreDifferentTypes(first, second));
+        }
+
+        [Test]
+        public void AreDifferentTypesShouldReturnFalseWithObjectsOfSameTypes()
+        {
+            const int first = 1;
+            const int second = 2;
+
+            Assert.IsFalse(Reflection.AreDifferentTypes(first, second));
+        }
+
+        [Test]
         public void AreDifferentTypesShouldReturnTrueWithDifferentTypes()
         {
             var first = typeof(int);
