@@ -1,9 +1,8 @@
-﻿namespace MyWebApi.Tests.BuildersTests.And
+﻿namespace MyWebApi.Tests.BuildersTests.AndTests
 {
     using System.Web.Http.Results;
     using NUnit.Framework;
     using Setups;
-    using Setups.Models;
 
     [TestFixture]
     public class AndProvideTestBuilderTests

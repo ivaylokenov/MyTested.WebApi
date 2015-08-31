@@ -42,7 +42,7 @@
                     "When calling {0} action in {1} expected {2}, but instead received {3}.",
                     this.ActionName,
                     this.Controller.GetName(),
-                    expectedExceptionType.GetName(),
+                    expectedExceptionType.ToFriendlyTypeName(),
                     this.actualException.GetName()));
             }
 
