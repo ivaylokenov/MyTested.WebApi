@@ -10,8 +10,8 @@
         /// <summary>
         /// Gets the action name which will be tested.
         /// </summary>
-        /// <value>Action name to be tested.</value>
-        string ActionName { get; }
+        /// <returns>Action name to be tested.</returns>
+        string AndProvideTheActionName();
 
         /// <summary>
         /// Gets the controller on which the action is tested.

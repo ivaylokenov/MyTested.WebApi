@@ -257,7 +257,7 @@
             IActionResultTestBuilder<TActionResult> actionResultTestBuilder,
             string expectedActionName)
         {
-            var actionName = actionResultTestBuilder.ActionName;
+            var actionName = actionResultTestBuilder.AndProvideTheActionName();
             var actionResult = actionResultTestBuilder.ActionResult;
 
             Assert.IsNotNullOrEmpty(actionName);

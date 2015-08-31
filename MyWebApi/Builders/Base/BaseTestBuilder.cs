@@ -47,7 +47,7 @@
         /// Gets the action name which will be tested.
         /// </summary>
         /// <value>Action name to be tested.</value>
-        public string ActionName
+        internal string ActionName
         {
             get
             {
@@ -68,6 +68,15 @@
         public ApiController AndProvideTheControllerInstance()
         {
             return this.Controller;
+        }
+
+        /// <summary>
+        /// Gets the action name which will be tested.
+        /// </summary>
+        /// <returns>Action name to be tested.</returns>
+        public string AndProvideTheActionName()
+        {
+            return this.ActionName;
         }
 
         /// <summary>
