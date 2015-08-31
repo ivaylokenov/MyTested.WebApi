@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\Actions\ShouldReturnBadRequest.cs" />
+    <Compile Include="Builders\Actions\ShouldReturnConflict.cs" />
     <Compile Include="Builders\Actions\ShouldReturnNotFound.cs" />
     <Compile Include="Builders\Actions\ShouldReturnStatusCode.cs" />
     <Compile Include="Builders\Actions\ShouldReturnUnauthorized.cs" />

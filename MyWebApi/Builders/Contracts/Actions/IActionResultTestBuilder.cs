@@ -65,6 +65,12 @@
         IBadRequestTestBuilder ShouldReturnBadRequest();
 
         /// <summary>
+        /// Tests whether action result is ConflictResult.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnConflict();
+
+        /// <summary>
         /// Tests whether action result is UnauthorizedResult.
         /// </summary>
         /// <returns>Unauthorized result test builder.</returns>

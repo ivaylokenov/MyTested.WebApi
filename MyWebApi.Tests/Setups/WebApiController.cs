@@ -109,6 +109,11 @@
             return this.BadRequest(this.ModelState);
         }
 
+        public IHttpActionResult ConflictAction()
+        {
+            return this.Conflict();
+        }
+
         public IHttpActionResult StatusCodeAction()
         {
             return this.StatusCode(HttpStatusCode.Redirect);

@@ -440,6 +440,15 @@ MyWebApi
 	.ShouldReturnNotFound();
 ```
 
+#### Conflict result
+```c#
+// tests whether the action returns ConflictResult
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnConflict();
+```
+
 ### AndProvide... methods
 
 You can get controller, action, action result and response model information where applicable by using AndProvide... methods.
