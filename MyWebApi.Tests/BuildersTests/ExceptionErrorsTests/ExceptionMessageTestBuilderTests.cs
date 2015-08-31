@@ -18,8 +18,7 @@
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
-                .WithMessage()
-                .ThatEquals("Test exception message");
+                .WithMessage().ThatEquals("Test exception message");
         }
 
         [Test]
@@ -30,8 +29,7 @@
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
                 .ShouldReturnInternalServerError()
                 .WithException()
-                .WithMessage()
-                .ThatEquals("Test exception message")
+                .WithMessage().ThatEquals("Test exception message")
                 .AndAlso()
                 .OfType<NullReferenceException>();
         }
@@ -49,8 +47,7 @@
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
-                .WithMessage()
-                .ThatEquals("Test");
+                .WithMessage().ThatEquals("Test");
         }
 
         [Test]
@@ -63,8 +60,7 @@
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
-                .WithMessage()
-                .BeginningWith("Test ");
+                .WithMessage().BeginningWith("Test ");
         }
 
         [Test]
@@ -80,8 +76,7 @@
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
-                .WithMessage()
-                .BeginningWith("exception");
+                .WithMessage().BeginningWith("exception");
         }
 
         [Test]
@@ -94,8 +89,7 @@
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
-                .WithMessage()
-                .EndingWith("message");
+                .WithMessage().EndingWith("message");
         }
 
         [Test]
@@ -111,8 +105,7 @@
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
-                .WithMessage()
-                .EndingWith("Test");
+                .WithMessage().EndingWith("Test");
         }
 
         [Test]
@@ -125,8 +118,7 @@
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
-                .WithMessage()
-                .Containing("n m");
+                .WithMessage().Containing("n m");
         }
 
         [Test]
@@ -142,8 +134,7 @@
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
-                .WithMessage()
-                .Containing("Another");
+                .WithMessage().Containing("Another");
         }
     }
 }

@@ -449,6 +449,77 @@ MyWebApi
 	.ShouldReturnConflict();
 ```
 
+#### InternalServerError result
+```c#
+// tests whether the action returns 
+// InternalServerErrorResult or ExceptionResult
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError();
+	
+// tests whether the action returns internal server error with exception
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError()
+	.WithException();
+	
+// tests whether the action returns internal server error
+// equal to the provided exception's type and message
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError()
+	.WithException(new SomeException("Some exception message"));
+	
+// tests whether the action returns internal server error
+// with exception of a certain type
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError()
+	.WithException()
+	.OfType<SomeException>();
+	
+// tests whether the action returns internal server error
+// with exception with certain message
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError()
+	.WithException()
+	.WithMessage("Some exception message");
+	
+// tests whether the action returns internal server error
+// with exception of certain type and with certain message
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError()
+	.WithException()
+	.OfType<SomeException>()
+	.AndAlso() // AndAlso() is not necessary
+	.WithMessage("Some exception message");
+	
+// tests whether the action returns internal server error
+// with specific exception message tests
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError()
+	.WithException()
+	.OfType<SomeException>()
+	.AndAlso()
+	.WithMessage().ThatEquals("Some exception message")
+	.AndAlso()
+	.WithMessage().BeginningWith("Test ")
+	.AndAlso()
+	.WithMessage().EndingWith("message")
+	.AndAlso()
+	.WithMessage().Containing("n m");
+```
+
 ### AndProvide... methods
 
 You can get controller, action, action result and response model information where applicable by using AndProvide... methods.
