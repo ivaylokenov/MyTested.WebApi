@@ -6,7 +6,6 @@
     using System.Linq.Expressions;
     using System.Web.Http;
     using System.Web.Http.ModelBinding;
-
     using Base;
     using Common.Extensions;
     using Contracts.Models;
@@ -16,7 +15,7 @@
     /// Used for testing specific model errors.
     /// </summary>
     /// <typeparam name="TModel">Model from invoked action in ASP.NET Web API controller.</typeparam>
-    public class ModelErrorDetailsTestBuilder<TModel> : BaseTestBuilder, IModelErrorDetailsTestBuilder<TModel>
+    public class ModelErrorDetailsTestBuilder<TModel> : BaseTestBuilderWithModel<TModel>, IModelErrorDetailsTestBuilder<TModel>
     {
         private readonly IAndModelErrorTestBuilder<TModel> modelErrorTestBuilder;
         private readonly string currentErrorKey;
@@ -27,16 +26,18 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="model">Model returned from action result.</param>
         /// <param name="modelErrorTestBuilder">Original model error test builder.</param>
         /// <param name="errorKey">Key in ModelStateDictionary corresponding to this particular error.</param>
         /// <param name="aggregatedErrors">All errors found in ModelStateDictionary for given error key.</param>
         public ModelErrorDetailsTestBuilder(
             ApiController controller,
             string actionName,
+            TModel model,
             IAndModelErrorTestBuilder<TModel> modelErrorTestBuilder,
             string errorKey,
             IEnumerable<ModelError> aggregatedErrors)
-            : base(controller, actionName)
+            : base(controller, actionName, model)
         {
             this.modelErrorTestBuilder = modelErrorTestBuilder;
             this.currentErrorKey = errorKey;

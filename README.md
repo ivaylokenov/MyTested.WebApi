@@ -440,6 +440,126 @@ MyWebApi
 	.ShouldReturnNotFound();
 ```
 
+#### Conflict result
+```c#
+// tests whether the action returns ConflictResult
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnConflict();
+```
+
+#### InternalServerError result
+```c#
+// tests whether the action returns 
+// InternalServerErrorResult or ExceptionResult
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError();
+	
+// tests whether the action returns internal server error with exception
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError()
+	.WithException();
+	
+// tests whether the action returns internal server error
+// equal to the provided exception's type and message
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError()
+	.WithException(new SomeException("Some exception message"));
+	
+// tests whether the action returns internal server error
+// with exception of a certain type
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError()
+	.WithException()
+	.OfType<SomeException>();
+	
+// tests whether the action returns internal server error
+// with exception with certain message
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError()
+	.WithException()
+	.WithMessage("Some exception message");
+	
+// tests whether the action returns internal server error
+// with exception of certain type and with certain message
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError()
+	.WithException()
+	.OfType<SomeException>()
+	.AndAlso() // AndAlso() is not necessary
+	.WithMessage("Some exception message");
+	
+// tests whether the action returns internal server error
+// with specific exception message tests
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnInternalServerError()
+	.WithException()
+	.OfType<SomeException>()
+	.AndAlso()
+	.WithMessage().ThatEquals("Some exception message")
+	.AndAlso()
+	.WithMessage().BeginningWith("Test ")
+	.AndAlso()
+	.WithMessage().EndingWith("message")
+	.AndAlso()
+	.WithMessage().Containing("n m");
+```
+
+### AndProvide... methods
+
+You can get controller, action, action result and response model information where applicable by using AndProvide... methods.
+Useful for integration tests where current action result model is needed for the next action assertion.
+
+```c#
+// get controller instance
+// * method is available almost everywhere throughout the API
+var controller = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.AndProvideTheController();
+	
+// get action name
+// * method is available almost everywhere throughout the API
+var actionName = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.AndProvideTheActionName();
+	
+// get the action result
+// * method is available on most methods which assert the action result
+var actionResult = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnStatusCode()
+	.AndProvideTheActionResult();
+	
+// get the response model
+// * method is available wherever there is response model assertion
+var responseModel = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.WithResponseModelOfType<ResponseModel>()
+	.AndProvideTheModel();
+```
+
 ## Any questions, comments or additions?
 
 Leave an issue on the [issues page](https://github.com/ivaylokenov/MyWebApi/issues) or send a [pull request](https://github.com/ivaylokenov/MyWebApi/pulls).

@@ -2,12 +2,12 @@
 {
     using System;
     using System.Net;
-
     using And;
     using BadRequests;
     using Base;
+    using InternalServerErrors;
     using Models;
-    using UnauthorizedResults;
+    using Unauthorized;
 
     /// <summary>
     /// Used for building the action result which will be tested.
@@ -43,18 +43,21 @@
         /// <summary>
         /// Tests whether action result is StatusCodeResult.
         /// </summary>
-        void ShouldReturnStatusCode();
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnStatusCode();
 
         /// <summary>
         /// Tests whether action result is StatusCodeResult and is the same as provided HttpStatusCode.
         /// </summary>
         /// <param name="statusCode">HttpStatusCode enumeration.</param>
-        void ShouldReturnStatusCode(HttpStatusCode statusCode);
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnStatusCode(HttpStatusCode statusCode);
 
         /// <summary>
         /// Tests whether action result is NotFoundResult.
         /// </summary>
-        void ShouldReturnNotFound();
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnNotFound();
 
         /// <summary>
         /// Tests whether action result is BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.
@@ -63,10 +66,22 @@
         IBadRequestTestBuilder ShouldReturnBadRequest();
 
         /// <summary>
+        /// Tests whether action result is ConflictResult.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnConflict();
+
+        /// <summary>
         /// Tests whether action result is UnauthorizedResult.
         /// </summary>
         /// <returns>Unauthorized result test builder.</returns>
         IUnauthorizedTestBuilder ShouldReturnUnauthorized();
+
+        /// <summary>
+        /// Tests whether action result is InternalServerErrorResult or ExceptionResult.
+        /// </summary>
+        /// <returns>Internal server error test builder.</returns>
+        IInternalServerErrorTestBuilder ShouldReturnInternalServerError();
 
         /// <summary>
         /// Tests whether action result is of the provided generic type.

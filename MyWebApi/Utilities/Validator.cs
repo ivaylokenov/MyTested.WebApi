@@ -40,5 +40,19 @@
                 throw new ArgumentNullException(parameterName, string.Format("{0} cannot be null or white space.", errorMessageName));
             }
         }
+
+        /// <summary>
+        /// Validates whether the provided value is not null or equal to the type's default value.
+        /// </summary>
+        /// <typeparam name="T">Type of the provided value.</typeparam>
+        /// <param name="value">Value to be validated.</param>
+        /// <param name="errorMessage">Error message if the validation fails.</param>
+        public static void CheckForEqualityWithDefaultValue<T>(T value, string errorMessage)
+        {
+            if (value == null || value.Equals(default(T)))
+            {
+                throw new InvalidOperationException(errorMessage);
+            }
+        }
     }
 }

@@ -1,13 +1,11 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.BadRequestsTests
 {
     using Exceptions;
-
     using NUnit.Framework;
-
     using Setups;
 
     [TestFixture]
-    public class BadRequestErrorMessageTestBuilder
+    public class BadRequestErrorMessageTestBuilderTests
     {
         [Test]
         public void ThatEqualsShouldNotThrowExceptionWithProperErrorMessage()

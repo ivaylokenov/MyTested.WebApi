@@ -12,6 +12,17 @@
     public static class Reflection
     {
         /// <summary>
+        /// Checks whether two objects have different types.
+        /// </summary>
+        /// <param name="firstObject">First object to be checked.</param>
+        /// <param name="secondObject">Second object to be checked.</param>
+        /// <returns>True or false.</returns>
+        public static bool AreDifferentTypes(object firstObject, object secondObject)
+        {
+            return AreDifferentTypes(firstObject.GetType(), secondObject.GetType());
+        }
+
+        /// <summary>
         /// Checks whether two types are different.
         /// </summary>
         /// <param name="firstType">First type to be checked.</param>
