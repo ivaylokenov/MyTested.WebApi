@@ -9,5 +9,7 @@
         IExceptionMessageTestBuilder WithMessage();
 
         IExceptionTestBuilder WithMessage(string message);
+
+        IExceptionTestBuilder AndAlso();
     }
 }

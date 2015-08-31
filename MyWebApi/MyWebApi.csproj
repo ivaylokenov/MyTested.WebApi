@@ -92,6 +92,7 @@
     <Compile Include="Builders\Contracts\IUserBuilder.cs" />
     <Compile Include="Builders\ControllerBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldHaveModelState.cs" />
+    <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionTestBuilder.cs" />
     <Compile Include="Builders\InternalServerErrors\InternalServerErrorTestBuilder.cs" />
     <Compile Include="Builders\Models\ResponseModelDetailsTestBuilder.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
     <Compile Include="Exceptions\HttpStatusCodeAssertionException.cs" />
     <Compile Include="Exceptions\InternalServerErrorResultAssertionException.cs" />
+    <Compile Include="Exceptions\InvalidExceptionAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
     <Compile Include="Exceptions\ModelErrorAssertionException.cs" />
     <Compile Include="Exceptions\UnauthorizedResultAssertionException.cs" />

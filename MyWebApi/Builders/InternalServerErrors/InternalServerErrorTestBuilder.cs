@@ -55,7 +55,7 @@
             if (Reflection.AreDifferentTypes(actualException, exception))
             {
                 throw new InternalServerErrorResultAssertionException(string.Format(
-                    "When calling {0} action in {1} expected internal server error result to contain {2} exception, but instead received {3}.",
+                    "When calling {0} action in {1} expected internal server error result to contain {2}, but instead received {3}.",
                     this.ActionName,
                     this.Controller.GetName(),
                     exception.GetName(),
