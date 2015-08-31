@@ -29,7 +29,7 @@
         /// Gets the controller on which the action will be tested.
         /// </summary>
         /// <value>Controller on which the action will be tested.</value>
-        public ApiController Controller
+        internal ApiController Controller
         {
             get
             {
@@ -59,6 +59,15 @@
                 Validator.CheckForNotWhiteSpaceString(value, errorMessageName: "ActionName");
                 this.actionName = value;
             }
+        }
+
+        /// <summary>
+        /// Gets the controller on which the action is tested.
+        /// </summary>
+        /// <returns>ASP.NET Web API controller on which the action is tested.</returns>
+        public ApiController AndProvideTheControllerInstance()
+        {
+            return this.Controller;
         }
 
         /// <summary>

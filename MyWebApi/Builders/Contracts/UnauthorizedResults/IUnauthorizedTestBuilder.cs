@@ -3,13 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Net.Http.Headers;
-
+    using System.Web.Http.Results;
+    using Base;
     using Common;
 
     /// <summary>
     /// Used for testing the authenticated header challenges in unauthorized results.
     /// </summary>
-    public interface IUnauthorizedTestBuilder
+    public interface IUnauthorizedTestBuilder : IBaseTestBuilderWithActionResult<UnauthorizedResult>
     {
         /// <summary>
         /// Tests whether an unauthorized result contains authenticated header with the provided default scheme.

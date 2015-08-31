@@ -1,13 +1,13 @@
 ﻿namespace MyWebApi.Builders.Contracts.BadRequests
 {
     using System.Web.Http.ModelBinding;
-    using And;
+    using Base;
     using Models;
 
     /// <summary>
     /// Used for testing bad request results.
     /// </summary>
-    public interface IBadRequestTestBuilder
+    public interface IBadRequestTestBuilder : IBaseTestBuilder
     {
         /// <summary>
         /// Tests bad request result with specific error message using test builder.

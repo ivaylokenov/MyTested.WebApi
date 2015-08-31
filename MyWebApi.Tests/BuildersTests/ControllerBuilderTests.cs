@@ -41,11 +41,13 @@
         {
             var requestModel = TestObjectFactory.GetRequestModelWithErrors();
 
-            var actionResultTestBuilder = MyWebApi
+            var controller = MyWebApi
                 .Controller<WebApiController>()
-                .Calling(c => c.OkResultActionWithRequestBody(1, requestModel));
+                .Calling(c => c.OkResultActionWithRequestBody(1, requestModel))
+                .ShouldReturnOk()
+                .AndProvideTheControllerInstance();
 
-            var modelState = actionResultTestBuilder.Controller.ModelState;
+            var modelState = controller.ModelState;
 
             Assert.IsFalse(modelState.IsValid);
             Assert.AreEqual(2, modelState.Values.Count);
@@ -58,11 +60,13 @@
         {
             var requestModel = TestObjectFactory.GetValidRequestModel();
 
-            var actionResultTestBuilder = MyWebApi
+            var controller = MyWebApi
                 .Controller<WebApiController>()
-                .Calling(c => c.OkResultActionWithRequestBody(1, requestModel));
+                .Calling(c => c.OkResultActionWithRequestBody(1, requestModel))
+                .ShouldReturnOk()
+                .AndProvideTheControllerInstance();
 
-            var modelState = actionResultTestBuilder.Controller.ModelState;
+            var modelState = controller.ModelState;
 
             Assert.IsTrue(modelState.IsValid);
             Assert.AreEqual(0, modelState.Values.Count);

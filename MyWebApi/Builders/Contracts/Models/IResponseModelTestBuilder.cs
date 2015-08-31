@@ -1,9 +1,11 @@
 ﻿namespace MyWebApi.Builders.Contracts.Models
 {
+    using Base;
+
     /// <summary>
     /// Used for testing the response model type of action.
     /// </summary>
-    public interface IResponseModelTestBuilder
+    public interface IResponseModelTestBuilder : IBaseTestBuilder
     {
         /// <summary>
         /// Tests whether no response model is returned from the invoked action.

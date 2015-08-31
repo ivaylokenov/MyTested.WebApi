@@ -1,11 +1,11 @@
 ﻿namespace MyWebApi.Builders.Contracts.BadRequests
 {
-    using And;
+    using Base;
 
     /// <summary>
     /// Used for testing specific bad request error messages.
     /// </summary>
-    public interface IBadRequestErrorMessageTestBuilder
+    public interface IBadRequestErrorMessageTestBuilder : IBaseTestBuilder
     {
         /// <summary>
         /// Tests whether particular error message is equal to given message.
