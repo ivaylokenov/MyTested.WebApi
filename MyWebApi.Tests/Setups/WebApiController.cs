@@ -114,6 +114,12 @@
             return this.StatusCode(HttpStatusCode.Redirect);
         }
 
+        public IHttpActionResult CustomModelStateError()
+        {
+            this.ModelState.AddModelError("Test", "Test error");
+            return this.Ok(this.responseModel);
+        }
+
         public IHttpActionResult NotFoundAction()
         {
             return this.NotFound();

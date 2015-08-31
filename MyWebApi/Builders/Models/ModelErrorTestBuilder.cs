@@ -4,6 +4,7 @@
     using System.Web.Http.ModelBinding;
 
     using Base;
+    using Contracts.Base;
     using Contracts.Models;
 
     /// <summary>
@@ -32,9 +33,11 @@
         /// <summary>
         /// Tests whether tested action's model state is valid.
         /// </summary>
-        public void ContainingNoModelStateErrors()
+        /// <returns>Base test builder.</returns>
+        public IBaseTestBuilder ContainingNoModelStateErrors()
         {
             this.CheckValidModelState();
+            return this.NewAndProvideTestBuilder();
         }
     }
 }

@@ -7,7 +7,7 @@
     using Setups;
 
     [TestFixture]
-    public class BadRequestErrorMessageTestBuilder
+    public class BadRequestErrorMessageTestBuilderTests
     {
         [Test]
         public void ThatEqualsShouldNotThrowExceptionWithProperErrorMessage()

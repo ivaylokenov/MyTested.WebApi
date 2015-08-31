@@ -15,8 +15,6 @@
     public class ResponseModelDetailsTestBuilder<TResponseModel>
         : ModelErrorTestBuilder<TResponseModel>, IResponseModelDetailsTestBuilder<TResponseModel>
     {
-        private readonly TResponseModel responseModel;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseModelDetailsTestBuilder{TResponseModel}" /> class.
         /// </summary>
@@ -24,9 +22,8 @@
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="responseModel">Response model from invoked action.</param>
         public ResponseModelDetailsTestBuilder(ApiController controller, string actionName, TResponseModel responseModel)
-            : base(controller, actionName)
+            : base(controller, actionName, responseModel)
         {
-            this.responseModel = responseModel;
         }
 
         /// <summary>
@@ -36,8 +33,8 @@
         /// <returns>Builder for testing the response model errors.</returns>
         public IModelErrorTestBuilder<TResponseModel> Passing(Action<TResponseModel> assertions)
         {
-            assertions(this.responseModel);
-            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
+            assertions(this.Model);
+            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName, this.Model);
         }
 
         /// <summary>
@@ -47,7 +44,7 @@
         /// <returns>Builder for testing the response model errors.</returns>
         public IModelErrorTestBuilder<TResponseModel> Passing(Func<TResponseModel, bool> predicate)
         {
-            if (!predicate(this.responseModel))
+            if (!predicate(this.Model))
             {
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model {2} to pass the given condition, but it failed.",
@@ -56,7 +53,7 @@
                             typeof(TResponseModel).ToFriendlyTypeName()));
             }
 
-            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
+            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName, this.Model);
         }
     }
 }

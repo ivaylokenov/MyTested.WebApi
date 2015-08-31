@@ -8,6 +8,7 @@
     using Base;
     using Common.Extensions;
     using Contracts.BadRequests;
+    using Contracts.Base;
     using Contracts.Models;
     using Exceptions;
     using Models;
@@ -50,18 +51,22 @@
         /// Tests bad request result with specific error message provided by string.
         /// </summary>
         /// <param name="message">Expected error message from bad request result.</param>
-        public void WithErrorMessage(string message)
+        /// <returns>Base test builder.</returns>
+        public IBaseTestBuilder WithErrorMessage(string message)
         {
             var badRequestErrorMessageResult = this.GetBadRequestResult<BadRequestErrorMessageResult>(ErrorMessage);
             var actualMessage = badRequestErrorMessageResult.Message;
             this.ValidateErrorMessage(message, actualMessage);
+
+            return this.NewAndProvideTestBuilder();
         }
 
         /// <summary>
         /// Tests bad request result with specific model state dictionary.
         /// </summary>
         /// <param name="modelState">Model state dictionary to deeply compare to the actual one.</param>
-        public void WithModelState(ModelStateDictionary modelState)
+        /// <returns>Base test builder.</returns>
+        public IBaseTestBuilder WithModelState(ModelStateDictionary modelState)
         {
             var invalidModelStateResult = this.GetBadRequestResult<InvalidModelStateResult>(ModelStateDictionary);
             var actualModelState = invalidModelStateResult.ModelState;
@@ -114,6 +119,8 @@
                     this.ValidateErrorMessage(expectedError, actualError);
                 }
             }
+
+            return this.NewAndProvideTestBuilder();
         }
 
         /// <summary>
@@ -124,7 +131,7 @@
         public IModelErrorTestBuilder<TRequestModel> WithModelStateFor<TRequestModel>()
         {
             var invalidModelStateResult = this.GetBadRequestResult<InvalidModelStateResult>(ModelStateDictionary);
-            return new ModelErrorTestBuilder<TRequestModel>(this.Controller, this.ActionName, invalidModelStateResult.ModelState);
+            return new ModelErrorTestBuilder<TRequestModel>(this.Controller, this.ActionName, modelState: invalidModelStateResult.ModelState);
         }
 
         private static IList<string> GetSortedErrorMessagesForModelStateKey(IEnumerable<ModelError> errors)
