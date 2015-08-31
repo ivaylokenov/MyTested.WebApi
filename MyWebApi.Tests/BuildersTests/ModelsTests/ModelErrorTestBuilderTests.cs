@@ -205,5 +205,37 @@
             Assert.IsAssignableFrom<List<ResponseModel>>(responseModel);
             Assert.AreEqual(2, responseModel.Count);
         }
+
+        [Test]
+        public void AndProvideTheModelShouldReturnProperModelWhenThereIsResponseModelWithModelStateError()
+        {
+            var responseModel = MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.CustomModelStateError())
+                .ShouldReturnOk()
+                .WithResponseModelOfType<List<ResponseModel>>()
+                .ContainingModelStateError("Test")
+                .AndProvideTheModel();
+
+            Assert.IsNotNull(responseModel);
+            Assert.IsAssignableFrom<List<ResponseModel>>(responseModel);
+            Assert.AreEqual(2, responseModel.Count);
+        }
+
+        [Test]
+        public void AndProvideTheModelShouldReturnProperModelWhenThereIsResponseModelWithModelStateErrorAndErrorCheck()
+        {
+            var responseModel = MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.CustomModelStateError())
+                .ShouldReturnOk()
+                .WithResponseModelOfType<List<ResponseModel>>()
+                .ContainingModelStateError("Test").ThatEquals("Test error")
+                .AndProvideTheModel();
+
+            Assert.IsNotNull(responseModel);
+            Assert.IsAssignableFrom<List<ResponseModel>>(responseModel);
+            Assert.AreEqual(2, responseModel.Count);
+        }
     }
 }

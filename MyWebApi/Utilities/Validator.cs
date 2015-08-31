@@ -40,5 +40,13 @@
                 throw new ArgumentNullException(parameterName, string.Format("{0} cannot be null or white space.", errorMessageName));
             }
         }
+
+        public static void CheckForEqualityWithDefaultValue<T>(T value, string message)
+        {
+            if (value == null || value.Equals(default(T)))
+            {
+                throw new InvalidOperationException(message);
+            }
+        }
     }
 }

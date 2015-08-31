@@ -103,11 +103,7 @@
 
         public TModel AndProvideTheModel()
         {
-            if (this.Model.Equals(default(TModel)))
-            {
-                throw new InvalidOperationException("AndProvideTheModel can be used when there is response model from the action.");
-            }
-
+            Validator.CheckForEqualityWithDefaultValue(this.Model, "AndProvideTheModel can be used when there is response model from the action.");
             return this.Model;
         }
 

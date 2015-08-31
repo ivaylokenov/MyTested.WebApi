@@ -2,6 +2,7 @@
 {
     using System.Web.Http;
     using Contracts.Base;
+    using Utilities;
 
     public class BaseTestBuilderWithModel<TModel> : BaseTestBuilder, IBaseTestBuilderWithModel<TModel>
     {
@@ -15,6 +16,7 @@
 
         public TModel AndProvideTheModel()
         {
+            Validator.CheckForEqualityWithDefaultValue(this.Model, "AndProvideTheModel can be used when there is response model from the action.");
             return this.Model;
         }
     }
