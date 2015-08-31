@@ -2,8 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-
-    using Contracts.UnauthorizedResults;
+    using Contracts.Unauthorized;
 
     /// <summary>
     /// Used for building collection of AuthenticationHeaderValue.

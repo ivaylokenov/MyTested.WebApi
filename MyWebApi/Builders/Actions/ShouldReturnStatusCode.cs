@@ -3,6 +3,7 @@
     using System.Net;
     using System.Web.Http.Results;
     using Common.Extensions;
+    using Contracts.Base;
     using Exceptions;
 
     /// <summary>
@@ -14,16 +15,19 @@
         /// <summary>
         /// Tests whether action result is StatusCodeResult.
         /// </summary>
-        public void ShouldReturnStatusCode()
+        /// <returns>Base test builder with action result.</returns>
+        public IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnStatusCode()
         {
             this.ShouldReturn<StatusCodeResult>();
+            return this.NewAndProvideTestBuilder();
         }
 
         /// <summary>
         /// Tests whether action result is StatusCodeResult and is the same as provided HttpStatusCode.
         /// </summary>
         /// <param name="statusCode">HttpStatusCode enumeration.</param>
-        public void ShouldReturnStatusCode(HttpStatusCode statusCode)
+        /// <returns>Base test builder with action result.</returns>
+        public IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnStatusCode(HttpStatusCode statusCode)
         {
             var statusCodeResult = this.GetReturnObject<StatusCodeResult>();
             if (statusCodeResult.StatusCode != statusCode)
@@ -37,6 +41,8 @@
                     (int)statusCodeResult.StatusCode,
                     statusCodeResult.StatusCode));
             }
+
+            return this.NewAndProvideTestBuilder();
         }
     }
 }

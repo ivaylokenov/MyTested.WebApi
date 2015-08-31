@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
 {
+    using Exceptions;
     using NUnit.Framework;
     using Setups;
 
@@ -32,6 +33,18 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
+                .ShouldReturnBadRequest();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(HttpActionResultAssertionException),
+            ExpectedMessage = "When calling NotFoundAction action in WebApiController expected action result to be BadRequestResult, but instead received NotFoundResult.")]
+        public void ShouldReturnNotFoundShouldThrowExceptionWhenActionDoesNotReturnNotFound()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.NotFoundAction())
                 .ShouldReturnBadRequest();
         }
     }

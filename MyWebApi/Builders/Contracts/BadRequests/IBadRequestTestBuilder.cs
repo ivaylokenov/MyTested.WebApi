@@ -1,13 +1,13 @@
 ﻿namespace MyWebApi.Builders.Contracts.BadRequests
 {
     using System.Web.Http.ModelBinding;
-    using And;
+    using Base;
     using Models;
 
     /// <summary>
     /// Used for testing bad request results.
     /// </summary>
-    public interface IBadRequestTestBuilder
+    public interface IBadRequestTestBuilder : IBaseTestBuilder
     {
         /// <summary>
         /// Tests bad request result with specific error message using test builder.
@@ -19,13 +19,15 @@
         /// Tests bad request result with specific error message provided by string.
         /// </summary>
         /// <param name="message">Expected error message from bad request result.</param>
-        void WithErrorMessage(string message);
+        /// <returns>Base test builder.</returns>
+        IBaseTestBuilder WithErrorMessage(string message);
 
         /// <summary>
         /// Tests bad request result with specific model state dictionary.
         /// </summary>
         /// <param name="modelState">Model state dictionary to deeply compare to the actual one.</param>
-        void WithModelState(ModelStateDictionary modelState);
+        /// <returns>Base test builder.</returns>
+        IBaseTestBuilder WithModelState(ModelStateDictionary modelState);
 
         /// <summary>
         /// Tests bad request result for model state errors using test builder.

@@ -1,7 +1,6 @@
 ﻿namespace MyWebApi.Tests
 {
     using NUnit.Framework;
-
     using Setups;
     using Setups.Services;
 

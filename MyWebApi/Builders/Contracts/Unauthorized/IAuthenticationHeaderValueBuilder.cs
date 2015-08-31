@@ -1,6 +1,6 @@
-﻿namespace MyWebApi.Builders.Contracts.UnauthorizedResults
+﻿namespace MyWebApi.Builders.Contracts.Unauthorized
 {
-    using global::MyWebApi.Common;
+    using Common;
 
     /// <summary>
     /// Used for building mocked AuthenticationHeaderValue scheme.
