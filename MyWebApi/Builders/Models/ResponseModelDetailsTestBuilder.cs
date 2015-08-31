@@ -2,7 +2,6 @@
 {
     using System;
     using System.Web.Http;
-
     using Common.Extensions;
     using Contracts.Models;
     using Exceptions;

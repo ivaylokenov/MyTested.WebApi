@@ -1,9 +1,7 @@
 ﻿namespace MyWebApi.Tests.UtilitiesTests
 {
     using System;
-
     using NUnit.Framework;
-
     using Utilities;
 
     [TestFixture]

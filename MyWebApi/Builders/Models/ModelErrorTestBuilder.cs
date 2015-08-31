@@ -2,7 +2,6 @@
 {
     using System.Web.Http;
     using System.Web.Http.ModelBinding;
-
     using Base;
     using Contracts.Base;
     using Contracts.Models;

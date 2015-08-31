@@ -1,7 +1,6 @@
 ﻿namespace MyWebApi.Builders.Unauthorized
 {
     using System.Net.Http.Headers;
-
     using Common;
     using Contracts.Unauthorized;
 

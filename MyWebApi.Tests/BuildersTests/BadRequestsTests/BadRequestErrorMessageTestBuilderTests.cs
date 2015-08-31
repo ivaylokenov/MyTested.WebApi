@@ -1,9 +1,7 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.BadRequestsTests
 {
     using Exceptions;
-
     using NUnit.Framework;
-
     using Setups;
 
     [TestFixture]

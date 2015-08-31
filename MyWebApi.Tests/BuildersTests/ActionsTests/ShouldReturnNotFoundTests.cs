@@ -1,9 +1,7 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
 {
     using Exceptions;
-
     using NUnit.Framework;
-
     using Setups;
 
     [TestFixture]

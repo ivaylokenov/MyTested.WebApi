@@ -6,7 +6,6 @@
     using System.Linq.Expressions;
     using System.Web.Http;
     using System.Web.Http.ModelBinding;
-
     using Base;
     using Common.Extensions;
     using Contracts.Models;

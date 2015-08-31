@@ -6,7 +6,6 @@
     using System.Net.Http.Headers;
     using System.Web.Http;
     using System.Web.Http.Results;
-
     using Base;
     using Common;
     using Common.Extensions;
