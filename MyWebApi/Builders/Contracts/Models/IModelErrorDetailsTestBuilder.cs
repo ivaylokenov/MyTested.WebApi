@@ -2,13 +2,12 @@
 {
     using System;
     using System.Linq.Expressions;
-    using Base;
 
     /// <summary>
     /// Used for testing specific model errors.
     /// </summary>
     /// <typeparam name="TModel">Model from invoked action in ASP.NET Web API controller.</typeparam>
-    public interface IModelErrorDetailsTestBuilder<TModel> : IBaseTestBuilderWithModel<TModel>
+    public interface IModelErrorDetailsTestBuilder<TModel>
     {
         /// <summary>
         /// Tests whether particular error message is equal to given message.

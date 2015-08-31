@@ -1,7 +1,6 @@
 ﻿namespace MyWebApi.Builders.Base
 {
     using System.Web.Http;
-    using And;
     using Common.Extensions;
     using Contracts.Base;
     using Exceptions;
@@ -30,7 +29,7 @@
         /// Gets the controller on which the action will be tested.
         /// </summary>
         /// <value>Controller on which the action will be tested.</value>
-        internal ApiController Controller
+        public ApiController Controller
         {
             get
             {
@@ -48,7 +47,7 @@
         /// Gets the action name which will be tested.
         /// </summary>
         /// <value>Action name to be tested.</value>
-        internal string ActionName
+        public string ActionName
         {
             get
             {
@@ -63,24 +62,6 @@
         }
 
         /// <summary>
-        /// Gets the controller on which the action is tested.
-        /// </summary>
-        /// <returns>ASP.NET Web API controller on which the action is tested.</returns>
-        public ApiController AndProvideTheController()
-        {
-            return this.Controller;
-        }
-
-        /// <summary>
-        /// Gets the action name which will be tested.
-        /// </summary>
-        /// <returns>Action name to be tested.</returns>
-        public string AndProvideTheActionName()
-        {
-            return this.ActionName;
-        }
-
-        /// <summary>
         /// Checks whether the tested action's model state is valid.
         /// </summary>
         protected void CheckValidModelState()
@@ -92,15 +73,6 @@
                     this.ActionName,
                     this.Controller.GetName()));
             }
-        }
-
-        /// <summary>
-        /// Creates new AndProvideTestBuilder.
-        /// </summary>
-        /// <returns>Base test builder.</returns>
-        protected IBaseTestBuilder NewAndProvideTestBuilder()
-        {
-            return new AndProvideTestBuilder(this.Controller, this.ActionName);
         }
     }
 }

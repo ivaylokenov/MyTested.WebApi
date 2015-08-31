@@ -1,8 +1,11 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.ModelsTests
 {
     using System.Collections.Generic;
+
     using Exceptions;
+
     using NUnit.Framework;
+
     using Setups;
     using Setups.Models;
 

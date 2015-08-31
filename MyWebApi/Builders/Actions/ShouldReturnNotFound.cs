@@ -1,7 +1,6 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
     using System.Web.Http.Results;
-    using Contracts.Base;
 
     /// <summary>
     /// Class containing methods for testing NotFoundResult.
@@ -12,11 +11,9 @@
         /// <summary>
         /// Tests whether action result is NotFoundResult.
         /// </summary>
-        /// <returns>Base test builder with action result.</returns>
-        public IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnNotFound()
+        public void ShouldReturnNotFound()
         {
             this.ShouldReturn<NotFoundResult>();
-            return this.NewAndProvideTestBuilder();
         }
     }
 }

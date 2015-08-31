@@ -7,9 +7,9 @@
     public interface IBaseTestBuilderWithActionResult<out TActionResult> : IBaseTestBuilder
     {
         /// <summary>
-        /// Gets the tested action result.
+        /// Gets the action result which will be tested.
         /// </summary>
-        /// <returns>Tested action result.</returns>
-        TActionResult AndProvideTheActionResult();
+        /// <value>Action result to be tested.</value>
+        TActionResult ActionResult { get; }
     }
 }
