@@ -35,6 +35,10 @@
         /// <returns>Exception test builder.</returns>
         IExceptionTestBuilder Containing(string containsMessage);
 
+        /// <summary>
+        /// AndAlso method for better readability when chaining expected exception tests.
+        /// </summary>
+        /// <returns>Exception test builder.</returns>
         IExceptionTestBuilder AndAlso();
     }
 }

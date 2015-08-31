@@ -6,12 +6,22 @@
     using Contracts.ExceptionErrors;
     using Exceptions;
 
+    /// <summary>
+    /// Used for testing specific exception messages.
+    /// </summary>
     public class ExceptionMessageTestBuilder
         : BaseTestBuilder, IExceptionMessageTestBuilder
     {
         private readonly IExceptionTestBuilder exceptionTestBuilder;
         private readonly string actualMessage;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExceptionMessageTestBuilder" /> class.
+        /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="exceptionTestBuilder">Original exception test builder.</param>
+        /// <param name="actualMessage">Actual exception message.</param>
         public ExceptionMessageTestBuilder(
             ApiController controller,
             string actionName,
@@ -23,6 +33,11 @@
             this.actualMessage = actualMessage;
         }
 
+        /// <summary>
+        /// Tests whether particular exception message is equal to given message.
+        /// </summary>
+        /// <param name="errorMessage">Expected error message for particular exception.</param>
+        /// <returns>Exception test builder.</returns>
         public IExceptionTestBuilder ThatEquals(string errorMessage)
         {
             if (this.actualMessage != errorMessage)
@@ -35,6 +50,11 @@
             return this.exceptionTestBuilder;
         }
 
+        /// <summary>
+        /// Tests whether particular exception message begins with given message.
+        /// </summary>
+        /// <param name="beginMessage">Expected beginning for particular exception message.</param>
+        /// <returns>Exception test builder.</returns>
         public IExceptionTestBuilder BeginningWith(string beginMessage)
         {
             if (!this.actualMessage.StartsWith(beginMessage))
@@ -47,6 +67,11 @@
             return this.exceptionTestBuilder;
         }
 
+        /// <summary>
+        /// Tests whether particular exception message ends with given message.
+        /// </summary>
+        /// <param name="endMessage">Expected ending for particular exception message.</param>
+        /// <returns>Exception test builder.</returns>
         public IExceptionTestBuilder EndingWith(string endMessage)
         {
             if (!this.actualMessage.EndsWith(endMessage))
@@ -59,6 +84,11 @@
             return this.exceptionTestBuilder;
         }
 
+        /// <summary>
+        /// Tests whether particular exception message contains given message.
+        /// </summary>
+        /// <param name="containsMessage">Expected containing string for particular exception message.</param>
+        /// <returns>Exception test builder.</returns>
         public IExceptionTestBuilder Containing(string containsMessage)
         {
             if (!this.actualMessage.Contains(containsMessage))
@@ -71,6 +101,10 @@
             return this.exceptionTestBuilder;
         }
 
+        /// <summary>
+        /// AndAlso method for better readability when chaining expected exception tests.
+        /// </summary>
+        /// <returns>Exception test builder.</returns>
         public IExceptionTestBuilder AndAlso()
         {
             return this.exceptionTestBuilder;

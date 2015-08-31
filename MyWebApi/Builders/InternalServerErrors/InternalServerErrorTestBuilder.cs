@@ -46,6 +46,7 @@
         /// <summary>
         /// Tests internal server error whether it contains exception with the same type and having the same message as the provided exception.
         /// </summary>
+        /// <param name="exception">Expected exception.</param>
         /// <returns>Exception test builder.</returns>
         public IBaseTestBuilder WithException(Exception exception)
         {
