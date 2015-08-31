@@ -19,12 +19,14 @@
         /// Tests bad request result with specific error message provided by string.
         /// </summary>
         /// <param name="message">Expected error message from bad request result.</param>
+        /// <returns>Base test builder.</returns>
         IBaseTestBuilder WithErrorMessage(string message);
 
         /// <summary>
         /// Tests bad request result with specific model state dictionary.
         /// </summary>
         /// <param name="modelState">Model state dictionary to deeply compare to the actual one.</param>
+        /// <returns>Base test builder.</returns>
         IBaseTestBuilder WithModelState(ModelStateDictionary modelState);
 
         /// <summary>

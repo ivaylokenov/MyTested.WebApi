@@ -27,6 +27,7 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="model">Model returned from action result.</param>
         /// <param name="modelErrorTestBuilder">Original model error test builder.</param>
         /// <param name="errorKey">Key in ModelStateDictionary corresponding to this particular error.</param>
         /// <param name="aggregatedErrors">All errors found in ModelStateDictionary for given error key.</param>

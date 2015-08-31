@@ -10,6 +10,7 @@
         /// <summary>
         /// Tests whether no response model is returned from the invoked action.
         /// </summary>
+        /// <returns>Base test builder.</returns>
         IBaseTestBuilder WithNoResponseModel();
 
         /// <summary>

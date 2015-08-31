@@ -13,6 +13,7 @@
         /// <summary>
         /// Tests whether action result is NotFoundResult.
         /// </summary>
+        /// <returns>Base test builder with action result.</returns>
         public IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnNotFound()
         {
             this.ShouldReturn<NotFoundResult>();

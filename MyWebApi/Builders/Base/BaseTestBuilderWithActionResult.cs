@@ -48,6 +48,10 @@
             }
         }
 
+        /// <summary>
+        /// Gets the action result which will be tested.
+        /// </summary>
+        /// <returns>Action result to be tested.</returns>
         public TActionResult AndProvideTheActionResult()
         {
             return this.ActionResult;
@@ -83,6 +87,10 @@
             return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
         }
 
+        /// <summary>
+        /// Creates new AndProvideTestBuilder.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
         protected new IBaseTestBuilderWithActionResult<TActionResult> NewAndProvideTestBuilder()
         {
             return new AndProvideTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);

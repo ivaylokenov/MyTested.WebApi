@@ -31,6 +31,7 @@
         /// <summary>
         /// Tests whether no response model is returned from the invoked action.
         /// </summary>
+        /// <returns>Base test builder.</returns>
         public IBaseTestBuilder WithNoResponseModel()
         {
             var actualResult = this.ActionResult as OkResult;

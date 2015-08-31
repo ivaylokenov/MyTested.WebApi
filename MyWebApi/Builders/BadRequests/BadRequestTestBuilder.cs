@@ -51,6 +51,7 @@
         /// Tests bad request result with specific error message provided by string.
         /// </summary>
         /// <param name="message">Expected error message from bad request result.</param>
+        /// <returns>Base test builder.</returns>
         public IBaseTestBuilder WithErrorMessage(string message)
         {
             var badRequestErrorMessageResult = this.GetBadRequestResult<BadRequestErrorMessageResult>(ErrorMessage);
@@ -64,6 +65,7 @@
         /// Tests bad request result with specific model state dictionary.
         /// </summary>
         /// <param name="modelState">Model state dictionary to deeply compare to the actual one.</param>
+        /// <returns>Base test builder.</returns>
         public IBaseTestBuilder WithModelState(ModelStateDictionary modelState)
         {
             var invalidModelStateResult = this.GetBadRequestResult<InvalidModelStateResult>(ModelStateDictionary);

@@ -94,6 +94,10 @@
             }
         }
 
+        /// <summary>
+        /// Creates new AndProvideTestBuilder.
+        /// </summary>
+        /// <returns>Base test builder.</returns>
         protected IBaseTestBuilder NewAndProvideTestBuilder()
         {
             return new AndProvideTestBuilder(this.Controller, this.ActionName);

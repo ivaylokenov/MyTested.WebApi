@@ -42,17 +42,20 @@
         /// <summary>
         /// Tests whether action result is StatusCodeResult.
         /// </summary>
+        /// <returns>Base test builder with action result.</returns>
         IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnStatusCode();
 
         /// <summary>
         /// Tests whether action result is StatusCodeResult and is the same as provided HttpStatusCode.
         /// </summary>
         /// <param name="statusCode">HttpStatusCode enumeration.</param>
+        /// <returns>Base test builder with action result.</returns>
         IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnStatusCode(HttpStatusCode statusCode);
 
         /// <summary>
         /// Tests whether action result is NotFoundResult.
         /// </summary>
+        /// <returns>Base test builder with action result.</returns>
         IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnNotFound();
 
         /// <summary>

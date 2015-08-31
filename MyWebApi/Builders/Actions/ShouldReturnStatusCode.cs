@@ -15,6 +15,7 @@
         /// <summary>
         /// Tests whether action result is StatusCodeResult.
         /// </summary>
+        /// <returns>Base test builder with action result.</returns>
         public IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnStatusCode()
         {
             this.ShouldReturn<StatusCodeResult>();
@@ -25,6 +26,7 @@
         /// Tests whether action result is StatusCodeResult and is the same as provided HttpStatusCode.
         /// </summary>
         /// <param name="statusCode">HttpStatusCode enumeration.</param>
+        /// <returns>Base test builder with action result.</returns>
         public IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnStatusCode(HttpStatusCode statusCode)
         {
             var statusCodeResult = this.GetReturnObject<StatusCodeResult>();
