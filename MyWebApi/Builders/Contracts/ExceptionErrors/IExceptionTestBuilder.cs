@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Contracts.Exceptions
+﻿namespace MyWebApi.Builders.Contracts.ExceptionErrors
 {
     using Base;
 

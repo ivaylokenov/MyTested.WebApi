@@ -6,9 +6,10 @@
     using Base;
     using Common.Extensions;
     using Contracts.Base;
-    using Contracts.Exceptions;
+    using Contracts.ExceptionErrors;
     using Contracts.InternalServerErrors;
     using Exceptions;
+    using Utilities;
 
     /// <summary>
     /// Used for testing internal server error results.
@@ -32,9 +33,9 @@
         }
 
         /// <summary>
-        /// 
+        /// Tests internal server error whether it contains exception.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Exception test builder.</returns>
         public IExceptionTestBuilder WithException()
         {
             var exceptionResult = this.GetExceptionResult();
@@ -42,10 +43,37 @@
             return null;
         }
 
+        /// <summary>
+        /// Tests internal server error whether it contains exception with the same type and having the same message as the provided exception.
+        /// </summary>
+        /// <returns>Exception test builder.</returns>
         public IBaseTestBuilder WithException(Exception exception)
         {
             var exceptionResult = this.GetExceptionResult();
-            // TODO: test excception
+            var actualException = exceptionResult.Exception;
+
+            if (Reflection.AreDifferentTypes(actualException, exception))
+            {
+                throw new InternalServerErrorResultAssertionException(string.Format(
+                    "When calling {0} action in {1} expected internal server error result to contain {2} exception, but instead received {3}.",
+                    this.ActionName,
+                    this.Controller.GetName(),
+                    exception.GetName(),
+                    actualException.GetName()));
+            }
+
+            var expectedExceptionMessage = exception.Message;
+            var actualExceptionMessage = actualException.Message;
+            if (expectedExceptionMessage != actualExceptionMessage)
+            {
+                throw new InternalServerErrorResultAssertionException(string.Format(
+                    "When calling {0} action in {1} expected internal server error result to contain exception with message '{2}', but instead received '{3}'.",
+                    this.ActionName,
+                    this.Controller.GetName(),
+                    expectedExceptionMessage,
+                    actualExceptionMessage));
+            }
+
             return this.NewAndProvideTestBuilder();
         }
 
