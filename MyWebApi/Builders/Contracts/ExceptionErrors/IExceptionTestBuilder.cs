@@ -12,7 +12,7 @@
         /// </summary>
         /// <typeparam name="TException">Type of the expected exception.</typeparam>
         /// <returns>The same exception test builder.</returns>
-        IExceptionTestBuilder OfType<TException>();
+        IAndExceptionTestBuilder OfType<TException>();
 
         /// <summary>
         /// Tests exception message using test builder.
@@ -25,12 +25,6 @@
         /// </summary>
         /// <param name="message">Expected exception message as string.</param>
         /// <returns>The same exception test builder.</returns>
-        IExceptionTestBuilder WithMessage(string message);
-
-        /// <summary>
-        /// AndAlso method for better readability when chaining expected exception tests.
-        /// </summary>
-        /// <returns>The same exception test builder.</returns>
-        IExceptionTestBuilder AndAlso();
+        IAndExceptionTestBuilder WithMessage(string message);
     }
 }

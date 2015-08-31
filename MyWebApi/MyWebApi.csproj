@@ -69,6 +69,7 @@
     <Compile Include="Builders\Contracts\And\IAndTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\ExceptionErrors\IAndExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\InternalServerErrors\IInternalServerErrorTestBuilder.cs" />

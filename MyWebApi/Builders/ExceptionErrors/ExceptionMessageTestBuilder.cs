@@ -12,7 +12,7 @@
     public class ExceptionMessageTestBuilder
         : BaseTestBuilder, IExceptionMessageTestBuilder
     {
-        private readonly IExceptionTestBuilder exceptionTestBuilder;
+        private readonly IAndExceptionTestBuilder exceptionTestBuilder;
         private readonly string actualMessage;
 
         /// <summary>
@@ -25,7 +25,7 @@
         public ExceptionMessageTestBuilder(
             ApiController controller,
             string actionName,
-            IExceptionTestBuilder exceptionTestBuilder,
+            IAndExceptionTestBuilder exceptionTestBuilder,
             string actualMessage)
             : base(controller, actionName)
         {
@@ -38,7 +38,7 @@
         /// </summary>
         /// <param name="errorMessage">Expected error message for particular exception.</param>
         /// <returns>Exception test builder.</returns>
-        public IExceptionTestBuilder ThatEquals(string errorMessage)
+        public IAndExceptionTestBuilder ThatEquals(string errorMessage)
         {
             if (this.actualMessage != errorMessage)
             {
@@ -55,7 +55,7 @@
         /// </summary>
         /// <param name="beginMessage">Expected beginning for particular exception message.</param>
         /// <returns>Exception test builder.</returns>
-        public IExceptionTestBuilder BeginningWith(string beginMessage)
+        public IAndExceptionTestBuilder BeginningWith(string beginMessage)
         {
             if (!this.actualMessage.StartsWith(beginMessage))
             {
@@ -72,7 +72,7 @@
         /// </summary>
         /// <param name="endMessage">Expected ending for particular exception message.</param>
         /// <returns>Exception test builder.</returns>
-        public IExceptionTestBuilder EndingWith(string endMessage)
+        public IAndExceptionTestBuilder EndingWith(string endMessage)
         {
             if (!this.actualMessage.EndsWith(endMessage))
             {
@@ -89,7 +89,7 @@
         /// </summary>
         /// <param name="containsMessage">Expected containing string for particular exception message.</param>
         /// <returns>Exception test builder.</returns>
-        public IExceptionTestBuilder Containing(string containsMessage)
+        public IAndExceptionTestBuilder Containing(string containsMessage)
         {
             if (!this.actualMessage.Contains(containsMessage))
             {
@@ -98,15 +98,6 @@
                     containsMessage);
             }
 
-            return this.exceptionTestBuilder;
-        }
-
-        /// <summary>
-        /// AndAlso method for better readability when chaining expected exception tests.
-        /// </summary>
-        /// <returns>Exception test builder.</returns>
-        public IExceptionTestBuilder AndAlso()
-        {
             return this.exceptionTestBuilder;
         }
 

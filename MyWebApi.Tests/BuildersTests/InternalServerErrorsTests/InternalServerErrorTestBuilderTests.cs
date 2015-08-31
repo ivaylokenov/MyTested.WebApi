@@ -2,8 +2,8 @@
 {
     using System;
     using Exceptions;
-    using Setups;
     using NUnit.Framework;
+    using Setups;
 
     [TestFixture]
     public class InternalServerErrorTestBuilderTests

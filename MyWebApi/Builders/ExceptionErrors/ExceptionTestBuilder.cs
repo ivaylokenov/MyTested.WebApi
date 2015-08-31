@@ -11,7 +11,7 @@
     /// <summary>
     /// Used for testing expected exceptions.
     /// </summary>
-    public class ExceptionTestBuilder : BaseTestBuilder, IExceptionTestBuilder
+    public class ExceptionTestBuilder : BaseTestBuilder, IAndExceptionTestBuilder
     {
         private readonly Exception actualException;
 
@@ -32,7 +32,7 @@
         /// </summary>
         /// <typeparam name="TException">Type of the expected exception.</typeparam>
         /// <returns>The same exception test builder.</returns>
-        public IExceptionTestBuilder OfType<TException>()
+        public IAndExceptionTestBuilder OfType<TException>()
         {
             var expectedExceptionType = typeof(TException);
             var actualExceptionType = this.actualException.GetType();
@@ -63,7 +63,7 @@
         /// </summary>
         /// <param name="message">Expected exception message as string.</param>
         /// <returns>The same exception test builder.</returns>
-        public IExceptionTestBuilder WithMessage(string message)
+        public IAndExceptionTestBuilder WithMessage(string message)
         {
             var actualExceptionMessage = this.actualException.Message;
             if (actualExceptionMessage != message)

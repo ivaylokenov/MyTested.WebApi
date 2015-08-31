@@ -41,9 +41,9 @@
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
                 .ShouldReturnInternalServerError()
                 .WithException()
-                .OfType<NullReferenceException>()
+                .WithMessage("Test exception message")
                 .AndAlso()
-                .WithMessage("Test exception message");
+                .OfType<NullReferenceException>();
         }
 
         [Test]
