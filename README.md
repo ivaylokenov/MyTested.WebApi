@@ -1,7 +1,7 @@
-<h1><img src="https://raw.githubusercontent.com/ivaylokenov/MyWebApi/master/documentation/logo.png" align="left" alt="MyWebApi" width="100"> MyWebApi - ASP.NET Web API Fluent Testing Framework</h1>
+<h1><img src="https://raw.githubusercontent.com/ivaylokenov/MyWebApi/master/documentation/logo.png" align="left" alt="MyWebApi" width="100"> <span aling="right">MyWebApi - ASP.NET Web API Fluent Testing Framework<span></h1>
 ====================================
 
-MyWebApi is unit testing framework providing easy fluent interface to test the ASP.NET Web API 2 framework. Inspired by [TestStack.FluentMVCTesting](https://github.com/TestStack/TestStack.FluentMVCTesting) and [ChaiJS](https://github.com/chaijs/chai).
+MyWebApi is unit testing library providing easy fluent interface to test the ASP.NET Web API 2 framework. Inspired by [TestStack.FluentMVCTesting](https://github.com/TestStack/TestStack.FluentMVCTesting) and [ChaiJS](https://github.com/chaijs/chai).
 
 [![Build status](https://ci.appveyor.com/api/projects/status/738pm1kuuv7yw1t5?svg=true)](https://ci.appveyor.com/project/ivaylokenov/mywebapi)
 
@@ -43,6 +43,8 @@ namespace MyApp.Tests.Controllers
 	}
 }
 ```
+
+The example uses NUnit but you can use whatever testing framework you want.
 
 Here are some random examples of what the fluent testing API is capable of:
 
