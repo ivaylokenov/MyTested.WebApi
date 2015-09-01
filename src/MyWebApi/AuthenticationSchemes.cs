@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Common
+﻿namespace MyWebApi
 {
     /// <summary>
     /// Contains default authenticated header schemes.
