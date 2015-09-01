@@ -13,6 +13,8 @@ using Books.Api.Models;
 
 namespace Books.Api.Providers
 {
+    using Books.Models;
+
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
@@ -31,7 +33,7 @@ namespace Books.Api.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+            Author user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
