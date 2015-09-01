@@ -1,31 +1,32 @@
 namespace Books.Data.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using Models;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Books.Data.BooksDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<BooksDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(Books.Data.BooksDbContext context)
+        protected override void Seed(BooksDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var author = new Author { UserName = "TestUser", FirstName = "Test", LastName = "User" };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Users.AddOrUpdate(a => a.UserName, author);
+
+            context.Books.AddOrUpdate(b => b.Title,
+                new Book { Title = "First book", Description = "First book description", Author = author},
+                new Book { Title = "Second book", Description = "Second book description", Author = author },
+                new Book { Title = "Third book", Description = "Third book description", Author = author },
+                new Book { Title = "Fourth book", Description = "Fourth book description", Author = author },
+                new Book { Title = "Fifth book", Description = "Fifth book description", Author = author },
+                new Book { Title = "Sixth book", Description = "Sixth book description", Author = author },
+                new Book { Title = "Seventh book", Description = "Seventh book description", Author = author },
+                new Book { Title = "Eighth book", Description = "Eighth book description", Author = author },
+                new Book { Title = "Ninth book", Description = "Ninth book description", Author = author },
+                new Book { Title = "Tenth book", Description = "Tenth book description", Author = author });
         }
     }
 }

@@ -9,6 +9,12 @@ using System.Web.Routing;
 
 namespace Books.Api
 {
+    using System.Data.Entity;
+    using System.Reflection;
+    using App_Start;
+    using Data;
+    using Data.Migrations;
+
     public class WebApiApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
@@ -18,6 +24,9 @@ namespace Books.Api
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            AutoMapperConfig.RegisterMappings(Assembly.GetExecutingAssembly());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<BooksDbContext, Configuration>());
         }
     }
 }
