@@ -1,7 +1,7 @@
 # MyWebApi - ASP.NET Web API Fluent Testing Framework
 ====================================
 
-MyWebApi is unit testing framework providing easy fluent interface to test the ASP.NET Web API framework. Inspired by [TestStack.FluentMVCTesting](https://github.com/TestStack/TestStack.FluentMVCTesting) and [ChaiJS](https://github.com/chaijs/chai).
+MyWebApi is unit testing framework providing easy fluent interface to test the ASP.NET Web API 2 framework. Inspired by [TestStack.FluentMVCTesting](https://github.com/TestStack/TestStack.FluentMVCTesting) and [ChaiJS](https://github.com/chaijs/chai).
 
 [![Build status](https://ci.appveyor.com/api/projects/status/738pm1kuuv7yw1t5?svg=true)](https://ci.appveyor.com/project/ivaylokenov/mywebapi)
 
@@ -11,7 +11,9 @@ Please see the [documentation](https://github.com/ivaylokenov/MyWebApi/tree/mast
 
 ## Installation
 
-Currently you need to download this repository and build the MyWebApi.dll by yourself. NuGet package coming soon!
+You can install this library using NuGet into your Test class library. It will automatically reference the needed dependency of Microsoft.AspNet.WebApi.Core (≥ 5.1.0) for you. .NET 4.5+ is needed.
+
+    Install-Package MyWebApi
 
 ## How to use
 
