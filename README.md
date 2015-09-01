@@ -1,4 +1,4 @@
-<h1><img src="https://raw.githubusercontent.com/ivaylokenov/MyWebApi/master/documentation/logo.png" align="left" alt="MyWebApi" style="height: 80px"> MyWebApi - ASP.NET Web API Fluent Testing Framework</h1>
+<h1><img src="https://raw.githubusercontent.com/ivaylokenov/MyWebApi/master/documentation/logo.png" align="left" alt="MyWebApi" style="max-width: 100px"> MyWebApi - ASP.NET Web API Fluent Testing Framework</h1>
 ====================================
 
 MyWebApi is unit testing framework providing easy fluent interface to test the ASP.NET Web API 2 framework. Inspired by [TestStack.FluentMVCTesting](https://github.com/TestStack/TestStack.FluentMVCTesting) and [ChaiJS](https://github.com/chaijs/chai).
