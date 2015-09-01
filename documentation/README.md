@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/ivaylokenov/MyWebApi/master/documentation/logo.png" alt="MyWebApi"> MyWebApi - ASP.NET Web API Fluent Testing Framework
+# <img src="https://raw.githubusercontent.com/ivaylokenov/MyWebApi/master/documentation/logo.png" align="left"  alt="MyWebApi"> MyWebApi - ASP.NET Web API Fluent Testing Framework
 ====================================
 
 ## Full list of available features
