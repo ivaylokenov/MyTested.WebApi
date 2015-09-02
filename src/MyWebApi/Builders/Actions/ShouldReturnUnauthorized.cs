@@ -17,7 +17,11 @@
         public IUnauthorizedTestBuilder ShouldReturnUnauthorized()
         {
             var unathorizedResult = this.GetReturnObject<UnauthorizedResult>();
-            return new UnauthorizedTestBuilder(this.Controller, this.ActionName, unathorizedResult);
+            return new UnauthorizedTestBuilder(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                unathorizedResult);
         }
     }
 }

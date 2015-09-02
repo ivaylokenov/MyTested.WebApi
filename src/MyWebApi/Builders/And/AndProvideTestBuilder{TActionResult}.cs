@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.And
 {
+    using System;
     using System.Web.Http;
     using Base;
 
@@ -15,8 +16,12 @@
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="actionResult">Result from the tested action.</param>
-        public AndProvideTestBuilder(ApiController controller, string actionName, TActionResult actionResult)
-            : base(controller, actionName, actionResult)
+        public AndProvideTestBuilder(
+            ApiController controller,
+            string actionName,
+            Exception caughtException,
+            TActionResult actionResult)
+            : base(controller, actionName, caughtException, actionResult)
         {
         }
     }

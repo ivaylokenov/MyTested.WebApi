@@ -20,8 +20,8 @@
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="responseModel">Response model from invoked action.</param>
-        public ModelDetailsTestBuilder(ApiController controller, string actionName, TResponseModel responseModel)
-            : base(controller, actionName, responseModel)
+        public ModelDetailsTestBuilder(ApiController controller, string actionName, Exception caughtException, TResponseModel responseModel)
+            : base(controller, actionName, caughtException, responseModel)
         {
         }
 
@@ -33,7 +33,11 @@
         public IModelErrorTestBuilder<TResponseModel> Passing(Action<TResponseModel> assertions)
         {
             assertions(this.Model);
-            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName, this.Model);
+            return new ModelErrorTestBuilder<TResponseModel>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.Model);
         }
 
         /// <summary>
@@ -52,7 +56,11 @@
                             typeof(TResponseModel).ToFriendlyTypeName()));
             }
 
-            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName, this.Model);
+            return new ModelErrorTestBuilder<TResponseModel>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.Model);
         }
     }
 }

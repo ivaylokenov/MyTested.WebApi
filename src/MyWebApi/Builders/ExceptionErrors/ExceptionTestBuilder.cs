@@ -21,8 +21,8 @@
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="exception">Actual received exception.</param>
-        public ExceptionTestBuilder(ApiController controller, string actionName, Exception exception)
-            : base(controller, actionName)
+        public ExceptionTestBuilder(ApiController controller, string actionName, Exception caughtException, Exception exception)
+            : base(controller, actionName, caughtException)
         {
             this.actualException = exception;
         }
@@ -55,7 +55,12 @@
         /// <returns>Exception message test builder.</returns>
         public IExceptionMessageTestBuilder WithMessage()
         {
-            return new ExceptionMessageTestBuilder(this.Controller, this.ActionName, this, this.actualException.Message);
+            return new ExceptionMessageTestBuilder(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this,
+                this.actualException.Message);
         }
 
         /// <summary>

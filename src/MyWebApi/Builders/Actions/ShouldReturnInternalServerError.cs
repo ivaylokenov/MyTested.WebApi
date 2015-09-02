@@ -31,6 +31,7 @@
             return new InternalServerErrorTestBuilder<TInternalServerErrorResult>(
                 this.Controller,
                 this.ActionName,
+                this.CaughtException,
                 internalServerErrorResult);
         }
     }

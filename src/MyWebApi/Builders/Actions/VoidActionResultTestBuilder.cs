@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.Actions
 {
+    using System;
     using System.Web.Http;
     using Base;
     using Contracts.Actions;
@@ -15,8 +16,8 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
-        public VoidActionResultTestBuilder(ApiController controller, string actionName)
-            : base(controller, actionName)
+        public VoidActionResultTestBuilder(ApiController controller, string actionName, Exception caughtException)
+            : base(controller, actionName, caughtException)
         {
         }
 

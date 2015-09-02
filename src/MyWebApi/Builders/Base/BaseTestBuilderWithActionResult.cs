@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.Base
 {
+    using System;
     using System.Web.Http;
     using And;
     using Common.Extensions;
@@ -24,8 +25,12 @@
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="actionResult">Result from the tested action.</param>
-        protected BaseTestBuilderWithActionResult(ApiController controller, string actionName, TActionResult actionResult)
-            : base(controller, actionName)
+        protected BaseTestBuilderWithActionResult(
+            ApiController controller,
+            string actionName,
+            Exception caughtException,
+            TActionResult actionResult)
+            : base(controller, actionName, caughtException)
         {
             this.ActionResult = actionResult;
         }
@@ -84,7 +89,7 @@
         /// <returns>Test builder with AndAlso method.</returns>
         protected IAndTestBuilder<TActionResult> NewAndTestBuilder()
         {
-            return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
+            return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.CaughtException, this.ActionResult);
         }
 
         /// <summary>
@@ -93,7 +98,11 @@
         /// <returns>Base test builder with action result.</returns>
         protected new IBaseTestBuilderWithActionResult<TActionResult> NewAndProvideTestBuilder()
         {
-            return new AndProvideTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
+            return new AndProvideTestBuilder<TActionResult>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.ActionResult);
         }
     }
 }

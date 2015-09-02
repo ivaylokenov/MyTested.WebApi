@@ -28,8 +28,9 @@
         public InternalServerErrorTestBuilder(
             ApiController controller,
             string actionName,
+            Exception caughtException,
             TInternalServerErrorResult actionResult)
-            : base(controller, actionName, actionResult)
+            : base(controller, actionName, caughtException, actionResult)
         {
         }
 
@@ -40,7 +41,7 @@
         public IExceptionTestBuilder WithException()
         {
             var exceptionResult = this.GetExceptionResult();
-            return new ExceptionTestBuilder(this.Controller, this.ActionName, exceptionResult.Exception);
+            return new ExceptionTestBuilder(this.Controller, this.ActionName, this.CaughtException, exceptionResult.Exception);
         }
 
         /// <summary>

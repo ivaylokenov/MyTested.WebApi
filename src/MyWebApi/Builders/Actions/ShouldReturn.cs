@@ -18,7 +18,11 @@
         public IModelDetailsTestBuilder<TActionResult> ShouldReturn(Type returnType)
         {
             this.ValidateActionReturnType(returnType, true, true);
-            return new ModelDetailsTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
+            return new ModelDetailsTestBuilder<TActionResult>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.ActionResult);
         }
 
         /// <summary>
@@ -29,7 +33,11 @@
         public IModelDetailsTestBuilder<TActionResult> ShouldReturn<TResponseModel>()
         {
             this.ValidateActionReturnType<TResponseModel>(true);
-            return new ModelDetailsTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
+            return new ModelDetailsTestBuilder<TActionResult>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.ActionResult);
         }
 
         private TReturnObject GetReturnObject<TReturnObject>()

@@ -33,7 +33,11 @@
             where TBadRequestResult : class
         {
             var badRequestResult = this.GetReturnObject<TBadRequestResult>();
-            return new BadRequestTestBuilder<TBadRequestResult>(this.Controller, this.ActionName, badRequestResult);
+            return new BadRequestTestBuilder<TBadRequestResult>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                badRequestResult);
         }
     }
 }

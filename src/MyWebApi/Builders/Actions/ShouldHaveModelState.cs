@@ -19,7 +19,7 @@
         /// <returns>Response model test builder.</returns>
         public IModelErrorTestBuilder<TRequestModel> ShouldHaveModelStateFor<TRequestModel>()
         {
-            return new ModelErrorTestBuilder<TRequestModel>(this.Controller, this.ActionName);
+            return new ModelErrorTestBuilder<TRequestModel>(this.Controller, this.ActionName, this.CaughtException);
         }
 
         /// <summary>

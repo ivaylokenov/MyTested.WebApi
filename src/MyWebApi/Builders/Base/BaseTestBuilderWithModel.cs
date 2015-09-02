@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.Base
 {
+    using System;
     using System.Web.Http;
     using Contracts.Base;
     using Utilities;
@@ -16,8 +17,8 @@
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="model">Model returned from action result.</param>
-        protected BaseTestBuilderWithModel(ApiController controller, string actionName, TModel model)
-            : base(controller, actionName)
+        protected BaseTestBuilderWithModel(ApiController controller, string actionName, Exception caughtException, TModel model)
+            : base(controller, actionName, caughtException)
         {
             this.Model = model;
         }

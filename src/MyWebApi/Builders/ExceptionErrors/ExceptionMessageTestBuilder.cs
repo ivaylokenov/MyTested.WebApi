@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.ExceptionErrors
 {
+    using System;
     using System.Web.Http;
     using Base;
     using Common.Extensions;
@@ -25,9 +26,10 @@
         public ExceptionMessageTestBuilder(
             ApiController controller,
             string actionName,
+            Exception caughtException,
             IAndExceptionTestBuilder exceptionTestBuilder,
             string actualMessage)
-            : base(controller, actionName)
+            : base(controller, actionName, caughtException)
         {
             this.exceptionTestBuilder = exceptionTestBuilder;
             this.actualMessage = actualMessage;

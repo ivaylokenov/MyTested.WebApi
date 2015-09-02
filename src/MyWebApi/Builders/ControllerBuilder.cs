@@ -13,6 +13,7 @@
     using Common.Identity;
     using Contracts;
     using Contracts.Actions;
+    using Contracts.Base;
     using Contracts.Controllers;
     using Exceptions;
     using Utilities;
@@ -144,8 +145,9 @@
         {
             var actionInfo = this.GetAndValidateActionResult(actionCall);
             return new ActionResultTestBuilder<TActionResult>(
-                this.Controller, 
+                this.Controller,
                 actionInfo.ActionName,
+                actionInfo.CaughtException,
                 actionInfo.ActionResult);
         }
 
@@ -161,6 +163,7 @@
             return new ActionResultTestBuilder<TActionResult>(
                 this.Controller,
                 actionInfo.ActionName,
+                actionInfo.CaughtException,
                 actionInfo.ActionResult.Result);
         }
 
@@ -172,8 +175,18 @@
         public IVoidActionResultTestBuilder Calling(Expression<Action<TController>> actionCall)
         {
             var actionName = this.GetAndValidateAction(actionCall);
-            actionCall.Compile().Invoke(this.Controller);
-            return new VoidActionResultTestBuilder(this.Controller, actionName);
+            Exception caughtException = null;
+
+            try
+            {
+                actionCall.Compile().Invoke(this.Controller);
+            }
+            catch (Exception exception)
+            {
+                caughtException = exception;
+            }
+
+            return new VoidActionResultTestBuilder(this.Controller, actionName, caughtException);
         }
 
         /// <summary>
@@ -185,7 +198,7 @@
         {
             var actionInfo = this.GetAndValidateActionResult(actionCall);
             actionInfo.ActionResult.Wait();
-            return new VoidActionResultTestBuilder(this.Controller, actionInfo.ActionName);
+            return new VoidActionResultTestBuilder(this.Controller, actionInfo.ActionName, actionInfo.CaughtException);
         }
 
         private void BuildControllerIfNotExists()
@@ -218,8 +231,19 @@
         private ActionInfo<TActionResult> GetAndValidateActionResult<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
         {
             var actionName = this.GetAndValidateAction(actionCall);
-            var actionResult = actionCall.Compile().Invoke(this.Controller);
-            return new ActionInfo<TActionResult>(actionName, actionResult);
+            var actionResult = default(TActionResult);
+            Exception caughtException = null;
+
+            try
+            {
+                actionResult = actionCall.Compile().Invoke(this.Controller);
+            }
+            catch (Exception exception)
+            {
+                caughtException = exception;
+            }
+
+            return new ActionInfo<TActionResult>(actionName, actionResult, caughtException);
         }
 
         private string GetAndValidateAction(LambdaExpression actionCall)

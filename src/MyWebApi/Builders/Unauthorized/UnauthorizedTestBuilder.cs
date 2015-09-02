@@ -28,8 +28,9 @@
         public UnauthorizedTestBuilder(
             ApiController controller,
             string actionName,
+            Exception caughtException,
             UnauthorizedResult actionResult)
-            : base(controller, actionName, actionResult)
+            : base(controller, actionName, caughtException, actionResult)
         {
         }
 

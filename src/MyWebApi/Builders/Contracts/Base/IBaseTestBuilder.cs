@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.Contracts.Base
 {
+    using System;
     using System.Web.Http;
 
     /// <summary>
@@ -18,5 +19,7 @@
         /// </summary>
         /// <returns>ASP.NET Web API controller on which the action is tested.</returns>
         ApiController AndProvideTheController();
+
+        Exception AndProvideTheCaughtException();
     }
 }

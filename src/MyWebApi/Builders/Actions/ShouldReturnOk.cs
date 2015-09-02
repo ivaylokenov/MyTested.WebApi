@@ -26,7 +26,11 @@
                 this.ValidateActionReturnType(typeof(OkNegotiatedContentResult<>), allowDifferentGenericTypeDefinitions: true);
             }
 
-            return new ResponseModelTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
+            return new ResponseModelTestBuilder<TActionResult>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.ActionResult);
         }
     }
 }

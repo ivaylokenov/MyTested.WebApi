@@ -33,11 +33,12 @@
         public ModelErrorDetailsTestBuilder(
             ApiController controller,
             string actionName,
+            Exception caughtException,
             TModel model,
             IAndModelErrorTestBuilder<TModel> modelErrorTestBuilder,
             string errorKey,
             IEnumerable<ModelError> aggregatedErrors)
-            : base(controller, actionName, model)
+            : base(controller, actionName, caughtException, model)
         {
             this.modelErrorTestBuilder = modelErrorTestBuilder;
             this.currentErrorKey = errorKey;
