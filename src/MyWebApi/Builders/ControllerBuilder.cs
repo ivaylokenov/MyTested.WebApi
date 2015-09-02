@@ -164,6 +164,11 @@
                 actionInfo.ActionResult.Result);
         }
 
+        /// <summary>
+        /// Indicates which action should be invoked and tested.
+        /// </summary>
+        /// <param name="actionCall">Method call expression indicating invoked action.</param>
+        /// <returns>Builder for testing void actions.</returns>
         public IVoidActionResultTestBuilder Calling(Expression<Action<TController>> actionCall)
         {
             var actionName = this.GetAndValidateAction(actionCall);
@@ -171,6 +176,11 @@
             return new VoidActionResultTestBuilder(this.Controller, actionName);
         }
 
+        /// <summary>
+        /// Indicates which action should be invoked and tested.
+        /// </summary>
+        /// <param name="actionCall">Method call expression indicating invoked action.</param>
+        /// <returns>Builder for testing void actions.</returns>
         public IVoidActionResultTestBuilder CallingAsync(Expression<Func<TController, Task>> actionCall)
         {
             var actionInfo = this.GetAndValidateActionResult(actionCall);
