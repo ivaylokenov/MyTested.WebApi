@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
     using System.Web.Http;
     using Actions;
+    using Common;
     using Common.Extensions;
     using Common.Identity;
     using Contracts;
@@ -141,10 +142,11 @@
         /// <returns>Builder for testing the action result.</returns>
         public IActionResultTestBuilder<TActionResult> Calling<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
         {
-            var actionName = ExpressionParser.GetMethodName(actionCall);
-            this.ValidateModelState(actionCall);
-            var actionResult = actionCall.Compile().Invoke(this.Controller);
-            return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
+            var actionInfo = this.GetAndValidateActionResult(actionCall);
+            return new ActionResultTestBuilder<TActionResult>(
+                this.Controller, 
+                actionInfo.ActionName,
+                actionInfo.ActionResult);
         }
 
         /// <summary>
@@ -155,10 +157,25 @@
         /// <returns>Builder for testing the action result.</returns>
         public IActionResultTestBuilder<TActionResult> CallingAsync<TActionResult>(Expression<Func<TController, Task<TActionResult>>> actionCall)
         {
-            var actionName = ExpressionParser.GetMethodName(actionCall);
-            this.ValidateModelState(actionCall);
-            var actionResult = actionCall.Compile().Invoke(this.Controller).Result;
-            return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
+            var actionInfo = this.GetAndValidateActionResult(actionCall);
+            return new ActionResultTestBuilder<TActionResult>(
+                this.Controller,
+                actionInfo.ActionName,
+                actionInfo.ActionResult.Result);
+        }
+
+        public IVoidActionResultTestBuilder Calling(Expression<Action<TController>> actionCall)
+        {
+            var actionName = this.GetAndValidateAction(actionCall);
+            actionCall.Compile().Invoke(this.Controller);
+            return new VoidActionResultTestBuilder(this.Controller, actionName);
+        }
+
+        public IVoidActionResultTestBuilder CallingAsync(Expression<Func<TController, Task>> actionCall)
+        {
+            var actionInfo = this.GetAndValidateActionResult(actionCall);
+            actionInfo.ActionResult.RunSynchronously();
+            return new VoidActionResultTestBuilder(this.Controller, actionInfo.ActionName);
         }
 
         private void BuildControllerIfNotExists()
@@ -188,6 +205,19 @@
             }
         }
 
+        private ActionInfo<TActionResult> GetAndValidateActionResult<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
+        {
+            var actionName = this.GetAndValidateAction(actionCall);
+            var actionResult = actionCall.Compile().Invoke(this.Controller);
+            return new ActionInfo<TActionResult>(actionName, actionResult);
+        }
+
+        private string GetAndValidateAction(LambdaExpression actionCall)
+        {
+            this.ValidateModelState(actionCall);
+            return ExpressionParser.GetMethodName(actionCall);
+        }
+
         private void PrepareController()
         {
             this.controller.Request = new HttpRequestMessage();
@@ -195,7 +225,7 @@
             this.controller.User = MockedIPrinciple.CreateUnauthenticated();
         }
 
-        private void ValidateModelState<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
+        private void ValidateModelState(LambdaExpression actionCall)
         {
             var arguments = ExpressionParser.ResolveMethodArguments(actionCall);
             foreach (var argument in arguments)

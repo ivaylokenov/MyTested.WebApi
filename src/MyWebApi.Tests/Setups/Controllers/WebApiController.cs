@@ -60,6 +60,10 @@
 
         public RequestModel InjectedRequestModel { get; private set; }
 
+        public void EmptyAction()
+        {
+        }
+
         public IHttpActionResult OkResultAction()
         {
             return this.Ok();
