@@ -201,6 +201,22 @@
         }
 
         [Test]
+        public void AndAlsoShouldContinueTheNormalExecutionFlowOfTestBuilders()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor(new RequestModel())
+                .AndAlso()
+                .WithResolvedDependencyFor(new AnotherInjectedService())
+                .AndAlso()
+                .WithResolvedDependencyFor(new InjectedService())
+                .AndAlso()
+                .WithAuthenticatedUser()
+                .Calling(c => c.AuthorizedAction())
+                .ShouldReturnOk();
+        }
+
+        [Test]
         public void WithResolvedDependenciesShouldWorkCorrectWithCollectionOfObjects()
         {
             MyWebApi

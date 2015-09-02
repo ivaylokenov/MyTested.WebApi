@@ -69,6 +69,7 @@
     <Compile Include="Builders\Contracts\And\IAndTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Controllers\IAndControllerBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAndExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionTestBuilder.cs" />
@@ -82,7 +83,7 @@
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Contracts\Unauthorized\IChallengesBuilder.cs" />
-    <Compile Include="Builders\Contracts\IControllerBuilder.cs" />
+    <Compile Include="Builders\Contracts\Controllers\IControllerBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IActionResultTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IModelErrorDetailsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IModelErrorTestBuilder.cs" />

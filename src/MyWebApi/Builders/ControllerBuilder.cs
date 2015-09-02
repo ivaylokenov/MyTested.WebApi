@@ -12,6 +12,7 @@
     using Common.Identity;
     using Contracts;
     using Contracts.Actions;
+    using Contracts.Controllers;
     using Exceptions;
     using Utilities;
 
@@ -19,7 +20,7 @@
     /// Used for building the action which will be tested.
     /// </summary>
     /// <typeparam name="TController">Class inheriting ASP.NET Web API controller.</typeparam>
-    public class ControllerBuilder<TController> : IControllerBuilder<TController>
+    public class ControllerBuilder<TController> : IAndControllerBuilder<TController>
         where TController : ApiController
     {
         private readonly IDictionary<Type, object> aggregatedDependencies;
@@ -62,7 +63,7 @@
         /// <typeparam name="TDependency">Type of dependency to resolve.</typeparam>
         /// <param name="dependency">Instance of dependency to inject into constructor.</param>
         /// <returns>The same controller builder.</returns>
-        public IControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency)
+        public IAndControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency)
         {
             var typeOfDependency = dependency.GetType();
             if (this.aggregatedDependencies.ContainsKey(typeOfDependency))
@@ -83,7 +84,7 @@
         /// </summary>
         /// <param name="dependencies">Collection of dependencies to inject into constructor.</param>
         /// <returns>The same controller builder.</returns>
-        public IControllerBuilder<TController> WithResolvedDependencies(IEnumerable<object> dependencies)
+        public IAndControllerBuilder<TController> WithResolvedDependencies(IEnumerable<object> dependencies)
         {
             dependencies.ForEach(d => this.WithResolvedDependencyFor(d));
             return this;
@@ -94,7 +95,7 @@
         /// </summary>
         /// <param name="dependencies">Dependencies to inject into constructor.</param>
         /// <returns>The same controller builder.</returns>
-        public IControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies)
+        public IAndControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies)
         {
             dependencies.ForEach(d => this.WithResolvedDependencyFor(d));
             return this;
@@ -104,7 +105,7 @@
         /// Sets default authenticated user to the built controller with "TestUser" username.
         /// </summary>
         /// <returns>The same controller builder.</returns>
-        public IControllerBuilder<TController> WithAuthenticatedUser()
+        public IAndControllerBuilder<TController> WithAuthenticatedUser()
         {
             this.Controller.User = MockedIPrinciple.CreateDefaultAuthenticated();
             return this;
@@ -115,11 +116,20 @@
         /// </summary>
         /// <param name="userBuilder">User builder to create mocked user object.</param>
         /// <returns>The same controller builder.</returns>
-        public IControllerBuilder<TController> WithAuthenticatedUser(Action<IUserBuilder> userBuilder)
+        public IAndControllerBuilder<TController> WithAuthenticatedUser(Action<IUserBuilder> userBuilder)
         {
             var newUserBuilder = new UserBuilder();
             userBuilder(newUserBuilder);
             this.Controller.User = newUserBuilder.GetUser();
+            return this;
+        }
+
+        /// <summary>
+        /// AndAlso method for better readability when building controller instance.
+        /// </summary>
+        /// <returns>The same controller builder.</returns>
+        public IAndControllerBuilder<TController> AndAlso()
+        {
             return this;
         }
 

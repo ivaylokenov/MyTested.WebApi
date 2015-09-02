@@ -18,6 +18,7 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.WithResolvedDependencyFor<IInjectedService>(mockedInjectedService)
+	.AndAlso() // AndAlso method is not necessary but provides better readability (and it's cool)
 	.WithResolvedDependencyFor<IAnotherInjectedService>(anotherMockedInjectedService);
 	
 // instantiates controller with provided dependencies all at once
@@ -120,7 +121,7 @@ MyWebApi
 	.Calling(c => c.SomeAction(requestModel))
 	.ShouldHaveModelStateFor<RequestModel>()
 	.ContainingModelStateError("propertyName")
-	.AndAlso() // AndAlso method is not necessary but provides better readability (and it's cool)
+	.AndAlso() // AndAlso method is not necessary
 	.ContainingNoModelStateError("anotherPropertyName");
 	
 // tests whether model state error exists by using lambda expression
