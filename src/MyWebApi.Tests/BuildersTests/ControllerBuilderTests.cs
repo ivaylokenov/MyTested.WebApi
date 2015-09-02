@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Web.Http.Results;
     using Builders.Contracts.Actions;
+    using Builders.Contracts.Base;
     using Exceptions;
     using NUnit.Framework;
     using Setups;
@@ -22,7 +23,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultAction());
 
-            CheckActionResultTestBuilder(actionResultTestBuilder, "OkResultAction");
+            this.CheckActionResultTestBuilder(actionResultTestBuilder, "OkResultAction");
         }
 
         [Test]
@@ -32,7 +33,27 @@
                 .Controller<WebApiController>()
                 .CallingAsync(c => c.AsyncOkResultAction());
 
-            CheckActionResultTestBuilder(actionResultTestBuilder, "AsyncOkResultAction");
+            this.CheckActionResultTestBuilder(actionResultTestBuilder, "AsyncOkResultAction");
+        }
+
+        [Test]
+        public void CallingShouldPopulateCorrectActionNameWithNormalVoidActionCall()
+        {
+            var voidActionResultTestBuilder = MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.EmptyAction());
+
+            this.CheckActionName(voidActionResultTestBuilder, "EmptyAction");
+        }
+
+        [Test]
+        public void CallingShouldPopulateCorrectActionNameWithTaskActionCall()
+        {
+            var voidActionResultTestBuilder = MyWebApi
+                .Controller<WebApiController>()
+                .CallingAsync(c => c.EmptyActionAsync());
+
+            this.CheckActionName(voidActionResultTestBuilder, "EmptyActionAsync");
         }
 
         [Test]
@@ -272,14 +293,19 @@
             IActionResultTestBuilder<TActionResult> actionResultTestBuilder,
             string expectedActionName)
         {
-            var actionName = actionResultTestBuilder.AndProvideTheActionName();
+            this.CheckActionName(actionResultTestBuilder, expectedActionName);
             var actionResult = actionResultTestBuilder.AndProvideTheActionResult();
 
-            Assert.IsNotNullOrEmpty(actionName);
             Assert.IsNotNull(actionResult);
-
-            Assert.AreEqual(expectedActionName, actionName);
             Assert.IsAssignableFrom<OkResult>(actionResult);
+        }
+
+        private void CheckActionName(IBaseTestBuilder testBuilder, string expectedActionName)
+        {
+            var actionName = testBuilder.AndProvideTheActionName();
+
+            Assert.IsNotNullOrEmpty(actionName);
+            Assert.AreEqual(expectedActionName, actionName);
         }
     }
 }

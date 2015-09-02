@@ -4,14 +4,15 @@
     using Setups.Controllers;
 
     [TestFixture]
-    public class ShouldReturnEmptyTests
+    public class VoidActionResultTestBuilderTests
     {
         [Test]
-        public void Should()
+        public void ShouldReturnEmptyShouldNotThrowExceptionWithNormalVoidAction()
         {
             MyWebApi
                 .Controller<WebApiController>()
-                .Calling(c => c.EmptyAction());
+                .Calling(c => c.EmptyAction())
+                .ShouldReturnEmpty();
         }
     }
 }

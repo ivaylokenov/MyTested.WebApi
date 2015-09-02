@@ -184,7 +184,7 @@
         public IVoidActionResultTestBuilder CallingAsync(Expression<Func<TController, Task>> actionCall)
         {
             var actionInfo = this.GetAndValidateActionResult(actionCall);
-            actionInfo.ActionResult.RunSynchronously();
+            actionInfo.ActionResult.Wait();
             return new VoidActionResultTestBuilder(this.Controller, actionInfo.ActionName);
         }
 

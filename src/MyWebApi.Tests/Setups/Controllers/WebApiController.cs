@@ -64,6 +64,11 @@
         {
         }
 
+        public async Task EmptyActionAsync()
+        {
+            await Task.Run(() => { });
+        }
+
         public IHttpActionResult OkResultAction()
         {
             return this.Ok();

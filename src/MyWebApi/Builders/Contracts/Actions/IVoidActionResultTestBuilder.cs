@@ -5,7 +5,7 @@
     /// <summary>
     /// Used for testing void actions.
     /// </summary>
-    public interface IVoidActionResultTestBuilder
+    public interface IVoidActionResultTestBuilder : IBaseTestBuilder
     {
         /// <summary>
         /// Tests whether action result is void.
