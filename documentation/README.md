@@ -174,6 +174,27 @@ MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
 	.ShouldReturn(typeof(IList<>)); 
+	
+// tests whether the action returns model
+// passing certain assertions
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn<ResponseModel>();
+	.Passing(m =>
+	{
+		Assert.AreEqual(1, m.Id);
+		Assert.AreEqual("Some property value", m.SomeProperty);
+	});
+	
+// tests whether the action returns model
+// passing a predicate
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnOk()
+	.WithResponseModelOfType<ResponseModel>()
+	.Passing(m => m.Id == 1);
 ```
 
 #### Ok result
@@ -515,6 +536,16 @@ MyWebApi
 	.WithMessage().EndingWith("message")
 	.AndAlso()
 	.WithMessage().Containing("n m");
+```
+
+#### EmptyContent (void) result
+```c#
+// tests whether the action does not return anything (204 No Content)
+// and does not throw exception
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnEmpty();
 ```
 
 ### AndProvide... methods

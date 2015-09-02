@@ -60,6 +60,15 @@
 
         public RequestModel InjectedRequestModel { get; private set; }
 
+        public void EmptyAction()
+        {
+        }
+
+        public async Task EmptyActionAsync()
+        {
+            await Task.Run(() => { });
+        }
+
         public IHttpActionResult OkResultAction()
         {
             return this.Ok();

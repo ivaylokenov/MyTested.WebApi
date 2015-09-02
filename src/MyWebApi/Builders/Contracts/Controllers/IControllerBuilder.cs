@@ -70,5 +70,19 @@
         /// <param name="actionCall">Method call expression indicating invoked action.</param>
         /// <returns>Builder for testing the action result.</returns>
         IActionResultTestBuilder<TActionResult> CallingAsync<TActionResult>(Expression<Func<TController, Task<TActionResult>>> actionCall);
+
+        /// <summary>
+        /// Indicates which action should be invoked and tested.
+        /// </summary>
+        /// <param name="actionCall">Method call expression indicating invoked action.</param>
+        /// <returns>Builder for testing void actions.</returns>
+        IVoidActionResultTestBuilder Calling(Expression<Action<TController>> actionCall);
+
+        /// <summary>
+        /// Indicates which action should be invoked and tested.
+        /// </summary>
+        /// <param name="actionCall">Method call expression indicating invoked action.</param>
+        /// <returns>Builder for testing void actions.</returns>
+        IVoidActionResultTestBuilder CallingAsync(Expression<Func<TController, Task>> actionCall);
     }
 }

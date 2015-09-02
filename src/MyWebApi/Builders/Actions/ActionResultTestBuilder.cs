@@ -9,7 +9,7 @@
     using Utilities;
 
     /// <summary>
-    /// Used for testing the action result type of test.
+    /// Used for building the action result which will be tested.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ActionResultTestBuilder<TActionResult>
