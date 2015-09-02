@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Tests.Setups
+﻿namespace MyWebApi.Tests.Setups.Controllers
 {
     using System;
     using System.Collections.Generic;

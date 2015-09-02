@@ -79,6 +79,7 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldReturnTests.cs" />
     <Compile Include="BuildersTests\UnauthorizedTests\AndUnauthorizedTestBuilderTests.cs" />
     <Compile Include="BuildersTests\UnauthorizedTests\UnauthorizedResultTestBuilderTests.cs" />
+    <Compile Include="Setups\Controllers\NoParameterlessConstructorController.cs" />
     <Compile Include="Setups\Services\AnotherInjectedService.cs" />
     <Compile Include="Setups\Services\IAnotherInjectedService.cs" />
     <Compile Include="Setups\Services\IInjectedService.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="Setups\Models\RequestModel.cs" />
     <Compile Include="Setups\Models\ResponseModel.cs" />
     <Compile Include="Setups\TestObjectFactory.cs" />
-    <Compile Include="Setups\WebApiController.cs" />
+    <Compile Include="Setups\Controllers\WebApiController.cs" />
     <Compile Include="MyWebApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtilitiesTests\ExpressionParserTests.cs" />

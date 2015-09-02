@@ -8,6 +8,7 @@
     using Common;
     using NUnit.Framework;
     using Setups;
+    using Setups.Controllers;
     using Setups.Models;
     using Utilities;
 

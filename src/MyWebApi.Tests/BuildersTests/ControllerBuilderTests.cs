@@ -8,6 +8,7 @@
     using Exceptions;
     using NUnit.Framework;
     using Setups;
+    using Setups.Controllers;
     using Setups.Models;
     using Setups.Services;
 
@@ -238,7 +239,7 @@
         [Test]
         [ExpectedException(
             typeof(UnresolvedDependenciesException),
-            ExpectedMessage = "WebApiController controller could not be instantiated because it contains no constructor taking RequestModel, AnotherInjectedService, InjectedService, ResponseModel as parameters.")]
+            ExpectedMessage = "WebApiController could not be instantiated because it contains no constructor taking RequestModel, AnotherInjectedService, InjectedService, ResponseModel as parameters.")]
         public void WithResolvedDependencyForShouldThrowExceptionWhenNoConstructorExistsForDependencies()
         {
             MyWebApi

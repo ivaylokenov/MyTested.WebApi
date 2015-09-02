@@ -4,6 +4,7 @@
     using Exceptions;
     using NUnit.Framework;
     using Setups;
+    using Setups.Controllers;
 
     [TestFixture]
     public class ExceptionMessageTestBuilderTests

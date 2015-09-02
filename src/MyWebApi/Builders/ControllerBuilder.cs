@@ -162,10 +162,12 @@
                         .Keys
                         .Select(k => k.ToFriendlyTypeName());
 
+                    var joinedFriendlyDependencies = string.Join(", ", friendlyDependanciesNames);
+
                     throw new UnresolvedDependenciesException(string.Format(
-                        "{0} controller could not be instantiated because it contains no constructor taking {1} as parameters.",
+                        "{0} could not be instantiated because it contains no constructor taking {1} parameters.",
                         typeof(TController).ToFriendlyTypeName(),
-                        string.Join(", ", friendlyDependanciesNames)));
+                        this.aggregatedDependencies.Count == 0 ? "no" : string.Format("{0} as", joinedFriendlyDependencies)));
                 }
             }
 
