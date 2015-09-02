@@ -14,11 +14,11 @@
         /// Tests whether action result is of the provided type.
         /// </summary>
         /// <param name="returnType">Expected response type.</param>
-        /// <returns>Response model test builder.</returns>
-        public IModelErrorTestBuilder ShouldReturn(Type returnType)
+        /// <returns>Response model details test builder.</returns>
+        public IModelDetailsTestBuilder<TActionResult> ShouldReturn(Type returnType)
         {
             this.ValidateActionReturnType(returnType, true, true);
-            return new ModelErrorTestBuilder(this.Controller, this.ActionName);
+            return new ModelDetailsTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
         }
 
         /// <summary>
@@ -26,10 +26,10 @@
         /// </summary>
         /// <typeparam name="TResponseModel">Expected response type.</typeparam>
         /// <returns>Response model test builder.</returns>
-        public IModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>()
+        public IModelDetailsTestBuilder<TActionResult> ShouldReturn<TResponseModel>()
         {
             this.ValidateActionReturnType<TResponseModel>(true);
-            return new ModelErrorTestBuilder<TResponseModel>(this.Controller, this.ActionName);
+            return new ModelDetailsTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
         }
 
         private TReturnObject GetReturnObject<TReturnObject>()

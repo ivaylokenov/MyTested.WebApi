@@ -13,7 +13,7 @@
     /// Used for building the action result which will be tested.
     /// </summary>
     /// <typeparam name="TActionResult">Type of action result to be tested.</typeparam>
-    public interface IActionResultTestBuilder<out TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
+    public interface IActionResultTestBuilder<TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
     {
         /// <summary>
         /// Provides way to continue test case with specific model state errors.
@@ -87,14 +87,14 @@
         /// Tests whether action result is of the provided generic type.
         /// </summary>
         /// <typeparam name="TResponseModel">Expected response type.</typeparam>
-        /// <returns>Response model test builder.</returns>
-        IModelErrorTestBuilder<TResponseModel> ShouldReturn<TResponseModel>();
+        /// <returns>Response model details test builder.</returns>
+        IModelDetailsTestBuilder<TActionResult> ShouldReturn<TResponseModel>();
 
         /// <summary>
         /// Tests whether action result is of the provided type.
         /// </summary>
         /// <param name="returnType">Expected return type.</param>
-        /// <returns>Response model test builder.</returns>
-        IModelErrorTestBuilder ShouldReturn(Type returnType);
+        /// <returns>Response model details test builder.</returns>
+        IModelDetailsTestBuilder<TActionResult> ShouldReturn(Type returnType);
     }
 }

@@ -89,7 +89,7 @@
     <Compile Include="Builders\Contracts\Models\IModelErrorTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IModelErrorTestBuilder{TModel}.cs" />
     <Compile Include="Builders\Contracts\Models\IResponseModelTestBuilder.cs" />
-    <Compile Include="Builders\Contracts\Models\IResponseModelDetailsTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Models\IModelDetailsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Unauthorized\IUnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IUserBuilder.cs" />
     <Compile Include="Builders\ControllerBuilder.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionTestBuilder.cs" />
     <Compile Include="Builders\InternalServerErrors\InternalServerErrorTestBuilder.cs" />
-    <Compile Include="Builders\Models\ResponseModelDetailsTestBuilder.cs" />
+    <Compile Include="Builders\Models\ModelDetailsTestBuilder.cs" />
     <Compile Include="Builders\Models\ModelErrorDetailsTestBuilder.cs" />
     <Compile Include="Builders\Models\ModelErrorTestBuilder.cs" />
     <Compile Include="Builders\Models\ModelErrorTestBuilder{TModel}.cs" />

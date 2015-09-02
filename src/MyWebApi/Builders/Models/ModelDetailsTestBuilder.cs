@@ -11,16 +11,16 @@
     /// Used for testing the response model members.
     /// </summary>
     /// <typeparam name="TResponseModel">Response model from invoked action in ASP.NET Web API controller.</typeparam>
-    public class ResponseModelDetailsTestBuilder<TResponseModel>
-        : ModelErrorTestBuilder<TResponseModel>, IResponseModelDetailsTestBuilder<TResponseModel>
+    public class ModelDetailsTestBuilder<TResponseModel>
+        : ModelErrorTestBuilder<TResponseModel>, IModelDetailsTestBuilder<TResponseModel>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResponseModelDetailsTestBuilder{TResponseModel}" /> class.
+        /// Initializes a new instance of the <see cref="ModelDetailsTestBuilder{TResponseModel}" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="responseModel">Response model from invoked action.</param>
-        public ResponseModelDetailsTestBuilder(ApiController controller, string actionName, TResponseModel responseModel)
+        public ModelDetailsTestBuilder(ApiController controller, string actionName, TResponseModel responseModel)
             : base(controller, actionName, responseModel)
         {
         }

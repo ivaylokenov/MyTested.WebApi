@@ -6,7 +6,7 @@
     /// Used for testing the response model members.
     /// </summary>
     /// <typeparam name="TResponseModel">Response model from invoked action in ASP.NET Web API controller.</typeparam>
-    public interface IResponseModelDetailsTestBuilder<TResponseModel> : IModelErrorTestBuilder<TResponseModel>
+    public interface IModelDetailsTestBuilder<TResponseModel> : IModelErrorTestBuilder<TResponseModel>
     {
         /// <summary>
         /// Tests whether the returned response model from the invoked action passes given assertions.

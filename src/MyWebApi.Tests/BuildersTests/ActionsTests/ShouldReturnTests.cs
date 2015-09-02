@@ -83,6 +83,39 @@
         }
 
         [Test]
+        public void ShouldReturnShouldWorkWithModelDetailsTestsWithTypeOf()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.GenericAction())
+                .ShouldReturn(typeof(ICollection<>))
+                .Passing(c => c.Count == 2);
+        }
+
+        [Test]
+        public void ShouldReturnShouldWorkWithModelDetailsTestsWithGenericDefinition()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.GenericAction())
+                .ShouldReturn<ICollection<ResponseModel>>()
+                .Passing(c => c.Count == 2);
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ResponseModelAssertionException),
+            ExpectedMessage = "When calling GenericAction action in WebApiController expected response model ICollection<ResponseModel> to pass the given condition, but it failed.")]
+        public void ShouldReturnShouldThrowExceptionWithModelDetailsTestsWithGenericDefinitionAndIncorrectAssertion()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.GenericAction())
+                .ShouldReturn<ICollection<ResponseModel>>()
+                .Passing(c => c.Count == 1);
+        }
+
+        [Test]
         [ExpectedException(
             typeof(HttpActionResultAssertionException),
             ExpectedMessage = "When calling GenericAction action in WebApiController expected action result to be ResponseModel, but instead received List<ResponseModel>.")]

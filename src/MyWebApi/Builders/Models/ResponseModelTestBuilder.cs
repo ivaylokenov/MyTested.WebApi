@@ -50,7 +50,7 @@
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <returns>Builder for testing the response model errors.</returns>
-        public IResponseModelDetailsTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>()
+        public IModelDetailsTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>()
         {
             var actionResultType = this.ActionResult.GetType();
             var negotiatedContentResultType = typeof(OkNegotiatedContentResult<TResponseModel>);
@@ -81,7 +81,7 @@
                 }
             }
 
-            return new ResponseModelDetailsTestBuilder<TResponseModel>(this.Controller, this.ActionName, this.GetActualModel<TResponseModel>());
+            return new ModelDetailsTestBuilder<TResponseModel>(this.Controller, this.ActionName, this.GetActualModel<TResponseModel>());
         }
 
         /// <summary>
@@ -90,7 +90,7 @@
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="expectedModel">Expected model to be returned.</param>
         /// <returns>Builder for testing the response model errors.</returns>
-        public IResponseModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
+        public IModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
             where TResponseModel : class
         {
             this.WithResponseModelOfType<TResponseModel>();
@@ -105,7 +105,7 @@
                             typeof(TResponseModel).ToFriendlyTypeName()));
             }
 
-            return new ResponseModelDetailsTestBuilder<TResponseModel>(this.Controller, this.ActionName, actualModel);
+            return new ModelDetailsTestBuilder<TResponseModel>(this.Controller, this.ActionName, actualModel);
         }
     }
 }
