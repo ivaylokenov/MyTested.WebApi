@@ -74,6 +74,26 @@
             return this.Ok();
         }
 
+        public void EmptyActionWithException()
+        {
+            this.ThrowNewNullReferenceException();
+        }
+
+        public IHttpActionResult ActionWithException()
+        {
+            throw new NullReferenceException("Test exception message");
+        }
+
+        public async Task EmptyActionWithExceptionAsync()
+        {
+            await Task.Run(() => this.ThrowNewNullReferenceException());
+        }
+
+        public async Task<IHttpActionResult> ActionWithExceptionAsync()
+        {
+            return await Task.Run(() => this.Ok());
+        }
+
         public IHttpActionResult OkResultActionWithRequestBody(int id, RequestModel model)
         {
             return this.Ok(this.responseModel);
@@ -180,12 +200,14 @@
         {
             try
             {
-                throw new NullReferenceException("Test exception message");
+                this.ThrowNewNullReferenceException();
             }
             catch (NullReferenceException ex)
             {
                 return this.InternalServerError(ex);
             }
+
+            return this.Ok();
         }
 
         public bool GenericStructAction()
@@ -196,6 +218,11 @@
         public ICollection<ResponseModel> GenericAction()
         {
             return this.responseModel;
+        }
+
+        private void ThrowNewNullReferenceException()
+        {
+            throw new NullReferenceException("Test exception message");
         }
     }
 }
