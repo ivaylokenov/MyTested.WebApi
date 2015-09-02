@@ -538,6 +538,16 @@ MyWebApi
 	.WithMessage().Containing("n m");
 ```
 
+#### EmptyContent (void) result
+```c#
+// tests whether the action does not return anything (204 No Content)
+// and does not throw exception
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturnEmpty();
+```
+
 ### AndProvide... methods
 
 You can get controller, action, action result and response model information where applicable by using AndProvide... methods.
