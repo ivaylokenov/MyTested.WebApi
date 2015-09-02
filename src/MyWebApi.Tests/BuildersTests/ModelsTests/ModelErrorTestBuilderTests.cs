@@ -18,7 +18,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestBody))
                 .ShouldReturnOk()
-                .WithResponseModelOfType<List<ResponseModel>>()
+                .WithResponseModelOfType<ICollection<ResponseModel>>()
                 .ContainingNoModelStateErrors();
         }
 
@@ -34,7 +34,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestBodyWithErrors))
                 .ShouldReturnOk()
-                .WithResponseModelOfType<List<ResponseModel>>()
+                .WithResponseModelOfType<ICollection<ResponseModel>>()
                 .ContainingNoModelStateErrors();
         }
 
@@ -210,7 +210,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.CustomModelStateError())
                 .ShouldReturnOk()
-                .WithResponseModelOfType<List<ResponseModel>>()
+                .WithResponseModelOfType<ICollection<ResponseModel>>()
                 .ContainingModelStateError("Test")
                 .AndProvideTheModel();
 
@@ -226,7 +226,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.CustomModelStateError())
                 .ShouldReturnOk()
-                .WithResponseModelOfType<List<ResponseModel>>()
+                .WithResponseModelOfType<ICollection<ResponseModel>>()
                 .ContainingModelStateError("Test").ThatEquals("Test error")
                 .AndProvideTheModel();
 

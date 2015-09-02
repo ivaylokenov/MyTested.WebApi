@@ -66,8 +66,9 @@
                     var expectedResponseDataType = typeof(TResponseModel);
 
                     var responseDataTypeIsAssignable = Reflection.AreAssignable(
-                        actualResponseDataType,
-                        expectedResponseDataType);
+                            expectedResponseDataType,
+                            actualResponseDataType);
+
                     if (!responseDataTypeIsAssignable)
                     {
                         throw new ResponseModelAssertionException(string.Format(

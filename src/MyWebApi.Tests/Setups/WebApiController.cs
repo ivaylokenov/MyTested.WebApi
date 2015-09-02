@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using System.Net.Http.Headers;
     using System.Threading.Tasks;
@@ -79,9 +80,14 @@
             return this.Ok(model);
         }
 
-        public IHttpActionResult OkResultWithResponse()
+        public IHttpActionResult OkResultWithInterfaceResponse()
         {
             return this.Ok(this.responseModel);
+        }
+
+        public IHttpActionResult OkResultWithResponse()
+        {
+            return this.Ok(this.responseModel.ToList());
         }
 
         public async Task<OkResult> AsyncOkResultAction()
