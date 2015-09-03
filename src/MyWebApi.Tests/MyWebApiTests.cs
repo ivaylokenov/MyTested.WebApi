@@ -48,7 +48,8 @@
             MyWebApi
                 .Controller<NoParameterlessConstructorController>()
                 .Calling(c => c.OkAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
     }
 }

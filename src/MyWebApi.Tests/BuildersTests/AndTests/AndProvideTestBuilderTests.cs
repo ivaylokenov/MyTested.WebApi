@@ -14,7 +14,8 @@
             var controller = MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage()
                 .AndProvideTheController();
 
@@ -27,7 +28,8 @@
             var actionName = MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage()
                 .AndProvideTheActionName();
 
@@ -40,7 +42,8 @@
             var actionResult = MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.StatusCodeAction())
-                .ShouldReturnStatusCode()
+                .ShouldReturn()
+                .StatusCode()
                 .AndProvideTheActionResult();
 
             Assert.IsNotNull(actionResult);

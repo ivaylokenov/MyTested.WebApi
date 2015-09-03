@@ -1,9 +1,9 @@
-﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
+﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
 {
     using System.Net;
     using Exceptions;
-    using NUnit.Framework;
     using Setups.Controllers;
+    using NUnit.Framework;
 
     [TestFixture]
     public class ShouldReturnStatusCodeTests
@@ -14,7 +14,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.StatusCodeAction())
-                .ShouldReturnStatusCode();
+                .ShouldReturn()
+                .StatusCode();
         }
 
         [Test]
@@ -26,7 +27,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestAction())
-                .ShouldReturnStatusCode();
+                .ShouldReturn()
+                .StatusCode();
         }
 
         [Test]
@@ -35,7 +37,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.StatusCodeAction())
-                .ShouldReturnStatusCode(HttpStatusCode.Found);
+                .ShouldReturn()
+                .StatusCode(HttpStatusCode.Found);
         }
 
         [Test]
@@ -47,7 +50,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.StatusCodeAction())
-                .ShouldReturnStatusCode(HttpStatusCode.Created);
+                .ShouldReturn()
+                .StatusCode(HttpStatusCode.Created);
         }
 
         [Test]
@@ -59,7 +63,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestAction())
-                .ShouldReturnStatusCode(HttpStatusCode.Created);
+                .ShouldReturn()
+                .StatusCode(HttpStatusCode.Created);
         }
     }
 }

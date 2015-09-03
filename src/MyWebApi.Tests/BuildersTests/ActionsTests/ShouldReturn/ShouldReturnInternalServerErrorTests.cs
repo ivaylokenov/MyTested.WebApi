@@ -1,8 +1,8 @@
-﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
+﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
 {
     using Exceptions;
-    using NUnit.Framework;
     using Setups.Controllers;
+    using NUnit.Framework;
 
     [TestFixture]
     public class ShouldReturnInternalServerErrorTests
@@ -13,7 +13,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorAction())
-                .ShouldReturnInternalServerError();
+                .ShouldReturn()
+                .InternalServerError();
         }
 
         [Test]
@@ -22,7 +23,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError();
+                .ShouldReturn()
+                .InternalServerError();
         }
 
         [Test]
@@ -34,7 +36,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestAction())
-                .ShouldReturnInternalServerError();
+                .ShouldReturn()
+                .InternalServerError();
         }
     }
 }

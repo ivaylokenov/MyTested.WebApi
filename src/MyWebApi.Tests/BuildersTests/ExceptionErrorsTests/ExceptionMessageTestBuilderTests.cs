@@ -14,7 +14,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
@@ -27,7 +28,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .WithMessage().ThatEquals("Test exception message")
                 .AndAlso()
@@ -43,7 +45,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
@@ -56,7 +59,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
@@ -72,7 +76,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
@@ -85,7 +90,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
@@ -101,7 +107,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
@@ -114,7 +121,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()
@@ -130,7 +138,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()

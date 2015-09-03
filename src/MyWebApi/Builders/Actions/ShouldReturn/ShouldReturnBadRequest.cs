@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Actions
+﻿namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Web.Http.Results;
     using BadRequests;
@@ -8,13 +8,13 @@
     /// Class containing methods for testing BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public partial class ActionResultTestBuilder<TActionResult>
+    public partial class ShouldReturnTestBuilder<TActionResult>
     {
         /// <summary>
         /// Tests whether action result is BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.
         /// </summary>
         /// <returns>Bad request test builder.</returns>
-        public IBadRequestTestBuilder ShouldReturnBadRequest()
+        public IBadRequestTestBuilder BadRequest()
         {
             if (this.ActionResult as BadRequestErrorMessageResult != null)
             {

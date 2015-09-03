@@ -18,7 +18,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestBody))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ICollection<ResponseModel>>()
                 .ContainingNoModelStateErrors();
         }
@@ -34,7 +35,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestBodyWithErrors))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ICollection<ResponseModel>>()
                 .ContainingNoModelStateErrors();
         }
@@ -47,7 +49,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestBodyWithErrors))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModel(requestBodyWithErrors)
                 .ContainingModelStateError("RequiredString");
         }
@@ -63,7 +66,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestBody))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModel(requestBody)
                 .ContainingModelStateError("Name");
         }
@@ -76,7 +80,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestBodyWithErrors))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModel(requestBodyWithErrors)
                 .ContainingModelStateErrorFor(r => r.RequiredString);
         }
@@ -92,7 +97,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestBody))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModel(requestBody)
                 .ContainingModelStateErrorFor(r => r.RequiredString);
         }
@@ -105,7 +111,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestBody))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModel(requestBody)
                 .ContainingNoModelStateErrorFor(r => r.RequiredString);
         }
@@ -121,7 +128,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestBodyWithErrors))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModel(requestBodyWithErrors)
                 .ContainingNoModelStateErrorFor(r => r.RequiredString);
         }
@@ -134,7 +142,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestBody))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModel(requestBody)
                 .ContainingNoModelStateErrorFor(r => r.Integer)
                 .ContainingNoModelStateErrorFor(r => r.RequiredString);
@@ -151,7 +160,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestBodyWithErrors))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModel(requestBodyWithErrors)
                 .ContainingNoModelStateErrorFor(r => r.Integer)
                 .ContainingNoModelStateErrorFor(r => r.RequiredString);
@@ -163,7 +173,8 @@
             var responseModel = MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<List<ResponseModel>>()
                 .AndProvideTheModel();
 
@@ -178,7 +189,8 @@
             var responseModel = MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<List<ResponseModel>>()
                 .Passing(m => m.Count == 2)
                 .AndProvideTheModel();
@@ -194,7 +206,8 @@
             var responseModel = MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<List<ResponseModel>>()
                 .ContainingNoModelStateErrorFor(m => m.Count)
                 .AndProvideTheModel();
@@ -210,7 +223,8 @@
             var responseModel = MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.CustomModelStateError())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ICollection<ResponseModel>>()
                 .ContainingModelStateError("Test")
                 .AndProvideTheModel();
@@ -226,7 +240,8 @@
             var responseModel = MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.CustomModelStateError())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ICollection<ResponseModel>>()
                 .ContainingModelStateError("Test").ThatEquals("Test error")
                 .AndProvideTheModel();

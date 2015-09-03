@@ -1,9 +1,9 @@
-﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
+﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
 {
     using System;
     using Exceptions;
-    using NUnit.Framework;
     using Setups.Controllers;
+    using NUnit.Framework;
 
     [TestFixture]
     public class ShouldReturnOkResultTests
@@ -14,7 +14,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
 
         [Test]
@@ -26,7 +27,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .CallingAsync(c => c.ActionWithExceptionAsync())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
 
         [Test]
@@ -38,7 +40,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
     }
 }

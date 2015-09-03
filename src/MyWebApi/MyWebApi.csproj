@@ -52,12 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\Actions\ShouldReturnBadRequest.cs" />
-    <Compile Include="Builders\Actions\ShouldReturnConflict.cs" />
-    <Compile Include="Builders\Actions\ShouldReturnInternalServerError.cs" />
-    <Compile Include="Builders\Actions\ShouldReturnNotFound.cs" />
-    <Compile Include="Builders\Actions\ShouldReturnStatusCode.cs" />
-    <Compile Include="Builders\Actions\ShouldReturnUnauthorized.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnBadRequest.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnConflict.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnInternalServerError.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnNotFound.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnStatusCode.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnTestBuilder.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnUnauthorized.cs" />
     <Compile Include="Builders\Actions\ShouldThrowTestBuilder.cs" />
     <Compile Include="Builders\Actions\VoidActionResultTestBuilder.cs" />
     <Compile Include="Builders\And\AndProvideTestBuilder.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithModel.cs" />
+    <Compile Include="Builders\Contracts\Actions\IShouldReturnTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldThrowTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IVoidActionResultTestBuilder.cs" />
     <Compile Include="Builders\Contracts\And\IAndTestBuilder.cs" />
@@ -107,8 +109,8 @@
     <Compile Include="Builders\Models\ModelErrorTestBuilder{TModel}.cs" />
     <Compile Include="Builders\Models\ResponseModelTestBuilder.cs" />
     <Compile Include="Builders\Actions\ActionResultTestBuilder.cs" />
-    <Compile Include="Builders\Actions\ShouldReturn.cs" />
-    <Compile Include="Builders\Actions\ShouldReturnOk.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturn.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnOk.cs" />
     <Compile Include="Builders\Unauthorized\AuthenticationHeaderValueBuilder.cs" />
     <Compile Include="Builders\Unauthorized\ChallengesBuilder.cs" />
     <Compile Include="Builders\Unauthorized\UnauthorizedTestBuilder.cs" />

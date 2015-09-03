@@ -84,7 +84,8 @@
                 .Calling(c => c.ModelStateCheck(requestModel))
                 .ShouldHaveValidModelState()
                 .AndAlso()
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
 
         [Test]
@@ -97,7 +98,8 @@
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
                 .ShouldHaveInvalidModelState()
                 .AndAlso()
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
 
         [Test]

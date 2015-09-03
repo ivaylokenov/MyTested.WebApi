@@ -1,8 +1,8 @@
-﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
+﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
 {
     using Exceptions;
-    using NUnit.Framework;
     using Setups.Controllers;
+    using NUnit.Framework;
 
     [TestFixture]
     public class ShouldReturnUnauthorizedTests
@@ -13,7 +13,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedAction())
-                .ShouldReturnUnauthorized();
+                .ShouldReturn()
+                .Unauthorized();
         }
 
         [Test]
@@ -25,7 +26,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestAction())
-                .ShouldReturnUnauthorized();
+                .ShouldReturn()
+                .Unauthorized();
         }
     }
 }

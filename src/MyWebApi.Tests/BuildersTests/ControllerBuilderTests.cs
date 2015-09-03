@@ -64,7 +64,8 @@
             var controller = MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestModel))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .AndProvideTheController();
 
             var modelState = controller.ModelState;
@@ -83,7 +84,8 @@
             var controller = MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestModel))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .AndProvideTheController();
 
             var modelState = controller.ModelState;
@@ -102,7 +104,8 @@
 
             controllerBuilder
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
 
             var controllerUser = controllerBuilder.Controller.User;
 
@@ -130,7 +133,8 @@
 
             controllerBuilder
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
 
             var controllerUser = controllerBuilder.Controller.User;
 
@@ -153,7 +157,8 @@
 
             controllerBuilder
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnNotFound();
+                .ShouldReturn()
+                .NotFound();
 
             var controllerUser = controllerBuilder.Controller.User;
 
@@ -218,7 +223,8 @@
                 .WithResolvedDependencyFor(new InjectedService())
                 .WithAuthenticatedUser()
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
 
         [Test]
@@ -234,7 +240,8 @@
                 .AndAlso()
                 .WithAuthenticatedUser()
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
 
         [Test]
@@ -245,7 +252,8 @@
                 .WithResolvedDependencies(new List<object> { new RequestModel(), new AnotherInjectedService(), new InjectedService() })
                 .WithAuthenticatedUser()
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
 
         [Test]
@@ -256,7 +264,8 @@
                 .WithResolvedDependencies(new RequestModel(), new AnotherInjectedService(), new InjectedService())
                 .WithAuthenticatedUser()
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
 
         [Test]
@@ -286,7 +295,8 @@
                 .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
                 .WithResolvedDependencyFor<ResponseModel>(new ResponseModel())
                 .Calling(c => c.OkResultAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
 
         private void CheckActionResultTestBuilder<TActionResult>(
