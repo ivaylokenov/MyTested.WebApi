@@ -98,28 +98,33 @@ You can test whether model state is valid/invalid or contains any specific error
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveValidModelState();
+	.ShouldHave()
+	.ValidModelState();
 	
 // tests whether model state is not valid
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveInvalidModelState();
+	.ShouldHave()
+	.InvalidModelState();
 	
 // tests whether model state is valid and returns some action result
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveInvalidModelState()
+	.ShouldHave()
+	.InvalidModelState()
 	.AndAlso()
-	.ShouldReturnOk();;
+	.ShouldReturn()
+	.Ok();;
 	
 // tests whether model state error exists (or does not exist) for specific key 
 // * not recommended because of magic string
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveModelStateFor<RequestModel>()
+	.ShouldHave()
+	.ModelStateFor<RequestModel>()
 	.ContainingModelStateError("propertyName")
 	.AndAlso() // AndAlso method is not necessary
 	.ContainingNoModelStateError("anotherPropertyName");
@@ -128,7 +133,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveModelStateFor<RequestModel>()
+	.ShouldHave()
+	.ModelStateFor<RequestModel>()
 	.ContainingModelStateErrorFor(m => m.SomeProperty)
 	.AndAlso()
 	.ContainingNoModelStateErrorFor(m => m.AnotherProperty);
@@ -137,7 +143,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveModelStateFor<RequestModel>() // error must be equal to the provided string
+	.ShouldHave()
+	.ModelStateFor<RequestModel>() // error must be equal to the provided string
 	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message") 
 	.AndAlso() // error must begin with the provided string
 	.ContainingModelStateErrorFor(m => m.SecondProperty).BeginningWith("Error") 
@@ -145,6 +152,62 @@ MyWebApi
 	.ContainingModelStateErrorFor(m => m.ThirdProperty).EndingWith("message") 
 	.AndAlso() // error must contain the provided string
 	.ContainingModelStateErrorFor(m => m.SecondProperty).Containing("ror mes"); 
+```
+
+### Catching thrown exceptions
+
+You can test whether action throws exception:
+
+```c#
+// tests whether the action throws any exception
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.Exception();
+	
+// tests whether the action throws exception of specific type
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.Exception()
+	.OfType<NullReferenceException>();
+	
+// tests whether the action throws exception with specific error message
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.Exception()
+	.WithMessage("Some exception message");
+	
+// tests whether the action throws exception
+// of specific type and specific error message
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.Exception()
+	.OfType<NullReferenceException>()
+	.AndAlso() // AndAlso() is not necessary
+	.WithMessage("Some exception message");
+	
+// tests whether the action throws HttpResponseException
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.HttpResponseException();
+	
+// tests whether the action throws HttpResponseException
+// with specific HttpStatusCode
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.HttpResponseException()
+	.WithStatusCode(HttpStatusCode.NotFound);
 ```
 
 ### Action results
@@ -156,31 +219,35 @@ You can test for specific return values or the default IHttpActionResult types:
 Useful where the action does not return IHttpActionResult
 
 ```c#
-// tests whether the action returns certain type by providing generic parameter
+// tests whether the action returns specific type by providing generic parameter
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturn<ResponseModel>();
+	.ShouldReturn()
+	.ResultOfType<ResponseModel>();
 	
-// tests whether the action returns certain type by using typeof
+// tests whether the action returns specific type by using typeof
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturn(typeof(ResponseModel));
+	.ShouldReturn()
+	.ResultOfType(typeof(ResponseModel));
 	
 // tests whether the action returns generic model
 // * works with IEnumerable<> (or IList<ResponseModel>) too by using polymorphism
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturn(typeof(IList<>)); 
+	.ShouldReturn()
+	.ResultOfType(typeof(IList<>)); 
 	
 // tests whether the action returns model
-// passing certain assertions
+// passing specific assertions
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturn<ResponseModel>();
+	.ShouldReturn()
+	.ResultOfType<ResponseModel>();
 	.Passing(m =>
 	{
 		Assert.AreEqual(1, m.Id);
@@ -192,9 +259,20 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.WithResponseModelOfType<ResponseModel>()
 	.Passing(m => m.Id == 1);
+```
+
+#### Any result
+```c#
+// tests whether the action returns any result
+// and does not throw an exception
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
 ```
 
 #### Ok result
@@ -204,35 +282,40 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnOk();
+	.ShouldReturn()
+	.Ok();
 	
 // tests whether the action returns OkResult with no response model
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.WithNoResponseModel();
 	
 // tests whether the action returns OkResult with specific object
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.WithResponseModel(someResponseModelObject);
 	
 // tests whether the action returns OkResult with specific response model type
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.WithResponseModelOfType<ResponseModel>();
 
 // tests whether the action returns OkResult 
-// with specific response model passing certain assertions
+// with specific response model passing specific assertions
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.WithResponseModelOfType<ResponseModel>()
 	.Passing(m =>
 	{
@@ -245,7 +328,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.WithResponseModelOfType<ResponseModel>()
 	.Passing(m => m.Id == 1);
 	
@@ -254,7 +338,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.WithResponseModelOfType<ResponseModel>()
 	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message")
 	.AndAlso()
@@ -268,30 +353,34 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnUnauthorized();
+	.ShouldReturn()
+	.Unauthorized();
 	
 // tests whether the action returns UnauthorizedResult
-// and result contains authentication header value with certain scheme
+// and result contains authentication header value with specific scheme
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnUnauthorized()
+	.ShouldReturn()
+	.Unauthorized()
 	.ContainingAuthenticationHeaderChallenge(AuthenticationScheme.Basic);
 	
 // tests whether the action returns UnauthorizedResult
-// and result contains authentication header value with certain scheme as string
+// and result contains authentication header value with specific scheme as string
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnUnauthorized()
+	.ShouldReturn()
+	.Unauthorized()
 	.ContainingAuthenticationHeaderChallenge("Basic");
 	
 // tests whether the action returns UnauthorizedResult
-// and result contains authentication header value with certain scheme and parameter
+// and result contains authentication header value with specific scheme and parameter
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnUnauthorized()
+	.ShouldReturn()
+	.Unauthorized()
 	.ContainingAuthenticationHeaderChallenge("Basic", "Value");
 	
 // tests whether the action returns UnauthorizedResult
@@ -300,7 +389,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnUnauthorized()	
+	.ShouldReturn()
+	.Unauthorized()	
 	.ContainingAuthenticationHeaderChallenge(new AuthenticationHeaderValue("Basic", "Value"));
 	
 // tests whether the action returns UnauthorizedResult
@@ -308,7 +398,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnUnauthorized()	
+	.ShouldReturn()
+	.Unauthorized()	
 	.ContainingAuthenticationHeaderChallenge(
 		authHeader =>
 			authHeader
@@ -321,7 +412,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnUnauthorized()	
+	.ShouldReturn()
+	.Unauthorized()	
 	.WithAuthenticationHeaderChallenges(new[]
 	{
 		new AuthenticationHeaderValue("Basic", "Value"),
@@ -334,7 +426,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnUnauthorized()	
+	.ShouldReturn()
+	.Unauthorized()	
 	.WithAuthenticationHeaderChallenges(
 		new AuthenticationHeaderValue("Basic", "Value"),
 		new AuthenticationHeaderValue("Basic", "AnotherValue"));
@@ -345,7 +438,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnUnauthorized()
+	.ShouldReturn()
+	.Unauthorized()
 	.WithAuthenticationHeaderChallenges(
 		authHeaders =>
 			authHeaders
@@ -362,20 +456,23 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnBadRequest();
+	.ShouldReturn()
+	.BadRequest();
 	
 // tests whether the action returns bad request with specific error
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnBadRequest()
+	.ShouldReturn()
+	.BadRequest()
 	.WithErrorMessage("Undefined is not a function");	
 
 // tests whether the action returns bad request with specific error
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnBadRequest()
+	.ShouldReturn()
+	.BadRequest()
 	.WithErrorMessage()
 	.ThatEquals("Undefined is not a function");	
 
@@ -384,7 +481,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnBadRequest()
+	.ShouldReturn()
+	.BadRequest()
 	.WithErrorMessage()
 	.BeginningWith("Undefined");	
 
@@ -393,7 +491,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnBadRequest()
+	.ShouldReturn()
+	.BadRequest()
 	.WithErrorMessage()
 	.EndingWith("function");	
 
@@ -402,7 +501,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnBadRequest()
+	.ShouldReturn()
+	.BadRequest()
 	.WithErrorMessage()
 	.Containing("is not");	
 
@@ -411,7 +511,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnBadRequest()
+	.ShouldReturn()
+	.BadRequest()
 	.WithModelState(modelState);
 
 // tests whether the action returns bad request
@@ -419,7 +520,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnBadRequest()
+	.ShouldReturn()
+	.BadRequest()
 	.WithModelStateFor<RequestModel>()
 		.ContainingModelStateErrorFor(m => m.Integer).ThatEquals("The field Integer must be stopped!")
 		.AndAlso()
@@ -439,14 +541,16 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnStatusCode();
+	.ShouldReturn()
+	.StatusCode();
 	
 // tests whether the action returns StatusCodeResult
 // with status code equal to the provided one
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnStatusCode(HttpStatusCode.Created);
+	.ShouldReturn()
+	.StatusCode(HttpStatusCode.Created);
 ```
 
 #### NotFound result
@@ -455,7 +559,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnNotFound();
+	.ShouldReturn()
+	.NotFound();
 ```
 
 #### Conflict result
@@ -464,7 +569,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnConflict();
+	.ShouldReturn()
+	.Conflict();
 ```
 
 #### InternalServerError result
@@ -474,13 +580,15 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnInternalServerError();
+	.ShouldReturn()
+	.InternalServerError();
 	
 // tests whether the action returns internal server error with exception
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnInternalServerError()
+	.ShouldReturn()
+	.InternalServerError()
 	.WithException();
 	
 // tests whether the action returns internal server error
@@ -488,33 +596,37 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnInternalServerError()
+	.ShouldReturn()
+	.InternalServerError()
 	.WithException(new SomeException("Some exception message"));
 	
 // tests whether the action returns internal server error
-// with exception of a certain type
+// with exception of a specific type
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnInternalServerError()
+	.ShouldReturn()
+	.InternalServerError()
 	.WithException()
 	.OfType<SomeException>();
 	
 // tests whether the action returns internal server error
-// with exception with certain message
+// with exception with specific message
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnInternalServerError()
+	.ShouldReturn()
+	.InternalServerError()
 	.WithException()
 	.WithMessage("Some exception message");
 	
 // tests whether the action returns internal server error
-// with exception of certain type and with certain message
+// with exception of specific type and with specific message
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnInternalServerError()
+	.ShouldReturn()
+	.InternalServerError()
 	.WithException()
 	.OfType<SomeException>()
 	.AndAlso() // AndAlso() is not necessary
@@ -525,7 +637,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnInternalServerError()
+	.ShouldReturn()
+	.InternalServerError()
 	.WithException()
 	.OfType<SomeException>()
 	.AndAlso()
@@ -559,7 +672,8 @@ Useful for integration tests where current action result model is needed for the
 var controller = MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.AndProvideTheController();
 	
 // get action name
@@ -567,7 +681,8 @@ var controller = MyWebApi
 var actionName = MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.AndProvideTheActionName();
 	
 // get the action result
@@ -575,7 +690,8 @@ var actionName = MyWebApi
 var actionResult = MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnStatusCode()
+	.ShouldReturn()
+	.StatusCode()
 	.AndProvideTheActionResult();
 	
 // get the response model
@@ -583,7 +699,18 @@ var actionResult = MyWebApi
 var responseModel = MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.WithResponseModelOfType<ResponseModel>()
 	.AndProvideTheModel();
+	
+// get the caught exception 
+// * returns null if the action does not throw exception
+// * method is available almost everywhere throughout the API
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.Exception()
+	.AndProvideTheCaughtException();
 ```

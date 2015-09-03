@@ -52,12 +52,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\Actions\ShouldReturnBadRequest.cs" />
-    <Compile Include="Builders\Actions\ShouldReturnConflict.cs" />
-    <Compile Include="Builders\Actions\ShouldReturnInternalServerError.cs" />
-    <Compile Include="Builders\Actions\ShouldReturnNotFound.cs" />
-    <Compile Include="Builders\Actions\ShouldReturnStatusCode.cs" />
-    <Compile Include="Builders\Actions\ShouldReturnUnauthorized.cs" />
+    <Compile Include="Builders\Actions\ShouldHave\ShouldHaveTestBuilder.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnBadRequest.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnConflict.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnInternalServerError.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnNotFound.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnStatusCode.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnTestBuilder.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnUnauthorized.cs" />
+    <Compile Include="Builders\Actions\ShouldThrowTestBuilder.cs" />
     <Compile Include="Builders\Actions\VoidActionResultTestBuilder.cs" />
     <Compile Include="Builders\And\AndProvideTestBuilder.cs" />
     <Compile Include="Builders\And\AndProvideTestBuilder{TActionResult}.cs" />
@@ -67,6 +70,9 @@
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithModel.cs" />
+    <Compile Include="Builders\Contracts\Actions\IShouldHaveTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Actions\IShouldReturnTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Actions\IShouldThrowTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IVoidActionResultTestBuilder.cs" />
     <Compile Include="Builders\Contracts\And\IAndTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestErrorMessageTestBuilder.cs" />
@@ -75,6 +81,7 @@
     <Compile Include="Builders\Contracts\ExceptionErrors\IAndExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\ExceptionErrors\IHttpResponseExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\InternalServerErrors\IInternalServerErrorTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IAndModelErrorTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithModel.cs" />
@@ -95,9 +102,10 @@
     <Compile Include="Builders\Contracts\Unauthorized\IUnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IUserBuilder.cs" />
     <Compile Include="Builders\ControllerBuilder.cs" />
-    <Compile Include="Builders\Actions\ShouldHaveModelState.cs" />
+    <Compile Include="Builders\Actions\ShouldHave\ShouldHaveModelState.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionTestBuilder.cs" />
+    <Compile Include="Builders\ExceptionErrors\HttpResponseExceptionTestBuilder.cs" />
     <Compile Include="Builders\InternalServerErrors\InternalServerErrorTestBuilder.cs" />
     <Compile Include="Builders\Models\ModelDetailsTestBuilder.cs" />
     <Compile Include="Builders\Models\ModelErrorDetailsTestBuilder.cs" />
@@ -105,8 +113,8 @@
     <Compile Include="Builders\Models\ModelErrorTestBuilder{TModel}.cs" />
     <Compile Include="Builders\Models\ResponseModelTestBuilder.cs" />
     <Compile Include="Builders\Actions\ActionResultTestBuilder.cs" />
-    <Compile Include="Builders\Actions\ShouldReturn.cs" />
-    <Compile Include="Builders\Actions\ShouldReturnOk.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnResultOfType.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnOk.cs" />
     <Compile Include="Builders\Unauthorized\AuthenticationHeaderValueBuilder.cs" />
     <Compile Include="Builders\Unauthorized\ChallengesBuilder.cs" />
     <Compile Include="Builders\Unauthorized\UnauthorizedTestBuilder.cs" />
@@ -118,6 +126,7 @@
     <Compile Include="Common\TypeValuePair.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
+    <Compile Include="Exceptions\ActionCallAssertionException.cs" />
     <Compile Include="Exceptions\BadRequestResultAssertionException.cs" />
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
     <Compile Include="Exceptions\HttpStatusCodeAssertionException.cs" />
@@ -136,6 +145,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -20,10 +20,16 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
         /// <param name="model">Model returned from action result.</param>
         /// <param name="modelState">Optional model state dictionary to use the class with. Default is controller's model state.</param>
-        public ModelErrorTestBuilder(ApiController controller, string actionName, TModel model = default(TModel), ModelStateDictionary modelState = null)
-            : base(controller, actionName, modelState)
+        public ModelErrorTestBuilder(
+            ApiController controller,
+            string actionName,
+            Exception caughtException,
+            TModel model = default(TModel),
+            ModelStateDictionary modelState = null)
+            : base(controller, actionName, caughtException, modelState)
         {
             this.Model = model;
         }
@@ -51,6 +57,7 @@
             return new ModelErrorDetailsTestBuilder<TModel>(
                 this.Controller,
                 this.ActionName,
+                this.CaughtException,
                 this.Model,
                 this,
                 errorKey,
@@ -71,6 +78,7 @@
             return new ModelErrorDetailsTestBuilder<TModel>(
                 this.Controller,
                 this.ActionName,
+                this.CaughtException,
                 this.Model,
                 this,
                 memberName,

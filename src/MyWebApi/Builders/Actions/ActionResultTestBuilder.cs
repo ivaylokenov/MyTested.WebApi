@@ -6,13 +6,15 @@
     using Common.Extensions;
     using Contracts.Actions;
     using Exceptions;
+    using ShouldHave;
+    using ShouldReturn;
     using Utilities;
 
     /// <summary>
     /// Used for building the action result which will be tested.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public partial class ActionResultTestBuilder<TActionResult>
+    public class ActionResultTestBuilder<TActionResult>
         : BaseTestBuilderWithActionResult<TActionResult>, IActionResultTestBuilder<TActionResult>
     {
         /// <summary>
@@ -20,56 +22,51 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
         /// <param name="actionResult">Result from the tested action.</param>
-        public ActionResultTestBuilder(ApiController controller, string actionName, TActionResult actionResult)
-            : base(controller, actionName, actionResult)
+        public ActionResultTestBuilder(
+            ApiController controller,
+            string actionName,
+            Exception caughtException,
+            TActionResult actionResult)
+            : base(controller, actionName, caughtException, actionResult)
         {
         }
 
-        private void ValidateActionReturnType(Type typeOfExpectedReturnValue, bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
+        /// <summary>
+        /// Used for testing action attributes and model state.
+        /// </summary>
+        /// <returns>Should have test builder.</returns>
+        public IShouldHaveTestBuilder<TActionResult> ShouldHave()
         {
-            var typeOfActionResult = ActionResult.GetType();
+            return new ShouldHaveTestBuilder<TActionResult>(this.Controller, this.ActionName, this.CaughtException, this.ActionResult);
+        }
 
-            var isAssignableCheck = canBeAssignable && Reflection.AreNotAssignable(typeOfExpectedReturnValue, typeOfActionResult);
-            var haveDifferentGenericArguments = false;
-            if (isAssignableCheck && allowDifferentGenericTypeDefinitions && Reflection.IsGeneric(typeOfExpectedReturnValue))
+        /// <summary>
+        /// Used for testing whether action throws exception.
+        /// </summary>
+        /// <returns>Should throw test builder.</returns>
+        public IShouldThrowTestBuilder ShouldThrow()
+        {
+            if (this.CaughtException == null)
             {
-                isAssignableCheck = Reflection.AreAssignableByGeneric(typeOfExpectedReturnValue, typeOfActionResult);
-
-                if (!Reflection.IsGenericTypeDefinition(typeOfExpectedReturnValue))
-                {
-                    haveDifferentGenericArguments = Reflection.HaveDifferentGenericArguments(typeOfExpectedReturnValue, typeOfActionResult);
-                }
-            }
-
-            var strictlyEqualCheck = !canBeAssignable && Reflection.AreDifferentTypes(typeOfExpectedReturnValue, typeOfActionResult);
-
-            var invalid = isAssignableCheck || strictlyEqualCheck || haveDifferentGenericArguments;
-            if (strictlyEqualCheck)
-            {
-                var genericTypeDefinitionCheck = Reflection.AreAssignableByGeneric(typeOfExpectedReturnValue, typeOfActionResult);
-
-                if (genericTypeDefinitionCheck)
-                {
-                    invalid = false;
-                }
-            }
-
-            if (invalid)
-            {
-                throw new HttpActionResultAssertionException(string.Format(
-                    "When calling {0} action in {1} expected action result to be {2}, but instead received {3}.",
+                throw new ActionCallAssertionException(string.Format(
+                    "When calling {0} action in {1} thrown exception was expected, but in fact none was caught.",
                     this.ActionName,
-                    this.Controller.GetName(),
-                    typeOfExpectedReturnValue.ToFriendlyTypeName(),
-                    typeOfActionResult.ToFriendlyTypeName()));
+                    this.Controller.GetName()));
             }
+
+            return new ShouldThrowTestBuilder(this.Controller, this.ActionName, this.CaughtException);
         }
 
-        private void ValidateActionReturnType<TExpectedType>(bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
+        /// <summary>
+        /// Used for testing returned action result.
+        /// </summary>
+        /// <returns>Should return test builder.</returns>
+        public IShouldReturnTestBuilder<TActionResult> ShouldReturn()
         {
-            var typeOfResponseData = typeof(TExpectedType);
-            this.ValidateActionReturnType(typeOfResponseData, canBeAssignable, allowDifferentGenericTypeDefinitions);
+            Validator.CheckForException(this.CaughtException);
+            return new ShouldReturnTestBuilder<TActionResult>(this.Controller, this.ActionName, this.CaughtException, this.ActionResult);
         }
     }
 }

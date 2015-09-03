@@ -1,9 +1,10 @@
-﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
+﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
 {
+    using System;
     using System.Collections.Generic;
+    using System.Web.Http;
     using Exceptions;
     using NUnit.Framework;
-    using Setups;
     using Setups.Controllers;
     using Setups.Models;
 
@@ -16,7 +17,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericStructAction())
-                .ShouldReturn<bool>();
+                .ShouldReturn()
+                .ResultOfType<bool>();
         }
 
         [Test]
@@ -25,7 +27,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericStructAction())
-                .ShouldReturn(typeof(bool));
+                .ShouldReturn()
+                .ResultOfType(typeof(bool));
         }
 
         [Test]
@@ -34,7 +37,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn<IList<ResponseModel>>();
+                .ShouldReturn()
+                .ResultOfType<IList<ResponseModel>>();
         }
 
         [Test]
@@ -43,7 +47,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn(typeof(IList<ResponseModel>));
+                .ShouldReturn()
+                .ResultOfType(typeof(IList<ResponseModel>));
         }
 
         [Test]
@@ -52,7 +57,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn(typeof(IList<>));
+                .ShouldReturn()
+                .ResultOfType(typeof(IList<>));
         }
 
         [Test]
@@ -61,7 +67,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn<ICollection<ResponseModel>>();
+                .ShouldReturn()
+                .ResultOfType<ICollection<ResponseModel>>();
         }
 
         [Test]
@@ -70,7 +77,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn(typeof(ICollection<ResponseModel>));
+                .ShouldReturn()
+                .ResultOfType(typeof(ICollection<ResponseModel>));
         }
 
         [Test]
@@ -79,7 +87,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn(typeof(ICollection<>));
+                .ShouldReturn()
+                .ResultOfType(typeof(ICollection<>));
         }
 
         [Test]
@@ -88,7 +97,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn(typeof(ICollection<>))
+                .ShouldReturn()
+                .ResultOfType(typeof(ICollection<>))
                 .Passing(c => c.Count == 2);
         }
 
@@ -98,8 +108,35 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn<ICollection<ResponseModel>>()
+                .ShouldReturn()
+                .ResultOfType<ICollection<ResponseModel>>()
                 .Passing(c => c.Count == 2);
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ActionCallAssertionException),
+            ExpectedMessage = "NullReferenceException with 'Test exception message' message was thrown but was not caught or expected.")]
+        public void ShouldReturnShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.ActionWithException())
+                .ShouldReturn()
+                .ResultOfType<IHttpActionResult>();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ActionCallAssertionException),
+            ExpectedMessage = "AggregateException (containing NullReferenceException with 'Test exception message' message) was thrown but was not caught or expected.")]
+        public void ShouldReturnWithAsyncShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .CallingAsync(c => c.ActionWithExceptionAsync())
+                .ShouldReturn()
+                .ResultOfType<IHttpActionResult>();
         }
 
         [Test]
@@ -111,7 +148,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn<ICollection<ResponseModel>>()
+                .ShouldReturn()
+                .ResultOfType<ICollection<ResponseModel>>()
                 .Passing(c => c.Count == 1);
         }
 
@@ -124,7 +162,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn<ResponseModel>();
+                .ShouldReturn()
+                .ResultOfType<ResponseModel>();
         }
 
         [Test]
@@ -136,7 +175,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn(typeof(ResponseModel));
+                .ShouldReturn()
+                .ResultOfType(typeof(ResponseModel));
         }
 
         [Test]
@@ -148,7 +188,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn<ICollection<int>>();
+                .ShouldReturn()
+                .ResultOfType<ICollection<int>>();
         }
 
         [Test]
@@ -160,7 +201,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.GenericAction())
-                .ShouldReturn(typeof(ICollection<int>));
+                .ShouldReturn()
+                .ResultOfType(typeof(ICollection<int>));
         }
     }
 }

@@ -1,10 +1,8 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.UnauthorizedTests
 {
     using System.Net.Http.Headers;
-    using Common;
     using Exceptions;
     using NUnit.Framework;
-    using Setups;
     using Setups.Controllers;
 
     [TestFixture]
@@ -16,7 +14,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge("TestScheme");
         }
 
@@ -29,7 +28,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge("Scheme");
         }
 
@@ -39,7 +39,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge(AuthenticationScheme.Basic);
         }
 
@@ -52,7 +53,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge(AuthenticationScheme.Anonymous);
         }
 
@@ -62,7 +64,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge("TestScheme", "TestParameter");
         }
 
@@ -75,7 +78,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge("Scheme", "Parameter");
         }
 
@@ -85,7 +89,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge(new AuthenticationHeaderValue("TestScheme"));
         }
 
@@ -95,7 +100,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge(new AuthenticationHeaderValue("TestScheme", "TestParameter"));
         }
 
@@ -108,7 +114,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge(new AuthenticationHeaderValue("Scheme"));
         }
 
@@ -121,7 +128,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge(new AuthenticationHeaderValue("Scheme", "Parameter"));
         }
 
@@ -131,7 +139,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge(authHeader => authHeader.WithScheme(AuthenticationScheme.Basic));
         }
 
@@ -141,7 +150,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge(authHeader =>
                     authHeader
                         .WithScheme("TestScheme")
@@ -157,7 +167,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge(authHeader => authHeader.WithScheme("Scheme"));
         }
 
@@ -170,7 +181,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge(authHeader =>
                     authHeader
                         .WithScheme("Scheme")
@@ -183,7 +195,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .WithAuthenticationHeaderChallenges(new[]
                 {
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
@@ -198,7 +211,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .WithAuthenticationHeaderChallenges(new[]
                 {
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
@@ -216,7 +230,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .WithAuthenticationHeaderChallenges(new[]
                 {
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
@@ -233,7 +248,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .WithAuthenticationHeaderChallenges(new[]
                 {
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
@@ -248,7 +264,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .WithAuthenticationHeaderChallenges(
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
                     new AuthenticationHeaderValue("Basic"),
@@ -261,7 +278,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .WithAuthenticationHeaderChallenges(
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
                     new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
@@ -277,7 +295,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .WithAuthenticationHeaderChallenges(
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
                     new AuthenticationHeaderValue("Basic"));
@@ -292,7 +311,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .WithAuthenticationHeaderChallenges(
                     new AuthenticationHeaderValue("TestScheme", "TestParameter"),
                     new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
@@ -305,7 +325,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .WithAuthenticationHeaderChallenges(
                     authHeaders =>
                         authHeaders
@@ -322,7 +343,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .WithAuthenticationHeaderChallenges(
                     authHeaders =>
                         authHeaders
@@ -342,7 +364,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .WithAuthenticationHeaderChallenges(
                     authHeaders =>
                         authHeaders
@@ -360,7 +383,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .WithAuthenticationHeaderChallenges(
                     authHeaders =>
                         authHeaders

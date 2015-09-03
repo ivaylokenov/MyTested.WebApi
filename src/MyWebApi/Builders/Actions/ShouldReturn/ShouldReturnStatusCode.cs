@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Actions
+﻿namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Net;
     using System.Web.Http.Results;
@@ -7,18 +7,18 @@
     using Exceptions;
 
     /// <summary>
-    /// Class containing methods for testing OkResult.
+    /// Class containing methods for testing StatusCodeResult.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public partial class ActionResultTestBuilder<TActionResult>
+    public partial class ShouldReturnTestBuilder<TActionResult>
     {
         /// <summary>
         /// Tests whether action result is StatusCodeResult.
         /// </summary>
         /// <returns>Base test builder with action result.</returns>
-        public IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnStatusCode()
+        public IBaseTestBuilderWithActionResult<TActionResult> StatusCode()
         {
-            this.ShouldReturn<StatusCodeResult>();
+            this.ResultOfType<StatusCodeResult>();
             return this.NewAndProvideTestBuilder();
         }
 
@@ -27,9 +27,10 @@
         /// </summary>
         /// <param name="statusCode">HttpStatusCode enumeration.</param>
         /// <returns>Base test builder with action result.</returns>
-        public IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnStatusCode(HttpStatusCode statusCode)
+        public IBaseTestBuilderWithActionResult<TActionResult> StatusCode(HttpStatusCode statusCode)
         {
             var statusCodeResult = this.GetReturnObject<StatusCodeResult>();
+            var actualStatusCode = statusCodeResult.StatusCode;
             if (statusCodeResult.StatusCode != statusCode)
             {
                 throw new HttpStatusCodeAssertionException(string.Format(
@@ -38,8 +39,8 @@
                     this.Controller.GetName(),
                     (int)statusCode,
                     statusCode,
-                    (int)statusCodeResult.StatusCode,
-                    statusCodeResult.StatusCode));
+                    (int)actualStatusCode,
+                    actualStatusCode));
             }
 
             return this.NewAndProvideTestBuilder();

@@ -2,7 +2,6 @@
 {
     using Exceptions;
     using NUnit.Framework;
-    using Setups;
     using Setups.Controllers;
     using Setups.Services;
 
@@ -49,7 +48,8 @@
             MyWebApi
                 .Controller<NoParameterlessConstructorController>()
                 .Calling(c => c.OkAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
     }
 }

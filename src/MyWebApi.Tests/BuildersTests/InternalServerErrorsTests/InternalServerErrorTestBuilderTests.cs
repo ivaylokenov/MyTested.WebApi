@@ -3,7 +3,6 @@
     using System;
     using Exceptions;
     using NUnit.Framework;
-    using Setups;
     using Setups.Controllers;
 
     [TestFixture]
@@ -15,7 +14,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException();
         }
 
@@ -28,7 +28,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException();
         }
 
@@ -38,7 +39,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException(new NullReferenceException("Test exception message"));
         }
 
@@ -51,7 +53,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException(new InvalidOperationException("Test exception message"));
         }
 
@@ -64,7 +67,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException(new NullReferenceException("Exception message"));
         }
     }

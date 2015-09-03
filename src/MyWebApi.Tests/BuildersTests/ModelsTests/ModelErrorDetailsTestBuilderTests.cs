@@ -17,7 +17,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveModelStateFor<RequestModel>()
+                .ShouldHave()
+                .ModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(m => m.NonRequiredString)
                 .ContainingModelStateErrorFor(m => m.RequiredString).ThatEquals("The RequiredString field is required.")
                 .AndAlso()
@@ -43,7 +44,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveModelStateFor<RequestModel>()
+                .ShouldHave()
+                .ModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(m => m.NonRequiredString)
                 .AndAlso()
                 .ContainingModelStateErrorFor(m => m.RequiredString).ThatEquals("RequiredString field is required.")
@@ -58,7 +60,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveModelStateFor<RequestModel>()
+                .ShouldHave()
+                .ModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(m => m.NonRequiredString)
                 .ContainingModelStateErrorFor(m => m.RequiredString).BeginningWith("The RequiredString")
                 .ContainingModelStateErrorFor(m => m.Integer).BeginningWith("The field Integer");
@@ -75,7 +78,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveModelStateFor<RequestModel>()
+                .ShouldHave()
+                .ModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(m => m.NonRequiredString)
                 .ContainingModelStateErrorFor(m => m.RequiredString).BeginningWith("RequiredString")
                 .ContainingModelStateErrorFor(m => m.Integer).BeginningWith("Integer");
@@ -89,7 +93,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveModelStateFor<RequestModel>()
+                .ShouldHave()
+                .ModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(m => m.NonRequiredString)
                 .ContainingModelStateErrorFor(m => m.RequiredString).EndingWith("required.")
                 .ContainingModelStateErrorFor(m => m.Integer).EndingWith(string.Format("{0} and {1}.", 1, int.MaxValue));
@@ -106,7 +111,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveModelStateFor<RequestModel>()
+                .ShouldHave()
+                .ModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(m => m.NonRequiredString)
                 .ContainingModelStateErrorFor(m => m.RequiredString).EndingWith("required!")
                 .ContainingModelStateErrorFor(m => m.Integer).EndingWith(string.Format("{0} and {1}!", 1, int.MaxValue));
@@ -120,7 +126,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveModelStateFor<RequestModel>()
+                .ShouldHave()
+                .ModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(m => m.NonRequiredString)
                 .ContainingModelStateErrorFor(m => m.RequiredString).Containing("required")
                 .ContainingModelStateErrorFor(m => m.Integer).Containing("between");
@@ -137,7 +144,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveModelStateFor<RequestModel>()
+                .ShouldHave()
+                .ModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(m => m.NonRequiredString)
                 .ContainingModelStateErrorFor(m => m.RequiredString).Containing("invalid")
                 .ContainingModelStateErrorFor(m => m.Integer).Containing("invalid");

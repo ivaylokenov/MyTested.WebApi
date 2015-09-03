@@ -4,7 +4,6 @@
     using System.Linq;
     using Exceptions;
     using NUnit.Framework;
-    using Setups;
     using Setups.Controllers;
     using Setups.Models;
 
@@ -17,7 +16,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ICollection<ResponseModel>>()
                 .Passing(m =>
                 {
@@ -34,7 +34,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ICollection<ResponseModel>>()
                 .Passing(m =>
                 {
@@ -49,7 +50,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ICollection<ResponseModel>>()
                 .Passing(m => m.First().IntegerValue == 1);
         }
@@ -63,7 +65,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<IList<ResponseModel>>()
                 .Passing(m => m.First().IntegerValue == 2);
         }

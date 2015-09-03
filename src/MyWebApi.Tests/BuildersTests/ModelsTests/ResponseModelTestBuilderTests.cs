@@ -1,10 +1,8 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.ModelsTests
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Exceptions;
     using NUnit.Framework;
-    using Setups;
     using Setups.Controllers;
     using Setups.Models;
 
@@ -17,7 +15,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ICollection<ResponseModel>>();
         }
 
@@ -27,7 +26,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<IList<ResponseModel>>();
         }
 
@@ -37,7 +37,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<List<ResponseModel>>();
         }
 
@@ -50,7 +51,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultAction())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ResponseModel>();
         }
 
@@ -63,7 +65,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithInterfaceResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ResponseModel>();
         }
 
@@ -76,7 +79,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithInterfaceResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ICollection<int>>();
         }
 
@@ -88,7 +92,8 @@
             MyWebApi
                 .Controller(() => controller)
                 .Calling(c => c.OkResultWithInterfaceResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModel(controller.ResponseModel);
         }
 
@@ -103,7 +108,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModel(controller.ResponseModel);
         }
 
@@ -113,7 +119,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultAction())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithNoResponseModel();
         }
 
@@ -126,7 +133,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithNoResponseModel();
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Actions
+﻿namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Web.Http.Results;
     using Contracts.Base;
@@ -7,15 +7,15 @@
     /// Class containing methods for testing NotFoundResult.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public partial class ActionResultTestBuilder<TActionResult>
+    public partial class ShouldReturnTestBuilder<TActionResult>
     {
         /// <summary>
         /// Tests whether action result is NotFoundResult.
         /// </summary>
         /// <returns>Base test builder with action result.</returns>
-        public IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnNotFound()
+        public IBaseTestBuilderWithActionResult<TActionResult> NotFound()
         {
-            this.ShouldReturn<NotFoundResult>();
+            this.ResultOfType<NotFoundResult>();
             return this.NewAndProvideTestBuilder();
         }
     }

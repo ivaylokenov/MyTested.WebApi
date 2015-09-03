@@ -38,7 +38,8 @@ namespace MyApp.Tests.Controllers
             MyWebApi
                 .Controller<HomeController>()
                 .Calling(c => c.Get())
-                .ShouldReturnOk();
+                .ShouldReturn()
+				.Ok();
         }
 	}
 }
@@ -59,9 +60,11 @@ MyWebApi
 	.WithResolvedDependencyFor<IAnotherInjectedService>(anotherMockedInjectedService);
 	.WithAuthenticatedUser(user => user.WithUsername("NewUserName"))
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveValidModelState()
+	.ShouldHave()
+	.ValidModelState()
 	.AndAlso()
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.WithResponseModelOfType<ResponseModel>()
 	.Passing(m =>
 	{
@@ -74,7 +77,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveModelStateFor<RequestModel>()
+	.ShouldHave()
+	.ModelStateFor<RequestModel>()
 	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message") 
 	.AndAlso()
 	.ContainingModelStateErrorFor(m => m.SecondProperty).BeginningWith("Error") 
@@ -88,7 +92,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnInternalServerError()
+	.ShouldReturn()
+	.InternalServerError()
 	.WithException()
 	.OfType<SomeException>()
 	.AndAlso()

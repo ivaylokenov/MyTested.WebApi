@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.BadRequests
 {
+    using System;
     using System.Web.Http;
     using Base;
     using Common.Extensions;
@@ -20,12 +21,14 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
         /// <param name="actualMessage">Actual error message received from bad request result.</param>
         public BadRequestErrorMessageTestBuilder(
             ApiController controller,
             string actionName,
+            Exception caughtException,
             string actualMessage)
-            : base(controller, actionName)
+            : base(controller, actionName, caughtException)
         {
             this.actualMessage = actualMessage;
         }

@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
+﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
 {
     using Exceptions;
     using NUnit.Framework;
@@ -14,7 +14,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestAction())
-                .ShouldReturnBadRequest();
+                .ShouldReturn()
+                .BadRequest();
         }
 
         [Test]
@@ -25,7 +26,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithModelState(requestModelWithErrors))
-                .ShouldReturnBadRequest();
+                .ShouldReturn()
+                .BadRequest();
         }
 
         [Test]
@@ -34,7 +36,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest();
+                .ShouldReturn()
+                .BadRequest();
         }
 
         [Test]
@@ -46,7 +49,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.NotFoundAction())
-                .ShouldReturnBadRequest();
+                .ShouldReturn()
+                .BadRequest();
         }
     }
 }
