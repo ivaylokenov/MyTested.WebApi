@@ -6,7 +6,6 @@
     using Contracts.Actions;
     using Contracts.ExceptionErrors;
     using ExceptionErrors;
-    using Exceptions;
 
     /// <summary>
     /// Used for testing whether action throws exception.
@@ -30,11 +29,19 @@
             this.exceptionTestBuilder = new ExceptionTestBuilder(this.Controller, this.ActionName, this.CaughtException);
         }
 
+        /// <summary>
+        /// Tests whether action throws any exception.
+        /// </summary>
+        /// <returns>Exception test builder.</returns>
         public IExceptionTestBuilder Exception()
         {
             return this.exceptionTestBuilder;
         }
 
+        /// <summary>
+        /// Tests whether action throws any HttpResponseException.
+        /// </summary>
+        /// <returns>HttpResponseException test builder.</returns>
         public IHttpResponseExceptionTestBuilder HttpResponseException()
         {
             this.exceptionTestBuilder.OfType<HttpResponseException>();

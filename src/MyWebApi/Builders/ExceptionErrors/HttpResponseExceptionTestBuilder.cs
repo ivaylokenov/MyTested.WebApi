@@ -8,10 +8,19 @@
     using Contracts.ExceptionErrors;
     using Exceptions;
 
+    /// <summary>
+    /// Used for testing expected HttpResponseException.
+    /// </summary>
     public class HttpResponseExceptionTestBuilder : BaseTestBuilder, IHttpResponseExceptionTestBuilder
     {
         private readonly HttpResponseException httpResponseException;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpResponseExceptionTestBuilder" /> class.
+        /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Actual received HttpResponseException.</param>
         public HttpResponseExceptionTestBuilder(
             ApiController controller,
             string actionName,
@@ -21,6 +30,11 @@
             this.httpResponseException = caughtException;
         }
 
+        /// <summary>
+        /// Tests whether caught HttpResponseException has the same status code as the provided HttpStatusCode.
+        /// </summary>
+        /// <param name="statusCode">HttpStatusCode enumeration.</param>
+        /// <returns>Base test builder.</returns>
         public IBaseTestBuilder WithStatusCode(HttpStatusCode statusCode)
         {
             var actualStatusCode = this.httpResponseException.Response.StatusCode;
