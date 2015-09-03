@@ -12,11 +12,11 @@
     /// Used for building the action result which will be tested.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public partial class ActionResultTestBuilder<TActionResult>
+    public class ActionResultTestBuilder<TActionResult>
         : BaseTestBuilderWithActionResult<TActionResult>, IActionResultTestBuilder<TActionResult>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Actions.ShouldHave.ActionResultTestBuilder{TActionResult}" /> class.
+        /// Initializes a new instance of the <see cref="ActionResultTestBuilder{TActionResult}" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
@@ -31,16 +31,28 @@
         {
         }
 
+        /// <summary>
+        /// Used for testing action attributes and model state.
+        /// </summary>
+        /// <returns>Should have test builder.</returns>
         public IShouldHaveTestBuilder<TActionResult> ShouldHave()
         {
             return new ShouldHaveTestBuilder<TActionResult>(this.Controller, this.ActionName, this.CaughtException, this.ActionResult);
         }
 
+        /// <summary>
+        /// Used for testing whether action throws exception.
+        /// </summary>
+        /// <returns>Should throw test builder.</returns>
         public IShouldThrowTestBuilder ShouldThrow()
         {
             return new ShouldThrowTestBuilder(this.Controller, this.ActionName, this.CaughtException);
         }
 
+        /// <summary>
+        /// Used for testing returned action result.
+        /// </summary>
+        /// <returns>Should return test builder.</returns>
         public IShouldReturnTestBuilder<TActionResult> ShouldReturn()
         {
             Validator.CheckForException(this.CaughtException);

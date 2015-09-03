@@ -4,6 +4,10 @@
     using Base;
     using Models;
 
+    /// <summary>
+    /// Used for testing action attributes and model state.
+    /// </summary>
+    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public interface IShouldHaveTestBuilder<TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
     {
         /// <summary>

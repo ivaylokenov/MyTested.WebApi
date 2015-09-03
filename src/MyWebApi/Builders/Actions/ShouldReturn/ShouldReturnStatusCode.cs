@@ -2,8 +2,8 @@
 {
     using System.Net;
     using System.Web.Http.Results;
-    using Contracts.Base;
     using Common.Extensions;
+    using Contracts.Base;
     using Exceptions;
 
     /// <summary>

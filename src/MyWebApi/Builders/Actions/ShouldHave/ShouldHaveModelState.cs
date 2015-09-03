@@ -1,10 +1,10 @@
 ﻿namespace MyWebApi.Builders.Actions.ShouldHave
 {
+    using Common.Extensions;
     using Contracts.And;
     using Contracts.Models;
-    using Models;
-    using Common.Extensions;
     using Exceptions;
+    using Models;
 
     /// <summary>
     /// Class containing methods for testing model state.

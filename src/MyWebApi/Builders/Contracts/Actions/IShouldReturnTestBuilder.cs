@@ -8,6 +8,10 @@
     using Models;
     using Unauthorized;
 
+    /// <summary>
+    /// Used for testing action returned result.
+    /// </summary>
+    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public interface IShouldReturnTestBuilder<TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
     {
         /// <summary>

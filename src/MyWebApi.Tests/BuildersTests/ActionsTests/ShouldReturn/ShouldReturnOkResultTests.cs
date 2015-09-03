@@ -2,8 +2,8 @@
 {
     using System;
     using Exceptions;
-    using Setups.Controllers;
     using NUnit.Framework;
+    using Setups.Controllers;
 
     [TestFixture]
     public class ShouldReturnOkResultTests

@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.Web.Http;
     using Exceptions;
+    using NUnit.Framework;
     using Setups.Controllers;
     using Setups.Models;
-    using NUnit.Framework;
 
     [TestFixture]
     public class ShouldReturnTests

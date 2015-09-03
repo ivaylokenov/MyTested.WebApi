@@ -1,9 +1,9 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
 {
     using Exceptions;
+    using NUnit.Framework;
     using Setups;
     using Setups.Controllers;
-    using NUnit.Framework;
 
     [TestFixture]
     public class ShouldReturnBadRequestTests
