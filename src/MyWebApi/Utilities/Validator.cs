@@ -1,6 +1,8 @@
 ﻿namespace MyWebApi.Utilities
 {
     using System;
+    using System.Linq;
+    using Common.Extensions;
     using Exceptions;
 
     /// <summary>
@@ -12,16 +14,14 @@
         /// Validates object for null reference.
         /// </summary>
         /// <param name="value">Object to be validated.</param>
-        /// <param name="parameterName">Name of the parameter to be checked.</param>
         /// <param name="errorMessageName">Name of the parameter to be included in the error message.</param>
         public static void CheckForNullReference(
             object value,
-            string parameterName = "value",
             string errorMessageName = "Value")
         {
             if (value == null)
             {
-                throw new ArgumentNullException(parameterName, string.Format("{0} cannot be null.", errorMessageName));
+                throw new NullReferenceException(string.Format("{0} cannot be null.", errorMessageName));
             }
         }
 
@@ -29,16 +29,14 @@
         /// Validates string for null reference or whitespace.
         /// </summary>
         /// <param name="value">String to be validated.</param>
-        /// <param name="parameterName">Name of the parameter to be checked.</param>
         /// <param name="errorMessageName">Name of the parameter to be included in the error message.</param>
         public static void CheckForNotWhiteSpaceString(
             string value,
-            string parameterName = "value",
             string errorMessageName = "Value")
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                throw new ArgumentNullException(parameterName, string.Format("{0} cannot be null or white space.", errorMessageName));
+                throw new NullReferenceException(string.Format("{0} cannot be null or white space.", errorMessageName));
             }
         }
 
@@ -60,16 +58,31 @@
         {
             if (exception != null)
             {
-                var message = 
-                    string.IsNullOrWhiteSpace(exception.Message) 
-                    ? string.Empty 
-                    : string.Format(" with '{0}' message", exception.Message);
+                var message = FormatExceptionMessage(exception.Message);
+
+                var exceptionAsAggregateException = exception as AggregateException;
+                if (exceptionAsAggregateException != null)
+                {
+                    var innerExceptions = exceptionAsAggregateException
+                        .InnerExceptions
+                        .Select(ex => 
+                            string.Format("{0}{1}", ex.GetName(), FormatExceptionMessage(ex.Message)));
+
+                    message = string.Format(" (containing {0})", string.Join(",", innerExceptions));
+                }
 
                 throw new ActionCallAssertionException(string.Format(
                     "{0}{1} was thrown but was not caught or expected.",
                     exception.GetType().ToFriendlyTypeName(),
                     message));
             }
+        }
+
+        private static string FormatExceptionMessage(string message)
+        {
+            return string.IsNullOrWhiteSpace(message)
+                 ? string.Empty
+                 : string.Format(" with '{0}' message", message);
         }
     }
 }

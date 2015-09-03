@@ -31,7 +31,7 @@
         [Test]
         [ExpectedException(
             typeof(ActionCallAssertionException),
-            ExpectedMessage = "AggregateException with 'One or more errors occurred.' message was thrown but was not caught or expected.")]
+            ExpectedMessage = "AggregateException (containing NullReferenceException with 'Test exception message' message) was thrown but was not caught or expected.")]
         public void ShouldReturnEmptyWithAsyncShouldThrowExceptionIfActionThrowsException()
         {
             MyWebApi

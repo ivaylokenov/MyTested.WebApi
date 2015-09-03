@@ -19,9 +19,8 @@
 
         [Test]
         [ExpectedException(
-            typeof(ArgumentNullException),
-            ExpectedMessage = @"ActionResult cannot be null.
-Parameter name: value")]
+            typeof(NullReferenceException),
+            ExpectedMessage = "ActionResult cannot be null.")]
         public void ShouldReturnOkWithAsyncShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue()
         {
             MyWebApi

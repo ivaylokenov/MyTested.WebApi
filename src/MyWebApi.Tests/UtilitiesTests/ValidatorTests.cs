@@ -8,7 +8,7 @@
     public class ValidatorTests
     {
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void CheckForNullReferenceShouldThrowArgumentNullExceptionWithNullObject()
         {
             Validator.CheckForNullReference(null);
@@ -21,21 +21,21 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void CheckForNotEmptyStringShouldThrowArgumentNullExceptionWithNullString()
         {
             Validator.CheckForNotWhiteSpaceString(null);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void CheckForNotEmptyStringShouldThrowArgumentNullExceptionWithEmptyString()
         {
             Validator.CheckForNotWhiteSpaceString(string.Empty);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void CheckForNotEmptyStringShouldThrowArgumentNullExceptionWithWhiteSpace()
         {
             Validator.CheckForNotWhiteSpaceString("      ");
