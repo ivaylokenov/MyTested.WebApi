@@ -6,5 +6,7 @@
     public interface IShouldThrowTestBuilder : IBaseTestBuilder
     {
         IExceptionTestBuilder Exception();
+
+        IHttpResponseExceptionTestBuilder HttpResponseException();
     }
 }

@@ -84,6 +84,11 @@
             throw new NullReferenceException("Test exception message");
         }
 
+        public IHttpActionResult ActionWithHttpResponseException()
+        {
+            throw new HttpResponseException(HttpStatusCode.NotFound);
+        }
+
         public async Task EmptyActionWithExceptionAsync()
         {
             await Task.Run(() => this.ThrowNewNullReferenceException());
