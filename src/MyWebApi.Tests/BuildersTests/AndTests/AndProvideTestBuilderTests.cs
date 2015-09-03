@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.AndTests
 {
+    using System;
     using System.Web.Http.Results;
     using NUnit.Framework;
     using Setups.Controllers;
@@ -8,7 +9,7 @@
     public class AndProvideTestBuilderTests
     {
         [Test]
-        public void AndProvideControllerShouldReturnProperController()
+        public void AndProvideShouldReturnProperController()
         {
             var controller = MyWebApi
                 .Controller<WebApiController>()
@@ -21,7 +22,7 @@
         }
 
         [Test]
-        public void AndProvideControllerShouldReturnProperActionName()
+        public void AndProvideShouldReturnProperActionName()
         {
             var actionName = MyWebApi
                 .Controller<WebApiController>()
@@ -34,7 +35,7 @@
         }
 
         [Test]
-        public void AndProvideControllerShouldReturnProperActionResult()
+        public void AndProvideShouldReturnProperActionResult()
         {
             var actionResult = MyWebApi
                 .Controller<WebApiController>()

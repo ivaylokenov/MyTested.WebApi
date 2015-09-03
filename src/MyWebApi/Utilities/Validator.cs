@@ -72,7 +72,7 @@
                         .Select(ex => 
                             string.Format("{0}{1}", ex.GetName(), FormatExceptionMessage(ex.Message)));
 
-                    message = string.Format(" (containing {0})", string.Join(",", innerExceptions));
+                    message = string.Format(" (containing {0})", string.Join(", ", innerExceptions));
                 }
 
                 throw new ActionCallAssertionException(string.Format(
