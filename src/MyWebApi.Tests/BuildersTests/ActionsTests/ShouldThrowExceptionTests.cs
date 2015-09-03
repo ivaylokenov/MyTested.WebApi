@@ -9,7 +9,6 @@
         [Test]
         public void ShouldThrowExceptionShouldCatchAndValidateThereIsException()
         {
-            
         }
     }
 }

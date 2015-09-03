@@ -21,6 +21,7 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
         protected BaseTestBuilder(ApiController controller, string actionName, Exception caughtException)
         {
             this.Controller = controller;
@@ -84,6 +85,10 @@
             return this.ActionName;
         }
 
+        /// <summary>
+        /// Gets the thrown exception in the tested action.
+        /// </summary>
+        /// <returns>The exception instance or null, if no exception was caught.</returns>
         public Exception AndProvideTheCaughtException()
         {
             return this.CaughtException;

@@ -16,6 +16,7 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
         /// <param name="model">Model returned from action result.</param>
         protected BaseTestBuilderWithModel(ApiController controller, string actionName, Exception caughtException, TModel model)
             : base(controller, actionName, caughtException)

@@ -54,6 +54,10 @@
             }
         }
 
+        /// <summary>
+        /// Validated whether a non-null exception is provided and throws ActionCallAssertionException with proper message.
+        /// </summary>
+        /// <param name="exception">Exception to be validated.</param>
         public static void CheckForException(Exception exception)
         {
             if (exception != null)
