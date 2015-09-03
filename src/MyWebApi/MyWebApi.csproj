@@ -58,6 +58,7 @@
     <Compile Include="Builders\Actions\ShouldReturnNotFound.cs" />
     <Compile Include="Builders\Actions\ShouldReturnStatusCode.cs" />
     <Compile Include="Builders\Actions\ShouldReturnUnauthorized.cs" />
+    <Compile Include="Builders\Actions\ShouldThrowTestBuilder.cs" />
     <Compile Include="Builders\Actions\VoidActionResultTestBuilder.cs" />
     <Compile Include="Builders\And\AndProvideTestBuilder.cs" />
     <Compile Include="Builders\And\AndProvideTestBuilder{TActionResult}.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithModel.cs" />
+    <Compile Include="Builders\Contracts\Actions\IShouldThrowTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IVoidActionResultTestBuilder.cs" />
     <Compile Include="Builders\Contracts\And\IAndTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestErrorMessageTestBuilder.cs" />

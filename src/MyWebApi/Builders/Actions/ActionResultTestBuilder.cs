@@ -31,6 +31,11 @@
         {
         }
 
+        public void ShouldThrow()
+        {
+            
+        }
+
         private void ValidateActionReturnType(Type typeOfExpectedReturnValue, bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
         {
             Validator.CheckForException(this.CaughtException);
