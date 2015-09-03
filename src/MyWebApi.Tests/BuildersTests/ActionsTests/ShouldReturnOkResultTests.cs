@@ -1,8 +1,8 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
 {
+    using System;
     using Exceptions;
     using NUnit.Framework;
-    using Setups;
     using Setups.Controllers;
 
     [TestFixture]
@@ -14,6 +14,19 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultAction())
+                .ShouldReturnOk();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ArgumentNullException),
+            ExpectedMessage = @"ActionResult cannot be null.
+Parameter name: value")]
+        public void ShouldReturnOkWithAsyncShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .CallingAsync(c => c.ActionWithExceptionAsync())
                 .ShouldReturnOk();
         }
 

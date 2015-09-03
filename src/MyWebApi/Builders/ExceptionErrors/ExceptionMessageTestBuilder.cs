@@ -27,12 +27,11 @@
             ApiController controller,
             string actionName,
             Exception caughtException,
-            IAndExceptionTestBuilder exceptionTestBuilder,
-            string actualMessage)
+            IAndExceptionTestBuilder exceptionTestBuilder)
             : base(controller, actionName, caughtException)
         {
             this.exceptionTestBuilder = exceptionTestBuilder;
-            this.actualMessage = actualMessage;
+            this.actualMessage = caughtException.Message;
         }
 
         /// <summary>

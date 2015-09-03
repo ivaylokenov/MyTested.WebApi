@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using NUnit.Framework;
-    using Setups;
     using Setups.Controllers;
     using Setups.Models;
     using Setups.Services;

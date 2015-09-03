@@ -5,6 +5,7 @@
     using Base;
     using Contracts.Actions;
     using Contracts.Base;
+    using Utilities;
 
     /// <summary>
     /// Used for testing void actions.
@@ -27,6 +28,7 @@
         /// <returns>Base test builder.</returns>
         public IBaseTestBuilder ShouldReturnEmpty()
         {
+            Validator.CheckForException(this.CaughtException);
             return this.NewAndProvideTestBuilder();
         }
     }

@@ -20,7 +20,11 @@
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="responseModel">Response model from invoked action.</param>
-        public ModelDetailsTestBuilder(ApiController controller, string actionName, Exception caughtException, TResponseModel responseModel)
+        public ModelDetailsTestBuilder(
+            ApiController controller,
+            string actionName,
+            Exception caughtException,
+            TResponseModel responseModel)
             : base(controller, actionName, caughtException, responseModel)
         {
         }

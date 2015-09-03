@@ -7,7 +7,6 @@
     using System.Web.Http;
     using System.Web.Http.Results;
     using Base;
-    using Common;
     using Common.Extensions;
     using Contracts.Base;
     using Contracts.Unauthorized;

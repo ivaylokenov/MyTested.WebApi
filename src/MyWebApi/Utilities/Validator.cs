@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Utilities
 {
     using System;
+    using Exceptions;
 
     /// <summary>
     /// Validator class containing common validation logic.
@@ -52,6 +53,22 @@
             if (value == null || value.Equals(default(T)))
             {
                 throw new InvalidOperationException(errorMessage);
+            }
+        }
+
+        public static void CheckForException(Exception exception)
+        {
+            if (exception != null)
+            {
+                var message = 
+                    string.IsNullOrWhiteSpace(exception.Message) 
+                    ? string.Empty 
+                    : string.Format(" with '{0}' message", exception.Message);
+
+                throw new ActionCallAssertionException(string.Format(
+                    "{0}{1} was thrown but was not caught or expected.",
+                    exception.GetType().ToFriendlyTypeName(),
+                    message));
             }
         }
     }

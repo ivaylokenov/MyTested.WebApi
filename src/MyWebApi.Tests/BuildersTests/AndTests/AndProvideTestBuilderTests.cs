@@ -2,7 +2,6 @@
 {
     using System.Web.Http.Results;
     using NUnit.Framework;
-    using Setups;
     using Setups.Controllers;
 
     [TestFixture]

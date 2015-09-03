@@ -41,7 +41,7 @@
         public IExceptionTestBuilder WithException()
         {
             var exceptionResult = this.GetExceptionResult();
-            return new ExceptionTestBuilder(this.Controller, this.ActionName, this.CaughtException, exceptionResult.Exception);
+            return new ExceptionTestBuilder(this.Controller, this.ActionName, exceptionResult.Exception);
         }
 
         /// <summary>

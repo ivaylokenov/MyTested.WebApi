@@ -1,9 +1,10 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.ActionsTests
 {
+    using System;
     using System.Collections.Generic;
+    using System.Web.Http;
     using Exceptions;
     using NUnit.Framework;
-    using Setups;
     using Setups.Controllers;
     using Setups.Models;
 
@@ -100,6 +101,32 @@
                 .Calling(c => c.GenericAction())
                 .ShouldReturn<ICollection<ResponseModel>>()
                 .Passing(c => c.Count == 2);
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ArgumentNullException),
+            ExpectedMessage = @"ActionResult cannot be null.
+Parameter name: value")]
+        public void ShouldReturnShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.ActionWithException())
+                .ShouldReturn<IHttpActionResult>();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ArgumentNullException),
+            ExpectedMessage = @"ActionResult cannot be null.
+Parameter name: value")]
+        public void ShouldReturnWithAsyncShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .CallingAsync(c => c.ActionWithExceptionAsync())
+                .ShouldReturn<IHttpActionResult>();
         }
 
         [Test]

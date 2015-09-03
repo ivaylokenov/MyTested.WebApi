@@ -9,10 +9,7 @@
         [Test]
         public void ShouldThrowExceptionShouldCatchAndValidateThereIsException()
         {
-            MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.EmptyActionWithException())
-                .ShouldReturnEmpty();
+            
         }
     }
 }

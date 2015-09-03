@@ -91,7 +91,11 @@
 
         public async Task<IHttpActionResult> ActionWithExceptionAsync()
         {
-            return await Task.Run(() => this.Ok());
+            return await Task.Run(() =>
+            {
+                this.ThrowNewNullReferenceException();
+                return this.Ok();
+            });
         }
 
         public IHttpActionResult OkResultActionWithRequestBody(int id, RequestModel model)

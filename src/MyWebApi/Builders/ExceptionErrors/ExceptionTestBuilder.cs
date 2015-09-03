@@ -13,18 +13,15 @@
     /// </summary>
     public class ExceptionTestBuilder : BaseTestBuilder, IAndExceptionTestBuilder
     {
-        private readonly Exception actualException;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionTestBuilder" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="exception">Actual received exception.</param>
-        public ExceptionTestBuilder(ApiController controller, string actionName, Exception caughtException, Exception exception)
-            : base(controller, actionName, caughtException)
+        public ExceptionTestBuilder(ApiController controller, string actionName, Exception exception)
+            : base(controller, actionName, exception)
         {
-            this.actualException = exception;
         }
 
         /// <summary>
@@ -35,7 +32,7 @@
         public IAndExceptionTestBuilder OfType<TException>()
         {
             var expectedExceptionType = typeof(TException);
-            var actualExceptionType = this.actualException.GetType();
+            var actualExceptionType = this.CaughtException.GetType();
             if (Reflection.AreDifferentTypes(expectedExceptionType, actualExceptionType))
             {
                 throw new InvalidExceptionAssertionException(string.Format(
@@ -43,7 +40,7 @@
                     this.ActionName,
                     this.Controller.GetName(),
                     expectedExceptionType.ToFriendlyTypeName(),
-                    this.actualException.GetName()));
+                    this.CaughtException.GetName()));
             }
 
             return this;
@@ -59,8 +56,7 @@
                 this.Controller,
                 this.ActionName,
                 this.CaughtException,
-                this,
-                this.actualException.Message);
+                this);
         }
 
         /// <summary>
@@ -70,7 +66,7 @@
         /// <returns>The same exception test builder.</returns>
         public IAndExceptionTestBuilder WithMessage(string message)
         {
-            var actualExceptionMessage = this.actualException.Message;
+            var actualExceptionMessage = this.CaughtException.Message;
             if (actualExceptionMessage != message)
             {
                 throw new InvalidExceptionAssertionException(string.Format(

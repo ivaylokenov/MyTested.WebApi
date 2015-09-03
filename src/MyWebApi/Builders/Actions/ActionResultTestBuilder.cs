@@ -32,6 +32,8 @@
 
         private void ValidateActionReturnType(Type typeOfExpectedReturnValue, bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
         {
+            Validator.CheckForException(this.CaughtException);
+
             var typeOfActionResult = ActionResult.GetType();
 
             var isAssignableCheck = canBeAssignable && Reflection.AreNotAssignable(typeOfExpectedReturnValue, typeOfActionResult);

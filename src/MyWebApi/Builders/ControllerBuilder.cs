@@ -13,7 +13,6 @@
     using Common.Identity;
     using Contracts;
     using Contracts.Actions;
-    using Contracts.Base;
     using Contracts.Controllers;
     using Exceptions;
     using Utilities;
@@ -160,11 +159,22 @@
         public IActionResultTestBuilder<TActionResult> CallingAsync<TActionResult>(Expression<Func<TController, Task<TActionResult>>> actionCall)
         {
             var actionInfo = this.GetAndValidateActionResult(actionCall);
+            var actionResult = default(TActionResult);
+
+            try
+            {
+                actionResult = actionInfo.ActionResult.Result;
+            }
+            catch (AggregateException aggregateException)
+            {
+                actionInfo.CaughtException = aggregateException;
+            }
+
             return new ActionResultTestBuilder<TActionResult>(
                 this.Controller,
                 actionInfo.ActionName,
                 actionInfo.CaughtException,
-                actionInfo.ActionResult.Result);
+                actionResult);
         }
 
         /// <summary>
@@ -197,7 +207,16 @@
         public IVoidActionResultTestBuilder CallingAsync(Expression<Func<TController, Task>> actionCall)
         {
             var actionInfo = this.GetAndValidateActionResult(actionCall);
-            actionInfo.ActionResult.Wait();
+
+            try
+            {
+                actionInfo.ActionResult.Wait();
+            }
+            catch (AggregateException aggregateException)
+            {
+                actionInfo.CaughtException = aggregateException;
+            }
+
             return new VoidActionResultTestBuilder(this.Controller, actionInfo.ActionName, actionInfo.CaughtException);
         }
 
