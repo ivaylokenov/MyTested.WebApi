@@ -20,7 +20,6 @@
 
         public IExceptionTestBuilder Exception()
         {
-            Validator.CheckForException(this.CaughtException);
             return new ExceptionTestBuilder(this.Controller, this.ActionName, this.CaughtException);
         }
     }

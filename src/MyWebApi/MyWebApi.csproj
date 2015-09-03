@@ -109,7 +109,7 @@
     <Compile Include="Builders\Models\ModelErrorTestBuilder{TModel}.cs" />
     <Compile Include="Builders\Models\ResponseModelTestBuilder.cs" />
     <Compile Include="Builders\Actions\ActionResultTestBuilder.cs" />
-    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturn.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnResultOfType.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnOk.cs" />
     <Compile Include="Builders\Unauthorized\AuthenticationHeaderValueBuilder.cs" />
     <Compile Include="Builders\Unauthorized\ChallengesBuilder.cs" />

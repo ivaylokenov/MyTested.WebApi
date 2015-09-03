@@ -38,7 +38,8 @@ namespace MyApp.Tests.Controllers
             MyWebApi
                 .Controller<HomeController>()
                 .Calling(c => c.Get())
-                .ShouldReturnOk();
+                .ShouldReturn()
+				.Ok();
         }
 	}
 }
@@ -61,7 +62,8 @@ MyWebApi
 	.Calling(c => c.SomeAction(requestModel))
 	.ShouldHaveValidModelState()
 	.AndAlso()
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.WithResponseModelOfType<ResponseModel>()
 	.Passing(m =>
 	{
@@ -88,7 +90,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnInternalServerError()
+	.ShouldReturn()
+	.InternalServerError()
 	.WithException()
 	.OfType<SomeException>()
 	.AndAlso()

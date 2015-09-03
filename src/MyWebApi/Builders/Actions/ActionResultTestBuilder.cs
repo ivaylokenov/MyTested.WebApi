@@ -5,6 +5,7 @@
     using Base;
     using Contracts.Actions;
     using ShouldReturn;
+    using Utilities;
 
     /// <summary>
     /// Used for building the action result which will be tested.
@@ -36,6 +37,7 @@
 
         public IShouldReturnTestBuilder<TActionResult> ShouldReturn()
         {
+            Validator.CheckForException(this.CaughtException);
             return new ShouldReturnTestBuilder<TActionResult>(this.Controller, this.ActionName, this.CaughtException, this.ActionResult);
         }
     }
