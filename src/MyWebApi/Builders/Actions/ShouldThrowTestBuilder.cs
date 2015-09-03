@@ -6,12 +6,15 @@
     using Contracts.Actions;
     using Contracts.ExceptionErrors;
     using ExceptionErrors;
+    using Exceptions;
 
     /// <summary>
     /// Used for testing whether action throws exception.
     /// </summary>
     public class ShouldThrowTestBuilder : BaseTestBuilder, IShouldThrowTestBuilder
     {
+        private readonly IExceptionTestBuilder exceptionTestBuilder;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ShouldThrowTestBuilder" /> class.
         /// </summary>
@@ -24,11 +27,18 @@
             Exception caughtException)
             : base(controller, actionName, caughtException)
         {
+            this.exceptionTestBuilder = new ExceptionTestBuilder(this.Controller, this.ActionName, this.CaughtException);
         }
 
         public IExceptionTestBuilder Exception()
         {
-            return new ExceptionTestBuilder(this.Controller, this.ActionName, this.CaughtException);
+            return this.exceptionTestBuilder;
+        }
+
+        public IHttpResponseExceptionTestBuilder HttpResponseException()
+        {
+            this.exceptionTestBuilder.OfType<HttpResponseException>();
+            return new HttpResponseExceptionTestBuilder(this.Controller, this.ActionName, this.CaughtException);
         }
     }
 }

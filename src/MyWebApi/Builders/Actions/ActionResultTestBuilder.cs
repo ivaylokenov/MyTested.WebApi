@@ -3,7 +3,9 @@
     using System;
     using System.Web.Http;
     using Base;
+    using Common.Extensions;
     using Contracts.Actions;
+    using Exceptions;
     using ShouldHave;
     using ShouldReturn;
     using Utilities;
@@ -46,6 +48,14 @@
         /// <returns>Should throw test builder.</returns>
         public IShouldThrowTestBuilder ShouldThrow()
         {
+            if (this.CaughtException == null)
+            {
+                throw new ActionCallAssertionException(string.Format(
+                    "When calling {0} action in {1} thrown exception was expected, but in fact none was caught.",
+                    this.ActionName,
+                    this.Controller.GetName()));
+            }
+
             return new ShouldThrowTestBuilder(this.Controller, this.ActionName, this.CaughtException);
         }
 
