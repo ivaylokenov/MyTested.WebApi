@@ -17,8 +17,6 @@
     public abstract class BaseTestBuilderWithActionResult<TActionResult>
         : BaseTestBuilder, IBaseTestBuilderWithActionResult<TActionResult>
     {
-        private TActionResult actionResult;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestBuilderWithActionResult{TActionResult}" /> class.
         /// </summary>
@@ -40,19 +38,7 @@
         /// Gets the action result which will be tested.
         /// </summary>
         /// <value>Action result to be tested.</value>
-        internal TActionResult ActionResult
-        {
-            get
-            {
-                return this.actionResult;
-            }
-
-            private set
-            {
-                Validator.CheckForNullReference(value, errorMessageName: "ActionResult");
-                this.actionResult = value;
-            }
-        }
+        internal TActionResult ActionResult { get; private set; }
 
         /// <summary>
         /// Gets the action result which will be tested.

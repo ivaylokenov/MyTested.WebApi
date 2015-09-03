@@ -647,4 +647,14 @@ var responseModel = MyWebApi
 	.Ok()
 	.WithResponseModelOfType<ResponseModel>()
 	.AndProvideTheModel();
+	
+// get the caught exception 
+// * returns null if the action does not throw exception
+// * method is available almost everywhere throughout the API
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.Exception()
+	.AndProvideTheCaughtException();
 ```

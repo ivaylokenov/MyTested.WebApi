@@ -20,8 +20,8 @@
 
         [Test]
         [ExpectedException(
-            typeof(NullReferenceException),
-            ExpectedMessage = "ActionResult cannot be null.")]
+            typeof(ActionCallAssertionException),
+            ExpectedMessage = "AggregateException (containing NullReferenceException with 'Test exception message' message) was thrown but was not caught or expected.")]
         public void ShouldReturnOkWithAsyncShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue()
         {
             MyWebApi

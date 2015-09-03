@@ -20,6 +20,7 @@
                 .AndProvideTheController();
 
             Assert.IsNotNull(controller);
+            Assert.IsAssignableFrom<WebApiController>(controller);
         }
 
         [Test]
@@ -48,6 +49,20 @@
 
             Assert.IsNotNull(actionResult);
             Assert.IsAssignableFrom<StatusCodeResult>(actionResult);
+        }
+
+        [Test]
+        public void AndProvideShouldReturnProperCaughtException()
+        {
+            var caughtException = MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.ActionWithException())
+                .ShouldThrow()
+                .Exception()
+                .AndProvideTheCaughtException();
+
+            Assert.IsNotNull(caughtException);
+            Assert.IsAssignableFrom<NullReferenceException>(caughtException);
         }
     }
 }

@@ -30,6 +30,7 @@
         public IBaseTestBuilderWithActionResult<TActionResult> StatusCode(HttpStatusCode statusCode)
         {
             var statusCodeResult = this.GetReturnObject<StatusCodeResult>();
+            var actualStatusCode = statusCodeResult.StatusCode;
             if (statusCodeResult.StatusCode != statusCode)
             {
                 throw new HttpStatusCodeAssertionException(string.Format(
@@ -38,8 +39,8 @@
                     this.Controller.GetName(),
                     (int)statusCode,
                     statusCode,
-                    (int)statusCodeResult.StatusCode,
-                    statusCodeResult.StatusCode));
+                    (int)actualStatusCode,
+                    actualStatusCode));
             }
 
             return this.NewAndProvideTestBuilder();

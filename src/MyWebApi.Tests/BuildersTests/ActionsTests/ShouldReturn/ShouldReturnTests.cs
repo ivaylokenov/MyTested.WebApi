@@ -115,8 +115,8 @@
 
         [Test]
         [ExpectedException(
-            typeof(NullReferenceException),
-            ExpectedMessage = "ActionResult cannot be null.")]
+            typeof(ActionCallAssertionException),
+            ExpectedMessage = "NullReferenceException with 'Test exception message' message was thrown but was not caught or expected.")]
         public void ShouldReturnShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue()
         {
             MyWebApi
@@ -128,8 +128,8 @@
 
         [Test]
         [ExpectedException(
-            typeof(NullReferenceException),
-            ExpectedMessage = "ActionResult cannot be null.")]
+            typeof(ActionCallAssertionException),
+            ExpectedMessage = "AggregateException (containing NullReferenceException with 'Test exception message' message) was thrown but was not caught or expected.")]
         public void ShouldReturnWithAsyncShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue()
         {
             MyWebApi

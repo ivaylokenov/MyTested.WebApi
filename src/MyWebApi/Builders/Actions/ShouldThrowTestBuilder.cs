@@ -38,7 +38,10 @@
         public IHttpResponseExceptionTestBuilder HttpResponseException()
         {
             this.exceptionTestBuilder.OfType<HttpResponseException>();
-            return new HttpResponseExceptionTestBuilder(this.Controller, this.ActionName, this.CaughtException);
+            return new HttpResponseExceptionTestBuilder(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException as HttpResponseException);
         }
     }
 }
