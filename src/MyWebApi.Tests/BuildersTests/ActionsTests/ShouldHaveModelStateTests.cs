@@ -18,7 +18,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveModelStateFor<RequestModel>()
+                .ShouldHave()
+                .ModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(r => r.NonRequiredString)
                 .ContainingModelStateErrorFor(r => r.Integer)
                 .ContainingModelStateErrorFor(r => r.RequiredString);
@@ -32,7 +33,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModel))
-                .ShouldHaveValidModelState();
+                .ShouldHave()
+                .ValidModelState();
         }
 
         [Test]
@@ -46,7 +48,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveValidModelState();
+                .ShouldHave()
+                .ValidModelState();
         }
 
         [Test]
@@ -57,7 +60,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveInvalidModelState();
+                .ShouldHave()
+                .InvalidModelState();
         }
 
         [Test]
@@ -71,7 +75,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModel))
-                .ShouldHaveInvalidModelState();
+                .ShouldHave()
+                .InvalidModelState();
         }
 
         [Test]
@@ -82,7 +87,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModel))
-                .ShouldHaveValidModelState()
+                .ShouldHave()
+                .ValidModelState()
                 .AndAlso()
                 .ShouldReturn()
                 .Ok();
@@ -96,7 +102,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveInvalidModelState()
+                .ShouldHave()
+                .InvalidModelState()
                 .AndAlso()
                 .ShouldReturn()
                 .Ok();
@@ -113,7 +120,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModelWithErrors))
-                .ShouldHaveModelStateFor<RequestModel>()
+                .ShouldHave()
+                .ModelStateFor<RequestModel>()
                 .ContainingNoModelStateErrorFor(r => r.NonRequiredString)
                 .ContainingModelStateErrorFor(r => r.Integer)
                 .ContainingModelStateErrorFor(r => r.RequiredString)

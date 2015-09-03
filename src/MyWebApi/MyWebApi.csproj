@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\Actions\ShouldHave\ShouldHaveTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnBadRequest.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnConflict.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnInternalServerError.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithModel.cs" />
+    <Compile Include="Builders\Contracts\Actions\IShouldHaveTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldReturnTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldThrowTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IVoidActionResultTestBuilder.cs" />
@@ -99,7 +101,7 @@
     <Compile Include="Builders\Contracts\Unauthorized\IUnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IUserBuilder.cs" />
     <Compile Include="Builders\ControllerBuilder.cs" />
-    <Compile Include="Builders\Actions\ShouldHaveModelState.cs" />
+    <Compile Include="Builders\Actions\ShouldHave\ShouldHaveModelState.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionTestBuilder.cs" />
     <Compile Include="Builders\InternalServerErrors\InternalServerErrorTestBuilder.cs" />
@@ -141,6 +143,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

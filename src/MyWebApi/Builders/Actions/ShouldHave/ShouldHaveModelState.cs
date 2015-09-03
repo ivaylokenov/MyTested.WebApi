@@ -1,23 +1,23 @@
-﻿namespace MyWebApi.Builders.Actions
+﻿namespace MyWebApi.Builders.Actions.ShouldHave
 {
-    using Common.Extensions;
     using Contracts.And;
     using Contracts.Models;
-    using Exceptions;
     using Models;
+    using Common.Extensions;
+    using Exceptions;
 
     /// <summary>
-    /// Class containing methods for testing return type.
+    /// Class containing methods for testing model state.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public partial class ActionResultTestBuilder<TActionResult>
+    public partial class ShouldHaveTestBuilder<TActionResult>
     {
         /// <summary>
         /// Provides way to continue test case with specific model state errors.
         /// </summary>
         /// <typeparam name="TRequestModel">Request model type to be tested for errors.</typeparam>
         /// <returns>Response model test builder.</returns>
-        public IModelErrorTestBuilder<TRequestModel> ShouldHaveModelStateFor<TRequestModel>()
+        public IModelErrorTestBuilder<TRequestModel> ModelStateFor<TRequestModel>()
         {
             return new ModelErrorTestBuilder<TRequestModel>(this.Controller, this.ActionName, this.CaughtException);
         }
@@ -26,7 +26,7 @@
         /// Checks whether the tested action's provided model state is valid.
         /// </summary>
         /// <returns>Test builder with AndAlso method.</returns>
-        public IAndTestBuilder<TActionResult> ShouldHaveValidModelState()
+        public IAndTestBuilder<TActionResult> ValidModelState()
         {
             this.CheckValidModelState();
             return this.NewAndTestBuilder();
@@ -36,7 +36,7 @@
         /// Checks whether the tested action's provided model state is not valid.
         /// </summary>
         /// <returns>Test builder with AndAlso method.</returns>
-        public IAndTestBuilder<TActionResult> ShouldHaveInvalidModelState()
+        public IAndTestBuilder<TActionResult> InvalidModelState()
         {
             if (this.Controller.ModelState.Count == 0)
             {

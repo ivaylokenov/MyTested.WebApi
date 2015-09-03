@@ -4,6 +4,7 @@
     using System.Web.Http;
     using Base;
     using Contracts.Actions;
+    using ShouldHave;
     using ShouldReturn;
     using Utilities;
 
@@ -15,7 +16,7 @@
         : BaseTestBuilderWithActionResult<TActionResult>, IActionResultTestBuilder<TActionResult>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ActionResultTestBuilder{TActionResult}" /> class.
+        /// Initializes a new instance of the <see cref="Actions.ShouldHave.ActionResultTestBuilder{TActionResult}" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
@@ -28,6 +29,11 @@
             TActionResult actionResult)
             : base(controller, actionName, caughtException, actionResult)
         {
+        }
+
+        public IShouldHaveTestBuilder<TActionResult> ShouldHave()
+        {
+            return new ShouldHaveTestBuilder<TActionResult>(this.Controller, this.ActionName, this.CaughtException, this.ActionResult);
         }
 
         public IShouldThrowTestBuilder ShouldThrow()
