@@ -60,7 +60,8 @@ MyWebApi
 	.WithResolvedDependencyFor<IAnotherInjectedService>(anotherMockedInjectedService);
 	.WithAuthenticatedUser(user => user.WithUsername("NewUserName"))
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveValidModelState()
+	.ShouldHave()
+	.ValidModelState()
 	.AndAlso()
 	.ShouldReturn()
 	.Ok()
@@ -76,7 +77,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveModelStateFor<RequestModel>()
+	.ShouldHave()
+	.ModelStateFor<RequestModel>()
 	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message") 
 	.AndAlso()
 	.ContainingModelStateErrorFor(m => m.SecondProperty).BeginningWith("Error") 

@@ -6,7 +6,6 @@
     using Contracts.Actions;
     using Contracts.ExceptionErrors;
     using ExceptionErrors;
-    using Utilities;
 
     public class ShouldThrowTestBuilder : BaseTestBuilder, IShouldThrowTestBuilder
     {

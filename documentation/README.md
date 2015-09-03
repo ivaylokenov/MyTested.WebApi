@@ -98,19 +98,22 @@ You can test whether model state is valid/invalid or contains any specific error
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveValidModelState();
+	.ShouldHave()
+	.ValidModelState();
 	
 // tests whether model state is not valid
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveInvalidModelState();
+	.ShouldHave()
+	.InvalidModelState();
 	
 // tests whether model state is valid and returns some action result
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveInvalidModelState()
+	.ShouldHave()
+	.InvalidModelState()
 	.AndAlso()
 	.ShouldReturn()
 	.Ok();;
@@ -120,7 +123,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveModelStateFor<RequestModel>()
+	.ShouldHave()
+	.ModelStateFor<RequestModel>()
 	.ContainingModelStateError("propertyName")
 	.AndAlso() // AndAlso method is not necessary
 	.ContainingNoModelStateError("anotherPropertyName");
@@ -129,7 +133,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveModelStateFor<RequestModel>()
+	.ShouldHave()
+	.ModelStateFor<RequestModel>()
 	.ContainingModelStateErrorFor(m => m.SomeProperty)
 	.AndAlso()
 	.ContainingNoModelStateErrorFor(m => m.AnotherProperty);
@@ -138,7 +143,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveModelStateFor<RequestModel>() // error must be equal to the provided string
+	.ShouldHave()
+	.ModelStateFor<RequestModel>() // error must be equal to the provided string
 	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message") 
 	.AndAlso() // error must begin with the provided string
 	.ContainingModelStateErrorFor(m => m.SecondProperty).BeginningWith("Error") 
