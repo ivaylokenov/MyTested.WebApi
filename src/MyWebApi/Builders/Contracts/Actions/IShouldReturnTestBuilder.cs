@@ -5,6 +5,7 @@
     using BadRequests;
     using Base;
     using InternalServerErrors;
+    using Json;
     using Models;
     using Unauthorized;
 
@@ -62,6 +63,8 @@
         /// </summary>
         /// <returns>Internal server error test builder.</returns>
         IInternalServerErrorTestBuilder InternalServerError();
+
+        IJsonTestBuilder Json();
 
         /// <summary>
         /// Tests whether action result is of the provided generic type.

@@ -9,7 +9,11 @@
         public IJsonTestBuilder Json()
         {
             this.ResultOfType(typeof(JsonResult<>));
-            return new JsonTestBuilder(this.Controller, this.ActionName, this.CaughtException);
+            return new JsonTestBuilder<TActionResult>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.ActionResult);
         }
     }
 }

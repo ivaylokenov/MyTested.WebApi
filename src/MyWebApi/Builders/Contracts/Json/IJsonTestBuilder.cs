@@ -1,8 +1,8 @@
 ﻿namespace MyWebApi.Builders.Contracts.Json
 {
-    using Base;
+    using Models;
 
-    public interface IJsonTestBuilder : IBaseTestBuilder
+    public interface IJsonTestBuilder : IBaseResponseModelTestBuilder
     {
     }
 }

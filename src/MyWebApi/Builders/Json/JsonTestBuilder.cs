@@ -2,16 +2,17 @@
 {
     using System;
     using System.Web.Http;
-    using Base;
     using Contracts.Json;
+    using Models;
 
-    public class JsonTestBuilder : BaseTestBuilder, IJsonTestBuilder
+    public class JsonTestBuilder<TActionResult> : BaseResponseModelTestBuilder<TActionResult>, IJsonTestBuilder
     {
         public JsonTestBuilder(
             ApiController controller,
-            string actionName,
-            Exception caughtException)
-            : base(controller, actionName, caughtException)
+            string actionName, 
+            Exception caughtException,
+            TActionResult actionResult)
+            : base(controller, actionName, caughtException, actionResult)
         {
         }
     }

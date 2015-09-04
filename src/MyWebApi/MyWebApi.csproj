@@ -87,6 +87,7 @@
     <Compile Include="Builders\Contracts\Json\IJsonTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IAndModelErrorTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithModel.cs" />
+    <Compile Include="Builders\Contracts\Models\IBaseResponseModelTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Unauthorized\IAndChallengesBuilder.cs" />
     <Compile Include="Builders\Contracts\Unauthorized\IAndUnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Unauthorized\IAuthenticationHeaderValueParameterBuilder.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Builders\ExceptionErrors\HttpResponseExceptionTestBuilder.cs" />
     <Compile Include="Builders\InternalServerErrors\InternalServerErrorTestBuilder.cs" />
     <Compile Include="Builders\Json\JsonTestBuilder.cs" />
+    <Compile Include="Builders\Models\BaseResponseModelTestBuilder.cs" />
     <Compile Include="Builders\Models\ModelDetailsTestBuilder.cs" />
     <Compile Include="Builders\Models\ModelErrorDetailsTestBuilder.cs" />
     <Compile Include="Builders\Models\ModelErrorTestBuilder.cs" />
