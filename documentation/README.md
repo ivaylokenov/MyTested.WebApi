@@ -272,7 +272,7 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturn()
+	.ShouldReturn();
 ```
 
 #### Ok result

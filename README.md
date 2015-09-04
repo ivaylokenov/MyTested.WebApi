@@ -53,7 +53,7 @@ Here are some random examples of what the fluent testing API is capable of:
 // injects dependencies into controller
 // and mocks authenticated user
 // and tests for valid model state
-// and tests response model from Ok result with certain assertions
+// and tests response model from Ok result with specific assertions
 MyWebApi
 	.Controller<WebApiController>()
 	.WithResolvedDependencyFor<IInjectedService>(mockedInjectedService)
