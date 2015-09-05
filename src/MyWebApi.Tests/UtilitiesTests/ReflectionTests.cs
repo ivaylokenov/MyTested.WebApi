@@ -203,6 +203,20 @@
         }
 
         [Test]
+        public void ContainsGenericTypeDefinitionInterfacesShouldReturnTrueWithValidInterfaces()
+        {
+            var result = Reflection.ContainsGenericTypeDefinitionInterface(typeof(IEnumerable<>), typeof(List<>));
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void ContainsGenericTypeDefinitionInterfacesShouldReturnFalseWithInvalidInterfaces()
+        {
+            var result = Reflection.ContainsGenericTypeDefinitionInterface(typeof(IEnumerable<>), typeof(Array));
+            Assert.IsFalse(result);
+        }
+
+        [Test]
         public void CastToShouldReturnCorrectCastWhenCastIsPossible()
         {
             IEnumerable<int> original = new List<int>();
