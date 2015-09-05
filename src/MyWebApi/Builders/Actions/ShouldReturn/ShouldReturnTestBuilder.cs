@@ -39,19 +39,12 @@
             var typeOfActionResult = ActionResult.GetType();
 
             var isAssignableCheck = canBeAssignable && Reflection.AreNotAssignable(typeOfExpectedReturnValue, typeOfActionResult);
-            var haveDifferentGenericArguments = false;
             if (isAssignableCheck && allowDifferentGenericTypeDefinitions
                 && Reflection.IsGeneric(typeOfExpectedReturnValue) && Reflection.IsGenericTypeDefinition(typeOfExpectedReturnValue))
             {
                 isAssignableCheck = Reflection.AreAssignableByGeneric(typeOfExpectedReturnValue, typeOfActionResult);
 
-                if (!Reflection.IsGenericTypeDefinition(typeOfExpectedReturnValue))
-                {
-                    haveDifferentGenericArguments = Reflection.HaveDifferentGenericArguments(typeOfExpectedReturnValue, typeOfActionResult);
-                }
-
-                if (!isAssignableCheck && (typeOfExpectedReturnValue.IsGenericType && !typeOfActionResult.IsGenericType)
-                    || (!typeOfExpectedReturnValue.IsGenericType && typeOfActionResult.IsGenericType))
+                if (!isAssignableCheck && !typeOfActionResult.IsGenericType)
                 {
                     isAssignableCheck = true;
                 }
@@ -64,7 +57,7 @@
 
             var strictlyEqualCheck = !canBeAssignable && Reflection.AreDifferentTypes(typeOfExpectedReturnValue, typeOfActionResult);
 
-            var invalid = isAssignableCheck || strictlyEqualCheck || haveDifferentGenericArguments;
+            var invalid = isAssignableCheck || strictlyEqualCheck;
             if (strictlyEqualCheck)
             {
                 var genericTypeDefinitionCheck = Reflection.AreAssignableByGeneric(typeOfExpectedReturnValue, typeOfActionResult);

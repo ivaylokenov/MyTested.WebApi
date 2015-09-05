@@ -92,6 +92,19 @@
         }
 
         [Test]
+        [ExpectedException(
+            typeof(HttpActionResultAssertionException),
+            ExpectedMessage = "When calling GenericInterfaceAction action in WebApiController expected action result to be ICollection<T>, but instead received ResponseModel.")]
+        public void ShouldReturnShouldThrowExceptionWithClassTypesAndTypeOfAndInterfaceReturnWithInterface()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.GenericInterfaceAction())
+                .ShouldReturn()
+                .ResultOfType(typeof(ICollection<>));
+        }
+
+        [Test]
         public void ShouldReturnShouldNotThrowExceptionWithInterfaceTypesAndInterfaceReturn()
         {
             MyWebApi
@@ -141,7 +154,9 @@
                 .ResultOfType<ICollection<ResponseModel>>();
         }
         [Test]
-        [ExpectedException]
+        [ExpectedException(
+            typeof(HttpActionResultAssertionException),
+            ExpectedMessage = "When calling GenericActionWithListCollection action in WebApiController expected action result to be HashSet<ResponseModel>, but instead received List<ResponseModel>.")]
         public void ShouldReturnShouldNotExceptionWithOtherGenericResult()
         {
             MyWebApi
@@ -182,7 +197,9 @@
         }
 
         [Test]
-        [ExpectedException]
+        [ExpectedException(
+            typeof(HttpActionResultAssertionException),
+            ExpectedMessage = "When calling GenericActionWithListCollection action in WebApiController expected action result to be HashSet<ResponseModel>, but instead received List<ResponseModel>.")]
         public void ShouldReturnShouldThrowExceptionWithOtherGenericResultWithTypeOf()
         {
             MyWebApi
@@ -213,7 +230,9 @@
         }
 
         [Test]
-        [ExpectedException]
+        [ExpectedException(
+            typeof(HttpActionResultAssertionException),
+            ExpectedMessage = "When calling GenericActionWithCollection action in WebApiController expected action result to be HashSet<T>, but instead received List<ResponseModel>.")]
         public void ShouldReturnShouldThrowExceptionWithDifferentWrongGenericDefinitionAndTypeOf()
         {
             MyWebApi
@@ -254,7 +273,9 @@
         }
 
         [Test]
-        [ExpectedException]
+        [ExpectedException(
+            typeof(HttpActionResultAssertionException),
+            ExpectedMessage = "When calling GenericActionWithCollection action in WebApiController expected action result to be ICollection<IResponseModel>, but instead received List<ResponseModel>.")]
         public void ShouldReturnShouldThrowExceptionWithCollectionOfClassTypesWithInterface()
         {
             MyWebApi
@@ -265,7 +286,9 @@
         }
 
         [Test]
-        [ExpectedException]
+        [ExpectedException(
+            typeof(HttpActionResultAssertionException),
+            ExpectedMessage = "When calling GenericActionWithCollection action in WebApiController expected action result to be ICollection<IResponseModel>, but instead received List<ResponseModel>.")]
         public void ShouldReturnShouldThrowExceptionWithCollectionOfClassTypesAndTypeOfWithInterface()
         {
             MyWebApi
