@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System;
+    using System.Linq;
     using System.Web.Http;
     using Base;
     using Common.Extensions;
@@ -39,13 +40,25 @@
 
             var isAssignableCheck = canBeAssignable && Reflection.AreNotAssignable(typeOfExpectedReturnValue, typeOfActionResult);
             var haveDifferentGenericArguments = false;
-            if (isAssignableCheck && allowDifferentGenericTypeDefinitions && Reflection.IsGeneric(typeOfExpectedReturnValue))
+            if (isAssignableCheck && allowDifferentGenericTypeDefinitions
+                && Reflection.IsGeneric(typeOfExpectedReturnValue) && Reflection.IsGenericTypeDefinition(typeOfExpectedReturnValue))
             {
                 isAssignableCheck = Reflection.AreAssignableByGeneric(typeOfExpectedReturnValue, typeOfActionResult);
 
                 if (!Reflection.IsGenericTypeDefinition(typeOfExpectedReturnValue))
                 {
                     haveDifferentGenericArguments = Reflection.HaveDifferentGenericArguments(typeOfExpectedReturnValue, typeOfActionResult);
+                }
+
+                if (!isAssignableCheck && (typeOfExpectedReturnValue.IsGenericType && !typeOfActionResult.IsGenericType)
+                    || (!typeOfExpectedReturnValue.IsGenericType && typeOfActionResult.IsGenericType))
+                {
+                    isAssignableCheck = true;
+                }
+                else
+                {
+                    isAssignableCheck = 
+                        !Reflection.ContainsGenericTypeDefinitionInterface(typeOfExpectedReturnValue, typeOfActionResult);
                 }
             }
 
@@ -60,6 +73,20 @@
                 {
                     invalid = false;
                 }
+            }
+
+            if (invalid && typeOfExpectedReturnValue.IsGenericTypeDefinition && typeOfActionResult.IsGenericType)
+            {
+                var actionResultGenericDefinition = typeOfActionResult.GetGenericTypeDefinition();
+                if (actionResultGenericDefinition == typeOfExpectedReturnValue)
+                {
+                    invalid = false;
+                }
+            }
+
+            if (invalid && typeOfExpectedReturnValue.IsGenericType && typeOfActionResult.IsGenericType)
+            {
+                invalid = !Reflection.AreAssignableByGeneric(typeOfExpectedReturnValue, typeOfActionResult);
             }
 
             if (invalid)

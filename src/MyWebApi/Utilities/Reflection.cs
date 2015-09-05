@@ -118,7 +118,16 @@
                 return true;
             }
 
-            return baseTypeGenericArguments.Where((t, i) => AreNotAssignable(t, inheritedTypeGenericArguments[i])).Any();
+            return baseTypeGenericArguments.Where((t, i) => t != inheritedTypeGenericArguments[i]).Any();
+        }
+
+        public static bool ContainsGenericTypeDefinitionInterface(Type baseType, Type inheritedType)
+        {
+            return inheritedType
+                .GetInterfaces()
+                .Where(t => t.IsGenericType)
+                .Select(t => t.GetGenericTypeDefinition())
+                .Any(t => t == baseType);
         }
 
         /// <summary>

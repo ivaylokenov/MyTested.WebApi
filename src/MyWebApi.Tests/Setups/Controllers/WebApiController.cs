@@ -153,6 +153,11 @@
             return this.BadRequest(this.ModelState);
         }
 
+        public IHttpActionResult JsonAction()
+        {
+            return this.Json(this.responseModel);
+        }
+
         public IHttpActionResult ConflictAction()
         {
             return this.Conflict();
@@ -224,9 +229,24 @@
             return true;
         }
 
-        public ICollection<ResponseModel> GenericAction()
+        public IResponseModel GenericInterfaceAction()
+        {
+            return this.responseModel.FirstOrDefault();
+        }
+
+        public ResponseModel GenericAction()
+        {
+            return this.responseModel.FirstOrDefault();
+        }
+
+        public ICollection<ResponseModel> GenericActionWithCollection()
         {
             return this.responseModel;
+        }
+
+        public List<ResponseModel> GenericActionWithListCollection()
+        {
+            return TestObjectFactory.GetListOfResponseModels();
         }
 
         private void ThrowNewNullReferenceException()
