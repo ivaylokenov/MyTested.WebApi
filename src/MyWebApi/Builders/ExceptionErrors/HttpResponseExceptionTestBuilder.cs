@@ -40,7 +40,7 @@
             var actualStatusCode = this.httpResponseException.Response.StatusCode;
             if (actualStatusCode != statusCode)
             {
-                throw new HttpStatusCodeAssertionException(string.Format(
+                throw new HttpStatusCodeResultAssertionException(string.Format(
                     "When calling {0} action in {1} expected HttpResponseException to have {2} ({3}) status code, but received {4} ({5}).",
                     this.ActionName,
                     this.Controller.GetName(),

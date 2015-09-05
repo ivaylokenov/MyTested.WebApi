@@ -33,7 +33,7 @@
             var actualStatusCode = statusCodeResult.StatusCode;
             if (statusCodeResult.StatusCode != statusCode)
             {
-                throw new HttpStatusCodeAssertionException(string.Format(
+                throw new HttpStatusCodeResultAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have {2} ({3}) status code, but received {4} ({5}).",
                     this.ActionName,
                     this.Controller.GetName(),

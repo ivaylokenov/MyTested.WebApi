@@ -43,7 +43,7 @@
 
         [Test]
         [ExpectedException(
-            typeof(HttpStatusCodeAssertionException),
+            typeof(HttpStatusCodeResultAssertionException),
             ExpectedMessage = "When calling StatusCodeAction action in WebApiController expected to have 201 (Created) status code, but received 302 (Redirect).")]
         public void ShouldReturnStatusCodeShouldThrowExceptionWhenActionReturnsWrongStatusCode()
         {

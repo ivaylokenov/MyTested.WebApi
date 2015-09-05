@@ -5,10 +5,12 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http.Headers;
+    using System.Text;
     using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Results;
     using Models;
+    using Newtonsoft.Json;
     using Services;
 
     internal class WebApiController : ApiController
@@ -158,6 +160,11 @@
             return this.Json(this.responseModel);
         }
 
+        public IHttpActionResult JsonWithEncodingAction()
+        {
+            return this.Json(this.responseModel, new JsonSerializerSettings(), Encoding.ASCII);
+        }
+
         public IHttpActionResult ConflictAction()
         {
             return this.Conflict();
@@ -201,7 +208,7 @@
             {
                 new AuthenticationHeaderValue("TestScheme", "TestParameter"),
                 new AuthenticationHeaderValue("Basic"),
-                new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter"),
+                new AuthenticationHeaderValue("YetAnotherScheme", "YetAnotherParameter")
             });
         }
 

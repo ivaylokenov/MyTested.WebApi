@@ -93,7 +93,7 @@
 
         [Test]
         [ExpectedException(
-            typeof(HttpStatusCodeAssertionException),
+            typeof(HttpStatusCodeResultAssertionException),
             ExpectedMessage = "When calling ActionWithHttpResponseException action in WebApiController expected HttpResponseException to have 202 (Accepted) status code, but received 404 (NotFound).")]
         public void ShouldThrowHttpResponseExceptionShouldThrowWithInvalidHttpResponseExceptionStatusCode()
         {

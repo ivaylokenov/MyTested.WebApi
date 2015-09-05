@@ -84,6 +84,7 @@
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IHttpResponseExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\InternalServerErrors\IInternalServerErrorTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Json\IAndJsonTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Json\IJsonTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IAndModelErrorTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithModel.cs" />
@@ -134,9 +135,10 @@
     <Compile Include="Exceptions\ActionCallAssertionException.cs" />
     <Compile Include="Exceptions\BadRequestResultAssertionException.cs" />
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
-    <Compile Include="Exceptions\HttpStatusCodeAssertionException.cs" />
+    <Compile Include="Exceptions\HttpStatusCodeResultAssertionException.cs" />
     <Compile Include="Exceptions\InternalServerErrorResultAssertionException.cs" />
     <Compile Include="Exceptions\InvalidExceptionAssertionException.cs" />
+    <Compile Include="Exceptions\JsonResultAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
     <Compile Include="Exceptions\ModelErrorAssertionException.cs" />
     <Compile Include="Exceptions\UnauthorizedResultAssertionException.cs" />
