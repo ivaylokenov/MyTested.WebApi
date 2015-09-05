@@ -45,8 +45,8 @@
                     "When calling {0} action in {1} expected JSON result encoding to be {2}, but instead received {3}.",
                     this.ActionName,
                     this.Controller.GetName(),
-                    encoding,
-                    actualEncoding));
+                    this.GetEncodingName(encoding),
+                    this.GetEncodingName(actualEncoding)));
             }
 
             return this;
@@ -55,6 +55,13 @@
         public IJsonTestBuilder AndAlso()
         {
             return this;
+        }
+
+        private string GetEncodingName(Encoding encoding)
+        {
+            var fullEncodingName = encoding.ToString();
+            var lastIndexOfDot = fullEncodingName.LastIndexOf(".", StringComparison.Ordinal);
+            return fullEncodingName.Substring(lastIndexOfDot + 1);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Tests.BuildersTests.JsonTests
 {
     using System.Collections.Generic;
+    using System.Text;
     using Exceptions;
     using NUnit.Framework;
     using Setups.Controllers;
@@ -34,7 +35,7 @@
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithEncodingAction action in WebApiController expected JSON result encoding to be System.Text.UTF8Encoding, but instead received System.Text.ASCIIEncoding.")]
+            ExpectedMessage = "When calling JsonWithEncodingAction action in WebApiController expected JSON result encoding to be UTF8Encoding, but instead received ASCIIEncoding.")]
         public void WithDefaultEncodingShouldThrowExceptionWhenNotUsingDefaultEncoding()
         {
             MyWebApi
@@ -43,6 +44,31 @@
                 .ShouldReturn()
                 .Json()
                 .WithDefaultEncoding();
+        }
+
+        [Test]
+        public void WithEncodingShouldNotThrowExceptionWhenUsingDefaultEncoding()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.JsonWithEncodingAction())
+                .ShouldReturn()
+                .Json()
+                .WithEncoding(Encoding.ASCII);
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(JsonResultAssertionException),
+            ExpectedMessage = "When calling JsonWithEncodingAction action in WebApiController expected JSON result encoding to be UTF8Encoding, but instead received ASCIIEncoding.")]
+        public void WithEncodingShouldThrowExceptionWhenNotUsingDefaultEncoding()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.JsonWithEncodingAction())
+                .ShouldReturn()
+                .Json()
+                .WithEncoding(Encoding.UTF8);
         }
     }
 }
