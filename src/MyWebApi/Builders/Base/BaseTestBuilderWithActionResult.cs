@@ -58,7 +58,7 @@
         {
             try
             {
-                return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult).Content;
+                return this.GetActionResultAsDynamic(this.ActionResult).Content;
             }
             catch (RuntimeBinderException)
             {
@@ -90,6 +90,11 @@
                 this.ActionName,
                 this.CaughtException,
                 this.ActionResult);
+        }
+
+        protected dynamic GetActionResultAsDynamic(TActionResult actionResult)
+        {
+            return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult);
         }
     }
 }

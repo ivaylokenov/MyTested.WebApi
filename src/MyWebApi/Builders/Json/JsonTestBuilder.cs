@@ -7,6 +7,7 @@
     using Contracts.Json;
     using Exceptions;
     using Models;
+    using Newtonsoft.Json;
     using Utilities;
 
     /// <summary>
@@ -38,7 +39,7 @@
 
         public IAndJsonTestBuilder WithEncoding(Encoding encoding)
         {
-            var actualEncoding = this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult).Encoding as Encoding;
+            var actualEncoding = this.GetActionResultAsDynamic(this.ActionResult).Encoding as Encoding;
             if (!encoding.Equals(actualEncoding))
             {
                 throw new JsonResultAssertionException(string.Format(
@@ -52,6 +53,14 @@
             return this;
         }
 
+        public void WithJsonSerializerSettings(JsonSerializerSettings jsonSerializerSettings)
+        {
+            var actualJsonSerializerSettings =
+                this.GetActionResultAsDynamic(this.ActionResult).SerializerSettings as JsonSerializerSettings;
+
+
+        }
+
         public IJsonTestBuilder AndAlso()
         {
             return this;
@@ -62,6 +71,88 @@
             var fullEncodingName = encoding.ToString();
             var lastIndexOfDot = fullEncodingName.LastIndexOf(".", StringComparison.Ordinal);
             return fullEncodingName.Substring(lastIndexOfDot + 1);
+        }
+
+        private bool CompareJsonSerializerSettings(
+            JsonSerializerSettings expectedSettings,
+            JsonSerializerSettings actualSettings)
+        {
+            if (expectedSettings.Culture.Equals(actualSettings.Culture))
+            {
+                return false;
+            }
+
+            if (expectedSettings.ConstructorHandling != actualSettings.ConstructorHandling)
+            {
+                return false;
+            }
+
+            if (expectedSettings.DateFormatHandling != actualSettings.DateFormatHandling)
+            {
+                return false;
+            }
+
+            if (expectedSettings.DateParseHandling != actualSettings.DateParseHandling)
+            {
+                return false;
+            }
+
+            if (expectedSettings.DateTimeZoneHandling != actualSettings.DateTimeZoneHandling)
+            {
+                return false;
+            }
+
+            if (expectedSettings.DefaultValueHandling != actualSettings.DefaultValueHandling)
+            {
+                return false;
+            }
+
+            if (expectedSettings.Formatting != actualSettings.Formatting)
+            {
+                return false;
+            }
+
+            if (expectedSettings.MaxDepth != actualSettings.MaxDepth)
+            {
+                return false;
+            }
+
+            if (expectedSettings.MissingMemberHandling != actualSettings.MissingMemberHandling)
+            {
+                return false;
+            }
+
+            if (expectedSettings.NullValueHandling != actualSettings.NullValueHandling)
+            {
+                return false;
+            }
+
+            if (expectedSettings.ObjectCreationHandling != actualSettings.ObjectCreationHandling)
+            {
+                return false;
+            }
+
+            if (expectedSettings.PreserveReferencesHandling != actualSettings.PreserveReferencesHandling)
+            {
+                return false;
+            }
+
+            if (expectedSettings.ReferenceLoopHandling != actualSettings.ReferenceLoopHandling)
+            {
+                return false;
+            }
+
+            if (expectedSettings.TypeNameAssemblyFormat != actualSettings.TypeNameAssemblyFormat)
+            {
+                return false;
+            }
+
+            if (expectedSettings.TypeNameHandling != actualSettings.TypeNameHandling)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
