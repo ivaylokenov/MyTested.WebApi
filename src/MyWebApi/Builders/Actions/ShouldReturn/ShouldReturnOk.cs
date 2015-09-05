@@ -5,7 +5,7 @@
     using Models;
 
     /// <summary>
-    /// Class containing methods for testing OkResult and OkNegotiatedContentResult.
+    /// Class containing methods for testing OkResult and OkNegotiatedContentResult{T}.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ShouldReturnTestBuilder<TActionResult>

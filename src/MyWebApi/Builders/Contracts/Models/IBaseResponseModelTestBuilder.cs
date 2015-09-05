@@ -2,6 +2,9 @@
 {
     using Base;
 
+    /// <summary>
+    /// Base interface for all response model test builders.
+    /// </summary>
     public interface IBaseResponseModelTestBuilder : IBaseTestBuilder
     {
         /// <summary>

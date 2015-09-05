@@ -64,6 +64,10 @@
         /// <returns>Internal server error test builder.</returns>
         IInternalServerErrorTestBuilder InternalServerError();
 
+        /// <summary>
+        /// Tests whether action result is JSON Result.
+        /// </summary>
+        /// <returns>JSON test builder.</returns>
         IJsonTestBuilder Json();
 
         /// <summary>

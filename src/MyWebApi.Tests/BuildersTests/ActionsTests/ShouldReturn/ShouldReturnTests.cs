@@ -153,6 +153,7 @@
                 .ShouldReturn()
                 .ResultOfType<ICollection<ResponseModel>>();
         }
+
         [Test]
         [ExpectedException(
             typeof(HttpActionResultAssertionException),

@@ -1,7 +1,7 @@
 ﻿namespace MyWebApi.Builders.Contracts.Base
 {
     /// <summary>
-    /// Base class for all test builders with model.
+    /// Base interface for all test builders with model.
     /// </summary>
     /// <typeparam name="TModel">Model returned from action result.</typeparam>
     public interface IBaseTestBuilderWithModel<out TModel> : IBaseTestBuilder

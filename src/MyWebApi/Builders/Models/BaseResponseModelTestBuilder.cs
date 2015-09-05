@@ -9,9 +9,20 @@
     using Exceptions;
     using Utilities;
 
+    /// <summary>
+    /// Base class for all response model test builders.
+    /// </summary>
+    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public class BaseResponseModelTestBuilder<TActionResult>
         : BaseTestBuilderWithActionResult<TActionResult>, IBaseResponseModelTestBuilder
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseResponseModelTestBuilder{TActionResult}" /> class.
+        /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
+        /// <param name="actionResult">Result from the tested action.</param>
         public BaseResponseModelTestBuilder(
             ApiController controller,
             string actionName,

@@ -121,6 +121,12 @@
             return baseTypeGenericArguments.Where((t, i) => t != inheritedTypeGenericArguments[i]).Any();
         }
 
+        /// <summary>
+        /// Checks whether generic definition contains an base interface generic definition.
+        /// </summary>
+        /// <param name="baseType">Base type to be checked.</param>
+        /// <param name="inheritedType">Inherited type to be checked.</param>
+        /// <returns>True or false.</returns>
         public static bool ContainsGenericTypeDefinitionInterface(Type baseType, Type inheritedType)
         {
             return inheritedType
