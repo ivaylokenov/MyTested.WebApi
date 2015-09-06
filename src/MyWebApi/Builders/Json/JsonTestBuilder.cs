@@ -53,12 +53,20 @@
             return this;
         }
 
-        public void WithJsonSerializerSettings(JsonSerializerSettings jsonSerializerSettings)
+        public IAndJsonTestBuilder WithJsonSerializerSettings(JsonSerializerSettings jsonSerializerSettings)
         {
             var actualJsonSerializerSettings =
                 this.GetActionResultAsDynamic(this.ActionResult).SerializerSettings as JsonSerializerSettings;
 
+            if (!this.CompareJsonSerializerSettings(jsonSerializerSettings, actualJsonSerializerSettings))
+            {
+                throw new JsonResultAssertionException(string.Format(
+                    "When calling {0} action in {1} expected JSON result serializer settings to equal the provided ones, but were in fact different.",
+                    this.ActionName,
+                    this.Controller.GetName()));
+            }
 
+            return this;
         }
 
         public IJsonTestBuilder AndAlso()
@@ -73,86 +81,25 @@
             return fullEncodingName.Substring(lastIndexOfDot + 1);
         }
 
-        private bool CompareJsonSerializerSettings(
+        public bool CompareJsonSerializerSettings(
             JsonSerializerSettings expectedSettings,
             JsonSerializerSettings actualSettings)
         {
-            if (expectedSettings.Culture.Equals(actualSettings.Culture))
-            {
-                return false;
-            }
-
-            if (expectedSettings.ConstructorHandling != actualSettings.ConstructorHandling)
-            {
-                return false;
-            }
-
-            if (expectedSettings.DateFormatHandling != actualSettings.DateFormatHandling)
-            {
-                return false;
-            }
-
-            if (expectedSettings.DateParseHandling != actualSettings.DateParseHandling)
-            {
-                return false;
-            }
-
-            if (expectedSettings.DateTimeZoneHandling != actualSettings.DateTimeZoneHandling)
-            {
-                return false;
-            }
-
-            if (expectedSettings.DefaultValueHandling != actualSettings.DefaultValueHandling)
-            {
-                return false;
-            }
-
-            if (expectedSettings.Formatting != actualSettings.Formatting)
-            {
-                return false;
-            }
-
-            if (expectedSettings.MaxDepth != actualSettings.MaxDepth)
-            {
-                return false;
-            }
-
-            if (expectedSettings.MissingMemberHandling != actualSettings.MissingMemberHandling)
-            {
-                return false;
-            }
-
-            if (expectedSettings.NullValueHandling != actualSettings.NullValueHandling)
-            {
-                return false;
-            }
-
-            if (expectedSettings.ObjectCreationHandling != actualSettings.ObjectCreationHandling)
-            {
-                return false;
-            }
-
-            if (expectedSettings.PreserveReferencesHandling != actualSettings.PreserveReferencesHandling)
-            {
-                return false;
-            }
-
-            if (expectedSettings.ReferenceLoopHandling != actualSettings.ReferenceLoopHandling)
-            {
-                return false;
-            }
-
-            if (expectedSettings.TypeNameAssemblyFormat != actualSettings.TypeNameAssemblyFormat)
-            {
-                return false;
-            }
-
-            if (expectedSettings.TypeNameHandling != actualSettings.TypeNameHandling)
-            {
-                return false;
-            }
-
-            return true;
+            return Validator.CheckEquality(expectedSettings.Culture, actualSettings.Culture)
+                && Validator.CheckEquality(expectedSettings.ConstructorHandling, actualSettings.ConstructorHandling)
+                && Validator.CheckEquality(expectedSettings.DateFormatHandling, actualSettings.DateFormatHandling)
+                && Validator.CheckEquality(expectedSettings.DateParseHandling, actualSettings.DateParseHandling)
+                && Validator.CheckEquality(expectedSettings.DateTimeZoneHandling, actualSettings.DateTimeZoneHandling)
+                && Validator.CheckEquality(expectedSettings.DefaultValueHandling, actualSettings.DefaultValueHandling)
+                && Validator.CheckEquality(expectedSettings.Formatting, actualSettings.Formatting)
+                && Validator.CheckEquality(expectedSettings.MaxDepth, actualSettings.MaxDepth)
+                && Validator.CheckEquality(expectedSettings.MissingMemberHandling, actualSettings.MissingMemberHandling)
+                && Validator.CheckEquality(expectedSettings.NullValueHandling, actualSettings.NullValueHandling)
+                && Validator.CheckEquality(expectedSettings.ObjectCreationHandling, actualSettings.ObjectCreationHandling)
+                && Validator.CheckEquality(expectedSettings.PreserveReferencesHandling, actualSettings.PreserveReferencesHandling)
+                && Validator.CheckEquality(expectedSettings.ReferenceLoopHandling, actualSettings.ReferenceLoopHandling)
+                && Validator.CheckEquality(expectedSettings.TypeNameAssemblyFormat, actualSettings.TypeNameAssemblyFormat)
+                && Validator.CheckEquality(expectedSettings.TypeNameHandling, actualSettings.TypeNameHandling);
         }
     }
 }

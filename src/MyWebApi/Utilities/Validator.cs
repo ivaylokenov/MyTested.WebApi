@@ -82,6 +82,11 @@
             }
         }
 
+        public static bool CheckEquality<T>(T expected, T actual)
+        {
+            return expected.Equals(actual);
+        }
+
         private static string FormatExceptionMessage(string message)
         {
             return string.IsNullOrWhiteSpace(message)
