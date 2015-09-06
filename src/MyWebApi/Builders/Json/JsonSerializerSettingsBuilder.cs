@@ -108,5 +108,10 @@
         {
             return this;
         }
+
+        internal JsonSerializerSettings GetJsonSerializerSettings()
+        {
+            return this.jsonSerializerSettings;
+        }
     }
 }

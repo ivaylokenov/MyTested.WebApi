@@ -69,6 +69,16 @@
             return this;
         }
 
+        public IAndJsonTestBuilder WithJsonSerializerSettings(
+            Action<IJsonSerializerSettingsBuilder> jsonSerializerSettingsBuilder)
+        {
+            var newJsonSerializerSettingsBuilder = new JsonSerializerSettingsBuilder();
+            jsonSerializerSettingsBuilder(newJsonSerializerSettingsBuilder);
+            var expectedJsonSerializerSettings = newJsonSerializerSettingsBuilder.GetJsonSerializerSettings();
+            this.WithJsonSerializerSettings(expectedJsonSerializerSettings);
+            return this;
+        }
+
         public IJsonTestBuilder AndAlso()
         {
             return this;
