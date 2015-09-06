@@ -70,5 +70,18 @@
                 .Json()
                 .WithEncoding(Encoding.UTF8);
         }
+
+        [Test]
+        public void WithDefaultJsonSettingsShouldNotThrowExeptionWithDefaultJsonSettings()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.JsonAction())
+                .ShouldReturn()
+                .Json()
+                .WithDefaultEncoding()
+                .AndAlso()
+                .WithDefaulJsonSerializerSettings();
+        }
     }
 }

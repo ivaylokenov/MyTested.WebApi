@@ -84,9 +84,9 @@
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IHttpResponseExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\InternalServerErrors\IInternalServerErrorTestBuilder.cs" />
-    <Compile Include="Builders\Contracts\Json\IAndJsonSerializerSettingsBuilder.cs" />
+    <Compile Include="Builders\Contracts\Json\IAndJsonSerializerSettingsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Json\IAndJsonTestBuilder.cs" />
-    <Compile Include="Builders\Contracts\Json\IJsonSerializerSettingsBuilder.cs" />
+    <Compile Include="Builders\Contracts\Json\IJsonSerializerSettingsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Json\IJsonTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IAndModelErrorTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithModel.cs" />
@@ -113,7 +113,7 @@
     <Compile Include="Builders\ExceptionErrors\ExceptionTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\HttpResponseExceptionTestBuilder.cs" />
     <Compile Include="Builders\InternalServerErrors\InternalServerErrorTestBuilder.cs" />
-    <Compile Include="Builders\Json\JsonSerializerSettingsBuilder.cs" />
+    <Compile Include="Builders\Json\JsonSerializerSettingsTestBuilder.cs" />
     <Compile Include="Builders\Json\JsonTestBuilder.cs" />
     <Compile Include="Builders\Models\BaseResponseModelTestBuilder.cs" />
     <Compile Include="Builders\Models\ModelDetailsTestBuilder.cs" />

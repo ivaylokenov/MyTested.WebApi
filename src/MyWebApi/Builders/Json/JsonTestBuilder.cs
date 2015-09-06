@@ -1,6 +1,8 @@
 ﻿namespace MyWebApi.Builders.Json
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Web.Http;
     using Common.Extensions;
@@ -8,12 +10,13 @@
     using Exceptions;
     using Models;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
     using Utilities;
 
     /// <summary>
     /// Used for testing JSON results.
     /// </summary>
-    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller..</typeparam>
+    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public class JsonTestBuilder<TActionResult> : BaseResponseModelTestBuilder<TActionResult>, IAndJsonTestBuilder
     {
         /// <summary>
@@ -53,29 +56,34 @@
             return this;
         }
 
+        public IAndJsonTestBuilder WithDefaulJsonSerializerSettings()
+        {
+            this.WithJsonSerializerSettings(s => this.PopulateFullJsonSerializerSettingsTestBuilder(s));
+            return this;
+        }
+
         public IAndJsonTestBuilder WithJsonSerializerSettings(JsonSerializerSettings jsonSerializerSettings)
         {
-            var actualJsonSerializerSettings =
-                this.GetActionResultAsDynamic(this.ActionResult).SerializerSettings as JsonSerializerSettings;
-
-            if (!this.CompareJsonSerializerSettings(jsonSerializerSettings, actualJsonSerializerSettings))
-            {
-                throw new JsonResultAssertionException(string.Format(
-                    "When calling {0} action in {1} expected JSON result serializer settings to equal the provided ones, but were in fact different.",
-                    this.ActionName,
-                    this.Controller.GetName()));
-            }
-
+            this.WithJsonSerializerSettings(s => this.PopulateFullJsonSerializerSettingsTestBuilder(s, jsonSerializerSettings));
             return this;
         }
 
         public IAndJsonTestBuilder WithJsonSerializerSettings(
-            Action<IJsonSerializerSettingsBuilder> jsonSerializerSettingsBuilder)
+            Action<IJsonSerializerSettingsTestBuilder> jsonSerializerSettingsBuilder)
         {
-            var newJsonSerializerSettingsBuilder = new JsonSerializerSettingsBuilder();
-            jsonSerializerSettingsBuilder(newJsonSerializerSettingsBuilder);
-            var expectedJsonSerializerSettings = newJsonSerializerSettingsBuilder.GetJsonSerializerSettings();
-            this.WithJsonSerializerSettings(expectedJsonSerializerSettings);
+            var actualJsonSerializerSettings =
+                this.GetActionResultAsDynamic(this.ActionResult).SerializerSettings as JsonSerializerSettings;
+
+            var newJsonSerializerSettingsTestBuilder = new JsonSerializerSettingsTestBuilder();
+            jsonSerializerSettingsBuilder(newJsonSerializerSettingsTestBuilder);
+            var expectedJsonSerializerSettings = newJsonSerializerSettingsTestBuilder.GetJsonSerializerSettings();
+
+            var validations = newJsonSerializerSettingsTestBuilder.GetJsonSerializerSettingsValidations();
+            this.ValidateJsonSerializerSettings(
+                expectedJsonSerializerSettings,
+                actualJsonSerializerSettings,
+                validations);
+
             return this;
         }
 
@@ -91,25 +99,42 @@
             return fullEncodingName.Substring(lastIndexOfDot + 1);
         }
 
-        public bool CompareJsonSerializerSettings(
+        private void ValidateJsonSerializerSettings(
             JsonSerializerSettings expectedSettings,
-            JsonSerializerSettings actualSettings)
+            JsonSerializerSettings actualSettings,
+            IEnumerable<Func<JsonSerializerSettings, JsonSerializerSettings, bool>> validations)
         {
-            return Validator.CheckEquality(expectedSettings.Culture, actualSettings.Culture)
-                && Validator.CheckEquality(expectedSettings.ConstructorHandling, actualSettings.ConstructorHandling)
-                && Validator.CheckEquality(expectedSettings.DateFormatHandling, actualSettings.DateFormatHandling)
-                && Validator.CheckEquality(expectedSettings.DateParseHandling, actualSettings.DateParseHandling)
-                && Validator.CheckEquality(expectedSettings.DateTimeZoneHandling, actualSettings.DateTimeZoneHandling)
-                && Validator.CheckEquality(expectedSettings.DefaultValueHandling, actualSettings.DefaultValueHandling)
-                && Validator.CheckEquality(expectedSettings.Formatting, actualSettings.Formatting)
-                && Validator.CheckEquality(expectedSettings.MaxDepth, actualSettings.MaxDepth)
-                && Validator.CheckEquality(expectedSettings.MissingMemberHandling, actualSettings.MissingMemberHandling)
-                && Validator.CheckEquality(expectedSettings.NullValueHandling, actualSettings.NullValueHandling)
-                && Validator.CheckEquality(expectedSettings.ObjectCreationHandling, actualSettings.ObjectCreationHandling)
-                && Validator.CheckEquality(expectedSettings.PreserveReferencesHandling, actualSettings.PreserveReferencesHandling)
-                && Validator.CheckEquality(expectedSettings.ReferenceLoopHandling, actualSettings.ReferenceLoopHandling)
-                && Validator.CheckEquality(expectedSettings.TypeNameAssemblyFormat, actualSettings.TypeNameAssemblyFormat)
-                && Validator.CheckEquality(expectedSettings.TypeNameHandling, actualSettings.TypeNameHandling);
+            if (validations.Any(v => !v(expectedSettings, actualSettings)))
+            {
+                throw new JsonResultAssertionException(string.Format(
+                    "When calling {0} action in {1} expected JSON result serializer settings to equal the provided ones, but were in fact different.",
+                    this.ActionName,
+                    this.Controller.GetName()));
+            }
+        }
+
+        private void PopulateFullJsonSerializerSettingsTestBuilder(
+            IJsonSerializerSettingsTestBuilder jsonSerializerSettingsTestBuilder,
+            JsonSerializerSettings jsonSerializerSettings = null)
+        {
+            jsonSerializerSettings = jsonSerializerSettings ?? new JsonSerializerSettings();
+            jsonSerializerSettingsTestBuilder
+                .WithCulture(jsonSerializerSettings.Culture)
+                .WithContractResolver(null)
+                .WithConstructorHandling(jsonSerializerSettings.ConstructorHandling)
+                .WithDateFormatHandling(jsonSerializerSettings.DateFormatHandling)
+                .WithDateParseHandling(jsonSerializerSettings.DateParseHandling)
+                .WithDateTimeZoneHandling(jsonSerializerSettings.DateTimeZoneHandling)
+                .WithDefaultValueHandling(jsonSerializerSettings.DefaultValueHandling)
+                .WithFormatting(jsonSerializerSettings.Formatting)
+                .WithMaxDepth(jsonSerializerSettings.MaxDepth)
+                .WithMissingMemberHandling(jsonSerializerSettings.MissingMemberHandling)
+                .WithNullValueHandling(jsonSerializerSettings.NullValueHandling)
+                .WithObjectCreationHandling(jsonSerializerSettings.ObjectCreationHandling)
+                .WithPreserveReferencesHandling(jsonSerializerSettings.PreserveReferencesHandling)
+                .WithReferenceLoopHandling(jsonSerializerSettings.ReferenceLoopHandling)
+                .WithTypeNameAssemblyFormat(jsonSerializerSettings.TypeNameAssemblyFormat)
+                .WithTypeNameHandling(jsonSerializerSettings.TypeNameHandling);
         }
     }
 }
