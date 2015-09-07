@@ -8,7 +8,7 @@
     public class HttpStatusCodeResultAssertionException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the HttpStatusCodeAssertionException class.
+        /// Initializes a new instance of the HttpStatusCodeResultAssertionException class.
         /// </summary>
         /// <param name="message">Message for System.Exception class.</param>
         public HttpStatusCodeResultAssertionException(string message)

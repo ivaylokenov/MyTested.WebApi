@@ -82,6 +82,13 @@
             }
         }
 
+        /// <summary>
+        /// Validates that two objects are equal using the Equals method.
+        /// </summary>
+        /// <typeparam name="T">Type of the objects.</typeparam>
+        /// <param name="expected">Expected object.</param>
+        /// <param name="actual">Actual object.</param>
+        /// <returns>True or false.</returns>
         public static bool CheckEquality<T>(T expected, T actual)
         {
             return expected.Equals(actual);

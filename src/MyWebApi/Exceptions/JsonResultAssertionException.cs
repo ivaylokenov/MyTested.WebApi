@@ -8,7 +8,7 @@
     public class JsonResultAssertionException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the JsonResultAssertionException class.
+        /// Initializes a new instance of the JSONResultAssertionException class.
         /// </summary>
         /// <param name="message">Message for System.Exception class.</param>
         public JsonResultAssertionException(string message)

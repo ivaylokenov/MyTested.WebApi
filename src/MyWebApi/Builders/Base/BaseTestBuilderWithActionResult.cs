@@ -92,6 +92,11 @@
                 this.ActionResult);
         }
 
+        /// <summary>
+        /// Returns the actual action result casted as dynamic type.
+        /// </summary>
+        /// <param name="actionResult">Result from the tested action.</param>
+        /// <returns>Object of dynamic type.</returns>
         protected dynamic GetActionResultAsDynamic(TActionResult actionResult)
         {
             return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult);

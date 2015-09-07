@@ -11,6 +11,12 @@
     /// </summary>
     public static class Reflection
     {
+        /// <summary>
+        /// Checks whether two objects have the same types.
+        /// </summary>
+        /// <param name="firstObject">First object to be checked.</param>
+        /// <param name="secondObject">Second object to be checked.</param>
+        /// <returns>True or false.</returns>
         public static bool AreSameTypes(object firstObject, object secondObject)
         {
             if (firstObject == null || secondObject == null)
@@ -21,6 +27,12 @@
             return AreSameTypes(firstObject.GetType(), secondObject.GetType());
         }
 
+        /// <summary>
+        /// Checks whether two types are different.
+        /// </summary>
+        /// <param name="firstType">First type to be checked.</param>
+        /// <param name="secondType">Second type to be checked.</param>
+        /// <returns>True or false.</returns>
         public static bool AreSameTypes(Type firstType, Type secondType)
         {
             return firstType == secondType;
