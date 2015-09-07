@@ -12,6 +12,51 @@
     public class ReflectionTests
     {
         [Test]
+        public void AreSameTypesShouldReturnTrueWithObjectsOfSameTypes()
+        {
+            var first = "Test";
+            var second = "Another Test";
+
+            Assert.IsTrue(Reflection.AreSameTypes(first, second));
+        }
+
+        [Test]
+        public void AreSameTypesShouldReturnFalseWithObjectsOfDifferentTypes()
+        {
+            var first = 1;
+            var second = "Test";
+
+            Assert.IsFalse(Reflection.AreSameTypes(first, second));
+        }
+
+        [Test]
+        public void AreSameTypesShouldReturnTrueWithSameTypes()
+        {
+            var first = typeof(int);
+            var second = typeof(int);
+
+            Assert.IsTrue(Reflection.AreSameTypes(first, second));
+        }
+
+        [Test]
+        public void AreSameTypesShouldReturnFalseWithDifferentTypes()
+        {
+            var first = typeof(List<>);
+            var second = typeof(int);
+
+            Assert.IsFalse(Reflection.AreSameTypes(first, second));
+        }
+
+        [Test]
+        public void AreSameTypesShouldReturnFalseWithInheritedTypes()
+        {
+            var first = typeof(List<>);
+            var second = typeof(IEnumerable<>);
+
+            Assert.IsFalse(Reflection.AreSameTypes(first, second));
+        }
+
+        [Test]
         public void AreDifferentTypesShouldReturnTrueWithObjectsOfDifferentTypes()
         {
             var first = 0;
