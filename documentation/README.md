@@ -534,6 +534,59 @@ MyWebApi
 		.ContainingNoModelStateErrorFor(m => m.NonRequiredString);
 ```
 
+#### JSON result
+```c#
+// tests whether the action returns JSON
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Json();
+
+// tests whether the action returns JSON
+// with default encoding and settings
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Json()
+	.WithDefaultEncoding()
+	.AndAlso() // AndAlso is not necessary
+	.WithDefaulJsonSerializerSettings();
+	
+// tests whether the action returns JSON
+// with expected encoding
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Json()
+	.WithEncoding(Encoding.ASCII);
+	
+// tests whether the action returns JSON
+// with expected serializer settings
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Json()
+	.WithJsonSerializerSettings(new MyCustomSerializerSettings());
+	
+// tests whether the action returns JSON
+// with expected serializer settings constructed by builder
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.JsonWithSettingsAction())
+	.ShouldReturn()
+	.Json()
+	.WithJsonSerializerSettings(s => s
+		.WithFormatting(Formatting.Indented)
+		.AndAlso() // AndAlso is not necessary
+		.WithMaxDepth(2)
+		.AndAlso()
+		.WithConstructorHandling(ConstructorHandling.Default));
+```
+
 #### StatusCode result
 
 ```c#
