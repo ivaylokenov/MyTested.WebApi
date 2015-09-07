@@ -3,6 +3,25 @@
 
 ## Full list of available features
 
+### Table of contents
+
+#### [Controller instantiation](#controller-instantiation)
+#### [Authenticated user](#authenticated-user)
+#### [Calling actions](#calling-actions)
+#### [Model state validation](#model-state-validation)
+#### [Catching thrown exceptions](#catching-thrown-exceptions)
+#### [Generic result](#generic-result)
+#### [Any result](#any-result)
+#### [Ok result](#ok-result)
+#### [Unauthorized result](#unauthorized-result)
+#### [BadRequest result](#badrequest-result)
+#### [JSON result](#json-result)
+#### [StatusCode result](#statuscode-result)
+#### [NotFound result](#notfound-result)
+#### [Conflict result](#conflict-result)
+#### [EmptyContent (void) result](#emptycontent-void-result)
+#### [AndProvide... methods](#andprovide-methods)
+
 ### Controller instantiation
 
 You have a couple of options from which you can setup the controller you want to test. The framework gives you static `MyWebApi` class from which the test builder starts:
