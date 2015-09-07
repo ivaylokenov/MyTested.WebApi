@@ -73,6 +73,7 @@
     <Compile Include="BuildersTests\ExceptionErrorsTests\ExceptionMessageTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\ExceptionTestBuilderTests.cs" />
     <Compile Include="BuildersTests\InternalServerErrorsTests\InternalServerErrorTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\JsonTests\JsonSerializerSettingsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\JsonTests\JsonTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ModelErrorDetailsTestBuilderTests.cs" />

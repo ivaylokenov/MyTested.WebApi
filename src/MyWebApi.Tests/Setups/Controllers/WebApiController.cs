@@ -2,18 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Net;
     using System.Net.Http.Headers;
-    using System.Runtime.Serialization.Formatters;
     using System.Text;
     using System.Threading.Tasks;
     using System.Web.Http;
     using System.Web.Http.Results;
     using Models;
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Serialization;
     using Services;
 
     internal class WebApiController : ApiController
@@ -171,6 +168,11 @@
         public IHttpActionResult JsonWithSettingsAction()
         {
             return this.Json(this.responseModel, TestObjectFactory.GetJsonSerializerSettings());
+        }
+
+        public IHttpActionResult JsonWithSpecificSettingsAction(JsonSerializerSettings jsonSerializerSettings)
+        {
+            return this.Json(this.responseModel, jsonSerializerSettings);
         }
 
         public IHttpActionResult ConflictAction()

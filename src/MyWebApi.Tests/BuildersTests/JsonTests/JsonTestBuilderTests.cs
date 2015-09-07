@@ -94,8 +94,6 @@
                 .Calling(c => c.JsonWithSettingsAction())
                 .ShouldReturn()
                 .Json()
-                .WithDefaultEncoding()
-                .AndAlso()
                 .WithJsonSerializerSettings(TestObjectFactory.GetJsonSerializerSettings());
         }
 
@@ -113,8 +111,6 @@
                 .Calling(c => c.JsonWithSettingsAction())
                 .ShouldReturn()
                 .Json()
-                .WithDefaultEncoding()
-                .AndAlso()
                 .WithJsonSerializerSettings(jsonSerializerSettings);
         }
     }
