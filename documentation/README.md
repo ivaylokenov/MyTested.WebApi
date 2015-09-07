@@ -61,6 +61,8 @@ MyWebApi
 	.Controller(myWebApiControllerInstance);
 ```
 
+[To top](#table-of-contents)
+
 ### Authenticated user
 
 ```c#
@@ -87,6 +89,8 @@ MyWebApi
 		.InRoles("Moderator", "Administrator")); // or InRole("Moderator")
 ```
 
+[To top](#table-of-contents)
+
 ### Calling actions
 
 You can call any action using lambda expression. All parameter values will be resolved and model state validation will be performed on them:
@@ -107,6 +111,8 @@ MyWebApi
 	.Controller<WebApiController>()
 	.CallingAsync(c => c.SomeActionAsync());
 ```
+
+[To top](#table-of-contents)
 
 ### Model state validation
 
@@ -173,6 +179,8 @@ MyWebApi
 	.ContainingModelStateErrorFor(m => m.SecondProperty).Containing("ror mes"); 
 ```
 
+[To top](#table-of-contents)
+
 ### Catching thrown exceptions
 
 You can test whether action throws exception:
@@ -228,6 +236,8 @@ MyWebApi
 	.HttpResponseException()
 	.WithStatusCode(HttpStatusCode.NotFound);
 ```
+
+[To top](#table-of-contents)
 
 ### Action results
 
@@ -293,6 +303,8 @@ MyWebApi
 	.Calling(c => c.SomeAction())
 	.ShouldReturn();
 ```
+
+[To top](#table-of-contents)
 
 #### Ok result
 
@@ -364,6 +376,8 @@ MyWebApi
 	.AndAlso()
 	.ContainingNoModelStateErrorFor(m => m.AnotherProperty);
 ```
+
+[To top](#table-of-contents)
 
 #### Unauthorized result
 
@@ -467,6 +481,8 @@ MyWebApi
 				.ContainingHeader(header => header.WithScheme(AuthenticationScheme.Basic)));
 ```
 
+[To top](#table-of-contents)
+
 #### BadRequest result
 
 ```c#
@@ -553,6 +569,8 @@ MyWebApi
 		.ContainingNoModelStateErrorFor(m => m.NonRequiredString);
 ```
 
+[To top](#table-of-contents)
+
 #### JSON result
 ```c#
 // tests whether the action returns JSON
@@ -606,6 +624,8 @@ MyWebApi
 		.WithConstructorHandling(ConstructorHandling.Default));
 ```
 
+[To top](#table-of-contents)
+
 #### StatusCode result
 
 ```c#
@@ -635,6 +655,8 @@ MyWebApi
 	.NotFound();
 ```
 
+[To top](#table-of-contents)
+
 #### Conflict result
 ```c#
 // tests whether the action returns ConflictResult
@@ -644,6 +666,8 @@ MyWebApi
 	.ShouldReturn()
 	.Conflict();
 ```
+
+[To top](#table-of-contents)
 
 #### InternalServerError result
 ```c#
@@ -723,6 +747,8 @@ MyWebApi
 	.WithMessage().Containing("n m");
 ```
 
+[To top](#table-of-contents)
+
 #### EmptyContent (void) result
 ```c#
 // tests whether the action does not return anything (204 No Content)
@@ -732,6 +758,8 @@ MyWebApi
 	.Calling(c => c.SomeAction())
 	.ShouldReturnEmpty();
 ```
+
+[To top](#table-of-contents)
 
 ### AndProvide... methods
 
@@ -786,3 +814,5 @@ MyWebApi
 	.Exception()
 	.AndProvideTheCaughtException();
 ```
+
+[To top](#table-of-contents)
