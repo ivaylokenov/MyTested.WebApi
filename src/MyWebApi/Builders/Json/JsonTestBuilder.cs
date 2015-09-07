@@ -117,10 +117,11 @@
             IJsonSerializerSettingsTestBuilder jsonSerializerSettingsTestBuilder,
             JsonSerializerSettings jsonSerializerSettings = null)
         {
+            var contractResolver = jsonSerializerSettings != null ? jsonSerializerSettings.ContractResolver : null;
             jsonSerializerSettings = jsonSerializerSettings ?? new JsonSerializerSettings();
             jsonSerializerSettingsTestBuilder
                 .WithCulture(jsonSerializerSettings.Culture)
-                .WithContractResolver(null)
+                .WithContractResolver(contractResolver)
                 .WithConstructorHandling(jsonSerializerSettings.ConstructorHandling)
                 .WithDateFormatHandling(jsonSerializerSettings.DateFormatHandling)
                 .WithDateParseHandling(jsonSerializerSettings.DateParseHandling)

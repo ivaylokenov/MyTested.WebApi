@@ -3,7 +3,9 @@
     using System.Collections.Generic;
     using System.Text;
     using Exceptions;
+    using Newtonsoft.Json;
     using NUnit.Framework;
+    using Setups;
     using Setups.Controllers;
     using Setups.Models;
 
@@ -82,6 +84,38 @@
                 .WithDefaultEncoding()
                 .AndAlso()
                 .WithDefaulJsonSerializerSettings();
+        }
+
+        [Test]
+        public void WithJsonSerializerSettingsShouldNotThrowExceptionWithSameJsonSettings()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.JsonWithSettingsAction())
+                .ShouldReturn()
+                .Json()
+                .WithDefaultEncoding()
+                .AndAlso()
+                .WithJsonSerializerSettings(TestObjectFactory.GetJsonSerializerSettings());
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(JsonResultAssertionException),
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+        public void WithJsonSerializerSettingsShouldThrowExceptionWithDifferentJsonSettings()
+        {
+            var jsonSerializerSettings = TestObjectFactory.GetJsonSerializerSettings();
+            jsonSerializerSettings.DateParseHandling = DateParseHandling.DateTime;
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.JsonWithSettingsAction())
+                .ShouldReturn()
+                .Json()
+                .WithDefaultEncoding()
+                .AndAlso()
+                .WithJsonSerializerSettings(jsonSerializerSettings);
         }
     }
 }

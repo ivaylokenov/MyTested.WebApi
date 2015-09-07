@@ -23,14 +23,14 @@
         public IAndJsonSerializerSettingsTestBuilder WithCulture(CultureInfo culture)
         {
             this.jsonSerializerSettings.Culture = culture;
-            validations.Add((expected, actual) => Validator.CheckEquality(expected.Culture, actual.Culture));
+            validations.Add((expected, actual) => expected.Culture.DisplayName == actual.Culture.DisplayName);
             return this;
         }
 
         public IAndJsonSerializerSettingsTestBuilder WithContractResolver(IContractResolver contractResolver)
         {
             this.jsonSerializerSettings.ContractResolver = contractResolver;
-            validations.Add((expected, actual) => !Reflection.AreDifferentTypes(expected.ContractResolver, actual.ContractResolver));
+            validations.Add((expected, actual) => Reflection.AreSameTypes(expected.ContractResolver, actual.ContractResolver));
             return this;
         }
 
