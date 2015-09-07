@@ -1,7 +1,8 @@
 ﻿namespace MyWebApi.Tests
 {
+    using Exceptions;
     using NUnit.Framework;
-    using Setups;
+    using Setups.Controllers;
     using Setups.Services;
 
     [TestFixture]
@@ -36,6 +37,19 @@
 
             Assert.IsNotNull(controller);
             Assert.IsAssignableFrom<WebApiController>(controller);
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(UnresolvedDependenciesException),
+            ExpectedMessage = "NoParameterlessConstructorController could not be instantiated because it contains no constructor taking no parameters.")]
+        public void ControllerWithNoParameterlessConstructorShouldThrowProperException()
+        {
+            MyWebApi
+                .Controller<NoParameterlessConstructorController>()
+                .Calling(c => c.OkAction())
+                .ShouldReturn()
+                .Ok();
         }
     }
 }

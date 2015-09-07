@@ -8,10 +8,12 @@
     using System.Threading.Tasks;
     using System.Web.Http;
     using Actions;
+    using Common;
     using Common.Extensions;
     using Common.Identity;
     using Contracts;
     using Contracts.Actions;
+    using Contracts.Controllers;
     using Exceptions;
     using Utilities;
 
@@ -19,7 +21,7 @@
     /// Used for building the action which will be tested.
     /// </summary>
     /// <typeparam name="TController">Class inheriting ASP.NET Web API controller.</typeparam>
-    public class ControllerBuilder<TController> : IControllerBuilder<TController>
+    public class ControllerBuilder<TController> : IAndControllerBuilder<TController>
         where TController : ApiController
     {
         private readonly IDictionary<Type, object> aggregatedDependencies;
@@ -62,7 +64,7 @@
         /// <typeparam name="TDependency">Type of dependency to resolve.</typeparam>
         /// <param name="dependency">Instance of dependency to inject into constructor.</param>
         /// <returns>The same controller builder.</returns>
-        public IControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency)
+        public IAndControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency)
         {
             var typeOfDependency = dependency.GetType();
             if (this.aggregatedDependencies.ContainsKey(typeOfDependency))
@@ -83,7 +85,7 @@
         /// </summary>
         /// <param name="dependencies">Collection of dependencies to inject into constructor.</param>
         /// <returns>The same controller builder.</returns>
-        public IControllerBuilder<TController> WithResolvedDependencies(IEnumerable<object> dependencies)
+        public IAndControllerBuilder<TController> WithResolvedDependencies(IEnumerable<object> dependencies)
         {
             dependencies.ForEach(d => this.WithResolvedDependencyFor(d));
             return this;
@@ -94,7 +96,7 @@
         /// </summary>
         /// <param name="dependencies">Dependencies to inject into constructor.</param>
         /// <returns>The same controller builder.</returns>
-        public IControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies)
+        public IAndControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies)
         {
             dependencies.ForEach(d => this.WithResolvedDependencyFor(d));
             return this;
@@ -104,7 +106,7 @@
         /// Sets default authenticated user to the built controller with "TestUser" username.
         /// </summary>
         /// <returns>The same controller builder.</returns>
-        public IControllerBuilder<TController> WithAuthenticatedUser()
+        public IAndControllerBuilder<TController> WithAuthenticatedUser()
         {
             this.Controller.User = MockedIPrinciple.CreateDefaultAuthenticated();
             return this;
@@ -115,11 +117,20 @@
         /// </summary>
         /// <param name="userBuilder">User builder to create mocked user object.</param>
         /// <returns>The same controller builder.</returns>
-        public IControllerBuilder<TController> WithAuthenticatedUser(Action<IUserBuilder> userBuilder)
+        public IAndControllerBuilder<TController> WithAuthenticatedUser(Action<IUserBuilder> userBuilder)
         {
             var newUserBuilder = new UserBuilder();
             userBuilder(newUserBuilder);
             this.Controller.User = newUserBuilder.GetUser();
+            return this;
+        }
+
+        /// <summary>
+        /// AndAlso method for better readability when building controller instance.
+        /// </summary>
+        /// <returns>The same controller builder.</returns>
+        public IAndControllerBuilder<TController> AndAlso()
+        {
             return this;
         }
 
@@ -131,10 +142,12 @@
         /// <returns>Builder for testing the action result.</returns>
         public IActionResultTestBuilder<TActionResult> Calling<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
         {
-            var actionName = ExpressionParser.GetMethodName(actionCall);
-            this.ValidateModelState(actionCall);
-            var actionResult = actionCall.Compile().Invoke(this.Controller);
-            return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
+            var actionInfo = this.GetAndValidateActionResult(actionCall);
+            return new ActionResultTestBuilder<TActionResult>(
+                this.Controller,
+                actionInfo.ActionName,
+                actionInfo.CaughtException,
+                actionInfo.ActionResult);
         }
 
         /// <summary>
@@ -145,10 +158,66 @@
         /// <returns>Builder for testing the action result.</returns>
         public IActionResultTestBuilder<TActionResult> CallingAsync<TActionResult>(Expression<Func<TController, Task<TActionResult>>> actionCall)
         {
-            var actionName = ExpressionParser.GetMethodName(actionCall);
-            this.ValidateModelState(actionCall);
-            var actionResult = actionCall.Compile().Invoke(this.Controller).Result;
-            return new ActionResultTestBuilder<TActionResult>(this.Controller, actionName, actionResult);
+            var actionInfo = this.GetAndValidateActionResult(actionCall);
+            var actionResult = default(TActionResult);
+
+            try
+            {
+                actionResult = actionInfo.ActionResult.Result;
+            }
+            catch (AggregateException aggregateException)
+            {
+                actionInfo.CaughtException = aggregateException;
+            }
+
+            return new ActionResultTestBuilder<TActionResult>(
+                this.Controller,
+                actionInfo.ActionName,
+                actionInfo.CaughtException,
+                actionResult);
+        }
+
+        /// <summary>
+        /// Indicates which action should be invoked and tested.
+        /// </summary>
+        /// <param name="actionCall">Method call expression indicating invoked action.</param>
+        /// <returns>Builder for testing void actions.</returns>
+        public IVoidActionResultTestBuilder Calling(Expression<Action<TController>> actionCall)
+        {
+            var actionName = this.GetAndValidateAction(actionCall);
+            Exception caughtException = null;
+
+            try
+            {
+                actionCall.Compile().Invoke(this.Controller);
+            }
+            catch (Exception exception)
+            {
+                caughtException = exception;
+            }
+
+            return new VoidActionResultTestBuilder(this.Controller, actionName, caughtException);
+        }
+
+        /// <summary>
+        /// Indicates which action should be invoked and tested.
+        /// </summary>
+        /// <param name="actionCall">Method call expression indicating invoked action.</param>
+        /// <returns>Builder for testing void actions.</returns>
+        public IVoidActionResultTestBuilder CallingAsync(Expression<Func<TController, Task>> actionCall)
+        {
+            var actionInfo = this.GetAndValidateActionResult(actionCall);
+
+            try
+            {
+                actionInfo.ActionResult.Wait();
+            }
+            catch (AggregateException aggregateException)
+            {
+                actionInfo.CaughtException = aggregateException;
+            }
+
+            return new VoidActionResultTestBuilder(this.Controller, actionInfo.ActionName, actionInfo.CaughtException);
         }
 
         private void BuildControllerIfNotExists()
@@ -162,10 +231,12 @@
                         .Keys
                         .Select(k => k.ToFriendlyTypeName());
 
+                    var joinedFriendlyDependencies = string.Join(", ", friendlyDependanciesNames);
+
                     throw new UnresolvedDependenciesException(string.Format(
-                        "{0} controller could not be instantiated because it contains no constructor taking {1} as parameters.",
+                        "{0} could not be instantiated because it contains no constructor taking {1} parameters.",
                         typeof(TController).ToFriendlyTypeName(),
-                        string.Join(", ", friendlyDependanciesNames)));
+                        this.aggregatedDependencies.Count == 0 ? "no" : string.Format("{0} as", joinedFriendlyDependencies)));
                 }
             }
 
@@ -176,6 +247,30 @@
             }
         }
 
+        private ActionInfo<TActionResult> GetAndValidateActionResult<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
+        {
+            var actionName = this.GetAndValidateAction(actionCall);
+            var actionResult = default(TActionResult);
+            Exception caughtException = null;
+
+            try
+            {
+                actionResult = actionCall.Compile().Invoke(this.Controller);
+            }
+            catch (Exception exception)
+            {
+                caughtException = exception;
+            }
+
+            return new ActionInfo<TActionResult>(actionName, actionResult, caughtException);
+        }
+
+        private string GetAndValidateAction(LambdaExpression actionCall)
+        {
+            this.ValidateModelState(actionCall);
+            return ExpressionParser.GetMethodName(actionCall);
+        }
+
         private void PrepareController()
         {
             this.controller.Request = new HttpRequestMessage();
@@ -183,7 +278,7 @@
             this.controller.User = MockedIPrinciple.CreateUnauthenticated();
         }
 
-        private void ValidateModelState<TActionResult>(Expression<Func<TController, TActionResult>> actionCall)
+        private void ValidateModelState(LambdaExpression actionCall)
         {
             var arguments = ExpressionParser.ResolveMethodArguments(actionCall);
             foreach (var argument in arguments)

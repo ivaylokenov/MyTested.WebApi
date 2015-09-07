@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.Base
 {
+    using System;
     using System.Web.Http;
     using And;
     using Common.Extensions;
@@ -20,10 +21,12 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
-        protected BaseTestBuilder(ApiController controller, string actionName)
+        /// <param name="caughtException">Caught exception during the action execution.</param>
+        protected BaseTestBuilder(ApiController controller, string actionName, Exception caughtException)
         {
             this.Controller = controller;
             this.ActionName = actionName;
+            this.CaughtException = caughtException;
         }
 
         /// <summary>
@@ -62,6 +65,8 @@
             }
         }
 
+        internal Exception CaughtException { get; private set; }
+
         /// <summary>
         /// Gets the controller on which the action is tested.
         /// </summary>
@@ -78,6 +83,15 @@
         public string AndProvideTheActionName()
         {
             return this.ActionName;
+        }
+
+        /// <summary>
+        /// Gets the thrown exception in the tested action.
+        /// </summary>
+        /// <returns>The exception instance or null, if no exception was caught.</returns>
+        public Exception AndProvideTheCaughtException()
+        {
+            return this.CaughtException;
         }
 
         /// <summary>
@@ -100,7 +114,7 @@
         /// <returns>Base test builder.</returns>
         protected IBaseTestBuilder NewAndProvideTestBuilder()
         {
-            return new AndProvideTestBuilder(this.Controller, this.ActionName);
+            return new AndProvideTestBuilder(this.Controller, this.ActionName, this.CaughtException);
         }
     }
 }

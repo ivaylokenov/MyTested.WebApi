@@ -2,8 +2,8 @@
 {
     using Exceptions;
     using NUnit.Framework;
-    using Setups;
-    
+    using Setups.Controllers;
+
     [TestFixture]
     public class AndUnauthorizedTestBuilderTests
     {
@@ -13,7 +13,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge("TestScheme", "TestParameter")
                 .AndAlso()
                 .ContainingAuthenticationHeaderChallenge("Basic");
@@ -28,7 +29,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.UnauthorizedActionWithChallenges())
-                .ShouldReturnUnauthorized()
+                .ShouldReturn()
+                .Unauthorized()
                 .ContainingAuthenticationHeaderChallenge("TestScheme", "TestParameter")
                 .AndAlso()
                 .ContainingAuthenticationHeaderChallenge("Scheme", "Parameter");

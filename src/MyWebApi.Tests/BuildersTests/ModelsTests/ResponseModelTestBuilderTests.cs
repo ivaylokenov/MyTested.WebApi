@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Exceptions;
     using NUnit.Framework;
-    using Setups;
+    using Setups.Controllers;
     using Setups.Models;
 
     [TestFixture]
@@ -15,7 +15,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ICollection<ResponseModel>>();
         }
 
@@ -25,8 +26,20 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<IList<ResponseModel>>();
+        }
+
+        [Test]
+        public void WithResponseModelShouldNotThrowExceptionWithCorrectImplementatorTypeArgument()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturn()
+                .Ok()
+                .WithResponseModelOfType<List<ResponseModel>>();
         }
 
         [Test]
@@ -38,33 +51,36 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultAction())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ResponseModel>();
         }
 
         [Test]
         [ExpectedException(
             typeof(ResponseModelAssertionException),
-            ExpectedMessage = "When calling OkResultWithResponse action in WebApiController expected response model to be a ResponseModel, but instead received a ICollection<ResponseModel>.")]
+            ExpectedMessage = "When calling OkResultWithInterfaceResponse action in WebApiController expected response model to be a ResponseModel, but instead received a ICollection<ResponseModel>.")]
         public void WithResponseModelShouldThrowExceptionWithIncorrectResponseModel()
         {
             MyWebApi
                 .Controller<WebApiController>()
-                .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .Calling(c => c.OkResultWithInterfaceResponse())
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ResponseModel>();
         }
 
         [Test]
         [ExpectedException(
             typeof(ResponseModelAssertionException),
-            ExpectedMessage = "When calling OkResultWithResponse action in WebApiController expected response model to be a ICollection<Int32>, but instead received a ICollection<ResponseModel>.")]
+            ExpectedMessage = "When calling OkResultWithInterfaceResponse action in WebApiController expected response model to be a ICollection<Int32>, but instead received a ICollection<ResponseModel>.")]
         public void WithResponseModelShouldThrowExceptionWithIncorrectGenericTypeArgument()
         {
             MyWebApi
                 .Controller<WebApiController>()
-                .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .Calling(c => c.OkResultWithInterfaceResponse())
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<ICollection<int>>();
         }
 
@@ -75,8 +91,9 @@
 
             MyWebApi
                 .Controller(() => controller)
-                .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .Calling(c => c.OkResultWithInterfaceResponse())
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModel(controller.ResponseModel);
         }
 
@@ -91,7 +108,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModel(controller.ResponseModel);
         }
 
@@ -101,7 +119,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultAction())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithNoResponseModel();
         }
 
@@ -114,7 +133,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultWithResponse())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithNoResponseModel();
         }
     }

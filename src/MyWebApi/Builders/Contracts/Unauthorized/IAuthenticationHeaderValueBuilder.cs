@@ -1,7 +1,5 @@
 ﻿namespace MyWebApi.Builders.Contracts.Unauthorized
 {
-    using Common;
-
     /// <summary>
     /// Used for building mocked AuthenticationHeaderValue scheme.
     /// </summary>

@@ -3,7 +3,7 @@
     using System;
     using Exceptions;
     using NUnit.Framework;
-    using Setups;
+    using Setups.Controllers;
 
     [TestFixture]
     public class ExceptionTestBuilderTests
@@ -14,7 +14,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .OfType<NullReferenceException>();
         }
@@ -28,7 +29,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .OfType<InvalidOperationException>();
         }
@@ -39,7 +41,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .WithMessage("Test exception message")
                 .AndAlso()
@@ -55,7 +58,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.InternalServerErrorWithExceptionAction())
-                .ShouldReturnInternalServerError()
+                .ShouldReturn()
+                .InternalServerError()
                 .WithException()
                 .OfType<NullReferenceException>()
                 .AndAlso()

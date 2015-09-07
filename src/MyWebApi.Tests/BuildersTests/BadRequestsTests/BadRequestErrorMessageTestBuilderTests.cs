@@ -2,7 +2,7 @@
 {
     using Exceptions;
     using NUnit.Framework;
-    using Setups;
+    using Setups.Controllers;
 
     [TestFixture]
     public class BadRequestErrorMessageTestBuilderTests
@@ -13,7 +13,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage()
                 .ThatEquals("Bad request");
         }
@@ -27,7 +28,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage()
                 .ThatEquals("Bad");
         }
@@ -38,7 +40,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage()
                 .BeginningWith("Bad ");
         }
@@ -52,7 +55,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage()
                 .BeginningWith("request");
         }
@@ -63,7 +67,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage()
                 .EndingWith("request");
         }
@@ -77,7 +82,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage()
                 .EndingWith("Bad");
         }
@@ -88,7 +94,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage()
                 .Containing("d r");
         }
@@ -102,7 +109,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage()
                 .Containing("Another");
         }

@@ -5,7 +5,6 @@
     using System.Net.Http.Headers;
     using System.Web.Http.Results;
     using Base;
-    using Common;
 
     /// <summary>
     /// Used for testing the authenticated header challenges in unauthorized results.

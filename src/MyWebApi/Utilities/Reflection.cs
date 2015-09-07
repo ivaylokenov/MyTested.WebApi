@@ -12,6 +12,33 @@
     public static class Reflection
     {
         /// <summary>
+        /// Checks whether two objects have the same types.
+        /// </summary>
+        /// <param name="firstObject">First object to be checked.</param>
+        /// <param name="secondObject">Second object to be checked.</param>
+        /// <returns>True or false.</returns>
+        public static bool AreSameTypes(object firstObject, object secondObject)
+        {
+            if (firstObject == null || secondObject == null)
+            {
+                return firstObject == secondObject;
+            }
+
+            return AreSameTypes(firstObject.GetType(), secondObject.GetType());
+        }
+
+        /// <summary>
+        /// Checks whether two types are different.
+        /// </summary>
+        /// <param name="firstType">First type to be checked.</param>
+        /// <param name="secondType">Second type to be checked.</param>
+        /// <returns>True or false.</returns>
+        public static bool AreSameTypes(Type firstType, Type secondType)
+        {
+            return firstType == secondType;
+        }
+
+        /// <summary>
         /// Checks whether two objects have different types.
         /// </summary>
         /// <param name="firstObject">First object to be checked.</param>
@@ -19,7 +46,7 @@
         /// <returns>True or false.</returns>
         public static bool AreDifferentTypes(object firstObject, object secondObject)
         {
-            return AreDifferentTypes(firstObject.GetType(), secondObject.GetType());
+            return !AreSameTypes(firstObject, secondObject);
         }
 
         /// <summary>
@@ -30,7 +57,7 @@
         /// <returns>True or false.</returns>
         public static bool AreDifferentTypes(Type firstType, Type secondType)
         {
-            return firstType != secondType;
+            return !AreSameTypes(firstType, secondType);
         }
 
         /// <summary>
@@ -118,7 +145,22 @@
                 return true;
             }
 
-            return baseTypeGenericArguments.Where((t, i) => AreNotAssignable(t, inheritedTypeGenericArguments[i])).Any();
+            return baseTypeGenericArguments.Where((t, i) => t != inheritedTypeGenericArguments[i]).Any();
+        }
+
+        /// <summary>
+        /// Checks whether generic definition contains an base interface generic definition.
+        /// </summary>
+        /// <param name="baseType">Base type to be checked.</param>
+        /// <param name="inheritedType">Inherited type to be checked.</param>
+        /// <returns>True or false.</returns>
+        public static bool ContainsGenericTypeDefinitionInterface(Type baseType, Type inheritedType)
+        {
+            return inheritedType
+                .GetInterfaces()
+                .Where(t => t.IsGenericType)
+                .Select(t => t.GetGenericTypeDefinition())
+                .Any(t => t == baseType);
         }
 
         /// <summary>

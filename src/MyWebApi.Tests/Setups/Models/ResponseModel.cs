@@ -1,6 +1,6 @@
 ﻿namespace MyWebApi.Tests.Setups.Models
 {
-    public class ResponseModel
+    public class ResponseModel : IResponseModel
     {
         public int IntegerValue { get; set; }
 

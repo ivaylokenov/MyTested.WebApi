@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.Base
 {
+    using System;
     using System.Web.Http;
     using And;
     using Common.Extensions;
@@ -16,16 +17,19 @@
     public abstract class BaseTestBuilderWithActionResult<TActionResult>
         : BaseTestBuilder, IBaseTestBuilderWithActionResult<TActionResult>
     {
-        private TActionResult actionResult;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestBuilderWithActionResult{TActionResult}" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
         /// <param name="actionResult">Result from the tested action.</param>
-        protected BaseTestBuilderWithActionResult(ApiController controller, string actionName, TActionResult actionResult)
-            : base(controller, actionName)
+        protected BaseTestBuilderWithActionResult(
+            ApiController controller,
+            string actionName,
+            Exception caughtException,
+            TActionResult actionResult)
+            : base(controller, actionName, caughtException)
         {
             this.ActionResult = actionResult;
         }
@@ -34,19 +38,7 @@
         /// Gets the action result which will be tested.
         /// </summary>
         /// <value>Action result to be tested.</value>
-        internal TActionResult ActionResult
-        {
-            get
-            {
-                return this.actionResult;
-            }
-
-            private set
-            {
-                Validator.CheckForNullReference(value, errorMessageName: "ActionResult");
-                this.actionResult = value;
-            }
-        }
+        internal TActionResult ActionResult { get; private set; }
 
         /// <summary>
         /// Gets the action result which will be tested.
@@ -66,7 +58,7 @@
         {
             try
             {
-                return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult).Content;
+                return this.GetActionResultAsDynamic(this.ActionResult).Content;
             }
             catch (RuntimeBinderException)
             {
@@ -84,7 +76,7 @@
         /// <returns>Test builder with AndAlso method.</returns>
         protected IAndTestBuilder<TActionResult> NewAndTestBuilder()
         {
-            return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
+            return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.CaughtException, this.ActionResult);
         }
 
         /// <summary>
@@ -93,7 +85,21 @@
         /// <returns>Base test builder with action result.</returns>
         protected new IBaseTestBuilderWithActionResult<TActionResult> NewAndProvideTestBuilder()
         {
-            return new AndProvideTestBuilder<TActionResult>(this.Controller, this.ActionName, this.ActionResult);
+            return new AndProvideTestBuilder<TActionResult>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.ActionResult);
+        }
+
+        /// <summary>
+        /// Returns the actual action result casted as dynamic type.
+        /// </summary>
+        /// <param name="actionResult">Result from the tested action.</param>
+        /// <returns>Object of dynamic type.</returns>
+        protected dynamic GetActionResultAsDynamic(TActionResult actionResult)
+        {
+            return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult);
         }
     }
 }

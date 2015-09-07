@@ -5,9 +5,11 @@
     using System.Linq;
     using System.Web.Http.Results;
     using Builders.Contracts.Actions;
+    using Builders.Contracts.Base;
     using Exceptions;
     using NUnit.Framework;
     using Setups;
+    using Setups.Controllers;
     using Setups.Models;
     using Setups.Services;
 
@@ -21,7 +23,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultAction());
 
-            CheckActionResultTestBuilder(actionResultTestBuilder, "OkResultAction");
+            this.CheckActionResultTestBuilder(actionResultTestBuilder, "OkResultAction");
         }
 
         [Test]
@@ -31,7 +33,27 @@
                 .Controller<WebApiController>()
                 .CallingAsync(c => c.AsyncOkResultAction());
 
-            CheckActionResultTestBuilder(actionResultTestBuilder, "AsyncOkResultAction");
+            this.CheckActionResultTestBuilder(actionResultTestBuilder, "AsyncOkResultAction");
+        }
+
+        [Test]
+        public void CallingShouldPopulateCorrectActionNameWithNormalVoidActionCall()
+        {
+            var voidActionResultTestBuilder = MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.EmptyAction());
+
+            this.CheckActionName(voidActionResultTestBuilder, "EmptyAction");
+        }
+
+        [Test]
+        public void CallingShouldPopulateCorrectActionNameWithTaskActionCall()
+        {
+            var voidActionResultTestBuilder = MyWebApi
+                .Controller<WebApiController>()
+                .CallingAsync(c => c.EmptyActionAsync());
+
+            this.CheckActionName(voidActionResultTestBuilder, "EmptyActionAsync");
         }
 
         [Test]
@@ -42,7 +64,8 @@
             var controller = MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestModel))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .AndProvideTheController();
 
             var modelState = controller.ModelState;
@@ -61,7 +84,8 @@
             var controller = MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultActionWithRequestBody(1, requestModel))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .AndProvideTheController();
 
             var modelState = controller.ModelState;
@@ -80,7 +104,8 @@
 
             controllerBuilder
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
 
             var controllerUser = controllerBuilder.Controller.User;
 
@@ -108,7 +133,8 @@
 
             controllerBuilder
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
 
             var controllerUser = controllerBuilder.Controller.User;
 
@@ -131,7 +157,8 @@
 
             controllerBuilder
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnNotFound();
+                .ShouldReturn()
+                .NotFound();
 
             var controllerUser = controllerBuilder.Controller.User;
 
@@ -196,7 +223,25 @@
                 .WithResolvedDependencyFor(new InjectedService())
                 .WithAuthenticatedUser()
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
+        }
+
+        [Test]
+        public void AndAlsoShouldContinueTheNormalExecutionFlowOfTestBuilders()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor(new RequestModel())
+                .AndAlso()
+                .WithResolvedDependencyFor(new AnotherInjectedService())
+                .AndAlso()
+                .WithResolvedDependencyFor(new InjectedService())
+                .AndAlso()
+                .WithAuthenticatedUser()
+                .Calling(c => c.AuthorizedAction())
+                .ShouldReturn()
+                .Ok();
         }
 
         [Test]
@@ -207,7 +252,8 @@
                 .WithResolvedDependencies(new List<object> { new RequestModel(), new AnotherInjectedService(), new InjectedService() })
                 .WithAuthenticatedUser()
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
 
         [Test]
@@ -218,7 +264,8 @@
                 .WithResolvedDependencies(new RequestModel(), new AnotherInjectedService(), new InjectedService())
                 .WithAuthenticatedUser()
                 .Calling(c => c.AuthorizedAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
 
         [Test]
@@ -238,7 +285,7 @@
         [Test]
         [ExpectedException(
             typeof(UnresolvedDependenciesException),
-            ExpectedMessage = "WebApiController controller could not be instantiated because it contains no constructor taking RequestModel, AnotherInjectedService, InjectedService, ResponseModel as parameters.")]
+            ExpectedMessage = "WebApiController could not be instantiated because it contains no constructor taking RequestModel, AnotherInjectedService, InjectedService, ResponseModel as parameters.")]
         public void WithResolvedDependencyForShouldThrowExceptionWhenNoConstructorExistsForDependencies()
         {
             MyWebApi
@@ -248,21 +295,27 @@
                 .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
                 .WithResolvedDependencyFor<ResponseModel>(new ResponseModel())
                 .Calling(c => c.OkResultAction())
-                .ShouldReturnOk();
+                .ShouldReturn()
+                .Ok();
         }
 
         private void CheckActionResultTestBuilder<TActionResult>(
             IActionResultTestBuilder<TActionResult> actionResultTestBuilder,
             string expectedActionName)
         {
-            var actionName = actionResultTestBuilder.AndProvideTheActionName();
+            this.CheckActionName(actionResultTestBuilder, expectedActionName);
             var actionResult = actionResultTestBuilder.AndProvideTheActionResult();
 
-            Assert.IsNotNullOrEmpty(actionName);
             Assert.IsNotNull(actionResult);
-
-            Assert.AreEqual(expectedActionName, actionName);
             Assert.IsAssignableFrom<OkResult>(actionResult);
+        }
+
+        private void CheckActionName(IBaseTestBuilder testBuilder, string expectedActionName)
+        {
+            var actionName = testBuilder.AndProvideTheActionName();
+
+            Assert.IsNotNullOrEmpty(actionName);
+            Assert.AreEqual(expectedActionName, actionName);
         }
     }
 }

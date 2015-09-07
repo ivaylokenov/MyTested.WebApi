@@ -38,7 +38,8 @@ namespace MyApp.Tests.Controllers
             MyWebApi
                 .Controller<HomeController>()
                 .Calling(c => c.Get())
-                .ShouldReturnOk();
+                .ShouldReturn()
+				.Ok();
         }
 	}
 }
@@ -52,16 +53,18 @@ Here are some random examples of what the fluent testing API is capable of:
 // injects dependencies into controller
 // and mocks authenticated user
 // and tests for valid model state
-// and tests response model from Ok result with certain assertions
+// and tests response model from Ok result with specific assertions
 MyWebApi
 	.Controller<WebApiController>()
 	.WithResolvedDependencyFor<IInjectedService>(mockedInjectedService)
 	.WithResolvedDependencyFor<IAnotherInjectedService>(anotherMockedInjectedService);
 	.WithAuthenticatedUser(user => user.WithUsername("NewUserName"))
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveValidModelState()
+	.ShouldHave()
+	.ValidModelState()
 	.AndAlso()
-	.ShouldReturnOk()
+	.ShouldReturn()
+	.Ok()
 	.WithResponseModelOfType<ResponseModel>()
 	.Passing(m =>
 	{
@@ -74,7 +77,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHaveModelStateFor<RequestModel>()
+	.ShouldHave()
+	.ModelStateFor<RequestModel>()
 	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message") 
 	.AndAlso()
 	.ContainingModelStateErrorFor(m => m.SecondProperty).BeginningWith("Error") 
@@ -88,7 +92,8 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturnInternalServerError()
+	.ShouldReturn()
+	.InternalServerError()
 	.WithException()
 	.OfType<SomeException>()
 	.AndAlso()

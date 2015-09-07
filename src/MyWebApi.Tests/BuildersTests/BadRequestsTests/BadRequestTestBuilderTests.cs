@@ -4,6 +4,7 @@
     using Exceptions;
     using NUnit.Framework;
     using Setups;
+    using Setups.Controllers;
     using Setups.Models;
 
     [TestFixture]
@@ -15,7 +16,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage();
         }
 
@@ -28,7 +30,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage();
         }
 
@@ -38,7 +41,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage("Bad request");
         }
 
@@ -51,7 +55,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithErrorAction())
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithErrorMessage("Good request");
         }
 
@@ -66,7 +71,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithModelState(requestModelWithErrors))
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithModelState(modelState);
         }
 
@@ -84,7 +90,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithModelState(requestModelWithErrors))
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithModelState(modelState);
         }
 
@@ -101,7 +108,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithModelState(requestModelWithErrors))
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithModelState(modelState);
         }
 
@@ -120,7 +128,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithModelState(requestModelWithErrors))
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithModelState(modelState);
         }
 
@@ -138,7 +147,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithModelState(requestModelWithErrors))
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithModelState(modelState);
         }
 
@@ -157,7 +167,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithModelState(requestModelWithErrors))
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithModelState(modelState);
         }
 
@@ -172,7 +183,8 @@
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.BadRequestWithModelState(requestModelWithErrors))
-                .ShouldReturnBadRequest()
+                .ShouldReturn()
+                .BadRequest()
                 .WithModelStateFor<RequestModel>()
                 .ContainingModelStateErrorFor(m => m.Integer).ThatEquals("The field Integer must be between 1 and 2147483647.")
                 .AndAlso()

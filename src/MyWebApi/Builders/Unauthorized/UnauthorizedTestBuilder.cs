@@ -7,7 +7,6 @@
     using System.Web.Http;
     using System.Web.Http.Results;
     using Base;
-    using Common;
     using Common.Extensions;
     using Contracts.Base;
     using Contracts.Unauthorized;
@@ -24,12 +23,14 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
         /// <param name="actionResult">Result from the tested action.</param>
         public UnauthorizedTestBuilder(
             ApiController controller,
             string actionName,
+            Exception caughtException,
             UnauthorizedResult actionResult)
-            : base(controller, actionName, actionResult)
+            : base(controller, actionName, caughtException, actionResult)
         {
         }
 

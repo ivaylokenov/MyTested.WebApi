@@ -57,12 +57,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildersTests\ActionsTests\ShouldReturnBadRequestTests.cs" />
-    <Compile Include="BuildersTests\ActionsTests\ShouldReturnConflictTests.cs" />
-    <Compile Include="BuildersTests\ActionsTests\ShouldReturnInternalServerErrorTests.cs" />
-    <Compile Include="BuildersTests\ActionsTests\ShouldReturnNotFoundTests.cs" />
-    <Compile Include="BuildersTests\ActionsTests\ShouldReturnStatusCodeTests.cs" />
-    <Compile Include="BuildersTests\ActionsTests\ShouldReturnUnauthorizedTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnBadRequestTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnConflictTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnInternalServerErrorTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnJsonTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnNotFoundTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnStatusCodeTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnUnauthorizedTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldThrowExceptionTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\VoidActionResultTestBuilderTests.cs" />
     <Compile Include="BuildersTests\AndTests\AndProvideTestBuilderTests.cs" />
     <Compile Include="BuildersTests\BadRequestsTests\BadRequestErrorMessageTestBuilderTests.cs" />
     <Compile Include="BuildersTests\BadRequestsTests\BadRequestTestBuilderTests.cs" />
@@ -70,15 +73,19 @@
     <Compile Include="BuildersTests\ExceptionErrorsTests\ExceptionMessageTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\ExceptionTestBuilderTests.cs" />
     <Compile Include="BuildersTests\InternalServerErrorsTests\InternalServerErrorTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\JsonTests\JsonSerializerSettingsTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\JsonTests\JsonTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ModelErrorDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ModelErrorTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldHaveModelStateTests.cs" />
-    <Compile Include="BuildersTests\ActionsTests\ShouldReturnOkResultTests.cs" />
-    <Compile Include="BuildersTests\ActionsTests\ShouldReturnTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnOkResultTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnTests.cs" />
     <Compile Include="BuildersTests\UnauthorizedTests\AndUnauthorizedTestBuilderTests.cs" />
     <Compile Include="BuildersTests\UnauthorizedTests\UnauthorizedResultTestBuilderTests.cs" />
+    <Compile Include="Setups\Controllers\NoParameterlessConstructorController.cs" />
+    <Compile Include="Setups\Models\IResponseModel.cs" />
     <Compile Include="Setups\Services\AnotherInjectedService.cs" />
     <Compile Include="Setups\Services\IAnotherInjectedService.cs" />
     <Compile Include="Setups\Services\IInjectedService.cs" />
@@ -86,7 +93,7 @@
     <Compile Include="Setups\Models\RequestModel.cs" />
     <Compile Include="Setups\Models\ResponseModel.cs" />
     <Compile Include="Setups\TestObjectFactory.cs" />
-    <Compile Include="Setups\WebApiController.cs" />
+    <Compile Include="Setups\Controllers\WebApiController.cs" />
     <Compile Include="MyWebApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtilitiesTests\ExpressionParserTests.cs" />

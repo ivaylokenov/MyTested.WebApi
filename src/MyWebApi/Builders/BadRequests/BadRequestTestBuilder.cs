@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Builders.BadRequests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
@@ -28,12 +29,14 @@
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
         /// <param name="actionResult">Result from the tested action.</param>
         public BadRequestTestBuilder(
             ApiController controller,
             string actionName,
+            Exception caughtException,
             TBadRequestResult actionResult)
-            : base(controller, actionName, actionResult)
+            : base(controller, actionName, caughtException, actionResult)
         {
         }
 
@@ -44,7 +47,11 @@
         public IBadRequestErrorMessageTestBuilder WithErrorMessage()
         {
             var badRequestErrorMessageResult = this.GetBadRequestResult<BadRequestErrorMessageResult>(ErrorMessage);
-            return new BadRequestErrorMessageTestBuilder(this.Controller, this.ActionName, badRequestErrorMessageResult.Message);
+            return new BadRequestErrorMessageTestBuilder(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                badRequestErrorMessageResult.Message);
         }
 
         /// <summary>
@@ -131,7 +138,11 @@
         public IModelErrorTestBuilder<TRequestModel> WithModelStateFor<TRequestModel>()
         {
             var invalidModelStateResult = this.GetBadRequestResult<InvalidModelStateResult>(ModelStateDictionary);
-            return new ModelErrorTestBuilder<TRequestModel>(this.Controller, this.ActionName, modelState: invalidModelStateResult.ModelState);
+            return new ModelErrorTestBuilder<TRequestModel>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                modelState: invalidModelStateResult.ModelState);
         }
 
         private static IList<string> GetSortedErrorMessagesForModelStateKey(IEnumerable<ModelError> errors)
