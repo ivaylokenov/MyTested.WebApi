@@ -27,7 +27,8 @@
                 .Controller<BooksController>()
                 .WithResolvedDependencyFor<IRepository<Book>>(MocksFactory.BooksRepository)
                 .Calling(c => c.Get())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<List<BookResponseModel>>()
                 .Passing(c => c.Count == 3);
         }
@@ -40,7 +41,8 @@
                 .WithResolvedDependencyFor<IRepository<Book>>(MocksFactory.BooksRepository)
                 .WithAuthenticatedUser()
                 .Calling(c => c.Get())
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<List<BookResponseModel>>()
                 .Passing(c => c.Count == 10);
         }
@@ -52,7 +54,8 @@
                 .Controller<BooksController>()
                 .WithResolvedDependencyFor<IRepository<Book>>(MocksFactory.BooksRepository)
                 .Calling(c => c.Get(1))
-                .ShouldReturnUnauthorized();
+                .ShouldReturn()
+                .Unauthorized();
         }
 
         [Test]
@@ -63,7 +66,8 @@
                 .WithResolvedDependencyFor<IRepository<Book>>(MocksFactory.BooksRepository)
                 .WithAuthenticatedUser()
                 .Calling(c => c.Get(1))
-                .ShouldReturnOk()
+                .ShouldReturn()
+                .Ok()
                 .WithResponseModelOfType<BookResponseModel>()
                 .Passing(b => b.Id == 1);
         }
