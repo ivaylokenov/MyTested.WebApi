@@ -109,7 +109,7 @@
         /// <summary>
         /// Validates whether type can be null.
         /// </summary>
-        /// <param name="type">Type to check</param>
+        /// <param name="type">Type to check.</param>
         public static void CheckIfTypeCanBeNull(Type type)
         {
             bool canBeNull = !type.IsValueType || (Nullable.GetUnderlyingType(type) != null);

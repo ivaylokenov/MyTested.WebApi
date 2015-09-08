@@ -86,6 +86,11 @@
             return null;
         }
 
+        public int DefaultStructAction()
+        {
+            return 0;
+        }
+
         public IHttpActionResult ActionWithException()
         {
             throw new NullReferenceException("Test exception message");

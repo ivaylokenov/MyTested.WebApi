@@ -1,6 +1,5 @@
 ﻿namespace MyWebApi.Builders.Actions.ShouldReturn
 {
-    using System.Collections.Generic;
     using Common.Extensions;
     using Contracts.Base;
     using Exceptions;
@@ -18,13 +17,11 @@
         /// <returns>Base test builder with action result.</returns>
         public IBaseTestBuilderWithActionResult<TActionResult> Default()
         {
-            if (Validator.CheckForDefaultValue(this.ActionResult) && this.CaughtException == null)
+            if (!this.CheckValidDefaultValue())
             {
-                throw new HttpActionResultAssertionException(string.Format(
-                    "When calling {0} action in {1} expected action result to be the default value of {2}, but in fact it was not.",
-                    this.ActionName,
-                    this.Controller.GetName(),
-                    this.ActionResult.GetName()));
+                this.ThrowNewHttpActionResultAssertionException(string.Format(
+                    "the default value of {0}, but in fact it was not.",
+                    typeof(TActionResult).ToFriendlyTypeName()));
             }
 
             return this.NewAndProvideTestBuilder();
@@ -36,8 +33,29 @@
         /// <returns>Base test builder with action result.</returns>
         public IBaseTestBuilderWithActionResult<TActionResult> Null()
         {
-            Validator.CheckIfTypeCanBeNull(this.ActionResult.GetType());
-            return this.Default();
+            Validator.CheckIfTypeCanBeNull(typeof(TActionResult));
+            if (!this.CheckValidDefaultValue())
+            {
+                this.ThrowNewHttpActionResultAssertionException(string.Format(
+                    "null, but instead received {0}.",
+                    typeof(TActionResult).ToFriendlyTypeName()));
+            }
+
+            return this.NewAndProvideTestBuilder();
+        }
+
+        private bool CheckValidDefaultValue()
+        {
+            return Validator.CheckForDefaultValue(this.ActionResult) && this.CaughtException == null;
+        }
+
+        private void ThrowNewHttpActionResultAssertionException(string message)
+        {
+            throw new HttpActionResultAssertionException(string.Format(
+                    "When calling {0} action in {1} expected action result to be {2}",
+                    this.ActionName,
+                    this.Controller.GetName(),
+                    message));
         }
     }
 }
