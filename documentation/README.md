@@ -177,6 +177,12 @@ MyWebApi
 	.ContainingModelStateErrorFor(m => m.ThirdProperty).EndingWith("message") 
 	.AndAlso() // error must contain the provided string
 	.ContainingModelStateErrorFor(m => m.SecondProperty).Containing("ror mes"); 
+	
+// disable validation if needed
+MyWebApi
+	.Controller<WebApiController>()
+	.WithoutValidation()
+	.Calling(c => c.SomeAction());
 ```
 
 [To top](#table-of-contents)
