@@ -81,6 +81,11 @@
             this.ThrowNewNullReferenceException();
         }
 
+        public IHttpActionResult NullAction()
+        {
+            return null;
+        }
+
         public IHttpActionResult ActionWithException()
         {
             throw new NullReferenceException("Test exception message");

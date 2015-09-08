@@ -15,7 +15,17 @@
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public interface IShouldReturnTestBuilder<TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
     {
-        IBaseTestBuilderWithActionResult<TActionResult> ShouldReturnNull();
+        /// <summary>
+        /// Tests whether action result is the default value of the type.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> Default();
+
+        /// <summary>
+        /// Tests whether action result is null.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> Null();
 
         /// <summary>
         /// Tests whether action result is OkResult or OkNegotiatedContentResult{T}.

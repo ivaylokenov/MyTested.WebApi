@@ -59,7 +59,7 @@
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnInternalServerError.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnJson.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnNotFound.cs" />
-    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnNull.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnNullOrDefault.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnStatusCode.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnUnauthorized.cs" />

@@ -9,6 +9,11 @@
 
     public static class TestObjectFactory
     {
+        public static RequestModel GetNullRequestModel()
+        {
+            return null;
+        }
+
         public static RequestModel GetValidRequestModel()
         {
             return new RequestModel
