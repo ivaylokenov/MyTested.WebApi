@@ -28,6 +28,7 @@
 
         private TController controller;
         private bool isPreparedForTesting;
+        private bool enabledValidation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ControllerBuilder{TController}" /> class.
@@ -38,6 +39,7 @@
             this.Controller = controllerInstance;
             this.aggregatedDependencies = new Dictionary<Type, object>();
             this.isPreparedForTesting = false;
+            this.enabledValidation = true;
         }
 
         /// <summary>
@@ -99,6 +101,12 @@
         public IAndControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies)
         {
             dependencies.ForEach(d => this.WithResolvedDependencyFor(d));
+            return this;
+        }
+
+        public IAndControllerBuilder<TController> WithoutValidation()
+        {
+            this.enabledValidation = false;
             return this;
         }
 
@@ -267,7 +275,11 @@
 
         private string GetAndValidateAction(LambdaExpression actionCall)
         {
-            this.ValidateModelState(actionCall);
+            if (this.enabledValidation)
+            {
+                this.ValidateModelState(actionCall);
+            }
+
             return ExpressionParser.GetMethodName(actionCall);
         }
 

@@ -42,6 +42,8 @@
         /// <returns>The same controller builder.</returns>
         IAndControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies);
 
+        IAndControllerBuilder<TController> WithoutValidation();
+
         /// <summary>
         /// Sets default authenticated user to the built controller with "TestUser" username.
         /// </summary>
