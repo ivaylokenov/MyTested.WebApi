@@ -106,6 +106,21 @@
             return EqualityComparer<TValue>.Default.Equals(value, default(TValue));
         }
 
+        /// <summary>
+        /// Validates whether type can be null.
+        /// </summary>
+        /// <param name="type">Type to check</param>
+        public static void CheckIfTypeCanBeNull(Type type)
+        {
+            bool canBeNull = !type.IsValueType || (Nullable.GetUnderlyingType(type) != null);
+            if (!canBeNull)
+            {
+                throw new ActionCallAssertionException(string.Format(
+                    "{0} cannot be null.",
+                    type.ToFriendlyTypeName()));
+            }
+        }
+
         private static string FormatExceptionMessage(string message)
         {
             return string.IsNullOrWhiteSpace(message)

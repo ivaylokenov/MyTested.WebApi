@@ -102,8 +102,15 @@
         [Test]
         public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForStruct()
         {
-            int number = 0;
-            var result = Validator.CheckForDefaultValue(number);
+            var result = Validator.CheckForDefaultValue(0);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForNullableType()
+        {
+            var result = Validator.CheckForDefaultValue<int?>(null);
 
             Assert.IsTrue(result);
         }
@@ -120,10 +127,30 @@
         [Test]
         public void CheckForDefaultValueShouldReturnFalseIfValueIsNotDefaultForStruct()
         {
-            int number = 1;
-            var result = Validator.CheckForDefaultValue(number);
+            var result = Validator.CheckForDefaultValue(1);
 
             Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void CheckIfTypeCanBeNullShouldNotThrowExceptionWithClass()
+        {
+            Validator.CheckIfTypeCanBeNull(typeof(object));
+        }
+
+        [Test]
+        public void CheckIfTypeCanBeNullShouldNotThrowExceptionWithNullableType()
+        {
+            Validator.CheckIfTypeCanBeNull(typeof(int?));
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ActionCallAssertionException),
+            ExpectedMessage = "Int32 cannot be null.")]
+        public void CheckIfTypeCanBeNullShouldThrowExceptionWithStruct()
+        {
+            Validator.CheckIfTypeCanBeNull(typeof(int));
         }
     }
 }
