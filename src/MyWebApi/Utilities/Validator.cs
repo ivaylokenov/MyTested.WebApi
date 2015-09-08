@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Utilities
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Common.Extensions;
     using Exceptions;
@@ -92,6 +93,17 @@
         public static bool CheckEquality<T>(T expected, T actual)
         {
             return expected.Equals(actual);
+        }
+
+        /// <summary>
+        /// Validates whether object equals the default value for its type.
+        /// </summary>
+        /// <typeparam name="TValue">Type of the value.</typeparam>
+        /// <param name="value">Object to test.</param>
+        /// <returns>True or false.</returns>
+        public static bool CheckForDefaultValue<TValue>(TValue value)
+        {
+            return EqualityComparer<TValue>.Default.Equals(value, default(TValue));
         }
 
         private static string FormatExceptionMessage(string message)

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Exceptions;
     using NUnit.Framework;
+    using Setups;
     using Utilities;
 
     [TestFixture]
@@ -87,6 +88,42 @@
                     });
 
             Validator.CheckForException(aggregateException);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForClass()
+        {
+            object obj = TestObjectFactory.GetNullRequestModel();
+            var result = Validator.CheckForDefaultValue(obj);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForStruct()
+        {
+            int number = 0;
+            var result = Validator.CheckForDefaultValue(number);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnFalseIfValueIsNotDefaultForClass()
+        {
+            object obj = TestObjectFactory.GetValidRequestModel();
+            var result = Validator.CheckForDefaultValue(obj);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnFalseIfValueIsNotDefaultForStruct()
+        {
+            int number = 1;
+            var result = Validator.CheckForDefaultValue(number);
+
+            Assert.IsFalse(result);
         }
     }
 }
