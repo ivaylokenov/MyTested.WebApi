@@ -6,7 +6,7 @@
     using Utilities;
 
     /// <summary>
-    /// Class containing methods for testing BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.
+    /// Class containing methods for testing null or default value result.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ShouldReturnTestBuilder<TActionResult>
