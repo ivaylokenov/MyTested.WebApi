@@ -49,7 +49,7 @@
         /// <param name="errorMessage">Error message if the validation fails.</param>
         public static void CheckForEqualityWithDefaultValue<T>(T value, string errorMessage)
         {
-            if (value == null || value.Equals(default(T)))
+            if (CheckForDefaultValue(value))
             {
                 throw new InvalidOperationException(errorMessage);
             }

@@ -50,7 +50,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.NullAction())
                 .ShouldReturn()
-                .Default();
+                .DefaultValue();
         }
 
         [Test]
@@ -60,7 +60,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.DefaultStructAction())
                 .ShouldReturn()
-                .Default();
+                .DefaultValue();
         }
 
         [Test]
@@ -73,7 +73,7 @@
                 .Controller<WebApiController>()
                 .Calling(c => c.OkResultAction())
                 .ShouldReturn()
-                .Default();
+                .DefaultValue();
         }
     }
 }

@@ -15,7 +15,7 @@
         /// Tests whether action result is the default value of the type.
         /// </summary>
         /// <returns>Base test builder with action result.</returns>
-        public IBaseTestBuilderWithActionResult<TActionResult> Default()
+        public IBaseTestBuilderWithActionResult<TActionResult> DefaultValue()
         {
             if (!this.CheckValidDefaultValue())
             {

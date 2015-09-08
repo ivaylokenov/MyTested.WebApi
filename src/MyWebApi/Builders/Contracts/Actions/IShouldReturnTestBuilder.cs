@@ -19,7 +19,7 @@
         /// Tests whether action result is the default value of the type.
         /// </summary>
         /// <returns>Base test builder with action result.</returns>
-        IBaseTestBuilderWithActionResult<TActionResult> Default();
+        IBaseTestBuilderWithActionResult<TActionResult> DefaultValue();
 
         /// <summary>
         /// Tests whether action result is null.

@@ -20,6 +20,7 @@
  - [NotFound result](#notfound-result)
  - [Conflict result](#conflict-result)
  - [EmptyContent (void) result](#emptycontent-void-result)
+ - [Null or Default result](#null-or-default-result)
  - [AndProvide... methods](#andprovide-methods)
 
 ### Controller instantiation
@@ -763,6 +764,25 @@ MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
 	.ShouldReturnEmpty();
+```
+
+[To top](#table-of-contents)
+
+#### Null or Default result
+```c#
+// tests whether the action returns the default value of the return type
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.DefaultValue();
+	
+// tests whether the action returns null
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Null();
 ```
 
 [To top](#table-of-contents)
