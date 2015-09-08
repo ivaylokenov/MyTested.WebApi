@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnBadRequestTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnConflictTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnCreatedTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnInternalServerErrorTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnJsonTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnNotFoundTests.cs" />

@@ -13,9 +13,11 @@
     {
         public ICreatedTestBuilder Created()
         {
-            var typeOfActionResult = typeof(TActionResult);
-            if (typeOfActionResult != typeof(CreatedNegotiatedContentResult<>)
-                || typeOfActionResult != typeof (CreatedAtRouteNegotiatedContentResult<>))
+            var typeOfCreatedNegotiatedContentResult = typeof(CreatedNegotiatedContentResult<>);
+            var typeOfCreatedAtRouteNegotiatedContentResult = typeof(CreatedAtRouteNegotiatedContentResult<>);
+            var typeOfActionResult = this.ActionResult.GetType();
+            if (!Reflection.AreAssignableByGeneric(typeOfCreatedNegotiatedContentResult, typeOfActionResult)
+                && !Reflection.AreAssignableByGeneric(typeOfCreatedAtRouteNegotiatedContentResult, typeOfActionResult))
             {
                 this.ThrowNewGenericHttpActionResultAssertionException(
                 "CreatedNegotiatedContentResult<T> or CreatedAtRouteNegotiatedContentResult<T>",

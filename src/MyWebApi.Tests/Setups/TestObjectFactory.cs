@@ -1,5 +1,6 @@
 ﻿namespace MyWebApi.Tests.Setups
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Runtime.Serialization.Formatters;
@@ -9,6 +10,11 @@
 
     public static class TestObjectFactory
     {
+        public static Uri GetUri()
+        {
+            return new Uri("http://somehost.com/someuri/1?query=Test");
+        }
+
         public static RequestModel GetNullRequestModel()
         {
             return null;

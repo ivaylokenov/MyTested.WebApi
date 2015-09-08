@@ -91,6 +91,21 @@
             return 0;
         }
 
+        public IHttpActionResult CreatedAction()
+        {
+            return this.Created(TestObjectFactory.GetUri().OriginalString, this.responseModel);
+        }
+
+        public IHttpActionResult CreatedActionWithUri()
+        {
+            return this.Created(TestObjectFactory.GetUri(), this.responseModel);
+        }
+
+        public IHttpActionResult CreatedAtRouteAction()
+        {
+            return this.CreatedAtRoute("Default", new { id = 1 }, this.responseModel);
+        }
+        
         public IHttpActionResult ActionWithException()
         {
             throw new NullReferenceException("Test exception message");

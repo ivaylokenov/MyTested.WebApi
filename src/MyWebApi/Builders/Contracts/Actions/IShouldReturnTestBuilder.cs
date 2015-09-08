@@ -4,6 +4,7 @@
     using System.Net;
     using BadRequests;
     using Base;
+    using Created;
     using InternalServerErrors;
     using Json;
     using Models;
@@ -32,6 +33,8 @@
         /// </summary>
         /// <returns>Response model test builder.</returns>
         IResponseModelTestBuilder Ok();
+
+        ICreatedTestBuilder Created();
 
         /// <summary>
         /// Tests whether action result is StatusCodeResult.
