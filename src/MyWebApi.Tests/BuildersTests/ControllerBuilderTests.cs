@@ -96,6 +96,17 @@
         }
 
         [Test]
+        public void WithoutValidationShouldNotValidateTheRequestModel()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithoutValidation()
+                .Calling(c => c.ModelStateCheck(TestObjectFactory.GetRequestModelWithErrors()))
+                .ShouldHave()
+                .ValidModelState();
+        }
+
+        [Test]
         public void WithAuthenticatedUserShouldPopulateUserPropertyWithDefaultValues()
         {
             var controllerBuilder = MyWebApi
