@@ -42,6 +42,10 @@
         /// <returns>The same controller builder.</returns>
         IAndControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies);
 
+        /// <summary>
+        /// Disables ModelState validation for the action call.
+        /// </summary>
+        /// <returns>The same controller builder.</returns>
         IAndControllerBuilder<TController> WithoutValidation();
 
         /// <summary>

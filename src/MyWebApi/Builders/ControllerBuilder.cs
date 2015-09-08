@@ -104,6 +104,10 @@
             return this;
         }
 
+        /// <summary>
+        /// Disables ModelState validation for the action call.
+        /// </summary>
+        /// <returns>The same controller builder.</returns>
         public IAndControllerBuilder<TController> WithoutValidation()
         {
             this.enabledValidation = false;

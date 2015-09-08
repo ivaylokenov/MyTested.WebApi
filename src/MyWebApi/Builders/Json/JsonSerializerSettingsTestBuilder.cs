@@ -30,7 +30,7 @@
         /// Tests the Culture property in a JSON serializer settings object.
         /// </summary>
         /// <param name="culture">Expected Culture.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithCulture(CultureInfo culture)
         {
             this.jsonSerializerSettings.Culture = culture;
@@ -42,7 +42,7 @@
         /// Tests the ContractResolver property in a JSON serializer settings object.
         /// </summary>
         /// <param name="contractResolver">Expected ContractResolver.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithContractResolver(IContractResolver contractResolver)
         {
             this.jsonSerializerSettings.ContractResolver = contractResolver;
@@ -54,7 +54,7 @@
         /// Tests the ContractResolver property in a JSON serializer settings object by using generic type.
         /// </summary>
         /// <typeparam name="TContractResolver">Expected ContractResolver type.</typeparam>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithContractResolverOfType<TContractResolver>()
             where TContractResolver : IContractResolver
         {
@@ -66,7 +66,7 @@
         /// Tests the ConstructorHandling property in a JSON serializer settings object.
         /// </summary>
         /// <param name="constructorHandling">Expected ConstructorHandling.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithConstructorHandling(ConstructorHandling constructorHandling)
         {
             this.jsonSerializerSettings.ConstructorHandling = constructorHandling;
@@ -78,7 +78,7 @@
         /// Tests the DateFormatHandling property in a JSON serializer settings object.
         /// </summary>
         /// <param name="dateFormatHandling">Expected DateFormatHandling.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithDateFormatHandling(DateFormatHandling dateFormatHandling)
         {
             this.jsonSerializerSettings.DateFormatHandling = dateFormatHandling;
@@ -90,7 +90,7 @@
         /// Tests the DateParseHandling property in a JSON serializer settings object.
         /// </summary>
         /// <param name="dateParseHandling">Expected DateParseHandling.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithDateParseHandling(DateParseHandling dateParseHandling)
         {
             this.jsonSerializerSettings.DateParseHandling = dateParseHandling;
@@ -102,7 +102,7 @@
         /// Tests the WithDateTimeZoneHandling property in a JSON serializer settings object.
         /// </summary>
         /// <param name="dateTimeZoneHandling">Expected WithDateTimeZoneHandling.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithDateTimeZoneHandling(DateTimeZoneHandling dateTimeZoneHandling)
         {
             this.jsonSerializerSettings.DateTimeZoneHandling = dateTimeZoneHandling;
@@ -114,7 +114,7 @@
         /// Tests the DefaultValueHandling property in a JSON serializer settings object.
         /// </summary>
         /// <param name="defaultValueHandling">Expected DefaultValueHandling.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithDefaultValueHandling(DefaultValueHandling defaultValueHandling)
         {
             this.jsonSerializerSettings.DefaultValueHandling = defaultValueHandling;
@@ -126,7 +126,7 @@
         /// Tests the Formatting property in a JSON serializer settings object.
         /// </summary>
         /// <param name="formatting">Expected Formatting.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithFormatting(Formatting formatting)
         {
             this.jsonSerializerSettings.Formatting = formatting;
@@ -138,7 +138,7 @@
         /// Tests the MaxDepth property in a JSON serializer settings object.
         /// </summary>
         /// <param name="maxDepth">Expected max depth.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithMaxDepth(int? maxDepth)
         {
             this.jsonSerializerSettings.MaxDepth = maxDepth;
@@ -150,7 +150,7 @@
         /// Tests the MissingMemberHandling property in a JSON serializer settings object.
         /// </summary>
         /// <param name="missingMemberHandling">Expected MissingMemberHandling.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithMissingMemberHandling(MissingMemberHandling missingMemberHandling)
         {
             this.jsonSerializerSettings.MissingMemberHandling = missingMemberHandling;
@@ -162,7 +162,7 @@
         /// Tests the NullValueHandling property in a JSON serializer settings object.
         /// </summary>
         /// <param name="nullValueHandling">Expected NullValueHandling.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithNullValueHandling(NullValueHandling nullValueHandling)
         {
             this.jsonSerializerSettings.NullValueHandling = nullValueHandling;
@@ -174,7 +174,7 @@
         /// Tests the ObjectCreationHandling property in a JSON serializer settings object.
         /// </summary>
         /// <param name="objectCreationHandling">Expected ObjectCreationHandling.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithObjectCreationHandling(ObjectCreationHandling objectCreationHandling)
         {
             this.jsonSerializerSettings.ObjectCreationHandling = objectCreationHandling;
@@ -186,7 +186,7 @@
         /// Tests the PreserveReferencesHandling property in a JSON serializer settings object.
         /// </summary>
         /// <param name="preserveReferencesHandling">Expected PreserveReferencesHandling.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithPreserveReferencesHandling(PreserveReferencesHandling preserveReferencesHandling)
         {
             this.jsonSerializerSettings.PreserveReferencesHandling = preserveReferencesHandling;
@@ -198,7 +198,7 @@
         /// Tests the ReferenceLoopHandling property in a JSON serializer settings object.
         /// </summary>
         /// <param name="referenceLoopHandling">Expected ReferenceLoopHandling.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithReferenceLoopHandling(ReferenceLoopHandling referenceLoopHandling)
         {
             this.jsonSerializerSettings.ReferenceLoopHandling = referenceLoopHandling;
@@ -210,7 +210,7 @@
         /// Tests the FormatterAssemblyStyle property in a JSON serializer settings object.
         /// </summary>
         /// <param name="typeNameAssemblyFormat">Expected FormatterAssemblyStyle.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithTypeNameAssemblyFormat(FormatterAssemblyStyle typeNameAssemblyFormat)
         {
             this.jsonSerializerSettings.TypeNameAssemblyFormat = typeNameAssemblyFormat;
@@ -222,7 +222,7 @@
         /// Tests the TypeNameHandling property in a JSON serializer settings object.
         /// </summary>
         /// <param name="typeNameHandling">Expected TypeNameHandling.</param>
-        /// <returns>And JSON serializer settings test builder.</returns>
+        /// <returns>The same JSON serializer settings test builder.</returns>
         public IAndJsonSerializerSettingsTestBuilder WithTypeNameHandling(TypeNameHandling typeNameHandling)
         {
             this.jsonSerializerSettings.TypeNameHandling = typeNameHandling;

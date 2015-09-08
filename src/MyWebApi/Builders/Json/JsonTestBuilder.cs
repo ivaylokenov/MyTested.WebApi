@@ -38,7 +38,7 @@
         /// <summary>
         /// Tests whether JSON result has the default UTF8 encoding.
         /// </summary>
-        /// <returns>And JSON test builder.</returns>
+        /// <returns>The same JSON test builder.</returns>
         public IAndJsonTestBuilder WithDefaultEncoding()
         {
             return this.WithEncoding(new UTF8Encoding(false, true));
@@ -48,7 +48,7 @@
         /// Tests whether JSON result has the provided encoding.
         /// </summary>
         /// <param name="encoding">Expected encoding to test with.</param>
-        /// <returns>And JSON test builder.</returns>
+        /// <returns>The same JSON test builder.</returns>
         public IAndJsonTestBuilder WithEncoding(Encoding encoding)
         {
             var actualEncoding = this.GetActionResultAsDynamic(this.ActionResult).Encoding as Encoding;
@@ -68,7 +68,7 @@
         /// <summary>
         /// Tests whether JSON result has the default JSON serializer settings.
         /// </summary>
-        /// <returns>And JSON test builder.</returns>
+        /// <returns>The same JSON test builder.</returns>
         public IAndJsonTestBuilder WithDefaulJsonSerializerSettings()
         {
             this.WithJsonSerializerSettings(s => this.PopulateFullJsonSerializerSettingsTestBuilder(s));
@@ -79,7 +79,7 @@
         /// Tests whether JSON result has the provided JSON serializer settings.
         /// </summary>
         /// <param name="jsonSerializerSettings">Expected JSON serializer settings to test with.</param>
-        /// <returns>And JSON test builder.</returns>
+        /// <returns>The same JSON test builder.</returns>
         public IAndJsonTestBuilder WithJsonSerializerSettings(JsonSerializerSettings jsonSerializerSettings)
         {
             this.WithJsonSerializerSettings(s => this.PopulateFullJsonSerializerSettingsTestBuilder(s, jsonSerializerSettings));
@@ -90,7 +90,7 @@
         /// Tests whether JSON result has JSON serializer settings by using builder.
         /// </summary>
         /// <param name="jsonSerializerSettingsBuilder">Builder for creating JSON serializer settings.</param>
-        /// <returns>And JSON test builder.</returns>
+        /// <returns>The same JSON test builder.</returns>
         public IAndJsonTestBuilder WithJsonSerializerSettings(
             Action<IJsonSerializerSettingsTestBuilder> jsonSerializerSettingsBuilder)
         {
