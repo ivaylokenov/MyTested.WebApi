@@ -74,6 +74,7 @@
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithModel.cs" />
+    <Compile Include="Builders\Contracts\Created\IAndCreatedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Created\ICreatedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldHaveTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldReturnTestBuilder.cs" />
@@ -83,6 +84,8 @@
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Controllers\IAndControllerBuilder.cs" />
+    <Compile Include="Builders\Contracts\Created\IFormattersBuilder.cs" />
+    <Compile Include="Builders\Contracts\Created\IUriTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAndExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionTestBuilder.cs" />
