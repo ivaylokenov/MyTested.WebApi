@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using System.Net.Http.Formatting;
     using System.Web.Http;
+    using Common.Extensions;
     using Contracts.Created;
+    using Exceptions;
     using Models;
 
     public class CreatedTestBuilder<TCreatedResult>
@@ -26,12 +28,24 @@
 
         public IAndCreatedTestBuilder WithContentNegotiator(IContentNegotiator contentNegotiator)
         {
-            throw new NotImplementedException();
+            var actualContentNegotiator = this.GetActionResultAsDynamic().ContentNegotiator as IContentNegotiator;
+            if (!contentNegotiator.Equals(actualContentNegotiator))
+            {
+                throw new CreatedResultAssertionException(string.Format(
+                    "When calling {0} action in {1} expected JSON result encoding to be {2}, but instead received {3}.",
+                    this.ActionName,
+                    this.Controller.GetName(),
+                    contentNegotiator.GetName(),
+                    actualContentNegotiator.GetName()));
+            }
+
+            return this;
         }
 
-        public IAndCreatedTestBuilder WithContentNegotiatorOfType<TContentNegotiator>() where TContentNegotiator : IContentNegotiator
+        public IAndCreatedTestBuilder WithContentNegotiatorOfType<TContentNegotiator>()
+            where TContentNegotiator : IContentNegotiator
         {
-            throw new NotImplementedException();
+            return this.WithContentNegotiator(Activator.CreateInstance<TContentNegotiator>());
         }
 
         public IAndCreatedTestBuilder AtLocation(string location)
@@ -77,11 +91,6 @@
         public ICreatedTestBuilder AndAlso()
         {
             throw new NotImplementedException();
-        }
-
-        private IContentNegotiator GetContentNegotiator()
-        {
-            return this.GetActionResultAsDynamic().ContentNegotiator as IContentNegotiator;
         }
     }
 }

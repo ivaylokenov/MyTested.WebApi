@@ -145,6 +145,7 @@
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
     <Compile Include="Exceptions\ActionCallAssertionException.cs" />
     <Compile Include="Exceptions\BadRequestResultAssertionException.cs" />
+    <Compile Include="Exceptions\CreatedResultAssertionException.cs" />
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
     <Compile Include="Exceptions\HttpStatusCodeResultAssertionException.cs" />
     <Compile Include="Exceptions\InternalServerErrorResultAssertionException.cs" />

@@ -58,8 +58,7 @@
         public IAndJsonSerializerSettingsTestBuilder WithContractResolverOfType<TContractResolver>()
             where TContractResolver : IContractResolver
         {
-            this.WithContractResolver(Activator.CreateInstance<TContractResolver>());
-            return this;
+            return this.WithContractResolver(Activator.CreateInstance<TContractResolver>());
         }
 
         /// <summary>
