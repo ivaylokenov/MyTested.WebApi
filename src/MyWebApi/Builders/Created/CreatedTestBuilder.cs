@@ -8,7 +8,7 @@
     using Models;
 
     public class CreatedTestBuilder<TCreatedResult>
-        : BaseResponseModelTestBuilder<TCreatedResult>, ICreatedTestBuilder
+        : BaseResponseModelTestBuilder<TCreatedResult>, IAndCreatedTestBuilder
     {
         public CreatedTestBuilder(
             ApiController controller,
@@ -21,7 +21,7 @@
 
         public IAndCreatedTestBuilder WithDefaultContentNegotiator()
         {
-            throw new NotImplementedException();
+            return this.WithContentNegotiatorOfType<DefaultContentNegotiator>();
         }
 
         public IAndCreatedTestBuilder WithContentNegotiator(IContentNegotiator contentNegotiator)
@@ -72,6 +72,16 @@
         public IAndCreatedTestBuilder ContainingMediaTypeFormatters(Action<IFormattersBuilder> formattersBuilder)
         {
             throw new NotImplementedException();
+        }
+
+        public ICreatedTestBuilder AndAlso()
+        {
+            throw new NotImplementedException();
+        }
+
+        private IContentNegotiator GetContentNegotiator()
+        {
+            return this.GetActionResultAsDynamic().ContentNegotiator as IContentNegotiator;
         }
     }
 }

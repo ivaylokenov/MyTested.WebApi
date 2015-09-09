@@ -44,6 +44,23 @@
             return this.NewAndProvideTestBuilder();
         }
 
+        /// <summary>
+        /// Tests whether action result is not null.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        public IBaseTestBuilderWithActionResult<TActionResult> NotNull()
+        {
+            Validator.CheckIfTypeCanBeNull(typeof(TActionResult));
+            if (this.CheckValidDefaultValue())
+            {
+                this.ThrowNewHttpActionResultAssertionException(string.Format(
+                    "not null, but it was {0} object.",
+                    typeof(TActionResult).ToFriendlyTypeName()));
+            }
+
+            return this.NewAndProvideTestBuilder();
+        }
+
         private bool CheckValidDefaultValue()
         {
             return Validator.CheckForDefaultValue(this.ActionResult) && this.CaughtException == null;

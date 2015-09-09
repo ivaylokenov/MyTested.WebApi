@@ -29,6 +29,12 @@
         IBaseTestBuilderWithActionResult<TActionResult> Null();
 
         /// <summary>
+        /// Tests whether action result is not null.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> NotNull();
+
+        /// <summary>
         /// Tests whether action result is OkResult or OkNegotiatedContentResult{T}.
         /// </summary>
         /// <returns>Response model test builder.</returns>

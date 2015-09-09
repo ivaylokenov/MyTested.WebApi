@@ -58,7 +58,7 @@
         {
             try
             {
-                return this.GetActionResultAsDynamic(this.ActionResult).Content;
+                return this.GetActionResultAsDynamic().Content;
             }
             catch (RuntimeBinderException)
             {
@@ -95,9 +95,8 @@
         /// <summary>
         /// Returns the actual action result casted as dynamic type.
         /// </summary>
-        /// <param name="actionResult">Result from the tested action.</param>
         /// <returns>Object of dynamic type.</returns>
-        protected dynamic GetActionResultAsDynamic(TActionResult actionResult)
+        protected dynamic GetActionResultAsDynamic()
         {
             return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult);
         }
