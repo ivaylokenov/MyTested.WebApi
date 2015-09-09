@@ -75,6 +75,7 @@
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithModel.cs" />
     <Compile Include="Builders\Contracts\Created\IAndCreatedTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Created\IAndUriTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Created\ICreatedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldHaveTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldReturnTestBuilder.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Builders\ControllerBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveModelState.cs" />
     <Compile Include="Builders\Created\CreatedTestBuilder.cs" />
+    <Compile Include="Builders\Created\UriTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\HttpResponseExceptionTestBuilder.cs" />
@@ -140,6 +142,7 @@
     <Compile Include="Common\ActionInfo.cs" />
     <Compile Include="Common\Extensions\ObjectExtensions.cs" />
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Common\MockedUri.cs" />
     <Compile Include="Common\TypeValuePair.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
