@@ -56,6 +56,7 @@
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnBadRequest.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnConflict.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnCreated.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnInternalServerError.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnJson.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnNotFound.cs" />
@@ -73,6 +74,10 @@
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithModel.cs" />
+    <Compile Include="Builders\Contracts\Created\IAndCreatedTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Created\IAndFormattersBuilder.cs" />
+    <Compile Include="Builders\Contracts\Created\IAndUriTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Created\ICreatedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldHaveTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldReturnTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldThrowTestBuilder.cs" />
@@ -81,6 +86,8 @@
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Controllers\IAndControllerBuilder.cs" />
+    <Compile Include="Builders\Contracts\Created\IFormattersBuilder.cs" />
+    <Compile Include="Builders\Contracts\Created\IUriTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAndExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionTestBuilder.cs" />
@@ -111,6 +118,9 @@
     <Compile Include="Builders\Contracts\IUserBuilder.cs" />
     <Compile Include="Builders\ControllerBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveModelState.cs" />
+    <Compile Include="Builders\Created\CreatedTestBuilder.cs" />
+    <Compile Include="Builders\Created\FormattersBuilder.cs" />
+    <Compile Include="Builders\Created\UriTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\HttpResponseExceptionTestBuilder.cs" />
@@ -134,11 +144,13 @@
     <Compile Include="Common\ActionInfo.cs" />
     <Compile Include="Common\Extensions\ObjectExtensions.cs" />
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Common\MockedUri.cs" />
     <Compile Include="Common\TypeValuePair.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
     <Compile Include="Exceptions\ActionCallAssertionException.cs" />
     <Compile Include="Exceptions\BadRequestResultAssertionException.cs" />
+    <Compile Include="Exceptions\CreatedResultAssertionException.cs" />
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
     <Compile Include="Exceptions\HttpStatusCodeResultAssertionException.cs" />
     <Compile Include="Exceptions\InternalServerErrorResultAssertionException.cs" />

@@ -10,8 +10,6 @@
     using Exceptions;
     using Models;
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Serialization;
-    using Utilities;
 
     /// <summary>
     /// Used for testing JSON results.
@@ -51,7 +49,7 @@
         /// <returns>The same JSON test builder.</returns>
         public IAndJsonTestBuilder WithEncoding(Encoding encoding)
         {
-            var actualEncoding = this.GetActionResultAsDynamic(this.ActionResult).Encoding as Encoding;
+            var actualEncoding = this.GetActionResultAsDynamic().Encoding as Encoding;
             if (!encoding.Equals(actualEncoding))
             {
                 throw new JsonResultAssertionException(string.Format(
@@ -71,8 +69,7 @@
         /// <returns>The same JSON test builder.</returns>
         public IAndJsonTestBuilder WithDefaulJsonSerializerSettings()
         {
-            this.WithJsonSerializerSettings(s => this.PopulateFullJsonSerializerSettingsTestBuilder(s));
-            return this;
+            return this.WithJsonSerializerSettings(s => this.PopulateFullJsonSerializerSettingsTestBuilder(s));
         }
 
         /// <summary>
@@ -82,8 +79,7 @@
         /// <returns>The same JSON test builder.</returns>
         public IAndJsonTestBuilder WithJsonSerializerSettings(JsonSerializerSettings jsonSerializerSettings)
         {
-            this.WithJsonSerializerSettings(s => this.PopulateFullJsonSerializerSettingsTestBuilder(s, jsonSerializerSettings));
-            return this;
+            return this.WithJsonSerializerSettings(s => this.PopulateFullJsonSerializerSettingsTestBuilder(s, jsonSerializerSettings));
         }
 
         /// <summary>
@@ -95,7 +91,7 @@
             Action<IJsonSerializerSettingsTestBuilder> jsonSerializerSettingsBuilder)
         {
             var actualJsonSerializerSettings =
-                this.GetActionResultAsDynamic(this.ActionResult).SerializerSettings as JsonSerializerSettings;
+                this.GetActionResultAsDynamic().SerializerSettings as JsonSerializerSettings;
 
             var newJsonSerializerSettingsTestBuilder = new JsonSerializerSettingsTestBuilder();
             jsonSerializerSettingsBuilder(newJsonSerializerSettingsTestBuilder);

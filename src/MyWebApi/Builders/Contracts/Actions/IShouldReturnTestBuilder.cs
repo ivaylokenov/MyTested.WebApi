@@ -4,6 +4,7 @@
     using System.Net;
     using BadRequests;
     using Base;
+    using Created;
     using InternalServerErrors;
     using Json;
     using Models;
@@ -28,10 +29,22 @@
         IBaseTestBuilderWithActionResult<TActionResult> Null();
 
         /// <summary>
+        /// Tests whether action result is not null.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> NotNull();
+
+        /// <summary>
         /// Tests whether action result is OkResult or OkNegotiatedContentResult{T}.
         /// </summary>
         /// <returns>Response model test builder.</returns>
         IResponseModelTestBuilder Ok();
+
+        /// <summary>
+        /// Tests whether action result is CreatedNegotiatedContentResult{T} or CreatedAtRouteNegotiatedContentResult{T}.
+        /// </summary>
+        /// <returns>Created test builder.</returns>
+        ICreatedTestBuilder Created();
 
         /// <summary>
         /// Tests whether action result is StatusCodeResult.
