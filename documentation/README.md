@@ -17,6 +17,7 @@
  - [BadRequest result](#badrequest-result)
  - [JSON result](#json-result)
  - [StatusCode result](#statuscode-result)
+ - [Created result](#created-result)
  - [NotFound result](#notfound-result)
  - [Conflict result](#conflict-result)
  - [EmptyContent (void) result](#emptycontent-void-result)
@@ -651,6 +652,167 @@ MyWebApi
 	.ShouldReturn()
 	.StatusCode(HttpStatusCode.Created);
 ```
+
+[To top](#table-of-contents)
+
+#### Created result
+
+```c#
+// tests whether the action returns
+// CreatedNegotiatedContentResult<T>
+// or CreatedAtRouteNegotiatedContentResult<T>
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created();
+	
+// tests whether the action returns created result
+// with DefaultContentNegotiator
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.WithDefaultContentNegotiator();
+	
+// tests whether the action returns created result
+// with custom IContentNegotiator provided by instance
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.WithContentNegotiator(customContentNegotiator);
+
+// tests whether the action returns created result
+// with custom IContentNegotiator provided by generic definition
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.WithContentNegotiatorOfType<CustomContentNegotiator>();
+
+// tests whether the action returns created result
+// with location provided as string
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.AtLocation("http://somehost.com/someuri/1?query=someQuery");
+
+// tests whether the action returns created result
+// with location provided as URI
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.AtLocation(someUri);
+
+// tests whether the action returns created result
+// with location provided as URI builder
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.AtLocation(
+		location =>
+			location
+				.WithHost("somehost.com")
+				.AndAlso() // AndAlso is not necessary
+				.WithAbsolutePath("/someuri/1")
+				.AndAlso()
+				.WithPort(80)
+				.AndAlso()
+				.WithScheme("http")
+				.AndAlso()
+				.WithFragment(string.Empty)
+				.AndAlso()
+				.WithQuery("?query=Test"));
+
+// tests whether the action returns created result
+// with exactly the default media type formatters
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.ContainingDefaultFormatters();
+
+// tests whether the action returns created result
+// containing media type formatter provided by instance
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.ContainingMediaTypeFormatter(someMediaTypeFormatter);
+	
+// tests whether the action returns created result
+// containing media type formatter provided by generic definition
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.ContainingMediaTypeFormatterOfType<JsonMediaTypeFormatter>();
+	
+// tests whether the action returns created result
+// with exactly the provided media type formatters
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.ContainingMediaTypeFormatters(someCollectionOfMediaTypeFormatters);
+
+// tests whether the action returns created result
+// with exactly the provided media type formatters
+// by using params
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.ContainingMediaTypeFormatters(
+		someMediaTypeFormatter,
+		anotherMediaTypeFormatter,
+		yetAnotherMediaTypeFormatter);
+
+// tests whether the action returns created result
+// with exactly the provided media type formatters
+// by using formatters builder
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.ContainingMediaTypeFormatters(
+		formatters => 
+			formatters
+				.ContainingMediaTypeFormatter(someMediaTypeFormatter)
+				.AndAlso()
+				.ContainingMediaTypeFormatterOfType<SomeMediaTypeFormatter>());
+
+// tests whether the action returns created result
+// with different types of properties by using AndAlso()
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.CreatedActionWithCustomContentNegotiator())
+	.ShouldReturn()
+	.Created()
+	.WithDefaultContentNegotiator()
+	.AndAlso() // AndAlso is not necessary
+	.AtLocation(someUri)
+	.AndAlso()
+	.ContainingMediaTypeFormatterOfType<SomeMediaTypeFormatter>();
+```
+
+[To top](#table-of-contents)
 
 #### NotFound result
 ```c#
