@@ -8,12 +8,12 @@
     public class UriTestBuilder : IAndUriTestBuilder
     {
         private readonly MockedUri mockedUri;
-        private readonly ICollection<Func<Uri, MockedUri, bool>> validations; 
+        private readonly ICollection<Func<MockedUri, Uri, bool>> validations; 
 
         public UriTestBuilder()
         {
             this.mockedUri = new MockedUri();
-            this.validations = new List<Func<Uri, MockedUri, bool>>();
+            this.validations = new List<Func<MockedUri, Uri, bool>>();
         }
 
         public IAndUriTestBuilder WithHost(string host)
@@ -68,7 +68,7 @@
             return this.mockedUri;
         }
 
-        internal ICollection<Func<Uri, MockedUri, bool>> GetUriValidations()
+        internal ICollection<Func<MockedUri, Uri, bool>> GetUriValidations()
         {
             return this.validations;
         }

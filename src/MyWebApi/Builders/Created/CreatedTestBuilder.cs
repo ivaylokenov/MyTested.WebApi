@@ -6,6 +6,7 @@
     using System.Net.Http.Formatting;
     using System.Web.Http;
     using System.Web.Http.ModelBinding;
+    using Common;
     using Common.Extensions;
     using Contracts.Created;
     using Exceptions;
@@ -78,9 +79,21 @@
             return this;
         }
 
-        public IAndCreatedTestBuilder AtLocation(Action<IUriTestBuilder> location)
+        public IAndCreatedTestBuilder AtLocation(Action<IUriTestBuilder> uriTestBuilder)
         {
-            throw new NotImplementedException();
+            var actualUri = this.GetActionResultAsDynamic().Location as Uri;
+
+            var newUriTestBuilder = new UriTestBuilder();
+            uriTestBuilder(newUriTestBuilder);
+            var expectedUri = newUriTestBuilder.GetUri();
+
+            var validations = newUriTestBuilder.GetUriValidations();
+            this.ValidateUri(
+                expectedUri,
+                actualUri,
+                validations);
+
+            return this;
         }
 
         public IAndCreatedTestBuilder ContainingMediaTypeFormatter(MediaTypeFormatter mediaTypeFormatter)
@@ -152,6 +165,20 @@
         public ICreatedTestBuilder AndAlso()
         {
             return this;
+        }
+
+        private void ValidateUri(
+            MockedUri expectedUri,
+            Uri actualUri,
+            IEnumerable<Func<MockedUri, Uri, bool>> validations)
+        {
+            if (validations.Any(v => !v(expectedUri, actualUri)))
+            {
+                this.ThrowNewCreatedResultAssertionException(
+                    "URI",
+                    "to equal the provided one",
+                    "was in fact different");
+            }
         }
 
         private static IList<string> SortMediaTypeFormatters(IEnumerable<MediaTypeFormatter> mediaTypeFormatters)
