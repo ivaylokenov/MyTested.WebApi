@@ -11,6 +11,10 @@
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ShouldReturnTestBuilder<TActionResult>
     {
+        /// <summary>
+        /// Tests whether action result is CreatedNegotiatedContentResult{T} or CreatedAtRouteNegotiatedContentResult{T}.
+        /// </summary>
+        /// <returns>Created test builder.</returns>
         public ICreatedTestBuilder Created()
         {
             var typeOfCreatedNegotiatedContentResult = typeof(CreatedNegotiatedContentResult<>);
@@ -24,7 +28,8 @@
                 typeOfActionResult.ToFriendlyTypeName());
             }
 
-            return new CreatedTestBuilder<TActionResult>(this.Controller,
+            return new CreatedTestBuilder<TActionResult>(
+                this.Controller,
                     this.ActionName,
                     this.CaughtException,
                     this.ActionResult);

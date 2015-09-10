@@ -13,9 +13,20 @@
     using Models;
     using Utilities;
 
+    /// <summary>
+    /// Used for testing created results.
+    /// </summary>
+    /// <typeparam name="TCreatedResult">Type of created result - CreatedNegotiatedContentResult{T} or CreatedAtRouteNegotiatedContentResult{T}.</typeparam>
     public class CreatedTestBuilder<TCreatedResult>
         : BaseResponseModelTestBuilder<TCreatedResult>, IAndCreatedTestBuilder
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreatedTestBuilder{TCreatedResult}" /> class.
+        /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
+        /// <param name="actionResult">Result from the tested action.</param>
         public CreatedTestBuilder(
             ApiController controller,
             string actionName,
@@ -25,11 +36,20 @@
         {
         }
 
+        /// <summary>
+        /// Tests whether created result has the default content negotiator.
+        /// </summary>
+        /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder WithDefaultContentNegotiator()
         {
             return this.WithContentNegotiatorOfType<DefaultContentNegotiator>();
         }
 
+        /// <summary>
+        /// Tests whether created result has specific type of content negotiator.
+        /// </summary>
+        /// <param name="contentNegotiator">Expected IContentNegotiator.</param>
+        /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder WithContentNegotiator(IContentNegotiator contentNegotiator)
         {
             var actualContentNegotiator = this.GetActionResultAsDynamic().ContentNegotiator as IContentNegotiator;
@@ -44,12 +64,22 @@
             return this;
         }
 
+        /// <summary>
+        /// Tests whether created result has specific type of content negotiator by using generic definition.
+        /// </summary>
+        /// <typeparam name="TContentNegotiator">Type of IContentNegotiator.</typeparam>
+        /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder WithContentNegotiatorOfType<TContentNegotiator>()
             where TContentNegotiator : IContentNegotiator
         {
             return this.WithContentNegotiator(Activator.CreateInstance<TContentNegotiator>());
         }
 
+        /// <summary>
+        /// Tests whether created result has specific location provided by string.
+        /// </summary>
+        /// <param name="location">Expected location as string.</param>
+        /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder AtLocation(string location)
         {
             Uri uri;
@@ -65,6 +95,11 @@
             return this.AtLocation(uri);
         }
 
+        /// <summary>
+        /// Tests whether created result has specific location provided by URI.
+        /// </summary>
+        /// <param name="location">Expected location as URI.</param>
+        /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder AtLocation(Uri location)
         {
             var actualLocation = this.GetActionResultAsDynamic().Location as Uri;
@@ -79,6 +114,11 @@
             return this;
         }
 
+        /// <summary>
+        /// Tests whether created result has specific location provided by builder.
+        /// </summary>
+        /// <param name="uriTestBuilder">Builder for expected URI.</param>
+        /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder AtLocation(Action<IUriTestBuilder> uriTestBuilder)
         {
             var actualUri = this.GetActionResultAsDynamic().Location as Uri;
@@ -96,6 +136,11 @@
             return this;
         }
 
+        /// <summary>
+        /// Tests whether created result contains the provided media type formatter.
+        /// </summary>
+        /// <param name="mediaTypeFormatter">Expected media type formatter.</param>
+        /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder ContainingMediaTypeFormatter(MediaTypeFormatter mediaTypeFormatter)
         {
             var formatters = this.GetActionResultAsDynamic().Formatters as IEnumerable<MediaTypeFormatter>;
@@ -110,7 +155,22 @@
             return this;
         }
 
-        public IAndCreatedTestBuilder ContainingDefaultFormatters(IEnumerable<MediaTypeFormatter> mediaTypeFormatters)
+        /// <summary>
+        /// Tests whether created result contains the provided type of media type formatter.
+        /// </summary>
+        /// <typeparam name="TMediaTypeFormatter">Type of MediaTypeFormatter.</typeparam>
+        /// <returns>The same created test builder.</returns>
+        public IAndCreatedTestBuilder ContainingMediaTypeFormatterOfType<TMediaTypeFormatter>()
+            where TMediaTypeFormatter : MediaTypeFormatter, new()
+        {
+            return this.ContainingMediaTypeFormatter(Activator.CreateInstance<TMediaTypeFormatter>());
+        }
+
+        /// <summary>
+        /// Tests whether created result contains the default media type formatters provided by the framework.
+        /// </summary>
+        /// <returns>The same created test builder.</returns>
+        public IAndCreatedTestBuilder ContainingDefaultFormatters()
         {
             return this.ContainingMediaTypeFormatters(new List<MediaTypeFormatter>
             {
@@ -122,6 +182,11 @@
             });
         }
 
+        /// <summary>
+        /// Tests whether created result contains exactly the same types of media type formatters as the provided collection.
+        /// </summary>
+        /// <param name="mediaTypeFormatters">Expected collection of media type formatters.</param>
+        /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder ContainingMediaTypeFormatters(IEnumerable<MediaTypeFormatter> mediaTypeFormatters)
         {
             var formatters = this.GetActionResultAsDynamic().Formatters as IEnumerable<MediaTypeFormatter>;
@@ -152,11 +217,21 @@
             return this;
         }
 
+        /// <summary>
+        /// Tests whether created result contains exactly the same types of media type formatters as the provided parameters.
+        /// </summary>
+        /// <param name="mediaTypeFormatters">Expected collection of media type formatters provided as parameters.</param>
+        /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder ContainingMediaTypeFormatters(params MediaTypeFormatter[] mediaTypeFormatters)
         {
             return this.ContainingMediaTypeFormatters(mediaTypeFormatters.AsEnumerable());
         }
 
+        /// <summary>
+        /// Tests whether created result contains the media type formatters provided by builder.
+        /// </summary>
+        /// <param name="formattersBuilder">Builder for expected media type formatters.</param>
+        /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder ContainingMediaTypeFormatters(Action<IFormattersBuilder> formattersBuilder)
         {
             var newFormattersBuilder = new FormattersBuilder();
@@ -165,9 +240,21 @@
             return this.ContainingMediaTypeFormatters(expectedFormatters);
         }
 
+        /// <summary>
+        /// AndAlso method for better readability when chaining created tests.
+        /// </summary>
+        /// <returns>The same created test builder.</returns>
         public ICreatedTestBuilder AndAlso()
         {
             return this;
+        }
+
+        private static IList<string> SortMediaTypeFormatters(IEnumerable<MediaTypeFormatter> mediaTypeFormatters)
+        {
+            return mediaTypeFormatters
+                .OrderBy(m => m.GetType().FullName)
+                .Select(m => m.GetType().Name)
+                .ToList();
         }
 
         private void ValidateUri(
@@ -182,14 +269,6 @@
                     "to equal the provided one",
                     "was in fact different");
             }
-        }
-
-        private static IList<string> SortMediaTypeFormatters(IEnumerable<MediaTypeFormatter> mediaTypeFormatters)
-        {
-            return mediaTypeFormatters
-                .OrderBy(m => m.GetType().FullName)
-                .Select(m => m.GetType().Name)
-                .ToList();
         }
 
         private void ThrowNewCreatedResultAssertionException(string propertyName, string expectedValue, string actualValue)

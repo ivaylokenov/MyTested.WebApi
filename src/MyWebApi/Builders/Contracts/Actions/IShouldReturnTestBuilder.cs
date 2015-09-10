@@ -40,6 +40,10 @@
         /// <returns>Response model test builder.</returns>
         IResponseModelTestBuilder Ok();
 
+        /// <summary>
+        /// Tests whether action result is CreatedNegotiatedContentResult{T} or CreatedAtRouteNegotiatedContentResult{T}.
+        /// </summary>
+        /// <returns>Created test builder.</returns>
         ICreatedTestBuilder Created();
 
         /// <summary>
