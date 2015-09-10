@@ -29,7 +29,7 @@
         /// <typeparam name="TContentNegotiator">Type of IContentNegotiator.</typeparam>
         /// <returns>The same created test builder.</returns>
         IAndCreatedTestBuilder WithContentNegotiatorOfType<TContentNegotiator>()
-            where TContentNegotiator : IContentNegotiator;
+            where TContentNegotiator : IContentNegotiator, new();
 
         /// <summary>
         /// Tests whether created result has specific location provided by string.

@@ -72,6 +72,7 @@
     <Compile Include="BuildersTests\BadRequestsTests\BadRequestErrorMessageTestBuilderTests.cs" />
     <Compile Include="BuildersTests\BadRequestsTests\BadRequestTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ControllerBuilderTests.cs" />
+    <Compile Include="BuildersTests\CreatedTests\CreatedTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\ExceptionMessageTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\ExceptionTestBuilderTests.cs" />
     <Compile Include="BuildersTests\InternalServerErrorsTests\InternalServerErrorTestBuilderTests.cs" />
@@ -86,6 +87,8 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnTests.cs" />
     <Compile Include="BuildersTests\UnauthorizedTests\AndUnauthorizedTestBuilderTests.cs" />
     <Compile Include="BuildersTests\UnauthorizedTests\UnauthorizedResultTestBuilderTests.cs" />
+    <Compile Include="Setups\Common\CustomContentNegotiator.cs" />
+    <Compile Include="Setups\Common\CustomMediaTypeFormatter.cs" />
     <Compile Include="Setups\Controllers\NoParameterlessConstructorController.cs" />
     <Compile Include="Setups\Models\IResponseModel.cs" />
     <Compile Include="Setups\Services\AnotherInjectedService.cs" />

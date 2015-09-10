@@ -70,7 +70,7 @@
         /// <typeparam name="TContentNegotiator">Type of IContentNegotiator.</typeparam>
         /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder WithContentNegotiatorOfType<TContentNegotiator>()
-            where TContentNegotiator : IContentNegotiator
+            where TContentNegotiator : IContentNegotiator, new()
         {
             return this.WithContentNegotiator(Activator.CreateInstance<TContentNegotiator>());
         }
@@ -82,16 +82,15 @@
         /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder AtLocation(string location)
         {
-            Uri uri;
-            var uriCreated = Uri.TryCreate(location, UriKind.RelativeOrAbsolute, out uri);
-            if (!uriCreated)
+            if (!Uri.IsWellFormedUriString(location, UriKind.RelativeOrAbsolute))
             {
                 this.ThrowNewCreatedResultAssertionException(
-                    "location",
-                    "to be URI valid",
-                    string.Format("instead received {0}", location));
+                       "location",
+                       "to be URI valid",
+                       string.Format("instead received {0}", location));
             }
 
+            var uri = new Uri(location);
             return this.AtLocation(uri);
         }
 
@@ -103,12 +102,12 @@
         public IAndCreatedTestBuilder AtLocation(Uri location)
         {
             var actualLocation = this.GetActionResultAsDynamic().Location as Uri;
-            if (actualLocation == null || location != actualLocation)
+            if (location != actualLocation)
             {
                 this.ThrowNewCreatedResultAssertionException(
                     "location",
                     string.Format("to be {0}", location.OriginalString),
-                    string.Format("instead received {0}", actualLocation != null ? actualLocation.OriginalString : null));
+                    string.Format("instead received {0}", actualLocation.OriginalString));
             }
 
             return this;
@@ -148,7 +147,7 @@
             {
                 this.ThrowNewCreatedResultAssertionException(
                     "Formatters",
-                    string.Format("to have {0}", mediaTypeFormatter.GetName()),
+                    string.Format("to contain {0}", mediaTypeFormatter.GetName()),
                     "none was found");
             }
 
@@ -174,7 +173,6 @@
         {
             return this.ContainingMediaTypeFormatters(new List<MediaTypeFormatter>
             {
-                new BsonMediaTypeFormatter(),
                 new FormUrlEncodedMediaTypeFormatter(),
                 new JQueryMvcFormUrlEncodedFormatter(),
                 new JsonMediaTypeFormatter(),
@@ -209,7 +207,7 @@
                 {
                     this.ThrowNewCreatedResultAssertionException(
                         "Formatters",
-                        string.Format("to have {0}", expectedMediaTypeFormatters),
+                        string.Format("to have {0}", expectedMediaTypeFormatters[i]),
                         "none was found");
                 }
             }
@@ -237,7 +235,8 @@
             var newFormattersBuilder = new FormattersBuilder();
             formattersBuilder(newFormattersBuilder);
             var expectedFormatters = newFormattersBuilder.GetMediaTypeFormatters();
-            return this.ContainingMediaTypeFormatters(expectedFormatters);
+            expectedFormatters.ForEach(f => this.ContainingMediaTypeFormatter(f));
+            return this;
         }
 
         /// <summary>

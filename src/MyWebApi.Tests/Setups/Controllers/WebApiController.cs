@@ -96,6 +96,16 @@
             return this.Created(TestObjectFactory.GetUri().OriginalString, this.responseModel);
         }
 
+        public IHttpActionResult CreatedActionWithCustomContentNegotiator()
+        {
+            return new CreatedNegotiatedContentResult<ICollection<ResponseModel>>(
+                TestObjectFactory.GetUri(),
+                this.responseModel,
+                TestObjectFactory.GetCustomContentNegotiator(),
+                TestObjectFactory.GetCustomHttpRequestMessage(),
+                TestObjectFactory.GetFormatters());
+        }
+
         public IHttpActionResult CreatedActionWithUri()
         {
             return this.Created(TestObjectFactory.GetUri(), this.responseModel);
@@ -105,7 +115,7 @@
         {
             return this.CreatedAtRoute("Default", new { id = 1 }, this.responseModel);
         }
-        
+
         public IHttpActionResult ActionWithException()
         {
             throw new NullReferenceException("Test exception message");
