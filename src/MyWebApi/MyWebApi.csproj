@@ -75,6 +75,7 @@
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithModel.cs" />
     <Compile Include="Builders\Contracts\Created\IAndCreatedTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Created\IAndFormattersBuilder.cs" />
     <Compile Include="Builders\Contracts\Created\IAndUriTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Created\ICreatedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldHaveTestBuilder.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Builders\ControllerBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveModelState.cs" />
     <Compile Include="Builders\Created\CreatedTestBuilder.cs" />
+    <Compile Include="Builders\Created\FormattersBuilder.cs" />
     <Compile Include="Builders\Created\UriTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionTestBuilder.cs" />

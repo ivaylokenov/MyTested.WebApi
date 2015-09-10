@@ -159,7 +159,10 @@
 
         public IAndCreatedTestBuilder ContainingMediaTypeFormatters(Action<IFormattersBuilder> formattersBuilder)
         {
-            throw new NotImplementedException();
+            var newFormattersBuilder = new FormattersBuilder();
+            formattersBuilder(newFormattersBuilder);
+            var expectedFormatters = newFormattersBuilder.GetMediaTypeFormatters();
+            return this.ContainingMediaTypeFormatters(expectedFormatters);
         }
 
         public ICreatedTestBuilder AndAlso()
