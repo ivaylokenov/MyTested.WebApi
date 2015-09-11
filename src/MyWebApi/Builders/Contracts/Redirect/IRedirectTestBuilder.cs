@@ -4,6 +4,9 @@
     using Base;
     using Uri;
 
+    /// <summary>
+    /// Used for testing redirect results.
+    /// </summary>
     public interface IRedirectTestBuilder : IBaseTestBuilder
     {
         /// <summary>

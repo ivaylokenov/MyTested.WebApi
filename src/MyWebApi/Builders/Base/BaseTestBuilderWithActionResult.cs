@@ -104,6 +104,11 @@
             return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult);
         }
 
+        /// <summary>
+        /// Validates URI by using UriTestBuilder.
+        /// </summary>
+        /// <param name="uriTestBuilder">UriTestBuilder for validation.</param>
+        /// <param name="failedValidationAction">Action to execute, if the validation fails.</param>
         protected void ValidateLocation(
             Action<UriTestBuilder> uriTestBuilder,
             Action<string, string, string> failedValidationAction)

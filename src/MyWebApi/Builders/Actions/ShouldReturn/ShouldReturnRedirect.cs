@@ -10,6 +10,10 @@
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ShouldReturnTestBuilder<TActionResult>
     {
+        /// <summary>
+        /// Tests whether action result is RedirectResult or RedirectToRouteResult.
+        /// </summary>
+        /// <returns>Redirect test builder.</returns>
         public IRedirectTestBuilder Redirect()
         {
             var actionResultAsRedirectResult = this.ActionResult as RedirectToRouteResult;

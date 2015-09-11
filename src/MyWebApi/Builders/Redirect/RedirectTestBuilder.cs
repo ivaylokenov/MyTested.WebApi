@@ -9,9 +9,20 @@
     using Contracts.Uri;
     using Exceptions;
 
+    /// <summary>
+    /// Used for testing redirect results.
+    /// </summary>
+    /// <typeparam name="TRedirectResult">Type of redirect result - RedirectResult or RedirectToRouteResult.</typeparam>
     public class RedirectTestBuilder<TRedirectResult>
         : BaseTestBuilderWithActionResult<TRedirectResult>, IRedirectTestBuilder
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RedirectTestBuilder{TRedirectResult}" /> class.
+        /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
+        /// <param name="actionResult">Result from the tested action.</param>
         public RedirectTestBuilder(
             ApiController controller,
             string actionName,
@@ -21,6 +32,11 @@
         {
         }
 
+        /// <summary>
+        /// Tests whether redirect result has specific location provided by string.
+        /// </summary>
+        /// <param name="location">Expected location as string.</param>
+        /// <returns>Base test builder.</returns>
         public IBaseTestBuilder AtLocation(string location)
         {
             if (!Uri.IsWellFormedUriString(location, UriKind.RelativeOrAbsolute))
@@ -35,6 +51,11 @@
             return this.AtLocation(uri);
         }
 
+        /// <summary>
+        /// Tests whether redirect result has specific location provided by URI.
+        /// </summary>
+        /// <param name="location">Expected location as URI.</param>
+        /// <returns>Base test builder.</returns>
         public IBaseTestBuilder AtLocation(Uri location)
         {
             var actualLocation = this.GetActionResultAsDynamic().Location as Uri;
@@ -49,6 +70,11 @@
             return this;
         }
 
+        /// <summary>
+        /// Tests whether redirect result has specific location provided by builder.
+        /// </summary>
+        /// <param name="uriTestBuilder">Builder for expected URI.</param>
+        /// <returns>Base test builder.</returns>
         public IBaseTestBuilder AtLocation(Action<IUriTestBuilder> uriTestBuilder)
         {
             this.ValidateLocation(uriTestBuilder, this.ThrowNewRedirectResultAssertionException);
