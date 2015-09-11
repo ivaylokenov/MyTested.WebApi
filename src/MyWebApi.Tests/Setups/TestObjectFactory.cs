@@ -1,14 +1,56 @@
 ﻿namespace MyWebApi.Tests.Setups
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Net.Http;
+    using System.Net.Http.Formatting;
     using System.Runtime.Serialization.Formatters;
+    using System.Web.Http.ModelBinding;
+    using Common;
     using Models;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
 
     public static class TestObjectFactory
     {
+        public static IEnumerable<MediaTypeFormatter> GetFormatters()
+        {
+            return new List<MediaTypeFormatter>
+            {
+                new BsonMediaTypeFormatter(),
+                new FormUrlEncodedMediaTypeFormatter(),
+                new JQueryMvcFormUrlEncodedFormatter(),
+                new JsonMediaTypeFormatter(),
+                new XmlMediaTypeFormatter()
+            };
+        }
+
+        public static HttpRequestMessage GetCustomHttpRequestMessage()
+        {
+            return new HttpRequestMessage();
+        }
+
+        public static IContentNegotiator GetCustomContentNegotiator()
+        {
+            return new CustomContentNegotiator();
+        }
+
+        public static MediaTypeFormatter GetCustomMediaTypeFormatter()
+        {
+            return new CustomMediaTypeFormatter();
+        }
+
+        public static Uri GetUri()
+        {
+            return new Uri("http://somehost.com/someuri/1?query=Test");
+        }
+
+        public static RequestModel GetNullRequestModel()
+        {
+            return null;
+        }
+
         public static RequestModel GetValidRequestModel()
         {
             return new RequestModel

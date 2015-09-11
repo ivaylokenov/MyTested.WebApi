@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Exceptions;
     using NUnit.Framework;
+    using Setups;
     using Utilities;
 
     [TestFixture]
@@ -87,6 +88,69 @@
                     });
 
             Validator.CheckForException(aggregateException);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForClass()
+        {
+            object obj = TestObjectFactory.GetNullRequestModel();
+            var result = Validator.CheckForDefaultValue(obj);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForStruct()
+        {
+            var result = Validator.CheckForDefaultValue(0);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForNullableType()
+        {
+            var result = Validator.CheckForDefaultValue<int?>(null);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnFalseIfValueIsNotDefaultForClass()
+        {
+            object obj = TestObjectFactory.GetValidRequestModel();
+            var result = Validator.CheckForDefaultValue(obj);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnFalseIfValueIsNotDefaultForStruct()
+        {
+            var result = Validator.CheckForDefaultValue(1);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void CheckIfTypeCanBeNullShouldNotThrowExceptionWithClass()
+        {
+            Validator.CheckIfTypeCanBeNull(typeof(object));
+        }
+
+        [Test]
+        public void CheckIfTypeCanBeNullShouldNotThrowExceptionWithNullableType()
+        {
+            Validator.CheckIfTypeCanBeNull(typeof(int?));
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ActionCallAssertionException),
+            ExpectedMessage = "Int32 cannot be null.")]
+        public void CheckIfTypeCanBeNullShouldThrowExceptionWithStruct()
+        {
+            Validator.CheckIfTypeCanBeNull(typeof(int));
         }
     }
 }

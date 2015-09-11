@@ -194,7 +194,7 @@
                 return type.Name;
             }
 
-            var genericArgumentNames = type.GetGenericArguments().Select(ga => ga.Name);
+            var genericArgumentNames = type.GetGenericArguments().Select(ga => ga.ToFriendlyTypeName());
             var friendlyGenericName = type.Name.Split('`')[0];
             var joinedGenericArgumentNames = string.Join(", ", genericArgumentNames);
 

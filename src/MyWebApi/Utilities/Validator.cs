@@ -1,6 +1,7 @@
 ﻿namespace MyWebApi.Utilities
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Common.Extensions;
     using Exceptions;
@@ -48,7 +49,7 @@
         /// <param name="errorMessage">Error message if the validation fails.</param>
         public static void CheckForEqualityWithDefaultValue<T>(T value, string errorMessage)
         {
-            if (value == null || value.Equals(default(T)))
+            if (CheckForDefaultValue(value))
             {
                 throw new InvalidOperationException(errorMessage);
             }
@@ -92,6 +93,32 @@
         public static bool CheckEquality<T>(T expected, T actual)
         {
             return expected.Equals(actual);
+        }
+
+        /// <summary>
+        /// Validates whether object equals the default value for its type.
+        /// </summary>
+        /// <typeparam name="TValue">Type of the value.</typeparam>
+        /// <param name="value">Object to test.</param>
+        /// <returns>True or false.</returns>
+        public static bool CheckForDefaultValue<TValue>(TValue value)
+        {
+            return EqualityComparer<TValue>.Default.Equals(value, default(TValue));
+        }
+
+        /// <summary>
+        /// Validates whether type can be null.
+        /// </summary>
+        /// <param name="type">Type to check.</param>
+        public static void CheckIfTypeCanBeNull(Type type)
+        {
+            bool canBeNull = !type.IsValueType || (Nullable.GetUnderlyingType(type) != null);
+            if (!canBeNull)
+            {
+                throw new ActionCallAssertionException(string.Format(
+                    "{0} cannot be null.",
+                    type.ToFriendlyTypeName()));
+            }
         }
 
         private static string FormatExceptionMessage(string message)

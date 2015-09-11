@@ -81,6 +81,56 @@
             this.ThrowNewNullReferenceException();
         }
 
+        public IHttpActionResult NullAction()
+        {
+            return null;
+        }
+
+        public int DefaultStructAction()
+        {
+            return 0;
+        }
+
+        public IHttpActionResult CreatedAction()
+        {
+            return this.Created(TestObjectFactory.GetUri().OriginalString, this.responseModel);
+        }
+
+        public IHttpActionResult CreatedActionWithCustomContentNegotiator()
+        {
+            return new CreatedNegotiatedContentResult<ICollection<ResponseModel>>(
+                TestObjectFactory.GetUri(),
+                this.responseModel,
+                TestObjectFactory.GetCustomContentNegotiator(),
+                TestObjectFactory.GetCustomHttpRequestMessage(),
+                TestObjectFactory.GetFormatters());
+        }
+
+        public IHttpActionResult CreatedActionWithUri()
+        {
+            return this.Created(TestObjectFactory.GetUri(), this.responseModel);
+        }
+
+        public IHttpActionResult CreatedAtRouteAction()
+        {
+            return this.CreatedAtRoute("Default", new { id = 1 }, this.responseModel);
+        }
+
+        public IHttpActionResult RedirectAction()
+        {
+            return this.Redirect(TestObjectFactory.GetUri().OriginalString);
+        }
+
+        public IHttpActionResult RedirectActionWithUri()
+        {
+            return this.Redirect(TestObjectFactory.GetUri());
+        }
+
+        public IHttpActionResult RedirectToRouteAction()
+        {
+            return this.RedirectToRoute("Default", new { id = 1 });
+        }
+
         public IHttpActionResult ActionWithException()
         {
             throw new NullReferenceException("Test exception message");

@@ -4,9 +4,11 @@
     using System.Net;
     using BadRequests;
     using Base;
+    using Created;
     using InternalServerErrors;
     using Json;
     using Models;
+    using Redirect;
     using Unauthorized;
 
     /// <summary>
@@ -16,10 +18,40 @@
     public interface IShouldReturnTestBuilder<TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
     {
         /// <summary>
+        /// Tests whether action result is the default value of the type.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> DefaultValue();
+
+        /// <summary>
+        /// Tests whether action result is null.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> Null();
+
+        /// <summary>
+        /// Tests whether action result is not null.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> NotNull();
+
+        /// <summary>
         /// Tests whether action result is OkResult or OkNegotiatedContentResult{T}.
         /// </summary>
         /// <returns>Response model test builder.</returns>
         IResponseModelTestBuilder Ok();
+
+        /// <summary>
+        /// Tests whether action result is CreatedNegotiatedContentResult{T} or CreatedAtRouteNegotiatedContentResult{T}.
+        /// </summary>
+        /// <returns>Created test builder.</returns>
+        ICreatedTestBuilder Created();
+
+        /// <summary>
+        /// Tests whether action result is RedirectResult or RedirectToRouteResult.
+        /// </summary>
+        /// <returns>Redirect test builder.</returns>
+        IRedirectTestBuilder Redirect();
 
         /// <summary>
         /// Tests whether action result is StatusCodeResult.

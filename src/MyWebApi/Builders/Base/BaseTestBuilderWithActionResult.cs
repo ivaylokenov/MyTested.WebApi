@@ -1,8 +1,11 @@
 ﻿namespace MyWebApi.Builders.Base
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using And;
+    using Common;
     using Common.Extensions;
     using Contracts.And;
     using Contracts.Base;
@@ -58,7 +61,7 @@
         {
             try
             {
-                return this.GetActionResultAsDynamic(this.ActionResult).Content;
+                return this.GetActionResultAsDynamic().Content;
             }
             catch (RuntimeBinderException)
             {
@@ -95,11 +98,35 @@
         /// <summary>
         /// Returns the actual action result casted as dynamic type.
         /// </summary>
-        /// <param name="actionResult">Result from the tested action.</param>
         /// <returns>Object of dynamic type.</returns>
-        protected dynamic GetActionResultAsDynamic(TActionResult actionResult)
+        protected dynamic GetActionResultAsDynamic()
         {
             return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult);
+        }
+
+        /// <summary>
+        /// Validates URI by using UriTestBuilder.
+        /// </summary>
+        /// <param name="uriTestBuilder">UriTestBuilder for validation.</param>
+        /// <param name="failedValidationAction">Action to execute, if the validation fails.</param>
+        protected void ValidateLocation(
+            Action<UriTestBuilder> uriTestBuilder,
+            Action<string, string, string> failedValidationAction)
+        {
+            var actualUri = this.GetActionResultAsDynamic().Location as Uri;
+
+            var newUriTestBuilder = new UriTestBuilder();
+            uriTestBuilder(newUriTestBuilder);
+            var expectedUri = newUriTestBuilder.GetUri();
+
+            var validations = newUriTestBuilder.GetUriValidations();
+            if (validations.Any(v => !v(expectedUri, actualUri)))
+            {
+                failedValidationAction(
+                    "URI",
+                    "to equal the provided one",
+                    "was in fact different");
+            }
         }
     }
 }

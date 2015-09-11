@@ -43,6 +43,12 @@
         IAndControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies);
 
         /// <summary>
+        /// Disables ModelState validation for the action call.
+        /// </summary>
+        /// <returns>The same controller builder.</returns>
+        IAndControllerBuilder<TController> WithoutValidation();
+
+        /// <summary>
         /// Sets default authenticated user to the built controller with "TestUser" username.
         /// </summary>
         /// <returns>The same controller builder.</returns>
