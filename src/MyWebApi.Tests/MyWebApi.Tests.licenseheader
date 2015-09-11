@@ -1,4 +1,5 @@
-﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
+﻿extensions: .cs 
+// MyWebApi - ASP.NET Web API Fluent Testing Framework
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // This program is free software: you can redistribute it and/or modify
@@ -13,18 +14,3 @@
 // 
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
-
-namespace MyWebApi.Builders.Contracts.Unauthorized
-{
-    /// <summary>
-    /// Used for building collection of AuthenticationHeaderValue with AndAlso() method.
-    /// </summary>
-    public interface IAndChallengesBuilder : IChallengesBuilder
-    {
-        /// <summary>
-        /// AndAlso method for better readability when chaining header builders.
-        /// </summary>
-        /// <returns>The same challenge builder.</returns>
-        IChallengesBuilder AndAlso();
-    }
-}

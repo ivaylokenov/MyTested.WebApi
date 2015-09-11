@@ -108,6 +108,7 @@
     <Compile Include="UtilitiesTests\ValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="MyWebApi.Tests.licenseheader" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

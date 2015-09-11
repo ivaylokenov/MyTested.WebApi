@@ -171,6 +171,7 @@
     <Compile Include="Utilities\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="MyWebApi.licenseheader" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
