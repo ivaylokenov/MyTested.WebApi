@@ -17,6 +17,7 @@
  - [BadRequest result](#badrequest-result)
  - [JSON result](#json-result)
  - [StatusCode result](#statuscode-result)
+ - [Redirect result](#redirect-result)
  - [Created result](#created-result)
  - [NotFound result](#notfound-result)
  - [Conflict result](#conflict-result)
@@ -651,6 +652,60 @@ MyWebApi
 	.Calling(c => c.SomeAction())
 	.ShouldReturn()
 	.StatusCode(HttpStatusCode.Created);
+```
+
+[To top](#table-of-contents)
+
+#### Redirect result
+
+```c#
+// tests whether the action returns
+// RedirectResult or RedirectToRouteResult
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Redirect();
+
+// tests whether the action returns redirect result
+// with location provided as string
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Redirect()
+	.AtLocation("http://somehost.com/someuri/1?query=someQuery");
+
+// tests whether the action returns redirect result
+// with location provided as URI
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Redirect()
+	.AtLocation(someUri);
+
+// tests whether the action returns redirect result
+// with location provided as URI builder
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Redirect()
+	.AtLocation(
+		location =>
+			location
+				.WithHost("somehost.com")
+				.AndAlso() // AndAlso is not necessary
+				.WithAbsolutePath("/someuri/1")
+				.AndAlso()
+				.WithPort(80)
+				.AndAlso()
+				.WithScheme("http")
+				.AndAlso()
+				.WithFragment(string.Empty)
+				.AndAlso()
+				.WithQuery("?query=Test"));
 ```
 
 [To top](#table-of-contents)
