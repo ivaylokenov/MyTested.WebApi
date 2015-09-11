@@ -1,8 +1,11 @@
 ﻿namespace MyWebApi.Builders.Base
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using And;
+    using Common;
     using Common.Extensions;
     using Contracts.And;
     using Contracts.Base;
@@ -99,6 +102,26 @@
         protected dynamic GetActionResultAsDynamic()
         {
             return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult);
+        }
+
+        protected void ValidateLocation(
+            Action<UriTestBuilder> uriTestBuilder,
+            Action<string, string, string> failedValidationAction)
+        {
+            var actualUri = this.GetActionResultAsDynamic().Location as Uri;
+
+            var newUriTestBuilder = new UriTestBuilder();
+            uriTestBuilder(newUriTestBuilder);
+            var expectedUri = newUriTestBuilder.GetUri();
+
+            var validations = newUriTestBuilder.GetUriValidations();
+            if (validations.Any(v => !v(expectedUri, actualUri)))
+            {
+                failedValidationAction(
+                    "URI",
+                    "to equal the provided one",
+                    "was in fact different");
+            }
         }
     }
 }

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Net.Http.Formatting;
     using Models;
+    using Uri;
 
     /// <summary>
     /// Used for testing created results.

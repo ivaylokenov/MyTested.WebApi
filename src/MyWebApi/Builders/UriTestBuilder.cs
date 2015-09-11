@@ -1,9 +1,9 @@
-﻿namespace MyWebApi.Builders.Created
+﻿namespace MyWebApi.Builders
 {
     using System;
     using System.Collections.Generic;
     using Common;
-    using Contracts.Created;
+    using Contracts.Uri;
 
     /// <summary>
     /// Used for testing URI location in a created result.
