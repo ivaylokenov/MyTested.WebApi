@@ -64,6 +64,7 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnJsonTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnNotFoundTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnNullOrDefaultTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnRedirectTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnStatusCodeTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnUnauthorizedTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldThrowExceptionTests.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldHaveModelStateTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnOkResultTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnTests.cs" />
+    <Compile Include="BuildersTests\RedirectTests\RedirectTestBuilderTests.cs" />
     <Compile Include="BuildersTests\UnauthorizedTests\AndUnauthorizedTestBuilderTests.cs" />
     <Compile Include="BuildersTests\UnauthorizedTests\UnauthorizedResultTestBuilderTests.cs" />
     <Compile Include="Setups\Common\CustomContentNegotiator.cs" />

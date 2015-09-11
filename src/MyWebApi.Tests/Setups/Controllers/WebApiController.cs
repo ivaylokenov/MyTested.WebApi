@@ -116,6 +116,21 @@
             return this.CreatedAtRoute("Default", new { id = 1 }, this.responseModel);
         }
 
+        public IHttpActionResult RedirectAction()
+        {
+            return this.Redirect(TestObjectFactory.GetUri().OriginalString);
+        }
+
+        public IHttpActionResult RedirectActionWithUri()
+        {
+            return this.Redirect(TestObjectFactory.GetUri());
+        }
+
+        public IHttpActionResult RedirectToRouteAction()
+        {
+            return this.RedirectToRoute("Default", new { id = 1 });
+        }
+
         public IHttpActionResult ActionWithException()
         {
             throw new NullReferenceException("Test exception message");

@@ -8,6 +8,7 @@
     using InternalServerErrors;
     using Json;
     using Models;
+    using Redirect;
     using Unauthorized;
 
     /// <summary>
@@ -45,6 +46,12 @@
         /// </summary>
         /// <returns>Created test builder.</returns>
         ICreatedTestBuilder Created();
+
+        /// <summary>
+        /// Tests whether action result is RedirectResult or RedirectToRouteResult.
+        /// </summary>
+        /// <returns>Redirect test builder.</returns>
+        IRedirectTestBuilder Redirect();
 
         /// <summary>
         /// Tests whether action result is StatusCodeResult.

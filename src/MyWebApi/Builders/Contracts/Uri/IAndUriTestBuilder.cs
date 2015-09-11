@@ -1,5 +1,7 @@
-﻿namespace MyWebApi.Builders.Contracts.Created
+﻿namespace MyWebApi.Builders.Contracts.Uri
 {
+    using Created;
+
     /// <summary>
     /// Used for adding AndAlso() method to the the URI tests.
     /// </summary>

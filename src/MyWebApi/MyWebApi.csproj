@@ -61,6 +61,7 @@
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnJson.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnNotFound.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnNullOrDefault.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnRedirect.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnStatusCode.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnUnauthorized.cs" />
@@ -76,7 +77,7 @@
     <Compile Include="Builders\Base\BaseTestBuilderWithModel.cs" />
     <Compile Include="Builders\Contracts\Created\IAndCreatedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Created\IAndFormattersBuilder.cs" />
-    <Compile Include="Builders\Contracts\Created\IAndUriTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Uri\IAndUriTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Created\ICreatedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldHaveTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldReturnTestBuilder.cs" />
@@ -87,7 +88,7 @@
     <Compile Include="Builders\Contracts\BadRequests\IBadRequestTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Controllers\IAndControllerBuilder.cs" />
     <Compile Include="Builders\Contracts\Created\IFormattersBuilder.cs" />
-    <Compile Include="Builders\Contracts\Created\IUriTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Uri\IUriTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAndExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionTestBuilder.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Builders\Contracts\Models\IAndModelErrorTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithModel.cs" />
     <Compile Include="Builders\Contracts\Models\IBaseResponseModelTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Redirect\IRedirectTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Unauthorized\IAndChallengesBuilder.cs" />
     <Compile Include="Builders\Contracts\Unauthorized\IAndUnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Unauthorized\IAuthenticationHeaderValueParameterBuilder.cs" />
@@ -120,7 +122,7 @@
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveModelState.cs" />
     <Compile Include="Builders\Created\CreatedTestBuilder.cs" />
     <Compile Include="Builders\Created\FormattersBuilder.cs" />
-    <Compile Include="Builders\Created\UriTestBuilder.cs" />
+    <Compile Include="Builders\UriTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\HttpResponseExceptionTestBuilder.cs" />
@@ -136,6 +138,7 @@
     <Compile Include="Builders\Actions\ActionResultTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnResultOfType.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnOk.cs" />
+    <Compile Include="Builders\Redirect\RedirectTestBuilder.cs" />
     <Compile Include="Builders\Unauthorized\AuthenticationHeaderValueBuilder.cs" />
     <Compile Include="Builders\Unauthorized\ChallengesBuilder.cs" />
     <Compile Include="Builders\Unauthorized\UnauthorizedTestBuilder.cs" />
@@ -160,6 +163,7 @@
     <Compile Include="Exceptions\ModelErrorAssertionException.cs" />
     <Compile Include="Exceptions\UnauthorizedResultAssertionException.cs" />
     <Compile Include="Exceptions\UnresolvedDependenciesException.cs" />
+    <Compile Include="Exceptions\RedirectResultAssertionException.cs" />
     <Compile Include="MyWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ExpressionParser.cs" />

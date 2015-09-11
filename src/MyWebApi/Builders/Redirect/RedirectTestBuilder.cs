@@ -1,0 +1,95 @@
+﻿namespace MyWebApi.Builders.Redirect
+{
+    using System;
+    using System.Web.Http;
+    using Base;
+    using Common.Extensions;
+    using Contracts.Base;
+    using Contracts.Redirect;
+    using Contracts.Uri;
+    using Exceptions;
+
+    /// <summary>
+    /// Used for testing redirect results.
+    /// </summary>
+    /// <typeparam name="TRedirectResult">Type of redirect result - RedirectResult or RedirectToRouteResult.</typeparam>
+    public class RedirectTestBuilder<TRedirectResult>
+        : BaseTestBuilderWithActionResult<TRedirectResult>, IRedirectTestBuilder
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RedirectTestBuilder{TRedirectResult}" /> class.
+        /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
+        /// <param name="actionResult">Result from the tested action.</param>
+        public RedirectTestBuilder(
+            ApiController controller,
+            string actionName,
+            Exception caughtException,
+            TRedirectResult actionResult)
+            : base(controller, actionName, caughtException, actionResult)
+        {
+        }
+
+        /// <summary>
+        /// Tests whether redirect result has specific location provided by string.
+        /// </summary>
+        /// <param name="location">Expected location as string.</param>
+        /// <returns>Base test builder.</returns>
+        public IBaseTestBuilder AtLocation(string location)
+        {
+            if (!Uri.IsWellFormedUriString(location, UriKind.RelativeOrAbsolute))
+            {
+                this.ThrowNewRedirectResultAssertionException(
+                       "location",
+                       "to be URI valid",
+                       string.Format("instead received {0}", location));
+            }
+
+            var uri = new Uri(location);
+            return this.AtLocation(uri);
+        }
+
+        /// <summary>
+        /// Tests whether redirect result has specific location provided by URI.
+        /// </summary>
+        /// <param name="location">Expected location as URI.</param>
+        /// <returns>Base test builder.</returns>
+        public IBaseTestBuilder AtLocation(Uri location)
+        {
+            var actualLocation = this.GetActionResultAsDynamic().Location as Uri;
+            if (location != actualLocation)
+            {
+                this.ThrowNewRedirectResultAssertionException(
+                    "location",
+                    string.Format("to be {0}", location.OriginalString),
+                    string.Format("instead received {0}", actualLocation.OriginalString));
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether redirect result has specific location provided by builder.
+        /// </summary>
+        /// <param name="uriTestBuilder">Builder for expected URI.</param>
+        /// <returns>Base test builder.</returns>
+        public IBaseTestBuilder AtLocation(Action<IUriTestBuilder> uriTestBuilder)
+        {
+            this.ValidateLocation(uriTestBuilder, this.ThrowNewRedirectResultAssertionException);
+            return this;
+        }
+
+        private void ThrowNewRedirectResultAssertionException(string propertyName, string expectedValue, string actualValue)
+        {
+            throw new RedirectResultAssertionException(string.Format(
+                    "When calling {0} action in {1} expected redirect result {2} {3}, but {4}.",
+                    this.ActionName,
+                    this.Controller.GetName(),
+                    propertyName,
+                    expectedValue,
+                    actualValue));
+        }
+    }
+}

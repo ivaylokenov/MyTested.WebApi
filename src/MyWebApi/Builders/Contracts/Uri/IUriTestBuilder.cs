@@ -1,4 +1,4 @@
-﻿namespace MyWebApi.Builders.Contracts.Created
+﻿namespace MyWebApi.Builders.Contracts.Uri
 {
     /// <summary>
     /// Used for testing URI location in a created result.

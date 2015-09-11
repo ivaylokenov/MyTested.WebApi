@@ -9,6 +9,7 @@
     using Common;
     using Common.Extensions;
     using Contracts.Created;
+    using Contracts.Uri;
     using Exceptions;
     using Models;
     using Utilities;
@@ -120,18 +121,7 @@
         /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder AtLocation(Action<IUriTestBuilder> uriTestBuilder)
         {
-            var actualUri = this.GetActionResultAsDynamic().Location as Uri;
-
-            var newUriTestBuilder = new UriTestBuilder();
-            uriTestBuilder(newUriTestBuilder);
-            var expectedUri = newUriTestBuilder.GetUri();
-
-            var validations = newUriTestBuilder.GetUriValidations();
-            this.ValidateUri(
-                expectedUri,
-                actualUri,
-                validations);
-
+            this.ValidateLocation(uriTestBuilder, this.ThrowNewCreatedResultAssertionException);
             return this;
         }
 
@@ -254,20 +244,6 @@
                 .OrderBy(m => m.GetType().FullName)
                 .Select(m => m.GetType().Name)
                 .ToList();
-        }
-
-        private void ValidateUri(
-            MockedUri expectedUri,
-            Uri actualUri,
-            IEnumerable<Func<MockedUri, Uri, bool>> validations)
-        {
-            if (validations.Any(v => !v(expectedUri, actualUri)))
-            {
-                this.ThrowNewCreatedResultAssertionException(
-                    "URI",
-                    "to equal the provided one",
-                    "was in fact different");
-            }
         }
 
         private void ThrowNewCreatedResultAssertionException(string propertyName, string expectedValue, string actualValue)
