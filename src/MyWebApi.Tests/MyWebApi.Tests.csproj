@@ -86,6 +86,7 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldHaveModelStateTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnOkResultTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnTests.cs" />
+    <Compile Include="BuildersTests\RedirectTests\RedirectTestBuilderTests.cs" />
     <Compile Include="BuildersTests\UnauthorizedTests\AndUnauthorizedTestBuilderTests.cs" />
     <Compile Include="BuildersTests\UnauthorizedTests\UnauthorizedResultTestBuilderTests.cs" />
     <Compile Include="Setups\Common\CustomContentNegotiator.cs" />
