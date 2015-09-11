@@ -51,6 +51,10 @@ namespace MyWebApi.Builders.Actions
             return this.NewAndProvideTestBuilder();
         }
 
+        /// <summary>
+        /// Used for testing action attributes and model state.
+        /// </summary>
+        /// <returns>Should have test builder.</returns>
         public IShouldHaveTestBuilder<VoidActionResult> ShouldHave()
         {
             return new ShouldHaveTestBuilder<VoidActionResult>(
@@ -60,6 +64,10 @@ namespace MyWebApi.Builders.Actions
                 VoidActionResult.Create());
         }
 
+        /// <summary>
+        /// Used for testing whether action throws exception.
+        /// </summary>
+        /// <returns>Should throw test builder.</returns>
         public IShouldThrowTestBuilder ShouldThrow()
         {
             return new ShouldThrowTestBuilder(this.Controller, this.ActionName, this.CaughtException);

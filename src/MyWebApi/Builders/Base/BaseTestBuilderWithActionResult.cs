@@ -20,6 +20,7 @@ namespace MyWebApi.Builders.Base
     using System.Linq;
     using System.Web.Http;
     using And;
+    using Common;
     using Common.Extensions;
     using Contracts.And;
     using Contracts.Base;
@@ -63,6 +64,11 @@ namespace MyWebApi.Builders.Base
         /// <returns>Action result to be tested.</returns>
         public TActionResult AndProvideTheActionResult()
         {
+            if (this.ActionResult.GetType() == typeof(VoidActionResult))
+            {
+                throw new InvalidOperationException("Void methods cannot provide action result because they do not have return value.");
+            }
+
             return this.ActionResult;
         }
 
