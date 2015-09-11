@@ -151,6 +151,7 @@
     <Compile Include="Common\TypeValuePair.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
+    <Compile Include="Common\VoidActionResult.cs" />
     <Compile Include="Exceptions\ActionCallAssertionException.cs" />
     <Compile Include="Exceptions\BadRequestResultAssertionException.cs" />
     <Compile Include="Exceptions\CreatedResultAssertionException.cs" />

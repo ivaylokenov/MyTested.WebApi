@@ -17,11 +17,9 @@
 namespace MyWebApi.Builders.Base
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
     using And;
-    using Common;
     using Common.Extensions;
     using Contracts.And;
     using Contracts.Base;

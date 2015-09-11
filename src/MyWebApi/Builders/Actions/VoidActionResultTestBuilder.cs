@@ -19,8 +19,10 @@ namespace MyWebApi.Builders.Actions
     using System;
     using System.Web.Http;
     using Base;
+    using Common;
     using Contracts.Actions;
     using Contracts.Base;
+    using ShouldHave;
     using Utilities;
 
     /// <summary>
@@ -47,6 +49,20 @@ namespace MyWebApi.Builders.Actions
         {
             Validator.CheckForException(this.CaughtException);
             return this.NewAndProvideTestBuilder();
+        }
+
+        public IShouldHaveTestBuilder<VoidActionResult> ShouldHave()
+        {
+            return new ShouldHaveTestBuilder<VoidActionResult>(
+                this.Controller, 
+                this.ActionName, 
+                this.CaughtException, 
+                VoidActionResult.Create());
+        }
+
+        public IShouldThrowTestBuilder ShouldThrow()
+        {
+            return new ShouldThrowTestBuilder(this.Controller, this.ActionName, this.CaughtException);
         }
     }
 }

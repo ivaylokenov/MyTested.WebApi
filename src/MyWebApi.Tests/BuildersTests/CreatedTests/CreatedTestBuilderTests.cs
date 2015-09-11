@@ -19,7 +19,6 @@ namespace MyWebApi.Tests.BuildersTests.CreatedTests
     using System;
     using System.Linq;
     using System.Net.Http.Formatting;
-    using System.Web.Http.ModelBinding;
     using Exceptions;
     using NUnit.Framework;
     using Setups;

@@ -17,6 +17,7 @@
 namespace MyWebApi.Builders.Contracts.Actions
 {
     using Base;
+    using Common;
 
     /// <summary>
     /// Used for testing void actions.
@@ -28,5 +29,9 @@ namespace MyWebApi.Builders.Contracts.Actions
         /// </summary>
         /// <returns>Base test builder.</returns>
         IBaseTestBuilder ShouldReturnEmpty();
+
+        IShouldHaveTestBuilder<VoidActionResult> ShouldHave();
+
+        IShouldThrowTestBuilder ShouldThrow();
     }
 }

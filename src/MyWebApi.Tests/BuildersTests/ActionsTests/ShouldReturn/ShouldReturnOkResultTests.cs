@@ -16,7 +16,6 @@
 
 namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
 {
-    using System;
     using Exceptions;
     using NUnit.Framework;
     using Setups.Controllers;

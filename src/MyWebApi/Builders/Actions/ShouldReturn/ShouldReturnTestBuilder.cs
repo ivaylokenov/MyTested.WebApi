@@ -17,7 +17,6 @@
 namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System;
-    using System.Linq;
     using System.Web.Http;
     using Base;
     using Common.Extensions;

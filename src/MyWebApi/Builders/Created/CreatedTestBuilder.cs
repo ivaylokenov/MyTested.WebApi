@@ -22,7 +22,6 @@ namespace MyWebApi.Builders.Created
     using System.Net.Http.Formatting;
     using System.Web.Http;
     using System.Web.Http.ModelBinding;
-    using Common;
     using Common.Extensions;
     using Contracts.Created;
     using Contracts.Uri;

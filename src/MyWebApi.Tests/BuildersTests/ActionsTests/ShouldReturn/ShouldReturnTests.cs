@@ -16,7 +16,6 @@
 
 namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
 {
-    using System;
     using System.Collections.Generic;
     using System.Web.Http;
     using Exceptions;
