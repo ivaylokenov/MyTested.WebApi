@@ -46,7 +46,7 @@ namespace MyWebApi.Builders.Contracts.Json
         /// <typeparam name="TContractResolver">Expected ContractResolver type.</typeparam>
         /// <returns>The same JSON serializer settings test builder.</returns>
         IAndJsonSerializerSettingsTestBuilder WithContractResolverOfType<TContractResolver>()
-             where TContractResolver : IContractResolver;
+             where TContractResolver : IContractResolver, new();
 
         /// <summary>
         /// Tests the ConstructorHandling property in a JSON serializer settings object.
