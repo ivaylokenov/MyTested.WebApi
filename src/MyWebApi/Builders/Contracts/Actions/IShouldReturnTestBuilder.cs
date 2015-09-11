@@ -1,12 +1,30 @@
-﻿namespace MyWebApi.Builders.Contracts.Actions
+﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
+// Copyright (C) 2015 Ivaylo Kenov.
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see http://www.gnu.org/licenses/.
+
+namespace MyWebApi.Builders.Contracts.Actions
 {
     using System;
     using System.Net;
     using BadRequests;
     using Base;
+    using Created;
     using InternalServerErrors;
     using Json;
     using Models;
+    using Redirect;
     using Unauthorized;
 
     /// <summary>
@@ -16,10 +34,40 @@
     public interface IShouldReturnTestBuilder<TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
     {
         /// <summary>
+        /// Tests whether action result is the default value of the type.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> DefaultValue();
+
+        /// <summary>
+        /// Tests whether action result is null.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> Null();
+
+        /// <summary>
+        /// Tests whether action result is not null.
+        /// </summary>
+        /// <returns>Base test builder with action result.</returns>
+        IBaseTestBuilderWithActionResult<TActionResult> NotNull();
+
+        /// <summary>
         /// Tests whether action result is OkResult or OkNegotiatedContentResult{T}.
         /// </summary>
         /// <returns>Response model test builder.</returns>
         IResponseModelTestBuilder Ok();
+
+        /// <summary>
+        /// Tests whether action result is CreatedNegotiatedContentResult{T} or CreatedAtRouteNegotiatedContentResult{T}.
+        /// </summary>
+        /// <returns>Created test builder.</returns>
+        ICreatedTestBuilder Created();
+
+        /// <summary>
+        /// Tests whether action result is RedirectResult or RedirectToRouteResult.
+        /// </summary>
+        /// <returns>Redirect test builder.</returns>
+        IRedirectTestBuilder Redirect();
 
         /// <summary>
         /// Tests whether action result is StatusCodeResult.

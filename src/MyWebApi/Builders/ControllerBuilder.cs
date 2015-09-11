@@ -1,4 +1,20 @@
-﻿namespace MyWebApi.Builders
+﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
+// Copyright (C) 2015 Ivaylo Kenov.
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see http://www.gnu.org/licenses/.
+
+namespace MyWebApi.Builders
 {
     using System;
     using System.Collections.Generic;
@@ -28,6 +44,7 @@
 
         private TController controller;
         private bool isPreparedForTesting;
+        private bool enabledValidation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ControllerBuilder{TController}" /> class.
@@ -38,6 +55,7 @@
             this.Controller = controllerInstance;
             this.aggregatedDependencies = new Dictionary<Type, object>();
             this.isPreparedForTesting = false;
+            this.enabledValidation = true;
         }
 
         /// <summary>
@@ -99,6 +117,16 @@
         public IAndControllerBuilder<TController> WithResolvedDependencies(params object[] dependencies)
         {
             dependencies.ForEach(d => this.WithResolvedDependencyFor(d));
+            return this;
+        }
+
+        /// <summary>
+        /// Disables ModelState validation for the action call.
+        /// </summary>
+        /// <returns>The same controller builder.</returns>
+        public IAndControllerBuilder<TController> WithoutValidation()
+        {
+            this.enabledValidation = false;
             return this;
         }
 
@@ -267,7 +295,11 @@
 
         private string GetAndValidateAction(LambdaExpression actionCall)
         {
-            this.ValidateModelState(actionCall);
+            if (this.enabledValidation)
+            {
+                this.ValidateModelState(actionCall);
+            }
+
             return ExpressionParser.GetMethodName(actionCall);
         }
 

@@ -1,6 +1,23 @@
-﻿namespace MyWebApi.Utilities
+﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
+// Copyright (C) 2015 Ivaylo Kenov.
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see http://www.gnu.org/licenses/.
+
+namespace MyWebApi.Utilities
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Common.Extensions;
     using Exceptions;
@@ -48,7 +65,7 @@
         /// <param name="errorMessage">Error message if the validation fails.</param>
         public static void CheckForEqualityWithDefaultValue<T>(T value, string errorMessage)
         {
-            if (value == null || value.Equals(default(T)))
+            if (CheckForDefaultValue(value))
             {
                 throw new InvalidOperationException(errorMessage);
             }
@@ -92,6 +109,32 @@
         public static bool CheckEquality<T>(T expected, T actual)
         {
             return expected.Equals(actual);
+        }
+
+        /// <summary>
+        /// Validates whether object equals the default value for its type.
+        /// </summary>
+        /// <typeparam name="TValue">Type of the value.</typeparam>
+        /// <param name="value">Object to test.</param>
+        /// <returns>True or false.</returns>
+        public static bool CheckForDefaultValue<TValue>(TValue value)
+        {
+            return EqualityComparer<TValue>.Default.Equals(value, default(TValue));
+        }
+
+        /// <summary>
+        /// Validates whether type can be null.
+        /// </summary>
+        /// <param name="type">Type to check.</param>
+        public static void CheckIfTypeCanBeNull(Type type)
+        {
+            bool canBeNull = !type.IsValueType || (Nullable.GetUnderlyingType(type) != null);
+            if (!canBeNull)
+            {
+                throw new ActionCallAssertionException(string.Format(
+                    "{0} cannot be null.",
+                    type.ToFriendlyTypeName()));
+            }
         }
 
         private static string FormatExceptionMessage(string message)

@@ -1,9 +1,26 @@
-﻿namespace MyWebApi.Tests.UtilitiesTests
+﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
+// Copyright (C) 2015 Ivaylo Kenov.
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see http://www.gnu.org/licenses/.
+
+namespace MyWebApi.Tests.UtilitiesTests
 {
     using System;
     using System.Collections.Generic;
     using Exceptions;
     using NUnit.Framework;
+    using Setups;
     using Utilities;
 
     [TestFixture]
@@ -87,6 +104,69 @@
                     });
 
             Validator.CheckForException(aggregateException);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForClass()
+        {
+            object obj = TestObjectFactory.GetNullRequestModel();
+            var result = Validator.CheckForDefaultValue(obj);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForStruct()
+        {
+            var result = Validator.CheckForDefaultValue(0);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForNullableType()
+        {
+            var result = Validator.CheckForDefaultValue<int?>(null);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnFalseIfValueIsNotDefaultForClass()
+        {
+            object obj = TestObjectFactory.GetValidRequestModel();
+            var result = Validator.CheckForDefaultValue(obj);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void CheckForDefaultValueShouldReturnFalseIfValueIsNotDefaultForStruct()
+        {
+            var result = Validator.CheckForDefaultValue(1);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void CheckIfTypeCanBeNullShouldNotThrowExceptionWithClass()
+        {
+            Validator.CheckIfTypeCanBeNull(typeof(object));
+        }
+
+        [Test]
+        public void CheckIfTypeCanBeNullShouldNotThrowExceptionWithNullableType()
+        {
+            Validator.CheckIfTypeCanBeNull(typeof(int?));
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ActionCallAssertionException),
+            ExpectedMessage = "Int32 cannot be null.")]
+        public void CheckIfTypeCanBeNullShouldThrowExceptionWithStruct()
+        {
+            Validator.CheckIfTypeCanBeNull(typeof(int));
         }
     }
 }

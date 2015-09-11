@@ -1,8 +1,27 @@
-﻿namespace MyWebApi.Builders.Base
+﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
+// Copyright (C) 2015 Ivaylo Kenov.
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see http://www.gnu.org/licenses/.
+
+namespace MyWebApi.Builders.Base
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using And;
+    using Common;
     using Common.Extensions;
     using Contracts.And;
     using Contracts.Base;
@@ -58,7 +77,7 @@
         {
             try
             {
-                return this.GetActionResultAsDynamic(this.ActionResult).Content;
+                return this.GetActionResultAsDynamic().Content;
             }
             catch (RuntimeBinderException)
             {
@@ -95,11 +114,35 @@
         /// <summary>
         /// Returns the actual action result casted as dynamic type.
         /// </summary>
-        /// <param name="actionResult">Result from the tested action.</param>
         /// <returns>Object of dynamic type.</returns>
-        protected dynamic GetActionResultAsDynamic(TActionResult actionResult)
+        protected dynamic GetActionResultAsDynamic()
         {
             return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult);
+        }
+
+        /// <summary>
+        /// Validates URI by using UriTestBuilder.
+        /// </summary>
+        /// <param name="uriTestBuilder">UriTestBuilder for validation.</param>
+        /// <param name="failedValidationAction">Action to execute, if the validation fails.</param>
+        protected void ValidateLocation(
+            Action<UriTestBuilder> uriTestBuilder,
+            Action<string, string, string> failedValidationAction)
+        {
+            var actualUri = this.GetActionResultAsDynamic().Location as Uri;
+
+            var newUriTestBuilder = new UriTestBuilder();
+            uriTestBuilder(newUriTestBuilder);
+            var expectedUri = newUriTestBuilder.GetUri();
+
+            var validations = newUriTestBuilder.GetUriValidations();
+            if (validations.Any(v => !v(expectedUri, actualUri)))
+            {
+                failedValidationAction(
+                    "URI",
+                    "to equal the provided one",
+                    "was in fact different");
+            }
         }
     }
 }

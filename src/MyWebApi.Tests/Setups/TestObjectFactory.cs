@@ -1,14 +1,72 @@
-﻿namespace MyWebApi.Tests.Setups
+﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
+// Copyright (C) 2015 Ivaylo Kenov.
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see http://www.gnu.org/licenses/.
+
+namespace MyWebApi.Tests.Setups
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Net.Http;
+    using System.Net.Http.Formatting;
     using System.Runtime.Serialization.Formatters;
+    using System.Web.Http.ModelBinding;
+    using Common;
     using Models;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
 
     public static class TestObjectFactory
     {
+        public static IEnumerable<MediaTypeFormatter> GetFormatters()
+        {
+            return new List<MediaTypeFormatter>
+            {
+                new BsonMediaTypeFormatter(),
+                new FormUrlEncodedMediaTypeFormatter(),
+                new JQueryMvcFormUrlEncodedFormatter(),
+                new JsonMediaTypeFormatter(),
+                new XmlMediaTypeFormatter()
+            };
+        }
+
+        public static HttpRequestMessage GetCustomHttpRequestMessage()
+        {
+            return new HttpRequestMessage();
+        }
+
+        public static IContentNegotiator GetCustomContentNegotiator()
+        {
+            return new CustomContentNegotiator();
+        }
+
+        public static MediaTypeFormatter GetCustomMediaTypeFormatter()
+        {
+            return new CustomMediaTypeFormatter();
+        }
+
+        public static Uri GetUri()
+        {
+            return new Uri("http://somehost.com/someuri/1?query=Test");
+        }
+
+        public static RequestModel GetNullRequestModel()
+        {
+            return null;
+        }
+
         public static RequestModel GetValidRequestModel()
         {
             return new RequestModel

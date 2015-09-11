@@ -1,4 +1,20 @@
-﻿namespace MyWebApi.Tests.Setups.Controllers
+﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
+// Copyright (C) 2015 Ivaylo Kenov.
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see http://www.gnu.org/licenses/.
+
+namespace MyWebApi.Tests.Setups.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -79,6 +95,56 @@
         public void EmptyActionWithException()
         {
             this.ThrowNewNullReferenceException();
+        }
+
+        public IHttpActionResult NullAction()
+        {
+            return null;
+        }
+
+        public int DefaultStructAction()
+        {
+            return 0;
+        }
+
+        public IHttpActionResult CreatedAction()
+        {
+            return this.Created(TestObjectFactory.GetUri().OriginalString, this.responseModel);
+        }
+
+        public IHttpActionResult CreatedActionWithCustomContentNegotiator()
+        {
+            return new CreatedNegotiatedContentResult<ICollection<ResponseModel>>(
+                TestObjectFactory.GetUri(),
+                this.responseModel,
+                TestObjectFactory.GetCustomContentNegotiator(),
+                TestObjectFactory.GetCustomHttpRequestMessage(),
+                TestObjectFactory.GetFormatters());
+        }
+
+        public IHttpActionResult CreatedActionWithUri()
+        {
+            return this.Created(TestObjectFactory.GetUri(), this.responseModel);
+        }
+
+        public IHttpActionResult CreatedAtRouteAction()
+        {
+            return this.CreatedAtRoute("Default", new { id = 1 }, this.responseModel);
+        }
+
+        public IHttpActionResult RedirectAction()
+        {
+            return this.Redirect(TestObjectFactory.GetUri().OriginalString);
+        }
+
+        public IHttpActionResult RedirectActionWithUri()
+        {
+            return this.Redirect(TestObjectFactory.GetUri());
+        }
+
+        public IHttpActionResult RedirectToRouteAction()
+        {
+            return this.RedirectToRoute("Default", new { id = 1 });
         }
 
         public IHttpActionResult ActionWithException()
