@@ -12,13 +12,13 @@
     {
         public IRedirectTestBuilder Redirect()
         {
-            var actionResultAsRedirectResult = this.ActionResult as RedirectResult;
+            var actionResultAsRedirectResult = this.ActionResult as RedirectToRouteResult;
             if (actionResultAsRedirectResult != null)
             {
-                return this.ReturnRedirectTestBuilder<RedirectResult>();
+                return this.ReturnRedirectTestBuilder<RedirectToRouteResult>();
             }
 
-            return this.ReturnRedirectTestBuilder<RedirectToRouteResult>();
+            return this.ReturnRedirectTestBuilder<RedirectResult>();
         }
 
         private IRedirectTestBuilder ReturnRedirectTestBuilder<TRedirectResult>()
