@@ -24,6 +24,7 @@ namespace MyWebApi.Builders.Redirect
     using Contracts.Redirect;
     using Contracts.Uri;
     using Exceptions;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for testing redirect results.
@@ -55,15 +56,7 @@ namespace MyWebApi.Builders.Redirect
         /// <returns>Base test builder.</returns>
         public IBaseTestBuilder AtLocation(string location)
         {
-            if (!Uri.IsWellFormedUriString(location, UriKind.RelativeOrAbsolute))
-            {
-                this.ThrowNewRedirectResultAssertionException(
-                       "location",
-                       "to be URI valid",
-                       string.Format("instead received {0}", location));
-            }
-
-            var uri = new Uri(location);
+            var uri = LocationValidator.ValidateAndGetWellFormedUriString(location, this.ThrowNewRedirectResultAssertionException);
             return this.AtLocation(uri);
         }
 
@@ -74,14 +67,10 @@ namespace MyWebApi.Builders.Redirect
         /// <returns>Base test builder.</returns>
         public IBaseTestBuilder AtLocation(Uri location)
         {
-            var actualLocation = this.GetActionResultAsDynamic().Location as Uri;
-            if (location != actualLocation)
-            {
-                this.ThrowNewRedirectResultAssertionException(
-                    "location",
-                    string.Format("to be {0}", location.OriginalString),
-                    string.Format("instead received {0}", actualLocation.OriginalString));
-            }
+            LocationValidator.ValidateUri(
+                this.GetActionResultAsDynamic(),
+                location,
+                new Action<string, string, string>(this.ThrowNewRedirectResultAssertionException));
 
             return this;
         }
@@ -93,7 +82,11 @@ namespace MyWebApi.Builders.Redirect
         /// <returns>Base test builder.</returns>
         public IBaseTestBuilder AtLocation(Action<IUriTestBuilder> uriTestBuilder)
         {
-            this.ValidateLocation(uriTestBuilder, this.ThrowNewRedirectResultAssertionException);
+            LocationValidator.ValidateLocation(
+                this.GetActionResultAsDynamic(),
+                uriTestBuilder,
+                new Action<string, string, string>(this.ThrowNewRedirectResultAssertionException));
+
             return this;
         }
 

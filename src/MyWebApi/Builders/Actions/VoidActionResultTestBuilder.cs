@@ -24,6 +24,7 @@ namespace MyWebApi.Builders.Actions
     using Contracts.Base;
     using ShouldHave;
     using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for testing void actions.
@@ -47,7 +48,7 @@ namespace MyWebApi.Builders.Actions
         /// <returns>Base test builder.</returns>
         public IBaseTestBuilder ShouldReturnEmpty()
         {
-            Validator.CheckForException(this.CaughtException);
+            CommonValidator.CheckForException(this.CaughtException);
             return this.NewAndProvideTestBuilder();
         }
 

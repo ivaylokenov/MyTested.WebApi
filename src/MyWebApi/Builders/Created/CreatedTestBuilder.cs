@@ -21,13 +21,13 @@ namespace MyWebApi.Builders.Created
     using System.Linq;
     using System.Net.Http.Formatting;
     using System.Web.Http;
-    using System.Web.Http.ModelBinding;
     using Common.Extensions;
     using Contracts.Created;
+    using Contracts.Formatters;
     using Contracts.Uri;
     using Exceptions;
     using Models;
-    using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for testing created results.
@@ -68,14 +68,10 @@ namespace MyWebApi.Builders.Created
         /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder WithContentNegotiator(IContentNegotiator contentNegotiator)
         {
-            var actualContentNegotiator = this.GetActionResultAsDynamic().ContentNegotiator as IContentNegotiator;
-            if (Reflection.AreDifferentTypes(contentNegotiator, actualContentNegotiator))
-            {
-                this.ThrowNewCreatedResultAssertionException(
-                    "IContentNegotiator",
-                    string.Format("to be {0}", contentNegotiator.GetName()),
-                    string.Format("instead received {0}", actualContentNegotiator.GetName()));
-            }
+            ContentNegotiatorValidator.ValidateContentNegotiator(
+                this.GetActionResultAsDynamic(),
+                contentNegotiator,
+                new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
 
             return this;
         }
@@ -98,15 +94,7 @@ namespace MyWebApi.Builders.Created
         /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder AtLocation(string location)
         {
-            if (!Uri.IsWellFormedUriString(location, UriKind.RelativeOrAbsolute))
-            {
-                this.ThrowNewCreatedResultAssertionException(
-                       "location",
-                       "to be URI valid",
-                       string.Format("instead received {0}", location));
-            }
-
-            var uri = new Uri(location);
+            var uri = LocationValidator.ValidateAndGetWellFormedUriString(location, this.ThrowNewCreatedResultAssertionException);
             return this.AtLocation(uri);
         }
 
@@ -117,14 +105,10 @@ namespace MyWebApi.Builders.Created
         /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder AtLocation(Uri location)
         {
-            var actualLocation = this.GetActionResultAsDynamic().Location as Uri;
-            if (location != actualLocation)
-            {
-                this.ThrowNewCreatedResultAssertionException(
-                    "location",
-                    string.Format("to be {0}", location.OriginalString),
-                    string.Format("instead received {0}", actualLocation.OriginalString));
-            }
+            LocationValidator.ValidateUri(
+                this.GetActionResultAsDynamic(),
+                location,
+                new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
 
             return this;
         }
@@ -136,7 +120,10 @@ namespace MyWebApi.Builders.Created
         /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder AtLocation(Action<IUriTestBuilder> uriTestBuilder)
         {
-            this.ValidateLocation(uriTestBuilder, this.ThrowNewCreatedResultAssertionException);
+            LocationValidator.ValidateLocation(
+                this.GetActionResultAsDynamic(),
+                uriTestBuilder,
+                new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
             return this;
         }
 
@@ -147,14 +134,10 @@ namespace MyWebApi.Builders.Created
         /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder ContainingMediaTypeFormatter(MediaTypeFormatter mediaTypeFormatter)
         {
-            var formatters = this.GetActionResultAsDynamic().Formatters as IEnumerable<MediaTypeFormatter>;
-            if (formatters == null || formatters.All(f => Reflection.AreDifferentTypes(f, mediaTypeFormatter)))
-            {
-                this.ThrowNewCreatedResultAssertionException(
-                    "Formatters",
-                    string.Format("to contain {0}", mediaTypeFormatter.GetName()),
-                    "none was found");
-            }
+            MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
+                this.GetActionResultAsDynamic(),
+                mediaTypeFormatter,
+                new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
 
             return this;
         }
@@ -176,13 +159,7 @@ namespace MyWebApi.Builders.Created
         /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder ContainingDefaultFormatters()
         {
-            return this.ContainingMediaTypeFormatters(new List<MediaTypeFormatter>
-            {
-                new FormUrlEncodedMediaTypeFormatter(),
-                new JQueryMvcFormUrlEncodedFormatter(),
-                new JsonMediaTypeFormatter(),
-                new XmlMediaTypeFormatter()
-            });
+            return this.ContainingMediaTypeFormatters(MediaTypeFormatterValidator.GetDefaultMediaTypeFormatters());
         }
 
         /// <summary>
@@ -192,30 +169,10 @@ namespace MyWebApi.Builders.Created
         /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder ContainingMediaTypeFormatters(IEnumerable<MediaTypeFormatter> mediaTypeFormatters)
         {
-            var formatters = this.GetActionResultAsDynamic().Formatters as IEnumerable<MediaTypeFormatter>;
-            var actualMediaTypeFormatters = SortMediaTypeFormatters(formatters);
-            var expectedMediaTypeFormatters = SortMediaTypeFormatters(mediaTypeFormatters);
-
-            if (actualMediaTypeFormatters.Count != expectedMediaTypeFormatters.Count)
-            {
-                 this.ThrowNewCreatedResultAssertionException(
-                     "Formatters",
-                     string.Format("to be {0}", expectedMediaTypeFormatters.Count),
-                     string.Format("instead found {0}", actualMediaTypeFormatters.Count));
-            }
-
-            for (int i = 0; i < actualMediaTypeFormatters.Count; i++)
-            {
-                var actualMediaTypeFormatter = actualMediaTypeFormatters[i];
-                var expectedMediaTypeFormatter = expectedMediaTypeFormatters[i];
-                if (actualMediaTypeFormatter != expectedMediaTypeFormatter)
-                {
-                    this.ThrowNewCreatedResultAssertionException(
-                        "Formatters",
-                        string.Format("to have {0}", expectedMediaTypeFormatters[i]),
-                        "none was found");
-                }
-            }
+            MediaTypeFormatterValidator.ValidateMediaTypeFormatters(
+                this.GetActionResultAsDynamic(),
+                mediaTypeFormatters,
+                new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
 
             return this;
         }
@@ -237,10 +194,11 @@ namespace MyWebApi.Builders.Created
         /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder ContainingMediaTypeFormatters(Action<IFormattersBuilder> formattersBuilder)
         {
-            var newFormattersBuilder = new FormattersBuilder();
-            formattersBuilder(newFormattersBuilder);
-            var expectedFormatters = newFormattersBuilder.GetMediaTypeFormatters();
-            expectedFormatters.ForEach(f => this.ContainingMediaTypeFormatter(f));
+            MediaTypeFormatterValidator.ValidateMediaTypeFormattersBuilder(
+                this.GetActionResultAsDynamic(),
+                formattersBuilder,
+                new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
+
             return this;
         }
 
@@ -251,14 +209,6 @@ namespace MyWebApi.Builders.Created
         public ICreatedTestBuilder AndAlso()
         {
             return this;
-        }
-
-        private static IList<string> SortMediaTypeFormatters(IEnumerable<MediaTypeFormatter> mediaTypeFormatters)
-        {
-            return mediaTypeFormatters
-                .OrderBy(m => m.GetType().FullName)
-                .Select(m => m.GetType().Name)
-                .ToList();
         }
 
         private void ThrowNewCreatedResultAssertionException(string propertyName, string expectedValue, string actualValue)

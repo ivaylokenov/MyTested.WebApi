@@ -25,6 +25,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
     using Contracts.Actions;
     using Exceptions;
     using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for testing returned action result.
@@ -51,7 +52,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
 
         private void ValidateActionReturnType(Type typeOfExpectedReturnValue, bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
         {
-            Validator.CheckForException(this.CaughtException);
+            CommonValidator.CheckForException(this.CaughtException);
 
             var typeOfActionResult = ActionResult.GetType();
 

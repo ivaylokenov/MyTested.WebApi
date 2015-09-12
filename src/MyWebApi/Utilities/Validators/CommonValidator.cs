@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Utilities
+namespace MyWebApi.Utilities.Validators
 {
     using System;
     using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace MyWebApi.Utilities
     /// <summary>
     /// Validator class containing common validation logic.
     /// </summary>
-    public static class Validator
+    public static class CommonValidator
     {
         /// <summary>
         /// Validates object for null reference.

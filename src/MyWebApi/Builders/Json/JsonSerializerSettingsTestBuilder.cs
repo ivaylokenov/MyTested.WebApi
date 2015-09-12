@@ -24,6 +24,7 @@ namespace MyWebApi.Builders.Json
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
     using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for testing JSON serializer settings in a JSON result.
@@ -85,7 +86,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithConstructorHandling(ConstructorHandling constructorHandling)
         {
             this.jsonSerializerSettings.ConstructorHandling = constructorHandling;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.ConstructorHandling, actual.ConstructorHandling));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.ConstructorHandling, actual.ConstructorHandling));
             return this;
         }
 
@@ -97,7 +98,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithDateFormatHandling(DateFormatHandling dateFormatHandling)
         {
             this.jsonSerializerSettings.DateFormatHandling = dateFormatHandling;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.DateFormatHandling, actual.DateFormatHandling));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.DateFormatHandling, actual.DateFormatHandling));
             return this;
         }
 
@@ -109,7 +110,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithDateParseHandling(DateParseHandling dateParseHandling)
         {
             this.jsonSerializerSettings.DateParseHandling = dateParseHandling;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.DateParseHandling, actual.DateParseHandling));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.DateParseHandling, actual.DateParseHandling));
             return this;
         }
 
@@ -121,7 +122,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithDateTimeZoneHandling(DateTimeZoneHandling dateTimeZoneHandling)
         {
             this.jsonSerializerSettings.DateTimeZoneHandling = dateTimeZoneHandling;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.DateTimeZoneHandling, actual.DateTimeZoneHandling));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.DateTimeZoneHandling, actual.DateTimeZoneHandling));
             return this;
         }
 
@@ -133,7 +134,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithDefaultValueHandling(DefaultValueHandling defaultValueHandling)
         {
             this.jsonSerializerSettings.DefaultValueHandling = defaultValueHandling;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.DefaultValueHandling, actual.DefaultValueHandling));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.DefaultValueHandling, actual.DefaultValueHandling));
             return this;
         }
 
@@ -145,7 +146,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithFormatting(Formatting formatting)
         {
             this.jsonSerializerSettings.Formatting = formatting;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.Formatting, actual.Formatting));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.Formatting, actual.Formatting));
             return this;
         }
 
@@ -157,7 +158,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithMaxDepth(int? maxDepth)
         {
             this.jsonSerializerSettings.MaxDepth = maxDepth;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.MaxDepth, actual.MaxDepth));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.MaxDepth, actual.MaxDepth));
             return this;
         }
 
@@ -169,7 +170,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithMissingMemberHandling(MissingMemberHandling missingMemberHandling)
         {
             this.jsonSerializerSettings.MissingMemberHandling = missingMemberHandling;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.MissingMemberHandling, actual.MissingMemberHandling));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.MissingMemberHandling, actual.MissingMemberHandling));
             return this;
         }
 
@@ -181,7 +182,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithNullValueHandling(NullValueHandling nullValueHandling)
         {
             this.jsonSerializerSettings.NullValueHandling = nullValueHandling;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.NullValueHandling, actual.NullValueHandling));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.NullValueHandling, actual.NullValueHandling));
             return this;
         }
 
@@ -193,7 +194,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithObjectCreationHandling(ObjectCreationHandling objectCreationHandling)
         {
             this.jsonSerializerSettings.ObjectCreationHandling = objectCreationHandling;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.ObjectCreationHandling, actual.ObjectCreationHandling));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.ObjectCreationHandling, actual.ObjectCreationHandling));
             return this;
         }
 
@@ -205,7 +206,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithPreserveReferencesHandling(PreserveReferencesHandling preserveReferencesHandling)
         {
             this.jsonSerializerSettings.PreserveReferencesHandling = preserveReferencesHandling;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.PreserveReferencesHandling, actual.PreserveReferencesHandling));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.PreserveReferencesHandling, actual.PreserveReferencesHandling));
             return this;
         }
 
@@ -217,7 +218,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithReferenceLoopHandling(ReferenceLoopHandling referenceLoopHandling)
         {
             this.jsonSerializerSettings.ReferenceLoopHandling = referenceLoopHandling;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.ReferenceLoopHandling, actual.ReferenceLoopHandling));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.ReferenceLoopHandling, actual.ReferenceLoopHandling));
             return this;
         }
 
@@ -229,7 +230,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithTypeNameAssemblyFormat(FormatterAssemblyStyle typeNameAssemblyFormat)
         {
             this.jsonSerializerSettings.TypeNameAssemblyFormat = typeNameAssemblyFormat;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.TypeNameAssemblyFormat, actual.TypeNameAssemblyFormat));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.TypeNameAssemblyFormat, actual.TypeNameAssemblyFormat));
             return this;
         }
 
@@ -241,7 +242,7 @@ namespace MyWebApi.Builders.Json
         public IAndJsonSerializerSettingsTestBuilder WithTypeNameHandling(TypeNameHandling typeNameHandling)
         {
             this.jsonSerializerSettings.TypeNameHandling = typeNameHandling;
-            this.validations.Add((expected, actual) => Validator.CheckEquality(expected.TypeNameHandling, actual.TypeNameHandling));
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.TypeNameHandling, actual.TypeNameHandling));
             return this;
         }
 

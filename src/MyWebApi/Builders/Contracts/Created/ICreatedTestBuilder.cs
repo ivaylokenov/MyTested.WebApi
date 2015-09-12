@@ -19,6 +19,7 @@ namespace MyWebApi.Builders.Contracts.Created
     using System;
     using System.Collections.Generic;
     using System.Net.Http.Formatting;
+    using Formatters;
     using Models;
     using Uri;
 

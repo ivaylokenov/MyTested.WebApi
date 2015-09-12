@@ -14,17 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Created
+namespace MyWebApi.Exceptions
 {
+    using System;
+
     /// <summary>
-    /// Used for adding AndAlso() method to the the formatter tests.
+    /// Exception for invalid content result.
     /// </summary>
-    public interface IAndFormattersBuilder : IFormattersBuilder
+    public class ContentResultAssertionException : Exception
     {
         /// <summary>
-        /// AndAlso method for better readability when chaining formatters tests.
+        /// Initializes a new instance of the ContentResultAssertionException class.
         /// </summary>
-        /// <returns>The same formatters test builder.</returns>
-        IFormattersBuilder AndAlso();
+        /// <param name="message">Message for System.Exception class.</param>
+        public ContentResultAssertionException(string message)
+            : base(message)
+        {
+        }
     }
 }

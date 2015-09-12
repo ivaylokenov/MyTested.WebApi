@@ -14,10 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Content
+namespace MyWebApi.Builders.Contracts.Formatters
 {
-    public interface IAndContentTestBuilder : IContentTestBuilder
+    /// <summary>
+    /// Used for adding AndAlso() method to the the formatter tests.
+    /// </summary>
+    public interface IAndFormattersBuilder : IFormattersBuilder
     {
-        IContentTestBuilder AndAlso();
+        /// <summary>
+        /// AndAlso method for better readability when chaining formatters tests.
+        /// </summary>
+        /// <returns>The same formatters test builder.</returns>
+        IFormattersBuilder AndAlso();
     }
 }

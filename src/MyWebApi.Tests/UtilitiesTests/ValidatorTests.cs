@@ -22,6 +22,7 @@ namespace MyWebApi.Tests.UtilitiesTests
     using NUnit.Framework;
     using Setups;
     using Utilities;
+    using Utilities.Validators;
 
     [TestFixture]
     public class ValidatorTests
@@ -30,46 +31,46 @@ namespace MyWebApi.Tests.UtilitiesTests
         [ExpectedException(typeof(NullReferenceException))]
         public void CheckForNullReferenceShouldThrowArgumentNullExceptionWithNullObject()
         {
-            Validator.CheckForNullReference(null);
+            CommonValidator.CheckForNullReference(null);
         }
 
         [Test]
         public void CheckForNullReferenceShouldNotThrowExceptionWithNotNullObject()
         {
-            Validator.CheckForNullReference(new object());
+            CommonValidator.CheckForNullReference(new object());
         }
 
         [Test]
         [ExpectedException(typeof(NullReferenceException))]
         public void CheckForNotEmptyStringShouldThrowArgumentNullExceptionWithNullString()
         {
-            Validator.CheckForNotWhiteSpaceString(null);
+            CommonValidator.CheckForNotWhiteSpaceString(null);
         }
 
         [Test]
         [ExpectedException(typeof(NullReferenceException))]
         public void CheckForNotEmptyStringShouldThrowArgumentNullExceptionWithEmptyString()
         {
-            Validator.CheckForNotWhiteSpaceString(string.Empty);
+            CommonValidator.CheckForNotWhiteSpaceString(string.Empty);
         }
 
         [Test]
         [ExpectedException(typeof(NullReferenceException))]
         public void CheckForNotEmptyStringShouldThrowArgumentNullExceptionWithWhiteSpace()
         {
-            Validator.CheckForNotWhiteSpaceString("      ");
+            CommonValidator.CheckForNotWhiteSpaceString("      ");
         }
 
         [Test]
         public void CheckForNotEmptyStringShouldNotThrowExceptionWithNormalString()
         {
-            Validator.CheckForNotWhiteSpaceString(new string('a', 10));
+            CommonValidator.CheckForNotWhiteSpaceString(new string('a', 10));
         }
 
         [Test]
         public void CheckForExceptionShouldNotThrowIfExceptionIsNull()
         {
-            Validator.CheckForException(null);
+            CommonValidator.CheckForException(null);
         }
 
         [Test]
@@ -78,7 +79,7 @@ namespace MyWebApi.Tests.UtilitiesTests
             ExpectedMessage = "NullReferenceException was thrown but was not caught or expected.")]
         public void CheckForExceptionShouldThrowIfExceptionIsNotNullWithEmptyMessage()
         {
-            Validator.CheckForException(new NullReferenceException(string.Empty));
+            CommonValidator.CheckForException(new NullReferenceException(string.Empty));
         }
 
         [Test]
@@ -87,7 +88,7 @@ namespace MyWebApi.Tests.UtilitiesTests
             ExpectedMessage = "NullReferenceException with 'Test' message was thrown but was not caught or expected.")]
         public void CheckForExceptionShouldThrowIfExceptionIsNotNullWithMessage()
         {
-            Validator.CheckForException(new NullReferenceException("Test"));
+            CommonValidator.CheckForException(new NullReferenceException("Test"));
         }
 
         [Test]
@@ -103,14 +104,14 @@ namespace MyWebApi.Tests.UtilitiesTests
                         new InvalidOperationException("Operation test")
                     });
 
-            Validator.CheckForException(aggregateException);
+            CommonValidator.CheckForException(aggregateException);
         }
 
         [Test]
         public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForClass()
         {
             object obj = TestObjectFactory.GetNullRequestModel();
-            var result = Validator.CheckForDefaultValue(obj);
+            var result = CommonValidator.CheckForDefaultValue(obj);
 
             Assert.IsTrue(result);
         }
@@ -118,7 +119,7 @@ namespace MyWebApi.Tests.UtilitiesTests
         [Test]
         public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForStruct()
         {
-            var result = Validator.CheckForDefaultValue(0);
+            var result = CommonValidator.CheckForDefaultValue(0);
 
             Assert.IsTrue(result);
         }
@@ -126,7 +127,7 @@ namespace MyWebApi.Tests.UtilitiesTests
         [Test]
         public void CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForNullableType()
         {
-            var result = Validator.CheckForDefaultValue<int?>(null);
+            var result = CommonValidator.CheckForDefaultValue<int?>(null);
 
             Assert.IsTrue(result);
         }
@@ -135,7 +136,7 @@ namespace MyWebApi.Tests.UtilitiesTests
         public void CheckForDefaultValueShouldReturnFalseIfValueIsNotDefaultForClass()
         {
             object obj = TestObjectFactory.GetValidRequestModel();
-            var result = Validator.CheckForDefaultValue(obj);
+            var result = CommonValidator.CheckForDefaultValue(obj);
 
             Assert.IsFalse(result);
         }
@@ -143,7 +144,7 @@ namespace MyWebApi.Tests.UtilitiesTests
         [Test]
         public void CheckForDefaultValueShouldReturnFalseIfValueIsNotDefaultForStruct()
         {
-            var result = Validator.CheckForDefaultValue(1);
+            var result = CommonValidator.CheckForDefaultValue(1);
 
             Assert.IsFalse(result);
         }
@@ -151,13 +152,13 @@ namespace MyWebApi.Tests.UtilitiesTests
         [Test]
         public void CheckIfTypeCanBeNullShouldNotThrowExceptionWithClass()
         {
-            Validator.CheckIfTypeCanBeNull(typeof(object));
+            CommonValidator.CheckIfTypeCanBeNull(typeof(object));
         }
 
         [Test]
         public void CheckIfTypeCanBeNullShouldNotThrowExceptionWithNullableType()
         {
-            Validator.CheckIfTypeCanBeNull(typeof(int?));
+            CommonValidator.CheckIfTypeCanBeNull(typeof(int?));
         }
 
         [Test]
@@ -166,7 +167,7 @@ namespace MyWebApi.Tests.UtilitiesTests
             ExpectedMessage = "Int32 cannot be null.")]
         public void CheckIfTypeCanBeNullShouldThrowExceptionWithStruct()
         {
-            Validator.CheckIfTypeCanBeNull(typeof(int));
+            CommonValidator.CheckIfTypeCanBeNull(typeof(int));
         }
     }
 }
