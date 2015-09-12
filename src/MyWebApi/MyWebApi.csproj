@@ -56,6 +56,7 @@
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnBadRequest.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnConflict.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnContent.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnCreated.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnInternalServerError.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnJson.cs" />
@@ -75,6 +76,9 @@
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithModel.cs" />
+    <Compile Include="Builders\Content\ContentTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Content\IAndContentTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Content\IContentTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Created\IAndCreatedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Created\IAndFormattersBuilder.cs" />
     <Compile Include="Builders\Contracts\Uri\IAndUriTestBuilder.cs" />
