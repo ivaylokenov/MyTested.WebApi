@@ -1,0 +1,268 @@
+﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
+// Copyright (C) 2015 Ivaylo Kenov.
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see http://www.gnu.org/licenses/.
+
+namespace MyWebApi.Builders.HttpActionResults.Json
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Runtime.Serialization.Formatters;
+    using Contracts.HttpActionResults.Json;
+    using Utilities;
+    using Utilities.Validators;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
+
+    /// <summary>
+    /// Used for testing JSON serializer settings in a JSON result.
+    /// </summary>
+    public class JsonSerializerSettingsTestBuilder : IAndJsonSerializerSettingsTestBuilder
+    {
+        private readonly JsonSerializerSettings jsonSerializerSettings;
+        private readonly ICollection<Func<JsonSerializerSettings, JsonSerializerSettings, bool>> validations; 
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonSerializerSettingsTestBuilder" /> class.
+        /// </summary>
+        public JsonSerializerSettingsTestBuilder()
+        {
+            this.jsonSerializerSettings = new JsonSerializerSettings();
+            this.validations = new List<Func<JsonSerializerSettings, JsonSerializerSettings, bool>>();
+        }
+
+        /// <summary>
+        /// Tests the Culture property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="culture">Expected Culture.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithCulture(CultureInfo culture)
+        {
+            this.jsonSerializerSettings.Culture = culture;
+            this.validations.Add((expected, actual) => expected.Culture.DisplayName == actual.Culture.DisplayName);
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the ContractResolver property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="contractResolver">Expected ContractResolver.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithContractResolver(IContractResolver contractResolver)
+        {
+            this.jsonSerializerSettings.ContractResolver = contractResolver;
+            this.validations.Add((expected, actual) => Reflection.AreSameTypes(expected.ContractResolver, actual.ContractResolver));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the ContractResolver property in a JSON serializer settings object by using generic type.
+        /// </summary>
+        /// <typeparam name="TContractResolver">Expected ContractResolver type.</typeparam>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithContractResolverOfType<TContractResolver>()
+            where TContractResolver : IContractResolver, new()
+        {
+            return this.WithContractResolver(Activator.CreateInstance<TContractResolver>());
+        }
+
+        /// <summary>
+        /// Tests the ConstructorHandling property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="constructorHandling">Expected ConstructorHandling.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithConstructorHandling(ConstructorHandling constructorHandling)
+        {
+            this.jsonSerializerSettings.ConstructorHandling = constructorHandling;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.ConstructorHandling, actual.ConstructorHandling));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the DateFormatHandling property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="dateFormatHandling">Expected DateFormatHandling.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithDateFormatHandling(DateFormatHandling dateFormatHandling)
+        {
+            this.jsonSerializerSettings.DateFormatHandling = dateFormatHandling;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.DateFormatHandling, actual.DateFormatHandling));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the DateParseHandling property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="dateParseHandling">Expected DateParseHandling.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithDateParseHandling(DateParseHandling dateParseHandling)
+        {
+            this.jsonSerializerSettings.DateParseHandling = dateParseHandling;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.DateParseHandling, actual.DateParseHandling));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the WithDateTimeZoneHandling property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="dateTimeZoneHandling">Expected WithDateTimeZoneHandling.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithDateTimeZoneHandling(DateTimeZoneHandling dateTimeZoneHandling)
+        {
+            this.jsonSerializerSettings.DateTimeZoneHandling = dateTimeZoneHandling;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.DateTimeZoneHandling, actual.DateTimeZoneHandling));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the DefaultValueHandling property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="defaultValueHandling">Expected DefaultValueHandling.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithDefaultValueHandling(DefaultValueHandling defaultValueHandling)
+        {
+            this.jsonSerializerSettings.DefaultValueHandling = defaultValueHandling;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.DefaultValueHandling, actual.DefaultValueHandling));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the Formatting property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="formatting">Expected Formatting.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithFormatting(Formatting formatting)
+        {
+            this.jsonSerializerSettings.Formatting = formatting;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.Formatting, actual.Formatting));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the MaxDepth property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="maxDepth">Expected max depth.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithMaxDepth(int? maxDepth)
+        {
+            this.jsonSerializerSettings.MaxDepth = maxDepth;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.MaxDepth, actual.MaxDepth));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the MissingMemberHandling property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="missingMemberHandling">Expected MissingMemberHandling.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithMissingMemberHandling(MissingMemberHandling missingMemberHandling)
+        {
+            this.jsonSerializerSettings.MissingMemberHandling = missingMemberHandling;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.MissingMemberHandling, actual.MissingMemberHandling));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the NullValueHandling property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="nullValueHandling">Expected NullValueHandling.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithNullValueHandling(NullValueHandling nullValueHandling)
+        {
+            this.jsonSerializerSettings.NullValueHandling = nullValueHandling;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.NullValueHandling, actual.NullValueHandling));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the ObjectCreationHandling property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="objectCreationHandling">Expected ObjectCreationHandling.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithObjectCreationHandling(ObjectCreationHandling objectCreationHandling)
+        {
+            this.jsonSerializerSettings.ObjectCreationHandling = objectCreationHandling;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.ObjectCreationHandling, actual.ObjectCreationHandling));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the PreserveReferencesHandling property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="preserveReferencesHandling">Expected PreserveReferencesHandling.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithPreserveReferencesHandling(PreserveReferencesHandling preserveReferencesHandling)
+        {
+            this.jsonSerializerSettings.PreserveReferencesHandling = preserveReferencesHandling;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.PreserveReferencesHandling, actual.PreserveReferencesHandling));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the ReferenceLoopHandling property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="referenceLoopHandling">Expected ReferenceLoopHandling.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithReferenceLoopHandling(ReferenceLoopHandling referenceLoopHandling)
+        {
+            this.jsonSerializerSettings.ReferenceLoopHandling = referenceLoopHandling;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.ReferenceLoopHandling, actual.ReferenceLoopHandling));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the FormatterAssemblyStyle property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="typeNameAssemblyFormat">Expected FormatterAssemblyStyle.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithTypeNameAssemblyFormat(FormatterAssemblyStyle typeNameAssemblyFormat)
+        {
+            this.jsonSerializerSettings.TypeNameAssemblyFormat = typeNameAssemblyFormat;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.TypeNameAssemblyFormat, actual.TypeNameAssemblyFormat));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests the TypeNameHandling property in a JSON serializer settings object.
+        /// </summary>
+        /// <param name="typeNameHandling">Expected TypeNameHandling.</param>
+        /// <returns>The same JSON serializer settings test builder.</returns>
+        public IAndJsonSerializerSettingsTestBuilder WithTypeNameHandling(TypeNameHandling typeNameHandling)
+        {
+            this.jsonSerializerSettings.TypeNameHandling = typeNameHandling;
+            this.validations.Add((expected, actual) => CommonValidator.CheckEquality(expected.TypeNameHandling, actual.TypeNameHandling));
+            return this;
+        }
+
+        /// <summary>
+        /// AndAlso method for better readability when chaining JSON serializer settings test builder.
+        /// </summary>
+        /// <returns>JSON serializer settings test builder.</returns>
+        public IJsonSerializerSettingsTestBuilder AndAlso()
+        {
+            return this;
+        }
+
+        internal JsonSerializerSettings GetJsonSerializerSettings()
+        {
+            return this.jsonSerializerSettings;
+        }
+
+        internal ICollection<Func<JsonSerializerSettings, JsonSerializerSettings, bool>> GetJsonSerializerSettingsValidations()
+        {
+            return this.validations;
+        }
+    }
+}

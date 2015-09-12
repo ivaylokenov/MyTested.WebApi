@@ -14,30 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Actions.ShouldReturn
+namespace MyWebApi.Builders.Contracts.HttpActionResults.Unauthorized
 {
-    using System.Web.Http.Results;
-    using Contracts.HttpActionResults.Json;
-    using HttpActionResults.Json;
-
     /// <summary>
-    /// Class containing methods for testing JSON Result.
+    /// Used for building mocked AuthenticationHeaderValue parameter.
     /// </summary>
-    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public partial class ShouldReturnTestBuilder<TActionResult>
+    public interface IAuthenticationHeaderValueParameterBuilder
     {
         /// <summary>
-        /// Tests whether action result is JSON Result.
+        /// Sets parameter to the built authentication header value with the provided string.
         /// </summary>
-        /// <returns>JSON test builder.</returns>
-        public IJsonTestBuilder Json()
-        {
-            this.ResultOfType(typeof(JsonResult<>));
-            return new JsonTestBuilder<TActionResult>(
-                this.Controller,
-                this.ActionName,
-                this.CaughtException,
-                this.ActionResult);
-        }
+        /// <param name="parameter">Authentication header value parameter as string.</param>
+        void WithParameter(string parameter);
     }
 }

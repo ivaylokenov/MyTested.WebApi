@@ -17,8 +17,8 @@
 namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Web.Http.Results;
-    using Content;
-    using Contracts.Content;
+    using Contracts.HttpActionResults.Content;
+    using HttpActionResults.Content;
 
     /// <summary>
     /// Class containing methods for testing NegotiatedContentResult{T} or FormattedContentResult{T}.

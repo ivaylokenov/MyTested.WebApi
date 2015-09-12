@@ -18,14 +18,14 @@ namespace MyWebApi.Builders.Contracts.Actions
 {
     using System;
     using System.Net;
-    using BadRequests;
     using Base;
-    using Created;
-    using InternalServerErrors;
-    using Json;
+    using HttpActionResults.BadRequest;
+    using HttpActionResults.Created;
+    using HttpActionResults.InternalServerError;
+    using HttpActionResults.Json;
+    using HttpActionResults.Redirect;
+    using HttpActionResults.Unauthorized;
     using Models;
-    using Redirect;
-    using Unauthorized;
 
     /// <summary>
     /// Used for testing action returned result.

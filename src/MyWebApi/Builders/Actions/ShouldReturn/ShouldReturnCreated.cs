@@ -17,8 +17,8 @@
 namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Web.Http.Results;
-    using Contracts.Created;
-    using Created;
+    using Contracts.HttpActionResults.Created;
+    using HttpActionResults.Created;
     using Utilities;
 
     /// <summary>

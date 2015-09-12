@@ -17,8 +17,8 @@
 namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Web.Http.Results;
-    using Contracts.Redirect;
-    using Redirect;
+    using Contracts.HttpActionResults.Redirect;
+    using HttpActionResults.Redirect;
 
     /// <summary>
     /// Class containing methods for testing RedirectResult or RedirectToRouteResult.
