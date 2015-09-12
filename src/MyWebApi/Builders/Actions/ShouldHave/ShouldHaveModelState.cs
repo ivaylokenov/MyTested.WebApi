@@ -51,20 +51,20 @@ namespace MyWebApi.Builders.Actions.ShouldHave
         /// <summary>
         /// Checks whether the tested action's provided model state is not valid.
         /// </summary>
-        /// <param name="numberOfErrors">Expected number of errors. If default null is provided, the test builder checks only if any errors are found.</param>
+        /// <param name="withNumberOfErrors">Expected number of errors. If default null is provided, the test builder checks only if any errors are found.</param>
         /// <returns>Test builder with AndAlso method.</returns>
-        public IAndTestBuilder<TActionResult> InvalidModelState(int? numberOfErrors = null)
+        public IAndTestBuilder<TActionResult> InvalidModelState(int? withNumberOfErrors = null)
         {
             var actualModelStateErrors = this.Controller.ModelState.Count;
             if (actualModelStateErrors == 0
-                || (numberOfErrors != null && actualModelStateErrors != numberOfErrors))
+                || (withNumberOfErrors != null && actualModelStateErrors != withNumberOfErrors))
             {
                 throw new ModelErrorAssertionException(string.Format(
                     "When calling {0} action in {1} expected to have invalid model state{2}, {3}.",
                     this.ActionName,
                     this.Controller.GetName(),
-                    numberOfErrors == null ? string.Empty : string.Format(" with {0} errors", numberOfErrors),
-                    numberOfErrors == null ? "but was in fact valid" : string.Format("but contained {0}", actualModelStateErrors)));
+                    withNumberOfErrors == null ? string.Empty : string.Format(" with {0} errors", withNumberOfErrors),
+                    withNumberOfErrors == null ? "but was in fact valid" : string.Format("but contained {0}", actualModelStateErrors)));
             }
 
             return this.NewAndTestBuilder();

@@ -134,7 +134,7 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests
                 .Controller<WebApiController>()
                 .Calling(c => c.ModelStateCheck(requestModel))
                 .ShouldHave()
-                .InvalidModelState(5);
+                .InvalidModelState(withNumberOfErrors: 5);
         }
 
         [Test]

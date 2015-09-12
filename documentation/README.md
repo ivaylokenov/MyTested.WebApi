@@ -136,6 +136,14 @@ MyWebApi
 	.ShouldHave()
 	.InvalidModelState();
 	
+// tests whether model state is not valid
+// with specific number of errors
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(requestModel))
+	.ShouldHave()
+	.InvalidModelState(withNumberOfErrors: 5);
+	
 // tests whether model state is valid and returns some action result
 MyWebApi
 	.Controller<WebApiController>()
