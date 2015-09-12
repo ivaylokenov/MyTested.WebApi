@@ -51,6 +51,7 @@ namespace MyWebApi.Builders.Actions.ShouldHave
         /// <summary>
         /// Checks whether the tested action's provided model state is not valid.
         /// </summary>
+        /// <param name="numberOfErrors">Expected number of errors. If default null is provided, the test builder checks only if any errors are found.</param>
         /// <returns>Test builder with AndAlso method.</returns>
         public IAndTestBuilder<TActionResult> InvalidModelState(int? numberOfErrors = null)
         {
