@@ -80,5 +80,19 @@ namespace MyWebApi.Tests.BuildersTests.AndTests
             Assert.IsNotNull(caughtException);
             Assert.IsAssignableFrom<NullReferenceException>(caughtException);
         }
+
+        [Test]
+        [ExpectedException(
+            typeof(InvalidOperationException),
+            ExpectedMessage = "Void methods cannot provide action result because they do not have return value.")]
+        public void AndProvideShouldThrowExceptionIfActionIsVoid()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.EmptyActionWithException())
+                .ShouldHave()
+                .ValidModelState()
+                .AndProvideTheActionResult();
+        }
     }
 }
