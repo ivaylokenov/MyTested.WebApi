@@ -52,14 +52,17 @@ namespace MyWebApi.Builders.Actions.ShouldHave
         /// Checks whether the tested action's provided model state is not valid.
         /// </summary>
         /// <returns>Test builder with AndAlso method.</returns>
-        public IAndTestBuilder<TActionResult> InvalidModelState()
+        public IAndTestBuilder<TActionResult> InvalidModelState(int? numberOfErrors = null)
         {
-            if (this.Controller.ModelState.Count == 0)
+            var actualModelStateErrors = this.Controller.ModelState.Count;
+            if (actualModelStateErrors == (numberOfErrors ?? 0))
             {
                 throw new ModelErrorAssertionException(string.Format(
-                    "When calling {0} action in {1} expected to have invalid model state, but was in fact valid.",
+                    "When calling {0} action in {1} expected to have invalid model state{2}, {3}.",
                     this.ActionName,
-                    this.Controller.GetName()));
+                    this.Controller.GetName(),
+                    numberOfErrors == null ? string.Empty : string.Format(" with {0} errors", numberOfErrors),
+                    numberOfErrors == null ? "but was in fact valid" : string.Format(" but contained {0}", actualModelStateErrors)));
             }
 
             return this.NewAndTestBuilder();

@@ -43,6 +43,6 @@ namespace MyWebApi.Builders.Contracts.Actions
         /// Checks whether the tested action's provided model state is not valid.
         /// </summary>
         /// <returns>Test builder with AndAlso method.</returns>
-        IAndTestBuilder<TActionResult> InvalidModelState();
+        IAndTestBuilder<TActionResult> InvalidModelState(int? numberOfErrors = null);
     }
 }
