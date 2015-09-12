@@ -42,14 +42,17 @@ namespace MyWebApi.Utilities.Validators
             Uri location,
             Action<string, string, string> failedValidationAction)
         {
-            var actualLocation = actionResult.Location as Uri;
-            if (location != actualLocation)
+            RuntimeBinderValidator.ValidateBinding(() =>
             {
-                failedValidationAction(
-                    "location",
-                    string.Format("to be {0}", location.OriginalString),
-                    string.Format("instead received {0}", actualLocation.OriginalString));
-            }
+                var actualLocation = actionResult.Location as Uri;
+                if (location != actualLocation)
+                {
+                    failedValidationAction(
+                        "location",
+                        string.Format("to be {0}", location.OriginalString),
+                        string.Format("instead received {0}", actualLocation.OriginalString));
+                }
+            });
         }
 
         /// <summary>
@@ -63,20 +66,23 @@ namespace MyWebApi.Utilities.Validators
             Action<UriTestBuilder> uriTestBuilder,
             Action<string, string, string> failedValidationAction)
         {
-            var actualUri = actionResult.Location as Uri;
-
-            var newUriTestBuilder = new UriTestBuilder();
-            uriTestBuilder(newUriTestBuilder);
-            var expectedUri = newUriTestBuilder.GetUri();
-
-            var validations = newUriTestBuilder.GetUriValidations();
-            if (validations.Any(v => !v(expectedUri, actualUri)))
+            RuntimeBinderValidator.ValidateBinding(() =>
             {
-                failedValidationAction(
-                    "URI",
-                    "to equal the provided one",
-                    "was in fact different");
-            }
+                var actualUri = actionResult.Location as Uri;
+
+                var newUriTestBuilder = new UriTestBuilder();
+                uriTestBuilder(newUriTestBuilder);
+                var expectedUri = newUriTestBuilder.GetUri();
+
+                var validations = newUriTestBuilder.GetUriValidations();
+                if (validations.Any(v => !v(expectedUri, actualUri)))
+                {
+                    failedValidationAction(
+                        "URI",
+                        "to equal the provided one",
+                        "was in fact different");
+                }
+            });
         }
     }
 }

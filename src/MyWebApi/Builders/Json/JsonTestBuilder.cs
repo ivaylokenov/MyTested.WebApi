@@ -26,6 +26,7 @@ namespace MyWebApi.Builders.Json
     using Exceptions;
     using Models;
     using Newtonsoft.Json;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for testing JSON results.
@@ -65,16 +66,19 @@ namespace MyWebApi.Builders.Json
         /// <returns>The same JSON test builder.</returns>
         public IAndJsonTestBuilder WithEncoding(Encoding encoding)
         {
-            var actualEncoding = this.GetActionResultAsDynamic().Encoding as Encoding;
-            if (!encoding.Equals(actualEncoding))
+            RuntimeBinderValidator.ValidateBinding(() =>
             {
-                throw new JsonResultAssertionException(string.Format(
-                    "When calling {0} action in {1} expected JSON result encoding to be {2}, but instead received {3}.",
-                    this.ActionName,
-                    this.Controller.GetName(),
-                    this.GetEncodingName(encoding),
-                    this.GetEncodingName(actualEncoding)));
-            }
+                var actualEncoding = this.GetActionResultAsDynamic().Encoding as Encoding;
+                if (!encoding.Equals(actualEncoding))
+                {
+                    throw new JsonResultAssertionException(string.Format(
+                        "When calling {0} action in {1} expected JSON result encoding to be {2}, but instead received {3}.",
+                        this.ActionName,
+                        this.Controller.GetName(),
+                        this.GetEncodingName(encoding),
+                        this.GetEncodingName(actualEncoding)));
+                }
+            });
 
             return this;
         }
@@ -106,18 +110,21 @@ namespace MyWebApi.Builders.Json
         public IAndJsonTestBuilder WithJsonSerializerSettings(
             Action<IJsonSerializerSettingsTestBuilder> jsonSerializerSettingsBuilder)
         {
-            var actualJsonSerializerSettings =
+            RuntimeBinderValidator.ValidateBinding(() =>
+            {
+                var actualJsonSerializerSettings =
                 this.GetActionResultAsDynamic().SerializerSettings as JsonSerializerSettings;
 
-            var newJsonSerializerSettingsTestBuilder = new JsonSerializerSettingsTestBuilder();
-            jsonSerializerSettingsBuilder(newJsonSerializerSettingsTestBuilder);
-            var expectedJsonSerializerSettings = newJsonSerializerSettingsTestBuilder.GetJsonSerializerSettings();
+                var newJsonSerializerSettingsTestBuilder = new JsonSerializerSettingsTestBuilder();
+                jsonSerializerSettingsBuilder(newJsonSerializerSettingsTestBuilder);
+                var expectedJsonSerializerSettings = newJsonSerializerSettingsTestBuilder.GetJsonSerializerSettings();
 
-            var validations = newJsonSerializerSettingsTestBuilder.GetJsonSerializerSettingsValidations();
-            this.ValidateJsonSerializerSettings(
-                expectedJsonSerializerSettings,
-                actualJsonSerializerSettings,
-                validations);
+                var validations = newJsonSerializerSettingsTestBuilder.GetJsonSerializerSettingsValidations();
+                this.ValidateJsonSerializerSettings(
+                    expectedJsonSerializerSettings,
+                    actualJsonSerializerSettings,
+                    validations);
+            });
 
             return this;
         }

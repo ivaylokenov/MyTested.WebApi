@@ -27,14 +27,17 @@ namespace MyWebApi.Utilities.Validators
             IContentNegotiator contentNegotiator,
             Action<string, string, string> failedValidationAction)
         {
-            var actualContentNegotiator = actionResult.ContentNegotiator as IContentNegotiator;
-            if (Reflection.AreDifferentTypes(contentNegotiator, actualContentNegotiator))
+            RuntimeBinderValidator.ValidateBinding(() =>
             {
-                failedValidationAction(
-                    "IContentNegotiator",
-                    string.Format("to be {0}", contentNegotiator.GetName()),
-                    string.Format("instead received {0}", actualContentNegotiator.GetName()));
-            }
+                var actualContentNegotiator = actionResult.ContentNegotiator as IContentNegotiator;
+                if (Reflection.AreDifferentTypes(contentNegotiator, actualContentNegotiator))
+                {
+                    failedValidationAction(
+                        "IContentNegotiator",
+                        string.Format("to be {0}", contentNegotiator.GetName()),
+                        string.Format("instead received {0}", actualContentNegotiator.GetName()));
+                }
+            });
         }
     }
 }

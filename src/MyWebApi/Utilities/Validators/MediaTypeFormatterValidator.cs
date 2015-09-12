@@ -43,14 +43,17 @@ namespace MyWebApi.Utilities.Validators
             MediaTypeFormatter mediaTypeFormatter,
             Action<string, string, string> failedValidationAction)
         {
-            var formatters = actionResult.Formatters as IEnumerable<MediaTypeFormatter>;
-            if (formatters == null || formatters.All(f => Reflection.AreDifferentTypes(f, mediaTypeFormatter)))
+            RuntimeBinderValidator.ValidateBinding(() =>
             {
-                failedValidationAction(
-                    "Formatters",
-                    string.Format("to contain {0}", mediaTypeFormatter.GetName()),
-                    "none was found");
-            }
+                var formatters = actionResult.Formatters as IEnumerable<MediaTypeFormatter>;
+                if (formatters == null || formatters.All(f => Reflection.AreDifferentTypes(f, mediaTypeFormatter)))
+                {
+                    failedValidationAction(
+                        "Formatters",
+                        string.Format("to contain {0}", mediaTypeFormatter.GetName()),
+                        "none was found");
+                }
+            });
         }
 
         public static void ValidateMediaTypeFormatters(
@@ -58,30 +61,33 @@ namespace MyWebApi.Utilities.Validators
             IEnumerable<MediaTypeFormatter> mediaTypeFormatters,
             Action<string, string, string> failedValidationAction)
         {
-            var formatters = actionResult.Formatters as IEnumerable<MediaTypeFormatter>;
-            var actualMediaTypeFormatters = SortMediaTypeFormatters(formatters);
-            var expectedMediaTypeFormatters = SortMediaTypeFormatters(mediaTypeFormatters);
-
-            if (actualMediaTypeFormatters.Count != expectedMediaTypeFormatters.Count)
+            RuntimeBinderValidator.ValidateBinding(() =>
             {
-                failedValidationAction(
-                    "Formatters",
-                    string.Format("to be {0}", expectedMediaTypeFormatters.Count),
-                    string.Format("instead found {0}", actualMediaTypeFormatters.Count));
-            }
+                var formatters = actionResult.Formatters as IEnumerable<MediaTypeFormatter>;
+                var actualMediaTypeFormatters = SortMediaTypeFormatters(formatters);
+                var expectedMediaTypeFormatters = SortMediaTypeFormatters(mediaTypeFormatters);
 
-            for (int i = 0; i < actualMediaTypeFormatters.Count; i++)
-            {
-                var actualMediaTypeFormatter = actualMediaTypeFormatters[i];
-                var expectedMediaTypeFormatter = expectedMediaTypeFormatters[i];
-                if (actualMediaTypeFormatter != expectedMediaTypeFormatter)
+                if (actualMediaTypeFormatters.Count != expectedMediaTypeFormatters.Count)
                 {
                     failedValidationAction(
                         "Formatters",
-                        string.Format("to have {0}", expectedMediaTypeFormatters[i]),
-                        "none was found");
+                        string.Format("to be {0}", expectedMediaTypeFormatters.Count),
+                        string.Format("instead found {0}", actualMediaTypeFormatters.Count));
                 }
-            }
+
+                for (int i = 0; i < actualMediaTypeFormatters.Count; i++)
+                {
+                    var actualMediaTypeFormatter = actualMediaTypeFormatters[i];
+                    var expectedMediaTypeFormatter = expectedMediaTypeFormatters[i];
+                    if (actualMediaTypeFormatter != expectedMediaTypeFormatter)
+                    {
+                        failedValidationAction(
+                            "Formatters",
+                            string.Format("to have {0}", expectedMediaTypeFormatters[i]),
+                            "none was found");
+                    }
+                }
+            });
         }
 
         public static void ValidateMediaTypeFormattersBuilder(
@@ -89,14 +95,17 @@ namespace MyWebApi.Utilities.Validators
             Action<IFormattersBuilder> formattersBuilder,
             Action<string, string, string> failedValidationAction)
         {
-            var newFormattersBuilder = new FormattersBuilder();
-            formattersBuilder(newFormattersBuilder);
-            var expectedFormatters = newFormattersBuilder.GetMediaTypeFormatters();
-            expectedFormatters.ForEach(formatter =>
-                ValidateMediaTypeFormatter(
-                    actionResult,
-                    formatter,
-                    failedValidationAction));
+            RuntimeBinderValidator.ValidateBinding(() =>
+            {
+                var newFormattersBuilder = new FormattersBuilder();
+                formattersBuilder(newFormattersBuilder);
+                var expectedFormatters = newFormattersBuilder.GetMediaTypeFormatters();
+                expectedFormatters.ForEach(formatter =>
+                    ValidateMediaTypeFormatter(
+                        actionResult,
+                        formatter,
+                        failedValidationAction));
+            });
         }
 
         private static IList<string> SortMediaTypeFormatters(IEnumerable<MediaTypeFormatter> mediaTypeFormatters)

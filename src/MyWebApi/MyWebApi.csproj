@@ -178,6 +178,7 @@
     <Compile Include="Utilities\Validators\ContentNegotiatorValidator.cs" />
     <Compile Include="Utilities\Validators\LocationValidator.cs" />
     <Compile Include="Utilities\Validators\MediaTypeFormatterValidator.cs" />
+    <Compile Include="Utilities\Validators\RuntimeBinderValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MyWebApi.licenseheader" />
