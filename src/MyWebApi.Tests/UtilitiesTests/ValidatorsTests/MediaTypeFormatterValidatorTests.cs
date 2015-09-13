@@ -39,8 +39,8 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
             Assert.IsNotNull(defaultFormatters);
 
             var result = defaultFormatters
-                .All(f => Reflection.AreSameTypes(f.GetType(), typeof (FormUrlEncodedMediaTypeFormatter))
-                          || Reflection.AreSameTypes(f.GetType(), typeof (JQueryMvcFormUrlEncodedFormatter))
+                .All(f => Reflection.AreSameTypes(f.GetType(), typeof(FormUrlEncodedMediaTypeFormatter))
+                          || Reflection.AreSameTypes(f.GetType(), typeof(JQueryMvcFormUrlEncodedFormatter))
                           || Reflection.AreSameTypes(f.GetType(), typeof(JsonMediaTypeFormatter))
                           || Reflection.AreSameTypes(f.GetType(), typeof(XmlMediaTypeFormatter)));
 
@@ -56,7 +56,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
 
             MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
                 actionResultWithFormatters,
-                new FormUrlEncodedMediaTypeFormatter(), 
+                new FormUrlEncodedMediaTypeFormatter(),
                 TestObjectFactory.GetFailingValidationAction());
         }
 

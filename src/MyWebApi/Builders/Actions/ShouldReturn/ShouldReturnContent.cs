@@ -26,9 +26,13 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ShouldReturnTestBuilder<TActionResult>
     {
+        /// <summary>
+        /// Tests whether action result is NegotiatedContentResult{T} or FormattedContentResult{T}.
+        /// </summary>
+        /// <returns>Content test builder.</returns>
         public IContentTestBuilder Content()
         {
-            this.ValidateActionReturnType(typeof (NegotiatedContentResult<>), typeof (FormattedContentResult<>));
+            this.ValidateActionReturnType(typeof(NegotiatedContentResult<>), typeof(FormattedContentResult<>));
             return new ContentTestBuilder<TActionResult>(
                 this.Controller,
                 this.ActionName,

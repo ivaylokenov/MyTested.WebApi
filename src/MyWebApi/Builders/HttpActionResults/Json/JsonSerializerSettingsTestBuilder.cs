@@ -21,10 +21,10 @@ namespace MyWebApi.Builders.HttpActionResults.Json
     using System.Globalization;
     using System.Runtime.Serialization.Formatters;
     using Contracts.HttpActionResults.Json;
-    using Utilities;
-    using Utilities.Validators;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
+    using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for testing JSON serializer settings in a JSON result.

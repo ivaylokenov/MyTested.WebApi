@@ -23,9 +23,9 @@ namespace MyWebApi.Builders.HttpActionResults.Unauthorized
     using System.Web.Http;
     using System.Web.Http.Results;
     using Base;
+    using Common.Extensions;
     using Contracts.Base;
     using Contracts.HttpActionResults.Unauthorized;
-    using Common.Extensions;
     using Exceptions;
 
     /// <summary>

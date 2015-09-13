@@ -21,12 +21,12 @@ namespace MyWebApi.Builders.HttpActionResults.Json
     using System.Linq;
     using System.Text;
     using System.Web.Http;
-    using Contracts.HttpActionResults.Json;
-    using Models;
     using Common.Extensions;
+    using Contracts.HttpActionResults.Json;
     using Exceptions;
-    using Utilities.Validators;
+    using Models;
     using Newtonsoft.Json;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for testing JSON results.

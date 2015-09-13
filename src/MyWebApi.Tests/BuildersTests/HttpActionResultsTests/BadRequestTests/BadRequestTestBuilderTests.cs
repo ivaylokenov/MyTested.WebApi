@@ -18,10 +18,10 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.BadRequestTests
 {
     using System.Web.Http.ModelBinding;
     using Exceptions;
+    using NUnit.Framework;
     using Setups;
     using Setups.Controllers;
     using Setups.Models;
-    using NUnit.Framework;
 
     [TestFixture]
     public class BadRequestTestBuilderTests

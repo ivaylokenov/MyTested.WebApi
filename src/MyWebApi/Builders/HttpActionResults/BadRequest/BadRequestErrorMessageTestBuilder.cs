@@ -19,8 +19,8 @@ namespace MyWebApi.Builders.HttpActionResults.BadRequest
     using System;
     using System.Web.Http;
     using Base;
-    using Contracts.Base;
     using Common.Extensions;
+    using Contracts.Base;
     using Contracts.HttpActionResults.BadRequest;
     using Exceptions;
 

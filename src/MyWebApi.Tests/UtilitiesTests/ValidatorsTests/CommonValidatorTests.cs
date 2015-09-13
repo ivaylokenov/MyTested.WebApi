@@ -19,9 +19,9 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
     using System;
     using System.Collections.Generic;
     using Exceptions;
+    using NUnit.Framework;
     using Setups;
     using Utilities.Validators;
-    using NUnit.Framework;
 
     [TestFixture]
     public class CommonValidatorTests

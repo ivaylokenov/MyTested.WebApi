@@ -19,7 +19,6 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
     using System.Web.Http.Results;
     using Contracts.HttpActionResults.Created;
     using HttpActionResults.Created;
-    using Utilities;
 
     /// <summary>
     /// Class containing methods for testing CreatedNegotiatedContentResult{T} or CreatedAtRouteNegotiatedContentResult{T}.

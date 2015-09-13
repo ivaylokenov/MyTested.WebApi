@@ -17,8 +17,8 @@
 namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.BadRequestTests
 {
     using Exceptions;
-    using Setups.Controllers;
     using NUnit.Framework;
+    using Setups.Controllers;
 
     [TestFixture]
     public class BadRequestErrorMessageTestBuilderTests

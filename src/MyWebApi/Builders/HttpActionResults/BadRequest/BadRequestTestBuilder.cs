@@ -23,12 +23,12 @@ namespace MyWebApi.Builders.HttpActionResults.BadRequest
     using System.Web.Http.ModelBinding;
     using System.Web.Http.Results;
     using Base;
+    using Common.Extensions;
     using Contracts.Base;
     using Contracts.HttpActionResults.BadRequest;
     using Contracts.Models;
-    using Models;
-    using Common.Extensions;
     using Exceptions;
+    using Models;
 
     /// <summary>
     /// Used for testing bad request results.

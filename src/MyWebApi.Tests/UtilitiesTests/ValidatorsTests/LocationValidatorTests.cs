@@ -29,7 +29,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         [Test]
         public void ValidateAndGetWellFormedUriStringShouldReturnProperUriWithCorrectString()
         {
-            const string uriAsString = "http://somehost.com/someuri/1?query=Test";
+            string uriAsString = "http://somehost.com/someuri/1?query=Test";
 
             var uri = LocationValidator.ValidateAndGetWellFormedUriString(
                 uriAsString,
@@ -45,7 +45,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
            ExpectedMessage = "location to be URI valid instead received http://somehost!@#?Query==true")]
         public void ValidateAndGetWellFormedUriStringShouldThrowExceptionWithIncorrectString()
         {
-            const string uriAsString = "http://somehost!@#?Query==true";
+            string uriAsString = "http://somehost!@#?Query==true";
 
             var uri = LocationValidator.ValidateAndGetWellFormedUriString(
                 uriAsString,

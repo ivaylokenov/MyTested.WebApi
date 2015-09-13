@@ -25,8 +25,15 @@ namespace MyWebApi.Utilities.Validators
     using Builders.Contracts.Formatters;
     using Common.Extensions;
 
+    /// <summary>
+    /// Validator class containing MediaTypeFormatter validation logic.
+    /// </summary>
     public static class MediaTypeFormatterValidator
     {
+        /// <summary>
+        /// Returns default media type formatters used in ASP.NET Web API.
+        /// </summary>
+        /// <returns>Enumerable of MediaTypeFormatter.</returns>
         public static IEnumerable<MediaTypeFormatter> GetDefaultMediaTypeFormatters()
         {
             return new List<MediaTypeFormatter>
@@ -38,6 +45,12 @@ namespace MyWebApi.Utilities.Validators
             };
         }
 
+        /// <summary>
+        /// Validates the Formatters from action result containing one.
+        /// </summary>
+        /// <param name="actionResult">Action result with Formatters.</param>
+        /// <param name="mediaTypeFormatter">Expected MediaTypeFormatter.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void ValidateMediaTypeFormatter(
             dynamic actionResult,
             MediaTypeFormatter mediaTypeFormatter,
@@ -56,6 +69,12 @@ namespace MyWebApi.Utilities.Validators
             });
         }
 
+        /// <summary>
+        /// Validates the Formatters from action result containing one.
+        /// </summary>
+        /// <param name="actionResult">Action result with Formatters.</param>
+        /// <param name="mediaTypeFormatters">Expected enumerable of MediaTypeFormatter.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void ValidateMediaTypeFormatters(
             dynamic actionResult,
             IEnumerable<MediaTypeFormatter> mediaTypeFormatters,
@@ -90,6 +109,12 @@ namespace MyWebApi.Utilities.Validators
             });
         }
 
+        /// <summary>
+        /// Validates the Formatters from action result containing one.
+        /// </summary>
+        /// <param name="actionResult">Action result with Formatters.</param>
+        /// <param name="formattersBuilder">Formatters builder.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void ValidateMediaTypeFormattersBuilder(
             dynamic actionResult,
             Action<IFormattersBuilder> formattersBuilder,

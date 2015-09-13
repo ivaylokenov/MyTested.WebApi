@@ -21,12 +21,12 @@ namespace MyWebApi.Builders.HttpActionResults.Created
     using System.Linq;
     using System.Net.Http.Formatting;
     using System.Web.Http;
+    using Common.Extensions;
     using Contracts.Formatters;
     using Contracts.HttpActionResults.Created;
     using Contracts.Uri;
-    using Models;
-    using Common.Extensions;
     using Exceptions;
+    using Models;
     using Utilities.Validators;
 
     /// <summary>

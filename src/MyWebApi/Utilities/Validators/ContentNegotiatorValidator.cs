@@ -20,8 +20,17 @@ namespace MyWebApi.Utilities.Validators
     using System.Net.Http.Formatting;
     using Common.Extensions;
 
+    /// <summary>
+    /// Validator class containing IContentNegotiator validation logic.
+    /// </summary>
     public static class ContentNegotiatorValidator
     {
+        /// <summary>
+        /// Validates the IContentNegotiator from action result containing one.
+        /// </summary>
+        /// <param name="actionResult">Action result with IContentNegotiator.</param>
+        /// <param name="contentNegotiator">Expected IContentNegotiator.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void ValidateContentNegotiator(
             dynamic actionResult,
             IContentNegotiator contentNegotiator,

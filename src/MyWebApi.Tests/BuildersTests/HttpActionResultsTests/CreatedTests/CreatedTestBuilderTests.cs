@@ -20,10 +20,10 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.CreatedTests
     using System.Linq;
     using System.Net.Http.Formatting;
     using Exceptions;
+    using NUnit.Framework;
     using Setups;
     using Setups.Common;
     using Setups.Controllers;
-    using NUnit.Framework;
 
     [TestFixture]
     public class CreatedTestBuilderTests

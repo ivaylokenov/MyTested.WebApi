@@ -19,11 +19,11 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
     using System.Globalization;
     using System.Runtime.Serialization.Formatters;
     using Exceptions;
-    using Setups;
-    using Setups.Controllers;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
     using NUnit.Framework;
+    using Setups;
+    using Setups.Controllers;
 
     [TestFixture]
     public class JsonSerializerSettingsTestBuilderTests

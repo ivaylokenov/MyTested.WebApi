@@ -22,6 +22,9 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.Content
     using Formatters;
     using Models;
 
+    /// <summary>
+    /// Used for testing content result.
+    /// </summary>
     public interface IContentTestBuilder : IBaseResponseModelTestBuilder
     {
         /// <summary>
@@ -44,7 +47,6 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.Content
         /// <returns>The same content test builder.</returns>
         IAndContentTestBuilder WithContentNegotiatorOfType<TContentNegotiator>()
             where TContentNegotiator : IContentNegotiator, new();
-
 
         /// <summary>
         /// Tests whether created result contains the provided media type formatter.

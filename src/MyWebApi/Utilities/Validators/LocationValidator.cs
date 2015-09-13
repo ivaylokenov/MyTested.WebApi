@@ -20,8 +20,17 @@ namespace MyWebApi.Utilities.Validators
     using System.Linq;
     using Builders;
 
+    /// <summary>
+    /// Validator class containing URI validation logic.
+    /// </summary>
     public static class LocationValidator
     {
+        /// <summary>
+        /// Validates an URI provided as string.
+        /// </summary>
+        /// <param name="location">Expected URI as string.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
+        /// <returns>Valid Uri created from the provided string.</returns>
         public static Uri ValidateAndGetWellFormedUriString(
             string location,
             Action<string, string, string> failedValidationAction)
@@ -37,6 +46,12 @@ namespace MyWebApi.Utilities.Validators
             return new Uri(location);
         }
 
+        /// <summary>
+        /// Validates the Uri from action result containing one.
+        /// </summary>
+        /// <param name="actionResult">Action result with Uri.</param>
+        /// <param name="location">Expected Uri.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void ValidateUri(
             dynamic actionResult,
             Uri location,

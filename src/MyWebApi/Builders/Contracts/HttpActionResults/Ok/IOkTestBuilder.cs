@@ -22,6 +22,9 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.Ok
     using Formatters;
     using Models;
 
+    /// <summary>
+    /// Used for testing ok result.
+    /// </summary>
     public interface IOkTestBuilder : IBaseResponseModelTestBuilder
     {
         /// <summary>
@@ -50,7 +53,6 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.Ok
         /// <returns>The same ok test builder.</returns>
         IAndOkTestBuilder WithContentNegotiatorOfType<TContentNegotiator>()
             where TContentNegotiator : IContentNegotiator, new();
-
 
         /// <summary>
         /// Tests whether ok result contains the provided media type formatter.

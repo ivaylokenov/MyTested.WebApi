@@ -19,10 +19,10 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
     using System;
     using System.Web.Http;
     using Base;
+    using Common.Extensions;
     using Contracts.Base;
     using Contracts.HttpActionResults.Redirect;
     using Contracts.Uri;
-    using Common.Extensions;
     using Exceptions;
     using Utilities.Validators;
 

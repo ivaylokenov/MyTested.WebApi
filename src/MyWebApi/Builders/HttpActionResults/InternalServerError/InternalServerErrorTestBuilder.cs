@@ -20,11 +20,11 @@ namespace MyWebApi.Builders.HttpActionResults.InternalServerError
     using System.Web.Http;
     using System.Web.Http.Results;
     using Base;
+    using Common.Extensions;
     using Contracts.Base;
     using Contracts.ExceptionErrors;
     using Contracts.HttpActionResults.InternalServerError;
     using ExceptionErrors;
-    using Common.Extensions;
     using Exceptions;
     using Utilities;
 

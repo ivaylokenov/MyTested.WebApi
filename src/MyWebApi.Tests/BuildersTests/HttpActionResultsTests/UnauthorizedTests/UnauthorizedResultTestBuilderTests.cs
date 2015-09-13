@@ -18,8 +18,8 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.UnauthorizedTests
 {
     using System.Net.Http.Headers;
     using Exceptions;
-    using Setups.Controllers;
     using NUnit.Framework;
+    using Setups.Controllers;
 
     [TestFixture]
     public class UnauthorizedResultTestBuilderTests
