@@ -92,6 +92,15 @@ namespace MyWebApi.Tests.Setups.Controllers
             return this.Ok();
         }
 
+        public IHttpActionResult OkResultWithContentNegotiatorAction()
+        {
+            return new OkNegotiatedContentResult<int>(
+                5,
+                TestObjectFactory.GetCustomContentNegotiator(),
+                TestObjectFactory.GetCustomHttpRequestMessage(),
+                TestObjectFactory.GetFormatters());
+        }
+
         public void EmptyActionWithException()
         {
             this.ThrowNewNullReferenceException();
