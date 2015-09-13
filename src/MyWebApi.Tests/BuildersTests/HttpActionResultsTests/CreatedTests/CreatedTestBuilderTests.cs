@@ -17,6 +17,7 @@
 namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.CreatedTests
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http.Formatting;
     using Exceptions;
@@ -24,6 +25,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.CreatedTests
     using Setups;
     using Setups.Common;
     using Setups.Controllers;
+    using Setups.Models;
 
     [TestFixture]
     public class CreatedTestBuilderTests
@@ -397,6 +399,17 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.CreatedTests
                 .AtLocation(TestObjectFactory.GetUri())
                 .AndAlso()
                 .ContainingMediaTypeFormatterOfType<JsonMediaTypeFormatter>();
+        }
+
+        [Test]
+        public void WithResponseModelOfTypeShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.CreatedAction())
+                .ShouldReturn()
+                .Created()
+                .WithResponseModelOfType<ICollection<ResponseModel>>();
         }
     }
 }

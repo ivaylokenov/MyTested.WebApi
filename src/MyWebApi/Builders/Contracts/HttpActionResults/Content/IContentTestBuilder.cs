@@ -18,6 +18,7 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.Content
 {
     using System;
     using System.Collections.Generic;
+    using System.Net;
     using System.Net.Http.Formatting;
     using Formatters;
     using Models;
@@ -27,6 +28,13 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.Content
     /// </summary>
     public interface IContentTestBuilder : IBaseResponseModelTestBuilder
     {
+        /// <summary>
+        /// Tests whether content result has the same status code as the provided HttpStatusCode.
+        /// </summary>
+        /// <param name="statusCode">HttpStatusCode enumeration.</param>
+        /// <returns>The same content test builder.</returns>
+        IAndContentTestBuilder WithStatusCode(HttpStatusCode statusCode);
+
         /// <summary>
         /// Tests whether content result has the default content negotiator.
         /// </summary>

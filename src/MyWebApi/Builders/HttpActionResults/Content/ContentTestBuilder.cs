@@ -19,6 +19,7 @@ namespace MyWebApi.Builders.HttpActionResults.Content
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Net.Http.Formatting;
     using System.Web.Http;
     using Common.Extensions;
@@ -49,6 +50,32 @@ namespace MyWebApi.Builders.HttpActionResults.Content
             TContentResult actionResult)
             : base(controller, actionName, caughtException, actionResult)
         {
+        }
+
+        /// <summary>
+        /// Tests whether content result has the same status code as the provided HttpStatusCode.
+        /// </summary>
+        /// <param name="statusCode">HttpStatusCode enumeration.</param>
+        /// <returns>The same content test builder.</returns>
+        public IAndContentTestBuilder WithStatusCode(HttpStatusCode statusCode)
+        {
+            RuntimeBinderValidator.ValidateBinding(() =>
+            {
+                var actualStatusCode = (HttpStatusCode)this.GetActionResultAsDynamic().StatusCode;
+                if (actualStatusCode != statusCode)
+                {
+                    throw new ContentResultAssertionException(string.Format(
+                        "When calling {0} action in {1} expected to have {2} ({3}) status code, but received {4} ({5}).",
+                        this.ActionName,
+                        this.Controller.GetName(),
+                        (int)statusCode,
+                        statusCode,
+                        (int)actualStatusCode,
+                        actualStatusCode));
+                }
+            });
+
+            return this;
         }
 
         /// <summary>

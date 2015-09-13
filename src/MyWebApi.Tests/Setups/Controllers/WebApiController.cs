@@ -116,6 +116,11 @@ namespace MyWebApi.Tests.Setups.Controllers
             return 0;
         }
 
+        public IHttpActionResult ContentAction()
+        {
+            return this.Content(HttpStatusCode.OK, this.responseModel);
+        }
+
         public IHttpActionResult CreatedAction()
         {
             return this.Created(TestObjectFactory.GetUri().OriginalString, this.responseModel);
