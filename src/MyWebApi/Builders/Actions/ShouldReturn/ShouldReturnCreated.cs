@@ -17,9 +17,8 @@
 namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Web.Http.Results;
-    using Contracts.Created;
-    using Created;
-    using Utilities;
+    using Contracts.HttpActionResults.Created;
+    using HttpActionResults.Created;
 
     /// <summary>
     /// Class containing methods for testing CreatedNegotiatedContentResult{T} or CreatedAtRouteNegotiatedContentResult{T}.
@@ -33,17 +32,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
         /// <returns>Created test builder.</returns>
         public ICreatedTestBuilder Created()
         {
-            var typeOfCreatedNegotiatedContentResult = typeof(CreatedNegotiatedContentResult<>);
-            var typeOfCreatedAtRouteNegotiatedContentResult = typeof(CreatedAtRouteNegotiatedContentResult<>);
-            var typeOfActionResult = this.ActionResult.GetType();
-            if (!Reflection.AreAssignableByGeneric(typeOfCreatedNegotiatedContentResult, typeOfActionResult)
-                && !Reflection.AreAssignableByGeneric(typeOfCreatedAtRouteNegotiatedContentResult, typeOfActionResult))
-            {
-                this.ThrowNewGenericHttpActionResultAssertionException(
-                "CreatedNegotiatedContentResult<T> or CreatedAtRouteNegotiatedContentResult<T>",
-                typeOfActionResult.ToFriendlyTypeName());
-            }
-
+            this.ValidateActionReturnType(typeof(CreatedNegotiatedContentResult<>), typeof(CreatedAtRouteNegotiatedContentResult<>));
             return new CreatedTestBuilder<TActionResult>(
                 this.Controller,
                     this.ActionName,

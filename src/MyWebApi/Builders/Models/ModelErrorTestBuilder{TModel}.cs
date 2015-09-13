@@ -24,6 +24,7 @@ namespace MyWebApi.Builders.Models
     using Contracts.Models;
     using Exceptions;
     using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for testing the model errors.
@@ -135,7 +136,7 @@ namespace MyWebApi.Builders.Models
         /// <returns>Model returned from action result.</returns>
         public TModel AndProvideTheModel()
         {
-            Validator.CheckForEqualityWithDefaultValue(this.Model, "AndProvideTheModel can be used when there is response model from the action.");
+            CommonValidator.CheckForEqualityWithDefaultValue(this.Model, "AndProvideTheModel can be used when there is response model from the action.");
             return this.Model;
         }
 

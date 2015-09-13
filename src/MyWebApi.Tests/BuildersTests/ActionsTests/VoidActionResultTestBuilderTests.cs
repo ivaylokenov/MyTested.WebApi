@@ -16,6 +16,7 @@
 
 namespace MyWebApi.Tests.BuildersTests.ActionsTests
 {
+    using System;
     using Exceptions;
     using NUnit.Framework;
     using Setups.Controllers;
@@ -54,6 +55,30 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests
                 .Controller<WebApiController>()
                 .CallingAsync(c => c.EmptyActionWithExceptionAsync())
                 .ShouldReturnEmpty();
+        }
+
+        [Test]
+        public void ShouldThrowExceptionShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.EmptyActionWithException())
+                .ShouldThrow()
+                .Exception()
+                .OfType<NullReferenceException>();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ModelErrorAssertionException),
+            ExpectedMessage = "When calling EmptyAction action in WebApiController expected to have invalid model state, but was in fact valid.")]
+        public void ShouldHaveModelStateShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.EmptyAction())
+                .ShouldHave()
+                .InvalidModelState();
         }
     }
 }

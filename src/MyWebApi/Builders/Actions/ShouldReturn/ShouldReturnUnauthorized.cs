@@ -17,8 +17,8 @@
 namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Web.Http.Results;
-    using Contracts.Unauthorized;
-    using Unauthorized;
+    using Contracts.HttpActionResults.Unauthorized;
+    using HttpActionResults.Unauthorized;
 
     /// <summary>
     /// Class containing methods for testing UnauthorizedResult.

@@ -92,6 +92,15 @@ namespace MyWebApi.Tests.Setups.Controllers
             return this.Ok();
         }
 
+        public IHttpActionResult OkResultWithContentNegotiatorAction()
+        {
+            return new OkNegotiatedContentResult<int>(
+                5,
+                TestObjectFactory.GetCustomContentNegotiator(),
+                TestObjectFactory.GetCustomHttpRequestMessage(),
+                TestObjectFactory.GetFormatters());
+        }
+
         public void EmptyActionWithException()
         {
             this.ThrowNewNullReferenceException();
@@ -105,6 +114,38 @@ namespace MyWebApi.Tests.Setups.Controllers
         public int DefaultStructAction()
         {
             return 0;
+        }
+
+        public IHttpActionResult ContentAction()
+        {
+            return this.Content(HttpStatusCode.OK, this.responseModel);
+        }
+
+        public IHttpActionResult ContentActionWithMediaType()
+        {
+            return this.Content(
+                HttpStatusCode.OK,
+                this.responseModel,
+                TestObjectFactory.GetCustomMediaTypeFormatter(),
+                TestObjectFactory.MediaType);
+        }
+
+        public IHttpActionResult ContentActionWithNullMediaType()
+        {
+            return this.Content(
+                HttpStatusCode.OK,
+                this.responseModel,
+                TestObjectFactory.GetCustomMediaTypeFormatter());
+        }
+
+        public IHttpActionResult ContentActionWithCustomFormatters()
+        {
+            return new NegotiatedContentResult<int>(
+                HttpStatusCode.OK,
+                5,
+                TestObjectFactory.GetCustomContentNegotiator(),
+                TestObjectFactory.GetCustomHttpRequestMessage(),
+                TestObjectFactory.GetFormatters());
         }
 
         public IHttpActionResult CreatedAction()

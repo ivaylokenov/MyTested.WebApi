@@ -20,6 +20,7 @@ namespace MyWebApi.Builders.Base
     using System.Web.Http;
     using Contracts.Base;
     using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Base class for all test builders with model.
@@ -48,7 +49,7 @@ namespace MyWebApi.Builders.Base
         /// <returns>Model returned from action result.</returns>
         public TModel AndProvideTheModel()
         {
-            Validator.CheckForEqualityWithDefaultValue(this.Model, "AndProvideTheModel can be used when there is response model from the action.");
+            CommonValidator.CheckForEqualityWithDefaultValue(this.Model, "AndProvideTheModel can be used when there is response model from the action.");
             return this.Model;
         }
     }
