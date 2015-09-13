@@ -341,6 +341,97 @@ MyWebApi
 	.Ok()
 	.WithNoResponseModel();
 	
+// tests whether the action returns OkNegotiatedContentResult<T>
+// with DefaultContentNegotiator
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.WithDefaultContentNegotiator();
+	
+// tests whether the action returns OkNegotiatedContentResult<T>
+// with custom IContentNegotiator provided by instance
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.WithContentNegotiator(customContentNegotiator);
+
+// tests whether the action returns OkNegotiatedContentResult<T>
+// with custom IContentNegotiator provided by generic definition
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.WithContentNegotiatorOfType<CustomContentNegotiator>();
+
+// tests whether the action returns OkNegotiatedContentResult<T>
+// with exactly the default media type formatters
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.ContainingDefaultFormatters();
+
+// tests whether the action returns OkNegotiatedContentResult<T>
+// containing media type formatter provided by instance
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.ContainingMediaTypeFormatter(someMediaTypeFormatter);
+	
+// tests whether the action returns OkNegotiatedContentResult<T>
+// containing media type formatter provided by generic definition
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.ContainingMediaTypeFormatterOfType<JsonMediaTypeFormatter>();
+	
+// tests whether the action returns OkNegotiatedContentResult<T>
+// with exactly the provided media type formatters
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.ContainingMediaTypeFormatters(someCollectionOfMediaTypeFormatters);
+
+// tests whether the action returns OkNegotiatedContentResult<T>
+// with exactly the provided media type formatters
+// by using params
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.ContainingMediaTypeFormatters(
+		someMediaTypeFormatter,
+		anotherMediaTypeFormatter,
+		yetAnotherMediaTypeFormatter);
+
+// tests whether the action returns OkNegotiatedContentResult<T>
+// with exactly the provided media type formatters
+// by using formatters builder
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.ContainingMediaTypeFormatters(
+		formatters => 
+			formatters
+				.ContainingMediaTypeFormatter(someMediaTypeFormatter)
+				.AndAlso()
+				.ContainingMediaTypeFormatterOfType<SomeMediaTypeFormatter>());
+	
 // tests whether the action returns OkResult with specific object
 MyWebApi
 	.Controller<WebApiController>()
@@ -380,6 +471,17 @@ MyWebApi
 	.Ok()
 	.WithResponseModelOfType<ResponseModel>()
 	.Passing(m => m.Id == 1);
+	
+// tests whether the action returns OkNegotiatedContentResult<T>
+// with different types of properties by using AndAlso()
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.WithDefaultContentNegotiator()
+	.AndAlso() // AndAlso is not necessary
+	.WithResponseModelOfType<ResponseModel>();
 	
 // tests for model state errors for the response model 
 // * not very useful in practice
@@ -865,7 +967,7 @@ MyWebApi
 // with different types of properties by using AndAlso()
 MyWebApi
 	.Controller<WebApiController>()
-	.Calling(c => c.CreatedActionWithCustomContentNegotiator())
+	.Calling(c => c.SomeAction())
 	.ShouldReturn()
 	.Created()
 	.WithDefaultContentNegotiator()
