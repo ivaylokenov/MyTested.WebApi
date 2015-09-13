@@ -21,6 +21,7 @@ namespace MyWebApi.Builders.HttpActionResults.Content
     using System.Linq;
     using System.Net;
     using System.Net.Http.Formatting;
+    using System.Net.Http.Headers;
     using System.Web.Http;
     using Common.Extensions;
     using Contracts.Formatters;
@@ -72,6 +73,40 @@ namespace MyWebApi.Builders.HttpActionResults.Content
                         statusCode,
                         (int)actualStatusCode,
                         actualStatusCode));
+                }
+            });
+
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether content result has the same content type as the provided string.
+        /// </summary>
+        /// <param name="mediaType">Media type as string.</param>
+        /// <returns>The same content test builder.</returns>
+        public IAndContentTestBuilder WithMediaType(string mediaType)
+        {
+            return this.WithMediaType(new MediaTypeHeaderValue(mediaType));
+        }
+
+        /// <summary>
+        /// Tests whether content result has the same content type as the provided MediaTypeHeaderValue.
+        /// </summary>
+        /// <param name="mediaType">Media type as MediaTypeHeaderValue.</param>
+        /// <returns>The same content test builder.</returns>
+        public IAndContentTestBuilder WithMediaType(MediaTypeHeaderValue mediaType)
+        {
+            RuntimeBinderValidator.ValidateBinding(() =>
+            {
+                var actualMediaType = this.GetActionResultAsDynamic().MediaType as MediaTypeHeaderValue;
+                if ((mediaType == null && actualMediaType != null)
+                    || (mediaType != null && actualMediaType == null)
+                    || (mediaType != null && mediaType.MediaType != actualMediaType.MediaType))
+                {
+                    this.ThrowNewContentResultAssertionException(
+                        "MediaType",
+                        string.Format("to be {0}", mediaType != null ? mediaType.MediaType : null),
+                        string.Format("instead received {0}", actualMediaType != null ? actualMediaType.MediaType : null));
                 }
             });
 

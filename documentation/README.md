@@ -832,6 +832,17 @@ MyWebApi
 	.ShouldReturn()
 	.Created();
 	
+// tests whether the action returns
+// CreatedNegotiatedContentResult<T>
+// or CreatedAtRouteNegotiatedContentResult<T>
+// with specific response model type
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.WithResponseModelOfType<ResponseModel>();
+	
 // tests whether the action returns created result
 // with DefaultContentNegotiator
 MyWebApi

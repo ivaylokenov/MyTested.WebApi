@@ -24,6 +24,7 @@ namespace MyWebApi.Utilities.Validators
     using Builders;
     using Builders.Contracts.Formatters;
     using Common.Extensions;
+    using Microsoft.CSharp.RuntimeBinder;
 
     /// <summary>
     /// Validator class containing MediaTypeFormatter validation logic.
@@ -58,7 +59,7 @@ namespace MyWebApi.Utilities.Validators
         {
             RuntimeBinderValidator.ValidateBinding(() =>
             {
-                var formatters = actionResult.Formatters as IEnumerable<MediaTypeFormatter>;
+                var formatters = TryGetMediaTypeFormatters(actionResult) as IEnumerable<MediaTypeFormatter>;
                 if (formatters == null || formatters.All(f => Reflection.AreDifferentTypes(f, mediaTypeFormatter)))
                 {
                     failedValidationAction(
@@ -82,7 +83,7 @@ namespace MyWebApi.Utilities.Validators
         {
             RuntimeBinderValidator.ValidateBinding(() =>
             {
-                var formatters = actionResult.Formatters as IEnumerable<MediaTypeFormatter>;
+                var formatters = TryGetMediaTypeFormatters(actionResult) as IEnumerable<MediaTypeFormatter>;
                 var actualMediaTypeFormatters = SortMediaTypeFormatters(formatters);
                 var expectedMediaTypeFormatters = SortMediaTypeFormatters(mediaTypeFormatters);
 
@@ -131,6 +132,26 @@ namespace MyWebApi.Utilities.Validators
                         formatter,
                         failedValidationAction));
             });
+        }
+
+        private static IEnumerable<MediaTypeFormatter> TryGetMediaTypeFormatters(dynamic actionResult)
+        {
+            IEnumerable<MediaTypeFormatter> formatters = new List<MediaTypeFormatter>();
+
+            try
+            {
+                var formatter = actionResult.Formatter as MediaTypeFormatter;
+                formatters = new List<MediaTypeFormatter> { formatter };
+            }
+            catch (RuntimeBinderException)
+            {
+                RuntimeBinderValidator.ValidateBinding(() =>
+                {
+                    formatters = actionResult.Formatters as IEnumerable<MediaTypeFormatter>;
+                });
+            }
+
+            return formatters;
         }
 
         private static IList<string> SortMediaTypeFormatters(IEnumerable<MediaTypeFormatter> mediaTypeFormatters)

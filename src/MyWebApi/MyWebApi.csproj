@@ -148,7 +148,7 @@
     <Compile Include="Builders\HttpActionResults\Unauthorized\ChallengesBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\Unauthorized\UnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\UserBuilder.cs" />
-    <Compile Include="AuthenticationSchemes.cs" />
+    <Compile Include="AuthenticationScheme.cs" />
     <Compile Include="Common\ActionInfo.cs" />
     <Compile Include="Common\Extensions\ObjectExtensions.cs" />
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
