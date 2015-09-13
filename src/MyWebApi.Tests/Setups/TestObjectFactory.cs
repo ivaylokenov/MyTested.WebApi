@@ -30,6 +30,8 @@ namespace MyWebApi.Tests.Setups
 
     public static class TestObjectFactory
     {
+        public const string MediaType = "application/json";
+
         public static IEnumerable<MediaTypeFormatter> GetFormatters()
         {
             return new List<MediaTypeFormatter>

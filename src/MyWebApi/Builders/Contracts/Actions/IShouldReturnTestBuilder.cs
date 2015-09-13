@@ -20,6 +20,7 @@ namespace MyWebApi.Builders.Contracts.Actions
     using System.Net;
     using Base;
     using HttpActionResults.BadRequest;
+    using HttpActionResults.Content;
     using HttpActionResults.Created;
     using HttpActionResults.InternalServerError;
     using HttpActionResults.Json;
@@ -63,6 +64,12 @@ namespace MyWebApi.Builders.Contracts.Actions
         /// </summary>
         /// <returns>Created test builder.</returns>
         ICreatedTestBuilder Created();
+
+        /// <summary>
+        /// Tests whether action result is NegotiatedContentResult{T} or FormattedContentResult{T}.
+        /// </summary>
+        /// <returns>Content test builder.</returns>
+        IContentTestBuilder Content();
 
         /// <summary>
         /// Tests whether action result is RedirectResult or RedirectToRouteResult.

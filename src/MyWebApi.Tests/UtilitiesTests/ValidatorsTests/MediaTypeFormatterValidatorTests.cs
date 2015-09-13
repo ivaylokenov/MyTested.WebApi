@@ -18,7 +18,9 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
 {
     using System;
     using System.Linq;
+    using System.Net;
     using System.Net.Http.Formatting;
+    using System.Net.Http.Headers;
     using System.Web.Http.ModelBinding;
     using System.Web.Http.Results;
     using NUnit.Framework;
@@ -52,11 +54,29 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         public void ValidateMediaTypeFormatterShouldNotThrowExceptionWithCorrectMediaTypeFormatter()
         {
             var actionResultWithFormatters = new CreatedNegotiatedContentResult<int>(
-                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().Controller);
+                TestObjectFactory.GetUri(),
+                5,
+                MyWebApi.Controller<WebApiController>().Controller);
 
             MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
                 actionResultWithFormatters,
                 new FormUrlEncodedMediaTypeFormatter(),
+                TestObjectFactory.GetFailingValidationAction());
+        }
+
+        [Test]
+        public void ValidateMediaTypeFormatterShouldNotThrowExceptionWithSingleCorrectMediaTypeFormatter()
+        {
+            var actionResultWithFormatter = new FormattedContentResult<int>(
+                HttpStatusCode.OK,
+                5,
+                TestObjectFactory.GetCustomMediaTypeFormatter(),
+                new MediaTypeHeaderValue(TestObjectFactory.MediaType),
+                MyWebApi.Controller<WebApiController>().Controller);
+
+            MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
+                actionResultWithFormatter,
+                TestObjectFactory.GetCustomMediaTypeFormatter(),
                 TestObjectFactory.GetFailingValidationAction());
         }
 

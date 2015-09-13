@@ -121,6 +121,15 @@ namespace MyWebApi.Tests.Setups.Controllers
             return this.Content(HttpStatusCode.OK, this.responseModel);
         }
 
+        public IHttpActionResult ContentActionWithMediaType()
+        {
+            return this.Content(
+                HttpStatusCode.OK,
+                this.responseModel,
+                TestObjectFactory.GetCustomMediaTypeFormatter(),
+                TestObjectFactory.MediaType);
+        }
+
         public IHttpActionResult CreatedAction()
         {
             return this.Created(TestObjectFactory.GetUri().OriginalString, this.responseModel);
