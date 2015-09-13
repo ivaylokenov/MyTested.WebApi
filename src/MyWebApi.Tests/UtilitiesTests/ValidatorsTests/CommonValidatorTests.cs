@@ -14,18 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Tests.UtilitiesTests
+namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
 {
     using System;
     using System.Collections.Generic;
     using Exceptions;
-    using NUnit.Framework;
     using Setups;
-    using Utilities;
     using Utilities.Validators;
+    using NUnit.Framework;
 
     [TestFixture]
-    public class ValidatorTests
+    public class CommonValidatorTests
     {
         [Test]
         [ExpectedException(typeof(NullReferenceException))]

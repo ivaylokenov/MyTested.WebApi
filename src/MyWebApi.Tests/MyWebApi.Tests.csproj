@@ -105,7 +105,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtilitiesTests\ExpressionParserTests.cs" />
     <Compile Include="UtilitiesTests\ReflectionTests.cs" />
-    <Compile Include="UtilitiesTests\ValidatorTests.cs" />
+    <Compile Include="UtilitiesTests\ValidatorsTests\CommonValidatorTests.cs" />
+    <Compile Include="UtilitiesTests\ValidatorsTests\ContentNegotiatorValidatorTests.cs" />
+    <Compile Include="UtilitiesTests\ValidatorsTests\LocationValidatorTests.cs" />
+    <Compile Include="UtilitiesTests\ValidatorsTests\MediaTypeFormatterValidatorTests.cs" />
+    <Compile Include="UtilitiesTests\ValidatorsTests\RuntimeBinderValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MyWebApi.Tests.licenseheader" />
