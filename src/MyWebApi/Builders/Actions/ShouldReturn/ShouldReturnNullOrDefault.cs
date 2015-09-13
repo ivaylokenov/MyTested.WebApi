@@ -20,6 +20,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
     using Contracts.Base;
     using Exceptions;
     using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Class containing methods for testing null or default value result.
@@ -49,7 +50,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
         /// <returns>Base test builder with action result.</returns>
         public IBaseTestBuilderWithActionResult<TActionResult> Null()
         {
-            Validator.CheckIfTypeCanBeNull(typeof(TActionResult));
+            CommonValidator.CheckIfTypeCanBeNull(typeof(TActionResult));
             if (!this.CheckValidDefaultValue())
             {
                 this.ThrowNewHttpActionResultAssertionException(string.Format(
@@ -66,7 +67,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
         /// <returns>Base test builder with action result.</returns>
         public IBaseTestBuilderWithActionResult<TActionResult> NotNull()
         {
-            Validator.CheckIfTypeCanBeNull(typeof(TActionResult));
+            CommonValidator.CheckIfTypeCanBeNull(typeof(TActionResult));
             if (this.CheckValidDefaultValue())
             {
                 this.ThrowNewHttpActionResultAssertionException(string.Format(
@@ -79,7 +80,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
 
         private bool CheckValidDefaultValue()
         {
-            return Validator.CheckForDefaultValue(this.ActionResult) && this.CaughtException == null;
+            return CommonValidator.CheckForDefaultValue(this.ActionResult) && this.CaughtException == null;
         }
 
         private void ThrowNewHttpActionResultAssertionException(string message)

@@ -30,6 +30,8 @@ namespace MyWebApi.Tests.Setups
 
     public static class TestObjectFactory
     {
+        public const string MediaType = "application/json";
+
         public static IEnumerable<MediaTypeFormatter> GetFormatters()
         {
             return new List<MediaTypeFormatter>
@@ -60,6 +62,11 @@ namespace MyWebApi.Tests.Setups
         public static Uri GetUri()
         {
             return new Uri("http://somehost.com/someuri/1?query=Test");
+        }
+
+        public static Action<string, string, string> GetFailingValidationAction()
+        {
+            return (x, y, z) => { throw new NullReferenceException(string.Format("{0} {1} {2}", x, y, z)); };
         }
 
         public static RequestModel GetNullRequestModel()

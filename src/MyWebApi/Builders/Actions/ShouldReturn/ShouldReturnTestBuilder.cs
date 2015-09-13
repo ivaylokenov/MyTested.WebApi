@@ -17,6 +17,7 @@
 namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
     using Base;
@@ -24,6 +25,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
     using Contracts.Actions;
     using Exceptions;
     using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for testing returned action result.
@@ -50,7 +52,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
 
         private void ValidateActionReturnType(Type typeOfExpectedReturnValue, bool canBeAssignable = false, bool allowDifferentGenericTypeDefinitions = false)
         {
-            Validator.CheckForException(this.CaughtException);
+            CommonValidator.CheckForException(this.CaughtException);
 
             var typeOfActionResult = ActionResult.GetType();
 
@@ -110,6 +112,17 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
         {
             var typeOfResponseData = typeof(TExpectedType);
             this.ValidateActionReturnType(typeOfResponseData, canBeAssignable, allowDifferentGenericTypeDefinitions);
+        }
+
+        private void ValidateActionReturnType(params Type[] returnTypes)
+        {
+            var typeOfActionResult = this.ActionResult.GetType();
+            if (returnTypes.All(t => !Reflection.AreAssignableByGeneric(t, typeOfActionResult)))
+            {
+                this.ThrowNewGenericHttpActionResultAssertionException(
+                    string.Join(" or ", returnTypes.Select(t => t.ToFriendlyTypeName())),
+                    typeOfActionResult.ToFriendlyTypeName());
+            }
         }
 
         private void ThrowNewGenericHttpActionResultAssertionException(

@@ -19,15 +19,19 @@ namespace MyWebApi.Builders.Base
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Http.Formatting;
     using System.Web.Http;
+    using System.Web.Http.ModelBinding;
     using And;
     using Common;
     using Common.Extensions;
     using Contracts.And;
     using Contracts.Base;
+    using Contracts.Formatters;
     using Exceptions;
     using Microsoft.CSharp.RuntimeBinder;
     using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Base class for all test builders with action result.
@@ -65,6 +69,11 @@ namespace MyWebApi.Builders.Base
         /// <returns>Action result to be tested.</returns>
         public TActionResult AndProvideTheActionResult()
         {
+            if (this.ActionResult.GetType() == typeof(VoidActionResult))
+            {
+                throw new InvalidOperationException("Void methods cannot provide action result because they do not have return value.");
+            }
+
             return this.ActionResult;
         }
 
@@ -118,31 +127,6 @@ namespace MyWebApi.Builders.Base
         protected dynamic GetActionResultAsDynamic()
         {
             return this.ActionResult.GetType().CastTo<dynamic>(this.ActionResult);
-        }
-
-        /// <summary>
-        /// Validates URI by using UriTestBuilder.
-        /// </summary>
-        /// <param name="uriTestBuilder">UriTestBuilder for validation.</param>
-        /// <param name="failedValidationAction">Action to execute, if the validation fails.</param>
-        protected void ValidateLocation(
-            Action<UriTestBuilder> uriTestBuilder,
-            Action<string, string, string> failedValidationAction)
-        {
-            var actualUri = this.GetActionResultAsDynamic().Location as Uri;
-
-            var newUriTestBuilder = new UriTestBuilder();
-            uriTestBuilder(newUriTestBuilder);
-            var expectedUri = newUriTestBuilder.GetUri();
-
-            var validations = newUriTestBuilder.GetUriValidations();
-            if (validations.Any(v => !v(expectedUri, actualUri)))
-            {
-                failedValidationAction(
-                    "URI",
-                    "to equal the provided one",
-                    "was in fact different");
-            }
         }
     }
 }

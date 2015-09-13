@@ -25,6 +25,7 @@ namespace MyWebApi.Builders.Actions
     using ShouldHave;
     using ShouldReturn;
     using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for building the action result which will be tested.
@@ -81,7 +82,7 @@ namespace MyWebApi.Builders.Actions
         /// <returns>Should return test builder.</returns>
         public IShouldReturnTestBuilder<TActionResult> ShouldReturn()
         {
-            Validator.CheckForException(this.CaughtException);
+            CommonValidator.CheckForException(this.CaughtException);
             return new ShouldReturnTestBuilder<TActionResult>(this.Controller, this.ActionName, this.CaughtException, this.ActionResult);
         }
     }

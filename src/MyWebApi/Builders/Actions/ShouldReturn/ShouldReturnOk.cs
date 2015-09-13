@@ -17,7 +17,9 @@
 namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Web.Http.Results;
+    using Contracts.HttpActionResults.Ok;
     using Contracts.Models;
+    using HttpActionResults.Ok;
     using Models;
 
     /// <summary>
@@ -29,8 +31,8 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
         /// <summary>
         /// Tests whether action result is plain OkResult.
         /// </summary>
-        /// <returns>Response model test builder.</returns>
-        public IResponseModelTestBuilder Ok()
+        /// <returns>Ok test builder.</returns>
+        public IOkTestBuilder Ok()
         {
             var actionResultAsOkResult = this.ActionResult as OkResult;
             if (actionResultAsOkResult != null)
@@ -42,7 +44,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
                 this.ValidateActionReturnType(typeof(OkNegotiatedContentResult<>), allowDifferentGenericTypeDefinitions: true);
             }
 
-            return new ResponseModelTestBuilder<TActionResult>(
+            return new OkTestBuilder<TActionResult>(
                 this.Controller,
                 this.ActionName,
                 this.CaughtException,
