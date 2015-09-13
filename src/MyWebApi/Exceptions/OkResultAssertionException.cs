@@ -14,19 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Models
+namespace MyWebApi.Exceptions
 {
-    using Base;
+    using System;
 
     /// <summary>
-    /// Used for testing the response model type of action.
+    /// Exception for invalid ok result.
     /// </summary>
-    public interface IResponseModelTestBuilder : IBaseResponseModelTestBuilder
+    public class OkResultAssertionException : Exception
     {
         /// <summary>
-        /// Tests whether no response model is returned from the invoked action.
+        /// Initializes a new instance of the OkResultAssertionException class.
         /// </summary>
-        /// <returns>Base test builder.</returns>
-        IBaseTestBuilder WithNoResponseModel();
+        /// <param name="message">Message for System.Exception class.</param>
+        public OkResultAssertionException(string message)
+            : base(message)
+        {
+        }
     }
 }

@@ -23,6 +23,7 @@ namespace MyWebApi.Builders.Contracts.Actions
     using HttpActionResults.Created;
     using HttpActionResults.InternalServerError;
     using HttpActionResults.Json;
+    using HttpActionResults.Ok;
     using HttpActionResults.Redirect;
     using HttpActionResults.Unauthorized;
     using Models;
@@ -54,8 +55,8 @@ namespace MyWebApi.Builders.Contracts.Actions
         /// <summary>
         /// Tests whether action result is OkResult or OkNegotiatedContentResult{T}.
         /// </summary>
-        /// <returns>Response model test builder.</returns>
-        IResponseModelTestBuilder Ok();
+        /// <returns>Ok test builder.</returns>
+        IOkTestBuilder Ok();
 
         /// <summary>
         /// Tests whether action result is CreatedNegotiatedContentResult{T} or CreatedAtRouteNegotiatedContentResult{T}.

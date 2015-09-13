@@ -55,7 +55,8 @@ namespace MyWebApi.Builders.HttpActionResults.Content
             return this;
         }
 
-        public IAndContentTestBuilder WithContentNegotiatorOfType<TContentNegotiator>() where TContentNegotiator : IContentNegotiator, new()
+        public IAndContentTestBuilder WithContentNegotiatorOfType<TContentNegotiator>()
+            where TContentNegotiator : IContentNegotiator, new()
         {
             return this.WithContentNegotiator(Activator.CreateInstance<TContentNegotiator>());
         }

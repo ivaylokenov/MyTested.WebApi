@@ -71,6 +71,8 @@
     <Compile Include="Builders\And\AndProvideTestBuilder.cs" />
     <Compile Include="Builders\And\AndProvideTestBuilder{TActionResult}.cs" />
     <Compile Include="Builders\And\AndTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\HttpActionResults\Ok\IAndOkTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\HttpActionResults\Ok\IOkTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
@@ -118,7 +120,6 @@
     <Compile Include="Builders\Contracts\Models\IModelErrorDetailsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IModelErrorTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IModelErrorTestBuilder{TModel}.cs" />
-    <Compile Include="Builders\Contracts\Models\IResponseModelTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IModelDetailsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Unauthorized\IUnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IUserBuilder.cs" />
@@ -138,7 +139,7 @@
     <Compile Include="Builders\Models\ModelErrorDetailsTestBuilder.cs" />
     <Compile Include="Builders\Models\ModelErrorTestBuilder.cs" />
     <Compile Include="Builders\Models\ModelErrorTestBuilder{TModel}.cs" />
-    <Compile Include="Builders\Models\ResponseModelTestBuilder.cs" />
+    <Compile Include="Builders\HttpActionResults\Ok\OkTestBuilder.cs" />
     <Compile Include="Builders\Actions\ActionResultTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnResultOfType.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnOk.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Exceptions\InternalServerErrorResultAssertionException.cs" />
     <Compile Include="Exceptions\InvalidExceptionAssertionException.cs" />
     <Compile Include="Exceptions\JsonResultAssertionException.cs" />
+    <Compile Include="Exceptions\OkResultAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
     <Compile Include="Exceptions\ModelErrorAssertionException.cs" />
     <Compile Include="Exceptions\UnauthorizedResultAssertionException.cs" />
