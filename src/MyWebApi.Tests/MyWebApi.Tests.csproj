@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnBadRequestTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnConflictTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnContentTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnCreatedTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnInternalServerErrorTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnJsonTests.cs" />
@@ -70,15 +71,17 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldThrowExceptionTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\VoidActionResultTestBuilderTests.cs" />
     <Compile Include="BuildersTests\AndTests\AndProvideTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\BadRequestsTests\BadRequestErrorMessageTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\BadRequestsTests\BadRequestTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpActionResultsTests\BadRequestTests\BadRequestErrorMessageTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpActionResultsTests\BadRequestTests\BadRequestTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ControllerBuilderTests.cs" />
-    <Compile Include="BuildersTests\CreatedTests\CreatedTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpActionResultsTests\ContentTests\ContentTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpActionResultsTests\CreatedTests\CreatedTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\ExceptionMessageTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\ExceptionTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\InternalServerErrorsTests\InternalServerErrorTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\JsonTests\JsonSerializerSettingsTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\JsonTests\JsonTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpActionResultsTests\InternalServerErrorTests\InternalServerErrorTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpActionResultsTests\JsonTests\JsonSerializerSettingsTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpActionResultsTests\JsonTests\JsonTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpActionResultsTests\OkTests\OkTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ModelErrorDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelTestBuilderTests.cs" />
@@ -86,9 +89,9 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldHaveModelStateTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnOkResultTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnTests.cs" />
-    <Compile Include="BuildersTests\RedirectTests\RedirectTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\UnauthorizedTests\AndUnauthorizedTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\UnauthorizedTests\UnauthorizedResultTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpActionResultsTests\RedirectTests\RedirectTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpActionResultsTests\UnauthorizedTests\AndUnauthorizedTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpActionResultsTests\UnauthorizedTests\UnauthorizedResultTestBuilderTests.cs" />
     <Compile Include="Setups\Common\CustomContentNegotiator.cs" />
     <Compile Include="Setups\Common\CustomMediaTypeFormatter.cs" />
     <Compile Include="Setups\Controllers\NoParameterlessConstructorController.cs" />
@@ -105,7 +108,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtilitiesTests\ExpressionParserTests.cs" />
     <Compile Include="UtilitiesTests\ReflectionTests.cs" />
-    <Compile Include="UtilitiesTests\ValidatorTests.cs" />
+    <Compile Include="UtilitiesTests\ValidatorsTests\CommonValidatorTests.cs" />
+    <Compile Include="UtilitiesTests\ValidatorsTests\ContentNegotiatorValidatorTests.cs" />
+    <Compile Include="UtilitiesTests\ValidatorsTests\LocationValidatorTests.cs" />
+    <Compile Include="UtilitiesTests\ValidatorsTests\MediaTypeFormatterValidatorTests.cs" />
+    <Compile Include="UtilitiesTests\ValidatorsTests\RuntimeBinderValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MyWebApi.Tests.licenseheader" />
@@ -120,6 +127,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -23,6 +23,7 @@ namespace MyWebApi.Builders.Base
     using Contracts.Base;
     using Exceptions;
     using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Base class for all test builders.
@@ -58,7 +59,7 @@ namespace MyWebApi.Builders.Base
 
             private set
             {
-                Validator.CheckForNullReference(value, errorMessageName: "Controller");
+                CommonValidator.CheckForNullReference(value, errorMessageName: "Controller");
                 this.controller = value;
             }
         }
@@ -76,7 +77,7 @@ namespace MyWebApi.Builders.Base
 
             private set
             {
-                Validator.CheckForNotWhiteSpaceString(value, errorMessageName: "ActionName");
+                CommonValidator.CheckForNotWhiteSpaceString(value, errorMessageName: "ActionName");
                 this.actionName = value;
             }
         }

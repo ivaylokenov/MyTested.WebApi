@@ -18,14 +18,16 @@ namespace MyWebApi.Builders.Contracts.Actions
 {
     using System;
     using System.Net;
-    using BadRequests;
     using Base;
-    using Created;
-    using InternalServerErrors;
-    using Json;
+    using HttpActionResults.BadRequest;
+    using HttpActionResults.Content;
+    using HttpActionResults.Created;
+    using HttpActionResults.InternalServerError;
+    using HttpActionResults.Json;
+    using HttpActionResults.Ok;
+    using HttpActionResults.Redirect;
+    using HttpActionResults.Unauthorized;
     using Models;
-    using Redirect;
-    using Unauthorized;
 
     /// <summary>
     /// Used for testing action returned result.
@@ -54,14 +56,20 @@ namespace MyWebApi.Builders.Contracts.Actions
         /// <summary>
         /// Tests whether action result is OkResult or OkNegotiatedContentResult{T}.
         /// </summary>
-        /// <returns>Response model test builder.</returns>
-        IResponseModelTestBuilder Ok();
+        /// <returns>Ok test builder.</returns>
+        IOkTestBuilder Ok();
 
         /// <summary>
         /// Tests whether action result is CreatedNegotiatedContentResult{T} or CreatedAtRouteNegotiatedContentResult{T}.
         /// </summary>
         /// <returns>Created test builder.</returns>
         ICreatedTestBuilder Created();
+
+        /// <summary>
+        /// Tests whether action result is NegotiatedContentResult{T} or FormattedContentResult{T}.
+        /// </summary>
+        /// <returns>Content test builder.</returns>
+        IContentTestBuilder Content();
 
         /// <summary>
         /// Tests whether action result is RedirectResult or RedirectToRouteResult.

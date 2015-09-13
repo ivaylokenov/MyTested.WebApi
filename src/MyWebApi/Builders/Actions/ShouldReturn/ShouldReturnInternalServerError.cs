@@ -17,8 +17,8 @@
 namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Web.Http.Results;
-    using Contracts.InternalServerErrors;
-    using InternalServerErrors;
+    using Contracts.HttpActionResults.InternalServerError;
+    using HttpActionResults.InternalServerError;
 
     /// <summary>
     /// Class containing methods for testing InternalServerErrorResult or ExceptionResult.

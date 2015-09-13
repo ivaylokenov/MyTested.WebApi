@@ -17,8 +17,8 @@
 namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Web.Http.Results;
-    using Contracts.Json;
-    using Json;
+    using Contracts.HttpActionResults.Json;
+    using HttpActionResults.Json;
 
     /// <summary>
     /// Class containing methods for testing JSON Result.

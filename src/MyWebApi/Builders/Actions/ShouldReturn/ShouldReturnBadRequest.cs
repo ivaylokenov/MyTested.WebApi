@@ -17,8 +17,8 @@
 namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Web.Http.Results;
-    using BadRequests;
-    using Contracts.BadRequests;
+    using Contracts.HttpActionResults.BadRequest;
+    using HttpActionResults.BadRequest;
 
     /// <summary>
     /// Class containing methods for testing BadRequestResult, InvalidModelStateResult or BadRequestErrorMessageResult.
