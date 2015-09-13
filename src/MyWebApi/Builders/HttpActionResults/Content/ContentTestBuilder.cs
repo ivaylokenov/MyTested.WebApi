@@ -105,8 +105,8 @@ namespace MyWebApi.Builders.HttpActionResults.Content
                 {
                     this.ThrowNewContentResultAssertionException(
                         "MediaType",
-                        string.Format("to be {0}", mediaType != null ? mediaType.MediaType : null),
-                        string.Format("instead received {0}", actualMediaType != null ? actualMediaType.MediaType : null));
+                        string.Format("to be {0}", mediaType != null ? mediaType.MediaType : "null"),
+                        string.Format("instead received {0}", actualMediaType != null ? actualMediaType.MediaType : "null"));
                 }
             });
 

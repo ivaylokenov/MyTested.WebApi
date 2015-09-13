@@ -130,6 +130,24 @@ namespace MyWebApi.Tests.Setups.Controllers
                 TestObjectFactory.MediaType);
         }
 
+        public IHttpActionResult ContentActionWithNullMediaType()
+        {
+            return this.Content(
+                HttpStatusCode.OK,
+                this.responseModel,
+                TestObjectFactory.GetCustomMediaTypeFormatter());
+        }
+
+        public IHttpActionResult ContentActionWithCustomFormatters()
+        {
+            return new NegotiatedContentResult<int>(
+                HttpStatusCode.OK,
+                5,
+                TestObjectFactory.GetCustomContentNegotiator(),
+                TestObjectFactory.GetCustomHttpRequestMessage(),
+                TestObjectFactory.GetFormatters());
+        }
+
         public IHttpActionResult CreatedAction()
         {
             return this.Created(TestObjectFactory.GetUri().OriginalString, this.responseModel);
