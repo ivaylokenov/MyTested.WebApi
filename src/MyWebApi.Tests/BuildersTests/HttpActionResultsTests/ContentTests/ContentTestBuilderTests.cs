@@ -292,6 +292,5 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.ContentTests
                 .Content()
                 .WithResponseModelOfType<ICollection<ResponseModel>>();
         }
-
     }
 }

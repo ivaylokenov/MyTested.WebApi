@@ -172,6 +172,7 @@
     <Compile Include="Exceptions\UnauthorizedResultAssertionException.cs" />
     <Compile Include="Exceptions\UnresolvedDependenciesException.cs" />
     <Compile Include="Exceptions\RedirectResultAssertionException.cs" />
+    <Compile Include="MediaType.cs" />
     <Compile Include="MyWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ExpressionParser.cs" />
