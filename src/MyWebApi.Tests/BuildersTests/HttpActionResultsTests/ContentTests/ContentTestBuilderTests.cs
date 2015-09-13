@@ -79,6 +79,17 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.ContentTests
         }
 
         [Test]
+        public void WithMediaTypeShouldNotThrowExceptionWithMediaTypeHeaderValueConstant()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.ContentActionWithMediaType())
+                .ShouldReturn()
+                .Content()
+                .WithMediaType(MediaType.ApplicationJson);
+        }
+
+        [Test]
         [ExpectedException(
             typeof(ContentResultAssertionException),
             ExpectedMessage = "When calling ContentActionWithMediaType action in WebApiController expected content result MediaType to be text/plain, but instead received application/json.")]
