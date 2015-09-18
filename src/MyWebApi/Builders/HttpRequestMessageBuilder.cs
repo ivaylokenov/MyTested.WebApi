@@ -17,6 +17,7 @@
 namespace MyWebApi.Builders
 {
     using System;
+    using System.Collections.Generic;
     using System.Net.Http;
     using Contracts.HttpRequests;
     using Contracts.Uri;
@@ -39,6 +40,17 @@ namespace MyWebApi.Builders
                 requestLocation,
                 ThrowNewInvalidHttpRequestMessageException);
 
+            return this;
+        }
+
+        public IAndHttpRequestMessageBuilder WithMethod(string method)
+        {   
+            return this.WithMethod(new HttpMethod(method));
+        }
+
+        public IAndHttpRequestMessageBuilder WithMethod(HttpMethod method)
+        {
+            this.requestMessage.Method = method;
             return this;
         }
 
