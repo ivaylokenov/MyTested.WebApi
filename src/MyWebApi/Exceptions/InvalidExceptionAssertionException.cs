@@ -23,7 +23,7 @@ namespace MyWebApi.Exceptions
     /// </summary>
     public class InvalidExceptionAssertionException : Exception
     {
-         /// <summary>
+        /// <summary>
         /// Initializes a new instance of the InvalidExceptionAssertionException class.
         /// </summary>
         /// <param name="message">Message for System.Exception class.</param>

@@ -87,9 +87,9 @@ namespace MyWebApi.Utilities.Validators
 
                 var newUriTestBuilder = new UriTestBuilder();
                 uriTestBuilder(newUriTestBuilder);
-                var expectedUri = newUriTestBuilder.GetUri();
+                var expectedUri = newUriTestBuilder.GetMockedUri();
 
-                var validations = newUriTestBuilder.GetUriValidations();
+                var validations = newUriTestBuilder.GetMockedUriValidations();
                 if (validations.Any(v => !v(expectedUri, actualUri)))
                 {
                     failedValidationAction(

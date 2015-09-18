@@ -119,12 +119,23 @@ namespace MyWebApi.Builders
             return this;
         }
 
-        internal MockedUri GetUri()
+        internal MockedUri GetMockedUri()
         {
             return this.mockedUri;
         }
 
-        internal ICollection<Func<MockedUri, Uri, bool>> GetUriValidations()
+        internal Uri GetUri()
+        {
+            var uriBuilder = new UriBuilder(
+                this.mockedUri.Scheme,
+                this.mockedUri.Host,
+                this.mockedUri.Port,
+                this.mockedUri.AbsolutePath);
+
+            return uriBuilder.Uri;
+        }
+
+        internal ICollection<Func<MockedUri, Uri, bool>> GetMockedUriValidations()
         {
             return this.validations;
         }

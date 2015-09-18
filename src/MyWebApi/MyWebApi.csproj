@@ -73,6 +73,8 @@
     <Compile Include="Builders\And\AndTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Ok\IAndOkTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Ok\IOkTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\HttpRequests\IAndHttpRequestMessageBuilder.cs" />
+    <Compile Include="Builders\Contracts\HttpRequests\IHttpRequestMessageBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveModelState.cs" />
     <Compile Include="Builders\HttpActionResults\Created\CreatedTestBuilder.cs" />
     <Compile Include="Builders\FormattersBuilder.cs" />
+    <Compile Include="Builders\HttpRequestMessageBuilder.cs" />
     <Compile Include="Builders\UriTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionTestBuilder.cs" />
@@ -165,6 +168,7 @@
     <Compile Include="Exceptions\HttpStatusCodeResultAssertionException.cs" />
     <Compile Include="Exceptions\InternalServerErrorResultAssertionException.cs" />
     <Compile Include="Exceptions\InvalidExceptionAssertionException.cs" />
+    <Compile Include="Exceptions\InvalidHttpRequestMessageException.cs" />
     <Compile Include="Exceptions\JsonResultAssertionException.cs" />
     <Compile Include="Exceptions\OkResultAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />

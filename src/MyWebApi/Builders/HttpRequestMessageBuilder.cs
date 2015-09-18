@@ -20,6 +20,8 @@ namespace MyWebApi.Builders
     using System.Net.Http;
     using Contracts.HttpRequests;
     using Contracts.Uri;
+    using Exceptions;
+    using Utilities.Validators;
 
     public class HttpRequestMessageBuilder : IAndHttpRequestMessageBuilder
     {
@@ -30,25 +32,41 @@ namespace MyWebApi.Builders
             this.requestMessage = new HttpRequestMessage();
         }
 
-        public IAndHttpRequestMessageBuilder WithUri(string requestUri)
+        public IAndHttpRequestMessageBuilder WithRequestUri(string requestLocation)
         {
-            this.requestMessage.RequestUri = new Uri(requestUri);
+            this.requestMessage.RequestUri = LocationValidator.ValidateAndGetWellFormedUriString(
+                requestLocation,
+                ThrowNewInvalidHttpRequestMessageException);
+
             return this;
         }
 
-        public IAndHttpRequestMessageBuilder WithUri(Uri requestUri)
+        public IAndHttpRequestMessageBuilder WithRequestUri(Uri requestLocation)
         {
+            this.requestMessage.RequestUri = requestLocation;
             return this;
         }
 
-        public IAndHttpRequestMessageBuilder WithUri(Action<IUriTestBuilder> requestUriTestBuilder)
+        public IAndHttpRequestMessageBuilder WithRequestUri(Action<IUriTestBuilder> requestUriTestBuilder)
         {
+            var uriTestBuilder = new UriTestBuilder();
+            requestUriTestBuilder(uriTestBuilder);
+            this.requestMessage.RequestUri = uriTestBuilder.GetUri();
             return this;
         }
 
         public IHttpRequestMessageBuilder And()
         {
             return this;
+        }
+
+        private void ThrowNewInvalidHttpRequestMessageException(string propertyName, string expectedValue, string actualValue)
+        {
+            throw new InvalidHttpRequestMessageException(string.Format(
+                "When building HttpRequestMessage expected {0} to be {1}, but instead received {2}",
+                propertyName,
+                expectedValue,
+                actualValue));
         }
     }
 }
