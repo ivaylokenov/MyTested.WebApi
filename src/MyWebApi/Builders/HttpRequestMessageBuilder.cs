@@ -56,6 +56,17 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        public IAndHttpRequestMessageBuilder WithVersion(string version)
+        {
+            return this.WithVersion(new Version(version));
+        }
+
+        public IAndHttpRequestMessageBuilder WithVersion(Version version)
+        {
+            this.requestMessage.Version = version;
+            return this;
+        }
+
         public IHttpRequestMessageBuilder And()
         {
             return this;
