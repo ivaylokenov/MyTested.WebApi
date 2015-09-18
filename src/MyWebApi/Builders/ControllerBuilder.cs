@@ -76,6 +76,11 @@ namespace MyWebApi.Builders
             }
         }
 
+        public IAndControllerBuilder<TController> WithHttpRequest()
+        {
+            return this;
+        }
+
         /// <summary>
         /// Tries to resolve constructor dependency of given type.
         /// </summary>
