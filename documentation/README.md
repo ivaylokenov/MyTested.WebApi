@@ -153,7 +153,7 @@ MyWebApi
 	.InvalidModelState()
 	.AndAlso()
 	.ShouldReturn()
-	.Ok();;
+	.Ok();
 	
 // tests whether model state error exists (or does not exist) for specific key 
 // * not recommended because of magic string
