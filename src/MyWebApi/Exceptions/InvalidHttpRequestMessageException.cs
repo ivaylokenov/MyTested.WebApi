@@ -14,9 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts
+namespace MyWebApi.Exceptions
 {
-    public interface IHttpRequestBuilder
+    using System;
+
+    /// <summary>
+    /// Exception for invalid HTTP request message.
+    /// </summary>
+    public class InvalidHttpRequestMessageException : Exception
     {
+        /// <summary>
+        /// Initializes a new instance of the InvalidHttpRequestMessageException class.
+        /// </summary>
+        /// <param name="message">Message for System.Exception class.</param>
+        public InvalidHttpRequestMessageException(string message)
+            : base(message)
+        {
+        }
     }
 }

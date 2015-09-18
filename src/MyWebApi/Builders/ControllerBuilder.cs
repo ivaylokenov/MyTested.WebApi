@@ -30,6 +30,7 @@ namespace MyWebApi.Builders
     using Contracts;
     using Contracts.Actions;
     using Contracts.Controllers;
+    using Contracts.HttpRequests;
     using Exceptions;
     using Utilities;
 
@@ -76,7 +77,7 @@ namespace MyWebApi.Builders
             }
         }
 
-        public IAndControllerBuilder<TController> WithHttpRequest()
+        public IAndControllerBuilder<TController> WithHttpRequestMessage(IHttpRequestMessageBuilder httpRequestBuilder)
         {
             return this;
         }
