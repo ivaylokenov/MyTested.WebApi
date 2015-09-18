@@ -21,6 +21,7 @@ namespace MyWebApi.Builders
     using Contracts.HttpRequests;
     using Contracts.Uri;
     using Exceptions;
+    using Uris;
     using Utilities.Validators;
 
     public class HttpRequestMessageBuilder : IAndHttpRequestMessageBuilder
@@ -49,7 +50,7 @@ namespace MyWebApi.Builders
 
         public IAndHttpRequestMessageBuilder WithRequestUri(Action<IUriTestBuilder> requestUriTestBuilder)
         {
-            var uriTestBuilder = new UriTestBuilder();
+            var uriTestBuilder = new MockedUriBuilder();
             requestUriTestBuilder(uriTestBuilder);
             this.requestMessage.RequestUri = uriTestBuilder.GetUri();
             return this;
