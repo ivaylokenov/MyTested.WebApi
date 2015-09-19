@@ -40,9 +40,9 @@ namespace MyWebApi.Builders.Contracts.Controllers
         /// <summary>
         /// Adds HTTP request message to the tested controller.
         /// </summary>
-        /// <param name="httpRequestBuilder">HTTP request message builder.</param>
+        /// <param name="httpRequestBuilder">Builder for HTTP request message.</param>
         /// <returns>The same controller builder.</returns>
-        IAndControllerBuilder<TController> WithHttpRequestMessage(IHttpRequestMessageBuilder httpRequestBuilder);
+        IAndControllerBuilder<TController> WithHttpRequestMessage(Action<IHttpRequestMessageBuilder> httpRequestBuilder);
 
         /// <summary>
         /// Tries to resolve constructor dependency of given type.

@@ -283,6 +283,11 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        internal HttpRequestMessage GetHttpRequestMessage()
+        {
+            return this.requestMessage;
+        }
+
         private void ThrowNewInvalidHttpRequestMessageException(string propertyName, string expectedValue, string actualValue)
         {
             throw new InvalidHttpRequestMessageException(string.Format(
