@@ -17,10 +17,14 @@
 namespace MyWebApi.Builders
 {
     using System;
+    using System.Net;
     using System.Net.Http;
     using System.Web.Http;
     using Base;
+    using Common.Extensions;
     using Contracts.HttpResponseMessages;
+    using Exceptions;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for testing HTTP response message results.
@@ -38,10 +42,49 @@ namespace MyWebApi.Builders
         public HttpResponseMessageTestBuilder(
             ApiController controller,
             string actionName,
-            Exception caughtException, 
+            Exception caughtException,
             HttpResponseMessage actionResult)
             : base(controller, actionName, caughtException, actionResult)
         {
+        }
+
+        public IAndHttpResponseMessageTestBuilder WithStatusCode(HttpStatusCode statusCode)
+        {
+            var actualStatusCode = this.ActionResult.StatusCode;
+            if (actualStatusCode != statusCode)
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "status code",
+                    string.Format("to be {0} ({1})", (int)statusCode, statusCode),
+                    string.Format("instead received {0} ({1})", (int)actualStatusCode, actualStatusCode));
+            }
+
+            return this;
+        }
+
+        public IAndHttpResponseMessageTestBuilder WithVersion(string version)
+        {
+            var parsedVersion = VersionValidator.TryParse(version, this.ThrowNewHttpResponseMessageAssertionException);
+            return this.WithVersion(parsedVersion);
+        }
+
+        public IAndHttpResponseMessageTestBuilder WithVersion(int major, int minor)
+        {
+            return this.WithVersion(new Version(major, minor));
+        }
+
+        public IAndHttpResponseMessageTestBuilder WithVersion(Version version)
+        {
+            var actualVersion = this.ActionResult.Version;
+            if (actualVersion != version)
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "version",
+                    string.Format("to be {0}", version),
+                    string.Format("instead received {0}", actualVersion));
+            }
+
+            return this;
         }
 
         /// <summary>
@@ -51,6 +94,17 @@ namespace MyWebApi.Builders
         public IHttpResponseMessageTestBuilder AndAlso()
         {
             return this;
+        }
+
+        private void ThrowNewHttpResponseMessageAssertionException(string propertyName, string expectedValue, string actualValue)
+        {
+            throw new HttpResponseMessageAssertionException(string.Format(
+                    "When calling {0} action in {1} expected HTTP response message result {2} {3}, but {4}.",
+                    this.ActionName,
+                    this.Controller.GetName(),
+                    propertyName,
+                    expectedValue,
+                    actualValue));
         }
     }
 }
