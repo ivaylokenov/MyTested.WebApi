@@ -19,7 +19,7 @@ namespace MyWebApi.Builders.Uris
     using System;
     using System.Collections.Generic;
     using Common;
-    using Contracts.Uri;
+    using Contracts.Uris;
 
     /// <summary>
     /// Used for testing URI location in a created result.

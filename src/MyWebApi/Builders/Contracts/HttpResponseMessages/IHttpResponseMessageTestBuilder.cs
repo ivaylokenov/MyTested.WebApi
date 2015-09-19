@@ -14,17 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Uri
+namespace MyWebApi.Builders.Contracts.HttpResponseMessages
 {
-    /// <summary>
-    /// Used for adding AndAlso() method to the the URI tests.
-    /// </summary>
-    public interface IAndUriTestBuilder : IUriTestBuilder
+    public interface IHttpResponseMessageTestBuilder
     {
-        /// <summary>
-        /// AndAlso method for better readability when chaining URI tests.
-        /// </summary>
-        /// <returns>The same URI test builder.</returns>
-        IUriTestBuilder AndAlso();
     }
 }

@@ -24,7 +24,7 @@ namespace MyWebApi.Builders
     using System.Text;
     using Common.Extensions;
     using Contracts.HttpRequests;
-    using Contracts.Uri;
+    using Contracts.Uris;
     using Exceptions;
     using Uris;
     using Utilities.Validators;

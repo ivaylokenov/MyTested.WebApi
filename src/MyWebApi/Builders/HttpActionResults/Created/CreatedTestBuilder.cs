@@ -24,7 +24,7 @@ namespace MyWebApi.Builders.HttpActionResults.Created
     using Common.Extensions;
     using Contracts.Formatters;
     using Contracts.HttpActionResults.Created;
-    using Contracts.Uri;
+    using Contracts.Uris;
     using Exceptions;
     using Models;
     using Utilities.Validators;

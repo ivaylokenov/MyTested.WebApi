@@ -22,7 +22,7 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
     using Common.Extensions;
     using Contracts.Base;
     using Contracts.HttpActionResults.Redirect;
-    using Contracts.Uri;
+    using Contracts.Uris;
     using Exceptions;
     using Utilities.Validators;
 

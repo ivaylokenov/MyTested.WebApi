@@ -22,7 +22,7 @@ namespace MyWebApi.Builders.Contracts.HttpRequests
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Text;
-    using Uri;
+    using Uris;
 
     /// <summary>
     /// Used for building HTTP request message.

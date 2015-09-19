@@ -18,7 +18,7 @@ namespace MyWebApi.Builders.Uris
 {
     using System;
     using Common;
-    using Contracts.Uri;
+    using Contracts.Uris;
 
     using SystemUriBuilder = System.UriBuilder;
 

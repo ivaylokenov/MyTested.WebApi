@@ -99,6 +99,11 @@ namespace MyWebApi.Tests.Setups.Controllers
             return this.BadRequest();
         }
 
+        public HttpResponseMessage HttpResponseMessageAction()
+        {
+            return this.Request.CreateResponse(HttpStatusCode.OK, this.responseModel);
+        }
+
         public void EmptyAction()
         {
         }
