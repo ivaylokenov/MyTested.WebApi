@@ -23,7 +23,6 @@ namespace MyWebApi.Builders.Actions
     using Contracts.Actions;
     using Contracts.Base;
     using ShouldHave;
-    using Utilities;
     using Utilities.Validators;
 
     /// <summary>

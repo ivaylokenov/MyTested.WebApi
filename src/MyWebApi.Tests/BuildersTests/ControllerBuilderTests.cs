@@ -19,6 +19,7 @@ namespace MyWebApi.Tests.BuildersTests
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Http;
     using System.Web.Http.Results;
     using Builders.Contracts.Actions;
     using Builders.Contracts.Base;
@@ -324,6 +325,54 @@ namespace MyWebApi.Tests.BuildersTests
                 .Calling(c => c.OkResultAction())
                 .ShouldReturn()
                 .Ok();
+        }
+
+        [Test]
+        public void WithHttpRequestMessageShouldPopulateCorrectRequestAndReturnOk()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request
+                    => request
+                        .WithMethod(HttpMethod.Post)
+                        .AndAlso()
+                        .WithHeader("TestHeader", "TestHeaderValue"))
+                .Calling(c => c.CustomRequestAction())
+                .ShouldReturn()
+                .Ok();
+        }
+
+        [Test]
+        public void WithHttpRequestMessageShouldPopulateCorrectRequestAndReturnBadRequestWhenMethodIsMissing()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request => request.WithHeader("TestHeader", "TestHeaderValue"))
+                .Calling(c => c.CustomRequestAction())
+                .ShouldReturn()
+                .BadRequest();
+        }
+
+        [Test]
+        public void WithHttpRequestMessageShouldPopulateCorrectRequestAndReturnOkWithCommonHeader()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request => request.WithHeader("Accept", MediaType.ApplicationJson))
+                .Calling(c => c.CommonHeaderAction())
+                .ShouldReturn()
+                .Ok();
+        }
+
+        [Test]
+        public void WithHttpRequestMessageShouldPopulateCorrectRequestAndReturnBadRequestWhenHeaderIsMissing()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
+                .Calling(c => c.CustomRequestAction())
+                .ShouldReturn()
+                .BadRequest();
         }
 
         private void CheckActionResultTestBuilder<TActionResult>(

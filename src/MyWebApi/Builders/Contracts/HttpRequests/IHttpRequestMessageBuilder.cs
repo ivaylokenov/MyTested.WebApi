@@ -174,6 +174,14 @@ namespace MyWebApi.Builders.Contracts.HttpRequests
         /// <summary>
         /// Adds HTTP version to the built HTTP request message.
         /// </summary>
+        /// <param name="major">Major number in the provided version.</param>
+        /// <param name="minor">Minor number in the provided version.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        IAndHttpRequestMessageBuilder WithVersion(int major, int minor);
+
+        /// <summary>
+        /// Adds HTTP version to the built HTTP request message.
+        /// </summary>
         /// <param name="version">HTTP version provided by Version type.</param>
         /// <returns>The same HTTP request message builder.</returns>
         IAndHttpRequestMessageBuilder WithVersion(Version version);

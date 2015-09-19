@@ -82,6 +82,7 @@
     <Compile Include="BuildersTests\HttpActionResultsTests\JsonTests\JsonSerializerSettingsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\JsonTests\JsonTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\OkTests\OkTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpRequestMessageBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ModelErrorDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelTestBuilderTests.cs" />

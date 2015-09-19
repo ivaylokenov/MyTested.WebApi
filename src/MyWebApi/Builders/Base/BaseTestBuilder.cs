@@ -22,7 +22,6 @@ namespace MyWebApi.Builders.Base
     using Common.Extensions;
     using Contracts.Base;
     using Exceptions;
-    using Utilities;
     using Utilities.Validators;
 
     /// <summary>

@@ -266,6 +266,17 @@ namespace MyWebApi.Builders
         /// <summary>
         /// Adds HTTP version to the built HTTP request message.
         /// </summary>
+        /// <param name="major">Major number in the provided version.</param>
+        /// <param name="minor">Minor number in the provided version.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        public IAndHttpRequestMessageBuilder WithVersion(int major, int minor)
+        {
+            return this.WithVersion(new Version(major, minor));
+        }
+
+        /// <summary>
+        /// Adds HTTP version to the built HTTP request message.
+        /// </summary>
         /// <param name="version">HTTP version provided by Version type.</param>
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithVersion(Version version)
@@ -291,7 +302,7 @@ namespace MyWebApi.Builders
         private void ThrowNewInvalidHttpRequestMessageException(string propertyName, string expectedValue, string actualValue)
         {
             throw new InvalidHttpRequestMessageException(string.Format(
-                "When building HttpRequestMessage expected {0} to be {1}, but instead received {2}",
+                "When building HttpRequestMessage expected {0} to be {1}, but instead received {2}.",
                 propertyName,
                 expectedValue,
                 actualValue));

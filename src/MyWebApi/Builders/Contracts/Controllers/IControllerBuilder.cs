@@ -19,6 +19,7 @@ namespace MyWebApi.Builders.Contracts.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+    using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
     using Actions;
@@ -36,6 +37,12 @@ namespace MyWebApi.Builders.Contracts.Controllers
         /// </summary>
         /// <value>Instance of the ASP.NET Web API controller.</value>
         TController Controller { get; }
+
+        /// <summary>
+        /// Gets the HTTP request message used in the testing.
+        /// </summary>
+        /// <value>Instance HttpRequestMessage.</value>
+        HttpRequestMessage HttpRequestMessage { get; }
 
         /// <summary>
         /// Adds HTTP request message to the tested controller.

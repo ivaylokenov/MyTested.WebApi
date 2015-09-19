@@ -20,6 +20,7 @@ namespace MyWebApi.Tests.Setups.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
+    using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Text;
     using System.Threading.Tasks;
@@ -77,6 +78,26 @@ namespace MyWebApi.Tests.Setups.Controllers
         public IAnotherInjectedService AnotherInjectedService { get; private set; }
 
         public RequestModel InjectedRequestModel { get; private set; }
+
+        public IHttpActionResult CustomRequestAction()
+        {
+            if (this.Request.Method == HttpMethod.Post && this.Request.Headers.Contains("TestHeader"))
+            {
+                return this.Ok();
+            }
+
+            return this.BadRequest();
+        }
+
+        public IHttpActionResult CommonHeaderAction()
+        {
+            if (this.Request.Headers.Accept.Contains(new MediaTypeWithQualityHeaderValue(MediaType.ApplicationJson)))
+            {
+                return this.Ok();
+            }
+
+            return this.BadRequest();
+        }
 
         public void EmptyAction()
         {

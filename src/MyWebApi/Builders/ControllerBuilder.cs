@@ -23,7 +23,6 @@ namespace MyWebApi.Builders
     using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
-    using System.Web.Http.Controllers;
     using Actions;
     using Common;
     using Common.Extensions;
@@ -45,7 +44,6 @@ namespace MyWebApi.Builders
         private readonly IDictionary<Type, object> aggregatedDependencies;
 
         private TController controller;
-        private HttpRequestMessage httpRequestMessage;
         private bool isPreparedForTesting;
         private bool enabledValidation;
 
@@ -57,7 +55,7 @@ namespace MyWebApi.Builders
         {
             this.Controller = controllerInstance;
             this.aggregatedDependencies = new Dictionary<Type, object>();
-            this.httpRequestMessage = new HttpRequestMessage();
+            this.HttpRequestMessage = new HttpRequestMessage();
             this.isPreparedForTesting = false;
             this.enabledValidation = true;
         }
@@ -81,6 +79,12 @@ namespace MyWebApi.Builders
         }
 
         /// <summary>
+        /// Gets the HTTP request message used in the testing.
+        /// </summary>
+        /// <value>Instance HttpRequestMessage.</value>
+        public HttpRequestMessage HttpRequestMessage { get; private set; }
+
+        /// <summary>
         /// Adds HTTP request message to the tested controller.
         /// </summary>
         /// <param name="httpRequestMessageBuilder">Builder for HTTP request message.</param>
@@ -89,7 +93,7 @@ namespace MyWebApi.Builders
         {
             var httpBuilder = new HttpRequestMessageBuilder();
             httpRequestMessageBuilder(httpBuilder);
-            this.httpRequestMessage = httpBuilder.GetHttpRequestMessage();
+            this.HttpRequestMessage = httpBuilder.GetHttpRequestMessage();
             return this;
         }
 
@@ -322,8 +326,8 @@ namespace MyWebApi.Builders
 
         private void PrepareController()
         {
-            this.controller.Request = this.httpRequestMessage;
-            this.controller.RequestContext = httpRequestMessage.GetRequestContext();
+            this.controller.Request = this.HttpRequestMessage;
+            this.controller.RequestContext = this.HttpRequestMessage.GetRequestContext();
             this.controller.Configuration = new HttpConfiguration();
             this.controller.User = MockedIPrinciple.CreateUnauthenticated();
         }

@@ -19,7 +19,6 @@ namespace MyWebApi.Builders.Base
     using System;
     using System.Web.Http;
     using Contracts.Base;
-    using Utilities;
     using Utilities.Validators;
 
     /// <summary>
