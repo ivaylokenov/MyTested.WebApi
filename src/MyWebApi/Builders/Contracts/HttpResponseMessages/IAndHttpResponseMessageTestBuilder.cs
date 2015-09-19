@@ -18,5 +18,6 @@ namespace MyWebApi.Builders.Contracts.HttpResponseMessages
 {
     public interface IAndHttpResponseMessageTestBuilder : IHttpResponseMessageTestBuilder
     {
+        IHttpResponseMessageTestBuilder AndAlso();
     }
 }

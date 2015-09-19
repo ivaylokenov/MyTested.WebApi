@@ -14,25 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Actions.ShouldReturn
+namespace MyWebApi.Builders
 {
+    using System;
     using System.Net.Http;
+    using System.Web.Http;
+    using Base;
     using Contracts.HttpResponseMessages;
 
-    /// <summary>
-    /// Class containing methods for testing HttpResponseMessage result.
-    /// </summary>
-    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public partial class ShouldReturnTestBuilder<TActionResult>
+    public class HttpResponseMessageTestBuilder
+        : BaseTestBuilderWithActionResult<HttpResponseMessage>, IAndHttpResponseMessageTestBuilder
     {
-        public IHttpResponseMessageTestBuilder ShouldReturnHttpResponseMessage()
+        public HttpResponseMessageTestBuilder(
+            ApiController controller,
+            string actionName,
+            Exception caughtException, 
+            HttpResponseMessage actionResult)
+            : base(controller, actionName, caughtException, actionResult)
         {
-            this.ResultOfType<HttpResponseMessage>();
-            return new HttpResponseMessageTestBuilder(
-                this.Controller,
-                this.ActionName,
-                this.CaughtException,
-                this.ActionResult as HttpResponseMessage);
+        }
+
+        public IHttpResponseMessageTestBuilder AndAlso()
+        {
+            return this;
         }
     }
 }
