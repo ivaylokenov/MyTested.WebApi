@@ -77,6 +77,11 @@ namespace MyWebApi.Builders
             }
         }
 
+        /// <summary>
+        /// Adds HTTP request message to the tested controller.
+        /// </summary>
+        /// <param name="httpRequestBuilder">HTTP request message builder.</param>
+        /// <returns>The same controller builder.</returns>
         public IAndControllerBuilder<TController> WithHttpRequestMessage(IHttpRequestMessageBuilder httpRequestBuilder)
         {
             return this;
