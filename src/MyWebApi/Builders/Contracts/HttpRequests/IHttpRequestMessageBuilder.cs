@@ -16,8 +16,55 @@
 
 namespace MyWebApi.Builders.Contracts.HttpRequests
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Text;
+    using Uri;
+
     public interface IHttpRequestMessageBuilder
     {
+        IAndHttpRequestMessageBuilder WithContent(HttpContent content);
 
+        IAndHttpRequestMessageBuilder WithStreamContent(Stream stream);
+
+        IAndHttpRequestMessageBuilder WithStreamContent(Stream stream, int bufferSize);
+
+        IAndHttpRequestMessageBuilder WithByteArrayContent(byte[] bytes);
+
+        IAndHttpRequestMessageBuilder WithByteArrayContent(byte[] bytes, int offset, int count);
+
+        IAndHttpRequestMessageBuilder WithFormUrlEncodedContent(
+            IEnumerable<KeyValuePair<string, string>> nameValueCollection);
+
+        IAndHttpRequestMessageBuilder WithStringContent(string content);
+
+        IAndHttpRequestMessageBuilder WithStringContent(string content, Encoding encoding);
+
+        IAndHttpRequestMessageBuilder WithStringContent(string content, Encoding encoding, string mediaType);
+
+        IAndHttpRequestMessageBuilder WithHeader(string name, string value);
+
+        IAndHttpRequestMessageBuilder WithHeader(string name, IEnumerable<string> values);
+
+        IAndHttpRequestMessageBuilder WithHeaders(IDictionary<string, IEnumerable<string>> headers);
+
+        IAndHttpRequestMessageBuilder WithHeaders(HttpRequestHeaders headers);
+
+        IAndHttpRequestMessageBuilder WithMethod(string method);
+
+        IAndHttpRequestMessageBuilder WithMethod(HttpMethod method);
+
+        IAndHttpRequestMessageBuilder WithRequestUri(string location);
+
+        IAndHttpRequestMessageBuilder WithRequestUri(Uri location);
+
+        IAndHttpRequestMessageBuilder WithRequestUri(Action<IUriTestBuilder> uriTestBuilder);
+
+        IAndHttpRequestMessageBuilder WithVersion(string version);
+
+        IAndHttpRequestMessageBuilder WithVersion(Version version);
     }
 }

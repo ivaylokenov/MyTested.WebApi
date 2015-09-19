@@ -26,42 +26,42 @@ namespace MyWebApi.Builders.Uris
     {
         public MockedUriBuilder()
         {
-            this.MockedUri = new MockedUri();;
+            this.MockedUri = new MockedUri();
         }
 
         protected MockedUri MockedUri { get; private set; }
 
-        public IAndUriTestBuilder WithHost(string host)
+        public virtual IAndUriTestBuilder WithHost(string host)
         {
             this.MockedUri.Host = host;
             return this;
         }
 
-        public IAndUriTestBuilder WithPort(int port)
+        public virtual IAndUriTestBuilder WithPort(int port)
         {
             this.MockedUri.Port = port;
             return this;
         }
 
-        public IAndUriTestBuilder WithAbsolutePath(string absolutePath)
+        public virtual IAndUriTestBuilder WithAbsolutePath(string absolutePath)
         {
             this.MockedUri.AbsolutePath = absolutePath;
             return this;
         }
 
-        public IAndUriTestBuilder WithScheme(string scheme)
+        public virtual IAndUriTestBuilder WithScheme(string scheme)
         {
             this.MockedUri.Scheme = scheme;
             return this;
         }
 
-        public IAndUriTestBuilder WithQuery(string query)
+        public virtual IAndUriTestBuilder WithQuery(string query)
         {
             this.MockedUri.Query = query;
             return this;
         }
 
-        public IAndUriTestBuilder WithFragment(string fragment)
+        public virtual IAndUriTestBuilder WithFragment(string fragment)
         {
             this.MockedUri.Fragment = fragment;
             return this;

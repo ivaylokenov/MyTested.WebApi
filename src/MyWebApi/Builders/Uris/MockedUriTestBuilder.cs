@@ -24,7 +24,7 @@ namespace MyWebApi.Builders.Uris
     /// <summary>
     /// Used for testing URI location in a created result.
     /// </summary>
-    public class MockedUriTestBuilder : MockedUriBuilder, IAndUriTestBuilder
+    public class MockedUriTestBuilder : MockedUriBuilder
     {
         private readonly ICollection<Func<MockedUri, Uri, bool>> validations;
 
@@ -41,7 +41,7 @@ namespace MyWebApi.Builders.Uris
         /// </summary>
         /// <param name="host">Host part of URI.</param>
         /// <returns>The same URI test builder.</returns>
-        public IAndUriTestBuilder WithHost(string host)
+        public override IAndUriTestBuilder WithHost(string host)
         {
             this.validations.Add((expected, actual) => expected.Host == actual.Host);
             return base.WithHost(host);
@@ -52,7 +52,7 @@ namespace MyWebApi.Builders.Uris
         /// </summary>
         /// <param name="port">Port part of URI.</param>
         /// <returns>The same URI test builder.</returns>
-        public IAndUriTestBuilder WithPort(int port)
+        public override IAndUriTestBuilder WithPort(int port)
         {
             this.validations.Add((expected, actual) => expected.Port == actual.Port);
             return base.WithPort(port);
@@ -63,7 +63,7 @@ namespace MyWebApi.Builders.Uris
         /// </summary>
         /// <param name="absolutePath">Absolute path part of URI.</param>
         /// <returns>The same URI test builder.</returns>
-        public IAndUriTestBuilder WithAbsolutePath(string absolutePath)
+        public override IAndUriTestBuilder WithAbsolutePath(string absolutePath)
         {
             this.validations.Add((expected, actual) => expected.AbsolutePath == actual.AbsolutePath);
             return base.WithAbsolutePath(absolutePath);
@@ -74,7 +74,7 @@ namespace MyWebApi.Builders.Uris
         /// </summary>
         /// <param name="scheme">Scheme part of URI.</param>
         /// <returns>The same URI test builder.</returns>
-        public IAndUriTestBuilder WithScheme(string scheme)
+        public override IAndUriTestBuilder WithScheme(string scheme)
         {
             this.validations.Add((expected, actual) => expected.Scheme == actual.Scheme);
             return base.WithScheme(scheme);
@@ -85,7 +85,7 @@ namespace MyWebApi.Builders.Uris
         /// </summary>
         /// <param name="query">Query part of URI.</param>
         /// <returns>The same URI test builder.</returns>
-        public IAndUriTestBuilder WithQuery(string query)
+        public override IAndUriTestBuilder WithQuery(string query)
         {
             this.validations.Add((expected, actual) => expected.Query == actual.Query);
             return base.WithQuery(query);
@@ -96,7 +96,7 @@ namespace MyWebApi.Builders.Uris
         /// </summary>
         /// <param name="fragment">Document fragment part of URI.</param>
         /// <returns>The same URI test builder.</returns>
-        public IAndUriTestBuilder WithFragment(string fragment)
+        public override IAndUriTestBuilder WithFragment(string fragment)
         {
             this.validations.Add((expected, actual) => expected.Fragment == actual.Fragment);
             return base.WithFragment(fragment);

@@ -124,7 +124,7 @@ namespace MyWebApi.Builders
         {
             this.requestMessage.RequestUri = LocationValidator.ValidateAndGetWellFormedUriString(
                 location,
-                ThrowNewInvalidHttpRequestMessageException);
+                this.ThrowNewInvalidHttpRequestMessageException);
 
             return this;
         }
