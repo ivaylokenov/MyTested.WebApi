@@ -87,6 +87,33 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        public IAndHttpResponseMessageTestBuilder WithReasonPhrase(string reasonPhrase)
+        {
+            var actualReasonPhrase = this.ActionResult.ReasonPhrase;
+            if (actualReasonPhrase != reasonPhrase)
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "reason phrase",
+                    string.Format("to be {0}", reasonPhrase),
+                    string.Format("instead received {0}", actualReasonPhrase));
+            }
+
+            return this;
+        }
+
+        public IAndHttpResponseMessageTestBuilder WithSuccessStatusCode()
+        {
+            if (!this.ActionResult.IsSuccessStatusCode)
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "status code",
+                    string.Format("to be between 200 and 299"),
+                    string.Format("it was not"));
+            }
+
+            return this;
+        }
+
         /// <summary>
         /// AndAlso method for better readability when chaining HTTP response message tests.
         /// </summary>
