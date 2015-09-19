@@ -18,7 +18,11 @@ namespace MyWebApi.Builders
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Text;
+    using Common.Extensions;
     using Contracts.HttpRequests;
     using Contracts.Uri;
     using Exceptions;
@@ -34,17 +38,79 @@ namespace MyWebApi.Builders
             this.requestMessage = new HttpRequestMessage();
         }
 
-        public IAndHttpRequestMessageBuilder WithRequestUri(string requestLocation)
+        public IAndHttpRequestMessageBuilder WithContent(HttpContent content)
         {
-            this.requestMessage.RequestUri = LocationValidator.ValidateAndGetWellFormedUriString(
-                requestLocation,
-                ThrowNewInvalidHttpRequestMessageException);
+            this.requestMessage.Content = content;
+            return this;
+        }
 
+        public IAndHttpRequestMessageBuilder WithStreamContent(Stream stream)
+        {
+            return this.WithContent(new StreamContent(stream));
+        }
+
+        public IAndHttpRequestMessageBuilder WithStreamContent(Stream stream, int bufferSize)
+        {
+            return this.WithContent(new StreamContent(stream, bufferSize));
+        }
+
+        public IAndHttpRequestMessageBuilder WithByteArrayContent(byte[] bytes)
+        {
+            return this.WithContent(new ByteArrayContent(bytes));
+        }
+
+        public IAndHttpRequestMessageBuilder WithByteArrayContent(byte[] bytes, int offset, int count)
+        {
+            return this.WithContent(new ByteArrayContent(bytes, offset, count));
+        }
+
+        public IAndHttpRequestMessageBuilder WithFormUrlEncodedContent(
+            IEnumerable<KeyValuePair<string, string>> nameValueCollection)
+        {
+            return this.WithContent(new FormUrlEncodedContent(nameValueCollection));
+        }
+
+        public IAndHttpRequestMessageBuilder WithStringContent(string content)
+        {
+            return this.WithContent(new StringContent(content));
+        }
+
+        public IAndHttpRequestMessageBuilder WithStringContent(string content, Encoding encoding)
+        {
+            return this.WithContent(new StringContent(content, encoding));
+        }
+
+        public IAndHttpRequestMessageBuilder WithStringContent(string content, Encoding encoding, string mediaType)
+        {
+            return this.WithContent(new StringContent(content, encoding, mediaType));
+        }
+
+        public IAndHttpRequestMessageBuilder WithHeader(string name, string value)
+        {
+            this.requestMessage.Headers.Add(name, value);
+            return this;
+        }
+
+        public IAndHttpRequestMessageBuilder WithHeader(string name, IEnumerable<string> values)
+        {
+            this.requestMessage.Headers.Add(name, values);
+            return this;
+        }
+
+        public IAndHttpRequestMessageBuilder WithHeaders(IDictionary<string, IEnumerable<string>> headers)
+        {
+            headers.ForEach(h => this.requestMessage.Headers.Add(h.Key, h.Value));
+            return this;
+        }
+
+        public IAndHttpRequestMessageBuilder WithHeaders(HttpRequestHeaders headers)
+        {
+            headers.ForEach(h => this.requestMessage.Headers.Add(h.Key, h.Value));
             return this;
         }
 
         public IAndHttpRequestMessageBuilder WithMethod(string method)
-        {   
+        {
             return this.WithMethod(new HttpMethod(method));
         }
 
@@ -54,17 +120,26 @@ namespace MyWebApi.Builders
             return this;
         }
 
-        public IAndHttpRequestMessageBuilder WithRequestUri(Uri requestLocation)
+        public IAndHttpRequestMessageBuilder WithRequestUri(string location)
         {
-            this.requestMessage.RequestUri = requestLocation;
+            this.requestMessage.RequestUri = LocationValidator.ValidateAndGetWellFormedUriString(
+                location,
+                ThrowNewInvalidHttpRequestMessageException);
+
             return this;
         }
 
-        public IAndHttpRequestMessageBuilder WithRequestUri(Action<IUriTestBuilder> requestUriTestBuilder)
+        public IAndHttpRequestMessageBuilder WithRequestUri(Uri location)
         {
-            var uriTestBuilder = new MockedUriBuilder();
-            requestUriTestBuilder(uriTestBuilder);
-            this.requestMessage.RequestUri = uriTestBuilder.GetUri();
+            this.requestMessage.RequestUri = location;
+            return this;
+        }
+
+        public IAndHttpRequestMessageBuilder WithRequestUri(Action<IUriTestBuilder> uriTestBuilder)
+        {
+            var mockedUriBuilder = new MockedUriBuilder();
+            uriTestBuilder(mockedUriBuilder);
+            this.requestMessage.RequestUri = mockedUriBuilder.GetUri();
             return this;
         }
 
