@@ -20,6 +20,7 @@ namespace MyWebApi.Tests.BuildersTests
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Web.Http.Results;
     using Builders.Contracts.Actions;
     using Builders.Contracts.Base;
@@ -358,7 +359,7 @@ namespace MyWebApi.Tests.BuildersTests
         {
             MyWebApi
                 .Controller<WebApiController>()
-                .WithHttpRequestMessage(request => request.WithHeader("Accept", MediaType.ApplicationJson))
+                .WithHttpRequestMessage(request => request.WithHeader(HttpHeader.Accept, MediaType.ApplicationJson))
                 .Calling(c => c.CommonHeaderAction())
                 .ShouldReturn()
                 .Ok();
