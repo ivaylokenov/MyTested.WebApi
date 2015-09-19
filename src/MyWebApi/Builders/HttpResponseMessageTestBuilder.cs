@@ -17,8 +17,11 @@
 namespace MyWebApi.Builders
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Web.Http;
     using Base;
     using Common.Extensions;
@@ -46,6 +49,80 @@ namespace MyWebApi.Builders
             HttpResponseMessage actionResult)
             : base(controller, actionName, caughtException, actionResult)
         {
+        }
+
+        public IAndHttpResponseMessageTestBuilder ContainingHeader(string name)
+        {
+            if (!this.ActionResult.Headers.Contains(name))
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "headers",
+                    string.Format("to contain {0}", name),
+                    "but none was found");
+            }
+
+            return this;
+        }
+
+        public IAndHttpResponseMessageTestBuilder ContainingHeader(string name, string value)
+        {
+            this.ContainingHeader(name);
+            var headerValue = this.GetHeaderValues(name).FirstOrDefault(v => v == value);
+            if (headerValue == null)
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "headers",
+                    string.Format("to contain {0} with {1} value", name, value),
+                    "none was found");
+            }
+
+            return this;
+        }
+
+        public IAndHttpResponseMessageTestBuilder ContainingHeader(string name, IEnumerable<string> values)
+        {
+            this.ContainingHeader(name);
+            var actualHeaderValuesWithExpectedName = this.GetHeaderValues(name);
+            var expectedValues = values.ToList();
+            var actualValuesCount = actualHeaderValuesWithExpectedName.Count;
+            var expectedValuesCount = expectedValues.Count;
+            if (expectedValuesCount != actualValuesCount)
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "headers",
+                    string.Format("to contain {0} with {1} values", name, expectedValuesCount),
+                    string.Format("instead found {0}", actualValuesCount));
+            }
+
+            var sortedActualValues = actualHeaderValuesWithExpectedName.OrderBy(v => v).ToList();
+            var sortedExpectedValues = expectedValues.OrderBy(v => v).ToList();
+
+            for (int i = 0; i < sortedActualValues.Count; i++)
+            {
+                var actualValue = sortedActualValues[i];
+                var expectedValue = sortedExpectedValues[i];
+                if (actualValue != expectedValue)
+                {
+                    this.ThrowNewHttpResponseMessageAssertionException(
+                        "headers",
+                        string.Format("to have {0} with {1} value", name, expectedValue),
+                        "none was found");
+                }
+            }
+
+            return this;
+        }
+
+        public IAndHttpResponseMessageTestBuilder ContainingHeaders(IDictionary<string, IEnumerable<string>> headers)
+        {
+            this.ValidateHeadersCount(headers);
+            headers.ForEach(h => this.ContainingHeader(h.Key, h.Value));
+            return this;
+        }
+
+        public IAndHttpResponseMessageTestBuilder ContainingHeaders(HttpResponseHeaders headers)
+        {
+            return this.ContainingHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
 
         public IAndHttpResponseMessageTestBuilder WithStatusCode(HttpStatusCode statusCode)
@@ -121,6 +198,25 @@ namespace MyWebApi.Builders
         public IHttpResponseMessageTestBuilder AndAlso()
         {
             return this;
+        }
+
+        private IList<string> GetHeaderValues(string name)
+        {
+            return this.ActionResult.Headers.First(h => h.Key == name).Value.ToList();
+        }
+
+        private void ValidateHeadersCount(IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers)
+        {
+            var actualHeadersCount = this.ActionResult.Headers.Count();
+            var expectedHeadersCount = headers.Count();
+
+            if (expectedHeadersCount != actualHeadersCount)
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                        "headers",
+                        string.Format("to be {0}", expectedHeadersCount),
+                        string.Format("were in fact {0}", actualHeadersCount));
+            }
         }
 
         private void ThrowNewHttpResponseMessageAssertionException(string propertyName, string expectedValue, string actualValue)
