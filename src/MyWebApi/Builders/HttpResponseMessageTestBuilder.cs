@@ -22,9 +22,19 @@ namespace MyWebApi.Builders
     using Base;
     using Contracts.HttpResponseMessages;
 
+    /// <summary>
+    /// Used for testing HTTP response message results.
+    /// </summary>
     public class HttpResponseMessageTestBuilder
         : BaseTestBuilderWithActionResult<HttpResponseMessage>, IAndHttpResponseMessageTestBuilder
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpResponseMessageTestBuilder" /> class.
+        /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Caught exception during the action execution.</param>
+        /// <param name="actionResult">HTTP response result from the tested action.</param>
         public HttpResponseMessageTestBuilder(
             ApiController controller,
             string actionName,
@@ -34,6 +44,10 @@ namespace MyWebApi.Builders
         {
         }
 
+        /// <summary>
+        /// AndAlso method for better readability when chaining HTTP response message tests.
+        /// </summary>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IHttpResponseMessageTestBuilder AndAlso()
         {
             return this;

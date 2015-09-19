@@ -101,7 +101,72 @@ namespace MyWebApi.Tests.Setups.Controllers
 
         public HttpResponseMessage HttpResponseMessageAction()
         {
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                ReasonPhrase = "Custom reason phrase",
+                Version = new Version(1, 1),
+                Content = new ObjectContent(this.responseModel.GetType(), this.responseModel, TestObjectFactory.GetCustomMediaTypeFormatter()),
+                RequestMessage = this.Request
+            };
+
+            response.Headers.Add("TestHeader", "TestHeaderValue");
+
+            return response;
+        }
+
+        public HttpResponseMessage HttpResponseMessageWithResponseModelAction()
+        {
             return this.Request.CreateResponse(HttpStatusCode.OK, this.responseModel);
+        }
+
+        public HttpResponseMessage HttpResponseMessageWithConfiguration()
+        {
+            return this.Request.CreateResponse(HttpStatusCode.OK, this.responseModel, this.Configuration);
+        }
+
+        public HttpResponseMessage HttpResponseMessageWithMediaTypeFormatter()
+        {
+            return this.Request.CreateResponse(
+                HttpStatusCode.OK,
+                this.responseModel,
+                TestObjectFactory.GetCustomMediaTypeFormatter());
+        }
+
+        public HttpResponseMessage HttpResponseMessageWithMediaType()
+        {
+            return this.Request.CreateResponse(
+                HttpStatusCode.OK,
+                this.responseModel,
+                MediaType.ApplicationJson);
+        }
+
+        public HttpResponseMessage HttpResponseMessageWithFormatterAndMediaType()
+        {
+            return this.Request.CreateResponse(
+                HttpStatusCode.OK,
+                this.responseModel, 
+                TestObjectFactory.GetCustomMediaTypeFormatter(),
+                MediaType.ApplicationJson);
+        }
+
+        public HttpResponseMessage HttpResponseError()
+        {
+            return this.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, new InvalidOperationException("Error"));
+        }
+
+        public HttpResponseMessage HttpResponseErrorWithHttpError()
+        {
+            return this.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, new HttpError("Error"));
+        }
+
+        public HttpResponseMessage HttpResponseErrorWithModelState()
+        {
+            return this.Request.CreateErrorResponse(HttpStatusCode.OK, this.ModelState);
+        }
+
+        public HttpResponseMessage HttpResponseErrorWithStringMessage()
+        {
+            return this.Request.CreateErrorResponse(HttpStatusCode.OK, "Error");
         }
 
         public void EmptyAction()

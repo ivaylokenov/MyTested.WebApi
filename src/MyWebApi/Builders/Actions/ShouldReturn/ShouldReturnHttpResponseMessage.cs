@@ -25,6 +25,10 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ShouldReturnTestBuilder<TActionResult>
     {
+        /// <summary>
+        /// Tests whether action result is HttpResponseMessage.
+        /// </summary>
+        /// <returns>HTTP response message test builder.</returns>
         public IHttpResponseMessageTestBuilder ShouldReturnHttpResponseMessage()
         {
             this.ResultOfType<HttpResponseMessage>();
