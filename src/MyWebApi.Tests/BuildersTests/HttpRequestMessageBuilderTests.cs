@@ -31,13 +31,13 @@ namespace MyWebApi.Tests.BuildersTests
     public class HttpRequestMessageBuilderTests
     {
         private const string StringContent = "TestContent";
-        private readonly byte[] buffer = { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
         private const string TestHeader = "TestHeader";
         private const string TestHeaderValue = "TestHeaderValue";
         private const string AnotherTestHeaderValue = "AnotherTestHeaderValue";
         private const string RequestUri = "http://sometest.com/sometest?test=1";
         private const string Version = "1.1";
 
+        private readonly byte[] buffer = { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
 
         [Test]
         public void WithContentShouldPopulateCorrectContent()
@@ -60,7 +60,7 @@ namespace MyWebApi.Tests.BuildersTests
                 .HttpRequestMessage;
 
             Assert.IsInstanceOf<StreamContent>(httpRequestMessage.Content);
-            Assert.AreEqual(buffer.Length, httpRequestMessage.Content.ReadAsByteArrayAsync().Result.Length);
+            Assert.AreEqual(this.buffer.Length, httpRequestMessage.Content.ReadAsByteArrayAsync().Result.Length);
         }
 
         [Test]
@@ -72,7 +72,7 @@ namespace MyWebApi.Tests.BuildersTests
                 .HttpRequestMessage;
 
             Assert.IsInstanceOf<StreamContent>(httpRequestMessage.Content);
-            Assert.AreEqual(buffer.Length, httpRequestMessage.Content.ReadAsByteArrayAsync().Result.Length);
+            Assert.AreEqual(this.buffer.Length, httpRequestMessage.Content.ReadAsByteArrayAsync().Result.Length);
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace MyWebApi.Tests.BuildersTests
                 .HttpRequestMessage;
 
             Assert.IsInstanceOf<ByteArrayContent>(httpRequestMessage.Content);
-            Assert.AreEqual(buffer.Length, httpRequestMessage.Content.ReadAsByteArrayAsync().Result.Length);
+            Assert.AreEqual(this.buffer.Length, httpRequestMessage.Content.ReadAsByteArrayAsync().Result.Length);
         }
 
         [Test]
@@ -183,7 +183,7 @@ namespace MyWebApi.Tests.BuildersTests
                 .WithHttpRequestMessage(request => request
                     .WithHeaders(new Dictionary<string, IEnumerable<string>>
                     {
-                        { TestHeader, new[] { TestHeaderValue, AnotherTestHeaderValue }},
+                        { TestHeader, new[] { TestHeaderValue, AnotherTestHeaderValue } },
                     }))
                 .HttpRequestMessage;
 
