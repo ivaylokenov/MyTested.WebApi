@@ -27,6 +27,7 @@ namespace MyWebApi.Builders
     using Common.Extensions;
     using Contracts.HttpResponseMessages;
     using Exceptions;
+    using Utilities;
     using Utilities.Validators;
 
     /// <summary>
@@ -49,6 +50,22 @@ namespace MyWebApi.Builders
             HttpResponseMessage actionResult)
             : base(controller, actionName, caughtException, actionResult)
         {
+        }
+
+        public IAndHttpResponseMessageTestBuilder WithContentOfType<TContentType>()
+            where TContentType : HttpContent
+        {
+            var expectedType = typeof (TContentType);
+            var actualType = this.ActionResult.Content.GetType();
+            if (Reflection.AreDifferentTypes(expectedType, actualType))
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "content",
+                    string.Format("to be {0}", expectedType.GetName()),
+                    string.Format("but was in fact {0}", actualType.GetName()));
+            }
+
+            return this;
         }
 
         public IAndHttpResponseMessageTestBuilder ContainingHeader(string name)
