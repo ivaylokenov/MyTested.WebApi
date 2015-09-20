@@ -21,6 +21,7 @@ namespace MyWebApi.Builders
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Formatting;
     using System.Net.Http.Headers;
     using System.Web.Http;
     using Base;
@@ -56,7 +57,7 @@ namespace MyWebApi.Builders
 
         public IModelDetailsTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>()
         {
-            this.WithContentOfType<ObjectContent<TResponseModel>>();
+            this.WithContentOfType<ObjectContent>();
             var actualModel = this.GetActualModel<TResponseModel>();
             return new ModelDetailsTestBuilder<TResponseModel>(
                 this.Controller,
@@ -68,7 +69,7 @@ namespace MyWebApi.Builders
         public IModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
             where TResponseModel : class
         {
-            this.WithContentOfType<ObjectContent<TResponseModel>>();
+            this.WithContentOfType<ObjectContent>();
             var actualModel = this.GetActualModel<TResponseModel>();
             if (expectedModel != actualModel)
             {
@@ -99,6 +100,27 @@ namespace MyWebApi.Builders
             }
 
             return this;
+        }
+
+        public IAndHttpResponseMessageTestBuilder WithMediaTypeFormatter(MediaTypeFormatter mediaTypeFormatter)
+        {
+            MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
+                this.ActionResult.Content,
+                mediaTypeFormatter,
+                this.ThrowNewHttpResponseMessageAssertionException);
+
+            return this;
+        }
+
+        public IAndHttpResponseMessageTestBuilder WithMediaTypeFormatterOfType<TMediaTypeFormatter>()
+            where TMediaTypeFormatter : MediaTypeFormatter, new()
+        {
+            return this.WithMediaTypeFormatter(Activator.CreateInstance<TMediaTypeFormatter>());
+        }
+
+        public IAndHttpResponseMessageTestBuilder WithDefaultMediaTypeFormatter()
+        {
+            return this.WithMediaTypeFormatterOfType<JsonMediaTypeFormatter>();
         }
 
         public IAndHttpResponseMessageTestBuilder ContainingHeader(string name)
@@ -252,7 +274,7 @@ namespace MyWebApi.Builders
 
         private TResponseModel GetActualModel<TResponseModel>()
         {
-            return (TResponseModel)((ObjectContent<TResponseModel>)this.ActionResult.Content).Value;
+            return (TResponseModel)((ObjectContent)this.ActionResult.Content).Value;
         }
 
         private IList<string> GetHeaderValues(string name)

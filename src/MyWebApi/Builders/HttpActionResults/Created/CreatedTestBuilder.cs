@@ -69,9 +69,9 @@ namespace MyWebApi.Builders.HttpActionResults.Created
         public IAndCreatedTestBuilder WithContentNegotiator(IContentNegotiator contentNegotiator)
         {
             ContentNegotiatorValidator.ValidateContentNegotiator(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 contentNegotiator,
-                new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
+                this.ThrowNewCreatedResultAssertionException);
 
             return this;
         }
@@ -106,9 +106,9 @@ namespace MyWebApi.Builders.HttpActionResults.Created
         public IAndCreatedTestBuilder AtLocation(Uri location)
         {
             LocationValidator.ValidateUri(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 location,
-                new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
+                this.ThrowNewCreatedResultAssertionException);
 
             return this;
         }
@@ -121,9 +121,9 @@ namespace MyWebApi.Builders.HttpActionResults.Created
         public IAndCreatedTestBuilder AtLocation(Action<IUriTestBuilder> uriTestBuilder)
         {
             LocationValidator.ValidateLocation(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 uriTestBuilder,
-                new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
+                this.ThrowNewCreatedResultAssertionException);
             return this;
         }
 
@@ -135,9 +135,9 @@ namespace MyWebApi.Builders.HttpActionResults.Created
         public IAndCreatedTestBuilder ContainingMediaTypeFormatter(MediaTypeFormatter mediaTypeFormatter)
         {
             MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 mediaTypeFormatter,
-                new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
+                this.ThrowNewCreatedResultAssertionException);
 
             return this;
         }
@@ -170,9 +170,9 @@ namespace MyWebApi.Builders.HttpActionResults.Created
         public IAndCreatedTestBuilder ContainingMediaTypeFormatters(IEnumerable<MediaTypeFormatter> mediaTypeFormatters)
         {
             MediaTypeFormatterValidator.ValidateMediaTypeFormatters(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 mediaTypeFormatters,
-                new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
+                this.ThrowNewCreatedResultAssertionException);
 
             return this;
         }
@@ -195,9 +195,9 @@ namespace MyWebApi.Builders.HttpActionResults.Created
         public IAndCreatedTestBuilder ContainingMediaTypeFormatters(Action<IFormattersBuilder> formattersBuilder)
         {
             MediaTypeFormatterValidator.ValidateMediaTypeFormattersBuilder(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 formattersBuilder,
-                new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
+                this.ThrowNewCreatedResultAssertionException);
 
             return this;
         }
