@@ -119,11 +119,6 @@ namespace MyWebApi.Tests.Setups.Controllers
             return this.Request.CreateResponse(HttpStatusCode.OK, this.responseModel);
         }
 
-        public HttpResponseMessage HttpResponseMessageWithConfiguration()
-        {
-            return this.Request.CreateResponse(HttpStatusCode.OK, this.responseModel, this.Configuration);
-        }
-
         public HttpResponseMessage HttpResponseMessageWithMediaTypeFormatter()
         {
             return this.Request.CreateResponse(

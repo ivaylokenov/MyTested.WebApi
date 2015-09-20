@@ -26,7 +26,9 @@ namespace MyWebApi.Builders
     using Base;
     using Common.Extensions;
     using Contracts.HttpResponseMessages;
+    using Contracts.Models;
     using Exceptions;
+    using Models;
     using Utilities;
     using Utilities.Validators;
 
@@ -50,6 +52,37 @@ namespace MyWebApi.Builders
             HttpResponseMessage actionResult)
             : base(controller, actionName, caughtException, actionResult)
         {
+        }
+
+        public IModelDetailsTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>()
+        {
+            this.WithContentOfType<ObjectContent<TResponseModel>>();
+            var actualModel = this.GetActualModel<TResponseModel>();
+            return new ModelDetailsTestBuilder<TResponseModel>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                actualModel);
+        }
+
+        public IModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
+            where TResponseModel : class
+        {
+            this.WithContentOfType<ObjectContent<TResponseModel>>();
+            var actualModel = this.GetActualModel<TResponseModel>();
+            if (expectedModel != actualModel)
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "content response model",
+                    "to be the given model",
+                    "in fact it was a different model");
+            }
+
+            return new ModelDetailsTestBuilder<TResponseModel>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                actualModel);
         }
 
         public IAndHttpResponseMessageTestBuilder WithContentOfType<TContentType>()
@@ -215,6 +248,11 @@ namespace MyWebApi.Builders
         public IHttpResponseMessageTestBuilder AndAlso()
         {
             return this;
+        }
+
+        private TResponseModel GetActualModel<TResponseModel>()
+        {
+            return (TResponseModel)((ObjectContent<TResponseModel>)this.ActionResult.Content).Value;
         }
 
         private IList<string> GetHeaderValues(string name)
