@@ -55,10 +55,15 @@ namespace MyWebApi.Builders
         {
         }
 
+        /// <summary>
+        /// Tests whether certain type of response model is returned from the HTTP response message content.
+        /// </summary>
+        /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
+        /// <returns>Builder for testing the response model errors.</returns>
         public IModelDetailsTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>()
         {
             this.WithContentOfType<ObjectContent>();
-            var actualModel = this.GetActualModel<TResponseModel>();
+            var actualModel = this.GetActualContentModel<TResponseModel>();
             return new ModelDetailsTestBuilder<TResponseModel>(
                 this.Controller,
                 this.ActionName,
@@ -66,11 +71,17 @@ namespace MyWebApi.Builders
                 actualModel);
         }
 
+        /// <summary>
+        /// Tests whether an object is returned from the invoked HTTP response message content.
+        /// </summary>
+        /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
+        /// <param name="expectedModel">Expected model to be returned.</param>
+        /// <returns>Builder for testing the response model errors.</returns>
         public IModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
             where TResponseModel : class
         {
             this.WithContentOfType<ObjectContent>();
-            var actualModel = this.GetActualModel<TResponseModel>();
+            var actualModel = this.GetActualContentModel<TResponseModel>();
             if (expectedModel != actualModel)
             {
                 this.ThrowNewHttpResponseMessageAssertionException(
@@ -86,10 +97,15 @@ namespace MyWebApi.Builders
                 actualModel);
         }
 
+        /// <summary>
+        /// Tests whether the content of the HTTP response message is of certain type.
+        /// </summary>
+        /// <typeparam name="TContentType">Type of expected HTTP content.</typeparam>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder WithContentOfType<TContentType>()
             where TContentType : HttpContent
         {
-            var expectedType = typeof (TContentType);
+            var expectedType = typeof(TContentType);
             var actualType = this.ActionResult.Content.GetType();
             if (Reflection.AreDifferentTypes(expectedType, actualType))
             {
@@ -102,6 +118,11 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Tests whether the HTTP response message has the provided media type formatter.
+        /// </summary>
+        /// <param name="mediaTypeFormatter">Expected media type formatter.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder WithMediaTypeFormatter(MediaTypeFormatter mediaTypeFormatter)
         {
             MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
@@ -112,17 +133,31 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Tests whether the HTTP response message has the provided type of media type formatter.
+        /// </summary>
+        /// <typeparam name="TMediaTypeFormatter">Type of MediaTypeFormatter.</typeparam>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder WithMediaTypeFormatterOfType<TMediaTypeFormatter>()
             where TMediaTypeFormatter : MediaTypeFormatter, new()
         {
             return this.WithMediaTypeFormatter(Activator.CreateInstance<TMediaTypeFormatter>());
         }
 
+        /// <summary>
+        /// Tests whether the HTTP response message contains the default media type formatter provided by the framework.
+        /// </summary>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder WithDefaultMediaTypeFormatter()
         {
             return this.WithMediaTypeFormatterOfType<JsonMediaTypeFormatter>();
         }
 
+        /// <summary>
+        /// Tests whether the HTTP response message contains response header with certain name.
+        /// </summary>
+        /// <param name="name">Name of expected response header.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder ContainingHeader(string name)
         {
             if (!this.ActionResult.Headers.Contains(name))
@@ -136,6 +171,12 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Tests whether the HTTP response message contains response header with certain name and value.
+        /// </summary>
+        /// <param name="name">Name of expected response header.</param>
+        /// <param name="value">Value of expected response header.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder ContainingHeader(string name, string value)
         {
             this.ContainingHeader(name);
@@ -151,6 +192,12 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Tests whether the HTTP response message contains response header with certain name and collection of value.
+        /// </summary>
+        /// <param name="name">Name of expected response header.</param>
+        /// <param name="values">Collection of values in the expected response header.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder ContainingHeader(string name, IEnumerable<string> values)
         {
             this.ContainingHeader(name);
@@ -185,6 +232,11 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Tests whether the HTTP response message contains response headers provided by dictionary.
+        /// </summary>
+        /// <param name="headers">Dictionary containing response headers.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder ContainingHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
             this.ValidateHeadersCount(headers);
@@ -192,11 +244,21 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Tests whether the HTTP response message contains response headers.
+        /// </summary>
+        /// <param name="headers">HTTP response headers.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder ContainingHeaders(HttpResponseHeaders headers)
         {
             return this.ContainingHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
 
+        /// <summary>
+        /// Tests whether HTTP response message status code is the same as the provided HttpStatusCode.
+        /// </summary>
+        /// <param name="statusCode">Expected status code.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder WithStatusCode(HttpStatusCode statusCode)
         {
             var actualStatusCode = this.ActionResult.StatusCode;
@@ -211,17 +273,33 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Tests whether HTTP response message version is the same as the provided version as string.
+        /// </summary>
+        /// <param name="version">Expected version as string.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder WithVersion(string version)
         {
             var parsedVersion = VersionValidator.TryParse(version, this.ThrowNewHttpResponseMessageAssertionException);
             return this.WithVersion(parsedVersion);
         }
 
+        /// <summary>
+        /// Tests whether HTTP response message version is the same as the provided version.
+        /// </summary>
+        /// <param name="major">Major number in the expected version.</param>
+        /// <param name="minor">Minor number in the expected version.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder WithVersion(int major, int minor)
         {
             return this.WithVersion(new Version(major, minor));
         }
 
+        /// <summary>
+        /// Tests whether HTTP response message version is the same as the provided version.
+        /// </summary>
+        /// <param name="version">Expected version.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder WithVersion(Version version)
         {
             var actualVersion = this.ActionResult.Version;
@@ -236,6 +314,11 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Tests whether HTTP response message reason phrase is the same as the provided reason phrase as string.
+        /// </summary>
+        /// <param name="reasonPhrase">Expected reason phrase as string.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder WithReasonPhrase(string reasonPhrase)
         {
             var actualReasonPhrase = this.ActionResult.ReasonPhrase;
@@ -250,6 +333,10 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Tests whether HTTP response message returns success status code between 200 and 299.
+        /// </summary>
+        /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder WithSuccessStatusCode()
         {
             if (!this.ActionResult.IsSuccessStatusCode)
@@ -272,7 +359,7 @@ namespace MyWebApi.Builders
             return this;
         }
 
-        private TResponseModel GetActualModel<TResponseModel>()
+        private TResponseModel GetActualContentModel<TResponseModel>()
         {
             return (TResponseModel)((ObjectContent)this.ActionResult.Content).Value;
         }
