@@ -116,7 +116,7 @@ namespace MyWebApi.Tests.Setups.Controllers
 
         public HttpResponseMessage HttpResponseMessageWithResponseModelAction()
         {
-            return this.Request.CreateResponse(HttpStatusCode.OK, this.responseModel);
+            return this.Request.CreateResponse(HttpStatusCode.BadRequest, this.responseModel);
         }
 
         public HttpResponseMessage HttpResponseMessageWithMediaTypeFormatter()

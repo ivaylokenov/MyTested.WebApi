@@ -61,6 +61,7 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnConflictTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnContentTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnCreatedTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnHttpResponseModelTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnInternalServerErrorTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnJsonTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnNotFoundTests.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="BuildersTests\HttpActionResultsTests\JsonTests\JsonTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\OkTests\OkTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpRequestMessageBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpResponseMessageTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ModelErrorDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelTestBuilderTests.cs" />

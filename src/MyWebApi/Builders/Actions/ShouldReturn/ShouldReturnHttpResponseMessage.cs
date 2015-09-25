@@ -29,7 +29,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
         /// Tests whether action result is HttpResponseMessage.
         /// </summary>
         /// <returns>HTTP response message test builder.</returns>
-        public IHttpResponseMessageTestBuilder ShouldReturnHttpResponseMessage()
+        public IHttpResponseMessageTestBuilder HttpResponseMessage()
         {
             this.ResultOfType<HttpResponseMessage>();
             return new HttpResponseMessageTestBuilder(

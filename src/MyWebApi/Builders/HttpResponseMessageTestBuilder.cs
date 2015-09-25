@@ -84,10 +84,10 @@ namespace MyWebApi.Builders
             var actualModel = this.GetActualContentModel<TResponseModel>();
             if (expectedModel != actualModel)
             {
-                this.ThrowNewHttpResponseMessageAssertionException(
-                    "content response model",
-                    "to be the given model",
-                    "in fact it was a different model");
+                throw new ResponseModelAssertionException(string.Format(
+                            "When calling {0} action in {1} expected HTTP response message model to be the given model, but in fact it was a different model.",
+                            this.ActionName,
+                            this.Controller.GetName()));
             }
 
             return new ModelDetailsTestBuilder<TResponseModel>(
@@ -111,8 +111,8 @@ namespace MyWebApi.Builders
             {
                 this.ThrowNewHttpResponseMessageAssertionException(
                     "content",
-                    string.Format("to be {0}", expectedType.GetName()),
-                    string.Format("but was in fact {0}", actualType.GetName()));
+                    string.Format("to be {0}", expectedType.ToFriendlyTypeName()),
+                    string.Format("was in fact {0}", actualType.ToFriendlyTypeName()));
             }
 
             return this;
@@ -326,8 +326,8 @@ namespace MyWebApi.Builders
             {
                 this.ThrowNewHttpResponseMessageAssertionException(
                     "reason phrase",
-                    string.Format("to be {0}", reasonPhrase),
-                    string.Format("instead received {0}", actualReasonPhrase));
+                    string.Format("to be '{0}'", reasonPhrase),
+                    string.Format("instead received '{0}'", actualReasonPhrase));
             }
 
             return this;
@@ -361,7 +361,20 @@ namespace MyWebApi.Builders
 
         private TResponseModel GetActualContentModel<TResponseModel>()
         {
-            return (TResponseModel)((ObjectContent)this.ActionResult.Content).Value;
+            var responseModel = ((ObjectContent)this.ActionResult.Content).Value;
+            try
+            {
+                return (TResponseModel)responseModel;
+            }
+            catch (InvalidCastException)
+            {
+                throw new ResponseModelAssertionException(string.Format(
+                            "When calling {0} action in {1} expected HTTP response message model to be a {2}, but instead received a {3}.",
+                            this.ActionName,
+                            this.Controller.GetName(),
+                            typeof(TResponseModel).ToFriendlyTypeName(),
+                            responseModel.GetType().ToFriendlyTypeName()));
+            }
         }
 
         private IList<string> GetHeaderValues(string name)
