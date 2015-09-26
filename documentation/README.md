@@ -5,27 +5,31 @@
 
 ### Table of contents
 
- - [Controller instantiation](#controller-instantiation)
- - [Http request message] (#http-request-message)
- - [Authenticated user](#authenticated-user)
- - [Calling actions](#calling-actions)
- - [Model state validation](#model-state-validation)
- - [Catching thrown exceptions](#catching-thrown-exceptions)
- - [Generic result](#generic-result)
- - [Any result](#any-result)
- - [Ok result](#ok-result)
- - [Unauthorized result](#unauthorized-result)
- - [BadRequest result](#badrequest-result)
- - [JSON result](#json-result)
- - [StatusCode result](#statuscode-result)
- - [Redirect result](#redirect-result)
- - [Content result](#content-result)
- - [Created result](#created-result)
- - [NotFound result](#notfound-result)
- - [Conflict result](#conflict-result)
- - [EmptyContent (void) result](#emptycontent-void-result)
- - [Null or Default result](#null-or-default-result)
- - [AndProvide... methods](#andprovide-methods)
+ - Action call configuration
+  - [Controller instantiation](#controller-instantiation)
+  - [Http request message] (#http-request-message)
+  - [Authenticated user](#authenticated-user)
+  - [Calling actions](#calling-actions)
+ - Action call validations
+  - [Model state validation](#model-state-validation)
+  - [Catching thrown exceptions](#catching-thrown-exceptions)
+ - Action result validations
+  - [Generic result](#generic-result)
+  - [Any result](#any-result)
+  - [Ok result](#ok-result)
+  - [Unauthorized result](#unauthorized-result)
+  - [BadRequest result](#badrequest-result)
+  - [JSON result](#json-result)
+  - [StatusCode result](#statuscode-result)
+  - [Redirect result](#redirect-result)
+  - [Content result](#content-result)
+  - [Created result](#created-result)
+  - [NotFound result](#notfound-result)
+  - [Conflict result](#conflict-result)
+  - [EmptyContent (void) result](#emptycontent-void-result)
+  - [Null or Default result](#null-or-default-result)
+ - Additional methods
+  - [AndProvide... methods](#andprovide-methods)
 
 ### Controller instantiation
 
