@@ -30,6 +30,7 @@ namespace MyWebApi.Builders
     using Contracts;
     using Contracts.Actions;
     using Contracts.Controllers;
+    using Contracts.HttpRequests;
     using Exceptions;
     using Utilities;
 
@@ -54,6 +55,7 @@ namespace MyWebApi.Builders
         {
             this.Controller = controllerInstance;
             this.aggregatedDependencies = new Dictionary<Type, object>();
+            this.HttpRequestMessage = new HttpRequestMessage();
             this.isPreparedForTesting = false;
             this.enabledValidation = true;
         }
@@ -74,6 +76,25 @@ namespace MyWebApi.Builders
             {
                 this.controller = value;
             }
+        }
+
+        /// <summary>
+        /// Gets the HTTP request message used in the testing.
+        /// </summary>
+        /// <value>Instance HttpRequestMessage.</value>
+        public HttpRequestMessage HttpRequestMessage { get; private set; }
+
+        /// <summary>
+        /// Adds HTTP request message to the tested controller.
+        /// </summary>
+        /// <param name="httpRequestMessageBuilder">Builder for HTTP request message.</param>
+        /// <returns>The same controller builder.</returns>
+        public IAndControllerBuilder<TController> WithHttpRequestMessage(Action<IHttpRequestMessageBuilder> httpRequestMessageBuilder)
+        {
+            var httpBuilder = new HttpRequestMessageBuilder();
+            httpRequestMessageBuilder(httpBuilder);
+            this.HttpRequestMessage = httpBuilder.GetHttpRequestMessage();
+            return this;
         }
 
         /// <summary>
@@ -255,11 +276,11 @@ namespace MyWebApi.Builders
                 this.controller = Reflection.TryCreateInstance<TController>(this.aggregatedDependencies.Select(v => v.Value).ToArray());
                 if (this.controller == null)
                 {
-                    var friendlyDependanciesNames = this.aggregatedDependencies
+                    var friendlyDependenciesNames = this.aggregatedDependencies
                         .Keys
                         .Select(k => k.ToFriendlyTypeName());
 
-                    var joinedFriendlyDependencies = string.Join(", ", friendlyDependanciesNames);
+                    var joinedFriendlyDependencies = string.Join(", ", friendlyDependenciesNames);
 
                     throw new UnresolvedDependenciesException(string.Format(
                         "{0} could not be instantiated because it contains no constructor taking {1} parameters.",
@@ -305,7 +326,8 @@ namespace MyWebApi.Builders
 
         private void PrepareController()
         {
-            this.controller.Request = new HttpRequestMessage();
+            this.controller.Request = this.HttpRequestMessage;
+            this.controller.RequestContext = this.HttpRequestMessage.GetRequestContext();
             this.controller.Configuration = new HttpConfiguration();
             this.controller.User = MockedIPrinciple.CreateUnauthenticated();
         }

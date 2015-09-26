@@ -14,22 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Exceptions
+namespace MyWebApi.Utilities.Validators
 {
     using System;
 
     /// <summary>
-    /// Exception for invalid expected exceptions.
+    /// Validator class containing Version validation logic.
     /// </summary>
-    public class InvalidExceptionAssertionException : Exception
+    public static class VersionValidator
     {
         /// <summary>
-        /// Initializes a new instance of the InvalidExceptionAssertionException class.
+        /// Tries to parse version from string.
         /// </summary>
-        /// <param name="message">Message for System.Exception class.</param>
-        public InvalidExceptionAssertionException(string message)
-            : base(message)
+        /// <param name="version">Provided version string.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
+        /// <returns>Valid Version from the provided string.</returns>
+        public static Version TryParse(string version, Action<string, string, string> failedValidationAction)
         {
+            Version parsedVersion;
+            if (!Version.TryParse(version, out parsedVersion))
+            {
+                failedValidationAction("version", "valid version string", "invalid one");
+            }
+
+            return parsedVersion;
         }
     }
 }

@@ -27,6 +27,7 @@ namespace MyWebApi.Builders.Contracts.Actions
     using HttpActionResults.Ok;
     using HttpActionResults.Redirect;
     using HttpActionResults.Unauthorized;
+    using HttpResponseMessages;
     using Models;
 
     /// <summary>
@@ -52,6 +53,12 @@ namespace MyWebApi.Builders.Contracts.Actions
         /// </summary>
         /// <returns>Base test builder with action result.</returns>
         IBaseTestBuilderWithActionResult<TActionResult> NotNull();
+
+        /// <summary>
+        /// Tests whether action result is HttpResponseMessage.
+        /// </summary>
+        /// <returns>HTTP response message test builder.</returns>
+        IHttpResponseMessageTestBuilder HttpResponseMessage();
 
         /// <summary>
         /// Tests whether action result is OkResult or OkNegotiatedContentResult{T}.

@@ -14,17 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-using System.Reflection;
-using System.Runtime.InteropServices;
+namespace MyWebApi.Exceptions
+{
+    using System;
 
-[assembly: AssemblyTitle("MyWebApi")]
-[assembly: AssemblyDescription("ASP.NET Web API Fluent Testing Framework")]
-[assembly: AssemblyCompany("Ivaylo Kenov")]
-[assembly: AssemblyProduct("MyWebApi")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
-
-[assembly: ComVisible(false)]
-[assembly: Guid("9e8264b0-67bf-4981-86fd-321f003c1d67")]
-
-[assembly: AssemblyVersion("0.6.0.0")]
-[assembly: AssemblyFileVersion("0.6.0.0")]
+    /// <summary>
+    /// Exception for invalid HTTP request message.
+    /// </summary>
+    public class InvalidHttpRequestMessageException : Exception
+    {
+        /// <summary>
+        /// Initializes a new instance of the InvalidHttpRequestMessageException class.
+        /// </summary>
+        /// <param name="message">Message for System.Exception class.</param>
+        public InvalidHttpRequestMessageException(string message)
+            : base(message)
+        {
+        }
+    }
+}

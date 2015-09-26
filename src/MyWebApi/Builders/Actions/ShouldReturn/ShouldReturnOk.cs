@@ -18,9 +18,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Web.Http.Results;
     using Contracts.HttpActionResults.Ok;
-    using Contracts.Models;
     using HttpActionResults.Ok;
-    using Models;
 
     /// <summary>
     /// Class containing methods for testing OkResult and OkNegotiatedContentResult{T}.
