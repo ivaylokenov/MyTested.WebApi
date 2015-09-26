@@ -6,6 +6,7 @@
 ### Table of contents
 
  - [Controller instantiation](#controller-instantiation)
+ - [Http request message] (#http-request-message)
  - [Authenticated user](#authenticated-user)
  - [Calling actions](#calling-actions)
  - [Model state validation](#model-state-validation)
@@ -63,6 +64,133 @@ MyWebApi
 // or provide already instantiated controller
 MyWebApi
 	.Controller(myWebApiControllerInstance);
+```
+
+[To top](#table-of-contents)
+
+### Http request message
+
+You can mock the HttpRequestMessage class to suit your testing needs:
+
+```c#
+// adding HttpContent to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithContent(someContent));
+		
+// adding StreamContent to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithStreamContent(someStreamContent));
+		
+// adding ByteArrayContent to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithByteArrayContent(someByteArrayContent));
+		
+// adding form URL encoded content to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithFormUrlEncodedContent(someKeyValuePairCollection));
+		
+// adding StringContent to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithStringContent(someStringContent));
+		
+// adding custom header to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithHeader("TestHeader", "TestHeaderValue"));
+		
+// adding custom header with multiple values to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithHeader("TestHeader", new[] { "TestHeaderValue", "AnotherTestHeaderValue" }));
+		
+// adding custom headers provided as dictionary to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithHeader(someDictionaryWithHeaders));
+		
+// adding HTTP method as string to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithMethod("GET"));
+		
+// adding strongly-typed HTTP method to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithMethod(HttpMethod.Get));
+		
+// adding request URI as string to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithRequestUri("RequestUri"));
+		
+// adding request URI as Uri class to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithRequestUri(someUri));
+		
+// adding request URI with Uri builder to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithRequestUri(uri => uri
+			.WithHost("somehost.com")
+			.AndAlso() // AndAlso is not necessary
+			.WithAbsolutePath("/someuri/1")
+			.AndAlso()
+			.WithPort(80)
+			.AndAlso()
+			.WithScheme("http")
+			.AndAlso()
+			.WithFragment(string.Empty)
+			.AndAlso()
+			.WithQuery("?query=Test")));
+			
+// adding request version as string to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithVersion("1.1"));
+		
+// adding request version using version numbers to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithVersion(1, 1));
+		
+// adding request version using Version class to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithVersion(someVersion));
+		
+// adding different options to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithMethod(HttpMethod.Get)
+		.AndAlso() // AndAlso is not necessary
+		.WithRequestUri(someUri)
+		.AndAlso()
+		.WithVersion(someVersion)
+		.AndAlso()
+		.WithStringContent(someStringContent));
 ```
 
 [To top](#table-of-contents)
