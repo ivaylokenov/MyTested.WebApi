@@ -95,30 +95,5 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests
                 .ShouldThrow()
                 .HttpResponseException();
         }
-
-        [Test]
-        public void ShouldThrowHttpResponseExceptionShouldCatchAndValidateHttpResponseExceptionStatusCode()
-        {
-            MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.ActionWithHttpResponseException())
-                .ShouldThrow()
-                .HttpResponseException()
-                .WithStatusCode(HttpStatusCode.NotFound);
-        }
-
-        [Test]
-        [ExpectedException(
-            typeof(HttpStatusCodeResultAssertionException),
-            ExpectedMessage = "When calling ActionWithHttpResponseException action in WebApiController expected HttpResponseException to have 202 (Accepted) status code, but received 404 (NotFound).")]
-        public void ShouldThrowHttpResponseExceptionShouldThrowWithInvalidHttpResponseExceptionStatusCode()
-        {
-            MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.ActionWithHttpResponseException())
-                .ShouldThrow()
-                .HttpResponseException()
-                .WithStatusCode(HttpStatusCode.Accepted);
-        }
     }
 }
