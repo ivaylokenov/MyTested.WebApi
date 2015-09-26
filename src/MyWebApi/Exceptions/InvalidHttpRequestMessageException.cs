@@ -19,15 +19,15 @@ namespace MyWebApi.Exceptions
     using System;
 
     /// <summary>
-    /// Exception for invalid expected exceptions.
+    /// Exception for invalid HTTP request message.
     /// </summary>
-    public class InvalidExceptionAssertionException : Exception
+    public class InvalidHttpRequestMessageException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the InvalidExceptionAssertionException class.
+        /// Initializes a new instance of the InvalidHttpRequestMessageException class.
         /// </summary>
         /// <param name="message">Message for System.Exception class.</param>
-        public InvalidExceptionAssertionException(string message)
+        public InvalidHttpRequestMessageException(string message)
             : base(message)
         {
         }

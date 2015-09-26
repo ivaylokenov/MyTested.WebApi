@@ -130,9 +130,9 @@ namespace MyWebApi.Builders.HttpActionResults.Content
         public IAndContentTestBuilder WithContentNegotiator(IContentNegotiator contentNegotiator)
         {
             ContentNegotiatorValidator.ValidateContentNegotiator(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 contentNegotiator,
-                new Action<string, string, string>(this.ThrowNewContentResultAssertionException));
+                this.ThrowNewContentResultAssertionException);
 
             return this;
         }
@@ -156,9 +156,9 @@ namespace MyWebApi.Builders.HttpActionResults.Content
         public IAndContentTestBuilder ContainingMediaTypeFormatter(MediaTypeFormatter mediaTypeFormatter)
         {
             MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 mediaTypeFormatter,
-                new Action<string, string, string>(this.ThrowNewContentResultAssertionException));
+                this.ThrowNewContentResultAssertionException);
 
             return this;
         }
@@ -191,9 +191,9 @@ namespace MyWebApi.Builders.HttpActionResults.Content
         public IAndContentTestBuilder ContainingMediaTypeFormatters(IEnumerable<MediaTypeFormatter> mediaTypeFormatters)
         {
             MediaTypeFormatterValidator.ValidateMediaTypeFormatters(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 mediaTypeFormatters,
-                new Action<string, string, string>(this.ThrowNewContentResultAssertionException));
+                this.ThrowNewContentResultAssertionException);
 
             return this;
         }
@@ -216,9 +216,9 @@ namespace MyWebApi.Builders.HttpActionResults.Content
         public IAndContentTestBuilder ContainingMediaTypeFormatters(Action<IFormattersBuilder> formattersBuilder)
         {
             MediaTypeFormatterValidator.ValidateMediaTypeFormattersBuilder(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 formattersBuilder,
-                new Action<string, string, string>(this.ThrowNewContentResultAssertionException));
+                this.ThrowNewContentResultAssertionException);
 
             return this;
         }

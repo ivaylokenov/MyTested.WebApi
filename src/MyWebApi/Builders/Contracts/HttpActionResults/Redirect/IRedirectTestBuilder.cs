@@ -18,7 +18,7 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.Redirect
 {
     using System;
     using Base;
-    using Uri;
+    using Uris;
 
     /// <summary>
     /// Used for testing redirect results.

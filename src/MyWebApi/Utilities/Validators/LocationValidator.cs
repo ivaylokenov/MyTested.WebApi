@@ -18,7 +18,7 @@ namespace MyWebApi.Utilities.Validators
 {
     using System;
     using System.Linq;
-    using Builders;
+    using Builders.Uris;
 
     /// <summary>
     /// Validator class containing URI validation logic.
@@ -59,7 +59,7 @@ namespace MyWebApi.Utilities.Validators
         {
             RuntimeBinderValidator.ValidateBinding(() =>
             {
-                var actualLocation = actionResult.Location as Uri;
+                var actualLocation = (Uri)actionResult.Location;
                 if (location != actualLocation)
                 {
                     failedValidationAction(
@@ -78,18 +78,18 @@ namespace MyWebApi.Utilities.Validators
         /// <param name="failedValidationAction">Action to execute, if the validation fails.</param>
         public static void ValidateLocation(
             dynamic actionResult,
-            Action<UriTestBuilder> uriTestBuilder,
+            Action<MockedUriTestBuilder> uriTestBuilder,
             Action<string, string, string> failedValidationAction)
         {
             RuntimeBinderValidator.ValidateBinding(() =>
             {
                 var actualUri = actionResult.Location as Uri;
 
-                var newUriTestBuilder = new UriTestBuilder();
+                var newUriTestBuilder = new MockedUriTestBuilder();
                 uriTestBuilder(newUriTestBuilder);
-                var expectedUri = newUriTestBuilder.GetUri();
+                var expectedUri = newUriTestBuilder.GetMockedUri();
 
-                var validations = newUriTestBuilder.GetUriValidations();
+                var validations = newUriTestBuilder.GetMockedUriValidations();
                 if (validations.Any(v => !v(expectedUri, actualUri)))
                 {
                     failedValidationAction(

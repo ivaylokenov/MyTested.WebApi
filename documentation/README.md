@@ -5,26 +5,32 @@
 
 ### Table of contents
 
- - [Controller instantiation](#controller-instantiation)
- - [Authenticated user](#authenticated-user)
- - [Calling actions](#calling-actions)
- - [Model state validation](#model-state-validation)
- - [Catching thrown exceptions](#catching-thrown-exceptions)
- - [Generic result](#generic-result)
- - [Any result](#any-result)
- - [Ok result](#ok-result)
- - [Unauthorized result](#unauthorized-result)
- - [BadRequest result](#badrequest-result)
- - [JSON result](#json-result)
- - [StatusCode result](#statuscode-result)
- - [Redirect result](#redirect-result)
- - [Content result](#content-result)
- - [Created result](#created-result)
- - [NotFound result](#notfound-result)
- - [Conflict result](#conflict-result)
- - [EmptyContent (void) result](#emptycontent-void-result)
- - [Null or Default result](#null-or-default-result)
- - [AndProvide... methods](#andprovide-methods)
+ - Action call configuration
+  - [Controller instantiation](#controller-instantiation)
+  - [HTTP request message] (#http-request-message)
+  - [Authenticated user](#authenticated-user)
+  - [Calling actions](#calling-actions)
+ - Action call validations
+  - [Model state validation](#model-state-validation)
+  - [Catching thrown exceptions](#catching-thrown-exceptions)
+ - Action result validations
+  - [Any result](#any-result)
+  - [Generic result](#generic-result)
+  - [HTTP response message result](#http-response-message-result)
+  - [Ok result](#ok-result)
+  - [Unauthorized result](#unauthorized-result)
+  - [BadRequest result](#badrequest-result)
+  - [JSON result](#json-result)
+  - [StatusCode result](#statuscode-result)
+  - [Redirect result](#redirect-result)
+  - [Content result](#content-result)
+  - [Created result](#created-result)
+  - [NotFound result](#notfound-result)
+  - [Conflict result](#conflict-result)
+  - [EmptyContent (void) result](#emptycontent-void-result)
+  - [Null or Default result](#null-or-default-result)
+ - Additional methods
+  - [AndProvide... methods](#andprovide-methods)
 
 ### Controller instantiation
 
@@ -63,6 +69,133 @@ MyWebApi
 // or provide already instantiated controller
 MyWebApi
 	.Controller(myWebApiControllerInstance);
+```
+
+[To top](#table-of-contents)
+
+### HTTP request message
+
+You can mock the HttpRequestMessage class to suit your testing needs:
+
+```c#
+// adding HttpContent to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithContent(someContent));
+		
+// adding StreamContent to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithStreamContent(someStreamContent));
+		
+// adding ByteArrayContent to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithByteArrayContent(someByteArrayContent));
+		
+// adding form URL encoded content to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithFormUrlEncodedContent(someKeyValuePairCollection));
+		
+// adding StringContent to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithStringContent(someStringContent));
+		
+// adding custom header to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithHeader("SomeHeader", "SomeHeaderValue"));
+		
+// adding custom header with multiple values to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithHeader("SomeHeader", new[] { "SomeHeaderValue", "AnotherHeaderValue" }));
+		
+// adding custom headers provided as dictionary to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithHeader(someDictionaryWithHeaders));
+		
+// adding HTTP method as string to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithMethod("GET"));
+		
+// adding strongly-typed HTTP method to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithMethod(HttpMethod.Get));
+		
+// adding request URI as string to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithRequestUri("RequestUri"));
+		
+// adding request URI as Uri class to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithRequestUri(someUri));
+		
+// adding request URI with Uri builder to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithRequestUri(uri => uri
+			.WithHost("somehost.com")
+			.AndAlso() // AndAlso is not necessary
+			.WithAbsolutePath("/someuri/1")
+			.AndAlso()
+			.WithPort(80)
+			.AndAlso()
+			.WithScheme("http")
+			.AndAlso()
+			.WithFragment(string.Empty)
+			.AndAlso()
+			.WithQuery("?query=Test")));
+			
+// adding request version as string to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithVersion("1.1"));
+		
+// adding request version using version numbers to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithVersion(1, 1));
+		
+// adding request version using Version class to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithVersion(someVersion));
+		
+// adding different options to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithMethod(HttpMethod.Get)
+		.AndAlso() // AndAlso is not necessary
+		.WithRequestUri(someUri)
+		.AndAlso()
+		.WithVersion(someVersion)
+		.AndAlso()
+		.WithStringContent(someStringContent));
 ```
 
 [To top](#table-of-contents)
@@ -261,6 +394,19 @@ MyWebApi
 
 You can test for specific return values or the default IHttpActionResult types:
 
+#### Any result
+
+```c#
+// tests whether the action returns any result
+// and does not throw an exception
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn();
+```
+
+[To top](#table-of-contents)
+
 #### Generic result
 
 Useful where the action does not return IHttpActionResult
@@ -312,14 +458,174 @@ MyWebApi
 	.Passing(m => m.Id == 1);
 ```
 
-#### Any result
+[To top](#table-of-contents)
+
+#### HTTP response message result
+
 ```c#
-// tests whether the action returns any result
-// and does not throw an exception
+// tests whether the action returns HttpResponseMessage
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
-	.ShouldReturn();
+	.ShouldReturn()
+	.HttpResponseMessage();
+	
+// tests whether the action returns HttpResponseMessage
+// with content response model of type
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithResponseModelOfType<ResponseModel>();
+	
+// tests whether the action returns HttpResponseMessage
+// with content response model object
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithResponseModel(someResponseModelObject);
+	
+// tests whether the action returns HttpResponseMessage
+// with HttpContent of type
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithContentOfType<ObjectContent>();
+	
+// tests whether the action returns HttpResponseMessage
+// with specific media type formatter
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithMediaTypeFormatter(new JsonMediaTypeFormatter());
+	
+// tests whether the action returns HttpResponseMessage
+// with specific media type formatter
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithMediaTypeFormatterOfType<JsonMediaTypeFormatter>();
+	
+// tests whether the action returns HttpResponseMessage
+// with the default media type formatter for the framework
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithDefaultMediaTypeFormatter();
+	
+// tests whether the action returns HttpResponseMessage
+// containing header with specific name
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.ContainingHeader("SomeHeader");
+	
+// tests whether the action returns HttpResponseMessage
+// containing header with specific name and value
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.ContainingHeader("SomeHeader", "SomeValue");
+	
+// tests whether the action returns HttpResponseMessage
+// containing header with specific name and values
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.ContainingHeader("SomeHeader", new[] { "SomeHeaderValue", "AnotherHeaderValue" });
+	
+// tests whether the action returns HttpResponseMessage
+// containing headers provided as dictionary
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.ContainingHeaders(someDictionaryWithHeaders);
+	
+// tests whether the action returns HttpResponseMessage
+// containing headers provided as HttpResponseHeaders
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.ContainingHeaders(someHttpReponseHeaders);
+	
+// tests whether the action returns HttpResponseMessage
+// with specific status code
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+	
+// tests whether the action returns HttpResponseMessage
+// with success status code (from 200 to 299)
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithSuccessStatusCode();
+	
+// tests whether the action returns HttpResponseMessage
+// with HTTP version as string
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithVersion("1.1");
+	
+// tests whether the action returns HttpResponseMessage
+// with HTTP version as numbers
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithVersion(1, 1);
+	
+// tests whether the action returns HttpResponseMessage
+// with HTTP version as Version class
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithVersion(someVersion);
+	
+// tests whether the action returns HttpResponseMessage
+// with different type of properties by using AndAlso()
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithSuccessStatusCode()
+	.AndAlso() // AndAlso is not necessary
+	.ContainingHeader("SomeHeader")
+	.AndAlso()
+	.WithResponseModelOfType<ResponseModel>();
 ```
 
 [To top](#table-of-contents)
@@ -474,7 +780,7 @@ MyWebApi
 	.Passing(m => m.Id == 1);
 	
 // tests whether the action returns OkNegotiatedContentResult<T>
-// with different types of properties by using AndAlso()
+// with different type of properties by using AndAlso()
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
@@ -1132,7 +1438,7 @@ MyWebApi
 				.ContainingMediaTypeFormatterOfType<SomeMediaTypeFormatter>());
 
 // tests whether the action returns created result
-// with different types of properties by using AndAlso()
+// with different type of properties by using AndAlso()
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
@@ -1296,6 +1602,15 @@ var controller = MyWebApi
 	.ShouldReturn()
 	.Ok()
 	.AndProvideTheController();
+	
+// get the HTTP request message
+// * method is available almost everywhere throughout the API
+var controller = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.AndProvideTheHttpRequestMessage();
 	
 // get action name
 // * method is available almost everywhere throughout the API

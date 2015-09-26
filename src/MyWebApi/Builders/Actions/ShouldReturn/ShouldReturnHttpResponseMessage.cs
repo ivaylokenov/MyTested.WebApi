@@ -14,22 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Exceptions
+namespace MyWebApi.Builders.Actions.ShouldReturn
 {
-    using System;
+    using System.Net.Http;
+    using Contracts.HttpResponseMessages;
 
     /// <summary>
-    /// Exception for invalid expected exceptions.
+    /// Class containing methods for testing HttpResponseMessage result.
     /// </summary>
-    public class InvalidExceptionAssertionException : Exception
+    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
+    public partial class ShouldReturnTestBuilder<TActionResult>
     {
         /// <summary>
-        /// Initializes a new instance of the InvalidExceptionAssertionException class.
+        /// Tests whether action result is HttpResponseMessage.
         /// </summary>
-        /// <param name="message">Message for System.Exception class.</param>
-        public InvalidExceptionAssertionException(string message)
-            : base(message)
+        /// <returns>HTTP response message test builder.</returns>
+        public IHttpResponseMessageTestBuilder HttpResponseMessage()
         {
+            this.ResultOfType<HttpResponseMessage>();
+            return new HttpResponseMessageTestBuilder(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.ActionResult as HttpResponseMessage);
         }
     }
 }

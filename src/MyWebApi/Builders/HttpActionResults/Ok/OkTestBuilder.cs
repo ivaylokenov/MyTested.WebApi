@@ -87,9 +87,9 @@ namespace MyWebApi.Builders.HttpActionResults.Ok
         public IAndOkTestBuilder WithContentNegotiator(IContentNegotiator contentNegotiator)
         {
             ContentNegotiatorValidator.ValidateContentNegotiator(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 contentNegotiator,
-                new Action<string, string, string>(this.ThrowNewOkResultAssertionException));
+                this.ThrowNewOkResultAssertionException);
 
             return this;
         }
@@ -113,9 +113,9 @@ namespace MyWebApi.Builders.HttpActionResults.Ok
         public IAndOkTestBuilder ContainingMediaTypeFormatter(MediaTypeFormatter mediaTypeFormatter)
         {
             MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 mediaTypeFormatter,
-                new Action<string, string, string>(this.ThrowNewOkResultAssertionException));
+                this.ThrowNewOkResultAssertionException);
 
             return this;
         }
@@ -148,9 +148,9 @@ namespace MyWebApi.Builders.HttpActionResults.Ok
         public IAndOkTestBuilder ContainingMediaTypeFormatters(IEnumerable<MediaTypeFormatter> mediaTypeFormatters)
         {
             MediaTypeFormatterValidator.ValidateMediaTypeFormatters(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 mediaTypeFormatters,
-                new Action<string, string, string>(this.ThrowNewOkResultAssertionException));
+                this.ThrowNewOkResultAssertionException);
 
             return this;
         }
@@ -173,9 +173,9 @@ namespace MyWebApi.Builders.HttpActionResults.Ok
         public IAndOkTestBuilder ContainingMediaTypeFormatters(Action<IFormattersBuilder> formattersBuilder)
         {
             MediaTypeFormatterValidator.ValidateMediaTypeFormattersBuilder(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 formattersBuilder,
-                new Action<string, string, string>(this.ThrowNewOkResultAssertionException));
+                this.ThrowNewOkResultAssertionException);
 
             return this;
         }

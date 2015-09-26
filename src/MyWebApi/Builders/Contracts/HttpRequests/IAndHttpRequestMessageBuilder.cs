@@ -14,22 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Exceptions
+namespace MyWebApi.Builders.Contracts.HttpRequests
 {
-    using System;
-
     /// <summary>
-    /// Exception for invalid expected exceptions.
+    /// Used for adding AndAlso() method to the the HTTP request message builder.
     /// </summary>
-    public class InvalidExceptionAssertionException : Exception
+    public interface IAndHttpRequestMessageBuilder : IHttpRequestMessageBuilder
     {
         /// <summary>
-        /// Initializes a new instance of the InvalidExceptionAssertionException class.
+        /// AndAlso method for better readability when building HTTP request message.
         /// </summary>
-        /// <param name="message">Message for System.Exception class.</param>
-        public InvalidExceptionAssertionException(string message)
-            : base(message)
-        {
-        }
+        /// <returns>The same HTTP request message builder.</returns>
+        IHttpRequestMessageBuilder AndAlso();
     }
 }

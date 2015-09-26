@@ -14,27 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders
+namespace MyWebApi.Builders.Uris
 {
     using System;
     using System.Collections.Generic;
     using Common;
-    using Contracts.Uri;
+    using Contracts.Uris;
 
     /// <summary>
     /// Used for testing URI location in a created result.
     /// </summary>
-    public class UriTestBuilder : IAndUriTestBuilder
+    public class MockedUriTestBuilder : MockedUriBuilder
     {
-        private readonly MockedUri mockedUri;
-        private readonly ICollection<Func<MockedUri, Uri, bool>> validations; 
+        private readonly ICollection<Func<MockedUri, Uri, bool>> validations;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UriTestBuilder" /> class.
+        /// Initializes a new instance of the <see cref="MockedUriTestBuilder" /> class.
         /// </summary>
-        public UriTestBuilder()
+        public MockedUriTestBuilder()
         {
-            this.mockedUri = new MockedUri();
             this.validations = new List<Func<MockedUri, Uri, bool>>();
         }
 
@@ -43,11 +41,10 @@ namespace MyWebApi.Builders
         /// </summary>
         /// <param name="host">Host part of URI.</param>
         /// <returns>The same URI test builder.</returns>
-        public IAndUriTestBuilder WithHost(string host)
+        public override IAndUriTestBuilder WithHost(string host)
         {
-            this.mockedUri.Host = host;
             this.validations.Add((expected, actual) => expected.Host == actual.Host);
-            return this;
+            return base.WithHost(host);
         }
 
         /// <summary>
@@ -55,11 +52,10 @@ namespace MyWebApi.Builders
         /// </summary>
         /// <param name="port">Port part of URI.</param>
         /// <returns>The same URI test builder.</returns>
-        public IAndUriTestBuilder WithPort(int port)
+        public override IAndUriTestBuilder WithPort(int port)
         {
-            this.mockedUri.Port = port;
             this.validations.Add((expected, actual) => expected.Port == actual.Port);
-            return this;
+            return base.WithPort(port);
         }
 
         /// <summary>
@@ -67,11 +63,10 @@ namespace MyWebApi.Builders
         /// </summary>
         /// <param name="absolutePath">Absolute path part of URI.</param>
         /// <returns>The same URI test builder.</returns>
-        public IAndUriTestBuilder WithAbsolutePath(string absolutePath)
+        public override IAndUriTestBuilder WithAbsolutePath(string absolutePath)
         {
-            this.mockedUri.AbsolutePath = absolutePath;
             this.validations.Add((expected, actual) => expected.AbsolutePath == actual.AbsolutePath);
-            return this;
+            return base.WithAbsolutePath(absolutePath);
         }
 
         /// <summary>
@@ -79,11 +74,10 @@ namespace MyWebApi.Builders
         /// </summary>
         /// <param name="scheme">Scheme part of URI.</param>
         /// <returns>The same URI test builder.</returns>
-        public IAndUriTestBuilder WithScheme(string scheme)
+        public override IAndUriTestBuilder WithScheme(string scheme)
         {
-            this.mockedUri.Scheme = scheme;
             this.validations.Add((expected, actual) => expected.Scheme == actual.Scheme);
-            return this;
+            return base.WithScheme(scheme);
         }
 
         /// <summary>
@@ -91,11 +85,10 @@ namespace MyWebApi.Builders
         /// </summary>
         /// <param name="query">Query part of URI.</param>
         /// <returns>The same URI test builder.</returns>
-        public IAndUriTestBuilder WithQuery(string query)
+        public override IAndUriTestBuilder WithQuery(string query)
         {
-            this.mockedUri.Query = query;
             this.validations.Add((expected, actual) => expected.Query == actual.Query);
-            return this;
+            return base.WithQuery(query);
         }
 
         /// <summary>
@@ -103,28 +96,13 @@ namespace MyWebApi.Builders
         /// </summary>
         /// <param name="fragment">Document fragment part of URI.</param>
         /// <returns>The same URI test builder.</returns>
-        public IAndUriTestBuilder WithFragment(string fragment)
+        public override IAndUriTestBuilder WithFragment(string fragment)
         {
-            this.mockedUri.Fragment = fragment;
             this.validations.Add((expected, actual) => expected.Fragment == actual.Fragment);
-            return this;
+            return base.WithFragment(fragment);
         }
 
-        /// <summary>
-        /// AndAlso method for better readability when chaining URI tests.
-        /// </summary>
-        /// <returns>The same URI test builder.</returns>
-        public IUriTestBuilder AndAlso()
-        {
-            return this;
-        }
-
-        internal MockedUri GetUri()
-        {
-            return this.mockedUri;
-        }
-
-        internal ICollection<Func<MockedUri, Uri, bool>> GetUriValidations()
+        internal ICollection<Func<MockedUri, Uri, bool>> GetMockedUriValidations()
         {
             return this.validations;
         }
