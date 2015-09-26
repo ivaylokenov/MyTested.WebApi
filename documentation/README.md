@@ -1603,6 +1603,15 @@ var controller = MyWebApi
 	.Ok()
 	.AndProvideTheController();
 	
+// get the HTTP request message
+// * method is available almost everywhere throughout the API
+var controller = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.AndProvideTheHttpRequestMessage();
+	
 // get action name
 // * method is available almost everywhere throughout the API
 var actionName = MyWebApi
