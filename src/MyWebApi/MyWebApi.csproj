@@ -72,12 +72,14 @@
     <Compile Include="Builders\And\AndProvideTestBuilder.cs" />
     <Compile Include="Builders\And\AndProvideTestBuilder{TActionResult}.cs" />
     <Compile Include="Builders\And\AndTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\ExceptionErrors\IAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Ok\IAndOkTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Ok\IOkTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpRequests\IAndHttpRequestMessageBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpRequests\IHttpRequestMessageBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IAndHttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpResponseMessageTestBuilder.cs" />
+    <Compile Include="Builders\ExceptionErrors\AggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />

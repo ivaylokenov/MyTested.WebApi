@@ -55,6 +55,19 @@ namespace MyWebApi.Builders.Actions
         }
 
         /// <summary>
+        /// Tests whether action throws any AggregateException.
+        /// </summary>
+        /// <returns>AggregateException test builder.</returns>
+        public IAggregateExceptionTestBuilder AggregateException()
+        {
+            this.exceptionTestBuilder.OfType<AggregateException>();
+            return new AggregateExceptionTestBuilder(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException as AggregateException);
+        }
+
+        /// <summary>
         /// Tests whether action throws any HttpResponseException.
         /// </summary>
         /// <returns>HttpResponseException test builder.</returns>

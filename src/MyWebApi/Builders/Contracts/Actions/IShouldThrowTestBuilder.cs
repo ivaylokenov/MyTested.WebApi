@@ -31,6 +31,12 @@ namespace MyWebApi.Builders.Contracts.Actions
         IExceptionTestBuilder Exception();
 
         /// <summary>
+        /// Tests whether action throws any AggregateException.
+        /// </summary>
+        /// <returns>AggregateException test builder.</returns>
+        IAggregateExceptionTestBuilder AggregateException();
+
+        /// <summary>
         /// Tests whether action throws any HttpResponseException.
         /// </summary>
         /// <returns>HttpResponseException test builder.</returns>
