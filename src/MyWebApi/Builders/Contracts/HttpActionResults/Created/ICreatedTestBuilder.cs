@@ -21,7 +21,7 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.Created
     using System.Net.Http.Formatting;
     using Formatters;
     using Models;
-    using Uri;
+    using Uris;
 
     /// <summary>
     /// Used for testing created results.

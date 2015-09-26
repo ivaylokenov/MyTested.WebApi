@@ -24,7 +24,7 @@ namespace MyWebApi.Builders
     using System.Text;
     using Common.Extensions;
     using Contracts.HttpRequests;
-    using Contracts.Uri;
+    using Contracts.Uris;
     using Exceptions;
     using Uris;
     using Utilities.Validators;
@@ -254,12 +254,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithVersion(string version)
         {
-            Version parsedVersion;
-            if (!Version.TryParse(version, out parsedVersion))
-            {
-                this.ThrowNewInvalidHttpRequestMessageException("version", "valid version string", "invalid one");
-            }
-
+            Version parsedVersion = VersionValidator.TryParse(version, this.ThrowNewInvalidHttpRequestMessageException);
             return this.WithVersion(parsedVersion);
         }
 

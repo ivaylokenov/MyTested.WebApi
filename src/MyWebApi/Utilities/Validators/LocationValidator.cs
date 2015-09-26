@@ -59,7 +59,7 @@ namespace MyWebApi.Utilities.Validators
         {
             RuntimeBinderValidator.ValidateBinding(() =>
             {
-                var actualLocation = actionResult.Location as Uri;
+                var actualLocation = (Uri)actionResult.Location;
                 if (location != actualLocation)
                 {
                     failedValidationAction(

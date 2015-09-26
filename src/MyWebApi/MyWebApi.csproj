@@ -58,6 +58,7 @@
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnConflict.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnContent.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnCreated.cs" />
+    <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnHttpResponseMessage.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnInternalServerError.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnJson.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnNotFound.cs" />
@@ -75,6 +76,8 @@
     <Compile Include="Builders\Contracts\HttpActionResults\Ok\IOkTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpRequests\IAndHttpRequestMessageBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpRequests\IHttpRequestMessageBuilder.cs" />
+    <Compile Include="Builders\Contracts\HttpResponseMessages\IAndHttpResponseMessageTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
@@ -85,7 +88,7 @@
     <Compile Include="Builders\Contracts\HttpActionResults\Content\IContentTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Created\IAndCreatedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Formatters\IAndFormattersBuilder.cs" />
-    <Compile Include="Builders\Contracts\Uri\IAndUriTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Uris\IAndUriTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Created\ICreatedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldHaveTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IShouldReturnTestBuilder.cs" />
@@ -96,7 +99,7 @@
     <Compile Include="Builders\Contracts\HttpActionResults\BadRequest\IBadRequestTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Controllers\IAndControllerBuilder.cs" />
     <Compile Include="Builders\Contracts\Formatters\IFormattersBuilder.cs" />
-    <Compile Include="Builders\Contracts\Uri\IUriTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Uris\IUriTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAndExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IExceptionTestBuilder.cs" />
@@ -130,6 +133,7 @@
     <Compile Include="Builders\HttpActionResults\Created\CreatedTestBuilder.cs" />
     <Compile Include="Builders\FormattersBuilder.cs" />
     <Compile Include="Builders\HttpRequestMessageBuilder.cs" />
+    <Compile Include="Builders\HttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
@@ -166,6 +170,7 @@
     <Compile Include="Exceptions\ContentResultAssertionException.cs" />
     <Compile Include="Exceptions\CreatedResultAssertionException.cs" />
     <Compile Include="Exceptions\HttpActionResultAssertionException.cs" />
+    <Compile Include="Exceptions\HttpResponseMessageAssertionException.cs" />
     <Compile Include="Exceptions\HttpStatusCodeResultAssertionException.cs" />
     <Compile Include="Exceptions\InternalServerErrorResultAssertionException.cs" />
     <Compile Include="Exceptions\InvalidExceptionAssertionException.cs" />
@@ -188,6 +193,7 @@
     <Compile Include="Utilities\Validators\LocationValidator.cs" />
     <Compile Include="Utilities\Validators\MediaTypeFormatterValidator.cs" />
     <Compile Include="Utilities\Validators\RuntimeBinderValidator.cs" />
+    <Compile Include="Utilities\Validators\VersionValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MyWebApi.licenseheader" />
