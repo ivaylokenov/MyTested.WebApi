@@ -22,12 +22,13 @@ namespace MyWebApi.Builders.Contracts.HttpResponseMessages
     using System.Net.Http;
     using System.Net.Http.Formatting;
     using System.Net.Http.Headers;
+    using Base;
     using Models;
 
     /// <summary>
     /// Used for testing HTTP response message results.
     /// </summary>
-    public interface IHttpResponseMessageTestBuilder
+    public interface IHttpResponseMessageTestBuilder : IBaseTestBuilder
     {
         /// <summary>
         /// Tests whether certain type of response model is returned from the HTTP response message content.

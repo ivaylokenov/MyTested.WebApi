@@ -17,6 +17,7 @@
 namespace MyWebApi.Tests.BuildersTests.AndTests
 {
     using System;
+    using System.Net.Http;
     using System.Web.Http.Results;
     using NUnit.Framework;
     using Setups.Controllers;
@@ -37,6 +38,25 @@ namespace MyWebApi.Tests.BuildersTests.AndTests
 
             Assert.IsNotNull(controller);
             Assert.IsAssignableFrom<WebApiController>(controller);
+        }
+
+        [Test]
+        public void AndProvideShouldReturnProperHttpRequestMessage()
+        {
+            var httpRequestMessage = MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request 
+                    => request
+                        .WithMethod(HttpMethod.Get)
+                        .WithHeader("TestHeader", "TestHeaderValue"))
+                .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .AndProvideTheHttpRequestMessage();
+
+            Assert.IsNotNull(httpRequestMessage);
+            Assert.AreEqual(HttpMethod.Get, httpRequestMessage.Method);
+            Assert.IsTrue(httpRequestMessage.Headers.Contains("TestHeader"));
         }
 
         [Test]
