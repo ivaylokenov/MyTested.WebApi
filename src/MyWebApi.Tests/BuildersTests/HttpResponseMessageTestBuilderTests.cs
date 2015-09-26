@@ -242,7 +242,7 @@ namespace MyWebApi.Tests.BuildersTests
                 .Calling(c => c.HttpResponseMessageAction())
                 .ShouldReturn()
                 .HttpResponseMessage()
-                .ContainingHeader("TestHeader", new List<string> { "TestHeaderValue" });
+                .ContainingHeader("TestHeader", new[] { "TestHeaderValue" });
         }
 
         [Test]
@@ -256,7 +256,7 @@ namespace MyWebApi.Tests.BuildersTests
                 .Calling(c => c.HttpResponseMessageAction())
                 .ShouldReturn()
                 .HttpResponseMessage()
-                .ContainingHeader("TestHeader", new List<string> { "AnotherHeaderValue" });
+                .ContainingHeader("TestHeader", new[] { "AnotherHeaderValue" });
         }
 
         [Test]
@@ -270,7 +270,7 @@ namespace MyWebApi.Tests.BuildersTests
                 .Calling(c => c.HttpResponseMessageAction())
                 .ShouldReturn()
                 .HttpResponseMessage()
-                .ContainingHeader("TestHeader", new List<string> { "TestHeaderValue", "AnotherHeaderValue" });
+                .ContainingHeader("TestHeader", new[] { "TestHeaderValue", "AnotherHeaderValue" });
         }
 
         [Test]
