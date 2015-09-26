@@ -284,6 +284,11 @@ namespace MyWebApi.Tests.Setups.Controllers
             throw new HttpResponseException(HttpStatusCode.NotFound);
         }
 
+        public IHttpActionResult ActionWithHttpResponseExceptionAndHttpResponseMessageException()
+        {
+            throw new HttpResponseException(this.Request.CreateResponse(HttpStatusCode.InternalServerError));
+        }
+
         public async Task EmptyActionWithExceptionAsync()
         {
             await Task.Run(() => this.ThrowNewNullReferenceException());

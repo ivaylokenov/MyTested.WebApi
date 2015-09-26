@@ -18,6 +18,7 @@ namespace MyWebApi.Builders.Contracts.ExceptionErrors
 {
     using System.Net;
     using Base;
+    using HttpResponseMessages;
 
     /// <summary>
     /// Used for testing expected HttpResponseException.
@@ -30,5 +31,11 @@ namespace MyWebApi.Builders.Contracts.ExceptionErrors
         /// <param name="statusCode">HttpStatusCode enumeration.</param>
         /// <returns>Base test builder.</returns>
         IBaseTestBuilder WithStatusCode(HttpStatusCode statusCode);
+
+        /// <summary>
+        /// Provides methods to test whether caught HttpResponseException has specific HttpResponseMessage.
+        /// </summary>
+        /// <returns>HTTP response message test builder.</returns>
+        IHttpResponseMessageTestBuilder WithHttpResponseMessage();
     }
 }
