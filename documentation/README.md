@@ -386,6 +386,18 @@ MyWebApi
 	.ShouldThrow()
 	.HttpResponseException()
 	.WithStatusCode(HttpStatusCode.NotFound);
+	
+// tests whether the action throws HttpResponseException
+// with specific HttpResponseMessage
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.HttpResponseException()
+	.WithHttpResponseMessage()
+	.WithVersion(1, 1)
+	.AndAlso() // AndAlso is not necessary
+	.WithStatusCode(HttpStatusCode.InternalServerError);
 ```
 
 [To top](#table-of-contents)
