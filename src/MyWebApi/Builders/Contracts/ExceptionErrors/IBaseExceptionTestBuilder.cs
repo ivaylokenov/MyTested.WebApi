@@ -14,17 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Uri
+namespace MyWebApi.Builders.Contracts.ExceptionErrors
 {
+    using Base;
+
     /// <summary>
-    /// Used for adding AndAlso() method to the the URI tests.
+    /// Used for testing expected exception messages.
     /// </summary>
-    public interface IAndUriTestBuilder : IUriTestBuilder
+    public interface IBaseExceptionTestBuilder : IBaseTestBuilder
     {
         /// <summary>
-        /// AndAlso method for better readability when chaining URI tests.
+        /// Tests exception message using test builder.
         /// </summary>
-        /// <returns>The same URI test builder.</returns>
-        IUriTestBuilder AndAlso();
+        /// <returns>Exception message test builder.</returns>
+        IExceptionMessageTestBuilder WithMessage();
+
+        /// <summary>
+        /// Tests exception message whether it is equal to the provided message as string.
+        /// </summary>
+        /// <param name="message">Expected exception message as string.</param>
+        /// <returns>The same exception test builder.</returns>
+        IAndExceptionTestBuilder WithMessage(string message);
     }
 }

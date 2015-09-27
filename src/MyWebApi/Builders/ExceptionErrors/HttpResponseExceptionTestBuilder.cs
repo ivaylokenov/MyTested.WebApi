@@ -22,6 +22,7 @@ namespace MyWebApi.Builders.ExceptionErrors
     using Common.Extensions;
     using Contracts.Base;
     using Contracts.ExceptionErrors;
+    using Contracts.HttpResponseMessages;
     using Exceptions;
 
     /// <summary>
@@ -67,6 +68,19 @@ namespace MyWebApi.Builders.ExceptionErrors
             }
 
             return this.NewAndProvideTestBuilder();
+        }
+
+        /// <summary>
+        /// Provides methods to test whether caught HttpResponseException has specific HttpResponseMessage.
+        /// </summary>
+        /// <returns>HTTP response message test builder.</returns>
+        public IHttpResponseMessageTestBuilder WithHttpResponseMessage()
+        {
+            return new HttpResponseMessageTestBuilder(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.httpResponseException.Response);
         }
     }
 }

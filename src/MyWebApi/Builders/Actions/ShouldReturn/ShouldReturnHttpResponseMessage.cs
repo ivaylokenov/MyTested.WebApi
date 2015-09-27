@@ -14,28 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.ExceptionErrors
+namespace MyWebApi.Builders.Actions.ShouldReturn
 {
-    using System.Net;
-    using Base;
-    using HttpResponseMessages;
+    using System.Net.Http;
+    using Contracts.HttpResponseMessages;
 
     /// <summary>
-    /// Used for testing expected HttpResponseException.
+    /// Class containing methods for testing HttpResponseMessage result.
     /// </summary>
-    public interface IHttpResponseExceptionTestBuilder : IBaseTestBuilder
+    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
+    public partial class ShouldReturnTestBuilder<TActionResult>
     {
         /// <summary>
-        /// Tests whether caught HttpResponseException has the same status code as the provided HttpStatusCode.
-        /// </summary>
-        /// <param name="statusCode">HttpStatusCode enumeration.</param>
-        /// <returns>Base test builder.</returns>
-        IBaseTestBuilder WithStatusCode(HttpStatusCode statusCode);
-
-        /// <summary>
-        /// Provides methods to test whether caught HttpResponseException has specific HttpResponseMessage.
+        /// Tests whether action result is HttpResponseMessage.
         /// </summary>
         /// <returns>HTTP response message test builder.</returns>
-        IHttpResponseMessageTestBuilder WithHttpResponseMessage();
+        public IHttpResponseMessageTestBuilder HttpResponseMessage()
+        {
+            this.ResultOfType<HttpResponseMessage>();
+            return new HttpResponseMessageTestBuilder(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.ActionResult as HttpResponseMessage);
+        }
     }
 }

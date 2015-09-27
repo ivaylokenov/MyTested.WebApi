@@ -95,7 +95,7 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests
         [Test]
         [ExpectedException(
             typeof(ModelErrorAssertionException),
-            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have invalid model state with 5 errors, but contained 2.")]
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have invalid model state with 5 errors, but in fact contained 2.")]
         public void ShouldHaveInvalidModelStateShouldBeInvalidWithInvalidRequestModelAndIncorrectNumberOfErrors()
         {
             var requestModelWithErrors = TestObjectFactory.GetRequestModelWithErrors();
@@ -125,7 +125,7 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests
         [Test]
         [ExpectedException(
             typeof(ModelErrorAssertionException),
-            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have invalid model state with 5 errors, but contained 0.")]
+            ExpectedMessage = "When calling ModelStateCheck action in WebApiController expected to have invalid model state with 5 errors, but in fact contained 0.")]
         public void ShouldHaveInvalidModelStateShouldThrowExceptionWithValidRequestModelAndProvidedNumberOfErrors()
         {
             var requestModel = TestObjectFactory.GetValidRequestModel();

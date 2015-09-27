@@ -19,9 +19,11 @@ namespace MyWebApi.Builders.Contracts.Controllers
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+    using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
     using Actions;
+    using HttpRequests;
 
     /// <summary>
     /// Used for building the action which will be tested.
@@ -35,6 +37,19 @@ namespace MyWebApi.Builders.Contracts.Controllers
         /// </summary>
         /// <value>Instance of the ASP.NET Web API controller.</value>
         TController Controller { get; }
+
+        /// <summary>
+        /// Gets the HTTP request message used in the testing.
+        /// </summary>
+        /// <value>Instance HttpRequestMessage.</value>
+        HttpRequestMessage HttpRequestMessage { get; }
+
+        /// <summary>
+        /// Adds HTTP request message to the tested controller.
+        /// </summary>
+        /// <param name="httpRequestBuilder">Builder for HTTP request message.</param>
+        /// <returns>The same controller builder.</returns>
+        IAndControllerBuilder<TController> WithHttpRequestMessage(Action<IHttpRequestMessageBuilder> httpRequestBuilder);
 
         /// <summary>
         /// Tries to resolve constructor dependency of given type.

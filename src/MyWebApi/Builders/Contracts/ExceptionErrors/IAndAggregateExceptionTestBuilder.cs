@@ -16,26 +16,15 @@
 
 namespace MyWebApi.Builders.Contracts.ExceptionErrors
 {
-    using System.Net;
-    using Base;
-    using HttpResponseMessages;
-
     /// <summary>
-    /// Used for testing expected HttpResponseException.
+    /// Used for adding AndAlso() method to the aggregate exception tests.
     /// </summary>
-    public interface IHttpResponseExceptionTestBuilder : IBaseTestBuilder
+    public interface IAndAggregateExceptionTestBuilder : IAggregateExceptionTestBuilder
     {
         /// <summary>
-        /// Tests whether caught HttpResponseException has the same status code as the provided HttpStatusCode.
+        /// AndAlso method for better readability when chaining aggregate exception tests.
         /// </summary>
-        /// <param name="statusCode">HttpStatusCode enumeration.</param>
-        /// <returns>Base test builder.</returns>
-        IBaseTestBuilder WithStatusCode(HttpStatusCode statusCode);
-
-        /// <summary>
-        /// Provides methods to test whether caught HttpResponseException has specific HttpResponseMessage.
-        /// </summary>
-        /// <returns>HTTP response message test builder.</returns>
-        IHttpResponseMessageTestBuilder WithHttpResponseMessage();
+        /// <returns>The same aggregate exception test builder.</returns>
+        IAggregateExceptionTestBuilder AndAlso();
     }
 }

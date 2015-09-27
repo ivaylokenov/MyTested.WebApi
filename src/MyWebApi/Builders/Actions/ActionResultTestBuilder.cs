@@ -24,7 +24,6 @@ namespace MyWebApi.Builders.Actions
     using Exceptions;
     using ShouldHave;
     using ShouldReturn;
-    using Utilities;
     using Utilities.Validators;
 
     /// <summary>

@@ -16,26 +16,19 @@
 
 namespace MyWebApi.Builders.Contracts.ExceptionErrors
 {
-    using System.Net;
-    using Base;
-    using HttpResponseMessages;
+    using System;
 
     /// <summary>
-    /// Used for testing expected HttpResponseException.
+    /// Used for testing AggregateException.
     /// </summary>
-    public interface IHttpResponseExceptionTestBuilder : IBaseTestBuilder
+    public interface IAggregateExceptionTestBuilder : IBaseExceptionTestBuilder
     {
         /// <summary>
-        /// Tests whether caught HttpResponseException has the same status code as the provided HttpStatusCode.
+        /// Tests whether AggregateException contains inner exception of the provided type.
         /// </summary>
-        /// <param name="statusCode">HttpStatusCode enumeration.</param>
-        /// <returns>Base test builder.</returns>
-        IBaseTestBuilder WithStatusCode(HttpStatusCode statusCode);
-
-        /// <summary>
-        /// Provides methods to test whether caught HttpResponseException has specific HttpResponseMessage.
-        /// </summary>
-        /// <returns>HTTP response message test builder.</returns>
-        IHttpResponseMessageTestBuilder WithHttpResponseMessage();
+        /// <typeparam name="TInnerException">Expected inner exception type.</typeparam>
+        /// <returns>The same aggregate exception test builder.</returns>
+        IAndAggregateExceptionTestBuilder ContainingInnerExceptionOfType<TInnerException>()
+            where TInnerException : Exception;
     }
 }

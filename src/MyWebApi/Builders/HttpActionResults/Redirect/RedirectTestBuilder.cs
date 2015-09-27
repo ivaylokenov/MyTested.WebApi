@@ -22,7 +22,7 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
     using Common.Extensions;
     using Contracts.Base;
     using Contracts.HttpActionResults.Redirect;
-    using Contracts.Uri;
+    using Contracts.Uris;
     using Exceptions;
     using Utilities.Validators;
 
@@ -68,9 +68,9 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
         public IBaseTestBuilder AtLocation(Uri location)
         {
             LocationValidator.ValidateUri(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 location,
-                new Action<string, string, string>(this.ThrowNewRedirectResultAssertionException));
+                this.ThrowNewRedirectResultAssertionException);
 
             return this;
         }
@@ -83,9 +83,9 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
         public IBaseTestBuilder AtLocation(Action<IUriTestBuilder> uriTestBuilder)
         {
             LocationValidator.ValidateLocation(
-                this.GetActionResultAsDynamic(),
+                this.ActionResult,
                 uriTestBuilder,
-                new Action<string, string, string>(this.ThrowNewRedirectResultAssertionException));
+                this.ThrowNewRedirectResultAssertionException);
 
             return this;
         }

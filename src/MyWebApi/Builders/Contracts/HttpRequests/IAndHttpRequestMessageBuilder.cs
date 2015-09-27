@@ -14,18 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.ExceptionErrors
+namespace MyWebApi.Builders.Contracts.HttpRequests
 {
     /// <summary>
-    /// Used for testing expected exceptions.
+    /// Used for adding AndAlso() method to the the HTTP request message builder.
     /// </summary>
-    public interface IExceptionTestBuilder : IBaseExceptionTestBuilder
+    public interface IAndHttpRequestMessageBuilder : IHttpRequestMessageBuilder
     {
         /// <summary>
-        /// Tests whether certain type of exception is returned from the invoked action.
+        /// AndAlso method for better readability when building HTTP request message.
         /// </summary>
-        /// <typeparam name="TException">Type of the expected exception.</typeparam>
-        /// <returns>The same exception test builder.</returns>
-        IAndExceptionTestBuilder OfType<TException>();
+        /// <returns>The same HTTP request message builder.</returns>
+        IHttpRequestMessageBuilder AndAlso();
     }
 }

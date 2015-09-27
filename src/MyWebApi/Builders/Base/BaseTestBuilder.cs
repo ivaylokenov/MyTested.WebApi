@@ -17,12 +17,12 @@
 namespace MyWebApi.Builders.Base
 {
     using System;
+    using System.Net.Http;
     using System.Web.Http;
     using And;
     using Common.Extensions;
     using Contracts.Base;
     using Exceptions;
-    using Utilities;
     using Utilities.Validators;
 
     /// <summary>
@@ -100,6 +100,15 @@ namespace MyWebApi.Builders.Base
         public string AndProvideTheActionName()
         {
             return this.ActionName;
+        }
+
+        /// <summary>
+        /// Gets the HTTP request message with which the action will be tested.
+        /// </summary>
+        /// <returns>HttpRequestMessage from the tested controller.</returns>
+        public HttpRequestMessage AndProvideTheHttpRequestMessage()
+        {
+            return this.Controller.Request;
         }
 
         /// <summary>

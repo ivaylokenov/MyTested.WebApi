@@ -14,18 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.ExceptionErrors
+namespace MyWebApi.Exceptions
 {
+    using System;
+
     /// <summary>
-    /// Used for testing expected exceptions.
+    /// Exception for invalid HTTP response message result.
     /// </summary>
-    public interface IExceptionTestBuilder : IBaseExceptionTestBuilder
+    public class HttpResponseMessageAssertionException : Exception
     {
         /// <summary>
-        /// Tests whether certain type of exception is returned from the invoked action.
+        /// Initializes a new instance of the HttpResponseMessageAssertionException class.
         /// </summary>
-        /// <typeparam name="TException">Type of the expected exception.</typeparam>
-        /// <returns>The same exception test builder.</returns>
-        IAndExceptionTestBuilder OfType<TException>();
+        /// <param name="message">Message for System.Exception class.</param>
+        public HttpResponseMessageAssertionException(string message)
+            : base(message)
+        {
+        }
     }
 }

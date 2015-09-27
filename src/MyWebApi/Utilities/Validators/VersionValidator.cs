@@ -14,28 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.ExceptionErrors
+namespace MyWebApi.Utilities.Validators
 {
-    using System.Net;
-    using Base;
-    using HttpResponseMessages;
+    using System;
 
     /// <summary>
-    /// Used for testing expected HttpResponseException.
+    /// Validator class containing Version validation logic.
     /// </summary>
-    public interface IHttpResponseExceptionTestBuilder : IBaseTestBuilder
+    public static class VersionValidator
     {
         /// <summary>
-        /// Tests whether caught HttpResponseException has the same status code as the provided HttpStatusCode.
+        /// Tries to parse version from string.
         /// </summary>
-        /// <param name="statusCode">HttpStatusCode enumeration.</param>
-        /// <returns>Base test builder.</returns>
-        IBaseTestBuilder WithStatusCode(HttpStatusCode statusCode);
+        /// <param name="version">Provided version string.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
+        /// <returns>Valid Version from the provided string.</returns>
+        public static Version TryParse(string version, Action<string, string, string> failedValidationAction)
+        {
+            Version parsedVersion;
+            if (!Version.TryParse(version, out parsedVersion))
+            {
+                failedValidationAction("version", "valid version string", "invalid one");
+            }
 
-        /// <summary>
-        /// Provides methods to test whether caught HttpResponseException has specific HttpResponseMessage.
-        /// </summary>
-        /// <returns>HTTP response message test builder.</returns>
-        IHttpResponseMessageTestBuilder WithHttpResponseMessage();
+            return parsedVersion;
+        }
     }
 }

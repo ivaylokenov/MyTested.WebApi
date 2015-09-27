@@ -17,21 +17,15 @@
 namespace MyWebApi.Builders.Base
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net.Http.Formatting;
     using System.Web.Http;
-    using System.Web.Http.ModelBinding;
     using And;
     using Common;
     using Common.Extensions;
     using Contracts.And;
     using Contracts.Base;
-    using Contracts.Formatters;
     using Exceptions;
     using Microsoft.CSharp.RuntimeBinder;
     using Utilities;
-    using Utilities.Validators;
 
     /// <summary>
     /// Base class for all test builders with action result.
