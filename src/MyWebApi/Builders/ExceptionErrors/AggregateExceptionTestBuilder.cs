@@ -24,10 +24,19 @@ namespace MyWebApi.Builders.ExceptionErrors
     using Exceptions;
     using Utilities;
 
+    /// <summary>
+    /// Used for testing AggregateException.
+    /// </summary>
     public class AggregateExceptionTestBuilder : ExceptionTestBuilder, IAndAggregateExceptionTestBuilder
     {
         private readonly AggregateException aggregateException;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AggregateExceptionTestBuilder" /> class.
+        /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="caughtException">Actual received aggregate exception.</param>
         public AggregateExceptionTestBuilder(
             ApiController controller,
             string actionName,
@@ -37,6 +46,11 @@ namespace MyWebApi.Builders.ExceptionErrors
             this.aggregateException = caughtException;
         }
 
+        /// <summary>
+        /// Tests whether AggregateException contains inner exception of the provided type.
+        /// </summary>
+        /// <typeparam name="TInnerException">Expected inner exception type.</typeparam>
+        /// <returns>The same aggregate exception test builder.</returns>
         public IAndAggregateExceptionTestBuilder ContainingInnerExceptionOfType<TInnerException>()
         {
             var expectedInnerExceptionType = typeof(TInnerException);
@@ -53,6 +67,10 @@ namespace MyWebApi.Builders.ExceptionErrors
             return this;
         }
 
+        /// <summary>
+        /// AndAlso method for better readability when chaining aggregate exception tests.
+        /// </summary>
+        /// <returns>The same aggregate exception test builder.</returns>
         public new IAggregateExceptionTestBuilder AndAlso()
         {
             return this;
