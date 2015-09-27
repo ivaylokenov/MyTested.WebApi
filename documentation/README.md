@@ -371,6 +371,32 @@ MyWebApi
 	.AndAlso() // AndAlso() is not necessary
 	.WithMessage("Some exception message");
 	
+// tests whether the action throws AggregateException
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.AggregateException();
+	
+// tests whether the action throws AggregateException
+// with specific total number of inner exceptions
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.AggregateException(withNumberOfInnerExceptions: 2);
+	
+// tests whether the action throws AggregateException
+// containing specific inner exceptions
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.AggregateException()
+	.ContainingInnerExceptionOfType<NullReferenceException>()
+	.AndAlso() // AndAlso is not necessary
+	.ContainingInnerExceptionOfType<InvalidOperationException>();
+
 // tests whether the action throws HttpResponseException
 MyWebApi
 	.Controller<WebApiController>()
