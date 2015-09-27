@@ -64,7 +64,7 @@ namespace MyWebApi.Builders.Actions.ShouldHave
                     this.ActionName,
                     this.Controller.GetName(),
                     withNumberOfErrors == null ? string.Empty : string.Format(" with {0} errors", withNumberOfErrors),
-                    withNumberOfErrors == null ? "but was in fact valid" : string.Format("but contained {0}", actualModelStateErrors)));
+                    withNumberOfErrors == null ? "but was in fact valid" : string.Format("but in fact contained {0}", actualModelStateErrors)));
             }
 
             return this.NewAndTestBuilder();

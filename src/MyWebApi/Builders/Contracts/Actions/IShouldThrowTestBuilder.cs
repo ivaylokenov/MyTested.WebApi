@@ -33,8 +33,9 @@ namespace MyWebApi.Builders.Contracts.Actions
         /// <summary>
         /// Tests whether action throws any AggregateException.
         /// </summary>
+        /// <param name="withNumberOfInnerExceptions">Optional expected number of total inner exceptions.</param>
         /// <returns>AggregateException test builder.</returns>
-        IAggregateExceptionTestBuilder AggregateException();
+        IAggregateExceptionTestBuilder AggregateException(int? withNumberOfInnerExceptions = null);
 
         /// <summary>
         /// Tests whether action throws any HttpResponseException.
