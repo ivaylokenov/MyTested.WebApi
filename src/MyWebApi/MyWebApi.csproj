@@ -73,6 +73,8 @@
     <Compile Include="Builders\And\AndProvideTestBuilder{TActionResult}.cs" />
     <Compile Include="Builders\And\AndTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAggregateExceptionTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\ExceptionErrors\IAndAggregateExceptionTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\ExceptionErrors\IBaseExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Ok\IAndOkTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Ok\IOkTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpRequests\IAndHttpRequestMessageBuilder.cs" />

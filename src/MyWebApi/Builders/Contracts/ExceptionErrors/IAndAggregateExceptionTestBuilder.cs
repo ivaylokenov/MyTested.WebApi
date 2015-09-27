@@ -16,8 +16,8 @@
 
 namespace MyWebApi.Builders.Contracts.ExceptionErrors
 {
-    public interface IAggregateExceptionTestBuilder : IBaseExceptionTestBuilder
+    public interface IAndAggregateExceptionTestBuilder : IAggregateExceptionTestBuilder
     {
-        IAndAggregateExceptionTestBuilder ContainingInnerExceptionOfType<TInnerException>();
+        IAggregateExceptionTestBuilder AndAlso();
     }
 }

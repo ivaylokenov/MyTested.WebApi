@@ -17,10 +17,14 @@
 namespace MyWebApi.Builders.ExceptionErrors
 {
     using System;
+    using System.Linq;
     using System.Web.Http;
+    using Common.Extensions;
     using Contracts.ExceptionErrors;
+    using Exceptions;
+    using Utilities;
 
-    public class AggregateExceptionTestBuilder : ExceptionTestBuilder, IAggregateExceptionTestBuilder
+    public class AggregateExceptionTestBuilder : ExceptionTestBuilder, IAndAggregateExceptionTestBuilder
     {
         private readonly AggregateException aggregateException;
 
@@ -31,6 +35,27 @@ namespace MyWebApi.Builders.ExceptionErrors
             : base(controller, actionName, caughtException)
         {
             this.aggregateException = caughtException;
+        }
+
+        public IAndAggregateExceptionTestBuilder ContainingInnerExceptionOfType<TInnerException>()
+        {
+            var expectedInnerExceptionType = typeof(TInnerException);
+            var innerExceptionFound = this.aggregateException.InnerExceptions.Any(e => e.GetType() == expectedInnerExceptionType);
+            if (!innerExceptionFound)
+            {
+                throw new InvalidExceptionAssertionException(string.Format(
+                    "When calling {0} action in {1} expected AggregateException to contain {2}, but none was found.",
+                    this.ActionName,
+                    this.Controller.GetName(),
+                    expectedInnerExceptionType.ToFriendlyTypeName()));
+            }
+
+            return this;
+        }
+
+        public new IAggregateExceptionTestBuilder AndAlso()
+        {
+            return this;
         }
     }
 }
