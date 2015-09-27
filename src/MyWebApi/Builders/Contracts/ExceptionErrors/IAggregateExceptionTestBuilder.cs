@@ -16,6 +16,8 @@
 
 namespace MyWebApi.Builders.Contracts.ExceptionErrors
 {
+    using System;
+
     /// <summary>
     /// Used for testing AggregateException.
     /// </summary>
@@ -26,6 +28,7 @@ namespace MyWebApi.Builders.Contracts.ExceptionErrors
         /// </summary>
         /// <typeparam name="TInnerException">Expected inner exception type.</typeparam>
         /// <returns>The same aggregate exception test builder.</returns>
-        IAndAggregateExceptionTestBuilder ContainingInnerExceptionOfType<TInnerException>();
+        IAndAggregateExceptionTestBuilder ContainingInnerExceptionOfType<TInnerException>()
+            where TInnerException : Exception;
     }
 }

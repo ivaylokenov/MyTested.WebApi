@@ -17,7 +17,6 @@
 namespace MyWebApi.Tests.BuildersTests.ActionsTests
 {
     using System;
-    using System.Net;
     using Exceptions;
     using NUnit.Framework;
     using Setups.Controllers;
@@ -71,6 +70,52 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests
                 .ShouldThrow()
                 .Exception()
                 .OfType<InvalidOperationException>();
+        }
+
+        [Test]
+        public void ShouldThrowAggregateExceptionShouldCatchAndValidateAggregateException()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.ActionWithAggregateException())
+                .ShouldThrow()
+                .AggregateException();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(InvalidExceptionAssertionException),
+            ExpectedMessage = "When calling ActionWithException action in WebApiController expected AggregateException, but instead received NullReferenceException.")]
+        public void ShouldThrowAggregateExceptionShouldThrowIfTheExceptionIsNotValidType()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.ActionWithException())
+                .ShouldThrow()
+                .AggregateException();
+        }
+
+        [Test]
+        public void ShouldThrowAggregateExceptionShouldCatchAndValidateAggregateExceptionWithSpecificNumberOfInnerExceptions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.ActionWithAggregateException())
+                .ShouldThrow()
+                .AggregateException(2);
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(InvalidExceptionAssertionException),
+            ExpectedMessage = "When calling ActionWithAggregateException action in WebApiController expected AggregateException to contain 3 inner exceptions, but in fact contained 2.")]
+        public void ShouldThrowAggregateExceptionShouldCatchAndValidateAggregateExceptionWithWrongNumberOfInnerExceptions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.ActionWithAggregateException())
+                .ShouldThrow()
+                .AggregateException(3);
         }
 
         [Test]

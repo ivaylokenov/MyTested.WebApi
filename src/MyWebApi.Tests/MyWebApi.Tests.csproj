@@ -72,6 +72,7 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldThrowExceptionTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\VoidActionResultTestBuilderTests.cs" />
     <Compile Include="BuildersTests\AndTests\AndProvideTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\ExceptionErrorsTests\AggregateExceptionTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\HttpResponseExceptionTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\BadRequestTests\BadRequestErrorMessageTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\BadRequestTests\BadRequestTestBuilderTests.cs" />

@@ -16,8 +16,6 @@
 
 namespace MyWebApi.Builders.Contracts.ExceptionErrors
 {
-    using Base;
-
     /// <summary>
     /// Used for testing expected exceptions.
     /// </summary>

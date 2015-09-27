@@ -279,6 +279,11 @@ namespace MyWebApi.Tests.Setups.Controllers
             throw new NullReferenceException("Test exception message");
         }
 
+        public IHttpActionResult ActionWithAggregateException()
+        {
+            throw new AggregateException(new NullReferenceException(), new InvalidOperationException());
+        }
+
         public IHttpActionResult ActionWithHttpResponseException()
         {
             throw new HttpResponseException(HttpStatusCode.NotFound);

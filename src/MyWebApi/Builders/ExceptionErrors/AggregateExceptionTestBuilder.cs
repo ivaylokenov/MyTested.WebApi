@@ -52,6 +52,7 @@ namespace MyWebApi.Builders.ExceptionErrors
         /// <typeparam name="TInnerException">Expected inner exception type.</typeparam>
         /// <returns>The same aggregate exception test builder.</returns>
         public IAndAggregateExceptionTestBuilder ContainingInnerExceptionOfType<TInnerException>()
+            where TInnerException : Exception
         {
             var expectedInnerExceptionType = typeof(TInnerException);
             var innerExceptionFound = this.aggregateException.InnerExceptions.Any(e => e.GetType() == expectedInnerExceptionType);
