@@ -17,6 +17,7 @@
 namespace MyWebApi.Builders.Actions
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Http;
     using Base;
     using Common.Extensions;
@@ -44,8 +45,9 @@ namespace MyWebApi.Builders.Actions
             ApiController controller,
             string actionName,
             Exception caughtException,
-            TActionResult actionResult)
-            : base(controller, actionName, caughtException, actionResult)
+            TActionResult actionResult,
+            IEnumerable<object> actionAttributes)
+            : base(controller, actionName, caughtException, actionResult, actionAttributes)
         {
         }
 
@@ -55,7 +57,12 @@ namespace MyWebApi.Builders.Actions
         /// <returns>Should have test builder.</returns>
         public IShouldHaveTestBuilder<TActionResult> ShouldHave()
         {
-            return new ShouldHaveTestBuilder<TActionResult>(this.Controller, this.ActionName, this.CaughtException, this.ActionResult);
+            return new ShouldHaveTestBuilder<TActionResult>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.ActionResult,
+                this.ActionAttributes);
         }
 
         /// <summary>

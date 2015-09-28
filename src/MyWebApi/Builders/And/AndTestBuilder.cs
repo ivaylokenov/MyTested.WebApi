@@ -17,6 +17,7 @@
 namespace MyWebApi.Builders.And
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Http;
     using Actions;
     using Base;
@@ -41,8 +42,9 @@ namespace MyWebApi.Builders.And
             ApiController controller,
             string actionName,
             Exception caughtException,
-            TActionResult actionResult)
-            : base(controller, actionName, caughtException, actionResult)
+            TActionResult actionResult,
+            IEnumerable<object> actionAttributes = null)
+            : base(controller, actionName, caughtException, actionResult, actionAttributes)
         {
         }
 
@@ -56,7 +58,8 @@ namespace MyWebApi.Builders.And
                 this.Controller,
                 this.ActionName,
                 this.CaughtException,
-                this.ActionResult);
+                this.ActionResult,
+                this.ActionAttributes);
         }
     }
 }

@@ -17,6 +17,7 @@
 namespace MyWebApi.Builders.Base
 {
     using System;
+    using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http;
     using And;
@@ -39,11 +40,16 @@ namespace MyWebApi.Builders.Base
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="caughtException">Caught exception during the action execution.</param>
-        protected BaseTestBuilder(ApiController controller, string actionName, Exception caughtException)
+        protected BaseTestBuilder(
+            ApiController controller,
+            string actionName,
+            Exception caughtException,
+            IEnumerable<object> actionAttributes = null)
         {
             this.Controller = controller;
             this.ActionName = actionName;
             this.CaughtException = caughtException;
+            this.ActionAttributes = actionAttributes;
         }
 
         /// <summary>
@@ -81,6 +87,8 @@ namespace MyWebApi.Builders.Base
                 this.actionName = value;
             }
         }
+
+        internal IEnumerable<object> ActionAttributes { get; private set; }
 
         internal Exception CaughtException { get; private set; }
 

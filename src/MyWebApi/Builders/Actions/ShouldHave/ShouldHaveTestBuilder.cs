@@ -17,6 +17,7 @@
 namespace MyWebApi.Builders.Actions.ShouldHave
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Http;
     using Base;
     using Contracts.Actions;
@@ -39,8 +40,9 @@ namespace MyWebApi.Builders.Actions.ShouldHave
             ApiController controller,
             string actionName,
             Exception caughtException,
-            TActionResult actionResult)
-            : base(controller, actionName, caughtException, actionResult)
+            TActionResult actionResult,
+            IEnumerable<object> actionAttributes)
+            : base(controller, actionName, caughtException, actionResult, actionAttributes)
         {
         }
     }
