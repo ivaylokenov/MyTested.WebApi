@@ -300,6 +300,7 @@ namespace MyWebApi.Builders
         {
             var actionName = this.GetAndValidateAction(actionCall);
             var actionResult = default(TActionResult);
+            var actionAttributes = ExpressionParser.GetMethodAttributes(actionCall);
             Exception caughtException = null;
 
             try
@@ -311,7 +312,7 @@ namespace MyWebApi.Builders
                 caughtException = exception;
             }
 
-            return new ActionInfo<TActionResult>(actionName, actionResult, caughtException);
+            return new ActionInfo<TActionResult>(actionName, actionAttributes, actionResult, caughtException);
         }
 
         private string GetAndValidateAction(LambdaExpression actionCall)
