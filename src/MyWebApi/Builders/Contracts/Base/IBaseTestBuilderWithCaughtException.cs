@@ -21,7 +21,7 @@ namespace MyWebApi.Builders.Contracts.Base
     using System.Web.Http;
 
     /// <summary>
-    /// Base interface for all test builders.
+    /// Base interface for test builders with caught exception.
     /// </summary>
     public interface IBaseTestBuilderWithCaughtException : IBaseTestBuilder
     {

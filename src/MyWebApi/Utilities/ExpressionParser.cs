@@ -56,6 +56,11 @@ namespace MyWebApi.Utilities
                 .ToList();
         }
 
+        /// <summary>
+        /// Retrieves custom attributes on a method from method call lambda expression.
+        /// </summary>
+        /// <param name="expression">Expression to be parsed.</param>
+        /// <returns>Collection of attributes as objects.</returns>
         public static IEnumerable<object> GetMethodAttributes(LambdaExpression expression)
         {
             var methodCallExpression = GetMethodCallExpression(expression);

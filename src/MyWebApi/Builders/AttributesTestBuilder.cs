@@ -28,16 +28,29 @@ namespace MyWebApi.Builders
     using Exceptions;
     using Utilities;
 
+    /// <summary>
+    /// Used for testing attributes.
+    /// </summary>
     public class AttributesTestBuilder : BaseTestBuilder, IAndAttributesTestBuilder
     {
         private readonly ICollection<Action<IEnumerable<object>>> validations;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AttributesTestBuilder" /> class.
+        /// </summary>
+        /// <param name="controller">Controller on which the attributes will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
         public AttributesTestBuilder(ApiController controller, string actionName)
             : base(controller, actionName)
         {
             this.validations = new List<Action<IEnumerable<object>>>();
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain the provided attribute type.
+        /// </summary>
+        /// <typeparam name="TAttribute">Type of expected attribute.</typeparam>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder ContainingAttributeOfType<TAttribute>()
             where TAttribute : Attribute
         {
@@ -54,7 +67,12 @@ namespace MyWebApi.Builders
 
             return this;
         }
-        
+
+        /// <summary>
+        /// Checks whether the collected attributes contain ActionNameAttribute.
+        /// </summary>
+        /// <param name="actionName">Expected overridden name of the action.</param>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder ChangingActionNameTo(string actionName)
         {
             this.ContainingAttributeOfType<ActionNameAttribute>();
@@ -73,6 +91,13 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain RouteAttribute.
+        /// </summary>
+        /// <param name="template">Expected overridden route template of the action.</param>
+        /// <param name="withName">Optional expected route name.</param>
+        /// <param name="withOrder">Optional expected route order.</param>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder ChangingRouteTo(
             string template,
             string withName = null,
@@ -110,11 +135,21 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain AllowAnonymousAttribute.
+        /// </summary>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder AllowingAnonymousRequests()
         {
             return this.ContainingAttributeOfType<AllowAnonymousAttribute>();
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain AuthorizeAttribute.
+        /// </summary>
+        /// <param name="withAllowedRoles">Optional expected authorized roles.</param>
+        /// <param name="withAllowedUsers">Optional expected authorized users.</param>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder RestrictingForAuthorizedRequests(
             string withAllowedRoles = null,
             string withAllowedUsers = null)
@@ -158,37 +193,71 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain NonActionAttribute.
+        /// </summary>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder DisablingActionCall()
         {
             return this.ContainingAttributeOfType<NonActionAttribute>();
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes restrict the request to a specific HTTP method (AcceptVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.).
+        /// </summary>
+        /// <typeparam name="THttpMethod">Attribute of type IActionHttpMethodProvider.</typeparam>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder RestrictingForRequestsWithMethod<THttpMethod>()
             where THttpMethod : Attribute, IActionHttpMethodProvider, new()
         {
             return this.RestrictingForRequestsWithMethods((new THttpMethod()).HttpMethods);
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes restrict the request to a specific HTTP method (AcceptVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.).
+        /// </summary>
+        /// <param name="httpMethod">HTTP method provided as string.</param>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder RestrictingForRequestsWithMethod(string httpMethod)
         {
             return this.RestrictingForRequestsWithMethod(new HttpMethod(httpMethod));
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes restrict the request to a specific HTTP method (AcceptVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.).
+        /// </summary>
+        /// <param name="httpMethod">HTTP method provided as HttpMethod class.</param>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder RestrictingForRequestsWithMethod(HttpMethod httpMethod)
         {
             return this.RestrictingForRequestsWithMethods(new List<HttpMethod> { httpMethod });
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes restrict the request to a specific HTTP methods (AcceptVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.).
+        /// </summary>
+        /// <param name="httpMethods">HTTP methods provided as collection of strings.</param>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(IEnumerable<string> httpMethods)
         {
             return this.RestrictingForRequestsWithMethods(httpMethods.Select(m => new HttpMethod(m)));
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes restrict the request to a specific HTTP methods (AcceptVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.).
+        /// </summary>
+        /// <param name="httpMethods">HTTP methods provided as string parameters.</param>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(params string[] httpMethods)
         {
             return this.RestrictingForRequestsWithMethods(httpMethods.AsEnumerable());
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes restrict the request to a specific HTTP methods (AcceptVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.).
+        /// </summary>
+        /// <param name="httpMethods">HTTP methods provided as collection of HttpMethod classes.</param>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(IEnumerable<HttpMethod> httpMethods)
         {
             this.validations.Add(attrs =>
@@ -209,11 +278,20 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes restrict the request to a specific HTTP methods (AcceptVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.).
+        /// </summary>
+        /// <param name="httpMethods">HTTP methods provided as parameters of HttpMethod class.</param>
+        /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(params HttpMethod[] httpMethods)
         {
             return this.RestrictingForRequestsWithMethods(httpMethods.AsEnumerable());
         }
 
+        /// <summary>
+        /// AndAlso method for better readability when chaining attribute tests.
+        /// </summary>
+        /// <returns>The same attributes test builder.</returns>
         public IAttributesTestBuilder AndAlso()
         {
             return this;

@@ -37,6 +37,7 @@ namespace MyWebApi.Builders.Actions
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="caughtException">Caught exception during the action execution.</param>
+        /// <param name="actionAttributes">Collected action attributes from the method call.</param>
         public VoidActionResultTestBuilder(
             ApiController controller,
             string actionName,

@@ -24,11 +24,20 @@ namespace MyWebApi.Builders.Base
     using Exceptions;
     using Utilities.Validators;
 
+    /// <summary>
+    /// Base class for all test builders.
+    /// </summary>
     public class BaseTestBuilder : IBaseTestBuilder
     {
         private ApiController controller;
         private string actionName;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseTestBuilder" /> class.
+        /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
+        /// <param name="actionAttributes">Collected action attributes from the method call.</param>
         protected BaseTestBuilder(
             ApiController controller,
             string actionName,

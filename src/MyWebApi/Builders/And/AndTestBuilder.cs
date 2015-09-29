@@ -38,6 +38,7 @@ namespace MyWebApi.Builders.And
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="caughtException">Caught exception during the action execution.</param>
         /// <param name="actionResult">Result from the tested action.</param>
+        /// <param name="actionAttributes">Collected action attributes from the method call.</param>
         public AndTestBuilder(
             ApiController controller,
             string actionName,

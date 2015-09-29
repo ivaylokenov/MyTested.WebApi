@@ -19,6 +19,9 @@ namespace MyWebApi.Builders.Contracts.Base
     using System.Net.Http;
     using System.Web.Http;
 
+    /// <summary>
+    /// Base interface for all test builders.
+    /// </summary>
     public interface IBaseTestBuilder
     {
         /// <summary>
@@ -38,6 +41,5 @@ namespace MyWebApi.Builders.Contracts.Base
         /// </summary>
         /// <returns>HttpRequestMessage from the tested controller.</returns>
         HttpRequestMessage AndProvideTheHttpRequestMessage();
-
     }
 }

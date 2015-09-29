@@ -23,8 +23,16 @@ namespace MyWebApi.Builders.Actions.ShouldHave
     using Contracts.Attributes;
     using Exceptions;
 
+    /// <summary>
+    /// Used for testing action attributes and model state.
+    /// </summary>
+    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public partial class ShouldHaveTestBuilder<TActionResult>
     {
+        /// <summary>
+        /// Checks whether the tested action has no attributes of any type. 
+        /// </summary>
+        /// <returns>Test builder with AndAlso method.</returns>
         public IAndTestBuilder<TActionResult> NoActionAttributes()
         {
             if (this.ActionLevelAttributes.Any())
@@ -38,6 +46,11 @@ namespace MyWebApi.Builders.Actions.ShouldHave
             return this.NewAndTestBuilder();
         }
 
+        /// <summary>
+        /// Checks whether the tested action has at least 1 attribute of any type. 
+        /// </summary>
+        /// <param name="withTotalNumberOf">Optional parameter specifying the exact total number of attributes on the tested action.</param>
+        /// <returns>Test builder with AndAlso method.</returns>
         public IAndTestBuilder<TActionResult> ActionAttributes(int? withTotalNumberOf = null)
         {
             if (!this.ActionLevelAttributes.Any())
@@ -63,6 +76,11 @@ namespace MyWebApi.Builders.Actions.ShouldHave
             return this.NewAndTestBuilder();
         }
 
+        /// <summary>
+        /// Checks whether the tested action has at specific attributes. 
+        /// </summary>
+        /// <param name="attributesTestBuilder">Builder for testing specific attributes on the action.</param>
+        /// <returns>Test builder with AndAlso method.</returns>
         public IAndTestBuilder<TActionResult> ActionAttributes(Action<IAttributesTestBuilder> attributesTestBuilder)
         {
             this.ActionAttributes();

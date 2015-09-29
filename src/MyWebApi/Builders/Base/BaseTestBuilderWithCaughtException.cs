@@ -27,7 +27,7 @@ namespace MyWebApi.Builders.Base
     using Utilities.Validators;
 
     /// <summary>
-    /// Base class for all test builders.
+    /// Base class for test builders with caught exception.
     /// </summary>
     public class BaseTestBuilderWithCaughtException
         : BaseTestBuilder, IBaseTestBuilderWithCaughtException
@@ -38,6 +38,7 @@ namespace MyWebApi.Builders.Base
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="caughtException">Caught exception during the action execution.</param>
+        /// <param name="actionAttributes">Collected action attributes from the method call.</param>
         protected BaseTestBuilderWithCaughtException(
             ApiController controller,
             string actionName,

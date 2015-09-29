@@ -18,10 +18,10 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldHave
 {
     using System;
     using Exceptions;
+    using NUnit.Framework;
     using Setups;
     using Setups.Controllers;
     using Setups.Models;
-    using NUnit.Framework;
 
     [TestFixture]
     public class ShouldHaveModelStateTests
