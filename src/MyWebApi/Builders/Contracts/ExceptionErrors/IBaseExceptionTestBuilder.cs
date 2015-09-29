@@ -21,7 +21,7 @@ namespace MyWebApi.Builders.Contracts.ExceptionErrors
     /// <summary>
     /// Used for testing expected exception messages.
     /// </summary>
-    public interface IBaseExceptionTestBuilder : IBaseTestBuilder
+    public interface IBaseExceptionTestBuilder : IBaseTestBuilderWithCaughtException
     {
         /// <summary>
         /// Tests exception message using test builder.

@@ -29,7 +29,7 @@ namespace MyWebApi.Builders.Actions
     /// <summary>
     /// Used for testing void actions.
     /// </summary>
-    public class VoidActionResultTestBuilder : BaseTestBuilder, IVoidActionResultTestBuilder
+    public class VoidActionResultTestBuilder : BaseTestBuilderWithCaughtException, IVoidActionResultTestBuilder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VoidActionResultTestBuilder" /> class.
@@ -50,7 +50,7 @@ namespace MyWebApi.Builders.Actions
         /// Tests whether action result is void.
         /// </summary>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder ShouldReturnEmpty()
+        public IBaseTestBuilderWithCaughtException ShouldReturnEmpty()
         {
             CommonValidator.CheckForException(this.CaughtException);
             return this.NewAndProvideTestBuilder();

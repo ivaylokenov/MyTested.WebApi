@@ -23,7 +23,7 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.BadRequest
     /// <summary>
     /// Used for testing bad request results.
     /// </summary>
-    public interface IBadRequestTestBuilder : IBaseTestBuilder
+    public interface IBadRequestTestBuilder : IBaseTestBuilderWithCaughtException
     {
         /// <summary>
         /// Tests bad request result with specific error message using test builder.
@@ -36,14 +36,14 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.BadRequest
         /// </summary>
         /// <param name="message">Expected error message from bad request result.</param>
         /// <returns>Base test builder.</returns>
-        IBaseTestBuilder WithErrorMessage(string message);
+        IBaseTestBuilderWithCaughtException WithErrorMessage(string message);
 
         /// <summary>
         /// Tests bad request result with specific model state dictionary.
         /// </summary>
         /// <param name="modelState">Model state dictionary to deeply compare to the actual one.</param>
         /// <returns>Base test builder.</returns>
-        IBaseTestBuilder WithModelState(ModelStateDictionary modelState);
+        IBaseTestBuilderWithCaughtException WithModelState(ModelStateDictionary modelState);
 
         /// <summary>
         /// Tests bad request result for model state errors using test builder.

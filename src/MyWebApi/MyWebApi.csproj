@@ -74,8 +74,10 @@
     <Compile Include="Builders\And\AndProvideTestBuilder{TActionResult}.cs" />
     <Compile Include="Builders\And\AndTestBuilder.cs" />
     <Compile Include="Builders\AttributesTestBuilder.cs" />
+    <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Attributes\IAndAttributesTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Attributes\IAttributesTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Base\IBaseTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAndAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IBaseExceptionTestBuilder.cs" />
@@ -88,7 +90,7 @@
     <Compile Include="Builders\ExceptionErrors\AggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestTestBuilder.cs" />
-    <Compile Include="Builders\Base\BaseTestBuilder.cs" />
+    <Compile Include="Builders\Base\BaseTestBuilderWithCaughtException.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithModel.cs" />
     <Compile Include="Builders\HttpActionResults\Content\ContentTestBuilder.cs" />
@@ -125,7 +127,7 @@
     <Compile Include="Builders\Contracts\HttpActionResults\Unauthorized\IAndUnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Unauthorized\IAuthenticationHeaderValueParameterBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Unauthorized\IAuthenticationHeaderValueBuilder.cs" />
-    <Compile Include="Builders\Contracts\Base\IBaseTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithCaughtException.cs" />
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Unauthorized\IChallengesBuilder.cs" />
     <Compile Include="Builders\Contracts\Controllers\IControllerBuilder.cs" />

@@ -28,7 +28,7 @@ namespace MyWebApi.Builders.Actions
     /// <summary>
     /// Used for testing whether action throws exception.
     /// </summary>
-    public class ShouldThrowTestBuilder : BaseTestBuilder, IShouldThrowTestBuilder
+    public class ShouldThrowTestBuilder : BaseTestBuilderWithCaughtException, IShouldThrowTestBuilder
     {
         private readonly IExceptionTestBuilder exceptionTestBuilder;
 

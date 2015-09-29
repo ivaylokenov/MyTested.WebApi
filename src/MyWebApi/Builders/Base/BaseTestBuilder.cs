@@ -16,39 +16,26 @@
 
 namespace MyWebApi.Builders.Base
 {
-    using System;
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http;
-    using And;
     using Common.Extensions;
     using Contracts.Base;
     using Exceptions;
     using Utilities.Validators;
 
-    /// <summary>
-    /// Base class for all test builders.
-    /// </summary>
     public class BaseTestBuilder : IBaseTestBuilder
     {
         private ApiController controller;
         private string actionName;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseTestBuilder" /> class.
-        /// </summary>
-        /// <param name="controller">Controller on which the action will be tested.</param>
-        /// <param name="actionName">Name of the tested action.</param>
-        /// <param name="caughtException">Caught exception during the action execution.</param>
         protected BaseTestBuilder(
             ApiController controller,
             string actionName,
-            Exception caughtException,
             IEnumerable<object> actionAttributes = null)
         {
             this.Controller = controller;
             this.ActionName = actionName;
-            this.CaughtException = caughtException;
             this.ActionLevelAttributes = actionAttributes;
         }
 
@@ -90,8 +77,6 @@ namespace MyWebApi.Builders.Base
 
         internal IEnumerable<object> ActionLevelAttributes { get; private set; }
 
-        internal Exception CaughtException { get; private set; }
-
         /// <summary>
         /// Gets the controller on which the action is tested.
         /// </summary>
@@ -120,15 +105,6 @@ namespace MyWebApi.Builders.Base
         }
 
         /// <summary>
-        /// Gets the thrown exception in the tested action.
-        /// </summary>
-        /// <returns>The exception instance or null, if no exception was caught.</returns>
-        public Exception AndProvideTheCaughtException()
-        {
-            return this.CaughtException;
-        }
-
-        /// <summary>
         /// Checks whether the tested action's model state is valid.
         /// </summary>
         protected void CheckValidModelState()
@@ -140,15 +116,6 @@ namespace MyWebApi.Builders.Base
                     this.ActionName,
                     this.Controller.GetName()));
             }
-        }
-
-        /// <summary>
-        /// Creates new AndProvideTestBuilder.
-        /// </summary>
-        /// <returns>Base test builder.</returns>
-        protected IBaseTestBuilder NewAndProvideTestBuilder()
-        {
-            return new AndProvideTestBuilder(this.Controller, this.ActionName, this.CaughtException);
         }
     }
 }

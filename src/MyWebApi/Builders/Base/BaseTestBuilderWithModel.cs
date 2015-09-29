@@ -25,7 +25,7 @@ namespace MyWebApi.Builders.Base
     /// Base class for all test builders with model.
     /// </summary>
     /// <typeparam name="TModel">Model returned from action result.</typeparam>
-    public class BaseTestBuilderWithModel<TModel> : BaseTestBuilder, IBaseTestBuilderWithModel<TModel>
+    public class BaseTestBuilderWithModel<TModel> : BaseTestBuilderWithCaughtException, IBaseTestBuilderWithModel<TModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestBuilderWithModel{TModel}" /> class.

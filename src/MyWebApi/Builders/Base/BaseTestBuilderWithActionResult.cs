@@ -33,7 +33,7 @@ namespace MyWebApi.Builders.Base
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public abstract class BaseTestBuilderWithActionResult<TActionResult>
-        : BaseTestBuilder, IBaseTestBuilderWithActionResult<TActionResult>
+        : BaseTestBuilderWithCaughtException, IBaseTestBuilderWithActionResult<TActionResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestBuilderWithActionResult{TActionResult}" /> class.

@@ -66,7 +66,7 @@ namespace MyWebApi.Builders.HttpActionResults.InternalServerError
         /// </summary>
         /// <param name="exception">Expected exception.</param>
         /// <returns>Exception test builder.</returns>
-        public IBaseTestBuilder WithException(Exception exception)
+        public IBaseTestBuilderWithCaughtException WithException(Exception exception)
         {
             var exceptionResult = this.GetExceptionResult();
             var actualException = exceptionResult.Exception;

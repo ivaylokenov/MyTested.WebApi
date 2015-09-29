@@ -22,13 +22,13 @@ namespace MyWebApi.Builders.Contracts.Actions
     /// <summary>
     /// Used for testing void actions.
     /// </summary>
-    public interface IVoidActionResultTestBuilder : IBaseTestBuilder
+    public interface IVoidActionResultTestBuilder : IBaseTestBuilderWithCaughtException
     {
         /// <summary>
         /// Tests whether action result is void.
         /// </summary>
         /// <returns>Base test builder.</returns>
-        IBaseTestBuilder ShouldReturnEmpty();
+        IBaseTestBuilderWithCaughtException ShouldReturnEmpty();
 
         /// <summary>
         /// Used for testing action attributes and model state.

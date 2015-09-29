@@ -386,7 +386,7 @@ namespace MyWebApi.Tests.BuildersTests
             Assert.IsAssignableFrom<OkResult>(actionResult);
         }
 
-        private void CheckActionName(IBaseTestBuilder testBuilder, string expectedActionName)
+        private void CheckActionName(IBaseTestBuilderWithCaughtException testBuilder, string expectedActionName)
         {
             var actionName = testBuilder.AndProvideTheActionName();
 

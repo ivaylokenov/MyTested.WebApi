@@ -20,7 +20,7 @@ namespace MyWebApi.Builders.Contracts.Base
     /// Base interface for all test builders with action result.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public interface IBaseTestBuilderWithActionResult<out TActionResult> : IBaseTestBuilder
+    public interface IBaseTestBuilderWithActionResult<out TActionResult> : IBaseTestBuilderWithCaughtException
     {
         /// <summary>
         /// Gets the tested action result.

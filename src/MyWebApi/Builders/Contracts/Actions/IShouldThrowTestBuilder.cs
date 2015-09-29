@@ -22,7 +22,7 @@ namespace MyWebApi.Builders.Contracts.Actions
     /// <summary>
     /// Used for testing whether action throws exception.
     /// </summary>
-    public interface IShouldThrowTestBuilder : IBaseTestBuilder
+    public interface IShouldThrowTestBuilder : IBaseTestBuilderWithCaughtException
     {
         /// <summary>
         /// Tests whether action throws any exception.
