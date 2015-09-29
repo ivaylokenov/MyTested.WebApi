@@ -48,7 +48,7 @@ namespace MyWebApi.Builders
                 {
                     this.ThrowNewAttributeAssertionException(
                         expectedAttributeType.ToFriendlyTypeName(),
-                        "in fact none was found");
+                        "in fact such was not found");
                 }
             });
 
@@ -65,7 +65,7 @@ namespace MyWebApi.Builders
                 if (actionName != actualActionName)
                 {
                     this.ThrowNewAttributeAssertionException(
-                        string.Format("{0} '{1}'", actionNameAttribute.GetName(), actionName),
+                        string.Format("{0} with '{1}' name", actionNameAttribute.GetName(), actionName),
                         string.Format("in fact found '{0}'", actualActionName));
                 }
             });
@@ -116,29 +116,14 @@ namespace MyWebApi.Builders
         }
 
         public IAndAttributesTestBuilder RestrictingForAuthorizedRequests(
-            string withAllowedUsers = null,
-            string withAllowedRoles = null)
+            string withAllowedRoles = null,
+            string withAllowedUsers = null)
         {
             this.ContainingAttributeOfType<AuthorizeAttribute>();
             var testAllowedUsers = !string.IsNullOrEmpty(withAllowedUsers);
             var testAllowedRoles = !string.IsNullOrEmpty(withAllowedRoles);
             if (testAllowedUsers || testAllowedRoles)
             {
-                if (testAllowedUsers)
-                {
-                    this.validations.Add(attrs =>
-                    {
-                        var authorizeAttribute = this.GetAttributeOfType<AuthorizeAttribute>(attrs);
-                        var actualUsers = authorizeAttribute.Users;
-                        if (withAllowedUsers != actualUsers)
-                        {
-                            this.ThrowNewAttributeAssertionException(
-                                string.Format("{0} with allowed '{1}' users", authorizeAttribute.GetName(), withAllowedUsers),
-                                string.Format("in fact found '{0}'", actualUsers));
-                        }
-                    });
-                }
-
                 if (testAllowedRoles)
                 {
                     this.validations.Add(attrs =>
@@ -153,12 +138,27 @@ namespace MyWebApi.Builders
                         }
                     });
                 }
+
+                if (testAllowedUsers)
+                {
+                    this.validations.Add(attrs =>
+                    {
+                        var authorizeAttribute = this.GetAttributeOfType<AuthorizeAttribute>(attrs);
+                        var actualUsers = authorizeAttribute.Users;
+                        if (withAllowedUsers != actualUsers)
+                        {
+                            this.ThrowNewAttributeAssertionException(
+                                string.Format("{0} with allowed '{1}' users", authorizeAttribute.GetName(), withAllowedUsers),
+                                string.Format("in fact found '{0}'", actualUsers));
+                        }
+                    });
+                }
             }
 
             return this;
         }
 
-        public IAndAttributesTestBuilder DisablingAction()
+        public IAndAttributesTestBuilder DisablingActionCall()
         {
             return this.ContainingAttributeOfType<NonActionAttribute>();
         }
@@ -240,8 +240,8 @@ namespace MyWebApi.Builders
         {
             throw new AttributeAssertionException(string.Format(
                         "When calling {0} action in {1} expected action to have {2}, but {3}.",
-                        this.Controller.GetName(),
                         this.ActionName,
+                        this.Controller.GetName(),
                         expectedValue,
                         actualValue));
         }

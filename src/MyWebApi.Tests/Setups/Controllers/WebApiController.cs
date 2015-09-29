@@ -179,9 +179,21 @@ namespace MyWebApi.Tests.Setups.Controllers
         {
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin,Moderator", Users = "John,George")]
         [HttpGet]
+        [HttpHead]
         public IHttpActionResult NormalActionWithAttributes()
+        {
+            return this.Ok();
+        }
+
+        [AllowAnonymous]
+        [Route("/api/test", Name = "TestRoute", Order = 1)]
+        [ActionName("NormalAction")]
+        [NonAction]
+        [AcceptVerbs("Get", "Post")]
+        [HttpDelete]
+        public IHttpActionResult VariousAttributesAction()
         {
             return this.Ok();
         }

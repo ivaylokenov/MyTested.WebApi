@@ -68,5 +68,87 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldHave
                 .ShouldHave()
                 .NoActionAttributes();
         }
+
+        [Test]
+        public void ActionAttributesShouldNotThrowEceptionWithActionContainingAttributes()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.NormalActionWithAttributes())
+                .ShouldHave()
+                .ActionAttributes();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(AttributeAssertionException),
+            ExpectedMessage = "When calling OkResultAction action in WebApiController expected action to have at least 1 action attribute, but in fact none was found.")]
+        public void ActionAttributesShouldThrowEceptionWithActionContainingNoAttributes()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultAction())
+                .ShouldHave()
+                .ActionAttributes();
+        }
+
+        [Test]
+        public void ActionAttributesShouldNotThrowEceptionWithVoidActionContainingAttributes()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.EmptyActionWithAttributes())
+                .ShouldHave()
+                .ActionAttributes();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(AttributeAssertionException),
+            ExpectedMessage = "When calling EmptyAction action in WebApiController expected action to have at least 1 action attribute, but in fact none was found.")]
+        public void ActionAttributesShouldThrowEceptionWithVoidActionContainingNoAttributes()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.EmptyAction())
+                .ShouldHave()
+                .ActionAttributes();
+        }
+
+        [Test]
+        public void ActionAttributesShouldNotThrowEceptionWithActionContainingNumberOfAttributes()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.NormalActionWithAttributes())
+                .ShouldHave()
+                .ActionAttributes(withTotalNumberOf: 3);
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(AttributeAssertionException),
+            ExpectedMessage = "When calling NormalActionWithAttributes action in WebApiController expected action to have 10 action attributes, but in fact found 3.")]
+        public void ActionAttributesShouldThrowEceptionWithActionContainingNumberOfAttributes()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.NormalActionWithAttributes())
+                .ShouldHave()
+                .ActionAttributes(withTotalNumberOf: 10);
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(AttributeAssertionException),
+            ExpectedMessage = "When calling NormalActionWithAttributes action in WebApiController expected action to have 1 action attribute, but in fact found 3.")]
+        public void ActionAttributesShouldThrowEceptionWithActionContainingNumberOfAttributesTestingWithOne()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.NormalActionWithAttributes())
+                .ShouldHave()
+                .ActionAttributes(withTotalNumberOf: 1);
+        }
     }
 }

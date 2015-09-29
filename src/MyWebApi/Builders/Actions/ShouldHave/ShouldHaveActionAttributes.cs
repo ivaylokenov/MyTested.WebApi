@@ -45,7 +45,7 @@ namespace MyWebApi.Builders.Actions.ShouldHave
                 throw new AttributeAssertionException(string.Format(
                     "When calling {0} action in {1} expected action to have at least 1 action attribute, but in fact none was found.",
                     this.ActionName,
-                    this.Controller));
+                    this.Controller.GetName()));
             }
 
             var actualNumberOfActionAttributes = this.ActionLevelAttributes.Count();
@@ -54,7 +54,7 @@ namespace MyWebApi.Builders.Actions.ShouldHave
                 throw new AttributeAssertionException(string.Format(
                     "When calling {0} action in {1} expected action to have {2} action {3}, but in fact found {4}.",
                     this.ActionName,
-                    this.Controller,
+                    this.Controller.GetName(),
                     withTotalNumberOf,
                     withTotalNumberOf != 1 ? "attributes" : "attribute",
                     actualNumberOfActionAttributes));

@@ -16,7 +16,44 @@
 
 namespace MyWebApi.Builders.Contracts.Attributes
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Web.Http.Controllers;
+
     public interface IAttributesTestBuilder
     {
+        IAndAttributesTestBuilder ContainingAttributeOfType<TAttribute>()
+            where TAttribute : Attribute;
+
+        IAndAttributesTestBuilder ChangingActionNameTo(string actionName);
+
+        IAndAttributesTestBuilder ChangingRouteTo(
+            string template,
+            string withName = null,
+            int? withOrder = null);
+
+        IAndAttributesTestBuilder AllowingAnonymousRequests();
+
+        IAndAttributesTestBuilder RestrictingForAuthorizedRequests(
+            string withAllowedRoles = null,
+            string withAllowedUsers = null);
+
+        IAndAttributesTestBuilder DisablingActionCall();
+
+        IAndAttributesTestBuilder RestrictingForRequestsWithMethod<THttpMethod>()
+            where THttpMethod : Attribute, IActionHttpMethodProvider, new();
+
+        IAndAttributesTestBuilder RestrictingForRequestsWithMethod(string httpMethod);
+
+        IAndAttributesTestBuilder RestrictingForRequestsWithMethod(HttpMethod httpMethod);
+
+        IAndAttributesTestBuilder RestrictingForRequestsWithMethods(IEnumerable<string> httpMethods);
+
+        IAndAttributesTestBuilder RestrictingForRequestsWithMethods(params string[] httpMethods);
+
+        IAndAttributesTestBuilder RestrictingForRequestsWithMethods(IEnumerable<HttpMethod> httpMethods);
+
+        IAndAttributesTestBuilder RestrictingForRequestsWithMethods(params HttpMethod[] httpMethods);
     }
 }
