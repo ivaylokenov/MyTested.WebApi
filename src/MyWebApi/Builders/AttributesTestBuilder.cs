@@ -16,13 +16,42 @@
 
 namespace MyWebApi.Builders
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Contracts.Attributes;
 
     public class AttributesTestBuilder : IAndAttributesTestBuilder
     {
+        private readonly ICollection<Action<IEnumerable<object>>> validations;
+
+        public AttributesTestBuilder()
+        {
+            this.validations = new List<Action<IEnumerable<object>>>();
+        }
+
+        public IAndAttributesTestBuilder ContainingAttributeOfType<TAttribute>()
+            where TAttribute : Attribute
+        {
+            var expectedAttributeType = typeof(TAttribute);
+            this.validations.Add(attr =>
+            {
+                if (attr.All(a => a.GetType() != expectedAttributeType))
+                {
+                    // TODO: error
+                }
+            });
+            return this;
+        }
+
         public IAttributesTestBuilder AndAlso()
         {
             return this;
+        }
+
+        internal ICollection<Action<IEnumerable<object>>> GetAttributeValidations()
+        {
+            return this.validations;
         }
     }
 }

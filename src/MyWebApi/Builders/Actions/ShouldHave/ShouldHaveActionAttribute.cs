@@ -16,8 +16,11 @@
 
 namespace MyWebApi.Builders.Actions.ShouldHave
 {
+    using System;
     using System.Linq;
+    using Common.Extensions;
     using Contracts.And;
+    using Contracts.Attributes;
     using Exceptions;
 
     public partial class ShouldHaveTestBuilder<TActionResult>
@@ -57,6 +60,16 @@ namespace MyWebApi.Builders.Actions.ShouldHave
                     actualNumberOfActionAttributes));
             }
 
+            return this.NewAndTestBuilder();
+        }
+
+        public IAndTestBuilder<TActionResult> ActionAttributes(Action<IAttributesTestBuilder> attributesTestBuilder)
+        {
+            this.ActionAttributes();
+            var newAttributesTestBuilder = new AttributesTestBuilder();
+            attributesTestBuilder(newAttributesTestBuilder);
+            var validations = newAttributesTestBuilder.GetAttributeValidations();
+            validations.ForEach(v => v(this.ActionLevelAttributes));
             return this.NewAndTestBuilder();
         }
     }
