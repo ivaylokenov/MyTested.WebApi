@@ -21,7 +21,7 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldHave
     using Setups.Controllers;
 
     [TestFixture]
-    public class ShouldHaveActionAttributeTests
+    public class ShouldHaveActionAttributesTests
     {
         [Test]
         public void NoActionAttributesShouldNotThrowExceptionWithActionContainingNoAttributes()

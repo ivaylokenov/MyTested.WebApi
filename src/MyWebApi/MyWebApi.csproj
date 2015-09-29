@@ -53,7 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\Actions\ShouldHave\ShouldHaveActionAttribute.cs" />
+    <Compile Include="Builders\Actions\ShouldHave\ShouldHaveActionAttributes.cs" />
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnBadRequest.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnConflict.cs" />

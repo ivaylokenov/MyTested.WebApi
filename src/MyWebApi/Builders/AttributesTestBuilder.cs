@@ -19,6 +19,7 @@ namespace MyWebApi.Builders
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Http;
     using System.Web.Http;
     using System.Web.Http.Controllers;
     using Base;
@@ -46,7 +47,7 @@ namespace MyWebApi.Builders
                 if (attrs.All(a => a.GetType() != expectedAttributeType))
                 {
                     this.ThrowNewAttributeAssertionException(
-                        expectedAttributeType.ToFriendlyTypeName(), 
+                        expectedAttributeType.ToFriendlyTypeName(),
                         "in fact none was found");
                 }
             });
@@ -95,9 +96,55 @@ namespace MyWebApi.Builders
         }
 
         public IAndAttributesTestBuilder RestrictingForRequestsWithMethod<THttpMethod>()
-            where THttpMethod : Attribute, IActionHttpMethodProvider
+            where THttpMethod : Attribute, IActionHttpMethodProvider, new()
         {
-            return this.ContainingAttributeOfType<THttpMethod>();
+            return this.RestrictingForRequestsWithMethods((new THttpMethod()).HttpMethods);
+        }
+
+        public IAndAttributesTestBuilder RestrictingForRequestsWithMethod(string httpMethod)
+        {
+            return this.RestrictingForRequestsWithMethod(new HttpMethod(httpMethod));
+        }
+
+        public IAndAttributesTestBuilder RestrictingForRequestsWithMethod(HttpMethod httpMethod)
+        {
+            return this.RestrictingForRequestsWithMethods(new List<HttpMethod> { httpMethod });
+        }
+
+        public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(IEnumerable<string> httpMethods)
+        {
+            return this.RestrictingForRequestsWithMethods(httpMethods.Select(m => new HttpMethod(m)));
+        }
+
+        public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(params string[] httpMethods)
+        {
+            return this.RestrictingForRequestsWithMethods(httpMethods.AsEnumerable());
+        }
+
+        public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(IEnumerable<HttpMethod> httpMethods)
+        {
+            this.validations.Add(attrs =>
+            {
+                var totalAllowedHttpMethods =
+                    new List<HttpMethod>(attrs.OfType<IActionHttpMethodProvider>().SelectMany(a => a.HttpMethods));
+
+                httpMethods.ForEach(httpMethod =>
+                {
+                    if (!totalAllowedHttpMethods.Contains(httpMethod))
+                    {
+                        this.ThrowNewAttributeAssertionException(
+                            string.Format("attribute restricting requests for HTTP '{0}' method", httpMethod.Method),
+                            "in fact none was found");
+                    }
+                });
+            });
+
+            return this;
+        }
+
+        public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(params HttpMethod[] httpMethods)
+        {
+            return this.RestrictingForRequestsWithMethods(httpMethods.AsEnumerable());
         }
 
         public IAttributesTestBuilder AndAlso()
@@ -114,6 +161,12 @@ namespace MyWebApi.Builders
             where TAttribute : Attribute
         {
             return (TAttribute)attributes.First(a => a.GetType() == typeof(TAttribute));
+        }
+
+        private TAttribute TryGetAttributeOfType<TAttribute>(IEnumerable<object> attributes)
+            where TAttribute : Attribute
+        {
+            return attributes.FirstOrDefault(a => a.GetType() == typeof(TAttribute)) as TAttribute;
         }
 
         private void ThrowNewAttributeAssertionException(string expectedValue, string actualValue)

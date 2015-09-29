@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildersTests\ActionsTests\ShouldHave\ShouldHaveActionAttributeTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldHave\ShouldHaveActionAttributesTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnBadRequestTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnConflictTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnContentTests.cs" />
