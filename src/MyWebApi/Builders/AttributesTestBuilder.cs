@@ -54,7 +54,7 @@ namespace MyWebApi.Builders
 
             return this;
         }
-
+        
         public IAndAttributesTestBuilder ChangingActionNameTo(string actionName)
         {
             this.ContainingAttributeOfType<ActionNameAttribute>();
@@ -67,6 +67,43 @@ namespace MyWebApi.Builders
                     this.ThrowNewAttributeAssertionException(
                         string.Format("{0} '{1}'", actionNameAttribute.GetName(), actionName),
                         string.Format("in fact found '{0}'", actualActionName));
+                }
+            });
+
+            return this;
+        }
+
+        public IAndAttributesTestBuilder ChangingRouteTo(
+            string template,
+            string withName = null,
+            int? withOrder = null)
+        {
+            this.ContainingAttributeOfType<RouteAttribute>();
+            this.validations.Add(attrs =>
+            {
+                var routeAttribute = this.TryGetAttributeOfType<RouteAttribute>(attrs);
+                var actualTemplate = routeAttribute.Template;
+                if (template != actualTemplate)
+                {
+                    this.ThrowNewAttributeAssertionException(
+                                string.Format("{0} with '{1}' template", routeAttribute.GetName(), template),
+                                string.Format("in fact found '{0}'", actualTemplate));
+                }
+
+                var actualName = routeAttribute.Name;
+                if (!string.IsNullOrEmpty(withName) && withName != actualName)
+                {
+                    this.ThrowNewAttributeAssertionException(
+                                string.Format("{0} with '{1}' name", routeAttribute.GetName(), withName),
+                                string.Format("in fact found '{0}'", actualName));
+                }
+
+                var actualOrder = routeAttribute.Order;
+                if (withOrder.HasValue && withOrder != actualOrder)
+                {
+                    this.ThrowNewAttributeAssertionException(
+                                string.Format("{0} with order of {1}", routeAttribute.GetName(), withOrder),
+                                string.Format("in fact found {0}", actualOrder));
                 }
             });
 
@@ -92,11 +129,12 @@ namespace MyWebApi.Builders
                     this.validations.Add(attrs =>
                     {
                         var authorizeAttribute = this.GetAttributeOfType<AuthorizeAttribute>(attrs);
-                        if (withAllowedUsers != authorizeAttribute.Users)
+                        var actualUsers = authorizeAttribute.Users;
+                        if (withAllowedUsers != actualUsers)
                         {
                             this.ThrowNewAttributeAssertionException(
                                 string.Format("{0} with allowed '{1}' users", authorizeAttribute.GetName(), withAllowedUsers),
-                                string.Format("in fact found '{0}'", authorizeAttribute.Users));
+                                string.Format("in fact found '{0}'", actualUsers));
                         }
                     });
                 }
@@ -106,17 +144,23 @@ namespace MyWebApi.Builders
                     this.validations.Add(attrs =>
                     {
                         var authorizeAttribute = this.GetAttributeOfType<AuthorizeAttribute>(attrs);
-                        if (withAllowedRoles != authorizeAttribute.Roles)
+                        var actualRoles = authorizeAttribute.Roles;
+                        if (withAllowedRoles != actualRoles)
                         {
                             this.ThrowNewAttributeAssertionException(
                                 string.Format("{0} with allowed '{1}' roles", authorizeAttribute.GetName(), withAllowedRoles),
-                                string.Format("in fact found '{0}'", authorizeAttribute.Roles));
+                                string.Format("in fact found '{0}'", actualRoles));
                         }
                     });
                 }
             }
 
             return this;
+        }
+
+        public IAndAttributesTestBuilder DisablingAction()
+        {
+            return this.ContainingAttributeOfType<NonActionAttribute>();
         }
 
         public IAndAttributesTestBuilder RestrictingForRequestsWithMethod<THttpMethod>()
