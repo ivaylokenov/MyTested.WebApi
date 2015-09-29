@@ -66,7 +66,7 @@ namespace MyWebApi.Builders.Actions.ShouldHave
         public IAndTestBuilder<TActionResult> ActionAttributes(Action<IAttributesTestBuilder> attributesTestBuilder)
         {
             this.ActionAttributes();
-            var newAttributesTestBuilder = new AttributesTestBuilder();
+            var newAttributesTestBuilder = new AttributesTestBuilder(this.Controller, this.ActionName);
             attributesTestBuilder(newAttributesTestBuilder);
             var validations = newAttributesTestBuilder.GetAttributeValidations();
             validations.ForEach(v => v(this.ActionLevelAttributes));

@@ -19,13 +19,19 @@ namespace MyWebApi.Builders
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Http;
+    using Base;
+    using Common.Extensions;
     using Contracts.Attributes;
+    using Exceptions;
+    using Utilities;
 
-    public class AttributesTestBuilder : IAndAttributesTestBuilder
+    public class AttributesTestBuilder : BaseTestBuilder, IAndAttributesTestBuilder
     {
         private readonly ICollection<Action<IEnumerable<object>>> validations;
 
-        public AttributesTestBuilder()
+        public AttributesTestBuilder(ApiController controller, string actionName)
+            : base(controller, actionName)
         {
             this.validations = new List<Action<IEnumerable<object>>>();
         }
@@ -38,7 +44,11 @@ namespace MyWebApi.Builders
             {
                 if (attr.All(a => a.GetType() != expectedAttributeType))
                 {
-                    // TODO: error
+                    throw new AttributeAssertionException(string.Format(
+                        "When calling {0} action in {1} expected action to have {2} attribute, but in fact none was found.",
+                        this.Controller.GetName(),
+                        this.ActionName,
+                        expectedAttributeType.ToFriendlyTypeName()));
                 }
             });
             return this;
