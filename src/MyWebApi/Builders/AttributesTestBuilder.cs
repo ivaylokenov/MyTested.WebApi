@@ -51,7 +51,13 @@ namespace MyWebApi.Builders
                         "in fact none was found");
                 }
             });
+
             return this;
+        }
+
+        public IAndAttributesTestBuilder AllowingAnonymousRequests()
+        {
+            return this.ContainingAttributeOfType<AllowAnonymousAttribute>();
         }
 
         public IAndAttributesTestBuilder RestrictingForAuthorizedRequests(
@@ -125,8 +131,7 @@ namespace MyWebApi.Builders
         {
             this.validations.Add(attrs =>
             {
-                var totalAllowedHttpMethods =
-                    new List<HttpMethod>(attrs.OfType<IActionHttpMethodProvider>().SelectMany(a => a.HttpMethods));
+                var totalAllowedHttpMethods = attrs.OfType<IActionHttpMethodProvider>().SelectMany(a => a.HttpMethods);
 
                 httpMethods.ForEach(httpMethod =>
                 {
