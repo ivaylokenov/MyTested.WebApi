@@ -55,6 +55,24 @@ namespace MyWebApi.Builders
             return this;
         }
 
+        public IAndAttributesTestBuilder ChangingActionNameTo(string actionName)
+        {
+            this.ContainingAttributeOfType<ActionNameAttribute>();
+            this.validations.Add(attrs =>
+            {
+                var actionNameAttribute = this.GetAttributeOfType<ActionNameAttribute>(attrs);
+                var actualActionName = actionNameAttribute.Name;
+                if (actionName != actualActionName)
+                {
+                    this.ThrowNewAttributeAssertionException(
+                        string.Format("{0} '{1}'", actionNameAttribute.GetName(), actionName),
+                        string.Format("in fact found '{0}'", actualActionName));
+                }
+            });
+
+            return this;
+        }
+
         public IAndAttributesTestBuilder AllowingAnonymousRequests()
         {
             return this.ContainingAttributeOfType<AllowAnonymousAttribute>();
@@ -74,7 +92,7 @@ namespace MyWebApi.Builders
                     this.validations.Add(attrs =>
                     {
                         var authorizeAttribute = this.GetAttributeOfType<AuthorizeAttribute>(attrs);
-                        if (authorizeAttribute.Users != withAllowedUsers)
+                        if (withAllowedUsers != authorizeAttribute.Users)
                         {
                             this.ThrowNewAttributeAssertionException(
                                 string.Format("{0} with allowed '{1}' users", authorizeAttribute.GetName(), withAllowedUsers),
@@ -88,7 +106,7 @@ namespace MyWebApi.Builders
                     this.validations.Add(attrs =>
                     {
                         var authorizeAttribute = this.GetAttributeOfType<AuthorizeAttribute>(attrs);
-                        if (authorizeAttribute.Roles != withAllowedRoles)
+                        if (withAllowedRoles != authorizeAttribute.Roles)
                         {
                             this.ThrowNewAttributeAssertionException(
                                 string.Format("{0} with allowed '{1}' roles", authorizeAttribute.GetName(), withAllowedRoles),
