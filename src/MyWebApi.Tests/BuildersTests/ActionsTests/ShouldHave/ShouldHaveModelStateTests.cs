@@ -14,14 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Tests.BuildersTests.ActionsTests
+namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldHave
 {
     using System;
     using Exceptions;
-    using NUnit.Framework;
     using Setups;
     using Setups.Controllers;
     using Setups.Models;
+    using NUnit.Framework;
 
     [TestFixture]
     public class ShouldHaveModelStateTests

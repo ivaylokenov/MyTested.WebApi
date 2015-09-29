@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildersTests\ActionsTests\ShouldHave\ShouldHaveActionAttributeTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnBadRequestTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnConflictTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnContentTests.cs" />
@@ -91,7 +92,7 @@
     <Compile Include="BuildersTests\ModelsTests\ModelErrorDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ModelErrorTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\ActionsTests\ShouldHaveModelStateTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldHave\ShouldHaveModelStateTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnOkResultTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\RedirectTests\RedirectTestBuilderTests.cs" />

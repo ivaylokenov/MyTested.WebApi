@@ -32,7 +32,7 @@ namespace MyWebApi.Builders.Actions.ShouldHave
                 throw new AttributeAssertionException(string.Format(
                     "When calling {0} action in {1} expected action to not have any action attributes, but in had some.",
                     this.ActionName,
-                    this.Controller));
+                    this.Controller.GetName()));
             }
 
             return this.NewAndTestBuilder();

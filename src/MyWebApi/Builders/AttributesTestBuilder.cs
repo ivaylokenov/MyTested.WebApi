@@ -20,6 +20,7 @@ namespace MyWebApi.Builders
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
+    using System.Web.Http.Controllers;
     using Base;
     using Common.Extensions;
     using Contracts.Attributes;
@@ -40,18 +41,63 @@ namespace MyWebApi.Builders
             where TAttribute : Attribute
         {
             var expectedAttributeType = typeof(TAttribute);
-            this.validations.Add(attr =>
+            this.validations.Add(attrs =>
             {
-                if (attr.All(a => a.GetType() != expectedAttributeType))
+                if (attrs.All(a => a.GetType() != expectedAttributeType))
                 {
-                    throw new AttributeAssertionException(string.Format(
-                        "When calling {0} action in {1} expected action to have {2} attribute, but in fact none was found.",
-                        this.Controller.GetName(),
-                        this.ActionName,
-                        expectedAttributeType.ToFriendlyTypeName()));
+                    this.ThrowNewAttributeAssertionException(
+                        expectedAttributeType.ToFriendlyTypeName(), 
+                        "in fact none was found");
                 }
             });
             return this;
+        }
+
+        public IAndAttributesTestBuilder RestrictingForAuthorizedRequests(
+            string withAllowedUsers = null,
+            string withAllowedRoles = null)
+        {
+            this.ContainingAttributeOfType<AuthorizeAttribute>();
+            var testAllowedUsers = !string.IsNullOrEmpty(withAllowedUsers);
+            var testAllowedRoles = !string.IsNullOrEmpty(withAllowedRoles);
+            if (testAllowedUsers || testAllowedRoles)
+            {
+                if (testAllowedUsers)
+                {
+                    this.validations.Add(attrs =>
+                    {
+                        var authorizeAttribute = this.GetAttributeOfType<AuthorizeAttribute>(attrs);
+                        if (authorizeAttribute.Users != withAllowedUsers)
+                        {
+                            this.ThrowNewAttributeAssertionException(
+                                string.Format("{0} with allowed '{1}' users", authorizeAttribute.GetName(), withAllowedUsers),
+                                string.Format("in fact found '{0}'", authorizeAttribute.Users));
+                        }
+                    });
+                }
+
+                if (testAllowedRoles)
+                {
+                    this.validations.Add(attrs =>
+                    {
+                        var authorizeAttribute = this.GetAttributeOfType<AuthorizeAttribute>(attrs);
+                        if (authorizeAttribute.Roles != withAllowedRoles)
+                        {
+                            this.ThrowNewAttributeAssertionException(
+                                string.Format("{0} with allowed '{1}' roles", authorizeAttribute.GetName(), withAllowedRoles),
+                                string.Format("in fact found '{0}'", authorizeAttribute.Roles));
+                        }
+                    });
+                }
+            }
+
+            return this;
+        }
+
+        public IAndAttributesTestBuilder RestrictingForRequestsWithMethod<THttpMethod>()
+            where THttpMethod : Attribute, IActionHttpMethodProvider
+        {
+            return this.ContainingAttributeOfType<THttpMethod>();
         }
 
         public IAttributesTestBuilder AndAlso()
@@ -62,6 +108,22 @@ namespace MyWebApi.Builders
         internal ICollection<Action<IEnumerable<object>>> GetAttributeValidations()
         {
             return this.validations;
+        }
+
+        private TAttribute GetAttributeOfType<TAttribute>(IEnumerable<object> attributes)
+            where TAttribute : Attribute
+        {
+            return (TAttribute)attributes.First(a => a.GetType() == typeof(TAttribute));
+        }
+
+        private void ThrowNewAttributeAssertionException(string expectedValue, string actualValue)
+        {
+            throw new AttributeAssertionException(string.Format(
+                        "When calling {0} action in {1} expected action to have {2}, but {3}.",
+                        this.Controller.GetName(),
+                        this.ActionName,
+                        expectedValue,
+                        actualValue));
         }
     }
 }

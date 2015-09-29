@@ -173,6 +173,19 @@ namespace MyWebApi.Tests.Setups.Controllers
             await Task.Run(() => { });
         }
 
+        [Authorize]
+        [HttpGet]
+        public void EmptyActionWithAttributes()
+        {
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IHttpActionResult NormalActionWithAttributes()
+        {
+            return this.Ok();
+        }
+
         public IHttpActionResult OkResultAction()
         {
             return this.Ok();

@@ -16,7 +16,9 @@
 
 namespace MyWebApi.Builders.Contracts.Actions
 {
+    using System;
     using And;
+    using Attributes;
     using Base;
     using Models;
 
@@ -26,6 +28,12 @@ namespace MyWebApi.Builders.Contracts.Actions
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public interface IShouldHaveTestBuilder<TActionResult> : IBaseTestBuilderWithActionResult<TActionResult>
     {
+        IAndTestBuilder<TActionResult> NoActionAttributes();
+
+        IAndTestBuilder<TActionResult> ActionAttributes(int? withTotalNumberOf = null);
+
+        IAndTestBuilder<TActionResult> ActionAttributes(Action<IAttributesTestBuilder> attributesTestBuilder);
+
         /// <summary>
         /// Provides way to continue test case with specific model state errors.
         /// </summary>
