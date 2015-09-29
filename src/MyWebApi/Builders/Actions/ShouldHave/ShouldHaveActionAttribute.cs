@@ -17,23 +17,47 @@
 namespace MyWebApi.Builders.Actions.ShouldHave
 {
     using System.Linq;
-    using Contracts.Actions;
+    using Contracts.And;
+    using Exceptions;
 
     public partial class ShouldHaveTestBuilder<TActionResult>
     {
-        public IActionAttributeTestBuilder<TActionResult> ActionAttribute()
+        public IAndTestBuilder<TActionResult> NoActionAttributes()
         {
-            if (!this.ActionAttributes.Any())
+            if (this.ActionLevelAttributes.Any())
             {
-                // TODO: error
+                throw new AttributeAssertionException(string.Format(
+                    "When calling {0} action in {1} expected action to not have any action attributes, but in had some.",
+                    this.ActionName,
+                    this.Controller));
             }
-            
-            return new ActionAttributeTestBuilder<TActionResult>(
-                this.Controller,
-                this.ActionName,
-                this.CaughtException,
-                this.ActionResult,
-                this.ActionAttributes);
+
+            return this.NewAndTestBuilder();
+        }
+
+        public IAndTestBuilder<TActionResult> ActionAttributes(int? withTotalNumberOf = null)
+        {
+            if (!this.ActionLevelAttributes.Any())
+            {
+                throw new AttributeAssertionException(string.Format(
+                    "When calling {0} action in {1} expected action to have at least 1 action attribute, but in fact none was found.",
+                    this.ActionName,
+                    this.Controller));
+            }
+
+            var actualNumberOfActionAttributes = this.ActionLevelAttributes.Count();
+            if (withTotalNumberOf.HasValue && actualNumberOfActionAttributes != withTotalNumberOf)
+            {
+                throw new AttributeAssertionException(string.Format(
+                    "When calling {0} action in {1} expected action to have {2} action {3}, but in fact found {4}.",
+                    this.ActionName,
+                    this.Controller,
+                    withTotalNumberOf,
+                    withTotalNumberOf != 1 ? "attributes" : "attribute",
+                    actualNumberOfActionAttributes));
+            }
+
+            return this.NewAndTestBuilder();
         }
     }
 }

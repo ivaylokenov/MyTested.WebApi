@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\Actions\ShouldHave\ShouldHaveActionAttribute.cs" />
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveTestBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnBadRequest.cs" />
     <Compile Include="Builders\Actions\ShouldReturn\ShouldReturnConflict.cs" />
@@ -170,6 +171,7 @@
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
     <Compile Include="Common\VoidActionResult.cs" />
     <Compile Include="Exceptions\ActionCallAssertionException.cs" />
+    <Compile Include="Exceptions\AttributeAssertionException.cs" />
     <Compile Include="Exceptions\BadRequestResultAssertionException.cs" />
     <Compile Include="Exceptions\ContentResultAssertionException.cs" />
     <Compile Include="Exceptions\CreatedResultAssertionException.cs" />

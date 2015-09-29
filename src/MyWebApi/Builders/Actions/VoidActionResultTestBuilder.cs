@@ -67,7 +67,7 @@ namespace MyWebApi.Builders.Actions
                 this.ActionName, 
                 this.CaughtException, 
                 VoidActionResult.Create(),
-                this.ActionAttributes);
+                this.ActionLevelAttributes);
         }
 
         /// <summary>

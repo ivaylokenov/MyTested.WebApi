@@ -59,7 +59,7 @@ namespace MyWebApi.Builders.And
                 this.ActionName,
                 this.CaughtException,
                 this.ActionResult,
-                this.ActionAttributes);
+                this.ActionLevelAttributes);
         }
     }
 }

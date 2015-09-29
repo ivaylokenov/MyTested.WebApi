@@ -49,7 +49,7 @@ namespace MyWebApi.Builders.Base
             this.Controller = controller;
             this.ActionName = actionName;
             this.CaughtException = caughtException;
-            this.ActionAttributes = actionAttributes;
+            this.ActionLevelAttributes = actionAttributes;
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace MyWebApi.Builders.Base
             }
         }
 
-        internal IEnumerable<object> ActionAttributes { get; private set; }
+        internal IEnumerable<object> ActionLevelAttributes { get; private set; }
 
         internal Exception CaughtException { get; private set; }
 
