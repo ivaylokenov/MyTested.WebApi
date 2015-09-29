@@ -73,6 +73,9 @@
     <Compile Include="Builders\And\AndProvideTestBuilder.cs" />
     <Compile Include="Builders\And\AndProvideTestBuilder{TActionResult}.cs" />
     <Compile Include="Builders\And\AndTestBuilder.cs" />
+    <Compile Include="Builders\AttributesTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Attributes\IAndAttributesTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Attributes\IAttributesTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAndAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IBaseExceptionTestBuilder.cs" />
