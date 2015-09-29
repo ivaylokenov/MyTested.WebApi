@@ -17,8 +17,6 @@
 namespace MyWebApi.Builders.Contracts.Base
 {
     using System;
-    using System.Net.Http;
-    using System.Web.Http;
 
     /// <summary>
     /// Base interface for test builders with caught exception.

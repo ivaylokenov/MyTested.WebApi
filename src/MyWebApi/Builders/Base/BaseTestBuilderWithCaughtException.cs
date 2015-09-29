@@ -18,13 +18,9 @@ namespace MyWebApi.Builders.Base
 {
     using System;
     using System.Collections.Generic;
-    using System.Net.Http;
     using System.Web.Http;
     using And;
-    using Common.Extensions;
     using Contracts.Base;
-    using Exceptions;
-    using Utilities.Validators;
 
     /// <summary>
     /// Base class for test builders with caught exception.
