@@ -16,7 +16,6 @@
 
 namespace MyWebApi.Builders.Contracts.Base
 {
-    using System;
     using System.Net.Http;
     using System.Web.Http;
 
@@ -42,11 +41,5 @@ namespace MyWebApi.Builders.Contracts.Base
         /// </summary>
         /// <returns>HttpRequestMessage from the tested controller.</returns>
         HttpRequestMessage AndProvideTheHttpRequestMessage();
-
-        /// <summary>
-        /// Gets the thrown exception in the tested action.
-        /// </summary>
-        /// <returns>The exception instance or null, if no exception was caught.</returns>
-        Exception AndProvideTheCaughtException();
     }
 }

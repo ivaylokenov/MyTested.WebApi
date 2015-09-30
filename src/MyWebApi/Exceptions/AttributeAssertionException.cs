@@ -14,25 +14,21 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.And
+namespace MyWebApi.Exceptions
 {
     using System;
-    using System.Web.Http;
-    using Base;
-
+    
     /// <summary>
-    /// Provides controller and action information.
+    /// Exception for invalid attributes.
     /// </summary>
-    public class AndProvideTestBuilder : BaseTestBuilderWithCaughtException
+    public class AttributeAssertionException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AndProvideTestBuilder" /> class.
+        /// Initializes a new instance of the AttributeAssertionException class.
         /// </summary>
-        /// <param name="controller">Controller on which the action will be tested.</param>
-        /// <param name="actionName">Name of the tested action.</param>
-        /// <param name="caughtException">Caught exception during the action execution.</param>
-        public AndProvideTestBuilder(ApiController controller, string actionName, Exception caughtException)
-            : base(controller, actionName, caughtException)
+        /// <param name="message">Message for System.Exception class.</param>
+        public AttributeAssertionException(string message)
+            : base(message)
         {
         }
     }

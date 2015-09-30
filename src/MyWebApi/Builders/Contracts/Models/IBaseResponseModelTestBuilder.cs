@@ -21,7 +21,7 @@ namespace MyWebApi.Builders.Contracts.Models
     /// <summary>
     /// Base interface for all response model test builders.
     /// </summary>
-    public interface IBaseResponseModelTestBuilder : IBaseTestBuilder
+    public interface IBaseResponseModelTestBuilder : IBaseTestBuilderWithCaughtException
     {
         /// <summary>
         /// Tests whether response model is returned from the invoked action.

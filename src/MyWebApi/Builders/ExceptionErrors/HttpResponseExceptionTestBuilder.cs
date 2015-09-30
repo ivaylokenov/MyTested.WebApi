@@ -28,7 +28,7 @@ namespace MyWebApi.Builders.ExceptionErrors
     /// <summary>
     /// Used for testing expected HttpResponseException.
     /// </summary>
-    public class HttpResponseExceptionTestBuilder : BaseTestBuilder, IHttpResponseExceptionTestBuilder
+    public class HttpResponseExceptionTestBuilder : BaseTestBuilderWithCaughtException, IHttpResponseExceptionTestBuilder
     {
         private readonly HttpResponseException httpResponseException;
 
@@ -52,7 +52,7 @@ namespace MyWebApi.Builders.ExceptionErrors
         /// </summary>
         /// <param name="statusCode">HttpStatusCode enumeration.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder WithStatusCode(HttpStatusCode statusCode)
+        public IBaseTestBuilderWithCaughtException WithStatusCode(HttpStatusCode statusCode)
         {
             var actualStatusCode = this.httpResponseException.Response.StatusCode;
             if (actualStatusCode != statusCode)

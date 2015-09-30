@@ -17,17 +17,21 @@
 namespace MyWebApi.Common
 {
     using System;
+    using System.Collections.Generic;
 
     internal class ActionInfo<TActionResult>
     {
-        internal ActionInfo(string actionName, TActionResult actionResult, Exception caughtException)
+        internal ActionInfo(string actionName, IEnumerable<object> actionAttributes, TActionResult actionResult, Exception caughtException)
         {
             this.ActionName = actionName;
+            this.ActionAttributes = actionAttributes;
             this.ActionResult = actionResult;
             this.CaughtException = caughtException;
         }
 
         internal string ActionName { get; private set; }
+
+        internal IEnumerable<object> ActionAttributes { get; private set; } 
 
         internal TActionResult ActionResult { get; private set; }
 

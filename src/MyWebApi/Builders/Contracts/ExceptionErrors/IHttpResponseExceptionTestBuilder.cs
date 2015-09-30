@@ -23,14 +23,14 @@ namespace MyWebApi.Builders.Contracts.ExceptionErrors
     /// <summary>
     /// Used for testing expected HttpResponseException.
     /// </summary>
-    public interface IHttpResponseExceptionTestBuilder : IBaseTestBuilder
+    public interface IHttpResponseExceptionTestBuilder : IBaseTestBuilderWithCaughtException
     {
         /// <summary>
         /// Tests whether caught HttpResponseException has the same status code as the provided HttpStatusCode.
         /// </summary>
         /// <param name="statusCode">HttpStatusCode enumeration.</param>
         /// <returns>Base test builder.</returns>
-        IBaseTestBuilder WithStatusCode(HttpStatusCode statusCode);
+        IBaseTestBuilderWithCaughtException WithStatusCode(HttpStatusCode statusCode);
 
         /// <summary>
         /// Provides methods to test whether caught HttpResponseException has specific HttpResponseMessage.

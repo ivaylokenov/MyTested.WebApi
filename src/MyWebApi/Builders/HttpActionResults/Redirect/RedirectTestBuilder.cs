@@ -54,7 +54,7 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
         /// </summary>
         /// <param name="location">Expected location as string.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder AtLocation(string location)
+        public IBaseTestBuilderWithCaughtException AtLocation(string location)
         {
             var uri = LocationValidator.ValidateAndGetWellFormedUriString(location, this.ThrowNewRedirectResultAssertionException);
             return this.AtLocation(uri);
@@ -65,7 +65,7 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
         /// </summary>
         /// <param name="location">Expected location as URI.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder AtLocation(Uri location)
+        public IBaseTestBuilderWithCaughtException AtLocation(Uri location)
         {
             LocationValidator.ValidateUri(
                 this.ActionResult,
@@ -80,7 +80,7 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
         /// </summary>
         /// <param name="uriTestBuilder">Builder for expected URI.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder AtLocation(Action<IUriTestBuilder> uriTestBuilder)
+        public IBaseTestBuilderWithCaughtException AtLocation(Action<IUriTestBuilder> uriTestBuilder)
         {
             LocationValidator.ValidateLocation(
                 this.ActionResult,

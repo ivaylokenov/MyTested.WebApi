@@ -34,7 +34,7 @@ namespace MyWebApi.Utilities
         /// <returns>Method name as string.</returns>
         public static string GetMethodName(LambdaExpression expression)
         {
-            var methodCallExpression = GetMethodCallExpresstion(expression);
+            var methodCallExpression = GetMethodCallExpression(expression);
             return methodCallExpression.Method.Name;
         }
 
@@ -45,7 +45,7 @@ namespace MyWebApi.Utilities
         /// <returns>Collection of type-value pairs.</returns>
         public static IEnumerable<TypeValuePair> ResolveMethodArguments(LambdaExpression expression)
         {
-            var methodCallExpression = GetMethodCallExpresstion(expression);
+            var methodCallExpression = GetMethodCallExpression(expression);
             return methodCallExpression.Arguments
                 .Select(argument => Expression.Lambda(argument).Compile().DynamicInvoke())
                 .Select(value => new TypeValuePair
@@ -54,6 +54,17 @@ namespace MyWebApi.Utilities
                     Value = value
                 })
                 .ToList();
+        }
+
+        /// <summary>
+        /// Retrieves custom attributes on a method from method call lambda expression.
+        /// </summary>
+        /// <param name="expression">Expression to be parsed.</param>
+        /// <returns>Collection of attributes as objects.</returns>
+        public static IEnumerable<object> GetMethodAttributes(LambdaExpression expression)
+        {
+            var methodCallExpression = GetMethodCallExpression(expression);
+            return methodCallExpression.Method.GetCustomAttributes(true);
         }
 
         /// <summary>
@@ -72,7 +83,7 @@ namespace MyWebApi.Utilities
             return memberExpression.Member.Name;
         }
 
-        private static MethodCallExpression GetMethodCallExpresstion(LambdaExpression expression)
+        private static MethodCallExpression GetMethodCallExpression(LambdaExpression expression)
         {
             var methodCallExpression = expression.Body as MethodCallExpression;
             if (methodCallExpression == null)

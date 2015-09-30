@@ -196,7 +196,8 @@ namespace MyWebApi.Builders
                 this.Controller,
                 actionInfo.ActionName,
                 actionInfo.CaughtException,
-                actionInfo.ActionResult);
+                actionInfo.ActionResult,
+                actionInfo.ActionAttributes);
         }
 
         /// <summary>
@@ -223,7 +224,8 @@ namespace MyWebApi.Builders
                 this.Controller,
                 actionInfo.ActionName,
                 actionInfo.CaughtException,
-                actionResult);
+                actionResult,
+                actionInfo.ActionAttributes);
         }
 
         /// <summary>
@@ -234,6 +236,7 @@ namespace MyWebApi.Builders
         public IVoidActionResultTestBuilder Calling(Expression<Action<TController>> actionCall)
         {
             var actionName = this.GetAndValidateAction(actionCall);
+            var actionAttributes = ExpressionParser.GetMethodAttributes(actionCall);
             Exception caughtException = null;
 
             try
@@ -245,7 +248,7 @@ namespace MyWebApi.Builders
                 caughtException = exception;
             }
 
-            return new VoidActionResultTestBuilder(this.Controller, actionName, caughtException);
+            return new VoidActionResultTestBuilder(this.Controller, actionName, caughtException, actionAttributes);
         }
 
         /// <summary>
@@ -266,7 +269,7 @@ namespace MyWebApi.Builders
                 actionInfo.CaughtException = aggregateException;
             }
 
-            return new VoidActionResultTestBuilder(this.Controller, actionInfo.ActionName, actionInfo.CaughtException);
+            return new VoidActionResultTestBuilder(this.Controller, actionInfo.ActionName, actionInfo.CaughtException, actionInfo.ActionAttributes);
         }
 
         private void BuildControllerIfNotExists()
@@ -300,6 +303,7 @@ namespace MyWebApi.Builders
         {
             var actionName = this.GetAndValidateAction(actionCall);
             var actionResult = default(TActionResult);
+            var actionAttributes = ExpressionParser.GetMethodAttributes(actionCall);
             Exception caughtException = null;
 
             try
@@ -311,7 +315,7 @@ namespace MyWebApi.Builders
                 caughtException = exception;
             }
 
-            return new ActionInfo<TActionResult>(actionName, actionResult, caughtException);
+            return new ActionInfo<TActionResult>(actionName, actionAttributes, actionResult, caughtException);
         }
 
         private string GetAndValidateAction(LambdaExpression actionCall)

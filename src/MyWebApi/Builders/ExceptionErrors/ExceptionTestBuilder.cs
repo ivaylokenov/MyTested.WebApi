@@ -27,7 +27,7 @@ namespace MyWebApi.Builders.ExceptionErrors
     /// <summary>
     /// Used for testing expected exceptions.
     /// </summary>
-    public class ExceptionTestBuilder : BaseTestBuilder, IAndExceptionTestBuilder
+    public class ExceptionTestBuilder : BaseTestBuilderWithCaughtException, IAndExceptionTestBuilder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionTestBuilder" /> class.

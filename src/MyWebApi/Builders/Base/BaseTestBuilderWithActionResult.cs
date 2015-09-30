@@ -17,6 +17,7 @@
 namespace MyWebApi.Builders.Base
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Http;
     using And;
     using Common;
@@ -32,7 +33,7 @@ namespace MyWebApi.Builders.Base
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
     public abstract class BaseTestBuilderWithActionResult<TActionResult>
-        : BaseTestBuilder, IBaseTestBuilderWithActionResult<TActionResult>
+        : BaseTestBuilderWithCaughtException, IBaseTestBuilderWithActionResult<TActionResult>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestBuilderWithActionResult{TActionResult}" /> class.
@@ -41,12 +42,14 @@ namespace MyWebApi.Builders.Base
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="caughtException">Caught exception during the action execution.</param>
         /// <param name="actionResult">Result from the tested action.</param>
+        /// <param name="actionAttributes">Collected action attributes from the method call.</param>
         protected BaseTestBuilderWithActionResult(
             ApiController controller,
             string actionName,
             Exception caughtException,
-            TActionResult actionResult)
-            : base(controller, actionName, caughtException)
+            TActionResult actionResult,
+            IEnumerable<object> actionAttributes = null)
+            : base(controller, actionName, caughtException, actionAttributes)
         {
             this.ActionResult = actionResult;
         }

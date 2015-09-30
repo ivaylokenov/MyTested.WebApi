@@ -14,26 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.And
+namespace MyWebApi.Builders.Contracts.Attributes
 {
-    using System;
-    using System.Web.Http;
-    using Base;
-
     /// <summary>
-    /// Provides controller and action information.
+    /// Used for adding AndAlso() method to the the attribute tests.
     /// </summary>
-    public class AndProvideTestBuilder : BaseTestBuilderWithCaughtException
+    public interface IAndAttributesTestBuilder : IAttributesTestBuilder
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AndProvideTestBuilder" /> class.
+        /// AndAlso method for better readability when chaining attribute tests.
         /// </summary>
-        /// <param name="controller">Controller on which the action will be tested.</param>
-        /// <param name="actionName">Name of the tested action.</param>
-        /// <param name="caughtException">Caught exception during the action execution.</param>
-        public AndProvideTestBuilder(ApiController controller, string actionName, Exception caughtException)
-            : base(controller, actionName, caughtException)
-        {
-        }
+        /// <returns>The same attributes test builder.</returns>
+        IAttributesTestBuilder AndAlso();
     }
 }

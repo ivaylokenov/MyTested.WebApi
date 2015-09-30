@@ -28,7 +28,7 @@ namespace MyWebApi.Builders.HttpActionResults.BadRequest
     /// Used for testing specific bad request error messages.
     /// </summary>
     public class BadRequestErrorMessageTestBuilder
-        : BaseTestBuilder, IBadRequestErrorMessageTestBuilder
+        : BaseTestBuilderWithCaughtException, IBadRequestErrorMessageTestBuilder
     {
         private readonly string actualMessage;
 
@@ -54,7 +54,7 @@ namespace MyWebApi.Builders.HttpActionResults.BadRequest
         /// </summary>
         /// <param name="errorMessage">Expected error message for particular key.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder ThatEquals(string errorMessage)
+        public IBaseTestBuilderWithCaughtException ThatEquals(string errorMessage)
         {
             if (this.actualMessage != errorMessage)
             {
@@ -71,7 +71,7 @@ namespace MyWebApi.Builders.HttpActionResults.BadRequest
         /// </summary>
         /// <param name="beginMessage">Expected beginning for particular error message.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder BeginningWith(string beginMessage)
+        public IBaseTestBuilderWithCaughtException BeginningWith(string beginMessage)
         {
             if (!this.actualMessage.StartsWith(beginMessage))
             {
@@ -88,7 +88,7 @@ namespace MyWebApi.Builders.HttpActionResults.BadRequest
         /// </summary>
         /// <param name="endMessage">Expected ending for particular error message.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder EndingWith(string endMessage)
+        public IBaseTestBuilderWithCaughtException EndingWith(string endMessage)
         {
             if (!this.actualMessage.EndsWith(endMessage))
             {
@@ -105,7 +105,7 @@ namespace MyWebApi.Builders.HttpActionResults.BadRequest
         /// </summary>
         /// <param name="containsMessage">Expected containing string for particular error message.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder Containing(string containsMessage)
+        public IBaseTestBuilderWithCaughtException Containing(string containsMessage)
         {
             if (!this.actualMessage.Contains(containsMessage))
             {

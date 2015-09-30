@@ -17,6 +17,7 @@
 namespace MyWebApi.Builders.Actions.ShouldHave
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Http;
     using Base;
     using Contracts.Actions;
@@ -35,12 +36,14 @@ namespace MyWebApi.Builders.Actions.ShouldHave
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="caughtException">Caught exception during the action execution.</param>
         /// <param name="actionResult">Result from the tested action.</param>
+        /// <param name="actionAttributes">Collected action attributes from the method call.</param>
         public ShouldHaveTestBuilder(
             ApiController controller,
             string actionName,
             Exception caughtException,
-            TActionResult actionResult)
-            : base(controller, actionName, caughtException, actionResult)
+            TActionResult actionResult,
+            IEnumerable<object> actionAttributes)
+            : base(controller, actionName, caughtException, actionResult, actionAttributes)
         {
         }
     }
