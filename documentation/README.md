@@ -11,6 +11,7 @@
   - [Authenticated user](#authenticated-user)
   - [Calling actions](#calling-actions)
  - Action call validations
+  - [Attributes testing](#attributes-testing)
   - [Model state validation](#model-state-validation)
   - [Catching thrown exceptions](#catching-thrown-exceptions)
  - Action result validations
@@ -247,6 +248,214 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.CallingAsync(c => c.SomeActionAsync());
+```
+
+[To top](#table-of-contents)
+
+### Attributes testing
+
+You can test for specific or custom action attributes decorated on the called action:
+
+```c#
+// tests whether action has no attributes
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.NoActionAttributes();
+	
+// tests whether action has at least 1 attribute of any type
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes();
+	
+// tests whether action has specific number of attributes
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(withTotalNumberOf: 2);
+	
+// tests whether action has specific attribute type
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.ContainingAttributeOfType<HttpGetAttribute>());
+		
+// tests whether action has ActionNameAttribute
+// with specific expected name
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.ChangingActionNameTo("AnotherAction"));
+		
+// tests whether action has RouteAttribute
+// with specific expected route template
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.ChangingRouteTo("/api/anotheraction"));
+		
+// tests whether action has RouteAttribute
+// with specific expected route template
+// and optional expected name and order 
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.ChangingRouteTo(
+			"/api/anotheraction",
+			withName: "SomeRoute",
+			withOrder: 1));
+			
+// tests whether action has AllowAnonymousAttribute
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.AllowingAnonymousRequests());
+		
+// tests whether action has AuthorizeAttribute
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.RestrictingForAuthorizedRequests());
+		
+// tests whether action has AuthorizeAttribute
+// with expected authorized roles
+// and/or expected authorized users
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.RestrictingForAuthorizedRequests(
+			withAllowedRoles: "Admin,Moderator",
+			withAllowedUsers: "John,George"));
+			
+// tests whether action has NonActionAttribute
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.DisablingActionCall());
+		
+// tests whether action has restriction for HTTP method
+// by providing type of the attribute
+// *tests for AcceptsVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.RestrictingForRequestsWithMethod<HttpGetAttribute>());
+		
+// tests whether action has restriction for HTTP method
+// by providing the expected method as string
+// *tests for AcceptsVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.RestrictingForRequestsWithMethod("GET"));
+		
+// tests whether action has restriction for HTTP method
+// by providing the expected method as HttpMethod class
+// *tests for AcceptsVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.RestrictingForRequestsWithMethod(HttpMethod.Get));
+		
+// tests whether action has restriction for HTTP methods
+// by providing IEnumerable of strings
+// *tests for AcceptsVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.RestrictingForRequestsWithMethod(new List<string> { "GET", "HEAD" }));
+		
+// tests whether action has restriction for HTTP methods
+// by providing strings parameters
+// *tests for AcceptsVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.RestrictingForRequestsWithMethod("GET", "HEAD"));
+		
+// tests whether action has restriction for HTTP methods
+// by providing IEnumerable of HttpMethod class
+// *tests for AcceptsVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.RestrictingForRequestsWithMethod(new List<HttpMethod>
+		{
+			HttpMethod.Get,
+			HttpMethod.Head 
+		}));
+
+// tests whether action has restriction for HTTP methods
+// by providing HttpMethod parameters
+// *tests for AcceptsVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes => attributes
+		.RestrictingForRequestsWithMethod(HttpMethod.Get, HttpMethod.Head));
+		
+// combining tests with AndAlso
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes(attributes =>
+		attributes
+			.AllowingAnonymousRequests()
+			.AndAlso() // AndAlso is not necessary
+			.DisablingActionCall()
+			.AndAlso()
+			.RestrictingForRequestsWithMethod<HttpGetAttribute>());
+			
+// continuing testing other aspects of the action
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.VariousAttributesAction())
+	.ShouldHave()
+	.ActionAttributes(attributes =>
+		attributes
+			.AllowingAnonymousRequests()
+			.AndAlso()
+			.DisablingActionCall())
+	.AndAlso()
+	.ShouldHave()
+	.ValidModelState()
+	.AndAlso()
+	.ShouldReturn()
+	.Ok();
 ```
 
 [To top](#table-of-contents)
