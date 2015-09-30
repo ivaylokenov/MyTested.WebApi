@@ -43,7 +43,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have 'English (United States)' culture, but in fact found 'Invariant Language (Invariant Country)'.")]
         public void WithCultureShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -86,7 +86,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have DefaultContractResolver, but in fact found CamelCasePropertyNamesContractResolver.")]
         public void WithContractResolverOfTypeShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -129,7 +129,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have DefaultContractResolver, but in fact found CamelCasePropertyNamesContractResolver.")]
         public void WithContractResolverShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -172,7 +172,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have Default constructor handling, but in fact found AllowNonPublicDefaultConstructor.")]
         public void WithConstructorHandlingShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -215,7 +215,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have IsoDateFormat date format handling, but in fact found MicrosoftDateFormat.")]
         public void WithDateFormatHandlingShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -258,7 +258,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have DateTime date parse handling, but in fact found DateTimeOffset.")]
         public void WithDateParseHandlingShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -301,7 +301,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have Local date time zone handling, but in fact found Utc.")]
         public void WithDateTimeZoneHandlingShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -344,7 +344,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have Include default value handling, but in fact found Ignore.")]
         public void WithDefaultValueHandlingShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -387,7 +387,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have None formatting, but in fact found Indented.")]
         public void WithFormattingShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -430,7 +430,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have 2147483647 max depth, but in fact found 2.")]
         public void WithMaxDepthShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -473,7 +473,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have Error missing member handling, but in fact found Ignore.")]
         public void WithMissingMemberHandlingShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -516,7 +516,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have Include null value handling, but in fact found Ignore.")]
         public void WithNullValueHandlingShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -559,7 +559,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have Auto object creation handling, but in fact found Replace.")]
         public void WithObjectCreationHandlingShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -602,7 +602,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have Objects preserve references handling, but in fact found Arrays.")]
         public void WithPreserveReferencesHandlingShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -645,7 +645,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have Ignore reference loop handling, but in fact found Serialize.")]
         public void WithReferenceLoopHandlingShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -688,7 +688,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have Full type name assembly format, but in fact found Simple.")]
         public void WithTypeNameAssemblyFormatShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -731,7 +731,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have Auto type name handling, but in fact found None.")]
         public void WithTypeNameHandlingShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
@@ -778,7 +778,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have Default constructor handling, but in fact found AllowNonPublicDefaultConstructor.")]
         public void AndAlsoShouldThrowExceptionWithIncorrectValue()
         {
             MyWebApi
