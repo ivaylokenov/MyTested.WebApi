@@ -355,7 +355,7 @@ MyWebApi
 		
 // tests whether action has restriction for HTTP method
 // by providing type of the attribute
-// *tests for AcceptsVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.
+// * tests for AcceptsVerbsAttribute or the specific HttpGetAttribute, HttpPostAttribute, etc.
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
@@ -1867,6 +1867,16 @@ var actionName = MyWebApi
 	.ShouldReturn()
 	.Ok()
 	.AndProvideTheActionName();
+
+// get action attributes
+// * currently method returns correct attributes
+// * only after ShouldHave().ActionAttributes() call
+var attributes = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes()
+	.AndProvideTheActionAttributes();
 	
 // get the action result
 // * method is available on most methods which assert the action result
