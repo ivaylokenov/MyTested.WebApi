@@ -101,7 +101,12 @@ namespace MyWebApi.Builders.Base
         /// <returns>Test builder with AndAlso method.</returns>
         protected IAndTestBuilder<TActionResult> NewAndTestBuilder()
         {
-            return new AndTestBuilder<TActionResult>(this.Controller, this.ActionName, this.CaughtException, this.ActionResult);
+            return new AndTestBuilder<TActionResult>(
+                this.Controller,
+                this.ActionName,
+                this.CaughtException,
+                this.ActionResult,
+                this.ActionLevelAttributes);
         }
 
         /// <summary>

@@ -105,6 +105,15 @@ namespace MyWebApi.Builders.Base
         }
 
         /// <summary>
+        /// Gets the action attributes on the called action.
+        /// </summary>
+        /// <returns>IEnumerable of object representing the attributes or null, if no attributes are found on the action.</returns>
+        public IEnumerable<object> AndProvideTheActionAttributes()
+        {
+            return this.ActionLevelAttributes;
+        }
+
+        /// <summary>
         /// Gets the HTTP request message with which the action will be tested.
         /// </summary>
         /// <returns>HttpRequestMessage from the tested controller.</returns>

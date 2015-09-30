@@ -17,6 +17,7 @@
 namespace MyWebApi.Tests.BuildersTests.AndTests
 {
     using System;
+    using System.Linq;
     using System.Net.Http;
     using System.Web.Http.Results;
     using NUnit.Framework;
@@ -71,6 +72,19 @@ namespace MyWebApi.Tests.BuildersTests.AndTests
                 .AndProvideTheActionName();
 
             Assert.AreEqual("BadRequestWithErrorAction", actionName);
+        }
+
+        [Test]
+        public void AndProvideShouldReturnProperActionAttributes()
+        {
+            var attributes = MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.VariousAttributesAction())
+                .ShouldHave()
+                .ActionAttributes()
+                .AndProvideTheActionAttributes();
+
+            Assert.AreEqual(6, attributes.Count());
         }
 
         [Test]
