@@ -44,7 +44,7 @@ namespace MyWebApi.Tests.Setups.Controllers
             this.InjectedService = injectedService;
             this.responseModel = TestObjectFactory.GetListOfResponseModels();
         }
-
+        
         public WebApiController(RequestModel requestModel)
         {
             this.InjectedRequestModel = requestModel;

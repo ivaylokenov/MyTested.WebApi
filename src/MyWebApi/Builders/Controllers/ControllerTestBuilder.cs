@@ -20,9 +20,12 @@ namespace MyWebApi.Builders.Controllers
     using System.Collections.Generic;
     using System.Web.Http;
     using Base;
+    using Common.Extensions;
     using Contracts.Attributes;
     using Contracts.Base;
     using Contracts.Controllers;
+    using Exceptions;
+    using Utilities.Validators;
 
     public class ControllerTestBuilder : BaseTestBuilder, IControllerTestBuilder
     {
@@ -35,17 +38,35 @@ namespace MyWebApi.Builders.Controllers
 
         public IBaseTestBuilder NoActionAttributes()
         {
+            AttributesValidator.ValidateNoAttributes(
+                this.ControllerLevelAttributes,
+                this.ThrowNewAttributeAssertionException);
+
             return this;
         }
 
         public IBaseTestBuilder ActionAttributes(int? withTotalNumberOf = null)
         {
+            AttributesValidator.ValidateNumberOfAttributes(
+                this.ControllerLevelAttributes,
+                this.ThrowNewAttributeAssertionException,
+                withTotalNumberOf);
+
             return this;
         }
 
-        public IBaseTestBuilder ActionAttributes(Action<IAttributesTestBuilder> attributesTestBuilder)
+        public IBaseTestBuilder ActionAttributes(Action<IActionAttributesTestBuilder> attributesTestBuilder)
         {
             return this;
+        }
+
+        private void ThrowNewAttributeAssertionException(string expectedValue, string actualValue)
+        {
+            throw new AttributeAssertionException(string.Format(
+                "When testing {0} controller expected to {1}, but {2}.",
+                this.Controller.GetName(),
+                expectedValue,
+                actualValue));
         }
     }
 }

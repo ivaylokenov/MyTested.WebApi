@@ -22,7 +22,6 @@ namespace MyWebApi.Builders.Attributes
     using System.Net.Http;
     using System.Web.Http;
     using System.Web.Http.Controllers;
-    using Base;
     using Contracts.Attributes;
     using Common.Extensions;
     using Exceptions;
@@ -31,16 +30,16 @@ namespace MyWebApi.Builders.Attributes
     /// <summary>
     /// Used for testing attributes.
     /// </summary>
-    public class AttributesTestBuilder : BaseAttributesTestBuilder, IAndAttributesTestBuilder
+    public class ActionAttributesTestBuilder : BaseAttributesTestBuilder, IAndActionAttributesTestBuilder
     {
         private readonly string actionName;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AttributesTestBuilder" /> class.
+        /// Initializes a new instance of the <see cref="ActionAttributesTestBuilder" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the attributes will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
-        public AttributesTestBuilder(ApiController controller, string actionName)
+        public ActionAttributesTestBuilder(ApiController controller, string actionName)
             : base(controller)
         {
             this.actionName = actionName;
@@ -51,7 +50,7 @@ namespace MyWebApi.Builders.Attributes
         /// </summary>
         /// <typeparam name="TAttribute">Type of expected attribute.</typeparam>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder ContainingAttributeOfType<TAttribute>()
+        public IAndActionAttributesTestBuilder ContainingAttributeOfType<TAttribute>()
             where TAttribute : Attribute
         {
             var expectedAttributeType = typeof(TAttribute);
@@ -73,7 +72,7 @@ namespace MyWebApi.Builders.Attributes
         /// </summary>
         /// <param name="actionName">Expected overridden name of the action.</param>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder ChangingActionNameTo(string actionName)
+        public IAndActionAttributesTestBuilder ChangingActionNameTo(string actionName)
         {
             this.ContainingAttributeOfType<ActionNameAttribute>();
             this.Validations.Add(attrs =>
@@ -98,7 +97,7 @@ namespace MyWebApi.Builders.Attributes
         /// <param name="withName">Optional expected route name.</param>
         /// <param name="withOrder">Optional expected route order.</param>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder ChangingRouteTo(
+        public IAndActionAttributesTestBuilder ChangingRouteTo(
             string template,
             string withName = null,
             int? withOrder = null)
@@ -139,7 +138,7 @@ namespace MyWebApi.Builders.Attributes
         /// Checks whether the collected attributes contain AllowAnonymousAttribute.
         /// </summary>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder AllowingAnonymousRequests()
+        public IAndActionAttributesTestBuilder AllowingAnonymousRequests()
         {
             return this.ContainingAttributeOfType<AllowAnonymousAttribute>();
         }
@@ -150,7 +149,7 @@ namespace MyWebApi.Builders.Attributes
         /// <param name="withAllowedRoles">Optional expected authorized roles.</param>
         /// <param name="withAllowedUsers">Optional expected authorized users.</param>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder RestrictingForAuthorizedRequests(
+        public IAndActionAttributesTestBuilder RestrictingForAuthorizedRequests(
             string withAllowedRoles = null,
             string withAllowedUsers = null)
         {
@@ -197,7 +196,7 @@ namespace MyWebApi.Builders.Attributes
         /// Checks whether the collected attributes contain NonActionAttribute.
         /// </summary>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder DisablingActionCall()
+        public IAndActionAttributesTestBuilder DisablingActionCall()
         {
             return this.ContainingAttributeOfType<NonActionAttribute>();
         }
@@ -207,7 +206,7 @@ namespace MyWebApi.Builders.Attributes
         /// </summary>
         /// <typeparam name="THttpMethod">Attribute of type IActionHttpMethodProvider.</typeparam>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder RestrictingForRequestsWithMethod<THttpMethod>()
+        public IAndActionAttributesTestBuilder RestrictingForRequestsWithMethod<THttpMethod>()
             where THttpMethod : Attribute, IActionHttpMethodProvider, new()
         {
             return this.RestrictingForRequestsWithMethods((new THttpMethod()).HttpMethods);
@@ -218,7 +217,7 @@ namespace MyWebApi.Builders.Attributes
         /// </summary>
         /// <param name="httpMethod">HTTP method provided as string.</param>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder RestrictingForRequestsWithMethod(string httpMethod)
+        public IAndActionAttributesTestBuilder RestrictingForRequestsWithMethod(string httpMethod)
         {
             return this.RestrictingForRequestsWithMethod(new HttpMethod(httpMethod));
         }
@@ -228,7 +227,7 @@ namespace MyWebApi.Builders.Attributes
         /// </summary>
         /// <param name="httpMethod">HTTP method provided as HttpMethod class.</param>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder RestrictingForRequestsWithMethod(HttpMethod httpMethod)
+        public IAndActionAttributesTestBuilder RestrictingForRequestsWithMethod(HttpMethod httpMethod)
         {
             return this.RestrictingForRequestsWithMethods(new List<HttpMethod> { httpMethod });
         }
@@ -238,7 +237,7 @@ namespace MyWebApi.Builders.Attributes
         /// </summary>
         /// <param name="httpMethods">HTTP methods provided as collection of strings.</param>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(IEnumerable<string> httpMethods)
+        public IAndActionAttributesTestBuilder RestrictingForRequestsWithMethods(IEnumerable<string> httpMethods)
         {
             return this.RestrictingForRequestsWithMethods(httpMethods.Select(m => new HttpMethod(m)));
         }
@@ -248,7 +247,7 @@ namespace MyWebApi.Builders.Attributes
         /// </summary>
         /// <param name="httpMethods">HTTP methods provided as string parameters.</param>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(params string[] httpMethods)
+        public IAndActionAttributesTestBuilder RestrictingForRequestsWithMethods(params string[] httpMethods)
         {
             return this.RestrictingForRequestsWithMethods(httpMethods.AsEnumerable());
         }
@@ -258,7 +257,7 @@ namespace MyWebApi.Builders.Attributes
         /// </summary>
         /// <param name="httpMethods">HTTP methods provided as collection of HttpMethod classes.</param>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(IEnumerable<HttpMethod> httpMethods)
+        public IAndActionAttributesTestBuilder RestrictingForRequestsWithMethods(IEnumerable<HttpMethod> httpMethods)
         {
             this.Validations.Add(attrs =>
             {
@@ -283,7 +282,7 @@ namespace MyWebApi.Builders.Attributes
         /// </summary>
         /// <param name="httpMethods">HTTP methods provided as parameters of HttpMethod class.</param>
         /// <returns>The same attributes test builder.</returns>
-        public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(params HttpMethod[] httpMethods)
+        public IAndActionAttributesTestBuilder RestrictingForRequestsWithMethods(params HttpMethod[] httpMethods)
         {
             return this.RestrictingForRequestsWithMethods(httpMethods.AsEnumerable());
         }
@@ -292,7 +291,7 @@ namespace MyWebApi.Builders.Attributes
         /// AndAlso method for better readability when chaining attribute tests.
         /// </summary>
         /// <returns>The same attributes test builder.</returns>
-        public IAttributesTestBuilder AndAlso()
+        public IActionAttributesTestBuilder AndAlso()
         {
             return this;
         }

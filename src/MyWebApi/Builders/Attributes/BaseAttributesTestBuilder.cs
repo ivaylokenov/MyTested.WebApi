@@ -20,6 +20,8 @@ namespace MyWebApi.Builders.Attributes
     using System.Collections.Generic;
     using System.Web.Http;
     using Base;
+    using Common.Extensions;
+    using Exceptions;
 
     public abstract class BaseAttributesTestBuilder : BaseTestBuilder
     {
@@ -35,5 +37,14 @@ namespace MyWebApi.Builders.Attributes
         }
 
         protected ICollection<Action<IEnumerable<object>>> Validations { get; private set; }
+
+        protected virtual void ThrowNewAttributeAssertionException(string expectedValue, string actualValue)
+        {
+            throw new AttributeAssertionException(string.Format(
+                "When testing {0} controller expected to have {1}, but {2}.",
+                this.Controller.GetName(),
+                expectedValue,
+                actualValue));
+        }
     }
 }

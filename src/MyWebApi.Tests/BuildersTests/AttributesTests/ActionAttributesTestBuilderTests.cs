@@ -24,7 +24,7 @@ namespace MyWebApi.Tests.BuildersTests.AttributesTests
     using NUnit.Framework;
 
     [TestFixture]
-    public class AttributesTestBuilderTests
+    public class ActionAttributesTestBuilderTests
     {
         [Test]
         public void ContainingAttributeOfTypeShouldNotThrowExceptionWithActionWithTheAttribute()

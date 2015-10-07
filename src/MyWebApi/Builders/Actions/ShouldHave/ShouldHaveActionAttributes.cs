@@ -63,9 +63,9 @@ namespace MyWebApi.Builders.Actions.ShouldHave
         /// </summary>
         /// <param name="attributesTestBuilder">Builder for testing specific attributes on the action.</param>
         /// <returns>Test builder with AndAlso method.</returns>
-        public IAndTestBuilder<TActionResult> ActionAttributes(Action<IAttributesTestBuilder> attributesTestBuilder)
+        public IAndTestBuilder<TActionResult> ActionAttributes(Action<IActionAttributesTestBuilder> attributesTestBuilder)
         {
-            var newAttributesTestBuilder = new AttributesTestBuilder(this.Controller, this.ActionName);
+            var newAttributesTestBuilder = new ActionAttributesTestBuilder(this.Controller, this.ActionName);
             attributesTestBuilder(newAttributesTestBuilder);
 
             AttributesValidator.ValidateAttributes(
