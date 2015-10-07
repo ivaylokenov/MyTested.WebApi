@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders
+namespace MyWebApi.Builders.Attributes
 {
     using System;
     using System.Collections.Generic;
@@ -23,17 +23,17 @@ namespace MyWebApi.Builders
     using System.Web.Http;
     using System.Web.Http.Controllers;
     using Base;
-    using Common.Extensions;
     using Contracts.Attributes;
+    using Common.Extensions;
     using Exceptions;
     using Utilities;
 
     /// <summary>
     /// Used for testing attributes.
     /// </summary>
-    public class AttributesTestBuilder : BaseTestBuilderWithAction, IAndAttributesTestBuilder
+    public class AttributesTestBuilder : BaseAttributesTestBuilder, IAndAttributesTestBuilder
     {
-        private readonly ICollection<Action<IEnumerable<object>>> validations;
+        private readonly string actionName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AttributesTestBuilder" /> class.
@@ -41,9 +41,9 @@ namespace MyWebApi.Builders
         /// <param name="controller">Controller on which the attributes will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         public AttributesTestBuilder(ApiController controller, string actionName)
-            : base(controller, actionName)
+            : base(controller)
         {
-            this.validations = new List<Action<IEnumerable<object>>>();
+            this.actionName = actionName;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace MyWebApi.Builders
             where TAttribute : Attribute
         {
             var expectedAttributeType = typeof(TAttribute);
-            this.validations.Add(attrs =>
+            this.Validations.Add(attrs =>
             {
                 if (attrs.All(a => a.GetType() != expectedAttributeType))
                 {
@@ -76,7 +76,7 @@ namespace MyWebApi.Builders
         public IAndAttributesTestBuilder ChangingActionNameTo(string actionName)
         {
             this.ContainingAttributeOfType<ActionNameAttribute>();
-            this.validations.Add(attrs =>
+            this.Validations.Add(attrs =>
             {
                 var actionNameAttribute = this.GetAttributeOfType<ActionNameAttribute>(attrs);
                 var actualActionName = actionNameAttribute.Name;
@@ -104,7 +104,7 @@ namespace MyWebApi.Builders
             int? withOrder = null)
         {
             this.ContainingAttributeOfType<RouteAttribute>();
-            this.validations.Add(attrs =>
+            this.Validations.Add(attrs =>
             {
                 var routeAttribute = this.TryGetAttributeOfType<RouteAttribute>(attrs);
                 var actualTemplate = routeAttribute.Template;
@@ -161,7 +161,7 @@ namespace MyWebApi.Builders
             {
                 if (testAllowedRoles)
                 {
-                    this.validations.Add(attrs =>
+                    this.Validations.Add(attrs =>
                     {
                         var authorizeAttribute = this.GetAttributeOfType<AuthorizeAttribute>(attrs);
                         var actualRoles = authorizeAttribute.Roles;
@@ -176,7 +176,7 @@ namespace MyWebApi.Builders
 
                 if (testAllowedUsers)
                 {
-                    this.validations.Add(attrs =>
+                    this.Validations.Add(attrs =>
                     {
                         var authorizeAttribute = this.GetAttributeOfType<AuthorizeAttribute>(attrs);
                         var actualUsers = authorizeAttribute.Users;
@@ -260,7 +260,7 @@ namespace MyWebApi.Builders
         /// <returns>The same attributes test builder.</returns>
         public IAndAttributesTestBuilder RestrictingForRequestsWithMethods(IEnumerable<HttpMethod> httpMethods)
         {
-            this.validations.Add(attrs =>
+            this.Validations.Add(attrs =>
             {
                 var totalAllowedHttpMethods = attrs.OfType<IActionHttpMethodProvider>().SelectMany(a => a.HttpMethods);
 
@@ -297,11 +297,6 @@ namespace MyWebApi.Builders
             return this;
         }
 
-        internal ICollection<Action<IEnumerable<object>>> GetAttributeValidations()
-        {
-            return this.validations;
-        }
-
         private TAttribute GetAttributeOfType<TAttribute>(IEnumerable<object> attributes)
             where TAttribute : Attribute
         {
@@ -318,7 +313,7 @@ namespace MyWebApi.Builders
         {
             throw new AttributeAssertionException(string.Format(
                         "When calling {0} action in {1} expected action to have {2}, but {3}.",
-                        this.ActionName,
+                        this.actionName,
                         this.Controller.GetName(),
                         expectedValue,
                         actualValue));

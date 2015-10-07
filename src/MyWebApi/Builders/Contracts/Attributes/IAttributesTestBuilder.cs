@@ -25,7 +25,7 @@ namespace MyWebApi.Builders.Contracts.Attributes
     /// <summary>
     /// Used for testing attributes.
     /// </summary>
-    public interface IAttributesTestBuilder : IBaseTestBuilderWithAction
+    public interface IAttributesTestBuilder : IBaseAttributesTestBuilder
     {
         /// <summary>
         /// Checks whether the collected attributes contain the provided attribute type.

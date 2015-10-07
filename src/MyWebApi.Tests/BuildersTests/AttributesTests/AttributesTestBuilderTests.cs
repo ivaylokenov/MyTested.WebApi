@@ -14,14 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Tests.BuildersTests
+namespace MyWebApi.Tests.BuildersTests.AttributesTests
 {
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http;
     using Exceptions;
-    using NUnit.Framework;
     using Setups.Controllers;
+    using NUnit.Framework;
 
     [TestFixture]
     public class AttributesTestBuilderTests

@@ -25,7 +25,7 @@ namespace MyWebApi.Builders.Base
     /// <summary>
     /// Base class for all test builders.
     /// </summary>
-    public class BaseTestBuilder : IBaseTestBuilder
+    public abstract class BaseTestBuilder : IBaseTestBuilder
     {
         private ApiController controller;
 

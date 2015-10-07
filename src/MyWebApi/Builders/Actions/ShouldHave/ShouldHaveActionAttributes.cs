@@ -17,11 +17,12 @@
 namespace MyWebApi.Builders.Actions.ShouldHave
 {
     using System;
-    using System.Linq;
+    using Attributes;
     using Common.Extensions;
     using Contracts.And;
     using Contracts.Attributes;
     using Exceptions;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for testing action attributes and model state.
@@ -35,13 +36,9 @@ namespace MyWebApi.Builders.Actions.ShouldHave
         /// <returns>Test builder with AndAlso method.</returns>
         public IAndTestBuilder<TActionResult> NoActionAttributes()
         {
-            if (this.ActionLevelAttributes.Any())
-            {
-                throw new AttributeAssertionException(string.Format(
-                    "When calling {0} action in {1} expected action to not have any action attributes, but in had some.",
-                    this.ActionName,
-                    this.Controller.GetName()));
-            }
+            AttributesValidator.ValidateNoAttributes(
+                this.ActionLevelAttributes,
+                this.ThrowNewAttributeAssertionException);
 
             return this.NewAndTestBuilder();
         }
@@ -53,25 +50,10 @@ namespace MyWebApi.Builders.Actions.ShouldHave
         /// <returns>Test builder with AndAlso method.</returns>
         public IAndTestBuilder<TActionResult> ActionAttributes(int? withTotalNumberOf = null)
         {
-            if (!this.ActionLevelAttributes.Any())
-            {
-                throw new AttributeAssertionException(string.Format(
-                    "When calling {0} action in {1} expected action to have at least 1 action attribute, but in fact none was found.",
-                    this.ActionName,
-                    this.Controller.GetName()));
-            }
-
-            var actualNumberOfActionAttributes = this.ActionLevelAttributes.Count();
-            if (withTotalNumberOf.HasValue && actualNumberOfActionAttributes != withTotalNumberOf)
-            {
-                throw new AttributeAssertionException(string.Format(
-                    "When calling {0} action in {1} expected action to have {2} action {3}, but in fact found {4}.",
-                    this.ActionName,
-                    this.Controller.GetName(),
-                    withTotalNumberOf,
-                    withTotalNumberOf != 1 ? "attributes" : "attribute",
-                    actualNumberOfActionAttributes));
-            }
+            AttributesValidator.ValidateNumberOfAttributes(
+                this.ActionLevelAttributes,
+                this.ThrowNewAttributeAssertionException,
+                withTotalNumberOf);
 
             return this.NewAndTestBuilder();
         }
@@ -83,12 +65,25 @@ namespace MyWebApi.Builders.Actions.ShouldHave
         /// <returns>Test builder with AndAlso method.</returns>
         public IAndTestBuilder<TActionResult> ActionAttributes(Action<IAttributesTestBuilder> attributesTestBuilder)
         {
-            this.ActionAttributes();
             var newAttributesTestBuilder = new AttributesTestBuilder(this.Controller, this.ActionName);
             attributesTestBuilder(newAttributesTestBuilder);
-            var validations = newAttributesTestBuilder.GetAttributeValidations();
-            validations.ForEach(v => v(this.ActionLevelAttributes));
+
+            AttributesValidator.ValidateAttributes(
+                this.ActionLevelAttributes,
+                newAttributesTestBuilder,
+                this.ThrowNewAttributeAssertionException);
+
             return this.NewAndTestBuilder();
+        }
+
+        private void ThrowNewAttributeAssertionException(string expectedValue, string actualValue)
+        {
+            throw new AttributeAssertionException(string.Format(
+                "When calling {0} action in {1} expected action to {2}, but {3}.",
+                this.ActionName,
+                this.Controller.GetName(),
+                expectedValue,
+                actualValue));
         }
     }
 }

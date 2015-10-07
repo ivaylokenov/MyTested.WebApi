@@ -23,7 +23,7 @@ namespace MyWebApi.Builders.Base
     using Exceptions;
     using Utilities.Validators;
 
-    public class BaseTestBuilderWithAction : BaseTestBuilder, IBaseTestBuilderWithAction
+    public abstract class BaseTestBuilderWithAction : BaseTestBuilder, IBaseTestBuilderWithAction
     {
         private string actionName;
 
