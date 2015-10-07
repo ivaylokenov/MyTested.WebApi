@@ -16,9 +16,36 @@
 
 namespace MyWebApi.Builders.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Web.Http;
+    using Base;
+    using Contracts.Attributes;
+    using Contracts.Base;
     using Contracts.Controllers;
 
-    public class ControllerTestBuilder : IControllerTestBuilder
+    public class ControllerTestBuilder : BaseTestBuilder, IControllerTestBuilder
     {
+        public ControllerTestBuilder(
+            ApiController controller,
+            IEnumerable<object> controllerAttributes)
+            : base(controller, controllerAttributes)
+        {
+        }
+
+        public IBaseTestBuilder NoActionAttributes()
+        {
+            return this;
+        }
+
+        public IBaseTestBuilder ActionAttributes(int? withTotalNumberOf = null)
+        {
+            return this;
+        }
+
+        public IBaseTestBuilder ActionAttributes(Action<IAttributesTestBuilder> attributesTestBuilder)
+        {
+            return this;
+        }
     }
 }

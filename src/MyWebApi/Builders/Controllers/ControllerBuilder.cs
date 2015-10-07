@@ -178,7 +178,7 @@ namespace MyWebApi.Builders.Controllers
         public IControllerTestBuilder ShouldHave()
         {
             var attributes = Reflection.GetCustomAttributes(this.Controller);
-            return new ControllerTestBuilder();
+            return new ControllerTestBuilder(this.Controller, attributes);
         }
 
         /// <summary>

@@ -16,6 +16,7 @@
 
 namespace MyWebApi.Builders.Base
 {
+    using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http;
     using Contracts.Base;
@@ -33,9 +34,11 @@ namespace MyWebApi.Builders.Base
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
         protected BaseTestBuilder(
-            ApiController controller)
+            ApiController controller,
+            IEnumerable<object> controllerLevelAttributes = null)
         {
             this.Controller = controller;
+            this.ControllerLevelAttributes = controllerLevelAttributes;
         }
 
         /// <summary>
@@ -56,6 +59,8 @@ namespace MyWebApi.Builders.Base
             }
         }
 
+        internal IEnumerable<object> ControllerLevelAttributes { get; private set; }
+
         /// <summary>
         /// Gets the controller on which the action is tested.
         /// </summary>
@@ -72,6 +77,11 @@ namespace MyWebApi.Builders.Base
         public HttpRequestMessage AndProvideTheHttpRequestMessage()
         {
             return this.Controller.Request;
+        }
+
+        public IEnumerable<object> AndProvideTheControllerAttributes()
+        {
+            return this.ControllerLevelAttributes;
         }
     }
 }
