@@ -32,7 +32,7 @@ namespace MyWebApi.Builders.Attributes
     /// </summary>
     public class ActionAttributesTestBuilder : BaseAttributesTestBuilder, IAndActionAttributesTestBuilder
     {
-        private readonly string actionName;
+        private readonly string testedActionName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ActionAttributesTestBuilder" /> class.
@@ -42,7 +42,7 @@ namespace MyWebApi.Builders.Attributes
         public ActionAttributesTestBuilder(ApiController controller, string actionName)
             : base(controller)
         {
-            this.actionName = actionName;
+            this.testedActionName = actionName;
         }
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace MyWebApi.Builders.Attributes
         {
             throw new AttributeAssertionException(string.Format(
                         "When calling {0} action in {1} expected action to have {2}, but {3}.",
-                        this.actionName,
+                        this.testedActionName,
                         this.Controller.GetName(),
                         expectedValue,
                         actualValue));

@@ -50,6 +50,24 @@ namespace MyWebApi.Builders.Attributes
             return this;
         }
 
+        public IAndControllerAttributesTestBuilder ChangingRoutePrefixTo(string prefix)
+        {
+            this.ContainingAttributeOfType<RoutePrefixAttribute>();
+            this.Validations.Add(attrs =>
+            {
+                var routePrefixAttribute = this.GetAttributeOfType<RoutePrefixAttribute>(attrs);
+                var actualRoutePrefix = routePrefixAttribute.Prefix;
+                if (prefix != actualRoutePrefix)
+                {
+                    this.ThrowNewAttributeAssertionException(
+                        string.Format("{0} with '{1}' name", routePrefixAttribute.GetName(), prefix),
+                        string.Format("in fact found '{0}'", actualRoutePrefix));
+                }
+            });
+
+            return this;
+        }
+
         public IAndControllerAttributesTestBuilder AllowingAnonymousRequests()
         {
             return this.ContainingAttributeOfType<AllowAnonymousAttribute>();

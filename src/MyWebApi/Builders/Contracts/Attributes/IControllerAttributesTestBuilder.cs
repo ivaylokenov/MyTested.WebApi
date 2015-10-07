@@ -40,6 +40,8 @@ namespace MyWebApi.Builders.Contracts.Attributes
             string withName = null,
             int? withOrder = null);
 
+        IAndControllerAttributesTestBuilder ChangingRoutePrefixTo(string prefix);
+
         /// <summary>
         /// Checks whether the collected attributes contain AllowAnonymousAttribute.
         /// </summary>
