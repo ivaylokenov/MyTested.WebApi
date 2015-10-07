@@ -17,7 +17,6 @@
 namespace MyWebApi.Builders.Attributes
 {
     using System;
-    using System.Net.Http;
     using System.Web.Http;
     using Common.Extensions;
     using Contracts.Attributes;
@@ -53,14 +52,19 @@ namespace MyWebApi.Builders.Attributes
 
         public IAndControllerAttributesTestBuilder AllowingAnonymousRequests()
         {
-            throw new NotImplementedException();
+            return this.ContainingAttributeOfType<AllowAnonymousAttribute>();
         }
 
         public IAndControllerAttributesTestBuilder RestrictingForAuthorizedRequests(
             string withAllowedRoles = null,
             string withAllowedUsers = null)
         {
-            throw new NotImplementedException();
+            this.RestrictingForAuthorizedRequests(
+                this.ThrowNewAttributeAssertionException,
+                withAllowedRoles,
+                withAllowedUsers);
+
+            return this;
         }
 
         public IControllerAttributesTestBuilder AndAlso()

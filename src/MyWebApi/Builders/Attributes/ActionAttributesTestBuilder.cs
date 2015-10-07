@@ -120,41 +120,10 @@ namespace MyWebApi.Builders.Attributes
             string withAllowedRoles = null,
             string withAllowedUsers = null)
         {
-            this.ContainingAttributeOfType<AuthorizeAttribute>();
-            var testAllowedUsers = !string.IsNullOrEmpty(withAllowedUsers);
-            var testAllowedRoles = !string.IsNullOrEmpty(withAllowedRoles);
-            if (testAllowedUsers || testAllowedRoles)
-            {
-                if (testAllowedRoles)
-                {
-                    this.Validations.Add(attrs =>
-                    {
-                        var authorizeAttribute = this.GetAttributeOfType<AuthorizeAttribute>(attrs);
-                        var actualRoles = authorizeAttribute.Roles;
-                        if (withAllowedRoles != actualRoles)
-                        {
-                            this.ThrowNewAttributeAssertionException(
-                                string.Format("{0} with allowed '{1}' roles", authorizeAttribute.GetName(), withAllowedRoles),
-                                string.Format("in fact found '{0}'", actualRoles));
-                        }
-                    });
-                }
-
-                if (testAllowedUsers)
-                {
-                    this.Validations.Add(attrs =>
-                    {
-                        var authorizeAttribute = this.GetAttributeOfType<AuthorizeAttribute>(attrs);
-                        var actualUsers = authorizeAttribute.Users;
-                        if (withAllowedUsers != actualUsers)
-                        {
-                            this.ThrowNewAttributeAssertionException(
-                                string.Format("{0} with allowed '{1}' users", authorizeAttribute.GetName(), withAllowedUsers),
-                                string.Format("in fact found '{0}'", actualUsers));
-                        }
-                    });
-                }
-            }
+            this.RestrictingForAuthorizedRequests(
+                this.ThrowNewAttributeAssertionException,
+                withAllowedRoles,
+                withAllowedUsers);
 
             return this;
         }
