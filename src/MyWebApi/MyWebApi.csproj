@@ -75,9 +75,12 @@
     <Compile Include="Builders\And\AndTestBuilder.cs" />
     <Compile Include="Builders\AttributesTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
+    <Compile Include="Builders\Base\BaseTestBuilderWithAction.cs" />
     <Compile Include="Builders\Contracts\Attributes\IAndAttributesTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Attributes\IAttributesTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithAction.cs" />
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Controllers\IControllerTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAndAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IBaseExceptionTestBuilder.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="Builders\Contracts\HttpRequests\IHttpRequestMessageBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IAndHttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpResponseMessageTestBuilder.cs" />
+    <Compile Include="Builders\Controllers\ControllerTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\AggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestErrorMessageTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestTestBuilder.cs" />
@@ -138,7 +142,7 @@
     <Compile Include="Builders\Contracts\Models\IModelDetailsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Unauthorized\IUnauthorizedTestBuilder.cs" />
     <Compile Include="Builders\Contracts\IUserBuilder.cs" />
-    <Compile Include="Builders\ControllerBuilder.cs" />
+    <Compile Include="Builders\Controllers\ControllerBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveModelState.cs" />
     <Compile Include="Builders\HttpActionResults\Created\CreatedTestBuilder.cs" />
     <Compile Include="Builders\FormattersBuilder.cs" />

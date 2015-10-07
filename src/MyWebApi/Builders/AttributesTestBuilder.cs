@@ -31,7 +31,7 @@ namespace MyWebApi.Builders
     /// <summary>
     /// Used for testing attributes.
     /// </summary>
-    public class AttributesTestBuilder : BaseTestBuilder, IAndAttributesTestBuilder
+    public class AttributesTestBuilder : BaseTestBuilderWithAction, IAndAttributesTestBuilder
     {
         private readonly ICollection<Action<IEnumerable<object>>> validations;
 

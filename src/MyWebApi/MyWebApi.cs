@@ -20,6 +20,7 @@ namespace MyWebApi
     using System.Web.Http;
     using Builders;
     using Builders.Contracts.Controllers;
+    using Builders.Controllers;
     using Utilities;
 
     /// <summary>

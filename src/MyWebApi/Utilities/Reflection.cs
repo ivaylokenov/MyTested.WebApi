@@ -269,6 +269,11 @@ namespace MyWebApi.Utilities
             return instance;
         }
 
+        public static IEnumerable<object> GetCustomAttributes(object obj)
+        {
+            return obj.GetType().GetCustomAttributes(true);
+        }
+
         private static ConstructorInfo GetConstructorByUnorderedParameters(this Type type, IEnumerable<Type> types)
         {
             var orderedTypes = types

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders
+namespace MyWebApi.Builders.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -24,13 +24,14 @@ namespace MyWebApi.Builders
     using System.Threading.Tasks;
     using System.Web.Http;
     using Actions;
+    using Contracts;
+    using Contracts.Actions;
+    using Contracts.Attributes;
+    using Contracts.Controllers;
+    using Contracts.HttpRequests;
     using Common;
     using Common.Extensions;
     using Common.Identity;
-    using Contracts;
-    using Contracts.Actions;
-    using Contracts.Controllers;
-    using Contracts.HttpRequests;
     using Exceptions;
     using Utilities;
 
@@ -172,6 +173,12 @@ namespace MyWebApi.Builders
             userBuilder(newUserBuilder);
             this.Controller.User = newUserBuilder.GetUser();
             return this;
+        }
+
+        public IControllerTestBuilder ShouldHave()
+        {
+            var attributes = Reflection.GetCustomAttributes(this.Controller);
+            return new ControllerTestBuilder();
         }
 
         /// <summary>

@@ -16,12 +16,9 @@
 
 namespace MyWebApi.Builders.Base
 {
-    using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http;
-    using Common.Extensions;
     using Contracts.Base;
-    using Exceptions;
     using Utilities.Validators;
 
     /// <summary>
@@ -30,22 +27,15 @@ namespace MyWebApi.Builders.Base
     public class BaseTestBuilder : IBaseTestBuilder
     {
         private ApiController controller;
-        private string actionName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestBuilder" /> class.
         /// </summary>
         /// <param name="controller">Controller on which the action will be tested.</param>
-        /// <param name="actionName">Name of the tested action.</param>
-        /// <param name="actionAttributes">Collected action attributes from the method call.</param>
         protected BaseTestBuilder(
-            ApiController controller,
-            string actionName,
-            IEnumerable<object> actionAttributes = null)
+            ApiController controller)
         {
             this.Controller = controller;
-            this.ActionName = actionName;
-            this.ActionLevelAttributes = actionAttributes;
         }
 
         /// <summary>
@@ -67,26 +57,6 @@ namespace MyWebApi.Builders.Base
         }
 
         /// <summary>
-        /// Gets the action name which will be tested.
-        /// </summary>
-        /// <value>Action name to be tested.</value>
-        internal string ActionName
-        {
-            get
-            {
-                return this.actionName;
-            }
-
-            private set
-            {
-                CommonValidator.CheckForNotWhiteSpaceString(value, errorMessageName: "ActionName");
-                this.actionName = value;
-            }
-        }
-
-        internal IEnumerable<object> ActionLevelAttributes { get; private set; }
-
-        /// <summary>
         /// Gets the controller on which the action is tested.
         /// </summary>
         /// <returns>ASP.NET Web API controller on which the action is tested.</returns>
@@ -96,44 +66,12 @@ namespace MyWebApi.Builders.Base
         }
 
         /// <summary>
-        /// Gets the action name which will be tested.
-        /// </summary>
-        /// <returns>Action name to be tested.</returns>
-        public string AndProvideTheActionName()
-        {
-            return this.ActionName;
-        }
-
-        /// <summary>
-        /// Gets the action attributes on the called action.
-        /// </summary>
-        /// <returns>IEnumerable of object representing the attributes or null, if no attributes are found on the action.</returns>
-        public IEnumerable<object> AndProvideTheActionAttributes()
-        {
-            return this.ActionLevelAttributes;
-        }
-
-        /// <summary>
         /// Gets the HTTP request message with which the action will be tested.
         /// </summary>
         /// <returns>HttpRequestMessage from the tested controller.</returns>
         public HttpRequestMessage AndProvideTheHttpRequestMessage()
         {
             return this.Controller.Request;
-        }
-
-        /// <summary>
-        /// Checks whether the tested action's model state is valid.
-        /// </summary>
-        protected void CheckValidModelState()
-        {
-            if (!this.controller.ModelState.IsValid)
-            {
-                throw new ModelErrorAssertionException(string.Format(
-                    "When calling {0} action in {1} expected to have valid model state with no errors, but it had some.",
-                    this.ActionName,
-                    this.Controller.GetName()));
-            }
         }
     }
 }

@@ -78,7 +78,7 @@
     <Compile Include="BuildersTests\ExceptionErrorsTests\HttpResponseExceptionTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\BadRequestTests\BadRequestErrorMessageTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\BadRequestTests\BadRequestTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\ControllerBuilderTests.cs" />
+    <Compile Include="BuildersTests\ControllersTests\ControllerBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\ContentTests\ContentTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\CreatedTests\CreatedTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\ExceptionMessageTestBuilderTests.cs" />

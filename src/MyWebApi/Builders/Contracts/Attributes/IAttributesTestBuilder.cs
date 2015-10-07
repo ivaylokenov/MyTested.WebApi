@@ -20,11 +20,12 @@ namespace MyWebApi.Builders.Contracts.Attributes
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http.Controllers;
+    using Base;
 
     /// <summary>
     /// Used for testing attributes.
     /// </summary>
-    public interface IAttributesTestBuilder
+    public interface IAttributesTestBuilder : IBaseTestBuilderWithAction
     {
         /// <summary>
         /// Checks whether the collected attributes contain the provided attribute type.

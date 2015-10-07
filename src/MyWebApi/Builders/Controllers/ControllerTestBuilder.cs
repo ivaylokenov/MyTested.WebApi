@@ -14,19 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Base
+namespace MyWebApi.Builders.Controllers
 {
-    using System;
+    using Contracts.Controllers;
 
-    /// <summary>
-    /// Base interface for test builders with caught exception.
-    /// </summary>
-    public interface IBaseTestBuilderWithCaughtException : IBaseTestBuilderWithAction
+    public class ControllerTestBuilder : IControllerTestBuilder
     {
-        /// <summary>
-        /// Gets the thrown exception in the tested action.
-        /// </summary>
-        /// <returns>The exception instance or null, if no exception was caught.</returns>
-        Exception AndProvideTheCaughtException();
     }
 }
