@@ -81,7 +81,6 @@
     <Compile Include="Builders\Contracts\Attributes\IAndActionAttributesTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Attributes\IActionAttributesTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Attributes\IAndControllerAttributesTestBuilder.cs" />
-    <Compile Include="Builders\Contracts\Attributes\IBaseAttributesTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Attributes\IControllerAttributesTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithAction.cs" />
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilder.cs" />

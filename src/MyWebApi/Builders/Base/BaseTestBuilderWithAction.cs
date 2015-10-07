@@ -23,6 +23,9 @@ namespace MyWebApi.Builders.Base
     using Exceptions;
     using Utilities.Validators;
 
+    /// <summary>
+    /// Base class for all test builders with action call.
+    /// </summary>
     public abstract class BaseTestBuilderWithAction : BaseTestBuilder, IBaseTestBuilderWithAction
     {
         private string actionName;
@@ -75,7 +78,7 @@ namespace MyWebApi.Builders.Base
         /// <summary>
         /// Gets the action attributes on the called action.
         /// </summary>
-        /// <returns>IEnumerable of object representing the attributes or null, if no attributes are found on the action.</returns>
+        /// <returns>IEnumerable of object representing the attributes or null, if no attributes were collected on the action.</returns>
         public IEnumerable<object> AndProvideTheActionAttributes()
         {
             return this.ActionLevelAttributes;

@@ -24,14 +24,13 @@ namespace MyWebApi.Builders.Controllers
     using System.Threading.Tasks;
     using System.Web.Http;
     using Actions;
-    using Contracts;
-    using Contracts.Actions;
-    using Contracts.Attributes;
-    using Contracts.Controllers;
-    using Contracts.HttpRequests;
     using Common;
     using Common.Extensions;
     using Common.Identity;
+    using Contracts;
+    using Contracts.Actions;
+    using Contracts.Controllers;
+    using Contracts.HttpRequests;
     using Exceptions;
     using Utilities;
 
@@ -175,6 +174,10 @@ namespace MyWebApi.Builders.Controllers
             return this;
         }
 
+        /// <summary>
+        /// Used for testing controller attributes.
+        /// </summary>
+        /// <returns>Controller test builder.</returns>
         public IControllerTestBuilder ShouldHave()
         {
             var attributes = Reflection.GetCustomAttributes(this.Controller);

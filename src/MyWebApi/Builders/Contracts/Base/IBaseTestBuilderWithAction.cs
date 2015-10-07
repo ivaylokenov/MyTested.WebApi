@@ -18,6 +18,9 @@ namespace MyWebApi.Builders.Contracts.Base
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Base class for all test builders with action call.
+    /// </summary>
     public interface IBaseTestBuilderWithAction : IBaseTestBuilder
     {
         /// <summary>
@@ -29,7 +32,7 @@ namespace MyWebApi.Builders.Contracts.Base
         /// <summary>
         /// Gets the action attributes on the called action.
         /// </summary>
-        /// <returns>IEnumerable of object representing the attributes or null, if no attributes are found on the action.</returns>
+        /// <returns>IEnumerable of object representing the attributes or null, if no attributes were collected on the action.</returns>
         IEnumerable<object> AndProvideTheActionAttributes();
     }
 }

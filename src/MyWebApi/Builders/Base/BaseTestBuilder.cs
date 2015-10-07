@@ -32,13 +32,14 @@ namespace MyWebApi.Builders.Base
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestBuilder" /> class.
         /// </summary>
-        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="controller">Controller on which will be tested.</param>
+        /// <param name="controllerAttributes">Collected attributes from the tested controller.</param>
         protected BaseTestBuilder(
             ApiController controller,
-            IEnumerable<object> controllerLevelAttributes = null)
+            IEnumerable<object> controllerAttributes = null)
         {
             this.Controller = controller;
-            this.ControllerLevelAttributes = controllerLevelAttributes;
+            this.ControllerLevelAttributes = controllerAttributes;
         }
 
         /// <summary>
@@ -79,6 +80,10 @@ namespace MyWebApi.Builders.Base
             return this.Controller.Request;
         }
 
+        /// <summary>
+        /// Gets the attributes on the provided controller..
+        /// </summary>
+        /// <returns>IEnumerable of object representing the attributes or null, if no attributes were collected on the controller.</returns>
         public IEnumerable<object> AndProvideTheControllerAttributes()
         {
             return this.ControllerLevelAttributes;

@@ -16,7 +16,6 @@
 
 namespace MyWebApi.Builders.Contracts.Base
 {
-    using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http;
 

@@ -20,8 +20,8 @@ namespace MyWebApi.Tests.BuildersTests.AttributesTests
     using System.Net.Http;
     using System.Web.Http;
     using Exceptions;
-    using Setups.Controllers;
     using NUnit.Framework;
+    using Setups.Controllers;
 
     [TestFixture]
     public class ActionAttributesTestBuilderTests

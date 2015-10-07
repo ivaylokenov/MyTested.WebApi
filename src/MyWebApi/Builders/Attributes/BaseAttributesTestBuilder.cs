@@ -24,14 +24,25 @@ namespace MyWebApi.Builders.Attributes
     using Common.Extensions;
     using Utilities;
 
+    /// <summary>
+    /// Base class for all attribute test builders.
+    /// </summary>
     public abstract class BaseAttributesTestBuilder : BaseTestBuilder
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseAttributesTestBuilder" /> class.
+        /// </summary>
+        /// <param name="controller">Controller which will be tested.</param>
         protected BaseAttributesTestBuilder(ApiController controller)
             : base(controller)
         {
             this.Validations = new List<Action<IEnumerable<object>>>();
         }
 
+        /// <summary>
+        /// Gets the validation actions for the tested attributes.
+        /// </summary>
+        /// <value>Collection of validation actions for the attributes.</value>
         protected ICollection<Action<IEnumerable<object>>> Validations { get; private set; }
 
         internal ICollection<Action<IEnumerable<object>>> GetAttributeValidations()
@@ -39,6 +50,11 @@ namespace MyWebApi.Builders.Attributes
             return this.Validations;
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain the provided attribute type.
+        /// </summary>
+        /// <typeparam name="TAttribute">Type of expected attribute.</typeparam>
+        /// <param name="failedValidationAction">Action to execute, if the validation fails.</param>
         protected void ContainingAttributeOfType<TAttribute>(Action<string, string> failedValidationAction)
             where TAttribute : Attribute
         {
@@ -54,6 +70,13 @@ namespace MyWebApi.Builders.Attributes
             });
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain RouteAttribute.
+        /// </summary>
+        /// <param name="template">Expected overridden route template of the action.</param>
+        /// <param name="failedValidationAction">Action to execute, if the validation fails.</param>
+        /// <param name="withName">Optional expected route name.</param>
+        /// <param name="withOrder">Optional expected route order.</param>
         protected void ChangingRouteTo(
             string template,
             Action<string, string> failedValidationAction,
@@ -90,6 +113,12 @@ namespace MyWebApi.Builders.Attributes
             });
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain AuthorizeAttribute.
+        /// </summary>
+        /// <param name="failedValidationAction">Action to execute, if the validation fails.</param>
+        /// <param name="withAllowedRoles">Optional expected authorized roles.</param>
+        /// <param name="withAllowedUsers">Optional expected authorized users.</param>
         protected void RestrictingForAuthorizedRequests(
             Action<string, string> failedValidationAction,
             string withAllowedRoles = null,
@@ -132,12 +161,24 @@ namespace MyWebApi.Builders.Attributes
             }
         }
 
+        /// <summary>
+        /// Gets an attribute of the given type from the provided collection of objects and throws exception if such is not found.
+        /// </summary>
+        /// <typeparam name="TAttribute">Type of expected attribute.</typeparam>
+        /// <param name="attributes">Collection of attributes.</param>
+        /// <returns>The found attribute of the given type.</returns>
         protected TAttribute GetAttributeOfType<TAttribute>(IEnumerable<object> attributes)
             where TAttribute : Attribute
         {
             return (TAttribute)attributes.First(a => a.GetType() == typeof(TAttribute));
         }
 
+        /// <summary>
+        /// Gets an attribute of the given type from the provided collection of objects.
+        /// </summary>
+        /// <typeparam name="TAttribute">Type of expected attribute.</typeparam>
+        /// <param name="attributes">Collection of attributes.</param>
+        /// <returns>The found attribute of the given type or null, if such attribute is not found.</returns>
         protected TAttribute TryGetAttributeOfType<TAttribute>(IEnumerable<object> attributes)
             where TAttribute : Attribute
         {

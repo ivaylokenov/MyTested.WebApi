@@ -22,13 +22,25 @@ namespace MyWebApi.Builders.Attributes
     using Contracts.Attributes;
     using Exceptions;
 
+    /// <summary>
+    /// Used for testing controller attributes.
+    /// </summary>
     public class ControllerAttributesTestBuilder : BaseAttributesTestBuilder, IAndControllerAttributesTestBuilder
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ControllerAttributesTestBuilder" /> class.
+        /// </summary>
+        /// <param name="controller">Controller which will be tested.</param>
         public ControllerAttributesTestBuilder(ApiController controller)
             : base(controller)
         {
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain the provided attribute type.
+        /// </summary>
+        /// <typeparam name="TAttribute">Type of expected attribute.</typeparam>
+        /// <returns>The same attributes test builder.</returns>
         public IAndControllerAttributesTestBuilder ContainingAttributeOfType<TAttribute>()
             where TAttribute : Attribute
         {
@@ -36,6 +48,13 @@ namespace MyWebApi.Builders.Attributes
             return this;
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain RouteAttribute.
+        /// </summary>
+        /// <param name="template">Expected overridden route template of the action.</param>
+        /// <param name="withName">Optional expected route name.</param>
+        /// <param name="withOrder">Optional expected route order.</param>
+        /// <returns>The same attributes test builder.</returns>
         public IAndControllerAttributesTestBuilder ChangingRouteTo(
             string template,
             string withName = null,
@@ -50,6 +69,11 @@ namespace MyWebApi.Builders.Attributes
             return this;
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain RoutePrefixAttribute.
+        /// </summary>
+        /// <param name="prefix">Expected overridden route prefix of the controller.</param>
+        /// <returns>The same attributes test builder.</returns>
         public IAndControllerAttributesTestBuilder ChangingRoutePrefixTo(string prefix)
         {
             this.ContainingAttributeOfType<RoutePrefixAttribute>();
@@ -68,11 +92,21 @@ namespace MyWebApi.Builders.Attributes
             return this;
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain AllowAnonymousAttribute.
+        /// </summary>
+        /// <returns>The same attributes test builder.</returns>
         public IAndControllerAttributesTestBuilder AllowingAnonymousRequests()
         {
             return this.ContainingAttributeOfType<AllowAnonymousAttribute>();
         }
 
+        /// <summary>
+        /// Checks whether the collected attributes contain AuthorizeAttribute.
+        /// </summary>
+        /// <param name="withAllowedRoles">Optional expected authorized roles.</param>
+        /// <param name="withAllowedUsers">Optional expected authorized users.</param>
+        /// <returns>The same attributes test builder.</returns>
         public IAndControllerAttributesTestBuilder RestrictingForAuthorizedRequests(
             string withAllowedRoles = null,
             string withAllowedUsers = null)
@@ -85,6 +119,10 @@ namespace MyWebApi.Builders.Attributes
             return this;
         }
 
+        /// <summary>
+        /// AndAlso method for better readability when chaining attribute tests.
+        /// </summary>
+        /// <returns>The same attributes test builder.</returns>
         public IControllerAttributesTestBuilder AndAlso()
         {
             return this;

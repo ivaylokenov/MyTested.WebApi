@@ -41,6 +41,8 @@ namespace MyWebApi.Builders.HttpActionResults.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonSerializerSettingsTestBuilder" /> class.
         /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
         public JsonSerializerSettingsTestBuilder(
             ApiController controller,
             string actionName)

@@ -22,13 +22,12 @@ namespace MyWebApi.Builders.Attributes
     using System.Net.Http;
     using System.Web.Http;
     using System.Web.Http.Controllers;
-    using Contracts.Attributes;
     using Common.Extensions;
+    using Contracts.Attributes;
     using Exceptions;
-    using Utilities;
 
     /// <summary>
-    /// Used for testing attributes.
+    /// Used for testing action attributes.
     /// </summary>
     public class ActionAttributesTestBuilder : BaseAttributesTestBuilder, IAndActionAttributesTestBuilder
     {

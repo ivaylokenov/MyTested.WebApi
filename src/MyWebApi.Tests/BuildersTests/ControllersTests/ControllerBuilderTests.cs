@@ -24,11 +24,11 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
     using Builders.Contracts.Actions;
     using Builders.Contracts.Base;
     using Exceptions;
+    using NUnit.Framework;
     using Setups;
     using Setups.Controllers;
     using Setups.Models;
     using Setups.Services;
-    using NUnit.Framework;
 
     [TestFixture]
     public class ControllerBuilderTests

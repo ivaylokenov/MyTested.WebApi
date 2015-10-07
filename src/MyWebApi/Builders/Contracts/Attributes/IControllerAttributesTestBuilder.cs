@@ -18,7 +18,10 @@ namespace MyWebApi.Builders.Contracts.Attributes
 {
     using System;
 
-    public interface IControllerAttributesTestBuilder : IBaseAttributesTestBuilder
+    /// <summary>
+    /// Used for testing controller attributes.
+    /// </summary>
+    public interface IControllerAttributesTestBuilder
     {
         /// <summary>
         /// Checks whether the collected attributes contain the provided attribute type.
@@ -40,6 +43,11 @@ namespace MyWebApi.Builders.Contracts.Attributes
             string withName = null,
             int? withOrder = null);
 
+        /// <summary>
+        /// Checks whether the collected attributes contain RoutePrefixAttribute.
+        /// </summary>
+        /// <param name="prefix">Expected overridden route prefix of the controller.</param>
+        /// <returns>The same attributes test builder.</returns>
         IAndControllerAttributesTestBuilder ChangingRoutePrefixTo(string prefix);
 
         /// <summary>

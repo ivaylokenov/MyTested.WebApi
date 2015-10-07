@@ -269,6 +269,11 @@ namespace MyWebApi.Utilities
             return instance;
         }
 
+        /// <summary>
+        /// Gets custom attributes on the provided object.
+        /// </summary>
+        /// <param name="obj">Object decorated with custom attribute.</param>
+        /// <returns>IEnumerable of objects representing the custom attributes.</returns>
         public static IEnumerable<object> GetCustomAttributes(object obj)
         {
             return obj.GetType().GetCustomAttributes(true);

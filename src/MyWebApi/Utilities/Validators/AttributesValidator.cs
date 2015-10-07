@@ -20,11 +20,18 @@ namespace MyWebApi.Utilities.Validators
     using System.Collections.Generic;
     using System.Linq;
     using Builders.Attributes;
-    using Builders.Contracts.Attributes;
     using Common.Extensions;
 
+    /// <summary>
+    /// Validator class containing attributes validation logic.
+    /// </summary>
     public static class AttributesValidator
     {
+        /// <summary>
+        /// Validates whether the provided collection of attributes contains zero elements.
+        /// </summary>
+        /// <param name="attributes">Collection of attributes to validate.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void ValidateNoAttributes(
             IEnumerable<object> attributes,
             Action<string, string> failedValidationAction)
@@ -37,6 +44,12 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        /// <summary>
+        /// Validates if any attributes are contained in the provided collection of attributes.
+        /// </summary>
+        /// <param name="attributes">Collection of attributes to validate.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
+        /// <param name="withTotalNumberOf">Optional parameter specifying the exact number of expected attributes.</param>
         public static void ValidateNumberOfAttributes(
             IEnumerable<object> attributes,
             Action<string, string> failedValidationAction,
@@ -54,13 +67,20 @@ namespace MyWebApi.Utilities.Validators
             if (withTotalNumberOf.HasValue && actualNumberOfActionAttributes != withTotalNumberOf)
             {
                 failedValidationAction(
-                    string.Format("have {0} {1}",
+                    string.Format(
+                        "have {0} {1}",
                         withTotalNumberOf,
                         withTotalNumberOf != 1 ? "attributes" : "attribute"),
                     string.Format("in fact found {0}", actualNumberOfActionAttributes));
             }
         }
 
+        /// <summary>
+        /// Validation collection attribute based on attribute test builder.
+        /// </summary>
+        /// <param name="attributes">Collection of attributes to validate.</param>
+        /// <param name="attributesTestBuilder">Test builder containing attribute specific validation.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void ValidateAttributes(
             IEnumerable<object> attributes,
             BaseAttributesTestBuilder attributesTestBuilder,
