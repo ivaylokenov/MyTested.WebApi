@@ -75,6 +75,7 @@
     <Compile Include="Builders\And\AndTestBuilder.cs" />
     <Compile Include="Builders\Attributes\ActionAttributesTestBuilder.cs" />
     <Compile Include="Builders\Attributes\BaseAttributesTestBuilder.cs" />
+    <Compile Include="Builders\Attributes\ControllerAttributesTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilder.cs" />
     <Compile Include="Builders\Base\BaseTestBuilderWithAction.cs" />
     <Compile Include="Builders\Contracts\Attributes\IAndActionAttributesTestBuilder.cs" />

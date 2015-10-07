@@ -18,10 +18,11 @@ namespace MyWebApi.Builders.Attributes
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Http;
     using Base;
     using Common.Extensions;
-    using Exceptions;
+    using Utilities;
 
     public abstract class BaseAttributesTestBuilder : BaseTestBuilder
     {
@@ -31,20 +32,74 @@ namespace MyWebApi.Builders.Attributes
             this.Validations = new List<Action<IEnumerable<object>>>();
         }
 
+        protected ICollection<Action<IEnumerable<object>>> Validations { get; private set; }
+
         internal ICollection<Action<IEnumerable<object>>> GetAttributeValidations()
         {
             return this.Validations;
         }
 
-        protected ICollection<Action<IEnumerable<object>>> Validations { get; private set; }
-
-        protected virtual void ThrowNewAttributeAssertionException(string expectedValue, string actualValue)
+        protected void ContainingAttributeOfType<TAttribute>(Action<string, string> failedValidationAction)
+            where TAttribute : Attribute
         {
-            throw new AttributeAssertionException(string.Format(
-                "When testing {0} controller expected to have {1}, but {2}.",
-                this.Controller.GetName(),
-                expectedValue,
-                actualValue));
+            var expectedAttributeType = typeof(TAttribute);
+            this.Validations.Add(attrs =>
+            {
+                if (attrs.All(a => a.GetType() != expectedAttributeType))
+                {
+                    failedValidationAction(
+                        expectedAttributeType.ToFriendlyTypeName(),
+                        "in fact such was not found");
+                }
+            });
+        }
+
+        protected void ChangingRouteTo(
+            string template,
+            Action<string, string> failedValidationAction,
+            string withName = null,
+            int? withOrder = null)
+        {
+            this.ContainingAttributeOfType<RouteAttribute>(failedValidationAction);
+            this.Validations.Add(attrs =>
+            {
+                var routeAttribute = this.TryGetAttributeOfType<RouteAttribute>(attrs);
+                var actualTemplate = routeAttribute.Template;
+                if (template != actualTemplate)
+                {
+                    failedValidationAction(
+                                string.Format("{0} with '{1}' template", routeAttribute.GetName(), template),
+                                string.Format("in fact found '{0}'", actualTemplate));
+                }
+
+                var actualName = routeAttribute.Name;
+                if (!string.IsNullOrEmpty(withName) && withName != actualName)
+                {
+                    failedValidationAction(
+                                string.Format("{0} with '{1}' name", routeAttribute.GetName(), withName),
+                                string.Format("in fact found '{0}'", actualName));
+                }
+
+                var actualOrder = routeAttribute.Order;
+                if (withOrder.HasValue && withOrder != actualOrder)
+                {
+                    failedValidationAction(
+                                string.Format("{0} with order of {1}", routeAttribute.GetName(), withOrder),
+                                string.Format("in fact found {0}", actualOrder));
+                }
+            });
+        }
+
+        protected TAttribute GetAttributeOfType<TAttribute>(IEnumerable<object> attributes)
+            where TAttribute : Attribute
+        {
+            return (TAttribute)attributes.First(a => a.GetType() == typeof(TAttribute));
+        }
+
+        protected TAttribute TryGetAttributeOfType<TAttribute>(IEnumerable<object> attributes)
+            where TAttribute : Attribute
+        {
+            return attributes.FirstOrDefault(a => a.GetType() == typeof(TAttribute)) as TAttribute;
         }
     }
 }
