@@ -17,6 +17,7 @@
 namespace MyWebApi.Builders.Actions
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Http;
     using Base;
     using Common;
@@ -28,7 +29,7 @@ namespace MyWebApi.Builders.Actions
     /// <summary>
     /// Used for testing void actions.
     /// </summary>
-    public class VoidActionResultTestBuilder : BaseTestBuilder, IVoidActionResultTestBuilder
+    public class VoidActionResultTestBuilder : BaseTestBuilderWithCaughtException, IVoidActionResultTestBuilder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="VoidActionResultTestBuilder" /> class.
@@ -36,8 +37,13 @@ namespace MyWebApi.Builders.Actions
         /// <param name="controller">Controller on which the action will be tested.</param>
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="caughtException">Caught exception during the action execution.</param>
-        public VoidActionResultTestBuilder(ApiController controller, string actionName, Exception caughtException)
-            : base(controller, actionName, caughtException)
+        /// <param name="actionAttributes">Collected action attributes from the method call.</param>
+        public VoidActionResultTestBuilder(
+            ApiController controller,
+            string actionName,
+            Exception caughtException,
+            IEnumerable<object> actionAttributes)
+            : base(controller, actionName, caughtException, actionAttributes)
         {
         }
 
@@ -45,7 +51,7 @@ namespace MyWebApi.Builders.Actions
         /// Tests whether action result is void.
         /// </summary>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder ShouldReturnEmpty()
+        public IBaseTestBuilderWithCaughtException ShouldReturnEmpty()
         {
             CommonValidator.CheckForException(this.CaughtException);
             return this.NewAndProvideTestBuilder();
@@ -61,7 +67,8 @@ namespace MyWebApi.Builders.Actions
                 this.Controller, 
                 this.ActionName, 
                 this.CaughtException, 
-                VoidActionResult.Create());
+                VoidActionResult.Create(),
+                this.ActionLevelAttributes);
         }
 
         /// <summary>

@@ -16,7 +16,7 @@
 
 namespace MyWebApi.Builders.Contracts.Base
 {
-    using System;
+    using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http;
 
@@ -25,12 +25,6 @@ namespace MyWebApi.Builders.Contracts.Base
     /// </summary>
     public interface IBaseTestBuilder
     {
-        /// <summary>
-        /// Gets the action name which will be tested.
-        /// </summary>
-        /// <returns>Action name to be tested.</returns>
-        string AndProvideTheActionName();
-
         /// <summary>
         /// Gets the controller on which the action is tested.
         /// </summary>
@@ -44,9 +38,9 @@ namespace MyWebApi.Builders.Contracts.Base
         HttpRequestMessage AndProvideTheHttpRequestMessage();
 
         /// <summary>
-        /// Gets the thrown exception in the tested action.
+        /// Gets the attributes on the tested controller..
         /// </summary>
-        /// <returns>The exception instance or null, if no exception was caught.</returns>
-        Exception AndProvideTheCaughtException();
+        /// <returns>IEnumerable of object representing the attributes or null, if no attributes were collected on the controller.</returns>
+        IEnumerable<object> AndProvideTheControllerAttributes();
     }
 }

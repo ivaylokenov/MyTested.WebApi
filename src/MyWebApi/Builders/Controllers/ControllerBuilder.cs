@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders
+namespace MyWebApi.Builders.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -175,6 +175,16 @@ namespace MyWebApi.Builders
         }
 
         /// <summary>
+        /// Used for testing controller attributes.
+        /// </summary>
+        /// <returns>Controller test builder.</returns>
+        public IControllerTestBuilder ShouldHave()
+        {
+            var attributes = Reflection.GetCustomAttributes(this.Controller);
+            return new ControllerTestBuilder(this.Controller, attributes);
+        }
+
+        /// <summary>
         /// AndAlso method for better readability when building controller instance.
         /// </summary>
         /// <returns>The same controller builder.</returns>
@@ -196,7 +206,8 @@ namespace MyWebApi.Builders
                 this.Controller,
                 actionInfo.ActionName,
                 actionInfo.CaughtException,
-                actionInfo.ActionResult);
+                actionInfo.ActionResult,
+                actionInfo.ActionAttributes);
         }
 
         /// <summary>
@@ -223,7 +234,8 @@ namespace MyWebApi.Builders
                 this.Controller,
                 actionInfo.ActionName,
                 actionInfo.CaughtException,
-                actionResult);
+                actionResult,
+                actionInfo.ActionAttributes);
         }
 
         /// <summary>
@@ -234,6 +246,7 @@ namespace MyWebApi.Builders
         public IVoidActionResultTestBuilder Calling(Expression<Action<TController>> actionCall)
         {
             var actionName = this.GetAndValidateAction(actionCall);
+            var actionAttributes = ExpressionParser.GetMethodAttributes(actionCall);
             Exception caughtException = null;
 
             try
@@ -245,7 +258,7 @@ namespace MyWebApi.Builders
                 caughtException = exception;
             }
 
-            return new VoidActionResultTestBuilder(this.Controller, actionName, caughtException);
+            return new VoidActionResultTestBuilder(this.Controller, actionName, caughtException, actionAttributes);
         }
 
         /// <summary>
@@ -266,7 +279,7 @@ namespace MyWebApi.Builders
                 actionInfo.CaughtException = aggregateException;
             }
 
-            return new VoidActionResultTestBuilder(this.Controller, actionInfo.ActionName, actionInfo.CaughtException);
+            return new VoidActionResultTestBuilder(this.Controller, actionInfo.ActionName, actionInfo.CaughtException, actionInfo.ActionAttributes);
         }
 
         private void BuildControllerIfNotExists()
@@ -300,6 +313,7 @@ namespace MyWebApi.Builders
         {
             var actionName = this.GetAndValidateAction(actionCall);
             var actionResult = default(TActionResult);
+            var actionAttributes = ExpressionParser.GetMethodAttributes(actionCall);
             Exception caughtException = null;
 
             try
@@ -311,7 +325,7 @@ namespace MyWebApi.Builders
                 caughtException = exception;
             }
 
-            return new ActionInfo<TActionResult>(actionName, actionResult, caughtException);
+            return new ActionInfo<TActionResult>(actionName, actionAttributes, actionResult, caughtException);
         }
 
         private string GetAndValidateAction(LambdaExpression actionCall)

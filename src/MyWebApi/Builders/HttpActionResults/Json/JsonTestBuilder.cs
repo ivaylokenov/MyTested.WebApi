@@ -17,8 +17,6 @@
 namespace MyWebApi.Builders.HttpActionResults.Json
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
     using System.Web.Http;
     using Common.Extensions;
@@ -115,15 +113,12 @@ namespace MyWebApi.Builders.HttpActionResults.Json
                 var actualJsonSerializerSettings =
                 this.GetActionResultAsDynamic().SerializerSettings as JsonSerializerSettings;
 
-                var newJsonSerializerSettingsTestBuilder = new JsonSerializerSettingsTestBuilder();
+                var newJsonSerializerSettingsTestBuilder = new JsonSerializerSettingsTestBuilder(this.Controller, this.ActionName);
                 jsonSerializerSettingsBuilder(newJsonSerializerSettingsTestBuilder);
                 var expectedJsonSerializerSettings = newJsonSerializerSettingsTestBuilder.GetJsonSerializerSettings();
 
                 var validations = newJsonSerializerSettingsTestBuilder.GetJsonSerializerSettingsValidations();
-                this.ValidateJsonSerializerSettings(
-                    expectedJsonSerializerSettings,
-                    actualJsonSerializerSettings,
-                    validations);
+                validations.ForEach(v => v(expectedJsonSerializerSettings, actualJsonSerializerSettings));
             });
 
             return this;
@@ -143,20 +138,6 @@ namespace MyWebApi.Builders.HttpActionResults.Json
             var fullEncodingName = encoding.ToString();
             var lastIndexOfDot = fullEncodingName.LastIndexOf(".", StringComparison.Ordinal);
             return fullEncodingName.Substring(lastIndexOfDot + 1);
-        }
-
-        private void ValidateJsonSerializerSettings(
-            JsonSerializerSettings expectedSettings,
-            JsonSerializerSettings actualSettings,
-            IEnumerable<Func<JsonSerializerSettings, JsonSerializerSettings, bool>> validations)
-        {
-            if (validations.Any(v => !v(expectedSettings, actualSettings)))
-            {
-                throw new JsonResultAssertionException(string.Format(
-                    "When calling {0} action in {1} expected JSON result serializer settings to equal the provided ones, but were in fact different.",
-                    this.ActionName,
-                    this.Controller.GetName()));
-            }
         }
 
         private void PopulateFullJsonSerializerSettingsTestBuilder(

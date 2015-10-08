@@ -23,27 +23,27 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.Redirect
     /// <summary>
     /// Used for testing redirect results.
     /// </summary>
-    public interface IRedirectTestBuilder : IBaseTestBuilder
+    public interface IRedirectTestBuilder : IBaseTestBuilderWithCaughtException
     {
         /// <summary>
         /// Tests whether created result has specific location provided by string.
         /// </summary>
         /// <param name="location">Expected location as string.</param>
         /// <returns>The same created test builder.</returns>
-        IBaseTestBuilder AtLocation(string location);
+        IBaseTestBuilderWithCaughtException AtLocation(string location);
 
         /// <summary>
         /// Tests whether created result has specific location provided by URI.
         /// </summary>
         /// <param name="location">Expected location as URI.</param>
         /// <returns>The same created test builder.</returns>
-        IBaseTestBuilder AtLocation(Uri location);
+        IBaseTestBuilderWithCaughtException AtLocation(Uri location);
 
         /// <summary>
         /// Tests whether created result has specific location provided by builder.
         /// </summary>
         /// <param name="uriTestBuilder">Builder for expected URI.</param>
         /// <returns>The same created test builder.</returns>
-        IBaseTestBuilder AtLocation(Action<IUriTestBuilder> uriTestBuilder);
+        IBaseTestBuilderWithCaughtException AtLocation(Action<IUriTestBuilder> uriTestBuilder);
     }
 }

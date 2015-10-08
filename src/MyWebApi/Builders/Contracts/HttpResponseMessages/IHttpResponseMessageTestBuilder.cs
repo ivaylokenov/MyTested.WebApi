@@ -28,7 +28,7 @@ namespace MyWebApi.Builders.Contracts.HttpResponseMessages
     /// <summary>
     /// Used for testing HTTP response message results.
     /// </summary>
-    public interface IHttpResponseMessageTestBuilder : IBaseTestBuilder
+    public interface IHttpResponseMessageTestBuilder : IBaseTestBuilderWithCaughtException
     {
         /// <summary>
         /// Tests whether certain type of response model is returned from the HTTP response message content.

@@ -116,7 +116,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.JsonTests
         [Test]
         [ExpectedException(
             typeof(JsonResultAssertionException),
-            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to equal the provided ones, but were in fact different.")]
+            ExpectedMessage = "When calling JsonWithSettingsAction action in WebApiController expected JSON result serializer settings to have DateTime date parse handling, but in fact found DateTimeOffset.")]
         public void WithJsonSerializerSettingsShouldThrowExceptionWithDifferentJsonSettings()
         {
             var jsonSerializerSettings = TestObjectFactory.GetJsonSerializerSettings();

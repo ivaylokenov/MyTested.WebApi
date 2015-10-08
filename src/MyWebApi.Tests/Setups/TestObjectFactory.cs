@@ -64,6 +64,11 @@ namespace MyWebApi.Tests.Setups
             return new Uri("http://somehost.com/someuri/1?query=Test");
         }
 
+        public static Action<string, string> GetFailingValidationActionWithTwoParameteres()
+        {
+            return (x, y) => { throw new NullReferenceException(string.Format("{0} {1}", x, y)); };
+        }
+
         public static Action<string, string, string> GetFailingValidationAction()
         {
             return (x, y, z) => { throw new NullReferenceException(string.Format("{0} {1} {2}", x, y, z)); };

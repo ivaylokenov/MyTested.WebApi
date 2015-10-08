@@ -23,7 +23,7 @@ namespace MyWebApi.Builders.And
     /// <summary>
     /// Provides controller and action information.
     /// </summary>
-    public class AndProvideTestBuilder : BaseTestBuilder
+    public class AndProvideTestBuilder : BaseTestBuilderWithCaughtException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AndProvideTestBuilder" /> class.

@@ -27,7 +27,7 @@ namespace MyWebApi.Builders.ExceptionErrors
     /// Used for testing specific exception messages.
     /// </summary>
     public class ExceptionMessageTestBuilder
-        : BaseTestBuilder, IExceptionMessageTestBuilder
+        : BaseTestBuilderWithCaughtException, IExceptionMessageTestBuilder
     {
         private readonly IAndExceptionTestBuilder exceptionTestBuilder;
         private readonly string actualMessage;

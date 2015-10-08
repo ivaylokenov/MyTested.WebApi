@@ -30,6 +30,8 @@ namespace MyWebApi.Tests.Setups.Controllers
     using Newtonsoft.Json;
     using Services;
 
+    [Authorize(Roles = "Admin,Moderator", Users = "John,George")]
+    [RoutePrefix("/api/test")]
     internal class WebApiController : ApiController
     {
         private readonly ICollection<ResponseModel> responseModel;
@@ -44,7 +46,7 @@ namespace MyWebApi.Tests.Setups.Controllers
             this.InjectedService = injectedService;
             this.responseModel = TestObjectFactory.GetListOfResponseModels();
         }
-
+        
         public WebApiController(RequestModel requestModel)
         {
             this.InjectedRequestModel = requestModel;
@@ -171,6 +173,31 @@ namespace MyWebApi.Tests.Setups.Controllers
         public async Task EmptyActionAsync()
         {
             await Task.Run(() => { });
+        }
+
+        [Authorize]
+        [HttpGet]
+        public void EmptyActionWithAttributes()
+        {
+        }
+
+        [Authorize(Roles = "Admin,Moderator", Users = "John,George")]
+        [HttpGet]
+        [HttpHead]
+        public IHttpActionResult NormalActionWithAttributes()
+        {
+            return this.Ok();
+        }
+
+        [AllowAnonymous]
+        [Route("/api/test", Name = "TestRoute", Order = 1)]
+        [ActionName("NormalAction")]
+        [NonAction]
+        [AcceptVerbs("Get", "Post")]
+        [HttpDelete]
+        public IHttpActionResult VariousAttributesAction()
+        {
+            return this.Ok();
         }
 
         public IHttpActionResult OkResultAction()

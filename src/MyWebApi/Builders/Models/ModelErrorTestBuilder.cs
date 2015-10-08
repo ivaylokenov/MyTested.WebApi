@@ -26,7 +26,7 @@ namespace MyWebApi.Builders.Models
     /// <summary>
     /// Used for testing the model errors.
     /// </summary>
-    public class ModelErrorTestBuilder : BaseTestBuilder, IModelErrorTestBuilder
+    public class ModelErrorTestBuilder : BaseTestBuilderWithCaughtException, IModelErrorTestBuilder
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ModelErrorTestBuilder" /> class.
@@ -55,7 +55,7 @@ namespace MyWebApi.Builders.Models
         /// Tests whether tested action's model state is valid.
         /// </summary>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder ContainingNoModelStateErrors()
+        public IBaseTestBuilderWithCaughtException ContainingNoModelStateErrors()
         {
             this.CheckValidModelState();
             return this.NewAndProvideTestBuilder();

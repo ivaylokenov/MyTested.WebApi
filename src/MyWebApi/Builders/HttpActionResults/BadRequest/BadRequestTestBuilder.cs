@@ -75,7 +75,7 @@ namespace MyWebApi.Builders.HttpActionResults.BadRequest
         /// </summary>
         /// <param name="message">Expected error message from bad request result.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder WithErrorMessage(string message)
+        public IBaseTestBuilderWithCaughtException WithErrorMessage(string message)
         {
             var badRequestErrorMessageResult = this.GetBadRequestResult<BadRequestErrorMessageResult>(ErrorMessage);
             var actualMessage = badRequestErrorMessageResult.Message;
@@ -89,7 +89,7 @@ namespace MyWebApi.Builders.HttpActionResults.BadRequest
         /// </summary>
         /// <param name="modelState">Model state dictionary to deeply compare to the actual one.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder WithModelState(ModelStateDictionary modelState)
+        public IBaseTestBuilderWithCaughtException WithModelState(ModelStateDictionary modelState)
         {
             var invalidModelStateResult = this.GetBadRequestResult<InvalidModelStateResult>(ModelStateDictionary);
             var actualModelState = invalidModelStateResult.ModelState;

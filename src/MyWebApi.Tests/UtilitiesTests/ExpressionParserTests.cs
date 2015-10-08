@@ -104,5 +104,28 @@ namespace MyWebApi.Tests.UtilitiesTests
             Expression<Func<WebApiController, object>> expression = c => c.OkResultWithResponse();
             ExpressionParser.GetPropertyName(expression);
         }
+
+        [Test]
+        public void GetMethodAttributesShouldReturnProperAttributes()
+        {
+            Expression<Func<WebApiController, object>> expression = c => c.VariousAttributesAction();
+            var attributes = ExpressionParser.GetMethodAttributes(expression).Select(a => a.GetType()).ToList();
+
+            var expectedTypes = new List<Type>
+            {
+                typeof(AllowAnonymousAttribute),
+                typeof(RouteAttribute),
+                typeof(ActionNameAttribute),
+                typeof(NonActionAttribute),
+                typeof(AcceptVerbsAttribute),
+                typeof(HttpDeleteAttribute)
+            };
+
+            Assert.IsNotNull(attributes);
+            Assert.AreEqual(6, attributes.Count());
+
+            var allAttributesArePresent = expectedTypes.All(attributes.Contains);
+            Assert.IsTrue(allAttributesArePresent);
+        }
     }
 }

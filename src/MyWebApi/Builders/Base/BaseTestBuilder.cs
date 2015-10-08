@@ -16,34 +16,30 @@
 
 namespace MyWebApi.Builders.Base
 {
-    using System;
+    using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http;
-    using And;
-    using Common.Extensions;
     using Contracts.Base;
-    using Exceptions;
     using Utilities.Validators;
 
     /// <summary>
     /// Base class for all test builders.
     /// </summary>
-    public class BaseTestBuilder : IBaseTestBuilder
+    public abstract class BaseTestBuilder : IBaseTestBuilder
     {
         private ApiController controller;
-        private string actionName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestBuilder" /> class.
         /// </summary>
-        /// <param name="controller">Controller on which the action will be tested.</param>
-        /// <param name="actionName">Name of the tested action.</param>
-        /// <param name="caughtException">Caught exception during the action execution.</param>
-        protected BaseTestBuilder(ApiController controller, string actionName, Exception caughtException)
+        /// <param name="controller">Controller on which will be tested.</param>
+        /// <param name="controllerAttributes">Collected attributes from the tested controller.</param>
+        protected BaseTestBuilder(
+            ApiController controller,
+            IEnumerable<object> controllerAttributes = null)
         {
             this.Controller = controller;
-            this.ActionName = actionName;
-            this.CaughtException = caughtException;
+            this.ControllerLevelAttributes = controllerAttributes;
         }
 
         /// <summary>
@@ -64,25 +60,7 @@ namespace MyWebApi.Builders.Base
             }
         }
 
-        /// <summary>
-        /// Gets the action name which will be tested.
-        /// </summary>
-        /// <value>Action name to be tested.</value>
-        internal string ActionName
-        {
-            get
-            {
-                return this.actionName;
-            }
-
-            private set
-            {
-                CommonValidator.CheckForNotWhiteSpaceString(value, errorMessageName: "ActionName");
-                this.actionName = value;
-            }
-        }
-
-        internal Exception CaughtException { get; private set; }
+        internal IEnumerable<object> ControllerLevelAttributes { get; private set; }
 
         /// <summary>
         /// Gets the controller on which the action is tested.
@@ -91,15 +69,6 @@ namespace MyWebApi.Builders.Base
         public ApiController AndProvideTheController()
         {
             return this.Controller;
-        }
-
-        /// <summary>
-        /// Gets the action name which will be tested.
-        /// </summary>
-        /// <returns>Action name to be tested.</returns>
-        public string AndProvideTheActionName()
-        {
-            return this.ActionName;
         }
 
         /// <summary>
@@ -112,35 +81,12 @@ namespace MyWebApi.Builders.Base
         }
 
         /// <summary>
-        /// Gets the thrown exception in the tested action.
+        /// Gets the attributes on the tested controller..
         /// </summary>
-        /// <returns>The exception instance or null, if no exception was caught.</returns>
-        public Exception AndProvideTheCaughtException()
+        /// <returns>IEnumerable of object representing the attributes or null, if no attributes were collected on the controller.</returns>
+        public IEnumerable<object> AndProvideTheControllerAttributes()
         {
-            return this.CaughtException;
-        }
-
-        /// <summary>
-        /// Checks whether the tested action's model state is valid.
-        /// </summary>
-        protected void CheckValidModelState()
-        {
-            if (!this.controller.ModelState.IsValid)
-            {
-                throw new ModelErrorAssertionException(string.Format(
-                    "When calling {0} action in {1} expected to have valid model state with no errors, but it had some.",
-                    this.ActionName,
-                    this.Controller.GetName()));
-            }
-        }
-
-        /// <summary>
-        /// Creates new AndProvideTestBuilder.
-        /// </summary>
-        /// <returns>Base test builder.</returns>
-        protected IBaseTestBuilder NewAndProvideTestBuilder()
-        {
-            return new AndProvideTestBuilder(this.Controller, this.ActionName, this.CaughtException);
+            return this.ControllerLevelAttributes;
         }
     }
 }

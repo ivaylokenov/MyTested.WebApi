@@ -29,7 +29,7 @@ namespace MyWebApi.Builders.Models
     /// Base class for all response model test builders.
     /// </summary>
     /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public class BaseResponseModelTestBuilder<TActionResult>
+    public abstract class BaseResponseModelTestBuilder<TActionResult>
         : BaseTestBuilderWithActionResult<TActionResult>, IBaseResponseModelTestBuilder
     {
         /// <summary>
@@ -39,7 +39,7 @@ namespace MyWebApi.Builders.Models
         /// <param name="actionName">Name of the tested action.</param>
         /// <param name="caughtException">Caught exception during the action execution.</param>
         /// <param name="actionResult">Result from the tested action.</param>
-        public BaseResponseModelTestBuilder(
+        protected BaseResponseModelTestBuilder(
             ApiController controller,
             string actionName,
             Exception caughtException,

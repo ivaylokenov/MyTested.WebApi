@@ -23,7 +23,7 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.InternalServerError
     /// <summary>
     /// Used for testing internal server error results.
     /// </summary>
-    public interface IInternalServerErrorTestBuilder : IBaseTestBuilder
+    public interface IInternalServerErrorTestBuilder : IBaseTestBuilderWithCaughtException
     {
         /// <summary>
         /// Tests internal server error whether it contains exception.
@@ -36,6 +36,6 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.InternalServerError
         /// </summary>
         /// <param name="exception">Expected exception.</param>
         /// <returns>Exception test builder.</returns>
-        IBaseTestBuilder WithException(Exception exception);
+        IBaseTestBuilderWithCaughtException WithException(Exception exception);
     }
 }

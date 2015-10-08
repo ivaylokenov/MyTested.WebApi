@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildersTests\ActionsTests\ShouldHave\ShouldHaveActionAttributesTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnBadRequestTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnConflictTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnContentTests.cs" />
@@ -72,11 +73,14 @@
     <Compile Include="BuildersTests\ActionsTests\ShouldThrowExceptionTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\VoidActionResultTestBuilderTests.cs" />
     <Compile Include="BuildersTests\AndTests\AndProvideTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\AttributesTests\ActionAttributesTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\AttributesTests\ControllerAttributesTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\ControllersTests\ControllerTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\AggregateExceptionTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\HttpResponseExceptionTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\BadRequestTests\BadRequestErrorMessageTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\BadRequestTests\BadRequestTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\ControllerBuilderTests.cs" />
+    <Compile Include="BuildersTests\ControllersTests\ControllerBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\ContentTests\ContentTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\CreatedTests\CreatedTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\ExceptionMessageTestBuilderTests.cs" />
@@ -91,7 +95,7 @@
     <Compile Include="BuildersTests\ModelsTests\ModelErrorDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ModelErrorTestBuilderTests.cs" />
-    <Compile Include="BuildersTests\ActionsTests\ShouldHaveModelStateTests.cs" />
+    <Compile Include="BuildersTests\ActionsTests\ShouldHave\ShouldHaveModelStateTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnOkResultTests.cs" />
     <Compile Include="BuildersTests\ActionsTests\ShouldReturn\ShouldReturnTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\RedirectTests\RedirectTestBuilderTests.cs" />
@@ -99,6 +103,8 @@
     <Compile Include="BuildersTests\HttpActionResultsTests\UnauthorizedTests\UnauthorizedResultTestBuilderTests.cs" />
     <Compile Include="Setups\Common\CustomContentNegotiator.cs" />
     <Compile Include="Setups\Common\CustomMediaTypeFormatter.cs" />
+    <Compile Include="Setups\Controllers\AttributesController.cs" />
+    <Compile Include="Setups\Controllers\NoAttributesController.cs" />
     <Compile Include="Setups\Controllers\NoParameterlessConstructorController.cs" />
     <Compile Include="Setups\Models\IResponseModel.cs" />
     <Compile Include="Setups\Services\AnotherInjectedService.cs" />
@@ -113,11 +119,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtilitiesTests\ExpressionParserTests.cs" />
     <Compile Include="UtilitiesTests\ReflectionTests.cs" />
+    <Compile Include="UtilitiesTests\ValidatorsTests\AttributesValidatorTests.cs" />
     <Compile Include="UtilitiesTests\ValidatorsTests\CommonValidatorTests.cs" />
     <Compile Include="UtilitiesTests\ValidatorsTests\ContentNegotiatorValidatorTests.cs" />
     <Compile Include="UtilitiesTests\ValidatorsTests\LocationValidatorTests.cs" />
     <Compile Include="UtilitiesTests\ValidatorsTests\MediaTypeFormatterValidatorTests.cs" />
     <Compile Include="UtilitiesTests\ValidatorsTests\RuntimeBinderValidatorTests.cs" />
+    <Compile Include="UtilitiesTests\ValidatorsTests\VersionValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MyWebApi.Tests.licenseheader" />
