@@ -30,7 +30,7 @@ namespace MyWebApi.Tests.Setups.Controllers
     using Newtonsoft.Json;
     using Services;
 
-    [Authorize]
+    [Authorize(Roles = "Admin,Moderator", Users = "John,George")]
     [RoutePrefix("/api/test")]
     internal class WebApiController : ApiController
     {

@@ -81,7 +81,7 @@ namespace MyWebApi.Builders.Base
         }
 
         /// <summary>
-        /// Gets the attributes on the provided controller..
+        /// Gets the attributes on the tested controller..
         /// </summary>
         /// <returns>IEnumerable of object representing the attributes or null, if no attributes were collected on the controller.</returns>
         public IEnumerable<object> AndProvideTheControllerAttributes()

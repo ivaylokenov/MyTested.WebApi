@@ -84,7 +84,7 @@ namespace MyWebApi.Builders.Attributes
                 if (prefix != actualRoutePrefix)
                 {
                     this.ThrowNewAttributeAssertionException(
-                        string.Format("{0} with '{1}' name", routePrefixAttribute.GetName(), prefix),
+                        string.Format("{0} with '{1}' prefix", routePrefixAttribute.GetName(), prefix),
                         string.Format("in fact found '{0}'", actualRoutePrefix));
                 }
             });
@@ -131,7 +131,7 @@ namespace MyWebApi.Builders.Attributes
         private void ThrowNewAttributeAssertionException(string expectedValue, string actualValue)
         {
             throw new AttributeAssertionException(string.Format(
-                "When testing {0} controller expected to have {1}, but {2}.",
+                "When testing {0} was expected to have {1}, but {2}.",
                 this.Controller.GetName(),
                 expectedValue,
                 actualValue));

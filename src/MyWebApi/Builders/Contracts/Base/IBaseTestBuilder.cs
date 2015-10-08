@@ -16,6 +16,7 @@
 
 namespace MyWebApi.Builders.Contracts.Base
 {
+    using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http;
 
@@ -35,5 +36,11 @@ namespace MyWebApi.Builders.Contracts.Base
         /// </summary>
         /// <returns>HttpRequestMessage from the tested controller.</returns>
         HttpRequestMessage AndProvideTheHttpRequestMessage();
+
+        /// <summary>
+        /// Gets the attributes on the tested controller..
+        /// </summary>
+        /// <returns>IEnumerable of object representing the attributes or null, if no attributes were collected on the controller.</returns>
+        IEnumerable<object> AndProvideTheControllerAttributes();
     }
 }

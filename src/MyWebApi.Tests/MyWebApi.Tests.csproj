@@ -74,6 +74,7 @@
     <Compile Include="BuildersTests\ActionsTests\VoidActionResultTestBuilderTests.cs" />
     <Compile Include="BuildersTests\AndTests\AndProvideTestBuilderTests.cs" />
     <Compile Include="BuildersTests\AttributesTests\ActionAttributesTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\AttributesTests\ControllerAttributesTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ControllersTests\ControllerTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\AggregateExceptionTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ExceptionErrorsTests\HttpResponseExceptionTestBuilderTests.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="BuildersTests\HttpActionResultsTests\UnauthorizedTests\UnauthorizedResultTestBuilderTests.cs" />
     <Compile Include="Setups\Common\CustomContentNegotiator.cs" />
     <Compile Include="Setups\Common\CustomMediaTypeFormatter.cs" />
+    <Compile Include="Setups\Controllers\AttributesController.cs" />
     <Compile Include="Setups\Controllers\NoAttributesController.cs" />
     <Compile Include="Setups\Controllers\NoParameterlessConstructorController.cs" />
     <Compile Include="Setups\Models\IResponseModel.cs" />
