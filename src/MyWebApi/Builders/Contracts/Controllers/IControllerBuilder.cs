@@ -45,6 +45,12 @@ namespace MyWebApi.Builders.Contracts.Controllers
         HttpRequestMessage HttpRequestMessage { get; }
 
         /// <summary>
+        /// Used for testing controller attributes.
+        /// </summary>
+        /// <returns>Controller test builder.</returns>
+        IControllerTestBuilder ShouldHave();
+
+        /// <summary>
         /// Adds HTTP request message to the tested controller.
         /// </summary>
         /// <param name="httpRequestBuilder">Builder for HTTP request message.</param>

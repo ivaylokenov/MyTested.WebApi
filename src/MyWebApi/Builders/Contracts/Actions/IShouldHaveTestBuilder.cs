@@ -46,7 +46,7 @@ namespace MyWebApi.Builders.Contracts.Actions
         /// </summary>
         /// <param name="attributesTestBuilder">Builder for testing specific attributes on the action.</param>
         /// <returns>Test builder with AndAlso method.</returns>
-        IAndTestBuilder<TActionResult> ActionAttributes(Action<IAttributesTestBuilder> attributesTestBuilder);
+        IAndTestBuilder<TActionResult> ActionAttributes(Action<IActionAttributesTestBuilder> attributesTestBuilder);
 
         /// <summary>
         /// Provides way to continue test case with specific model state errors.

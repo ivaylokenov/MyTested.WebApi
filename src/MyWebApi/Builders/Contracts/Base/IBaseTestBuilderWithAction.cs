@@ -17,30 +17,22 @@
 namespace MyWebApi.Builders.Contracts.Base
 {
     using System.Collections.Generic;
-    using System.Net.Http;
-    using System.Web.Http;
 
     /// <summary>
-    /// Base interface for all test builders.
+    /// Base class for all test builders with action call.
     /// </summary>
-    public interface IBaseTestBuilder
+    public interface IBaseTestBuilderWithAction : IBaseTestBuilder
     {
         /// <summary>
-        /// Gets the controller on which the action is tested.
+        /// Gets the action name which will be tested.
         /// </summary>
-        /// <returns>ASP.NET Web API controller on which the action is tested.</returns>
-        ApiController AndProvideTheController();
+        /// <returns>Action name to be tested.</returns>
+        string AndProvideTheActionName();
 
         /// <summary>
-        /// Gets the HTTP request message with which the action will be tested.
+        /// Gets the action attributes on the called action.
         /// </summary>
-        /// <returns>HttpRequestMessage from the tested controller.</returns>
-        HttpRequestMessage AndProvideTheHttpRequestMessage();
-
-        /// <summary>
-        /// Gets the attributes on the tested controller..
-        /// </summary>
-        /// <returns>IEnumerable of object representing the attributes or null, if no attributes were collected on the controller.</returns>
-        IEnumerable<object> AndProvideTheControllerAttributes();
+        /// <returns>IEnumerable of object representing the attributes or null, if no attributes were collected on the action.</returns>
+        IEnumerable<object> AndProvideTheActionAttributes();
     }
 }

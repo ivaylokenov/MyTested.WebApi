@@ -87,7 +87,7 @@ MyWebApi
 	.AndAlso()
 	.ContainingModelStateErrorFor(m => m.SecondProperty).Containing("ror mes"); 
 	
-// tests whether the action returns internal server error
+// tests whether the action throws internal server error
 // with exception of certain type and with certain message
 MyWebApi
 	.Controller<WebApiController>()

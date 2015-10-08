@@ -14,19 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Base
+namespace MyWebApi.Builders.Contracts.Attributes
 {
-    using System;
-
     /// <summary>
-    /// Base interface for test builders with caught exception.
+    /// Used for adding AndAlso() method to the the attribute tests.
     /// </summary>
-    public interface IBaseTestBuilderWithCaughtException : IBaseTestBuilderWithAction
+    public interface IAndControllerAttributesTestBuilder : IControllerAttributesTestBuilder
     {
         /// <summary>
-        /// Gets the thrown exception in the tested action.
+        /// AndAlso method for better readability when chaining attribute tests.
         /// </summary>
-        /// <returns>The exception instance or null, if no exception was caught.</returns>
-        Exception AndProvideTheCaughtException();
+        /// <returns>The same attributes test builder.</returns>
+        IControllerAttributesTestBuilder AndAlso();
     }
 }

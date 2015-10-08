@@ -30,6 +30,8 @@ namespace MyWebApi.Tests.Setups.Controllers
     using Newtonsoft.Json;
     using Services;
 
+    [Authorize(Roles = "Admin,Moderator", Users = "John,George")]
+    [RoutePrefix("/api/test")]
     internal class WebApiController : ApiController
     {
         private readonly ICollection<ResponseModel> responseModel;
@@ -44,7 +46,7 @@ namespace MyWebApi.Tests.Setups.Controllers
             this.InjectedService = injectedService;
             this.responseModel = TestObjectFactory.GetListOfResponseModels();
         }
-
+        
         public WebApiController(RequestModel requestModel)
         {
             this.InjectedRequestModel = requestModel;

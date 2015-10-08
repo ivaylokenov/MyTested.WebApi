@@ -5,13 +5,15 @@
 
 ### Table of contents
 
- - Action call configuration
+ - Initial configuration
   - [Controller instantiation](#controller-instantiation)
   - [HTTP request message] (#http-request-message)
   - [Authenticated user](#authenticated-user)
   - [Calling actions](#calling-actions)
+ - Controller validations
+  - [Controller attributes testing](#controller-attributes-testing)
  - Action call validations
-  - [Attributes testing](#attributes-testing)
+  - [Action attributes testing](#action-attributes-testing)
   - [Model state validation](#model-state-validation)
   - [Catching thrown exceptions](#catching-thrown-exceptions)
  - Action result validations
@@ -249,10 +251,105 @@ MyWebApi
 	.Controller<WebApiController>()
 	.CallingAsync(c => c.SomeActionAsync());
 ```
+[To top](#table-of-contents)
+
+### Controller attributes testing
+
+You can test for specific or custom controller attributes:
+
+```c#
+// tests whether controller has no attributes
+MyWebApi
+	.Controller<WebApiController>()
+	.ShouldHave()
+	.NoAttributes();
+	
+// tests whether controller has at least 1 attribute of any type
+MyWebApi
+	.Controller<WebApiController>()
+	.ShouldHave()
+	.Attributes();
+	
+// tests whether controller has specific number of attributes
+MyWebApi
+	.Controller<WebApiController>()
+	.ShouldHave()
+	.Attributes(withTotalNumberOf: 2);
+	
+// tests whether controller has specific attribute type
+MyWebApi
+	.Controller<WebApiController>()
+	.ShouldHave()
+	.Attributes(attributes => attributes
+		.ContainingAttributeOfType<AuthorizeAttribute>());
+		
+// tests whether controller has RouteAttribute
+// with specific expected route template
+MyWebApi
+	.Controller<WebApiController>()
+	.ShouldHave()
+	.Attributes(attributes => attributes
+		.ChangingRouteTo("/api/anotheraction"));
+		
+// tests whether controller has RouteAttribute
+// with specific expected route template
+// and optional expected name and order 
+MyWebApi
+	.Controller<WebApiController>()
+	.ShouldHave()
+	.Attributes(attributes => attributes
+		.ChangingRouteTo(
+			"/api/anotheraction",
+			withName: "SomeRoute",
+			withOrder: 1));
+			
+// tests whether controller has RoutePrefixAttribute
+// with specific expected route prefix
+MyWebApi
+	.Controller<WebApiController>()
+	.ShouldHave()
+	.Attributes(attributes => attributes
+		.ChangingRoutePrefixTo("/api/anothercontroller"));
+			
+// tests whether controller has AllowAnonymousAttribute
+MyWebApi
+	.Controller<WebApiController>()
+	.ShouldHave()
+	.Attributes(attributes => attributes
+		.AllowingAnonymousRequests());
+		
+// tests whether controller has AuthorizeAttribute
+MyWebApi
+	.Controller<WebApiController>()
+	.ShouldHave()
+	.Attributes(attributes => attributes
+		.RestrictingForAuthorizedRequests());
+		
+// tests whether controller has AuthorizeAttribute
+// with expected authorized roles
+// and/or expected authorized users
+MyWebApi
+	.Controller<WebApiController>()
+	.ShouldHave()
+	.Attributes(attributes => attributes
+		.RestrictingForAuthorizedRequests(
+			withAllowedRoles: "Admin,Moderator",
+			withAllowedUsers: "John,George"));
+	
+// combining tests with AndAlso
+MyWebApi
+	.Controller<WebApiController>()
+	.ShouldHave()
+	.Attributes(attributes =>
+		attributes
+			.AllowingAnonymousRequests()
+			.AndAlso() // AndAlso is not necessary
+			.ChangingRoutePrefixTo("/api/anothercontroller"));
+```
 
 [To top](#table-of-contents)
 
-### Attributes testing
+### Action attributes testing
 
 You can test for specific or custom action attributes decorated on the called action:
 
@@ -1849,6 +1946,15 @@ var controller = MyWebApi
 	.ShouldReturn()
 	.Ok()
 	.AndProvideTheController();
+	
+// get controller attributes
+// * currently method returns correct attributes
+// * only after ShouldHave().Attributes() call
+var attributes = MyWebApi
+	.Controller<WebApiController>()
+	.ShouldHave()
+	.Attributes()
+	.AndProvideTheControllerAttributes();
 	
 // get the HTTP request message
 // * method is available almost everywhere throughout the API

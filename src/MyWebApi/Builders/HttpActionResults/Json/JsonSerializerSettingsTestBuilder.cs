@@ -33,7 +33,7 @@ namespace MyWebApi.Builders.HttpActionResults.Json
     /// <summary>
     /// Used for testing JSON serializer settings in a JSON result.
     /// </summary>
-    public class JsonSerializerSettingsTestBuilder : BaseTestBuilder, IAndJsonSerializerSettingsTestBuilder
+    public class JsonSerializerSettingsTestBuilder : BaseTestBuilderWithAction, IAndJsonSerializerSettingsTestBuilder
     {
         private readonly JsonSerializerSettings jsonSerializerSettings;
         private readonly ICollection<Action<JsonSerializerSettings, JsonSerializerSettings>> validations;
@@ -41,6 +41,8 @@ namespace MyWebApi.Builders.HttpActionResults.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonSerializerSettingsTestBuilder" /> class.
         /// </summary>
+        /// <param name="controller">Controller on which the action will be tested.</param>
+        /// <param name="actionName">Name of the tested action.</param>
         public JsonSerializerSettingsTestBuilder(
             ApiController controller,
             string actionName)

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Tests.BuildersTests
+namespace MyWebApi.Tests.BuildersTests.AttributesTests
 {
     using System.Collections.Generic;
     using System.Net.Http;
@@ -24,7 +24,7 @@ namespace MyWebApi.Tests.BuildersTests
     using Setups.Controllers;
 
     [TestFixture]
-    public class AttributesTestBuilderTests
+    public class ActionAttributesTestBuilderTests
     {
         [Test]
         public void ContainingAttributeOfTypeShouldNotThrowExceptionWithActionWithTheAttribute()

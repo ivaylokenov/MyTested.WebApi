@@ -25,8 +25,8 @@ namespace MyWebApi.Builders.Base
     /// <summary>
     /// Base class for test builders with caught exception.
     /// </summary>
-    public class BaseTestBuilderWithCaughtException
-        : BaseTestBuilder, IBaseTestBuilderWithCaughtException
+    public abstract class BaseTestBuilderWithCaughtException
+        : BaseTestBuilderWithAction, IBaseTestBuilderWithCaughtException
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTestBuilderWithCaughtException" /> class.

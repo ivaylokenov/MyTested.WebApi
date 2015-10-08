@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders
+namespace MyWebApi.Builders.Controllers
 {
     using System;
     using System.Collections.Generic;
@@ -172,6 +172,16 @@ namespace MyWebApi.Builders
             userBuilder(newUserBuilder);
             this.Controller.User = newUserBuilder.GetUser();
             return this;
+        }
+
+        /// <summary>
+        /// Used for testing controller attributes.
+        /// </summary>
+        /// <returns>Controller test builder.</returns>
+        public IControllerTestBuilder ShouldHave()
+        {
+            var attributes = Reflection.GetCustomAttributes(this.Controller);
+            return new ControllerTestBuilder(this.Controller, attributes);
         }
 
         /// <summary>

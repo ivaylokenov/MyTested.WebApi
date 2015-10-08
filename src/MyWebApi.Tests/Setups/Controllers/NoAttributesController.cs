@@ -14,17 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Attributes
+namespace MyWebApi.Tests.Setups.Controllers
 {
-    /// <summary>
-    /// Used for adding AndAlso() method to the the attribute tests.
-    /// </summary>
-    public interface IAndAttributesTestBuilder : IAttributesTestBuilder
+    using System.Web.Http;
+
+    public class NoAttributesController : ApiController
     {
-        /// <summary>
-        /// AndAlso method for better readability when chaining attribute tests.
-        /// </summary>
-        /// <returns>The same attributes test builder.</returns>
-        IAttributesTestBuilder AndAlso();
     }
 }
