@@ -27,6 +27,12 @@ namespace MyWebApi
     /// </summary>
     public static class MyWebApi
     {
+        internal static HttpConfiguration Configuration { get; private set; }
+
+        /// <summary>
+        /// Sets the HttpConfiguration which will be used in all tests.
+        /// </summary>
+        /// <param name="httpConfiguration">HttpConfiguration instance used in the testing.</param>
         public static void IsUsing(HttpConfiguration httpConfiguration)
         {
             Configuration = httpConfiguration;
@@ -68,7 +74,5 @@ namespace MyWebApi
             var controllerInstance = construction();
             return new ControllerBuilder<TController>(controllerInstance);
         }
-
-        internal static HttpConfiguration Configuration { get; private set; }
     }
 }
