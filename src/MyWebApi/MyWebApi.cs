@@ -19,8 +19,11 @@ namespace MyWebApi
     using System;
     using System.Web.Http;
     using Builders.Contracts.Controllers;
+    using Builders.Contracts.Routes;
     using Builders.Controllers;
+    using Builders.Routes;
     using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Starting point of the testing framework, which provides a way to specify the ASP.NET Web API controller to be tested.
@@ -35,7 +38,22 @@ namespace MyWebApi
         /// <param name="httpConfiguration">HttpConfiguration instance used in the testing.</param>
         public static void IsUsing(HttpConfiguration httpConfiguration)
         {
+            CommonValidator.CheckForNullReference(httpConfiguration);
             Configuration = httpConfiguration;
+        }
+
+        public static IRouteTestBuilder Routes(HttpRouteCollection routeCollection = null)
+        {
+            if (routeCollection == null)
+            {
+                CommonValidator.CheckForNullReference(
+                    Configuration,
+                    "'IsUsing' method should be called before testing routes. MyWebApi must be configured and HttpConfiguration");
+
+                routeCollection = Configuration.Routes;
+            }
+
+            return new RouteTestBuilder(routeCollection);
         }
 
         /// <summary>
