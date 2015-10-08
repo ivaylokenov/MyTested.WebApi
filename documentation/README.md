@@ -5,7 +5,9 @@
 
 ### Table of contents
 
- - Initial configuration
+ - Global configuration
+  - [Using custom HttpConfiguration](#using-custom-httpconfiguration)
+ - Test case configuration
   - [Controller instantiation](#controller-instantiation)
   - [HTTP request message] (#http-request-message)
   - [Authenticated user](#authenticated-user)
@@ -35,6 +37,16 @@
  - Additional methods
   - [AndProvide... methods](#andprovide-methods)
 
+### Using custom HttpConfiguration
+
+You have the option to configure global HttpConfiguration to be used across all test cases:
+
+```c#
+MyWebApi.IsUsing(httpConfiguration);
+```
+
+[To top](#table-of-contents
+  
 ### Controller instantiation
 
 You have a couple of options from which you can setup the controller you want to test. The framework gives you static `MyWebApi` class from which the test builder starts:
