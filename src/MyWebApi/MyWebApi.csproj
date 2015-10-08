@@ -95,6 +95,7 @@
     <Compile Include="Builders\Contracts\HttpResponseMessages\IAndHttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IRouteTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Routes\IShouldMapTestBuilder.cs" />
     <Compile Include="Builders\Controllers\ControllerTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\AggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestErrorMessageTestBuilder.cs" />
@@ -153,7 +154,9 @@
     <Compile Include="Builders\FormattersBuilder.cs" />
     <Compile Include="Builders\HttpRequestMessageBuilder.cs" />
     <Compile Include="Builders\HttpResponseMessageTestBuilder.cs" />
+    <Compile Include="Builders\Routes\BaseRouteTestBuilder.cs" />
     <Compile Include="Builders\Routes\RouteTestBuilder.cs" />
+    <Compile Include="Builders\Routes\ShouldMapTestBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
@@ -181,6 +184,7 @@
     <Compile Include="Common\Extensions\ObjectExtensions.cs" />
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Common\MockedUri.cs" />
+    <Compile Include="Common\RequestBodyFormat.cs" />
     <Compile Include="Common\TypeValuePair.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />

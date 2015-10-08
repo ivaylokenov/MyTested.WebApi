@@ -42,18 +42,18 @@ namespace MyWebApi
             Configuration = httpConfiguration;
         }
 
-        public static IRouteTestBuilder Routes(HttpRouteCollection routeCollection = null)
+        public static IRouteTestBuilder Routes(HttpConfiguration httpConfiguration = null)
         {
-            if (routeCollection == null)
+            if (httpConfiguration == null)
             {
                 CommonValidator.CheckForNullReference(
                     Configuration,
                     "'IsUsing' method should be called before testing routes. MyWebApi must be configured and HttpConfiguration");
 
-                routeCollection = Configuration.Routes;
+                httpConfiguration = Configuration;
             }
 
-            return new RouteTestBuilder(routeCollection);
+            return new RouteTestBuilder(httpConfiguration);
         }
 
         /// <summary>
