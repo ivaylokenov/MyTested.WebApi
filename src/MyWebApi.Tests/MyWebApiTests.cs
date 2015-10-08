@@ -16,6 +16,7 @@
 
 namespace MyWebApi.Tests
 {
+    using System.Web.Http;
     using Exceptions;
     using NUnit.Framework;
     using Setups.Controllers;
@@ -24,6 +25,22 @@ namespace MyWebApi.Tests
     [TestFixture]
     public class MyWebApiTests
     {
+        [Test]
+        public void IsUsingShouldOverrideTheDefaultConfiguration()
+        {
+            var config = new HttpConfiguration();
+            MyWebApi.IsUsing(config);
+
+            // run two test cases in order to check the configuration is global
+            for (int i = 0; i < 2; i++)
+            {
+                var controller = MyWebApi.Controller<WebApiController>().Controller;
+                var actualConfig = controller.Configuration;
+
+                Assert.AreSame(config, actualConfig);
+            }
+        }
+
         [Test]
         public void ControllerWithoutConstructorFunctionShouldPopulateCorrectNewInstanceOfControllerType()
         {
