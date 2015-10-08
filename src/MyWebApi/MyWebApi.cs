@@ -27,6 +27,11 @@ namespace MyWebApi
     /// </summary>
     public static class MyWebApi
     {
+        public static void IsUsing(HttpConfiguration httpConfiguration)
+        {
+            Configuration = httpConfiguration;
+        }
+
         /// <summary>
         /// Selects controller on which the test will be executed. Controller is instantiated with default constructor.
         /// </summary>
@@ -63,5 +68,7 @@ namespace MyWebApi
             var controllerInstance = construction();
             return new ControllerBuilder<TController>(controllerInstance);
         }
+
+        internal static HttpConfiguration Configuration { get; private set; }
     }
 }

@@ -342,7 +342,7 @@ namespace MyWebApi.Builders.Controllers
         {
             this.controller.Request = this.HttpRequestMessage;
             this.controller.RequestContext = this.HttpRequestMessage.GetRequestContext();
-            this.controller.Configuration = new HttpConfiguration();
+            this.controller.Configuration = MyWebApi.Configuration ?? new HttpConfiguration();
             this.controller.User = MockedIPrinciple.CreateUnauthenticated();
         }
 
