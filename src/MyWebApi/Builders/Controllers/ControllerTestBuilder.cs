@@ -49,7 +49,7 @@ namespace MyWebApi.Builders.Controllers
         /// Checks whether the tested controller has no attributes of any type. 
         /// </summary>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder NoActionAttributes()
+        public IBaseTestBuilder NoAttributes()
         {
             AttributesValidator.ValidateNoAttributes(
                 this.ControllerLevelAttributes,
@@ -63,7 +63,7 @@ namespace MyWebApi.Builders.Controllers
         /// </summary>
         /// <param name="withTotalNumberOf">Optional parameter specifying the exact total number of attributes on the tested controller.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder ActionAttributes(int? withTotalNumberOf = null)
+        public IBaseTestBuilder Attributes(int? withTotalNumberOf = null)
         {
             AttributesValidator.ValidateNumberOfAttributes(
                 this.ControllerLevelAttributes,
@@ -78,7 +78,7 @@ namespace MyWebApi.Builders.Controllers
         /// </summary>
         /// <param name="attributesTestBuilder">Builder for testing specific attributes on the controller.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilder ActionAttributes(Action<IControllerAttributesTestBuilder> attributesTestBuilder)
+        public IBaseTestBuilder Attributes(Action<IControllerAttributesTestBuilder> attributesTestBuilder)
         {
             var newAttributesTestBuilder = new ControllerAttributesTestBuilder(this.Controller);
             attributesTestBuilder(newAttributesTestBuilder);
@@ -94,7 +94,7 @@ namespace MyWebApi.Builders.Controllers
         private void ThrowNewAttributeAssertionException(string expectedValue, string actualValue)
         {
             throw new AttributeAssertionException(string.Format(
-                "When testing {0} controller expected to {1}, but {2}.",
+                "When testing {0} was expected to {1}, but {2}.",
                 this.Controller.GetName(),
                 expectedValue,
                 actualValue));

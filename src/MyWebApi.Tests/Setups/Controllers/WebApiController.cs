@@ -30,6 +30,8 @@ namespace MyWebApi.Tests.Setups.Controllers
     using Newtonsoft.Json;
     using Services;
 
+    [Authorize]
+    [RoutePrefix("/api/test")]
     internal class WebApiController : ApiController
     {
         private readonly ICollection<ResponseModel> responseModel;

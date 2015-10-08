@@ -18,6 +18,8 @@ namespace MyWebApi.Tests.UtilitiesTests
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Http;
     using NUnit.Framework;
     using Setups.Controllers;
     using Setups.Models;
@@ -387,6 +389,18 @@ namespace MyWebApi.Tests.UtilitiesTests
             var instance = Reflection.TryCreateInstance<WebApiController>(new RequestModel(), new InjectedService(), new ResponseModel());
 
             Assert.IsNull(instance);
+        }
+
+        [Test]
+        public void GetCustomAttributesShouldReturnProperAttributeTypes()
+        {
+            var attributes = Reflection.GetCustomAttributes(new WebApiController()).ToList();
+            var attributeTypes = attributes.Select(a => a.GetType()).ToList();
+
+            Assert.IsNotNull(attributes);
+            Assert.AreEqual(2, attributes.Count());
+            Assert.IsTrue(attributeTypes.Contains(typeof(AuthorizeAttribute)));
+            Assert.IsTrue(attributeTypes.Contains(typeof(RoutePrefixAttribute)));
         }
     }
 }
