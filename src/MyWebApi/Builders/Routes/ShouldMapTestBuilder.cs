@@ -16,42 +16,78 @@
 
 namespace MyWebApi.Builders.Routes
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Web.Http;
     using Common;
+    using Common.Extensions;
     using Contracts.Routes;
 
     public class ShouldMapTestBuilder : BaseRouteTestBuilder, IShouldMapTestBuilder
     {
-        private readonly string url;
-        private readonly HttpMethod httpMethod;
-
-        private RequestBodyFormat requestBodyFormat;
-        private string requestBody;
+        private readonly HttpRequestMessage requestMessage;
 
         public ShouldMapTestBuilder(
             HttpConfiguration httpConfiguration,
-            string url,
-            HttpMethod httpMethod)
+            string url)
             : base(httpConfiguration)
         {
-            this.url = url;
-            this.httpMethod = httpMethod;
-            this.requestBodyFormat = RequestBodyFormat.None;
+            this.requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+            this.SetRequestBodyProperties(RequestBodyFormat.None);
+        }
+
+        public IShouldMapTestBuilder WithHttpMethod(string httpMethod)
+        {
+            return this.WithHttpMethod(new HttpMethod(httpMethod));
+        }
+
+        public IShouldMapTestBuilder WithHttpMethod(HttpMethod httpMethod)
+        {
+            this.requestMessage.Method = httpMethod;
+            return this;
+        }
+
+        public IShouldMapTestBuilder WithRequestHeaders(IDictionary<string, IEnumerable<string>> headers)
+        {
+            headers.ForEach(h => this.requestMessage.Headers.Add(h.Key, h.Value));
+            return this;
+        }
+
+        public IShouldMapTestBuilder WithRequestHeaders(HttpRequestHeaders headers)
+        {
+            return this.WithRequestHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
 
         public IShouldMapTestBuilder WithFormUrlBody(string body)
         {
-            requestBody = body;
-            requestBodyFormat = RequestBodyFormat.FormUrl;
+            this.SetRequestBodyProperties(RequestBodyFormat.FormUrl, body);
             return this;
         }
 
         public IShouldMapTestBuilder WithJsonBody(string body)
         {
-            requestBody = body;
-            requestBodyFormat = RequestBodyFormat.Json;
+            this.SetRequestBodyProperties(RequestBodyFormat.Json, body);
             return this;
+        }
+
+        public void То<ТController>(Expression<Func<ТController, object>> actionCall)
+        {
+
+        }
+
+        public void То<ТController>(Expression<Action<ТController>> actionCall)
+        {
+
+        }
+
+        private void SetRequestBodyProperties(RequestBodyFormat bodyFormat, string body = null)
+        {
+            this.requestMessage.Properties[RequestBodyFormatKey] = bodyFormat;
+            this.requestMessage.Properties[RequestBodyKey] = body;
         }
     }
 }

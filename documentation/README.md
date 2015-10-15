@@ -45,7 +45,7 @@ You have the option to configure global HttpConfiguration to be used across all 
 MyWebApi.IsUsing(httpConfiguration);
 ```
 
-[To top](#table-of-contents
+[To top](#table-of-contents)
   
 ### Controller instantiation
 
@@ -552,7 +552,7 @@ MyWebApi
 // continuing testing other aspects of the action
 MyWebApi
 	.Controller<WebApiController>()
-	.Calling(c => c.VariousAttributesAction())
+	.Calling(c => c.SomeAction())
 	.ShouldHave()
 	.ActionAttributes(attributes =>
 		attributes

@@ -20,6 +20,9 @@ namespace MyWebApi.Builders.Routes
 
     public abstract class BaseRouteTestBuilder
     {
+        protected const string RequestBodyFormatKey = "__RequestBodyFormat";
+        protected const string RequestBodyKey = "__RequestBody";
+
         protected BaseRouteTestBuilder(HttpConfiguration httpConfiguration)
         {
             this.HttpConfiguration = httpConfiguration;

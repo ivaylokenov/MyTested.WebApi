@@ -16,7 +16,6 @@
 
 namespace MyWebApi.Builders.Routes
 {
-    using System.Net.Http;
     using System.Web.Http;
     using Contracts.Routes;
 
@@ -29,20 +28,9 @@ namespace MyWebApi.Builders.Routes
 
         public IShouldMapTestBuilder ShouldMap(string url)
         {
-            return this.ShouldMap(url, HttpMethod.Get);
-        }
-
-        public IShouldMapTestBuilder ShouldMap(string url, string withHttpMethod)
-        {
-            return this.ShouldMap(url, new HttpMethod(withHttpMethod));
-        }
-
-        public IShouldMapTestBuilder ShouldMap(string url, HttpMethod withHttpMethod)
-        {
             return new ShouldMapTestBuilder(
                 this.HttpConfiguration,
-                url,
-                withHttpMethod);
+                url);
         }
     }
 }

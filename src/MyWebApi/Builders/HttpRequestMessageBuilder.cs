@@ -19,6 +19,7 @@ namespace MyWebApi.Builders
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Text;
@@ -184,8 +185,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithHeaders(HttpRequestHeaders headers)
         {
-            headers.ForEach(h => this.requestMessage.Headers.Add(h.Key, h.Value));
-            return this;
+            return this.WithHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
 
         /// <summary>
