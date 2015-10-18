@@ -23,7 +23,6 @@ namespace MyWebApi.Builders.Routes
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Web.Http;
-    using Common;
     using Common.Extensions;
     using Contracts.Routes;
 
@@ -37,7 +36,6 @@ namespace MyWebApi.Builders.Routes
             : base(httpConfiguration)
         {
             this.requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
-            this.SetRequestBodyProperties(RequestBodyFormat.None);
         }
 
         public IShouldMapTestBuilder WithHttpMethod(string httpMethod)
@@ -64,13 +62,19 @@ namespace MyWebApi.Builders.Routes
 
         public IShouldMapTestBuilder WithFormUrlBody(string body)
         {
-            this.SetRequestBodyProperties(RequestBodyFormat.FormUrl, body);
+
             return this;
         }
 
         public IShouldMapTestBuilder WithJsonBody(string body)
         {
-            this.SetRequestBodyProperties(RequestBodyFormat.Json, body);
+
+            return this;
+        }
+
+        public IShouldMapTestBuilder WithBody(string body, string mediaType)
+        {
+
             return this;
         }
 
@@ -82,12 +86,6 @@ namespace MyWebApi.Builders.Routes
         public void То<ТController>(Expression<Action<ТController>> actionCall)
         {
 
-        }
-
-        private void SetRequestBodyProperties(RequestBodyFormat bodyFormat, string body = null)
-        {
-            this.requestMessage.Properties[RequestBodyFormatKey] = bodyFormat;
-            this.requestMessage.Properties[RequestBodyKey] = body;
         }
     }
 }

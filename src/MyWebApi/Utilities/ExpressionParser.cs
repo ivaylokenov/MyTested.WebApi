@@ -83,7 +83,7 @@ namespace MyWebApi.Utilities
             return memberExpression.Member.Name;
         }
 
-        private static MethodCallExpression GetMethodCallExpression(LambdaExpression expression)
+        public static MethodCallExpression GetMethodCallExpression(LambdaExpression expression)
         {
             var methodCallExpression = expression.Body as MethodCallExpression;
             if (methodCallExpression == null)
