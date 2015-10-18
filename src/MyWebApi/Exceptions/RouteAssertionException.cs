@@ -14,27 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Common
+namespace MyWebApi.Exceptions
 {
     using System;
-    using System.Collections.Generic;
 
-    public class ActionInfo<TActionResult>
+    /// <summary>
+    /// Exception for invalid route test.
+    /// </summary>
+    public class RouteAssertionException : Exception
     {
-        public ActionInfo(string actionName, IEnumerable<object> actionAttributes, TActionResult actionResult, Exception caughtException)
+        /// <summary>
+        /// Initializes a new instance of the RouteAssertionException class.
+        /// </summary>
+        /// <param name="message">Message for System.Exception class.</param>
+        public RouteAssertionException(string message)
+            : base(message)
         {
-            this.ActionName = actionName;
-            this.ActionAttributes = actionAttributes;
-            this.ActionResult = actionResult;
-            this.CaughtException = caughtException;
         }
-
-        public string ActionName { get; private set; }
-
-        public IEnumerable<object> ActionAttributes { get; private set; }
-
-        public TActionResult ActionResult { get; private set; }
-
-        public Exception CaughtException { get; set; }
     }
 }

@@ -14,12 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Common
+namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
 {
-    public enum RequestBodyFormat
+    using System.Net.Http;
+    using NUnit.Framework;
+    using Setups;
+    using Utilities.RouteResolvers;
+
+    [TestFixture]
+    public class InternalRouteResolverTests
     {
-        None = 0,
-        FormUrl = 1,
-        Json = 2
+        [Test]
+        public void ResolveShouldResolveCorrectControllerAndAction()
+        {
+            var config = TestObjectFactory.GetHttpConfigurationWithRoutes();
+            var request = new HttpRequestMessage(HttpMethod.Post, "api/NoParameterlessConstructor/OkAction");
+
+            var routeInfo = InternalRouteResolver.Resolve(config, request);
+
+            Assert.IsNotNull(routeInfo);
+        }
     }
 }

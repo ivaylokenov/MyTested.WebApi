@@ -22,6 +22,7 @@ namespace MyWebApi.Tests.Setups
     using System.Net.Http;
     using System.Net.Http.Formatting;
     using System.Runtime.Serialization.Formatters;
+    using System.Web.Http;
     using System.Web.Http.ModelBinding;
     using Common;
     using Models;
@@ -31,6 +32,20 @@ namespace MyWebApi.Tests.Setups
     public static class TestObjectFactory
     {
         public const string MediaType = "application/json";
+
+        public static HttpConfiguration GetHttpConfigurationWithRoutes()
+        {
+            var config = new HttpConfiguration();
+
+            config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "TestRoute",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional });
+
+            return config;
+        }
 
         public static IEnumerable<MediaTypeFormatter> GetFormatters()
         {

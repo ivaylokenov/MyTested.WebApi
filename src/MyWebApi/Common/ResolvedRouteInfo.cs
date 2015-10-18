@@ -16,25 +16,27 @@
 
 namespace MyWebApi.Common
 {
-    using System;
-    using System.Collections.Generic;
-
-    public class ActionInfo<TActionResult>
+    public class ResolvedRouteInfo
     {
-        public ActionInfo(string actionName, IEnumerable<object> actionAttributes, TActionResult actionResult, Exception caughtException)
+        public ResolvedRouteInfo(string controller, string action)
         {
-            this.ActionName = actionName;
-            this.ActionAttributes = actionAttributes;
-            this.ActionResult = actionResult;
-            this.CaughtException = caughtException;
+            this.IsResolved = true;
+            this.Controller = controller;
+            this.Action = action;
         }
 
-        public string ActionName { get; private set; }
+        public ResolvedRouteInfo(string unresolvedError)
+        {
+            this.IsResolved = false;
+            this.UnresolvedError = unresolvedError;
+        }
 
-        public IEnumerable<object> ActionAttributes { get; private set; }
+        public bool IsResolved { get; private set; }
 
-        public TActionResult ActionResult { get; private set; }
+        public string UnresolvedError { get; private set; }
 
-        public Exception CaughtException { get; set; }
+        public string Controller { get; private set; }
+
+        public string Action { get; private set; }
     }
 }

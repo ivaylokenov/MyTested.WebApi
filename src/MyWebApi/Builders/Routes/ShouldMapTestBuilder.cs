@@ -60,21 +60,38 @@ namespace MyWebApi.Builders.Routes
             return this.WithRequestHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
 
-        public IShouldMapTestBuilder WithFormUrlBody(string body)
+        public IShouldMapTestBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
+            headers.ForEach(h => this.requestMessage.Content.Headers.Add(h.Key, h.Value));
+            return this;
+        }
 
+        public IShouldMapTestBuilder WithContentHeaders(HttpRequestHeaders headers)
+        {
+            return this.WithContentHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
+        }
+
+        public IShouldMapTestBuilder WithFormUrlEncodedBody(string body)
+        {
+            this.SetRequestBody(body, MediaType.FormUrlEncoded);
             return this;
         }
 
         public IShouldMapTestBuilder WithJsonBody(string body)
         {
-
+            this.SetRequestBody(body, MediaType.ApplicationJson);
             return this;
         }
 
         public IShouldMapTestBuilder WithBody(string body, string mediaType)
         {
+            this.SetRequestBody(body, mediaType);
+            return this;
+        }
 
+        public IShouldMapTestBuilder WithBody(string body, MediaTypeHeaderValue mediaType)
+        {
+            this.SetRequestBody(body, mediaType.MediaType);
             return this;
         }
 
@@ -86,6 +103,12 @@ namespace MyWebApi.Builders.Routes
         public void То<ТController>(Expression<Action<ТController>> actionCall)
         {
 
+        }
+
+        private void SetRequestBody(string body, string mediaType)
+        {
+            this.requestMessage.Content = new StringContent(body);
+            this.requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue(mediaType);
         }
     }
 }

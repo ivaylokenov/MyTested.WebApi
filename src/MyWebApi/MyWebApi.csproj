@@ -184,7 +184,7 @@
     <Compile Include="Common\Extensions\ObjectExtensions.cs" />
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Common\MockedUri.cs" />
-    <Compile Include="Common\RequestBodyFormat.cs" />
+    <Compile Include="Common\ResolvedRouteInfo.cs" />
     <Compile Include="Common\TypeValuePair.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
@@ -204,6 +204,7 @@
     <Compile Include="Exceptions\OkResultAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
     <Compile Include="Exceptions\ModelErrorAssertionException.cs" />
+    <Compile Include="Exceptions\RouteAssertionException.cs" />
     <Compile Include="Exceptions\UnauthorizedResultAssertionException.cs" />
     <Compile Include="Exceptions\UnresolvedDependenciesException.cs" />
     <Compile Include="Exceptions\RedirectResultAssertionException.cs" />
@@ -213,7 +214,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ExpressionParser.cs" />
     <Compile Include="Utilities\Reflection.cs" />
-    <Compile Include="Utilities\RouteValuesParser.cs" />
+    <Compile Include="Utilities\RouteResolvers\InternalRouteResolver.cs" />
+    <Compile Include="Utilities\RouteResolvers\RouteValuesParser.cs" />
     <Compile Include="Utilities\Validators\AttributesValidator.cs" />
     <Compile Include="Utilities\Validators\CommonValidator.cs" />
     <Compile Include="Utilities\Validators\ContentNegotiatorValidator.cs" />
