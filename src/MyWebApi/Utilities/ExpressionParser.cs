@@ -56,7 +56,7 @@ namespace MyWebApi.Utilities
                 .Select(ma => new MethodArgumentInfo
                 {
                     Name = ma.Name,
-                    Type = ma.Value.GetType(),
+                    Type = ma.Value != null ? ma.Value.GetType() : null,
                     Value = ma.Value
                 })
                 .ToList();

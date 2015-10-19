@@ -24,11 +24,19 @@ namespace MyWebApi.Builders.Routes
     using System.Net.Http.Headers;
     using System.Web.Http;
     using Common.Extensions;
+    using Common.Routes;
     using Contracts.Routes;
+    using Exceptions;
+    using Utilities;
+    using Utilities.RouteResolvers;
 
     public class ShouldMapTestBuilder : BaseRouteTestBuilder, IShouldMapTestBuilder
     {
         private readonly HttpRequestMessage requestMessage;
+
+        private LambdaExpression actionCallExpression;
+        private ResolvedRouteInfo actualRouteInfo;
+        private ExpressionParsedRouteInfo expectedRouteInfo;
 
         public ShouldMapTestBuilder(
             HttpConfiguration httpConfiguration,
@@ -103,20 +111,78 @@ namespace MyWebApi.Builders.Routes
             return this;
         }
 
-        public void То<ТController>(Expression<Func<ТController, object>> actionCall)
+        public void То<TController>(Expression<Func<TController, object>> actionCall)
+            where TController : ApiController
         {
-
+            this.actionCallExpression = actionCall;
+            this.ValidateRouteInformation<TController>();
         }
 
-        public void То<ТController>(Expression<Action<ТController>> actionCall)
+        public void То<TController>(Expression<Action<TController>> actionCall)
+            where TController : ApiController
         {
-
+            this.actionCallExpression = actionCall;
+            this.ValidateRouteInformation<TController>();
         }
 
         private void SetRequestContent(string content, string mediaType)
         {
             this.requestMessage.Content = new StringContent(content);
             this.requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue(mediaType);
+        }
+
+        private void ValidateRouteInformation<TController>()
+            where TController : ApiController
+        {
+            var expectedRouteValues = this.GetExpectedRouteInfo<TController>();
+            var actualRouteValues = this.GetActualRouteInfo();
+
+            if (!actualRouteValues.IsResolved)
+            {
+                this.ThrowNewRouteAssertionException(actualRouteValues.UnresolvedError);
+            }
+
+            if (actualRouteValues.IsIgnored)
+            {
+                this.ThrowNewRouteAssertionException("it is ignored with StopRoutingHandler");
+            }
+
+            if (Reflection.AreDifferentTypes(expectedRouteInfo.Controller, actualRouteInfo.Controller))
+            {
+                this.ThrowNewRouteAssertionException(string.Format(
+                    "instead matched {0}",
+                    actualRouteValues.Controller.GetName()));
+            }
+
+            if (expectedRouteValues.Action != actualRouteValues.Action)
+            {
+                this.ThrowNewRouteAssertionException(string.Format(
+                    "instead matched {0} action",
+                    actualRouteValues.Action));
+            }
+        }
+
+        private ExpressionParsedRouteInfo GetExpectedRouteInfo<TController>()
+            where TController : ApiController
+        {
+            return this.expectedRouteInfo ??
+                   (this.expectedRouteInfo = RouteExpressionParser.Parse<TController>(this.actionCallExpression));
+        }
+
+        private ResolvedRouteInfo GetActualRouteInfo()
+        {
+            return this.actualRouteInfo ??
+                   (this.actualRouteInfo = InternalRouteResolver.Resolve(this.HttpConfiguration, this.requestMessage));
+        }
+
+        private void ThrowNewRouteAssertionException(string message)
+        {
+            throw new RouteAssertionException(string.Format(
+                    "Expected route '{0}' to match {1} action in {2} but {3}.",
+                    this.requestMessage.RequestUri,
+                    this.expectedRouteInfo.Action,
+                    this.expectedRouteInfo.Controller.GetName(),
+                    message));
         }
     }
 }

@@ -22,7 +22,7 @@ namespace MyWebApi.Utilities.RouteResolvers
     using System.Web.Http;
     using Common.Routes;
 
-    public static class RouteValuesExpressionParser
+    public static class RouteExpressionParser
     {
         public static ExpressionParsedRouteInfo Parse<TController>(LambdaExpression lambdaExpression)
             where TController : ApiController

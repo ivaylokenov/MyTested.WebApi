@@ -18,6 +18,7 @@ namespace MyWebApi.Common.Routes
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http;
     using System.Web.Http.ModelBinding;
     using System.Web.Http.Routing;
@@ -34,9 +35,14 @@ namespace MyWebApi.Common.Routes
             this.IsResolved = true;
             this.Controller = controller;
             this.Action = action;
-            this.ActionArguments = actionArguments;
             this.HttpMessageHandler = httpMessageHandler;
             this.ModelState = modelState;
+            this.ActionArguments = actionArguments.ToDictionary(a => a.Key, a => new MethodArgumentInfo
+            {
+                Name = a.Key,
+                Type = a.Value != null ? a.Value.GetType() : null,
+                Value = a.Value
+            });
         }
 
         public ResolvedRouteInfo(string unresolvedError)
@@ -53,7 +59,7 @@ namespace MyWebApi.Common.Routes
 
         public string Action { get; private set; }
 
-        public IDictionary<string, object> ActionArguments { get; private set; }
+        public IDictionary<string, MethodArgumentInfo> ActionArguments { get; private set; }
 
         public HttpMessageHandler HttpMessageHandler { get; private set; }
 

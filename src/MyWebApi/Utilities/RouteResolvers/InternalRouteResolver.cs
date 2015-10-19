@@ -28,7 +28,7 @@ namespace MyWebApi.Utilities.RouteResolvers
 
     public static class InternalRouteResolver
     {
-        private const string UnresolvedRouteFormat = "Route '{0}' could not be resolved: '{1}'.";
+        private const string UnresolvedRouteFormat = "it could not be resolved: '{0}'.";
 
         public static ResolvedRouteInfo Resolve(HttpConfiguration config, HttpRequestMessage request)
         {
@@ -47,32 +47,33 @@ namespace MyWebApi.Utilities.RouteResolvers
 
             HttpControllerContext controllerContext;
             HttpActionContext actionContext;
+            ResolvedRouteInfo resolvedRouteInfo;
             try
             {
                 controllerContext = GetHttpControllerContext(config, request, routeData);
                 actionContext = GetHttpActionContext(config, controllerContext);
+                resolvedRouteInfo = new ResolvedRouteInfo(
+                    controllerContext.ControllerDescriptor.ControllerType,
+                    actionContext.ActionDescriptor.ActionName,
+                    actionContext.ActionArguments,
+                    routeData.Route.Handler,
+                    actionContext.ModelState);
             }
             catch (HttpResponseException ex)
             {
-                return new ResolvedRouteInfo(string.Format(
+                resolvedRouteInfo = new ResolvedRouteInfo(string.Format(
                     UnresolvedRouteFormat,
-                    originalRoute,
                     ex.Response.ReasonPhrase));
             }
             catch (Exception ex)
             {
-                return new ResolvedRouteInfo(string.Format(
+                resolvedRouteInfo = new ResolvedRouteInfo(string.Format(
                     UnresolvedRouteFormat,
-                    originalRoute,
                     ex.Message.Split(':').First()));
             }
 
-            return new ResolvedRouteInfo(
-                controllerContext.ControllerDescriptor.ControllerType,
-                actionContext.ActionDescriptor.ActionName,
-                actionContext.ActionArguments,
-                routeData.Route.Handler,
-                actionContext.ModelState);
+            request.RequestUri = originalRoute;
+            return resolvedRouteInfo;
         }
 
         private static HttpControllerContext GetHttpControllerContext(

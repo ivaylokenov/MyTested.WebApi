@@ -216,7 +216,7 @@
     <Compile Include="Utilities\ExpressionParser.cs" />
     <Compile Include="Utilities\Reflection.cs" />
     <Compile Include="Utilities\RouteResolvers\InternalRouteResolver.cs" />
-    <Compile Include="Utilities\RouteResolvers\RouteValuesExpressionParser.cs" />
+    <Compile Include="Utilities\RouteResolvers\RouteExpressionParser.cs" />
     <Compile Include="Utilities\Validators\AttributesValidator.cs" />
     <Compile Include="Utilities\Validators\CommonValidator.cs" />
     <Compile Include="Utilities\Validators\ContentNegotiatorValidator.cs" />

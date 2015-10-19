@@ -18,6 +18,7 @@ namespace MyWebApi.Common.Routes
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public class ExpressionParsedRouteInfo
     {
@@ -28,13 +29,13 @@ namespace MyWebApi.Common.Routes
         {
             this.Controller = controller;
             this.Action = action;
-            this.Arguments = arguments;
+            this.Arguments = arguments.ToDictionary(a => a.Name);
         }
 
         public Type Controller { get; private set; }
 
         public string Action { get; private set; }
 
-        public IEnumerable<MethodArgumentInfo> Arguments { get; private set; } 
+        public IDictionary<string, MethodArgumentInfo> Arguments { get; private set; } 
     }
 }

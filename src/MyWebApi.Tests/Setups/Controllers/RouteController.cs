@@ -61,6 +61,12 @@ namespace MyWebApi.Tests.Setups.Controllers
             return this.Ok();
         }
 
+        [HttpPost]
+        public IHttpActionResult PostMethodWithModelAndAttribute([FromUri]RequestModel someModel)
+        {
+            return this.Ok();
+        }
+
         [Route("test")]
         public IHttpActionResult WithRouteAttribute()
         {
