@@ -14,8 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Common
+namespace MyWebApi.Common.Routes
 {
+    using System;
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http.ModelBinding;
@@ -24,7 +25,7 @@ namespace MyWebApi.Common
     public class ResolvedRouteInfo
     {
         public ResolvedRouteInfo(
-            string controller,
+            Type controller,
             string action,
             IDictionary<string, object> actionArguments,
             HttpMessageHandler httpMessageHandler,
@@ -48,15 +49,15 @@ namespace MyWebApi.Common
 
         public string UnresolvedError { get; private set; }
 
-        public string Controller { get; private set; }
+        public Type Controller { get; private set; }
 
         public string Action { get; private set; }
 
         public IDictionary<string, object> ActionArguments { get; private set; }
 
-        public HttpMessageHandler HttpMessageHandler { get; set; }
+        public HttpMessageHandler HttpMessageHandler { get; private set; }
 
-        public ModelStateDictionary ModelState { get; set; }
+        public ModelStateDictionary ModelState { get; private set; }
 
         public bool IsIgnored
         {

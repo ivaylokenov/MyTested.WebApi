@@ -184,7 +184,8 @@
     <Compile Include="Common\Extensions\ObjectExtensions.cs" />
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Common\MockedUri.cs" />
-    <Compile Include="Common\ResolvedRouteInfo.cs" />
+    <Compile Include="Common\Routes\ExpressionParsedRouteInfo.cs" />
+    <Compile Include="Common\Routes\ResolvedRouteInfo.cs" />
     <Compile Include="Common\MethodArgumentInfo.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
@@ -215,7 +216,7 @@
     <Compile Include="Utilities\ExpressionParser.cs" />
     <Compile Include="Utilities\Reflection.cs" />
     <Compile Include="Utilities\RouteResolvers\InternalRouteResolver.cs" />
-    <Compile Include="Utilities\RouteResolvers\RouteValuesParser.cs" />
+    <Compile Include="Utilities\RouteResolvers\RouteValuesExpressionParser.cs" />
     <Compile Include="Utilities\Validators\AttributesValidator.cs" />
     <Compile Include="Utilities\Validators\CommonValidator.cs" />
     <Compile Include="Utilities\Validators\ContentNegotiatorValidator.cs" />

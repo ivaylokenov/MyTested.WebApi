@@ -21,6 +21,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
     using System.Web.Http.Routing;
     using NUnit.Framework;
     using Setups;
+    using Setups.Controllers;
     using Setups.Models;
     using Utilities.RouteResolvers;
 
@@ -38,7 +39,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsTrue(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("NoParameterlessConstructor", routeInfo.Controller);
+            Assert.AreEqual(typeof(NoParameterlessConstructorController), routeInfo.Controller);
             Assert.AreEqual("OkAction", routeInfo.Action);
             Assert.AreEqual(0, routeInfo.ActionArguments.Count);
             Assert.IsNull(routeInfo.HttpMessageHandler);
@@ -56,7 +57,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsTrue(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
             Assert.AreEqual("WithRouteAttribute", routeInfo.Action);
             Assert.AreEqual(0, routeInfo.ActionArguments.Count);
             Assert.IsNull(routeInfo.HttpMessageHandler);
@@ -74,7 +75,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsTrue(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
             Assert.AreEqual("WithParameter", routeInfo.Action);
             Assert.AreEqual(1, routeInfo.ActionArguments.Count);
             Assert.AreEqual(5, routeInfo.ActionArguments["id"]);
@@ -93,7 +94,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsTrue(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
             Assert.AreEqual("WithParameter", routeInfo.Action);
             Assert.AreEqual(1, routeInfo.ActionArguments.Count);
             Assert.IsNull(routeInfo.ActionArguments["id"]);
@@ -112,7 +113,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsTrue(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
             Assert.AreEqual("WithParameterAndQueryString", routeInfo.Action);
             Assert.AreEqual(5, routeInfo.ActionArguments["id"]);
             Assert.AreEqual("test", routeInfo.ActionArguments["value"]);
@@ -131,7 +132,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsTrue(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
             Assert.AreEqual("GetMethod", routeInfo.Action);
             Assert.AreEqual(0, routeInfo.ActionArguments.Count);
             Assert.IsNull(routeInfo.HttpMessageHandler);
@@ -167,7 +168,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsTrue(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
             Assert.AreEqual("QueryString", routeInfo.Action);
             Assert.AreEqual(2, routeInfo.ActionArguments.Count);
             Assert.AreEqual("test", routeInfo.ActionArguments["first"]);
@@ -229,7 +230,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsTrue(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
             Assert.AreEqual("PostMethodWithModel", routeInfo.Action);
             Assert.AreEqual(1, routeInfo.ActionArguments.Count);
             Assert.IsNotNull(routeInfo.ActionArguments["someModel"]);
@@ -259,7 +260,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsTrue(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
             Assert.AreEqual("PostMethodWithModel", routeInfo.Action);
             Assert.AreEqual(1, routeInfo.ActionArguments.Count);
             Assert.IsNotNull(routeInfo.ActionArguments["someModel"]);
@@ -283,7 +284,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsTrue(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
             Assert.AreEqual("PostMethodWithModel", routeInfo.Action);
             Assert.AreEqual(1, routeInfo.ActionArguments.Count);
             Assert.IsNull(routeInfo.ActionArguments["someModel"]);
@@ -308,7 +309,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsTrue(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
             Assert.AreEqual("PostMethodWithParameterAndModel", routeInfo.Action);
             Assert.AreEqual(2, routeInfo.ActionArguments.Count);
             Assert.AreEqual(5, routeInfo.ActionArguments["id"]);
@@ -339,7 +340,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsTrue(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
             Assert.AreEqual("PostMethodWithQueryStringAndModel", routeInfo.Action);
             Assert.AreEqual(2, routeInfo.ActionArguments.Count);
             Assert.AreEqual("test", routeInfo.ActionArguments["value"]);
@@ -416,9 +417,9 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             var routeInfo = InternalRouteResolver.Resolve(config, request);
 
             Assert.IsTrue(routeInfo.IsResolved);
-            Assert.IsTrue(routeInfo.IsIgnored); 
+            Assert.IsTrue(routeInfo.IsIgnored);
             Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
-            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
             Assert.AreEqual("GetMethod", routeInfo.Action);
             Assert.AreEqual(0, routeInfo.ActionArguments.Count);
             Assert.IsAssignableFrom<StopRoutingHandler>(routeInfo.HttpMessageHandler);

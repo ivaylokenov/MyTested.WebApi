@@ -20,27 +20,22 @@ namespace MyWebApi.Utilities.RouteResolvers
     using System.Linq;
     using System.Linq.Expressions;
     using System.Web.Http;
+    using Common.Routes;
 
-    public static class RouteValuesParser
+    public static class RouteValuesExpressionParser
     {
-        public static void Parse<TController>(LambdaExpression lambdaExpression)
+        public static ExpressionParsedRouteInfo Parse<TController>(LambdaExpression lambdaExpression)
             where TController : ApiController
         {
             var methodCallExpression = ExpressionParser.GetMethodCallExpression(lambdaExpression);
-            var controllerName = ParseControllerName(typeof(TController));
+            var controllerType = typeof(TController);
             var actionName = ParseActionName(methodCallExpression);
-        }
+            var actionArgumentsInfo = ExpressionParser.ResolveMethodArguments(lambdaExpression);
 
-        private static string ParseControllerName(Type controllerType)
-        {
-            const string controllerSuffix = "Controller";
-            var controllerName = controllerType.Name;
-            if ((controllerName.Length > controllerSuffix.Length) && controllerName.EndsWith("Controller"))
-            {
-                controllerName = controllerName.Substring(0, controllerName.Length - controllerSuffix.Length);
-            }
-
-            return controllerName;
+            return new ExpressionParsedRouteInfo(
+                controllerType,
+                actionName,
+                actionArgumentsInfo);
         }
 
         private static string ParseActionName(MethodCallExpression methodCallExpression)

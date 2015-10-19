@@ -24,7 +24,7 @@ namespace MyWebApi.Utilities.RouteResolvers
     using System.Web.Http.Controllers;
     using System.Web.Http.Hosting;
     using System.Web.Http.Routing;
-    using Common;
+    using Common.Routes;
 
     public static class InternalRouteResolver
     {
@@ -68,7 +68,7 @@ namespace MyWebApi.Utilities.RouteResolvers
             }
 
             return new ResolvedRouteInfo(
-                controllerContext.ControllerDescriptor.ControllerName,
+                controllerContext.ControllerDescriptor.ControllerType,
                 actionContext.ActionDescriptor.ActionName,
                 actionContext.ActionArguments,
                 routeData.Route.Handler,
