@@ -110,6 +110,16 @@ namespace MyWebApi.Builders
             return this.WithContent(new FormUrlEncodedContent(nameValueCollection));
         }
 
+        public IAndHttpRequestMessageBuilder WithFormUrlEncodedContent(string queryString)
+        {
+            return this.WithContent(new StringContent(queryString, Encoding.UTF8, MediaType.FormUrlEncoded));
+        }
+
+        public IAndHttpRequestMessageBuilder WithJsonContent(string jsonContent)
+        {
+            return this.WithContent(new StringContent(jsonContent, Encoding.UTF8, MediaType.ApplicationJson));
+        }
+
         /// <summary>
         /// Adds HTTP string content to the built HTTP request message.
         /// </summary>
@@ -118,6 +128,11 @@ namespace MyWebApi.Builders
         public IAndHttpRequestMessageBuilder WithStringContent(string content)
         {
             return this.WithContent(new StringContent(content));
+        }
+
+        public IAndHttpRequestMessageBuilder WithStringContent(string content, string mediaType)
+        {
+            return this.WithContent(new StringContent(content, Encoding.UTF8, mediaType));
         }
 
         /// <summary>

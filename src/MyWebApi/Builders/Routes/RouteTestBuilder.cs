@@ -16,7 +16,10 @@
 
 namespace MyWebApi.Builders.Routes
 {
+    using System;
+    using System.Net.Http;
     using System.Web.Http;
+    using Contracts.HttpRequests;
     using Contracts.Routes;
 
     public class RouteTestBuilder : BaseRouteTestBuilder, IRouteTestBuilder
@@ -31,6 +34,21 @@ namespace MyWebApi.Builders.Routes
             return new ShouldMapTestBuilder(
                 this.HttpConfiguration,
                 url);
+        }
+
+        public IShouldMapTestBuilder ShouldMap(HttpRequestMessage requestMessage)
+        {
+            return new ShouldMapTestBuilder(
+                this.HttpConfiguration,
+                requestMessage);
+        }
+
+        public IShouldMapTestBuilder ShouldMap(Action<IHttpRequestMessageBuilder> httpRequestMessageBuilder)
+        {
+            var httpBuilder = new HttpRequestMessageBuilder();
+            httpRequestMessageBuilder(httpBuilder);
+            var requestMessage = httpBuilder.GetHttpRequestMessage();
+            return this.ShouldMap(requestMessage);
         }
     }
 }

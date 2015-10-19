@@ -48,7 +48,7 @@ namespace MyWebApi.Tests.Setups
             config.Routes.MapHttpRoute(
                 name: "Ignored",
                 routeTemplate: "api/IgnoredRoute",
-                defaults: null,
+                defaults: new { controller = "Route", action = "GetMethod" },
                 constraints: null,
                 handler: new StopRoutingHandler());
 

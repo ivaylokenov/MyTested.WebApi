@@ -84,6 +84,12 @@ namespace MyWebApi.Builders.Controllers
         /// <value>Instance HttpRequestMessage.</value>
         public HttpRequestMessage HttpRequestMessage { get; private set; }
 
+        public IAndControllerBuilder<TController> WithHttpRequestMessage(HttpRequestMessage requestMessage)
+        {
+            this.HttpRequestMessage = requestMessage;
+            return this;
+        }
+
         /// <summary>
         /// Adds HTTP request message to the tested controller.
         /// </summary>

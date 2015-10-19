@@ -18,6 +18,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
 {
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using System.Web.Http.Routing;
     using NUnit.Framework;
     using Setups;
     using Setups.Models;
@@ -404,6 +405,24 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsNull(routeInfo.ActionArguments);
             Assert.IsNull(routeInfo.HttpMessageHandler);
             Assert.IsNull(routeInfo.ModelState);
+        }
+
+        [Test]
+        public void ResolveShouldIgnoreRoutesWithStopRountingHandler()
+        {
+            var config = TestObjectFactory.GetHttpConfigurationWithRoutes();
+            var request = new HttpRequestMessage(HttpMethod.Get, "api/IgnoredRoute");
+
+            var routeInfo = InternalRouteResolver.Resolve(config, request);
+
+            Assert.IsTrue(routeInfo.IsResolved);
+            Assert.IsTrue(routeInfo.IsIgnored); 
+            Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
+            Assert.AreEqual("Route", routeInfo.Controller);
+            Assert.AreEqual("GetMethod", routeInfo.Action);
+            Assert.AreEqual(0, routeInfo.ActionArguments.Count);
+            Assert.IsAssignableFrom<StopRoutingHandler>(routeInfo.HttpMessageHandler);
+            Assert.IsTrue(routeInfo.ModelState.IsValid);
         }
     }
 }

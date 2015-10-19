@@ -75,12 +75,18 @@ namespace MyWebApi.Builders.Contracts.HttpRequests
         IAndHttpRequestMessageBuilder WithFormUrlEncodedContent(
             IEnumerable<KeyValuePair<string, string>> nameValueCollection);
 
+        IAndHttpRequestMessageBuilder WithFormUrlEncodedContent(string queryString);
+
+        IAndHttpRequestMessageBuilder WithJsonContent(string jsonContent);
+
         /// <summary>
         /// Adds HTTP string content to the built HTTP request message.
         /// </summary>
         /// <param name="content">String content to add.</param>
         /// <returns>The same HTTP request message builder.</returns>
         IAndHttpRequestMessageBuilder WithStringContent(string content);
+
+        IAndHttpRequestMessageBuilder WithStringContent(string content, string mediaType);
 
         /// <summary>
         /// Adds HTTP string content to the built HTTP request message.

@@ -38,6 +38,14 @@ namespace MyWebApi.Builders.Routes
             this.requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
         }
 
+        public ShouldMapTestBuilder(
+            HttpConfiguration httpConfiguration,
+            HttpRequestMessage requestMessage)
+            : base(httpConfiguration)
+        {
+            this.requestMessage = requestMessage;
+        }
+
         public IShouldMapTestBuilder WithHttpMethod(string httpMethod)
         {
             return this.WithHttpMethod(new HttpMethod(httpMethod));
@@ -66,32 +74,32 @@ namespace MyWebApi.Builders.Routes
             return this;
         }
 
-        public IShouldMapTestBuilder WithContentHeaders(HttpRequestHeaders headers)
+        public IShouldMapTestBuilder WithContentHeaders(HttpContentHeaders headers)
         {
             return this.WithContentHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
 
-        public IShouldMapTestBuilder WithFormUrlEncodedBody(string body)
+        public IShouldMapTestBuilder WithFormUrlEncodedContent(string content)
         {
-            this.SetRequestBody(body, MediaType.FormUrlEncoded);
+            this.SetRequestContent(content, MediaType.FormUrlEncoded);
             return this;
         }
 
-        public IShouldMapTestBuilder WithJsonBody(string body)
+        public IShouldMapTestBuilder WithJsonContent(string content)
         {
-            this.SetRequestBody(body, MediaType.ApplicationJson);
+            this.SetRequestContent(content, MediaType.ApplicationJson);
             return this;
         }
 
-        public IShouldMapTestBuilder WithBody(string body, string mediaType)
+        public IShouldMapTestBuilder WithContent(string content, string mediaType)
         {
-            this.SetRequestBody(body, mediaType);
+            this.SetRequestContent(content, mediaType);
             return this;
         }
 
-        public IShouldMapTestBuilder WithBody(string body, MediaTypeHeaderValue mediaType)
+        public IShouldMapTestBuilder WithContent(string content, MediaTypeHeaderValue mediaType)
         {
-            this.SetRequestBody(body, mediaType.MediaType);
+            this.SetRequestContent(content, mediaType.MediaType);
             return this;
         }
 
@@ -105,9 +113,9 @@ namespace MyWebApi.Builders.Routes
 
         }
 
-        private void SetRequestBody(string body, string mediaType)
+        private void SetRequestContent(string content, string mediaType)
         {
-            this.requestMessage.Content = new StringContent(body);
+            this.requestMessage.Content = new StringContent(content);
             this.requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue(mediaType);
         }
     }
