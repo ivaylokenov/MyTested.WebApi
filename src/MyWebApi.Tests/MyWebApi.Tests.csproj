@@ -107,7 +107,13 @@
     <Compile Include="Setups\Controllers\NoAttributesController.cs" />
     <Compile Include="Setups\Controllers\NoParameterlessConstructorController.cs" />
     <Compile Include="Setups\Controllers\RouteController.cs" />
+    <Compile Include="Setups\Models\ComparableModel.cs" />
+    <Compile Include="Setups\Models\EqualityOperatorModel.cs" />
+    <Compile Include="Setups\Models\EqualsModel.cs" />
+    <Compile Include="Setups\Models\GenericComparableModel.cs" />
     <Compile Include="Setups\Models\IResponseModel.cs" />
+    <Compile Include="Setups\Models\NestedCollection.cs" />
+    <Compile Include="Setups\Models\NestedModel.cs" />
     <Compile Include="Setups\Services\AnotherInjectedService.cs" />
     <Compile Include="Setups\Services\IAnotherInjectedService.cs" />
     <Compile Include="Setups\Services\IInjectedService.cs" />

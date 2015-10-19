@@ -17,6 +17,7 @@
 namespace MyWebApi.Utilities
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
@@ -279,6 +280,83 @@ namespace MyWebApi.Utilities
             return obj.GetType().GetCustomAttributes(true);
         }
 
+        public static bool AreDeeplyEqual(object expected, object actual)
+        {
+            if (expected == null && actual == null)
+            {
+                return true;
+            }
+
+            if (expected == null || actual == null)
+            {
+                return false;
+            }
+
+            var expectedType = expected.GetType();
+            var actualType = actual.GetType();
+            var objectType = typeof(object);
+
+            if ((expectedType == objectType && actualType != objectType)
+                || (actualType == objectType && expectedType != objectType))
+            {
+                return false;
+            }
+
+            if (expected is IEnumerable)
+            {
+                if (CollectionsAreDeeplyEqual(expected, actual))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            if (expectedType != actualType
+                && !expectedType.IsAssignableFrom(actualType)
+                && !actualType.IsAssignableFrom(expectedType))
+            {
+                return false;
+            }
+
+            if (expectedType.IsPrimitive && actualType.IsPrimitive)
+            {
+                return expected.ToString() == actual.ToString();
+            }
+
+            if (expectedType != objectType)
+            {
+                var equalsMethod = expectedType.GetMethods().FirstOrDefault(m => m.Name == "Equals" && m.DeclaringType == expectedType);
+                if (equalsMethod != null)
+                {
+                    return (bool)equalsMethod.Invoke(expected, new[] { actual });
+                }
+            }
+
+            var equalsOperator = expectedType.GetMethods().FirstOrDefault(m => m.Name == "op_Equality");
+            if (equalsOperator != null)
+            {
+                return (bool)equalsOperator.Invoke(null, new[] { expected, actual });
+            }
+
+            if (ComparablesAreDeeplyEqual(expected, actual))
+            {
+                return true;
+            }
+
+            if (!ObjectPropertiesAreDeeplyEqual(expected, actual))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool AreNotDeeplyEqual(object expected, object actual)
+        {
+            return !AreDeeplyEqual(expected, actual);
+        }
+
         private static ConstructorInfo GetConstructorByUnorderedParameters(this Type type, IEnumerable<Type> types)
         {
             var orderedTypes = types
@@ -304,6 +382,97 @@ namespace MyWebApi.Utilities
                 .FirstOrDefault();
 
             return constructor;
+        }
+
+        private static bool CollectionsAreDeeplyEqual(object expected, object actual)
+        {
+            var expectedAsEnumerable = (IEnumerable)expected;
+            var actualAsEnumerable = actual as IEnumerable;
+            if (actualAsEnumerable == null)
+            {
+                return false;
+            }
+
+            var listOfExpectedValues = expectedAsEnumerable.Cast<object>().ToList();
+            var listOfActualValues = actualAsEnumerable.Cast<object>().ToList();
+
+            if (listOfExpectedValues.Count != listOfActualValues.Count)
+            {
+                return false;
+            }
+
+            var collectionIsNotEqual = listOfExpectedValues
+                .Where((t, i) => AreNotDeeplyEqual(t, listOfActualValues[i]))
+                .Any();
+
+            if (collectionIsNotEqual)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool ComparablesAreDeeplyEqual(object expected, object actual)
+        {
+            var expectedAsIComparable = expected as IComparable;
+            if (expectedAsIComparable != null)
+            {
+                if (expectedAsIComparable.CompareTo(actual) == 0)
+                {
+                    return true;
+                }
+            }
+
+            if (ObjectImplementsIComparable(expected) && ObjectImplementsIComparable(actual))
+            {
+                var method = expected.GetType().GetMethod("CompareTo");
+                if (method != null)
+                {
+                    return (int)method.Invoke(expected, new[] { actual }) == 0;
+                }
+            }
+
+
+            return false;
+        }
+
+        private static bool ObjectImplementsIComparable(object obj)
+        {
+            return obj.GetType()
+                .GetInterfaces()
+                .FirstOrDefault(i => i.Name.StartsWith("IComparable")) != null;
+        }
+
+        private static bool ObjectPropertiesAreDeeplyEqual(object expected, object actual)
+        {
+            var properties = expected.GetType().GetProperties();
+            foreach (var property in properties)
+            {
+                if (property.GetIndexParameters().Length != 0)
+                {
+                    continue;
+                }
+
+                var expectedPropertyValue = property.GetValue(expected);
+                var actualPropertyValue = property.GetValue(actual);
+
+                if (expectedPropertyValue is IEnumerable)
+                {
+                    if (!CollectionsAreDeeplyEqual(expectedPropertyValue, actualPropertyValue))
+                    {
+                        return false;
+                    }
+                }
+
+                var propertiesAreDifferent = AreNotDeeplyEqual(expectedPropertyValue, actualPropertyValue);
+                if (propertiesAreDifferent)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

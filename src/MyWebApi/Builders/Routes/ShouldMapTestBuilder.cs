@@ -160,6 +160,18 @@ namespace MyWebApi.Builders.Routes
                     "instead matched {0} action",
                     actualRouteValues.Action));
             }
+
+            expectedRouteValues.Arguments.ForEach(arg =>
+            {
+                var expectedArgumentInfo = arg.Value;
+                var actualArgumentInfo = actualRouteValues.ActionArguments[arg.Key];
+                if (Reflection.AreNotDeeplyEqual(expectedArgumentInfo.Value, actualArgumentInfo.Value))
+                {
+                    this.ThrowNewRouteAssertionException(string.Format(
+                        "the '{0}' parameter was different",
+                        arg.Key));
+                }
+            });
         }
 
         private ExpressionParsedRouteInfo GetExpectedRouteInfo<TController>()
