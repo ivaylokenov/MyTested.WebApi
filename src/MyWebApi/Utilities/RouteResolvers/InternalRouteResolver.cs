@@ -17,6 +17,7 @@
 namespace MyWebApi.Utilities.RouteResolvers
 {
     using System;
+    using System.Linq;
     using System.Net.Http;
     using System.Threading;
     using System.Web.Http;
@@ -27,11 +28,14 @@ namespace MyWebApi.Utilities.RouteResolvers
 
     public static class InternalRouteResolver
     {
+        private const string UnresolvedRouteFormat = "Route '{0}' could not be resolved: '{1}'.";
+
         public static ResolvedRouteInfo Resolve(HttpConfiguration config, HttpRequestMessage request)
         {
             config.EnsureInitialized();
 
             // transform the URI to fake absolute one since ASP.NET Web API internal route resolver does no support non-absolute URIs
+            var originalRoute = request.RequestUri;
             request.RequestUri = new Uri(new Uri("http://absoluteuri.com"), request.RequestUri);
 
             var routeData = config.Routes.GetRouteData(request);
@@ -48,17 +52,27 @@ namespace MyWebApi.Utilities.RouteResolvers
                 controllerContext = GetHttpControllerContext(config, request, routeData);
                 actionContext = GetHttpActionContext(config, controllerContext);
             }
+            catch (HttpResponseException ex)
+            {
+                return new ResolvedRouteInfo(string.Format(
+                    UnresolvedRouteFormat,
+                    originalRoute,
+                    ex.Response.ReasonPhrase));
+            }
             catch (Exception ex)
             {
                 return new ResolvedRouteInfo(string.Format(
-                    "Route '{0}' could not be resolved: '{1}'.",
-                    request.RequestUri,
-                    ex.Message));
+                    UnresolvedRouteFormat,
+                    originalRoute,
+                    ex.Message.Split(':').First()));
             }
 
             return new ResolvedRouteInfo(
                 controllerContext.ControllerDescriptor.ControllerName,
-                actionContext.ActionDescriptor.ActionName);
+                actionContext.ActionDescriptor.ActionName,
+                actionContext.ActionArguments,
+                routeData.Route.Handler,
+                actionContext.ModelState);
         }
 
         private static HttpControllerContext GetHttpControllerContext(

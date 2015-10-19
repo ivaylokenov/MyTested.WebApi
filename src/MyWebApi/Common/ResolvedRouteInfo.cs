@@ -16,13 +16,26 @@
 
 namespace MyWebApi.Common
 {
+    using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Web.Http.ModelBinding;
+    using System.Web.Http.Routing;
+
     public class ResolvedRouteInfo
     {
-        public ResolvedRouteInfo(string controller, string action)
+        public ResolvedRouteInfo(
+            string controller,
+            string action,
+            IDictionary<string, object> actionArguments,
+            HttpMessageHandler httpMessageHandler,
+            ModelStateDictionary modelState)
         {
             this.IsResolved = true;
             this.Controller = controller;
             this.Action = action;
+            this.ActionArguments = actionArguments;
+            this.HttpMessageHandler = httpMessageHandler;
+            this.ModelState = modelState;
         }
 
         public ResolvedRouteInfo(string unresolvedError)
@@ -38,5 +51,16 @@ namespace MyWebApi.Common
         public string Controller { get; private set; }
 
         public string Action { get; private set; }
+
+        public IDictionary<string, object> ActionArguments { get; private set; }
+
+        public HttpMessageHandler HttpMessageHandler { get; set; }
+
+        public ModelStateDictionary ModelState { get; set; }
+
+        public bool IsIgnored
+        {
+            get { return this.HttpMessageHandler is StopRoutingHandler; }
+        }
     }
 }

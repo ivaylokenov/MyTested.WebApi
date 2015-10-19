@@ -106,6 +106,7 @@
     <Compile Include="Setups\Controllers\AttributesController.cs" />
     <Compile Include="Setups\Controllers\NoAttributesController.cs" />
     <Compile Include="Setups\Controllers\NoParameterlessConstructorController.cs" />
+    <Compile Include="Setups\Controllers\RouteController.cs" />
     <Compile Include="Setups\Models\IResponseModel.cs" />
     <Compile Include="Setups\Services\AnotherInjectedService.cs" />
     <Compile Include="Setups\Services\IAnotherInjectedService.cs" />

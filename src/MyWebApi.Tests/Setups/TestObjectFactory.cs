@@ -24,6 +24,7 @@ namespace MyWebApi.Tests.Setups
     using System.Runtime.Serialization.Formatters;
     using System.Web.Http;
     using System.Web.Http.ModelBinding;
+    using System.Web.Http.Routing;
     using Common;
     using Models;
     using Newtonsoft.Json;
@@ -43,6 +44,13 @@ namespace MyWebApi.Tests.Setups
                 name: "TestRoute",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional });
+
+            config.Routes.MapHttpRoute(
+                name: "Ignored",
+                routeTemplate: "api/IgnoredRoute",
+                defaults: null,
+                constraints: null,
+                handler: new StopRoutingHandler());
 
             return config;
         }
