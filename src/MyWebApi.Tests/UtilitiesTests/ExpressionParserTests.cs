@@ -48,7 +48,7 @@ namespace MyWebApi.Tests.UtilitiesTests
         }
 
         [Test]
-        public void ResolveMethodArgumentsShouldReturnCorrectCollectionOfTypeValuePair()
+        public void ResolveMethodArgumentsShouldReturnCorrectCollectionOfArgumentsInformation()
         {
             var requestModel = TestObjectFactory.GetValidRequestModel();
 
@@ -56,14 +56,16 @@ namespace MyWebApi.Tests.UtilitiesTests
 
             var result = ExpressionParser.ResolveMethodArguments(expression);
 
-            var typeValuePairs = result as IList<TypeValuePair> ?? result.ToArray();
-            var firstArgument = typeValuePairs.First();
-            var secondArgument = typeValuePairs.Last();
+            var arguments = result as IList<MethodArgumentInfo> ?? result.ToArray();
+            var firstArgument = arguments.First();
+            var secondArgument = arguments.Last();
             var secondArgumentAsRequestModel = secondArgument.Value as RequestModel;
 
+            Assert.AreEqual("id", firstArgument.Name);
             Assert.AreEqual(typeof(int), firstArgument.Type);
             Assert.AreEqual(1, firstArgument.Value);
 
+            Assert.AreEqual("model", secondArgument.Name);
             Assert.AreEqual(typeof(RequestModel), secondArgument.Type);
             Assert.IsNotNull(secondArgumentAsRequestModel);
             Assert.AreEqual(2, secondArgumentAsRequestModel.Integer);

@@ -42,16 +42,21 @@ namespace MyWebApi.Utilities
         /// Resolves arguments from method in method call lambda expression.
         /// </summary>
         /// <param name="expression">Expression to be parsed.</param>
-        /// <returns>Collection of type-value pairs.</returns>
-        public static IEnumerable<TypeValuePair> ResolveMethodArguments(LambdaExpression expression)
+        /// <returns>Collection of method argument information.</returns>
+        public static IEnumerable<MethodArgumentInfo> ResolveMethodArguments(LambdaExpression expression)
         {
             var methodCallExpression = GetMethodCallExpression(expression);
             return methodCallExpression.Arguments
-                .Select(argument => Expression.Lambda(argument).Compile().DynamicInvoke())
-                .Select(value => new TypeValuePair
+                .Zip(methodCallExpression.Method.GetParameters(), (m, a) => new
                 {
-                    Type = value.GetType(),
-                    Value = value
+                    a.Name,
+                    Value = Expression.Lambda(m).Compile().DynamicInvoke()
+                })
+                .Select(ma => new MethodArgumentInfo
+                {
+                    Name = ma.Name,
+                    Type = ma.Value.GetType(),
+                    Value = ma.Value
                 })
                 .ToList();
         }

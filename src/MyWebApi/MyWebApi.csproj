@@ -185,7 +185,7 @@
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Common\MockedUri.cs" />
     <Compile Include="Common\ResolvedRouteInfo.cs" />
-    <Compile Include="Common\TypeValuePair.cs" />
+    <Compile Include="Common\MethodArgumentInfo.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
     <Compile Include="Common\VoidActionResult.cs" />
