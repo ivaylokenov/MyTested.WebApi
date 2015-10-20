@@ -189,7 +189,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
-            headers.ForEach(h => this.requestMessage.Headers.Add(h.Key, h.Value));
+            headers.ForEach(h => this.WithHeader(h.Key, h.Value));
             return this;
         }
 
@@ -201,6 +201,51 @@ namespace MyWebApi.Builders
         public IAndHttpRequestMessageBuilder WithHeaders(HttpRequestHeaders headers)
         {
             return this.WithHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
+        }
+
+        /// <summary>
+        /// Adds content header to the built HTTP request message.
+        /// </summary>
+        /// <param name="name">Name of the header.</param>
+        /// <param name="value">Value of the header.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        public IAndHttpRequestMessageBuilder WithContentHeader(string name, string value)
+        {
+            this.requestMessage.Content.Headers.Add(name, value);
+            return this;
+        }
+
+        /// <summary>
+        /// Adds content header to the built HTTP request message.
+        /// </summary>
+        /// <param name="name">Name of the header.</param>
+        /// <param name="values">Collection of values for the header.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        public IAndHttpRequestMessageBuilder WithContentHeader(string name, IEnumerable<string> values)
+        {
+            this.requestMessage.Content.Headers.Add(name, values);
+            return this;
+        }
+
+        /// <summary>
+        /// Adds collection of content headers to the built HTTP request message.
+        /// </summary>
+        /// <param name="headers">Dictionary of headers to add.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        public IAndHttpRequestMessageBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers)
+        {
+            headers.ForEach(h => this.WithContentHeader(h.Key, h.Value));
+            return this;
+        }
+
+        /// <summary>
+        /// Adds content headers to the built HTTP request message.
+        /// </summary>
+        /// <param name="headers">Headers represented by HttpRequestHeaders type.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        public IAndHttpRequestMessageBuilder WithContentHeaders(HttpRequestHeaders headers)
+        {
+            return this.WithContentHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
 
         /// <summary>
