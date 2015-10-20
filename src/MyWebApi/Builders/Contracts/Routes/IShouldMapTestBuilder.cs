@@ -29,9 +29,17 @@ namespace MyWebApi.Builders.Contracts.Routes
 
         IShouldMapTestBuilder WithHttpMethod(HttpMethod httpMethod);
 
+        IShouldMapTestBuilder WithRequestHeader(string name, string value);
+
+        IShouldMapTestBuilder WithRequestHeader(string name, IEnumerable<string> values);
+
         IShouldMapTestBuilder WithRequestHeaders(IDictionary<string, IEnumerable<string>> headers);
 
         IShouldMapTestBuilder WithRequestHeaders(HttpRequestHeaders headers);
+
+        IShouldMapTestBuilder WithContentHeader(string name, string value);
+
+        IShouldMapTestBuilder WithContentHeader(string name, IEnumerable<string> values);
 
         IShouldMapTestBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers);
 

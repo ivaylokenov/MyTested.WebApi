@@ -65,9 +65,21 @@ namespace MyWebApi.Builders.Routes
             return this;
         }
 
+        public IShouldMapTestBuilder WithRequestHeader(string name, string value)
+        {
+            this.requestMessage.Headers.Add(name, value);
+            return this;
+        }
+
+        public IShouldMapTestBuilder WithRequestHeader(string name, IEnumerable<string> values)
+        {
+            this.requestMessage.Headers.Add(name, values);
+            return this;
+        }
+
         public IShouldMapTestBuilder WithRequestHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
-            headers.ForEach(h => this.requestMessage.Headers.Add(h.Key, h.Value));
+            headers.ForEach(h => this.WithRequestHeader(h.Key, h.Value));
             return this;
         }
 
@@ -76,9 +88,21 @@ namespace MyWebApi.Builders.Routes
             return this.WithRequestHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
 
+        public IShouldMapTestBuilder WithContentHeader(string name, string value)
+        {
+            this.requestMessage.Content.Headers.Add(name, value);
+            return this;
+        }
+
+        public IShouldMapTestBuilder WithContentHeader(string name, IEnumerable<string> values)
+        {
+            this.requestMessage.Content.Headers.Add(name, values);
+            return this;
+        }
+
         public IShouldMapTestBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
-            headers.ForEach(h => this.requestMessage.Content.Headers.Add(h.Key, h.Value));
+            headers.ForEach(h => this.WithContentHeader(h.Key, h.Value));
             return this;
         }
 

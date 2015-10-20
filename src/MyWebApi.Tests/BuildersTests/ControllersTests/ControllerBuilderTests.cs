@@ -328,7 +328,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
         }
 
         [Test]
-        public void WithHttpRequestMessageShouldPopulateCorrectRequestAndReturnOk()
+        public void WithHttpRequestMessageWithBuilderShouldPopulateCorrectRequestAndReturnOk()
         {
             MyWebApi
                 .Controller<WebApiController>()
@@ -337,6 +337,23 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                         .WithMethod(HttpMethod.Post)
                         .AndAlso()
                         .WithHeader("TestHeader", "TestHeaderValue"))
+                .Calling(c => c.CustomRequestAction())
+                .ShouldReturn()
+                .Ok();
+        }
+
+        [Test]
+        public void WithHttpRequestMessageShouldPopulateCorrectRequestAndReturnOk()
+        {
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post
+            };
+            request.Headers.Add("TestHeader", "TestHeaderValue");
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request)
                 .Calling(c => c.CustomRequestAction())
                 .ShouldReturn()
                 .Ok();
