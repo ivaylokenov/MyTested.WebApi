@@ -84,6 +84,14 @@ namespace MyWebApi.Builders.Controllers
         /// <value>Instance HttpRequestMessage.</value>
         public HttpRequestMessage HttpRequestMessage { get; private set; }
 
+        public HttpConfiguration HttpConfiguration { get; private set; }
+
+        public IAndControllerBuilder<TController> WithHttpConfiguration(HttpConfiguration config)
+        {
+            this.HttpConfiguration = config;
+            return this;
+        }
+
         public IAndControllerBuilder<TController> WithHttpRequestMessage(HttpRequestMessage requestMessage)
         {
             this.HttpRequestMessage = requestMessage;
@@ -348,7 +356,7 @@ namespace MyWebApi.Builders.Controllers
         {
             this.controller.Request = this.HttpRequestMessage;
             this.controller.RequestContext = this.HttpRequestMessage.GetRequestContext();
-            this.controller.Configuration = MyWebApi.Configuration ?? new HttpConfiguration();
+            this.controller.Configuration = this.HttpConfiguration ?? MyWebApi.Configuration ?? new HttpConfiguration();
             this.controller.User = MockedIPrinciple.CreateUnauthenticated();
         }
 

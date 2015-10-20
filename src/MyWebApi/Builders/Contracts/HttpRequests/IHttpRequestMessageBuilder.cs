@@ -136,6 +136,36 @@ namespace MyWebApi.Builders.Contracts.HttpRequests
         IAndHttpRequestMessageBuilder WithHeaders(HttpRequestHeaders headers);
 
         /// <summary>
+        /// Adds content header to the built HTTP request message.
+        /// </summary>
+        /// <param name="name">Name of the header.</param>
+        /// <param name="value">Value of the header.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        IAndHttpRequestMessageBuilder WithContentHeader(string name, string value);
+
+        /// <summary>
+        /// Adds content header to the built HTTP request message.
+        /// </summary>
+        /// <param name="name">Name of the header.</param>
+        /// <param name="values">Collection of values for the header.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        IAndHttpRequestMessageBuilder WithContentHeader(string name, IEnumerable<string> values);
+
+        /// <summary>
+        /// Adds collection of content headers to the built HTTP request message.
+        /// </summary>
+        /// <param name="headers">Dictionary of headers to add.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        IAndHttpRequestMessageBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers);
+
+        /// <summary>
+        /// Adds content headers to the built HTTP request message.
+        /// </summary>
+        /// <param name="headers">Headers represented by HttpRequestHeaders type.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        IAndHttpRequestMessageBuilder WithContentHeaders(HttpContentHeaders headers);
+
+        /// <summary>
         /// Adds method to the built HTTP request message.
         /// </summary>
         /// <param name="method">HTTP method represented by string.</param>

@@ -135,13 +135,13 @@ namespace MyWebApi.Builders.Routes
             return this;
         }
 
-        public IAndResolvedRouteTestBuilder То<TController>(Expression<Func<TController, object>> actionCall)
+        public IAndResolvedRouteTestBuilder To<TController>(Expression<Func<TController, object>> actionCall)
             where TController : ApiController
         {
             return this.ResolveTo<TController>(actionCall);
         }
 
-        public IAndResolvedRouteTestBuilder То<TController>(Expression<Action<TController>> actionCall)
+        public IAndResolvedRouteTestBuilder To<TController>(Expression<Action<TController>> actionCall)
             where TController : ApiController
         {
             return this.ResolveTo<TController>(actionCall);

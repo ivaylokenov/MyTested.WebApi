@@ -53,10 +53,10 @@ namespace MyWebApi.Builders.Contracts.Routes
 
         IShouldMapTestBuilder WithContent(string content, MediaTypeHeaderValue mediaType);
 
-        IAndResolvedRouteTestBuilder То<TController>(Expression<Func<TController, object>> actionCall)
+        IAndResolvedRouteTestBuilder To<TController>(Expression<Func<TController, object>> actionCall)
             where TController : ApiController;
 
-        IAndResolvedRouteTestBuilder То<TController>(Expression<Action<TController>> actionCall)
+        IAndResolvedRouteTestBuilder To<TController>(Expression<Action<TController>> actionCall)
             where TController : ApiController;
 
         void ToNotAllowedMethod();

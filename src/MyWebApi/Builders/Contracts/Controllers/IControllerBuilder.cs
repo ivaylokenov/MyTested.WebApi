@@ -50,6 +50,8 @@ namespace MyWebApi.Builders.Contracts.Controllers
         /// <returns>Controller test builder.</returns>
         IControllerTestBuilder ShouldHave();
 
+        IAndControllerBuilder<TController> WithHttpConfiguration(HttpConfiguration config);
+
         IAndControllerBuilder<TController> WithHttpRequestMessage(HttpRequestMessage requestMessage);
 
         /// <summary>

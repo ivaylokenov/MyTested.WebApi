@@ -211,6 +211,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithContentHeader(string name, string value)
         {
+            this.ValidateContentBeforeAddingContentHeaders();
             this.requestMessage.Content.Headers.Add(name, value);
             return this;
         }
@@ -223,6 +224,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithContentHeader(string name, IEnumerable<string> values)
         {
+            this.ValidateContentBeforeAddingContentHeaders();
             this.requestMessage.Content.Headers.Add(name, values);
             return this;
         }
@@ -234,6 +236,8 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
+            this.ValidateContentBeforeAddingContentHeaders();
+            this.requestMessage.Content.Headers.Clear();
             headers.ForEach(h => this.WithContentHeader(h.Key, h.Value));
             return this;
         }
@@ -243,7 +247,7 @@ namespace MyWebApi.Builders
         /// </summary>
         /// <param name="headers">Headers represented by HttpRequestHeaders type.</param>
         /// <returns>The same HTTP request message builder.</returns>
-        public IAndHttpRequestMessageBuilder WithContentHeaders(HttpRequestHeaders headers)
+        public IAndHttpRequestMessageBuilder WithContentHeaders(HttpContentHeaders headers)
         {
             return this.WithContentHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
@@ -314,7 +318,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithVersion(string version)
         {
-            Version parsedVersion = VersionValidator.TryParse(version, this.ThrowNewInvalidHttpRequestMessageException);
+            var parsedVersion = VersionValidator.TryParse(version, this.ThrowNewInvalidHttpRequestMessageException);
             return this.WithVersion(parsedVersion);
         }
 
@@ -352,6 +356,17 @@ namespace MyWebApi.Builders
         internal HttpRequestMessage GetHttpRequestMessage()
         {
             return this.requestMessage;
+        }
+
+        private void ValidateContentBeforeAddingContentHeaders()
+        {
+            if (this.requestMessage.Content == null)
+            {
+                this.ThrowNewInvalidHttpRequestMessageException(
+                    "content",
+                    "initialized and set in order to add content headers",
+                    "null");
+            }
         }
 
         private void ThrowNewInvalidHttpRequestMessageException(string propertyName, string expectedValue, string actualValue)

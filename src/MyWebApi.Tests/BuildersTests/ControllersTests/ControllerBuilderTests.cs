@@ -20,6 +20,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Web.Http;
     using System.Web.Http.Results;
     using Builders.Contracts.Actions;
     using Builders.Contracts.Base;
@@ -390,6 +391,39 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                 .Calling(c => c.CustomRequestAction())
                 .ShouldReturn()
                 .BadRequest();
+        }
+
+        [Test]
+        public void WithoutAnyConfigurationShouldInstantiateDefaultOne()
+        {
+            MyWebApi.IsUsing(null);
+
+            var config = MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
+                .Calling(c => c.CustomRequestAction())
+                .ShouldReturn()
+                .BadRequest()
+                .AndProvideTheController()
+                .Configuration;
+
+            Assert.IsNotNull(config);
+
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
+        }
+
+        [Test]
+        public void WithHttpConfigurationShouldOverrideTheDefaultOne()
+        {
+            var config = new HttpConfiguration();
+
+            var controllerConfig = MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpConfiguration(config)
+                .Controller
+                .Configuration;
+
+            Assert.AreSame(config, controllerConfig);
         }
 
         private void CheckActionResultTestBuilder<TActionResult>(

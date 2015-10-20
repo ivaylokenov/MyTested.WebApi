@@ -14,18 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Routes
+namespace MyWebApi.Tests
 {
-    using System;
-    using System.Net.Http;
-    using HttpRequests;
+    using NUnit.Framework;
+    using Setups;
 
-    public interface IRouteTestBuilder
+    [SetUpFixture]
+    public class TestsStartup
     {
-        IShouldMapTestBuilder ShouldMap(string url);
-
-        IShouldMapTestBuilder ShouldMap(HttpRequestMessage requestMessage);
-
-        IShouldMapTestBuilder ShouldMap(Action<IHttpRequestMessageBuilder> httpRequestMessageBuilder);
+        [SetUp]
+        public void SetUpTests()
+        {
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
+        }
     }
 }

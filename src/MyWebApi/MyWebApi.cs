@@ -30,7 +30,7 @@ namespace MyWebApi
     /// </summary>
     public static class MyWebApi
     {
-        internal static HttpConfiguration Configuration { get; private set; }
+        public static HttpConfiguration Configuration { get; private set; }
 
         /// <summary>
         /// Sets the HttpConfiguration which will be used in all tests.
@@ -38,7 +38,6 @@ namespace MyWebApi
         /// <param name="httpConfiguration">HttpConfiguration instance used in the testing.</param>
         public static void IsUsing(HttpConfiguration httpConfiguration)
         {
-            CommonValidator.CheckForNullReference(httpConfiguration);
             Configuration = httpConfiguration;
         }
 
