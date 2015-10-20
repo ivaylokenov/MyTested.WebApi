@@ -45,13 +45,11 @@ namespace MyWebApi.Utilities.RouteResolvers
 
             routeData.RemoveOptionalRoutingParameters();
 
-            HttpControllerContext controllerContext;
-            HttpActionContext actionContext;
             ResolvedRouteInfo resolvedRouteInfo;
             try
             {
-                controllerContext = GetHttpControllerContext(config, request, routeData);
-                actionContext = GetHttpActionContext(config, controllerContext);
+                var controllerContext = GetHttpControllerContext(config, request, routeData);
+                var actionContext = GetHttpActionContext(config, controllerContext);
                 resolvedRouteInfo = new ResolvedRouteInfo(
                     controllerContext.ControllerDescriptor.ControllerType,
                     actionContext.ActionDescriptor.ActionName,

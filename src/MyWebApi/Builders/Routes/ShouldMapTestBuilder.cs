@@ -130,12 +130,19 @@ namespace MyWebApi.Builders.Routes
 
         public void ToNonExistingRoute()
         {
-            
+            if (this.GetActualRouteInfo().IsResolved
+                || this.GetActualRouteInfo().IsIgnored)
+            {
+                
+            }
         }
 
         public void ToIgnoredRoute()
         {
-            
+            if (!this.GetActualRouteInfo().IsIgnored)
+            {
+                
+            }
         }
 
         public IAndResolvedRouteTestBuilder ToHandlerOfType<THandler>()

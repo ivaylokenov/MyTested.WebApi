@@ -69,5 +69,10 @@ namespace MyWebApi.Common.Routes
         {
             get { return this.HttpMessageHandler is StopRoutingHandler; }
         }
+
+        public bool MethodIsNotAllowed
+        {
+            get { return this.UnresolvedError != null && this.UnresolvedError.Contains("Method Not Allowed"); }
+        }
     }
 }
