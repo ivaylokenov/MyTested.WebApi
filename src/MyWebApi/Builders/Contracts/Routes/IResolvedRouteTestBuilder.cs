@@ -31,7 +31,5 @@ namespace MyWebApi.Builders.Contracts.Routes
         IAndResolvedRouteTestBuilder ToValidModelState();
 
         IAndResolvedRouteTestBuilder ToInvalidModelState(int? withNumberOfErrors = null);
-
-        IAndResolvedRouteTestBuilder ToModelStateFor<TRequestModel>();
     }
 }

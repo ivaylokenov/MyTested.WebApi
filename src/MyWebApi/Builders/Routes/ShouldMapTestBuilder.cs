@@ -238,16 +238,29 @@ namespace MyWebApi.Builders.Routes
 
         public IAndResolvedRouteTestBuilder ToValidModelState()
         {
+            if (!this.GetActualRouteInfo().ModelState.IsValid)
+            {
+                this.ThrowNewRouteAssertionException(
+                    "have valid model state with no errors",
+                    "it had some");
+            }
+
             return this;
         }
 
         public IAndResolvedRouteTestBuilder ToInvalidModelState(int? withNumberOfErrors = null)
         {
-            return this;
-        }
+            var actualModelStateErrors = this.GetActualRouteInfo().ModelState.Count;
+            if (actualModelStateErrors == 0
+                || (withNumberOfErrors != null && actualModelStateErrors != withNumberOfErrors))
+            {
+                this.ThrowNewRouteAssertionException(
+                    string.Format(
+                        "have invalid model state{0}",
+                        withNumberOfErrors == null ? string.Empty : string.Format(" with {0} errors", withNumberOfErrors)),
+                    withNumberOfErrors == null ? "was in fact valid" : string.Format("in fact contained {0}", actualModelStateErrors));
+            }
 
-        public IAndResolvedRouteTestBuilder ToModelStateFor<TRequestModel>()
-        {
             return this;
         }
 
