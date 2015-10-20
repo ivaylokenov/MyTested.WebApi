@@ -149,43 +149,90 @@ namespace MyWebApi.Builders.Routes
 
         public void ToNotAllowedMethod()
         {
-            if (this.GetActualRouteInfo().MethodIsNotAllowed)
+            var actualInfo = this.GetActualRouteInfo();
+            if (!actualInfo.MethodIsNotAllowed)
             {
-                
+                this.ThrowNewRouteAssertionException(
+                    string.Format("don't allow method '{0}'", this.requestMessage.Method.Method),
+                    actualInfo.IsResolved ? "in fact it was allowed" : actualInfo.UnresolvedError);
             }
         }
 
         public void ToNonExistingRoute()
         {
-            if (this.GetActualRouteInfo().IsResolved
-                || this.GetActualRouteInfo().IsIgnored)
+            var actualInfo = this.GetActualRouteInfo();
+            if (actualInfo.IsResolved
+                || actualInfo.IsIgnored)
             {
-                
+                this.ThrowNewRouteAssertionException(
+                    "be non-existing",
+                    string.Format(
+                        "in fact it was {0}",
+                        actualInfo.IsResolved ? "resolved successfully" : "ignored with StopRoutingHandler"));
             }
         }
 
         public void ToIgnoredRoute()
         {
-            if (!this.GetActualRouteInfo().IsIgnored)
+            var actualInfo = this.GetActualRouteInfo();
+            if (!actualInfo.IsIgnored)
             {
-                
+                this.ThrowNewRouteAssertionException(
+                    "be ignored with StopRoutingHandler",
+                    string.Format(
+                        "in fact it was {0}",
+                        actualInfo.IsResolved ? "in fact it was resolved successfully" : actualInfo.UnresolvedError));
             }
         }
 
         public IAndResolvedRouteTestBuilder ToHandlerOfType<THandler>()
             where THandler : HttpMessageHandler
         {
+            var expectedHandlerType = typeof(THandler);
+            var actualHandlerType = this.GetActualRouteInfo().HttpMessageHandler == null
+                ? null
+                : this.GetActualRouteInfo().HttpMessageHandler.GetType();
+
+            if (Reflection.AreDifferentTypes(expectedHandlerType, actualHandlerType))
+            {
+                this.ThrowNewRouteAssertionException(
+                    string.Format("be handled by {0}", expectedHandlerType.ToFriendlyTypeName()),
+                    string.Format("in fact found {0}", actualHandlerType == null ? null : actualHandlerType.ToFriendlyTypeName()));
+            }
+
             return this;
         }
 
         public IAndResolvedRouteTestBuilder ToNoHandlerOfType<THandler>()
             where THandler : HttpMessageHandler
         {
+            var actualHandler = this.GetActualRouteInfo().HttpMessageHandler;
+            if (actualHandler != null)
+            {
+                var expectedHandlerType = typeof(THandler);
+                var actualHandlerType = actualHandler.GetType();
+
+                if (Reflection.AreSameTypes(expectedHandlerType, actualHandlerType))
+                {
+                    this.ThrowNewRouteAssertionException(
+                        string.Format("not be handled by {0}", expectedHandlerType.ToFriendlyTypeName()),
+                        "in fact found the same type of handler");
+                }
+            }
+            
             return this;
         }
 
         public IAndResolvedRouteTestBuilder ToNoHandler()
         {
+            var actualHandler = this.GetActualRouteInfo().HttpMessageHandler;
+            if (actualHandler != null)
+            {
+                this.ThrowNewRouteAssertionException(
+                    "have no handler of any type",
+                    string.Format("in fact found {0}", actualHandler.GetName()));
+            }
+
             return this;
         }
 
@@ -231,24 +278,24 @@ namespace MyWebApi.Builders.Routes
 
             if (!actualRouteValues.IsResolved)
             {
-                this.ThrowNewRouteAssertionException(actualRouteValues.UnresolvedError);
+                this.ThrowNewRouteAssertionExceptionWithExpectedMatch(actualRouteValues.UnresolvedError);
             }
 
             if (actualRouteValues.IsIgnored)
             {
-                this.ThrowNewRouteAssertionException("it is ignored with StopRoutingHandler");
+                this.ThrowNewRouteAssertionExceptionWithExpectedMatch("it is ignored with StopRoutingHandler");
             }
 
             if (Reflection.AreDifferentTypes(expectedRouteInfo.Controller, actualRouteInfo.Controller))
             {
-                this.ThrowNewRouteAssertionException(string.Format(
+                this.ThrowNewRouteAssertionExceptionWithExpectedMatch(string.Format(
                     "instead matched {0}",
                     actualRouteValues.Controller.GetName()));
             }
 
             if (expectedRouteValues.Action != actualRouteValues.Action)
             {
-                this.ThrowNewRouteAssertionException(string.Format(
+                this.ThrowNewRouteAssertionExceptionWithExpectedMatch(string.Format(
                     "instead matched {0} action",
                     actualRouteValues.Action));
             }
@@ -259,7 +306,7 @@ namespace MyWebApi.Builders.Routes
                 var actualArgumentInfo = actualRouteValues.ActionArguments[arg.Key];
                 if (Reflection.AreNotDeeplyEqual(expectedArgumentInfo.Value, actualArgumentInfo.Value))
                 {
-                    this.ThrowNewRouteAssertionException(string.Format(
+                    this.ThrowNewRouteAssertionExceptionWithExpectedMatch(string.Format(
                         "the '{0}' parameter was different",
                         arg.Key));
                 }
@@ -279,14 +326,23 @@ namespace MyWebApi.Builders.Routes
                    (this.actualRouteInfo = InternalRouteResolver.Resolve(this.HttpConfiguration, this.requestMessage));
         }
 
-        private void ThrowNewRouteAssertionException(string message)
+        private void ThrowNewRouteAssertionExceptionWithExpectedMatch(string message)
+        {
+            this.ThrowNewRouteAssertionException(
+                string.Format(
+                    "match {0} action in {1}",
+                    this.expectedRouteInfo.Action,
+                    this.expectedRouteInfo.Controller.ToFriendlyTypeName()),
+                message);
+        }
+
+        private void ThrowNewRouteAssertionException(string expected, string actual)
         {
             throw new RouteAssertionException(string.Format(
-                    "Expected route '{0}' to match {1} action in {2} but {3}.",
+                    "Expected route '{0}' to {1} but {2}.",
                     this.requestMessage.RequestUri,
-                    this.expectedRouteInfo.Action,
-                    this.expectedRouteInfo.Controller.GetName(),
-                    message));
+                    expected,
+                    actual));
         }
     }
 }
