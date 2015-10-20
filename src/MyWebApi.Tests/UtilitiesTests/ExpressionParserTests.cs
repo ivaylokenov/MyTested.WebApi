@@ -73,13 +73,28 @@ namespace MyWebApi.Tests.UtilitiesTests
         }
 
         [Test]
-        public void ResolveMethodArgumentsShouldReturnEmptyCollectionIfMethoDoesNotHaveArguments()
+        public void ResolveMethodArgumentsShouldReturnEmptyCollectionIfMethodDoesNotHaveArguments()
         {
             Expression<Func<WebApiController, IHttpActionResult>> expression = c => c.OkResultAction();
             var result = ExpressionParser.ResolveMethodArguments(expression);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(0, result.Count());
+        }
+
+        [Test]
+        public void ResolveMethodArgumentsShouldReturnProperArgumentsWithNullValues()
+        {
+            Expression<Func<WebApiController, IHttpActionResult>> expression = c => c.OkResultActionWithRequestBody(1, null);
+            var result = ExpressionParser.ResolveMethodArguments(expression).ToList();
+
+            var first = result[0];
+            var second = result[1];
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(1, first.Value);
+            Assert.IsNull(second.Value);
         }
 
         [Test]

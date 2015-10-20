@@ -125,7 +125,10 @@ namespace MyWebApi.Builders.Routes
 
         public void ToNotAllowedMethod()
         {
-            
+            if (this.GetActualRouteInfo().MethodIsNotAllowed)
+            {
+                
+            }
         }
 
         public void ToNonExistingRoute()

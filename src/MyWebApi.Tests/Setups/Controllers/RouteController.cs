@@ -73,6 +73,12 @@ namespace MyWebApi.Tests.Setups.Controllers
             return this.Ok();
         }
 
+        [ActionName("ChangedActionName")]
+        public IHttpActionResult WithActionNameAttribute()
+        {
+            return this.Ok();
+        }
+
         public IHttpActionResult SameAction(RequestModel model)
         {
             return this.Ok();

@@ -127,6 +127,7 @@
     <Compile Include="UtilitiesTests\ExpressionParserTests.cs" />
     <Compile Include="UtilitiesTests\ReflectionTests.cs" />
     <Compile Include="UtilitiesTests\RouteResolversTests\InternalRouteResolverTests.cs" />
+    <Compile Include="UtilitiesTests\RouteResolversTests\RouteExpressionParserTests.cs" />
     <Compile Include="UtilitiesTests\ValidatorsTests\AttributesValidatorTests.cs" />
     <Compile Include="UtilitiesTests\ValidatorsTests\CommonValidatorTests.cs" />
     <Compile Include="UtilitiesTests\ValidatorsTests\ContentNegotiatorValidatorTests.cs" />

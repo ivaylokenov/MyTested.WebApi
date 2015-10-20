@@ -48,10 +48,29 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
         }
 
         [Test]
+        public void ResolveShouldResolveCorrectControllerAndActionWithActionNameAttribute()
+        {
+            var config = TestObjectFactory.GetHttpConfigurationWithRoutes();
+            var request = new HttpRequestMessage(HttpMethod.Post, "api/Route/ChangedActionName");
+
+            var routeInfo = InternalRouteResolver.Resolve(config, request);
+
+            Assert.IsTrue(routeInfo.IsResolved);
+            Assert.IsFalse(routeInfo.IsIgnored);
+            Assert.IsFalse(routeInfo.MethodIsNotAllowed);
+            Assert.IsNullOrEmpty(routeInfo.UnresolvedError);
+            Assert.AreEqual(typeof(RouteController), routeInfo.Controller);
+            Assert.AreEqual("ChangedActionName", routeInfo.Action);
+            Assert.AreEqual(0, routeInfo.ActionArguments.Count);
+            Assert.IsNull(routeInfo.HttpMessageHandler);
+            Assert.IsTrue(routeInfo.ModelState.IsValid);
+        }
+
+        [Test]
         public void ResolveShouldResolveCorrectlyWithRoutePrefixAndRouteAttribute()
         {
             var config = TestObjectFactory.GetHttpConfigurationWithRoutes();
-            var request = new HttpRequestMessage(HttpMethod.Post, "api/routes/test");
+            var request = new HttpRequestMessage(HttpMethod.Post, "api/Routes/Test");
 
             var routeInfo = InternalRouteResolver.Resolve(config, request);
 
