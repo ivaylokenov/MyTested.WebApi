@@ -30,7 +30,7 @@ namespace MyWebApi.Builders.Routes
     using Utilities;
     using Utilities.RouteResolvers;
 
-    public class ShouldMapTestBuilder : BaseRouteTestBuilder, IShouldMapTestBuilder
+    public class ShouldMapTestBuilder : BaseRouteTestBuilder, IShouldMapTestBuilder, IAndResolvedRouteTestBuilder
     {
         private readonly HttpRequestMessage requestMessage;
 
@@ -111,24 +111,82 @@ namespace MyWebApi.Builders.Routes
             return this;
         }
 
-        public void То<TController>(Expression<Func<TController, object>> actionCall)
+        public IAndResolvedRouteTestBuilder То<TController>(Expression<Func<TController, object>> actionCall)
             where TController : ApiController
         {
-            this.actionCallExpression = actionCall;
-            this.ValidateRouteInformation<TController>();
+            return this.ResolveTo<TController>(actionCall);
         }
 
-        public void То<TController>(Expression<Action<TController>> actionCall)
+        public IAndResolvedRouteTestBuilder То<TController>(Expression<Action<TController>> actionCall)
             where TController : ApiController
         {
-            this.actionCallExpression = actionCall;
-            this.ValidateRouteInformation<TController>();
+            return this.ResolveTo<TController>(actionCall);
+        }
+
+        public void ToNotAllowedMethod()
+        {
+            
+        }
+
+        public void ToNonExistingRoute()
+        {
+            
+        }
+
+        public void ToIgnoredRoute()
+        {
+            
+        }
+
+        public IAndResolvedRouteTestBuilder ToHandlerOfType<THandler>()
+            where THandler : HttpMessageHandler
+        {
+            return this;
+        }
+
+        public IAndResolvedRouteTestBuilder ToNoHandlerOfType<THandler>()
+            where THandler : HttpMessageHandler
+        {
+            return this;
+        }
+
+        public IAndResolvedRouteTestBuilder ToNoHandler()
+        {
+            return this;
+        }
+
+        public IAndResolvedRouteTestBuilder ToValidModelState()
+        {
+            return this;
+        }
+
+        public IAndResolvedRouteTestBuilder ToInvalidModelState(int? withNumberOfErrors = null)
+        {
+            return this;
+        }
+
+        public IAndResolvedRouteTestBuilder ToModelStateFor<TRequestModel>()
+        {
+            return this;
+        }
+
+        public IResolvedRouteTestBuilder AndAlso()
+        {
+            return this;
         }
 
         private void SetRequestContent(string content, string mediaType)
         {
             this.requestMessage.Content = new StringContent(content);
             this.requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue(mediaType);
+        }
+
+        private IAndResolvedRouteTestBuilder ResolveTo<TController>(LambdaExpression actionCall)
+            where TController : ApiController
+        {
+            this.actionCallExpression = actionCall;
+            this.ValidateRouteInformation<TController>();
+            return this;
         }
 
         private void ValidateRouteInformation<TController>()

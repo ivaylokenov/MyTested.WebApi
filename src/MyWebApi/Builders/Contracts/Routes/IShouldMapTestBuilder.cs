@@ -16,7 +16,45 @@
 
 namespace MyWebApi.Builders.Contracts.Routes
 {
-    public interface IShouldMapTestBuilder
+    using System;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
+    using System.Web.Http;
+
+    public interface IShouldMapTestBuilder : IResolvedRouteTestBuilder
     {
+        IShouldMapTestBuilder WithHttpMethod(string httpMethod);
+
+        IShouldMapTestBuilder WithHttpMethod(HttpMethod httpMethod);
+
+        IShouldMapTestBuilder WithRequestHeaders(IDictionary<string, IEnumerable<string>> headers);
+
+        IShouldMapTestBuilder WithRequestHeaders(HttpRequestHeaders headers);
+
+        IShouldMapTestBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers);
+
+        IShouldMapTestBuilder WithContentHeaders(HttpContentHeaders headers);
+
+        IShouldMapTestBuilder WithFormUrlEncodedContent(string content);
+
+        IShouldMapTestBuilder WithJsonContent(string content);
+
+        IShouldMapTestBuilder WithContent(string content, string mediaType);
+
+        IShouldMapTestBuilder WithContent(string content, MediaTypeHeaderValue mediaType);
+
+        IAndResolvedRouteTestBuilder То<TController>(Expression<Func<TController, object>> actionCall)
+            where TController : ApiController;
+
+        IAndResolvedRouteTestBuilder То<TController>(Expression<Action<TController>> actionCall)
+            where TController : ApiController;
+
+        void ToNotAllowedMethod();
+
+        void ToNonExistingRoute();
+
+        void ToIgnoredRoute();
     }
 }
