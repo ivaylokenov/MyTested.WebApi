@@ -25,82 +25,82 @@ namespace MyWebApi.Builders.Routes
 
     public partial class ShouldMapTestBuilder
     {
-        public IShouldMapTestBuilder WithHttpMethod(string httpMethod)
+        public IAndShouldMapTestBuilder WithHttpMethod(string httpMethod)
         {
             return this.WithHttpMethod(new HttpMethod(httpMethod));
         }
 
-        public IShouldMapTestBuilder WithHttpMethod(HttpMethod httpMethod)
+        public IAndShouldMapTestBuilder WithHttpMethod(HttpMethod httpMethod)
         {
             this.requestMessage.Method = httpMethod;
             return this;
         }
 
-        public IShouldMapTestBuilder WithRequestHeader(string name, string value)
+        public IAndShouldMapTestBuilder WithRequestHeader(string name, string value)
         {
             this.requestMessage.Headers.Add(name, value);
             return this;
         }
 
-        public IShouldMapTestBuilder WithRequestHeader(string name, IEnumerable<string> values)
+        public IAndShouldMapTestBuilder WithRequestHeader(string name, IEnumerable<string> values)
         {
             this.requestMessage.Headers.Add(name, values);
             return this;
         }
 
-        public IShouldMapTestBuilder WithRequestHeaders(IDictionary<string, IEnumerable<string>> headers)
+        public IAndShouldMapTestBuilder WithRequestHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
             headers.ForEach(h => this.WithRequestHeader(h.Key, h.Value));
             return this;
         }
 
-        public IShouldMapTestBuilder WithRequestHeaders(HttpRequestHeaders headers)
+        public IAndShouldMapTestBuilder WithRequestHeaders(HttpRequestHeaders headers)
         {
             return this.WithRequestHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
 
-        public IShouldMapTestBuilder WithContentHeader(string name, string value)
+        public IAndShouldMapTestBuilder WithContentHeader(string name, string value)
         {
             this.requestMessage.Content.Headers.Add(name, value);
             return this;
         }
 
-        public IShouldMapTestBuilder WithContentHeader(string name, IEnumerable<string> values)
+        public IAndShouldMapTestBuilder WithContentHeader(string name, IEnumerable<string> values)
         {
             this.requestMessage.Content.Headers.Add(name, values);
             return this;
         }
 
-        public IShouldMapTestBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers)
+        public IAndShouldMapTestBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
             headers.ForEach(h => this.WithContentHeader(h.Key, h.Value));
             return this;
         }
 
-        public IShouldMapTestBuilder WithContentHeaders(HttpContentHeaders headers)
+        public IAndShouldMapTestBuilder WithContentHeaders(HttpContentHeaders headers)
         {
             return this.WithContentHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
 
-        public IShouldMapTestBuilder WithFormUrlEncodedContent(string content)
+        public IAndShouldMapTestBuilder WithFormUrlEncodedContent(string content)
         {
             this.SetRequestContent(content, MediaType.FormUrlEncoded);
             return this;
         }
 
-        public IShouldMapTestBuilder WithJsonContent(string content)
+        public IAndShouldMapTestBuilder WithJsonContent(string content)
         {
             this.SetRequestContent(content, MediaType.ApplicationJson);
             return this;
         }
 
-        public IShouldMapTestBuilder WithContent(string content, string mediaType)
+        public IAndShouldMapTestBuilder WithContent(string content, string mediaType)
         {
             this.SetRequestContent(content, mediaType);
             return this;
         }
 
-        public IShouldMapTestBuilder WithContent(string content, MediaTypeHeaderValue mediaType)
+        public IAndShouldMapTestBuilder WithContent(string content, MediaTypeHeaderValue mediaType)
         {
             this.SetRequestContent(content, mediaType.MediaType);
             return this;

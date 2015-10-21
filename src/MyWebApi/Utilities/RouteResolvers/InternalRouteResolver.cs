@@ -28,7 +28,7 @@ namespace MyWebApi.Utilities.RouteResolvers
 
     public static class InternalRouteResolver
     {
-        private const string UnresolvedRouteFormat = "it could not be resolved: '{0}'.";
+        private const string UnresolvedRouteFormat = "it could not be resolved: '{0}'";
 
         public static ResolvedRouteInfo Resolve(HttpConfiguration config, HttpRequestMessage request)
         {
@@ -39,6 +39,10 @@ namespace MyWebApi.Utilities.RouteResolvers
             request.RequestUri = new Uri(new Uri("http://absoluteuri.com"), request.RequestUri);
 
             var routeData = config.Routes.GetRouteData(request);
+            if (routeData == null)
+            {
+                return new ResolvedRouteInfo("route does not exist");
+            }
 
             request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;

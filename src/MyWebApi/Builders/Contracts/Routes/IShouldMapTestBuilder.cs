@@ -25,33 +25,33 @@ namespace MyWebApi.Builders.Contracts.Routes
 
     public interface IShouldMapTestBuilder : IResolvedRouteTestBuilder
     {
-        IShouldMapTestBuilder WithHttpMethod(string httpMethod);
+        IAndShouldMapTestBuilder WithHttpMethod(string httpMethod);
 
-        IShouldMapTestBuilder WithHttpMethod(HttpMethod httpMethod);
+        IAndShouldMapTestBuilder WithHttpMethod(HttpMethod httpMethod);
 
-        IShouldMapTestBuilder WithRequestHeader(string name, string value);
+        IAndShouldMapTestBuilder WithRequestHeader(string name, string value);
 
-        IShouldMapTestBuilder WithRequestHeader(string name, IEnumerable<string> values);
+        IAndShouldMapTestBuilder WithRequestHeader(string name, IEnumerable<string> values);
 
-        IShouldMapTestBuilder WithRequestHeaders(IDictionary<string, IEnumerable<string>> headers);
+        IAndShouldMapTestBuilder WithRequestHeaders(IDictionary<string, IEnumerable<string>> headers);
 
-        IShouldMapTestBuilder WithRequestHeaders(HttpRequestHeaders headers);
+        IAndShouldMapTestBuilder WithRequestHeaders(HttpRequestHeaders headers);
 
-        IShouldMapTestBuilder WithContentHeader(string name, string value);
+        IAndShouldMapTestBuilder WithContentHeader(string name, string value);
 
-        IShouldMapTestBuilder WithContentHeader(string name, IEnumerable<string> values);
+        IAndShouldMapTestBuilder WithContentHeader(string name, IEnumerable<string> values);
 
-        IShouldMapTestBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers);
+        IAndShouldMapTestBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers);
 
-        IShouldMapTestBuilder WithContentHeaders(HttpContentHeaders headers);
+        IAndShouldMapTestBuilder WithContentHeaders(HttpContentHeaders headers);
 
-        IShouldMapTestBuilder WithFormUrlEncodedContent(string content);
+        IAndShouldMapTestBuilder WithFormUrlEncodedContent(string content);
 
-        IShouldMapTestBuilder WithJsonContent(string content);
+        IAndShouldMapTestBuilder WithJsonContent(string content);
 
-        IShouldMapTestBuilder WithContent(string content, string mediaType);
+        IAndShouldMapTestBuilder WithContent(string content, string mediaType);
 
-        IShouldMapTestBuilder WithContent(string content, MediaTypeHeaderValue mediaType);
+        IAndShouldMapTestBuilder WithContent(string content, MediaTypeHeaderValue mediaType);
 
         IAndResolvedRouteTestBuilder To<TController>(Expression<Func<TController, object>> actionCall)
             where TController : ApiController;

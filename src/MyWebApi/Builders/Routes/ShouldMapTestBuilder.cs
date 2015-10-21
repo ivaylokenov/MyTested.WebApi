@@ -17,11 +17,9 @@
 namespace MyWebApi.Builders.Routes
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Net.Http;
-    using System.Net.Http.Headers;
     using System.Web.Http;
     using Common.Extensions;
     using Common.Routes;
@@ -30,7 +28,7 @@ namespace MyWebApi.Builders.Routes
     using Utilities;
     using Utilities.RouteResolvers;
 
-    public partial class ShouldMapTestBuilder : BaseRouteTestBuilder, IShouldMapTestBuilder, IAndResolvedRouteTestBuilder
+    public partial class ShouldMapTestBuilder : BaseRouteTestBuilder, IAndShouldMapTestBuilder, IAndResolvedRouteTestBuilder
     {
         private readonly HttpRequestMessage requestMessage;
 
@@ -72,7 +70,7 @@ namespace MyWebApi.Builders.Routes
             if (!actualInfo.MethodIsNotAllowed)
             {
                 this.ThrowNewRouteAssertionException(
-                    string.Format("don't allow method '{0}'", this.requestMessage.Method.Method),
+                    string.Format("not allow method '{0}'", this.requestMessage.Method.Method),
                     actualInfo.IsResolved ? "in fact it was allowed" : actualInfo.UnresolvedError);
             }
         }
@@ -87,7 +85,7 @@ namespace MyWebApi.Builders.Routes
                     "be non-existing",
                     string.Format(
                         "in fact it was {0}",
-                        actualInfo.IsResolved ? "resolved successfully" : "ignored with StopRoutingHandler"));
+                        actualInfo.IsIgnored ? "ignored with StopRoutingHandler" : "resolved successfully"));
             }
         }
 
@@ -99,8 +97,8 @@ namespace MyWebApi.Builders.Routes
                 this.ThrowNewRouteAssertionException(
                     "be ignored with StopRoutingHandler",
                     string.Format(
-                        "in fact it was {0}",
-                        actualInfo.IsResolved ? "in fact it was resolved successfully" : actualInfo.UnresolvedError));
+                        "in fact {0}",
+                        actualInfo.IsResolved ? "it was resolved successfully" : actualInfo.UnresolvedError));
             }
         }
 
@@ -116,7 +114,7 @@ namespace MyWebApi.Builders.Routes
             {
                 this.ThrowNewRouteAssertionException(
                     string.Format("be handled by {0}", expectedHandlerType.ToFriendlyTypeName()),
-                    string.Format("in fact found {0}", actualHandlerType == null ? null : actualHandlerType.ToFriendlyTypeName()));
+                    string.Format("in fact found {0}", actualHandlerType == null ? "no handler at all" : actualHandlerType.ToFriendlyTypeName()));
             }
 
             return this;
@@ -157,10 +155,20 @@ namespace MyWebApi.Builders.Routes
 
         public IAndResolvedRouteTestBuilder ToValidModelState()
         {
-            if (!this.GetActualRouteInfo().ModelState.IsValid)
+            const string expectedErrorMessage = "have valid model state with no errors";
+
+            var actualInfo = this.GetActualRouteInfo();
+            if (!actualInfo.IsResolved || actualInfo.IsIgnored)
             {
                 this.ThrowNewRouteAssertionException(
-                    "have valid model state with no errors",
+                    expectedErrorMessage,
+                    actualInfo.IsIgnored ? "it was ignored with StopRoutingHandler" : actualInfo.UnresolvedError);
+            }
+
+            if (!actualInfo.ModelState.IsValid)
+            {
+                this.ThrowNewRouteAssertionException(
+                    expectedErrorMessage,
                     "it had some");
             }
 
@@ -169,7 +177,15 @@ namespace MyWebApi.Builders.Routes
 
         public IAndResolvedRouteTestBuilder ToInvalidModelState(int? withNumberOfErrors = null)
         {
-            var actualModelStateErrors = this.GetActualRouteInfo().ModelState.Count;
+            var actualInfo = this.GetActualRouteInfo();
+            if (!actualInfo.IsResolved || actualInfo.IsIgnored)
+            {
+                this.ThrowNewRouteAssertionException(
+                    "have invalid model state",
+                    actualInfo.IsIgnored ? "it was ignored with StopRoutingHandler" : actualInfo.UnresolvedError);
+            }
+
+            var actualModelStateErrors = actualInfo.ModelState.Values.SelectMany(c => c.Errors).Count();
             if (actualModelStateErrors == 0
                 || (withNumberOfErrors != null && actualModelStateErrors != withNumberOfErrors))
             {
@@ -180,6 +196,11 @@ namespace MyWebApi.Builders.Routes
                     withNumberOfErrors == null ? "was in fact valid" : string.Format("in fact contained {0}", actualModelStateErrors));
             }
 
+            return this;
+        }
+
+        public IShouldMapTestBuilder And()
+        {
             return this;
         }
 
@@ -209,14 +230,14 @@ namespace MyWebApi.Builders.Routes
 
             if (actualRouteValues.IsIgnored)
             {
-                this.ThrowNewRouteAssertionExceptionWithExpectedMatch("it is ignored with StopRoutingHandler");
+                this.ThrowNewRouteAssertionExceptionWithExpectedMatch("it was ignored with StopRoutingHandler");
             }
 
             if (Reflection.AreDifferentTypes(expectedRouteInfo.Controller, actualRouteInfo.Controller))
             {
                 this.ThrowNewRouteAssertionExceptionWithExpectedMatch(string.Format(
                     "instead matched {0}",
-                    actualRouteValues.Controller.GetName()));
+                    actualRouteValues.Controller.ToFriendlyTypeName()));
             }
 
             if (expectedRouteValues.Action != actualRouteValues.Action)

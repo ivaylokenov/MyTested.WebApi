@@ -175,7 +175,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsFalse(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsTrue(routeInfo.MethodIsNotAllowed);
-            Assert.AreEqual("it could not be resolved: 'Method Not Allowed'.", routeInfo.UnresolvedError);
+            Assert.AreEqual("it could not be resolved: 'Method Not Allowed'", routeInfo.UnresolvedError);
             Assert.IsNull(routeInfo.Controller);
             Assert.IsNull(routeInfo.Action);
             Assert.IsNull(routeInfo.ActionArguments);
@@ -215,7 +215,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsFalse(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsFalse(routeInfo.MethodIsNotAllowed);
-            Assert.AreEqual("it could not be resolved: 'Not Found'.", routeInfo.UnresolvedError);
+            Assert.AreEqual("it could not be resolved: 'Not Found'", routeInfo.UnresolvedError);
             Assert.IsNull(routeInfo.Controller);
             Assert.IsNull(routeInfo.Action);
             Assert.IsNull(routeInfo.ActionArguments);
@@ -234,7 +234,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsFalse(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsFalse(routeInfo.MethodIsNotAllowed);
-            Assert.AreEqual("it could not be resolved: 'Not Found'.", routeInfo.UnresolvedError);
+            Assert.AreEqual("it could not be resolved: 'Not Found'", routeInfo.UnresolvedError);
             Assert.IsNull(routeInfo.Controller);
             Assert.IsNull(routeInfo.Action);
             Assert.IsNull(routeInfo.ActionArguments);
@@ -430,7 +430,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsFalse(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsFalse(routeInfo.MethodIsNotAllowed);
-            Assert.AreEqual("it could not be resolved: 'Not Found'.", routeInfo.UnresolvedError);
+            Assert.AreEqual("it could not be resolved: 'Not Found'", routeInfo.UnresolvedError);
             Assert.IsNull(routeInfo.Controller);
             Assert.IsNull(routeInfo.Action);
             Assert.IsNull(routeInfo.ActionArguments);
@@ -449,7 +449,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsFalse(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsFalse(routeInfo.MethodIsNotAllowed);
-            Assert.AreEqual("it could not be resolved: 'Not Found'.", routeInfo.UnresolvedError);
+            Assert.AreEqual("it could not be resolved: 'Not Found'", routeInfo.UnresolvedError);
             Assert.IsNull(routeInfo.Controller);
             Assert.IsNull(routeInfo.Action);
             Assert.IsNull(routeInfo.ActionArguments);
@@ -468,7 +468,7 @@ namespace MyWebApi.Tests.UtilitiesTests.RouteResolversTests
             Assert.IsFalse(routeInfo.IsResolved);
             Assert.IsFalse(routeInfo.IsIgnored);
             Assert.IsFalse(routeInfo.MethodIsNotAllowed);
-            Assert.AreEqual("it could not be resolved: 'Multiple actions were found that match the request'.", routeInfo.UnresolvedError);
+            Assert.AreEqual("it could not be resolved: 'Multiple actions were found that match the request'", routeInfo.UnresolvedError);
             Assert.IsNull(routeInfo.Controller);
             Assert.IsNull(routeInfo.Action);
             Assert.IsNull(routeInfo.ActionArguments);

@@ -103,6 +103,7 @@
     <Compile Include="BuildersTests\HttpActionResultsTests\UnauthorizedTests\UnauthorizedResultTestBuilderTests.cs" />
     <Compile Include="BuildersTests\RoutesTests\RoutesTestBuilderTests.cs" />
     <Compile Include="Setups\Common\CustomContentNegotiator.cs" />
+    <Compile Include="Setups\Common\CustomHttpMessageHandler.cs" />
     <Compile Include="Setups\Common\CustomMediaTypeFormatter.cs" />
     <Compile Include="Setups\Controllers\AttributesController.cs" />
     <Compile Include="Setups\Controllers\NoAttributesController.cs" />

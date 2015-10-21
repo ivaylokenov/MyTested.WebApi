@@ -95,6 +95,7 @@
     <Compile Include="Builders\Contracts\HttpResponseMessages\IAndHttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IAndResolvedRouteTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Routes\IAndShouldMapTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IResolvedRouteTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IRouteTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IShouldMapTestBuilder.cs" />

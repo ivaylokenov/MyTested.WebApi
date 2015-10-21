@@ -22,6 +22,10 @@ namespace MyWebApi.Tests.Setups.Controllers
     [RoutePrefix("api/routes")]
     public class RouteController : ApiController
     {
+        public void VoidAction()
+        {
+        }
+
         public IHttpActionResult WithParameter(int id)
         {
             return this.Ok();
