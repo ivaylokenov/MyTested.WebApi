@@ -157,6 +157,7 @@
     <Compile Include="Builders\HttpRequestMessageBuilder.cs" />
     <Compile Include="Builders\HttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Routes\BaseRouteTestBuilder.cs" />
+    <Compile Include="Builders\Routes\RouteRequestBuilder.cs" />
     <Compile Include="Builders\Routes\RouteTestBuilder.cs" />
     <Compile Include="Builders\Routes\ShouldMapTestBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriBuilder.cs" />

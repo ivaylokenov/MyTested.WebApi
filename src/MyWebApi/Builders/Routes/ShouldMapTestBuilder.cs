@@ -30,7 +30,7 @@ namespace MyWebApi.Builders.Routes
     using Utilities;
     using Utilities.RouteResolvers;
 
-    public class ShouldMapTestBuilder : BaseRouteTestBuilder, IShouldMapTestBuilder, IAndResolvedRouteTestBuilder
+    public partial class ShouldMapTestBuilder : BaseRouteTestBuilder, IShouldMapTestBuilder, IAndResolvedRouteTestBuilder
     {
         private readonly HttpRequestMessage requestMessage;
 
@@ -52,87 +52,6 @@ namespace MyWebApi.Builders.Routes
             : base(httpConfiguration)
         {
             this.requestMessage = requestMessage;
-        }
-
-        public IShouldMapTestBuilder WithHttpMethod(string httpMethod)
-        {
-            return this.WithHttpMethod(new HttpMethod(httpMethod));
-        }
-
-        public IShouldMapTestBuilder WithHttpMethod(HttpMethod httpMethod)
-        {
-            this.requestMessage.Method = httpMethod;
-            return this;
-        }
-
-        public IShouldMapTestBuilder WithRequestHeader(string name, string value)
-        {
-            this.requestMessage.Headers.Add(name, value);
-            return this;
-        }
-
-        public IShouldMapTestBuilder WithRequestHeader(string name, IEnumerable<string> values)
-        {
-            this.requestMessage.Headers.Add(name, values);
-            return this;
-        }
-
-        public IShouldMapTestBuilder WithRequestHeaders(IDictionary<string, IEnumerable<string>> headers)
-        {
-            headers.ForEach(h => this.WithRequestHeader(h.Key, h.Value));
-            return this;
-        }
-
-        public IShouldMapTestBuilder WithRequestHeaders(HttpRequestHeaders headers)
-        {
-            return this.WithRequestHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
-        }
-
-        public IShouldMapTestBuilder WithContentHeader(string name, string value)
-        {
-            this.requestMessage.Content.Headers.Add(name, value);
-            return this;
-        }
-
-        public IShouldMapTestBuilder WithContentHeader(string name, IEnumerable<string> values)
-        {
-            this.requestMessage.Content.Headers.Add(name, values);
-            return this;
-        }
-
-        public IShouldMapTestBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers)
-        {
-            headers.ForEach(h => this.WithContentHeader(h.Key, h.Value));
-            return this;
-        }
-
-        public IShouldMapTestBuilder WithContentHeaders(HttpContentHeaders headers)
-        {
-            return this.WithContentHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
-        }
-
-        public IShouldMapTestBuilder WithFormUrlEncodedContent(string content)
-        {
-            this.SetRequestContent(content, MediaType.FormUrlEncoded);
-            return this;
-        }
-
-        public IShouldMapTestBuilder WithJsonContent(string content)
-        {
-            this.SetRequestContent(content, MediaType.ApplicationJson);
-            return this;
-        }
-
-        public IShouldMapTestBuilder WithContent(string content, string mediaType)
-        {
-            this.SetRequestContent(content, mediaType);
-            return this;
-        }
-
-        public IShouldMapTestBuilder WithContent(string content, MediaTypeHeaderValue mediaType)
-        {
-            this.SetRequestContent(content, mediaType.MediaType);
-            return this;
         }
 
         public IAndResolvedRouteTestBuilder To<TController>(Expression<Func<TController, object>> actionCall)
@@ -267,12 +186,6 @@ namespace MyWebApi.Builders.Routes
         public IResolvedRouteTestBuilder AndAlso()
         {
             return this;
-        }
-
-        private void SetRequestContent(string content, string mediaType)
-        {
-            this.requestMessage.Content = new StringContent(content);
-            this.requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue(mediaType);
         }
 
         private IAndResolvedRouteTestBuilder ResolveTo<TController>(LambdaExpression actionCall)
