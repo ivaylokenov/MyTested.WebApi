@@ -280,6 +280,13 @@ namespace MyWebApi.Utilities
             return obj.GetType().GetCustomAttributes(true);
         }
 
+        /// <summary>
+        /// Checks whether two objects are deeply equal by reflecting all their public properties recursively. Resolves successfully value and reference types, overridden Equals method, custom == operator, IComparable and collection properties.
+        /// </summary>
+        /// <param name="expected">Expected object.</param>
+        /// <param name="actual">Actual object.</param>
+        /// <returns>True or false.</returns>
+        /// <remarks>This method is used for the route testing. Since the ASP.NET Web API model binder creates new instances, circular references are not checked.</remarks>
         public static bool AreDeeplyEqual(object expected, object actual)
         {
             if (expected == null && actual == null)
@@ -324,6 +331,12 @@ namespace MyWebApi.Utilities
                 return expected.ToString() == actual.ToString();
             }
 
+            var equalsOperator = expectedType.GetMethods().FirstOrDefault(m => m.Name == "op_Equality");
+            if (equalsOperator != null)
+            {
+                return (bool)equalsOperator.Invoke(null, new[] { expected, actual });
+            }
+
             if (expectedType != objectType)
             {
                 var equalsMethod = expectedType.GetMethods().FirstOrDefault(m => m.Name == "Equals" && m.DeclaringType == expectedType);
@@ -331,12 +344,6 @@ namespace MyWebApi.Utilities
                 {
                     return (bool)equalsMethod.Invoke(expected, new[] { actual });
                 }
-            }
-
-            var equalsOperator = expectedType.GetMethods().FirstOrDefault(m => m.Name == "op_Equality");
-            if (equalsOperator != null)
-            {
-                return (bool)equalsOperator.Invoke(null, new[] { expected, actual });
             }
 
             if (ComparablesAreDeeplyEqual(expected, actual))
@@ -352,6 +359,13 @@ namespace MyWebApi.Utilities
             return true;
         }
 
+        /// <summary>
+        /// Checks whether two objects are not deeply equal by reflecting all their public properties recursively. Resolves successfully value and reference types, overridden Equals method, custom == operator, IComparable and collection properties.
+        /// </summary>
+        /// <param name="expected">Expected object.</param>
+        /// <param name="actual">Actual object.</param>
+        /// <returns>True or false.</returns>
+        /// <remarks>This method is used for the route testing. Since the ASP.NET Web API model binder creates new instances, circular references are not checked.</remarks>
         public static bool AreNotDeeplyEqual(object expected, object actual)
         {
             return !AreDeeplyEqual(expected, actual);

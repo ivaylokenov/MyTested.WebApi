@@ -110,11 +110,21 @@ namespace MyWebApi.Builders
             return this.WithContent(new FormUrlEncodedContent(nameValueCollection));
         }
 
+        /// <summary>
+        /// Adds HTTP form URL encoded content to the built HTTP request message.
+        /// </summary>
+        /// <param name="queryString">String representing the content.</param>
+        /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithFormUrlEncodedContent(string queryString)
         {
             return this.WithContent(new StringContent(queryString, Encoding.UTF8, MediaType.FormUrlEncoded));
         }
 
+        /// <summary>
+        /// Adds JSON content to the built HTTP request message.
+        /// </summary>
+        /// <param name="jsonContent">JSON string.</param>
+        /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithJsonContent(string jsonContent)
         {
             return this.WithContent(new StringContent(jsonContent, Encoding.UTF8, MediaType.ApplicationJson));
@@ -130,6 +140,12 @@ namespace MyWebApi.Builders
             return this.WithContent(new StringContent(content));
         }
 
+        /// <summary>
+        /// Adds HTTP string content to the built HTTP request message.
+        /// </summary>
+        /// <param name="content">String content to add.</param>
+        /// <param name="mediaType">Type of media to use in the content.</param>
+        /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithStringContent(string content, string mediaType)
         {
             return this.WithContent(new StringContent(content, Encoding.UTF8, mediaType));

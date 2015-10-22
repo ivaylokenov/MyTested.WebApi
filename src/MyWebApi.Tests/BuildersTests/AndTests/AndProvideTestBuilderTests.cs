@@ -21,6 +21,7 @@ namespace MyWebApi.Tests.BuildersTests.AndTests
     using System.Net.Http;
     using System.Web.Http.Results;
     using NUnit.Framework;
+    using Setups;
     using Setups.Controllers;
 
     [TestFixture]
@@ -58,6 +59,22 @@ namespace MyWebApi.Tests.BuildersTests.AndTests
             Assert.IsNotNull(httpRequestMessage);
             Assert.AreEqual(HttpMethod.Get, httpRequestMessage.Method);
             Assert.IsTrue(httpRequestMessage.Headers.Contains("TestHeader"));
+        }
+
+        [Test]
+        public void AndProvideShouldReturnProperHttpConfiguration()
+        {
+            var config = TestObjectFactory.GetHttpConfigurationWithRoutes();
+
+            var actualConfig = MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpConfiguration(config)
+                .Calling(c => c.OkResultAction())
+                .ShouldReturn()
+                .Ok()
+                .AndProvideTheHttpConfiguration();
+
+            Assert.AreSame(config, actualConfig);
         }
 
         [Test]

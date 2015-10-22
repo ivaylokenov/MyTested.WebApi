@@ -30,6 +30,10 @@ namespace MyWebApi
     /// </summary>
     public static class MyWebApi
     {
+        /// <summary>
+        /// Gets the current global HTTP configuration used in the testing.
+        /// </summary>
+        /// <value>Instance of HttpConfiguration.</value>
         public static HttpConfiguration Configuration { get; private set; }
 
         /// <summary>
@@ -41,13 +45,18 @@ namespace MyWebApi
             Configuration = httpConfiguration;
         }
 
+        /// <summary>
+        /// Starts a route test.
+        /// </summary>
+        /// <param name="httpConfiguration">Optional HttpConfiguration to use in case one is not configured globally.</param>
+        /// <returns>Route test builder.</returns>
         public static IRouteTestBuilder Routes(HttpConfiguration httpConfiguration = null)
         {
             if (httpConfiguration == null)
             {
                 CommonValidator.CheckForNullReference(
                     Configuration,
-                    "'IsUsing' method should be called before testing routes. MyWebApi must be configured and HttpConfiguration");
+                    "'IsUsing' method should be called before testing routes or HttpConfiguration should be provided. MyWebApi must be configured and HttpConfiguration");
 
                 httpConfiguration = Configuration;
             }

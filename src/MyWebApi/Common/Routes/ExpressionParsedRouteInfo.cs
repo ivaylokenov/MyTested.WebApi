@@ -20,8 +20,17 @@ namespace MyWebApi.Common.Routes
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// Contains route information from parsed expression.
+    /// </summary>
     public class ExpressionParsedRouteInfo
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpressionParsedRouteInfo" /> class.
+        /// </summary>
+        /// <param name="controller">Controller type.</param>
+        /// <param name="action">Action name.</param>
+        /// <param name="arguments">IEnumerable of action arguments.</param>
         public ExpressionParsedRouteInfo(
             Type controller,
             string action,
@@ -32,10 +41,22 @@ namespace MyWebApi.Common.Routes
             this.Arguments = arguments.ToDictionary(a => a.Name);
         }
 
+        /// <summary>
+        /// Gets the controller type from the parsed expression.
+        /// </summary>
+        /// <value>The controller type.</value>
         public Type Controller { get; private set; }
 
+        /// <summary>
+        /// Gets the action name from the parsed expression.
+        /// </summary>
+        /// <value>The action type.</value>
         public string Action { get; private set; }
 
+        /// <summary>
+        /// Gets the action arguments the parsed expression.
+        /// </summary>
+        /// <value>Dictionary of string-argument info pairs.</value>
         public IDictionary<string, MethodArgumentInfo> Arguments { get; private set; } 
     }
 }

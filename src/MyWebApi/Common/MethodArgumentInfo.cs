@@ -38,7 +38,7 @@ namespace MyWebApi.Common
         /// <summary>
         /// Gets or sets the value of the argument.
         /// </summary>
-        /// <value>Arguments's value.</value>
+        /// <value>Argument's value.</value>
         public object Value { get; set; }
     }
 }

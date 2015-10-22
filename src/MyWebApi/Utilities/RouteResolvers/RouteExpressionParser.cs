@@ -21,8 +21,17 @@ namespace MyWebApi.Utilities.RouteResolvers
     using System.Web.Http;
     using Common.Routes;
 
+    /// <summary>
+    /// Used for parsing lambda expression to route values.
+    /// </summary>
     public static class RouteExpressionParser
     {
+        /// <summary>
+        /// Parses route values from a lambda expression.
+        /// </summary>
+        /// <typeparam name="TController">Type of API Controller.</typeparam>
+        /// <param name="lambdaExpression">The lambda expression to parse.</param>
+        /// <returns>Parsed route information.</returns>
         public static ExpressionParsedRouteInfo Parse<TController>(LambdaExpression lambdaExpression)
             where TController : ApiController
         {

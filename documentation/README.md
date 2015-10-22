@@ -84,6 +84,11 @@ MyWebApi
 // or provide already instantiated controller
 MyWebApi
 	.Controller(myWebApiControllerInstance);
+	
+// add HTTP configuration for the particular test case
+MyWebApi
+	.Controller(myWebApiControllerInstance)
+	.WithHttpConfiguration(config);
 ```
 
 [To top](#table-of-contents)
@@ -112,16 +117,52 @@ MyWebApi
 		.WithByteArrayContent(someByteArrayContent));
 		
 // adding form URL encoded content to the request message
+// by collection of key-value pairs
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
 		.WithFormUrlEncodedContent(someKeyValuePairCollection));
 		
+// adding form URL encoded content to the request message
+// by query string
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithFormUrlEncodedContent("first=firstValue&second=secondValue"));
+		
+// adding JSON content to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithJsonContent(someJsonString));
+		
 // adding StringContent to the request message
+// with text/plain media type
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
 		.WithStringContent(someStringContent));
+		
+// adding StringContent to the request message
+// with custom media type
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithStringContent(someStringContent, MediaType.ApplicationXml));
+		
+// adding StringContent to the request message
+// with custom encoding
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithStringContent(someStringContent, Encoding.UTF8));
+		
+// adding StringContent to the request message
+// with custom encoding and media type
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithStringContent(someStringContent, Encoding.UTF8, MediaType.ApplicationXml));
 		
 // adding custom header to the request message
 MyWebApi
@@ -211,6 +252,11 @@ MyWebApi
 		.WithVersion(someVersion)
 		.AndAlso()
 		.WithStringContent(someStringContent));
+		
+// adding request message by providing HttpRequestMessage instance
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(httpRequestMessage);
 ```
 
 [To top](#table-of-contents)
@@ -1967,6 +2013,15 @@ var attributes = MyWebApi
 	.ShouldHave()
 	.Attributes()
 	.AndProvideTheControllerAttributes();
+	
+// get the HTTP configuration
+// * method is available almost everywhere throughout the API
+var controller = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.AndProvideTheHttpConfiguration();
 	
 // get the HTTP request message
 // * method is available almost everywhere throughout the API

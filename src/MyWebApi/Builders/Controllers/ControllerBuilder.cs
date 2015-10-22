@@ -81,17 +81,31 @@ namespace MyWebApi.Builders.Controllers
         /// <summary>
         /// Gets the HTTP request message used in the testing.
         /// </summary>
-        /// <value>Instance HttpRequestMessage.</value>
+        /// <value>Instance of HttpRequestMessage.</value>
         public HttpRequestMessage HttpRequestMessage { get; private set; }
 
+        /// <summary>
+        /// Gets the HTTP configuration used in the testing.
+        /// </summary>
+        /// <value>Instance of HttpConfiguration.</value>
         public HttpConfiguration HttpConfiguration { get; private set; }
 
+        /// <summary>
+        /// Sets the HTTP configuration for the current test case.
+        /// </summary>
+        /// <param name="config">Instance of HttpConfiguration.</param>
+        /// <returns>The same controller builder.</returns>
         public IAndControllerBuilder<TController> WithHttpConfiguration(HttpConfiguration config)
         {
             this.HttpConfiguration = config;
             return this;
         }
 
+        /// <summary>
+        /// Adds HTTP request message to the tested controller.
+        /// </summary>
+        /// <param name="requestMessage">Instance of HttpRequestMessage.</param>
+        /// <returns>The same controller builder.</returns>
         public IAndControllerBuilder<TController> WithHttpRequestMessage(HttpRequestMessage requestMessage)
         {
             this.HttpRequestMessage = requestMessage;

@@ -32,6 +32,12 @@ namespace MyWebApi.Builders.Contracts.Base
         ApiController AndProvideTheController();
 
         /// <summary>
+        /// Gets the HTTP configuration with which the action will be tested.
+        /// </summary>
+        /// <returns>HttpConfiguration from the tested controller.</returns>
+        HttpConfiguration AndProvideTheHttpConfiguration();
+
+        /// <summary>
         /// Gets the HTTP request message with which the action will be tested.
         /// </summary>
         /// <returns>HttpRequestMessage from the tested controller.</returns>

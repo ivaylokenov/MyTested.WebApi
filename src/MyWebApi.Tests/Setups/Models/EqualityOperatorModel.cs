@@ -18,6 +18,27 @@ namespace MyWebApi.Tests.Setups.Models
 {
     public class EqualityOperatorModel
     {
+        protected bool Equals(EqualityOperatorModel other)
+        {
+            return Integer == other.Integer;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((EqualityOperatorModel) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (Integer*397) ^ (String != null ? String.GetHashCode() : 0);
+            }
+        }
+
         public int Integer { get; set; }
 
         public string String { get; set; }

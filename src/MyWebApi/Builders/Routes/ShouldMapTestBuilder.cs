@@ -28,6 +28,9 @@ namespace MyWebApi.Builders.Routes
     using Utilities;
     using Utilities.RouteResolvers;
 
+    /// <summary>
+    /// Used for building and testing a route.
+    /// </summary>
     public partial class ShouldMapTestBuilder : BaseRouteTestBuilder, IAndShouldMapTestBuilder, IAndResolvedRouteTestBuilder
     {
         private readonly HttpRequestMessage requestMessage;
@@ -36,14 +39,24 @@ namespace MyWebApi.Builders.Routes
         private ResolvedRouteInfo actualRouteInfo;
         private ExpressionParsedRouteInfo expectedRouteInfo;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ShouldMapTestBuilder" /> class.
+        /// </summary>
+        /// <param name="httpConfiguration">HTTP configuration to use for the route test.</param>
+        /// <param name="location">URI location represented by string.</param>
         public ShouldMapTestBuilder(
             HttpConfiguration httpConfiguration,
-            string url)
+            string location)
             : base(httpConfiguration)
         {
-            this.requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
+            this.requestMessage = new HttpRequestMessage(HttpMethod.Get, location);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ShouldMapTestBuilder" /> class.
+        /// </summary>
+        /// <param name="httpConfiguration">HTTP configuration to use for the route test.</param>
+        /// <param name="requestMessage">HTTP request message to use for the route test.</param>
         public ShouldMapTestBuilder(
             HttpConfiguration httpConfiguration,
             HttpRequestMessage requestMessage)
@@ -52,18 +65,33 @@ namespace MyWebApi.Builders.Routes
             this.requestMessage = requestMessage;
         }
 
+        /// <summary>
+        /// Tests whether the built route is resolved to the action provided by the expression.
+        /// </summary>
+        /// <typeparam name="TController">Type of expected resolved controller.</typeparam>
+        /// <param name="actionCall">Method call expression indicating the expected resolved action.</param>
+        /// <returns>The same route test builder.</returns>
         public IAndResolvedRouteTestBuilder To<TController>(Expression<Func<TController, object>> actionCall)
             where TController : ApiController
         {
             return this.ResolveTo<TController>(actionCall);
         }
 
+        /// <summary>
+        /// Tests whether the built route is resolved to the action provided by the expression.
+        /// </summary>
+        /// <typeparam name="TController">Type of expected resolved controller.</typeparam>
+        /// <param name="actionCall">Method call expression indicating the expected resolved action.</param>
+        /// <returns>The same route test builder.</returns>
         public IAndResolvedRouteTestBuilder To<TController>(Expression<Action<TController>> actionCall)
             where TController : ApiController
         {
             return this.ResolveTo<TController>(actionCall);
         }
 
+        /// <summary>
+        /// Tests whether the built route cannot be resolved because of not allowed method.
+        /// </summary>
         public void ToNotAllowedMethod()
         {
             var actualInfo = this.GetActualRouteInfo();
@@ -75,6 +103,9 @@ namespace MyWebApi.Builders.Routes
             }
         }
 
+        /// <summary>
+        /// Tests whether the built route cannot be resolved.
+        /// </summary>
         public void ToNonExistingRoute()
         {
             var actualInfo = this.GetActualRouteInfo();
@@ -89,6 +120,9 @@ namespace MyWebApi.Builders.Routes
             }
         }
 
+        /// <summary>
+        /// Tests whether the built route is ignored by StopRoutingHandler.
+        /// </summary>
         public void ToIgnoredRoute()
         {
             var actualInfo = this.GetActualRouteInfo();
@@ -102,6 +136,11 @@ namespace MyWebApi.Builders.Routes
             }
         }
 
+        /// <summary>
+        /// Tests whether the resolved route will be handled by a HttpMessageHandler of the provided type.
+        /// </summary>
+        /// <typeparam name="THandler">Type of HttpMessageHandler.</typeparam>
+        /// <returns>The same route test builder.</returns>
         public IAndResolvedRouteTestBuilder ToHandlerOfType<THandler>()
             where THandler : HttpMessageHandler
         {
@@ -120,6 +159,11 @@ namespace MyWebApi.Builders.Routes
             return this;
         }
 
+        /// <summary>
+        /// Tests whether the resolved route will not be handled by a HttpMessageHandler of the provided type.
+        /// </summary>
+        /// <typeparam name="THandler">Type of HttpMessageHandler.</typeparam>
+        /// <returns>The same route test builder.</returns>
         public IAndResolvedRouteTestBuilder ToNoHandlerOfType<THandler>()
             where THandler : HttpMessageHandler
         {
@@ -140,6 +184,10 @@ namespace MyWebApi.Builders.Routes
             return this;
         }
 
+        /// <summary>
+        /// Tests whether the resolved route will not be handled by any HttpMessageHandler.
+        /// </summary>
+        /// <returns>The same route test builder.</returns>
         public IAndResolvedRouteTestBuilder ToNoHandler()
         {
             var actualHandler = this.GetActualRouteInfo().HttpMessageHandler;
@@ -153,6 +201,10 @@ namespace MyWebApi.Builders.Routes
             return this;
         }
 
+        /// <summary>
+        /// Tests whether the resolved route will have valid model state.
+        /// </summary>
+        /// <returns>The same route test builder.</returns>
         public IAndResolvedRouteTestBuilder ToValidModelState()
         {
             const string expectedErrorMessage = "have valid model state with no errors";
@@ -175,6 +227,11 @@ namespace MyWebApi.Builders.Routes
             return this;
         }
 
+        /// <summary>
+        /// Tests whether the resolved route will have invalid model state.
+        /// </summary>
+        /// <param name="withNumberOfErrors">Expected number of errors. If default null is provided, the test builder checks only if any errors are found.</param>
+        /// <returns>The same route test builder.</returns>
         public IAndResolvedRouteTestBuilder ToInvalidModelState(int? withNumberOfErrors = null)
         {
             var actualInfo = this.GetActualRouteInfo();
@@ -199,11 +256,19 @@ namespace MyWebApi.Builders.Routes
             return this;
         }
 
+        /// <summary>
+        /// And method for better readability when building route HTTP request message.
+        /// </summary>
+        /// <returns>The same controller builder.</returns>
         public IShouldMapTestBuilder And()
         {
             return this;
         }
 
+        /// <summary>
+        /// AndAlso method for better readability when building route tests.
+        /// </summary>
+        /// <returns>The same route builder.</returns>
         public IResolvedRouteTestBuilder AndAlso()
         {
             return this;

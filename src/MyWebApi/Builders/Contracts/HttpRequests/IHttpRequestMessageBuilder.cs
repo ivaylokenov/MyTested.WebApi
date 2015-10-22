@@ -74,8 +74,18 @@ namespace MyWebApi.Builders.Contracts.HttpRequests
         IAndHttpRequestMessageBuilder WithFormUrlEncodedContent(
             IEnumerable<KeyValuePair<string, string>> nameValueCollection);
 
+        /// <summary>
+        /// Adds HTTP form URL encoded content to the built HTTP request message.
+        /// </summary>
+        /// <param name="queryString">String representing the content.</param>
+        /// <returns>The same HTTP request message builder.</returns>
         IAndHttpRequestMessageBuilder WithFormUrlEncodedContent(string queryString);
 
+        /// <summary>
+        /// Adds JSON content to the built HTTP request message.
+        /// </summary>
+        /// <param name="jsonContent">JSON string.</param>
+        /// <returns>The same HTTP request message builder.</returns>
         IAndHttpRequestMessageBuilder WithJsonContent(string jsonContent);
 
         /// <summary>
@@ -85,6 +95,12 @@ namespace MyWebApi.Builders.Contracts.HttpRequests
         /// <returns>The same HTTP request message builder.</returns>
         IAndHttpRequestMessageBuilder WithStringContent(string content);
 
+        /// <summary>
+        /// Adds HTTP string content to the built HTTP request message.
+        /// </summary>
+        /// <param name="content">String content to add.</param>
+        /// <param name="mediaType">Type of media to use in the content.</param>
+        /// <returns>The same HTTP request message builder.</returns>
         IAndHttpRequestMessageBuilder WithStringContent(string content, string mediaType);
 
         /// <summary>

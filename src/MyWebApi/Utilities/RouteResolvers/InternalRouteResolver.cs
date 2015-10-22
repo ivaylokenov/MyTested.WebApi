@@ -26,10 +26,19 @@ namespace MyWebApi.Utilities.RouteResolvers
     using System.Web.Http.Routing;
     using Common.Routes;
 
+    /// <summary>
+    /// Used for resolving HTTP request message to a route.
+    /// </summary>
     public static class InternalRouteResolver
     {
         private const string UnresolvedRouteFormat = "it could not be resolved: '{0}'";
 
+        /// <summary>
+        /// Resolves HTTP request message to a route using the provided HTTP configuration and the internal ASP.NET Web API route resolving algorithm.
+        /// </summary>
+        /// <param name="config">HttpConfiguration to use.</param>
+        /// <param name="request">HttpRequestMessage to resolve.</param>
+        /// <returns>Resolved route information.</returns>
         public static ResolvedRouteInfo Resolve(HttpConfiguration config, HttpRequestMessage request)
         {
             config.EnsureInitialized();

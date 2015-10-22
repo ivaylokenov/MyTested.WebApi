@@ -89,6 +89,11 @@ namespace MyWebApi.Utilities
             return memberExpression.Member.Name;
         }
 
+        /// <summary>
+        /// Gets method call expression from a lambda expression.
+        /// </summary>
+        /// <param name="expression">The lambda expression as MethodCallExpression.</param>
+        /// <returns>Method call expression.</returns>
         public static MethodCallExpression GetMethodCallExpression(LambdaExpression expression)
         {
             var methodCallExpression = expression.Body as MethodCallExpression;

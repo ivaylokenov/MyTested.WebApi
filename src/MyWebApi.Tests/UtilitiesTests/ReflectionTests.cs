@@ -582,7 +582,7 @@ namespace MyWebApi.Tests.UtilitiesTests
                         new NestedModel
                         {
                             Integer = 1, String = "test1",
-                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
+                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
                         }, new NestedModel
                         {
                             Integer = 1,

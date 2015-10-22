@@ -16,6 +16,7 @@
 
 namespace MyWebApi.Tests.BuildersTests.RoutesTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -70,6 +71,17 @@ namespace MyWebApi.Tests.BuildersTests.RoutesTests
             MyWebApi
                 .Routes()
                 .ShouldMap("api/NoParameterlessConstructor/OkAction")
+                .WithHttpMethod(HttpMethod.Post)
+                .To<NoParameterlessConstructorController>(c => c.OkAction());
+        }
+
+        [Test]
+
+        public void ToShouldResolveCorrectControllerAndActionWithUriLocation()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap(new Uri("api/NoParameterlessConstructor/OkAction", UriKind.RelativeOrAbsolute))
                 .WithHttpMethod(HttpMethod.Post)
                 .To<NoParameterlessConstructorController>(c => c.OkAction());
         }
