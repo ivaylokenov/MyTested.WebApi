@@ -50,6 +50,22 @@ The example uses NUnit but you can use whatever testing framework you want.
 Here are some random examples of what the fluent testing API is capable of:
 
 ```c#
+// tests a route for correct controller, action and resolved route values
+MyWebApi
+	.Routes()
+	.ShouldMap("api/WebApiController/SomeAction/5")
+	.WithJsonContent(@"{""SomeInt"": 1, ""SomeString"": ""Test""}")
+	.And()
+	.WithHttpMethod(HttpMethod.Post)
+	.To<WebApiController>(c => c.SomeAction(5, new RequestModel
+	{
+		SomeInt = 1,
+		SomeString = "Test"
+	}))
+	.AndAlso()
+	.ToNoHandler()
+	.AndAlso();
+
 // injects dependencies into controller
 // and mocks authenticated user
 // and tests for valid model state

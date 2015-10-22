@@ -281,7 +281,7 @@ namespace MyWebApi.Utilities
         }
 
         /// <summary>
-        /// Checks whether two objects are deeply equal by reflecting all their public properties recursively. Resolves successfully value and reference types, overridden Equals method, custom == operator, IComparable and collection properties.
+        /// Checks whether two objects are deeply equal by reflecting all their public properties recursively. Resolves successfully value and reference types, overridden Equals method, custom == operator, IComparable, nested objects and collection properties.
         /// </summary>
         /// <param name="expected">Expected object.</param>
         /// <param name="actual">Actual object.</param>
@@ -360,7 +360,7 @@ namespace MyWebApi.Utilities
         }
 
         /// <summary>
-        /// Checks whether two objects are not deeply equal by reflecting all their public properties recursively. Resolves successfully value and reference types, overridden Equals method, custom == operator, IComparable and collection properties.
+        /// Checks whether two objects are not deeply equal by reflecting all their public properties recursively. Resolves successfully value and reference types, overridden Equals method, custom == operator, IComparable, nested objects and collection properties.
         /// </summary>
         /// <param name="expected">Expected object.</param>
         /// <param name="actual">Actual object.</param>

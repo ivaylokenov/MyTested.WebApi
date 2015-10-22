@@ -7,7 +7,11 @@
 
  - Global configuration
   - [Using custom HttpConfiguration](#using-custom-httpconfiguration)
- - Test case configuration
+ - Route validations
+  - [Building route request](#building-route-request)
+  - [Testing routes](#testing-routes)
+  - [Testing resolved route values](#testing-resolved-route-values)
+ - Controller test case configuration
   - [Controller instantiation](#controller-instantiation)
   - [HTTP request message] (#http-request-message)
   - [Authenticated user](#authenticated-user)
@@ -43,6 +47,282 @@ You have the option to configure global HttpConfiguration to be used across all 
 
 ```c#
 MyWebApi.IsUsing(httpConfiguration);
+```
+
+[To top](#table-of-contents)
+  
+### Building route request
+
+You can test routes using the internal ASP.NET Web API
+route selecting algorithm but first you need to configure the request:
+
+```c#
+// starts route testing by
+// using global HTTP configuration
+MyWebApi
+	.Routes();
+	
+// configures the HTTP configuration 
+// for a specific test case by passing it to the metho
+MyWebApi
+	.Routes(httpConfiguration);
+
+// sets the HTTP request message to test
+// by providing instance of HttpRequestMessage
+MyWebApi
+	.Routes()
+	.ShouldMap(httpRequestMessage);
+	
+// sets the HTTP request message to test
+// by using request builder
+// * see controller request builder for all the available options
+MyWebApi
+	.Routes()
+	.ShouldMap(request => request
+		.WithMethod(HttpMethod.Get)
+		.AndAlso() // AndAlso is not necessary
+		.WithRequestUri("api/Route/To/Test"));
+	
+// sets the URI location to test as string
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test");
+	
+// sets the URI location to test as Uri class
+MyWebApi
+	.Routes()
+	.ShouldMap(uriLocation);
+
+// sets the URI location to test as string
+// and the HTTP method (default is GET) to the request
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithHttpMethod("POST");
+	
+// sets the URI location to test as string
+// and the HTTP method as HttpMethod class to the request
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithHttpMethod(HttpMethod.Post);
+	
+// sets the URI location to test as string
+// and adds custom HTTP request header to the request
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithRequestHeader("SomeHeader", "SomeHeaderValue");
+	
+// sets the URI location to test as string
+// and adds custom HTTP request header with multiple values to the request
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithRequestHeader("SomeHeader", new[] { "SomeHeaderValue", "AnotherHeaderValue" });
+	
+// sets the URI location to test as string
+// and adds custom HTTP headers as dictionary to the request
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithRequestHeaders(someDictionaryWithHeaders);
+	
+// sets the URI location to test as string
+// and adds custom HTTP content header to the request
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithContentHeader("SomeContentHeader", "SomeContentHeaderValue");
+	
+// sets the URI location to test as string
+// and adds custom HTTP content header with multiple values to the request
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithContentHeader("SomeContentHeader", new[] { "SomeContentHeaderValue", "AnotherContentHeaderValue" });
+	
+// sets the URI location to test as string
+// and adds custom HTTP content headers as dictionary to the request
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithContentHeaders(someDictionaryWithContentHeaders);
+	
+// sets the URI location to test as string
+// and adds form URL encoded content to the request
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithFormUrlEncodedContent("First=FirstValue&Second=SecondValue");
+	
+// sets the URI location to test as string
+// and adds JSON content to the request
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithJsonContent(someJsonContent);
+	
+// sets the URI location to test as string
+// and adds custom content to the request
+// with the provided media type
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithContent(someContent, MediaType.ApplicationXml);
+	
+// sets the URI location to test as string
+// and adds custom content to the request
+// with the provided media type as MediaTypeHeaderValue
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithContent(someContent, new MediaTypeHeaderValue("text/plain"));
+	
+// combining them with And() method
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithHttpMethod(HttpMethod.Post)
+	.WithJsonContent(someJsonContent);
+```
+
+[To top](#table-of-contents)
+  
+### Testing routes
+
+```c#
+// tests whether the route does not exist
+MyWebApi
+	.Routes()
+	.ShouldMap("api/NonExisting/Route")
+	.ToNonExistingRoute();
+	
+// tests whether the route is ignored with StopRoutingHandler
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Ignored/Route")
+	.ToIgnoredRoute();
+
+// tests whether the route is not resolved
+// because of not allowed method
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/OnlyGetMethod")
+	.WithHttpMethod(HttpMethod.Post)
+	.ToNotAllowedMethod();
+	
+// tests whether the route is resolved
+// by custom handler
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Custom/Handler/Route")
+	.ToHandlerOfType<CustomHttpHandler>();
+	
+// tests whether the route is not resolved
+// by custom handler
+MyWebApi
+	.Routes()
+	.ShouldMap("api/No/Custom/Handler/Route")
+	.ToNoHandlerOfType<CustomHttpHandler>();
+	
+// tests whether the route is not resolved
+// by any custom handler
+MyWebApi
+	.Routes()
+	.ShouldMap("api/No/Handler/Route")
+	.ToNoHandler();
+
+// tests whether the route is resolved
+// with valid model state
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithHttpMethod(HttpMethod.Post)
+	.WithJsonContent(someJsonContent)
+	.ToValidModelState();
+	
+// tests whether the route is resolved
+// with invalid model state
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithHttpMethod(HttpMethod.Post)
+	.WithJsonContent(someJsonContent)
+	.InvalidModelState();
+	
+// tests whether the route is resolved
+// with invalid model state and specific number of errors
+MyWebApi
+	.Routes()
+	.ShouldMap("api/Route/To/Test")
+	.WithHttpMethod(HttpMethod.Post)
+	.WithJsonContent(someJsonContent)
+	.InvalidModelState(withNumberOfErrors: 5);
+```
+
+[To top](#table-of-contents)
+
+### Testing resolved route values
+
+```c#
+// tests whether the controller and action are correctly resolved
+// * ActionName, RoutePrefix and Route attributes are taken into account
+MyWebApi
+	.Routes()
+	.ShouldMap("api/WebApiController/SomeAction")
+	.To<WebApiController>(c => c.SomeAction());
+	
+// tests whether the controller and action are correctly resolved
+// with all the route parameters
+MyWebApi
+	.Routes()
+	.ShouldMap("api/WebApiController/SomeAction/5")
+	.To<WebApiController>(c => c.SomeAction(5));
+	
+// tests whether the controller and action are correctly resolved
+// with all the route values and a query string
+MyWebApi
+	.Routes()
+	.ShouldMap("api/WebApiController/SomeAction/5?Value=Test")
+	.To<WebApiController>(c => c.SomeAction(5, "Test"));
+	
+// tests whether the controller and action are correctly resolved
+// with model deeply equal to the provided one
+// * model equality resolves successfully value and reference types,
+// * overridden Equals method, custom == operator, IComparable, nested objects and collection properties
+MyWebApi
+	.Routes()
+	.ShouldMap("api/WebApiController/SomeAction")
+	.WithHttpMethod(HttpMethod.Post)
+	.WithJsonContent(@"{""SomeInt"": 1, ""SomeString"": ""Test""}")
+	.To<WebApiController>(c => c.SomeAction(new RequestModel
+	{
+		SomeInt = 1,
+		SomeString = "Test"
+	}));
+	
+// tests whether the controller and action are correctly resolved
+// with parameter and model deeply equal to the provided one
+MyWebApi
+	.Routes()
+	.ShouldMap("api/WebApiController/SomeAction/5")
+	.WithHttpMethod(HttpMethod.Post)
+	.And() // And is not necessary
+	.WithJsonContent(@"{""SomeInt"": 1, ""SomeString"": ""Test""}")
+	.To<WebApiController>(c => c.SomeAction(5, new RequestModel
+	{
+		SomeInt = 1,
+		SomeString = "Test"
+	}));
+	
+// combining tests with AndAlso()
+MyWebApi
+	.Routes()
+	.ShouldMap("api/WebApiController/SomeAction")
+	.To<WebApiController>(c => c.SomeAction());
+	.AndAlso() // AndAlso is not necessary
+	.ToNoHandler();
 ```
 
 [To top](#table-of-contents)
@@ -128,7 +408,7 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
-		.WithFormUrlEncodedContent("first=firstValue&second=secondValue"));
+		.WithFormUrlEncodedContent("First=FirstValue&Second=SecondValue"));
 		
 // adding JSON content to the request message
 MyWebApi
@@ -180,7 +460,25 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
-		.WithHeader(someDictionaryWithHeaders));
+		.WithHeaders(someDictionaryWithHeaders));
+		
+// adding custom content header to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithContentHeader("SomeContentHeader", "SomeContentHeaderValue"));
+		
+// adding custom content header with multiple values to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithContentHeader("SomeContentHeader", new[] { "SomeContentHeaderValue", "AnotherContentHeaderValue" }));
+		
+// adding custom content headers provided as dictionary to the request message
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(request => request
+		.WithContentHeaders(someDictionaryWithContentHeaders));
 		
 // adding HTTP method as string to the request message
 MyWebApi
