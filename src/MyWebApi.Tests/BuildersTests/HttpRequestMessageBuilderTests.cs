@@ -230,21 +230,6 @@ namespace MyWebApi.Tests.BuildersTests
         }
 
         [Test]
-        public void WithHeadersShouldPopulateCorrectHeaders()
-        {
-            var headers = new HttpRequestMessage().Headers;
-            headers.Add(TestHeader, TestHeaderValue);
-
-            var httpRequestMessage = MyWebApi
-                .Controller<WebApiController>()
-                .WithHttpRequestMessage(request => request.WithHeaders(headers))
-                .HttpRequestMessage;
-
-            Assert.IsTrue(httpRequestMessage.Headers.Contains(TestHeader));
-            Assert.IsTrue(httpRequestMessage.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
-        }
-
-        [Test]
         public void WithContentHeaderShouldPopulateCorrectHeader()
         {
             var httpRequestMessage = MyWebApi
@@ -289,23 +274,6 @@ namespace MyWebApi.Tests.BuildersTests
             Assert.IsTrue(httpRequestMessage.Content.Headers.Contains(TestHeader));
             Assert.IsTrue(httpRequestMessage.Content.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
             Assert.IsTrue(httpRequestMessage.Content.Headers.First(h => h.Key == TestHeader).Value.Contains(AnotherTestHeaderValue));
-        }
-
-        [Test]
-        public void WithContentHeadersShouldPopulateCorrectHeaders()
-        {
-            var contentHeaders = new HttpMessageContent(new HttpRequestMessage()).Headers;
-            contentHeaders.Add(TestHeader, TestHeaderValue);
-
-            var httpRequestMessage = MyWebApi
-                .Controller<WebApiController>()
-                .WithHttpRequestMessage(request => request
-                    .WithStringContent(StringContent)
-                    .WithContentHeaders(contentHeaders))
-                .HttpRequestMessage;
-
-            Assert.IsTrue(httpRequestMessage.Content.Headers.Contains(TestHeader));
-            Assert.IsTrue(httpRequestMessage.Content.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
         }
 
         [Test]

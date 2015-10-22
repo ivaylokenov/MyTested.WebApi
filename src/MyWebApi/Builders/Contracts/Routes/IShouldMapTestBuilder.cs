@@ -35,15 +35,11 @@ namespace MyWebApi.Builders.Contracts.Routes
 
         IAndShouldMapTestBuilder WithRequestHeaders(IDictionary<string, IEnumerable<string>> headers);
 
-        IAndShouldMapTestBuilder WithRequestHeaders(HttpRequestHeaders headers);
-
         IAndShouldMapTestBuilder WithContentHeader(string name, string value);
 
         IAndShouldMapTestBuilder WithContentHeader(string name, IEnumerable<string> values);
 
         IAndShouldMapTestBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers);
-
-        IAndShouldMapTestBuilder WithContentHeaders(HttpContentHeaders headers);
 
         IAndShouldMapTestBuilder WithFormUrlEncodedContent(string content);
 

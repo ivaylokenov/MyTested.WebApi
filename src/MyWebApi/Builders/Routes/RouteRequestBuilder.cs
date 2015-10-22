@@ -17,7 +17,6 @@
 namespace MyWebApi.Builders.Routes
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using Common.Extensions;
@@ -54,11 +53,6 @@ namespace MyWebApi.Builders.Routes
             return this;
         }
 
-        public IAndShouldMapTestBuilder WithRequestHeaders(HttpRequestHeaders headers)
-        {
-            return this.WithRequestHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
-        }
-
         public IAndShouldMapTestBuilder WithContentHeader(string name, string value)
         {
             this.requestMessage.Content.Headers.Add(name, value);
@@ -75,11 +69,6 @@ namespace MyWebApi.Builders.Routes
         {
             headers.ForEach(h => this.WithContentHeader(h.Key, h.Value));
             return this;
-        }
-
-        public IAndShouldMapTestBuilder WithContentHeaders(HttpContentHeaders headers)
-        {
-            return this.WithContentHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
 
         public IAndShouldMapTestBuilder WithFormUrlEncodedContent(string content)

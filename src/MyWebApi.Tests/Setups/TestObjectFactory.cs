@@ -29,6 +29,7 @@ namespace MyWebApi.Tests.Setups
     using Models;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
+    using Routes;
 
     public static class TestObjectFactory
     {
@@ -39,6 +40,12 @@ namespace MyWebApi.Tests.Setups
             var config = new HttpConfiguration();
 
             config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "HeaderRoute",
+                routeTemplate: "api/HeaderRoute",
+                defaults: new { controller = "Route", action = "HeaderRoute" },
+                constraints: new { controller = new HeaderRouteConstraint("CustomHeader", "CustomHeaderValue") });
 
             config.Routes.MapHttpRoute(
                 name: "TestRoute",

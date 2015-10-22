@@ -16,6 +16,7 @@
 
 namespace MyWebApi.Tests.BuildersTests.RoutesTests
 {
+    using System.Collections.Generic;
     using System.Net.Http;
     using System.Web.Http.Routing;
     using Exceptions;
@@ -28,6 +29,9 @@ namespace MyWebApi.Tests.BuildersTests.RoutesTests
     [TestFixture]
     public class RoutesTestBuilderTests
     {
+        private const string CustomHeader = "CustomHeader";
+        private const string CustomHeaderValue = "CustomHeaderValue";
+
         [Test]
         public void WithCustomConfigurationShouldWorkCorrectly()
         {
@@ -597,6 +601,84 @@ namespace MyWebApi.Tests.BuildersTests.RoutesTests
                 .To<RouteController>(c => c.GetMethod())
                 .AndAlso()
                 .ToNoHandler();
+        }
+
+        [Test]
+        public void WithRequestHeaderShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/HeaderRoute")
+                .WithRequestHeader(CustomHeader, CustomHeaderValue)
+                .To<RouteController>(c => c.HeaderRoute());
+        }
+
+        [Test]
+        public void WithRequestHeaderMultipleValuesShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/HeaderRoute")
+                .WithRequestHeader(CustomHeader, new[] { CustomHeaderValue })
+                .To<RouteController>(c => c.HeaderRoute());
+        }
+
+        [Test]
+        public void WithRequestHeadersDictionaryShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/HeaderRoute")
+                .WithRequestHeaders(new Dictionary<string, IEnumerable<string>>
+                {
+                    { CustomHeader, new List<string> { CustomHeaderValue } }
+                })
+                .To<RouteController>(c => c.HeaderRoute());
+        }
+
+        [Test]
+        public void WithRequestContentHeaderShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/HeaderRoute")
+                .WithContent(string.Empty, MediaType.TextPlain)
+                .WithContentHeader(CustomHeader, CustomHeaderValue)
+                .To<RouteController>(c => c.HeaderRoute());
+        }
+
+        [Test]
+        public void WithRequestContentHeaderMultipleValuesShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/HeaderRoute")
+                .WithContent(string.Empty, MediaType.TextPlain)
+                .WithContentHeader(CustomHeader, new[] { CustomHeaderValue })
+                .To<RouteController>(c => c.HeaderRoute());
+        }
+
+        [Test]
+        public void WithRequestContentHeadersDictionaryShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/HeaderRoute")
+                .WithContent(string.Empty, MediaType.TextPlain)
+                .WithContentHeaders(new Dictionary<string, IEnumerable<string>>
+                {
+                    { CustomHeader, new List<string> { CustomHeaderValue } }
+                })
+                .To<RouteController>(c => c.HeaderRoute());
+        }
+
+        [Test]
+        public void RouteShouldNotMatchWithoutHeaders()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/HeaderRoute")
+                .ToNonExistingRoute();
         }
     }
 }

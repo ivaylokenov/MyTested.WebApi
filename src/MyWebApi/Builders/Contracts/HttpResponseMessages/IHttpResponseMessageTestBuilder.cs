@@ -21,7 +21,6 @@ namespace MyWebApi.Builders.Contracts.HttpResponseMessages
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Formatting;
-    using System.Net.Http.Headers;
     using Base;
     using Models;
 
@@ -104,13 +103,6 @@ namespace MyWebApi.Builders.Contracts.HttpResponseMessages
         /// <param name="headers">Dictionary containing response headers.</param>
         /// <returns>The same HTTP response message test builder.</returns>
         IAndHttpResponseMessageTestBuilder ContainingHeaders(IDictionary<string, IEnumerable<string>> headers);
-
-        /// <summary>
-        /// Tests whether the HTTP response message contains response headers.
-        /// </summary>
-        /// <param name="headers">HTTP response headers.</param>
-        /// <returns>The same HTTP response message test builder.</returns>
-        IAndHttpResponseMessageTestBuilder ContainingHeaders(HttpResponseHeaders headers);
 
         /// <summary>
         /// Tests whether HTTP response message status code is the same as the provided HttpStatusCode.

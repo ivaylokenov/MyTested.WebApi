@@ -116,6 +116,7 @@
     <Compile Include="Setups\Models\IResponseModel.cs" />
     <Compile Include="Setups\Models\NestedCollection.cs" />
     <Compile Include="Setups\Models\NestedModel.cs" />
+    <Compile Include="Setups\Routes\HeaderRouteConstraint.cs" />
     <Compile Include="Setups\Services\AnotherInjectedService.cs" />
     <Compile Include="Setups\Services\IAnotherInjectedService.cs" />
     <Compile Include="Setups\Services\IInjectedService.cs" />

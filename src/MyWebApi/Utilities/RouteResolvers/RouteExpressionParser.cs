@@ -16,7 +16,6 @@
 
 namespace MyWebApi.Utilities.RouteResolvers
 {
-    using System;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Web.Http;

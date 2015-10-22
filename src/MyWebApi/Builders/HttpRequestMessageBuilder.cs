@@ -243,16 +243,6 @@ namespace MyWebApi.Builders
         }
 
         /// <summary>
-        /// Adds content headers to the built HTTP request message.
-        /// </summary>
-        /// <param name="headers">Headers represented by HttpRequestHeaders type.</param>
-        /// <returns>The same HTTP request message builder.</returns>
-        public IAndHttpRequestMessageBuilder WithContentHeaders(HttpContentHeaders headers)
-        {
-            return this.WithContentHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
-        }
-
-        /// <summary>
         /// Adds method to the built HTTP request message.
         /// </summary>
         /// <param name="method">HTTP method represented by string.</param>
