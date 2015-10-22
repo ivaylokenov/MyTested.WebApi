@@ -46,6 +46,7 @@ namespace MyApp.Tests.Controllers
 ```
 
 The example uses NUnit but you can use whatever testing framework you want.
+Basically, the framework throws an unhandled exception if the assertion does not pass and the test fails.
 
 Here are some random examples of what the fluent testing API is capable of:
 
@@ -64,7 +65,8 @@ MyWebApi
 	}))
 	.AndAlso()
 	.ToNoHandler()
-	.AndAlso();
+	.AndAlso()
+	.ToValidModelState();
 
 // injects dependencies into controller
 // and mocks authenticated user
