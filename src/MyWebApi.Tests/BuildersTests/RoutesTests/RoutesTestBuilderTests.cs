@@ -18,6 +18,7 @@ namespace MyWebApi.Tests.BuildersTests.RoutesTests
 {
     using System.Collections.Generic;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Web.Http.Routing;
     using Exceptions;
     using NUnit.Framework;
@@ -177,6 +178,23 @@ namespace MyWebApi.Tests.BuildersTests.RoutesTests
                 .WithHttpMethod(HttpMethod.Post)
                 .WithJsonContent(
                     @"{""Integer"": 1, ""RequiredString"": ""Test"", ""NonRequiredString"": ""AnotherTest"", ""NotValidateInteger"": 2}")
+                .To<RouteController>(c => c.PostMethodWithQueryStringAndModel("test", new RequestModel
+                {
+                    Integer = 1,
+                    RequiredString = "Test",
+                    NonRequiredString = "AnotherTest",
+                    NotValidateInteger = 2
+                }));
+        }
+
+        [Test]
+        public void ToShouldResolveCorrectyWithFormUrlEncodedContentAndQueryString()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/Route/PostMethodWithQueryStringAndModel?value=test")
+                .WithHttpMethod(HttpMethod.Post)
+                .WithFormUrlEncodedContent("Integer=1&RequiredString=Test&NonRequiredString=AnotherTest&NotValidateInteger=2")
                 .To<RouteController>(c => c.PostMethodWithQueryStringAndModel("test", new RequestModel
                 {
                     Integer = 1,
@@ -642,7 +660,7 @@ namespace MyWebApi.Tests.BuildersTests.RoutesTests
             MyWebApi
                 .Routes()
                 .ShouldMap("api/HeaderRoute")
-                .WithContent(string.Empty, MediaType.TextPlain)
+                .WithContent(string.Empty, new MediaTypeHeaderValue(MediaType.TextPlain))
                 .WithContentHeader(CustomHeader, CustomHeaderValue)
                 .To<RouteController>(c => c.HeaderRoute());
         }
