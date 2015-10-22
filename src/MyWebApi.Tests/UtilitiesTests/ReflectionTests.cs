@@ -463,7 +463,8 @@ namespace MyWebApi.Tests.UtilitiesTests
                     Integer = 1,
                     String = "test1",
                     Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
-                }, new NestedModel
+                }, 
+                new NestedModel
                 {
                     Integer = 1,
                     String = "test1",
@@ -476,7 +477,8 @@ namespace MyWebApi.Tests.UtilitiesTests
                     Integer = 1,
                     String = "test",
                     Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
-                }, new NestedModel
+                },
+                new NestedModel
                 {
                     Integer = 1,
                     String = "test",
@@ -489,7 +491,8 @@ namespace MyWebApi.Tests.UtilitiesTests
                     Integer = 1,
                     String = "test1",
                     Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test2" } }
-                }, new NestedModel
+                },
+                new NestedModel
                 {
                     Integer = 1,
                     String = "test1",
@@ -506,20 +509,23 @@ namespace MyWebApi.Tests.UtilitiesTests
                     new NestedModel
                     {
                         Integer = 1, String = "test1",
-                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
-                    }, new NestedModel
+                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
+                    },
+                    new NestedModel
                     {
                         Integer = 1,
                         String = "test1",
                         Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
                     }
-                }, new List<NestedModel>
+                },
+                new List<NestedModel>
                 {
                     new NestedModel
                     {
                         Integer = 1, String = "test1",
-                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
-                    }, new NestedModel
+                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
+                    },
+                    new NestedModel
                     {
                         Integer = 1,
                         String = "test1",
@@ -527,32 +533,63 @@ namespace MyWebApi.Tests.UtilitiesTests
                     }
                 }));
 
-            Assert.IsTrue(Reflection.AreDeeplyEqual(
-                new List<NestedModel>
+            var listOfNestedModels = new List<NestedModel>
+            {
+                new NestedModel
                 {
-                    new NestedModel
-                    {
-                        Integer = 1, String = "test1",
-                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
-                    }, new NestedModel
-                    {
-                        Integer = 1,
-                        String = "test1",
-                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
-                    }
-                }, new[]
+                    Integer = 1,
+                    String = "test1",
+                    Nested =
+                        new NestedModel
+                        {
+                            Integer = 2,
+                            String = "test2",
+                            Nested = new NestedModel { Integer = 3, String = "test3" }
+                        }
+                },
+                new NestedModel
                 {
-                    new NestedModel
-                    {
-                        Integer = 1, String = "test1",
-                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
-                    }, new NestedModel
-                    {
-                        Integer = 1,
-                        String = "test1",
-                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
-                    }
-                }));
+                    Integer = 1,
+                    String = "test1",
+                    Nested =
+                        new NestedModel
+                        {
+                            Integer = 2,
+                            String = "test2",
+                            Nested = new NestedModel { Integer = 3, String = "test3" }
+                        }
+                }
+            };
+
+            var arrayOfNestedModels = new[]
+            {
+                new NestedModel
+                {
+                    Integer = 1,
+                    String = "test1",
+                    Nested =
+                        new NestedModel
+                        {
+                            Integer = 2,
+                            String = "test2",
+                            Nested = new NestedModel { Integer = 3, String = "test3" }
+                        }
+                },
+                new NestedModel
+                {
+                    Integer = 1,
+                    String = "test1",
+                    Nested =
+                        new NestedModel
+                        {
+                            Integer = 2,
+                            String = "test2",
+                            Nested = new NestedModel { Integer = 3, String = "test3" }
+                        }
+                }
+            };
+
+            Assert.IsTrue(Reflection.AreDeeplyEqual(listOfNestedModels, arrayOfNestedModels));
 
             Assert.IsTrue(Reflection.AreDeeplyEqual(
                 new NestedCollection
@@ -564,7 +601,7 @@ namespace MyWebApi.Tests.UtilitiesTests
                         new NestedModel
                         {
                             Integer = 1, String = "test1",
-                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
+                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
                         }, new NestedModel
                         {
                             Integer = 1,
@@ -602,7 +639,7 @@ namespace MyWebApi.Tests.UtilitiesTests
                         new NestedModel
                         {
                             Integer = 1, String = "test1",
-                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
+                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
                         }, new NestedModel
                         {
                             Integer = 1,
@@ -620,7 +657,7 @@ namespace MyWebApi.Tests.UtilitiesTests
                         new NestedModel
                         {
                             Integer = 1, String = "test1",
-                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
+                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
                         }, new NestedModel
                         {
                             Integer = 1,
@@ -636,19 +673,20 @@ namespace MyWebApi.Tests.UtilitiesTests
                     new NestedModel
                     {
                         Integer = 1, String = "test1",
-                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
+                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
                     }, new NestedModel
                     {
                         Integer = 1,
                         String = "test1",
                         Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
                     }
-                }, new List<NestedModel>
+                },
+                new List<NestedModel>
                 {
                     new NestedModel
                     {
                         Integer = 1, String = "test2",
-                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
+                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
                     }, new NestedModel
                     {
                         Integer = 1,
@@ -657,32 +695,63 @@ namespace MyWebApi.Tests.UtilitiesTests
                     }
                 }));
 
-            Assert.IsFalse(Reflection.AreDeeplyEqual(
-                new List<NestedModel>
+            listOfNestedModels = new List<NestedModel>
+            {
+                new NestedModel
                 {
-                    new NestedModel
-                    {
-                        Integer = 1, String = "test1",
-                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
-                    }, new NestedModel
-                    {
-                        Integer = 1,
-                        String = "test1",
-                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
-                    }
-                }, new[]
+                    Integer = 1,
+                    String = "test1",
+                    Nested =
+                        new NestedModel
+                        {
+                            Integer = 2,
+                            String = "test2",
+                            Nested = new NestedModel { Integer = 3, String = "test3" }
+                        }
+                },
+                new NestedModel
                 {
-                    new NestedModel
-                    {
-                        Integer = 1, String = "test1",
-                        Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
-                    }, new NestedModel
-                    {
-                        Integer = 1,
-                        String = "test1",
-                        Nested = new NestedModel { Integer = 4, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
-                    }
-                }));
+                    Integer = 1,
+                    String = "test1",
+                    Nested =
+                        new NestedModel
+                        {
+                            Integer = 2,
+                            String = "test2",
+                            Nested = new NestedModel { Integer = 3, String = "test3" }
+                        }
+                }
+            };
+
+            arrayOfNestedModels = new[]
+            {
+                new NestedModel
+                {
+                    Integer = 1,
+                    String = "test1",
+                    Nested =
+                        new NestedModel
+                        {
+                            Integer = 2,
+                            String = "test2",
+                            Nested = new NestedModel { Integer = 3, String = "test3" }
+                        }
+                },
+                new NestedModel
+                {
+                    Integer = 1,
+                    String = "test1",
+                    Nested =
+                        new NestedModel
+                        {
+                            Integer = 4,
+                            String = "test2",
+                            Nested = new NestedModel { Integer = 3, String = "test3" }
+                        }
+                }
+            };
+
+            Assert.IsFalse(Reflection.AreDeeplyEqual(listOfNestedModels, arrayOfNestedModels));
 
             Assert.IsFalse(Reflection.AreDeeplyEqual(
                 new NestedCollection
@@ -694,7 +763,7 @@ namespace MyWebApi.Tests.UtilitiesTests
                         new NestedModel
                         {
                             Integer = 1, String = "test1",
-                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
+                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
                         }, new NestedModel
                         {
                             Integer = 1,
@@ -712,7 +781,7 @@ namespace MyWebApi.Tests.UtilitiesTests
                         new NestedModel
                         {
                             Integer = 1, String = "test1",
-                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
+                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
                         }, new NestedModel
                         {
                             Integer = 1,
@@ -732,7 +801,7 @@ namespace MyWebApi.Tests.UtilitiesTests
                         new NestedModel
                         {
                             Integer = 1, String = "test1",
-                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
+                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
                         }, new NestedModel
                         {
                             Integer = 1,
@@ -750,7 +819,7 @@ namespace MyWebApi.Tests.UtilitiesTests
                         new NestedModel
                         {
                             Integer = 1, String = "test1",
-                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3"}}
+                            Nested = new NestedModel { Integer = 2, String = "test2", Nested = new NestedModel { Integer = 3, String = "test3" } }
                         }, new NestedModel
                         {
                             Integer = 1,

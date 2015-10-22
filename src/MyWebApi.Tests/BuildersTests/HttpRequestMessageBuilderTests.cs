@@ -246,11 +246,16 @@ namespace MyWebApi.Tests.BuildersTests
         [Test]
         public void WithContentHeaderAndMultipleValuesShouldPopulateCorrectHeader()
         {
+            var headers = new[]
+            {
+                TestHeaderValue, AnotherTestHeaderValue
+            };
+
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request
                     .WithStringContent(StringContent)
-                    .WithContentHeader(TestHeader, new[] { TestHeaderValue, AnotherTestHeaderValue }))
+                    .WithContentHeader(TestHeader, headers))
                 .HttpRequestMessage;
 
             Assert.IsTrue(httpRequestMessage.Content.Headers.Contains(TestHeader));

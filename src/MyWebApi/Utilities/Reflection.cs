@@ -447,7 +447,6 @@ namespace MyWebApi.Utilities
                 }
             }
 
-
             return false;
         }
 

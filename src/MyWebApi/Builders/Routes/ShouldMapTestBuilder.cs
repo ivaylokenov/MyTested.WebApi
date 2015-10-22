@@ -33,6 +33,8 @@ namespace MyWebApi.Builders.Routes
     /// </summary>
     public partial class ShouldMapTestBuilder : BaseRouteTestBuilder, IAndShouldMapTestBuilder, IAndResolvedRouteTestBuilder
     {
+        private const string ExpectedModelStateErrorMessage = "have valid model state with no errors";
+
         private readonly HttpRequestMessage requestMessage;
 
         private LambdaExpression actionCallExpression;
@@ -112,11 +114,13 @@ namespace MyWebApi.Builders.Routes
             if (actualInfo.IsResolved
                 || actualInfo.IsIgnored)
             {
+                var actualErrorMessage = string.Format(
+                    "in fact it was {0}",
+                    actualInfo.IsIgnored ? "ignored with StopRoutingHandler" : "resolved successfully");
+
                 this.ThrowNewRouteAssertionException(
                     "be non-existing",
-                    string.Format(
-                        "in fact it was {0}",
-                        actualInfo.IsIgnored ? "ignored with StopRoutingHandler" : "resolved successfully"));
+                    actualErrorMessage);
             }
         }
 
@@ -128,11 +132,13 @@ namespace MyWebApi.Builders.Routes
             var actualInfo = this.GetActualRouteInfo();
             if (!actualInfo.IsIgnored)
             {
+                var actualErrorMessage = string.Format(
+                    "in fact {0}",
+                    actualInfo.IsResolved ? "it was resolved successfully" : actualInfo.UnresolvedError);
+
                 this.ThrowNewRouteAssertionException(
                     "be ignored with StopRoutingHandler",
-                    string.Format(
-                        "in fact {0}",
-                        actualInfo.IsResolved ? "it was resolved successfully" : actualInfo.UnresolvedError));
+                    actualErrorMessage);
             }
         }
 
@@ -207,20 +213,18 @@ namespace MyWebApi.Builders.Routes
         /// <returns>The same route test builder.</returns>
         public IAndResolvedRouteTestBuilder ToValidModelState()
         {
-            const string expectedErrorMessage = "have valid model state with no errors";
-
             var actualInfo = this.GetActualRouteInfo();
             if (!actualInfo.IsResolved || actualInfo.IsIgnored)
             {
                 this.ThrowNewRouteAssertionException(
-                    expectedErrorMessage,
+                    ExpectedModelStateErrorMessage,
                     actualInfo.IsIgnored ? "it was ignored with StopRoutingHandler" : actualInfo.UnresolvedError);
             }
 
             if (!actualInfo.ModelState.IsValid)
             {
                 this.ThrowNewRouteAssertionException(
-                    expectedErrorMessage,
+                    ExpectedModelStateErrorMessage,
                     "it had some");
             }
 
@@ -298,7 +302,7 @@ namespace MyWebApi.Builders.Routes
                 this.ThrowNewRouteAssertionException(actual: "it was ignored with StopRoutingHandler");
             }
 
-            if (Reflection.AreDifferentTypes(expectedRouteInfo.Controller, actualRouteInfo.Controller))
+            if (Reflection.AreDifferentTypes(this.expectedRouteInfo.Controller, this.actualRouteInfo.Controller))
             {
                 this.ThrowNewRouteAssertionException(actual: string.Format(
                     "instead matched {0}",

@@ -47,7 +47,8 @@ namespace MyWebApi.Utilities
         {
             var methodCallExpression = GetMethodCallExpression(expression);
             return methodCallExpression.Arguments
-                .Zip(methodCallExpression.Method.GetParameters(), 
+                .Zip(
+                    methodCallExpression.Method.GetParameters(), 
                     (m, a) => new
                     {
                         a.Name,

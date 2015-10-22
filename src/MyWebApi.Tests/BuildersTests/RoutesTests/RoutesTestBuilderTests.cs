@@ -172,13 +172,15 @@ namespace MyWebApi.Tests.BuildersTests.RoutesTests
                 .WithHttpMethod(HttpMethod.Post)
                 .WithJsonContent(
                     @"{""Integer"": 1, ""RequiredString"": ""Test"", ""NonRequiredString"": ""AnotherTest"", ""NotValidateInteger"": 2}")
-                .To<RouteController>(c => c.PostMethodWithParameterAndModel(5, new RequestModel
-                {
-                    Integer = 1,
-                    RequiredString = "Test",
-                    NonRequiredString = "AnotherTest",
-                    NotValidateInteger = 2
-                }));
+                .To<RouteController>(c => c.PostMethodWithParameterAndModel(
+                    5, 
+                    new RequestModel
+                    {
+                        Integer = 1,
+                        RequiredString = "Test",
+                        NonRequiredString = "AnotherTest",
+                        NotValidateInteger = 2
+                    }));
         }
 
         [Test]
@@ -190,13 +192,15 @@ namespace MyWebApi.Tests.BuildersTests.RoutesTests
                 .WithHttpMethod(HttpMethod.Post)
                 .WithJsonContent(
                     @"{""Integer"": 1, ""RequiredString"": ""Test"", ""NonRequiredString"": ""AnotherTest"", ""NotValidateInteger"": 2}")
-                .To<RouteController>(c => c.PostMethodWithQueryStringAndModel("test", new RequestModel
-                {
-                    Integer = 1,
-                    RequiredString = "Test",
-                    NonRequiredString = "AnotherTest",
-                    NotValidateInteger = 2
-                }));
+                .To<RouteController>(c => c.PostMethodWithQueryStringAndModel(
+                    "test", 
+                    new RequestModel
+                    {
+                        Integer = 1,
+                        RequiredString = "Test",
+                        NonRequiredString = "AnotherTest",
+                        NotValidateInteger = 2
+                    }));
         }
 
         [Test]
@@ -207,13 +211,15 @@ namespace MyWebApi.Tests.BuildersTests.RoutesTests
                 .ShouldMap("api/Route/PostMethodWithQueryStringAndModel?value=test")
                 .WithHttpMethod(HttpMethod.Post)
                 .WithFormUrlEncodedContent("Integer=1&RequiredString=Test&NonRequiredString=AnotherTest&NotValidateInteger=2")
-                .To<RouteController>(c => c.PostMethodWithQueryStringAndModel("test", new RequestModel
-                {
-                    Integer = 1,
-                    RequiredString = "Test",
-                    NonRequiredString = "AnotherTest",
-                    NotValidateInteger = 2
-                }));
+                .To<RouteController>(c => c.PostMethodWithQueryStringAndModel(
+                    "test", 
+                    new RequestModel
+                    {
+                        Integer = 1,
+                        RequiredString = "Test",
+                        NonRequiredString = "AnotherTest",
+                        NotValidateInteger = 2
+                    }));
         }
 
         [Test]
@@ -288,13 +294,15 @@ namespace MyWebApi.Tests.BuildersTests.RoutesTests
                 .And()
                 .WithJsonContent(
                     @"{""Integer"": 1, ""RequiredString"": ""Test"", ""NonRequiredString"": ""AnotherTest"", ""NotValidateInteger"": 2}")
-                .To<RouteController>(c => c.PostMethodWithQueryStringAndModel("test", new RequestModel
-                {
-                    Integer = 1,
-                    RequiredString = "Test2",
-                    NonRequiredString = "AnotherTest",
-                    NotValidateInteger = 2
-                }));
+                .To<RouteController>(c => c.PostMethodWithQueryStringAndModel(
+                    "test",
+                    new RequestModel
+                    {
+                        Integer = 1,
+                        RequiredString = "Test2",
+                        NonRequiredString = "AnotherTest",
+                        NotValidateInteger = 2
+                    }));
         }
 
         [Test]

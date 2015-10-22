@@ -24,7 +24,6 @@ namespace MyWebApi.Tests.Setups.Models
 
         public string String { get; set; }
 
-
         public int CompareTo(object obj)
         {
             var objAsComparableModel = (ComparableModel)obj;

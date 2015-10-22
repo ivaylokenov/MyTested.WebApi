@@ -48,12 +48,14 @@ namespace MyWebApi.Common.Routes
             this.Action = action;
             this.HttpMessageHandler = httpMessageHandler;
             this.ModelState = modelState;
-            this.ActionArguments = actionArguments.ToDictionary(a => a.Key, a => new MethodArgumentInfo
-            {
-                Name = a.Key,
-                Type = a.Value != null ? a.Value.GetType() : null,
-                Value = a.Value
-            });
+            this.ActionArguments = actionArguments.ToDictionary(
+                a => a.Key,
+                a => new MethodArgumentInfo
+                {
+                    Name = a.Key,
+                    Type = a.Value != null ? a.Value.GetType() : null,
+                    Value = a.Value
+                });
         }
 
         /// <summary>
