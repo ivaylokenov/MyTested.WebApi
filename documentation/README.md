@@ -63,7 +63,7 @@ MyWebApi
 	.Routes();
 	
 // configures the HTTP configuration 
-// for a specific test case by passing it to the metho
+// for a specific test case by passing it to the method
 MyWebApi
 	.Routes(httpConfiguration);
 
@@ -130,6 +130,7 @@ MyWebApi
 	
 // sets the URI location to test as string
 // and adds custom HTTP content header to the request
+// * adding content headers requires content to be initialized and set
 MyWebApi
 	.Routes()
 	.ShouldMap("api/Route/To/Test")
@@ -137,6 +138,7 @@ MyWebApi
 	
 // sets the URI location to test as string
 // and adds custom HTTP content header with multiple values to the request
+// * adding content headers requires content to be initialized and set
 MyWebApi
 	.Routes()
 	.ShouldMap("api/Route/To/Test")
@@ -144,6 +146,7 @@ MyWebApi
 	
 // sets the URI location to test as string
 // and adds custom HTTP content headers as dictionary to the request
+// * adding content headers requires content to be initialized and set
 MyWebApi
 	.Routes()
 	.ShouldMap("api/Route/To/Test")
@@ -463,18 +466,21 @@ MyWebApi
 		.WithHeaders(someDictionaryWithHeaders));
 		
 // adding custom content header to the request message
+// * adding content headers requires content to be initialized and set
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
 		.WithContentHeader("SomeContentHeader", "SomeContentHeaderValue"));
 		
 // adding custom content header with multiple values to the request message
+// * adding content headers requires content to be initialized and set
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
 		.WithContentHeader("SomeContentHeader", new[] { "SomeContentHeaderValue", "AnotherContentHeaderValue" }));
 		
 // adding custom content headers provided as dictionary to the request message
+// * adding content headers requires content to be initialized and set
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
@@ -1261,13 +1267,40 @@ MyWebApi
 	.ContainingHeaders(someDictionaryWithHeaders);
 	
 // tests whether the action returns HttpResponseMessage
-// containing headers provided as HttpResponseHeaders
+// containing content header with specific name
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
 	.ShouldReturn()
 	.HttpResponseMessage()
-	.ContainingHeaders(someHttpReponseHeaders);
+	.ContainingContentHeader("SomeContentHeader");
+	
+// tests whether the action returns HttpResponseMessage
+// containing content header with specific name and value
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.ContainingContentHeader("SomeContentHeader", "SomeContentValue");
+	
+// tests whether the action returns HttpResponseMessage
+// containing content header with specific name and values
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.ContainingContentHeader("SomeContentHeader", new[] { "SomeContentHeaderValue", "AnotherContentHeaderValue" });
+	
+// tests whether the action returns HttpResponseMessage
+// containing content headers provided as dictionary
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.ContainingContentHeaders(someDictionaryWithContentHeaders);
 	
 // tests whether the action returns HttpResponseMessage
 // with specific status code
@@ -1783,8 +1816,18 @@ MyWebApi
 	.Calling(c => c.SomeAction())
 	.ShouldReturn()
 	.Redirect();
+	
+// tests whether the action returns
+// RedirectToRouteResult to specific route values
+// provided by lambda expression
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Redirect()
+	.To<AnotherController>(c => c.AnotherAction("ParameterRouteValue"));
 
-// tests whether the action returns redirect result
+// tests whether the action returns RedirectResult
 // with location provided as string
 MyWebApi
 	.Controller<WebApiController>()
@@ -1793,7 +1836,7 @@ MyWebApi
 	.Redirect()
 	.AtLocation("http://somehost.com/someuri/1?query=someQuery");
 
-// tests whether the action returns redirect result
+// tests whether the action returns RedirectResult
 // with location provided as URI
 MyWebApi
 	.Controller<WebApiController>()
@@ -1802,7 +1845,7 @@ MyWebApi
 	.Redirect()
 	.AtLocation(someUri);
 
-// tests whether the action returns redirect result
+// tests whether the action returns RedirectResult
 // with location provided as URI builder
 MyWebApi
 	.Controller<WebApiController>()
@@ -2005,6 +2048,16 @@ MyWebApi
 	.ShouldReturn()
 	.Created()
 	.WithResponseModelOfType<ResponseModel>();
+	
+// tests whether the action returns
+// CreatedAtRouteNegotiatedContentResult<T> to specific route values
+// provided by lambda expression
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.At<AnotherController>(c => c.AnotherAction("ParameterRouteValue"));
 	
 // tests whether the action returns created result
 // with DefaultContentNegotiator

@@ -19,9 +19,7 @@ namespace MyWebApi.Builders
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Net.Http;
-    using System.Net.Http.Headers;
     using System.Text;
     using Common.Extensions;
     using Contracts.HttpRequests;
@@ -217,7 +215,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithContentHeader(string name, string value)
         {
-            this.ValidateContentBeforeAddingContentHeaders();
+            HttpRequestMessageValidator.ValidateContent(this.requestMessage);
             this.requestMessage.Content.Headers.Add(name, value);
             return this;
         }
@@ -230,7 +228,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithContentHeader(string name, IEnumerable<string> values)
         {
-            this.ValidateContentBeforeAddingContentHeaders();
+            HttpRequestMessageValidator.ValidateContent(this.requestMessage);
             this.requestMessage.Content.Headers.Add(name, values);
             return this;
         }
@@ -242,8 +240,6 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
-            this.ValidateContentBeforeAddingContentHeaders();
-            this.requestMessage.Content.Headers.Clear();
             headers.ForEach(h => this.WithContentHeader(h.Key, h.Value));
             return this;
         }
@@ -352,17 +348,6 @@ namespace MyWebApi.Builders
         internal HttpRequestMessage GetHttpRequestMessage()
         {
             return this.requestMessage;
-        }
-
-        private void ValidateContentBeforeAddingContentHeaders()
-        {
-            if (this.requestMessage.Content == null)
-            {
-                this.ThrowNewInvalidHttpRequestMessageException(
-                    "content",
-                    "initialized and set in order to add content headers",
-                    "null");
-            }
         }
 
         private void ThrowNewInvalidHttpRequestMessageException(string propertyName, string expectedValue, string actualValue)

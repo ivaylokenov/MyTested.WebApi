@@ -284,7 +284,7 @@ namespace MyWebApi.Tests.BuildersTests
         [Test]
         [ExpectedException(
             typeof(InvalidHttpRequestMessageException),
-            ExpectedMessage = "When building HttpRequestMessage expected content to be initialized and set in order to add content headers, but instead received null.")]
+            ExpectedMessage = "When building HttpRequestMessage expected content to be initialized and set in order to add content headers.")]
         public void WithContentHeadersShouldThrowExpcetionIfNoContentIsPresent()
         {
             MyWebApi

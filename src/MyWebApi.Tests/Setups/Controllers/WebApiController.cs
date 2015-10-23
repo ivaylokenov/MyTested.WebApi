@@ -112,6 +112,7 @@ namespace MyWebApi.Tests.Setups.Controllers
             };
 
             response.Headers.Add("TestHeader", "TestHeaderValue");
+            response.Content.Headers.Add("TestHeader", "TestHeaderValue");
 
             return response;
         }
@@ -127,6 +128,11 @@ namespace MyWebApi.Tests.Setups.Controllers
                 HttpStatusCode.OK,
                 this.responseModel,
                 TestObjectFactory.GetCustomMediaTypeFormatter());
+        }
+
+        public HttpResponseMessage HttpResponseMessageWithoutContent()
+        {
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
         public HttpResponseMessage HttpResponseMessageWithMediaType()
@@ -287,7 +293,12 @@ namespace MyWebApi.Tests.Setups.Controllers
 
         public IHttpActionResult CreatedAtRouteAction()
         {
-            return this.CreatedAtRoute("Default", new { id = 1 }, this.responseModel);
+            return this.CreatedAtRoute("Redirect", new { action = "WithParameter", id = 1 }, this.responseModel);
+        }
+
+        public IHttpActionResult CreatedAtRouteVoidAction()
+        {
+            return this.CreatedAtRoute("Redirect", new { action = "VoidAction" }, this.responseModel);
         }
 
         public IHttpActionResult RedirectAction()
@@ -302,7 +313,12 @@ namespace MyWebApi.Tests.Setups.Controllers
 
         public IHttpActionResult RedirectToRouteAction()
         {
-            return this.RedirectToRoute("Default", new { id = 1 });
+            return this.RedirectToRoute("Redirect", new { action = "WithParameter", id = 1 });
+        }
+
+        public IHttpActionResult RedirectToRouteVoidAction()
+        {
+            return this.RedirectToRoute("Redirect", new { action = "VoidAction" });
         }
 
         public IHttpActionResult ActionWithException()
@@ -352,6 +368,11 @@ namespace MyWebApi.Tests.Setups.Controllers
             }
 
             return this.Ok(model);
+        }
+
+        public IHttpActionResult OkResultWithParameter(int id)
+        {
+            return this.Ok(id);
         }
 
         public IHttpActionResult OkResultWithInterfaceResponse()
