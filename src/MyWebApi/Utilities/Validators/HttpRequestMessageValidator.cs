@@ -27,7 +27,7 @@ namespace MyWebApi.Utilities.Validators
         /// <summary>
         /// Checks whether content headers can be added to a HttpRequestMessage.
         /// </summary>
-        /// <param name="requestMessage"></param>
+        /// <param name="requestMessage">HttpRequestMessage to validate.</param>
         public static void ValidateContent(HttpRequestMessage requestMessage)
         {
             if (requestMessage.Content == null)

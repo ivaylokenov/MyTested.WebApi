@@ -22,6 +22,7 @@ namespace MyWebApi.Builders
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Formatting;
+    using System.Net.Http.Headers;
     using System.Web.Http;
     using Base;
     using Common.Extensions;
@@ -159,14 +160,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder ContainingHeader(string name)
         {
-            if (!this.ActionResult.Headers.Contains(name))
-            {
-                this.ThrowNewHttpResponseMessageAssertionException(
-                    "headers",
-                    string.Format("to contain {0}", name),
-                    "but none was found");
-            }
-
+            this.ContainingHeader(this.ActionResult.Headers, name);
             return this;
         }
 
@@ -178,16 +172,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder ContainingHeader(string name, string value)
         {
-            this.ContainingHeader(name);
-            var headerValue = this.GetHeaderValues(name).FirstOrDefault(v => v == value);
-            if (headerValue == null)
-            {
-                this.ThrowNewHttpResponseMessageAssertionException(
-                    "headers",
-                    string.Format("to contain {0} with {1} value", name, value),
-                    "none was found");
-            }
-
+            this.ContainingHeader(this.ActionResult.Headers, name, value);
             return this;
         }
 
@@ -199,35 +184,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder ContainingHeader(string name, IEnumerable<string> values)
         {
-            this.ContainingHeader(name);
-            var actualHeaderValuesWithExpectedName = this.GetHeaderValues(name);
-            var expectedValues = values.ToList();
-            var actualValuesCount = actualHeaderValuesWithExpectedName.Count;
-            var expectedValuesCount = expectedValues.Count;
-            if (expectedValuesCount != actualValuesCount)
-            {
-                this.ThrowNewHttpResponseMessageAssertionException(
-                    "headers",
-                    string.Format("to contain {0} with {1} values", name, expectedValuesCount),
-                    string.Format("instead found {0}", actualValuesCount));
-            }
-
-            var sortedActualValues = actualHeaderValuesWithExpectedName.OrderBy(v => v).ToList();
-            var sortedExpectedValues = expectedValues.OrderBy(v => v).ToList();
-
-            for (int i = 0; i < sortedActualValues.Count; i++)
-            {
-                var actualValue = sortedActualValues[i];
-                var expectedValue = sortedExpectedValues[i];
-                if (actualValue != expectedValue)
-                {
-                    this.ThrowNewHttpResponseMessageAssertionException(
-                        "headers",
-                        string.Format("to have {0} with {1} value", name, expectedValue),
-                        "none was found");
-                }
-            }
-
+            this.ContainingHeader(this.ActionResult.Headers, name, values);
             return this;
         }
 
@@ -240,6 +197,58 @@ namespace MyWebApi.Builders
         {
             this.ValidateHeadersCount(headers);
             headers.ForEach(h => this.ContainingHeader(h.Key, h.Value));
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether the HTTP response message contains content header with certain name.
+        /// </summary>
+        /// <param name="name">Name of expected content header.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        public IAndHttpResponseMessageTestBuilder ContainingContentHeader(string name)
+        {
+            this.ValidateContent();
+            this.ContainingHeader(this.ActionResult.Content.Headers, name, isContentHeader: true);
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether the HTTP response message contains content header with certain name and value.
+        /// </summary>
+        /// <param name="name">Name of expected content header.</param>
+        /// <param name="value">Value of expected content header.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        public IAndHttpResponseMessageTestBuilder ContainingContentHeader(string name, string value)
+        {
+            this.ValidateContent();
+            this.ContainingHeader(this.ActionResult.Content.Headers, name, value, isContentHeader: true);
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether the HTTP response message contains content header with certain name and collection of value.
+        /// </summary>
+        /// <param name="name">Name of expected content header.</param>
+        /// <param name="values">Collection of values in the expected content header.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        public IAndHttpResponseMessageTestBuilder ContainingContentHeader(string name, IEnumerable<string> values)
+        {
+            this.ValidateContent();
+            this.ContainingHeader(this.ActionResult.Content.Headers, name, values, isContentHeader: true);
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether the HTTP response message contains content headers provided by dictionary.
+        /// </summary>
+        /// <param name="headers">Dictionary containing content headers.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        public IAndHttpResponseMessageTestBuilder ContainingContentHeaders(
+            IDictionary<string, IEnumerable<string>> headers)
+        {
+            this.ValidateContent();
+            this.ValidateHeadersCount(this.ActionResult.Content.Headers);
+            headers.ForEach(h => this.ContainingContentHeader(h.Key, h.Value));
             return this;
         }
 
@@ -366,9 +375,80 @@ namespace MyWebApi.Builders
             }
         }
 
-        private IList<string> GetHeaderValues(string name)
+        private void ValidateContent()
         {
-            return this.ActionResult.Headers.First(h => h.Key == name).Value.ToList();
+            if (this.ActionResult.Content == null)
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "content",
+                    " to be initialized and set",
+                    "but it was null and no content headers were found");
+            }
+        }
+
+        private void ContainingHeader(HttpHeaders headers, string name, bool isContentHeader = false)
+        {
+            if (!headers.Contains(name))
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    isContentHeader ? "content headers" : "headers",
+                    string.Format("to contain {0}", name),
+                    "but none was found");
+            }
+        }
+
+        private void ContainingHeader(HttpHeaders headers, string name, string value, bool isContentHeader = false)
+        {
+            this.ContainingHeader(name);
+            var headerValue = this.GetHeaderValues(headers, name).FirstOrDefault(v => v == value);
+            if (headerValue == null)
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    isContentHeader ? "content headers" : "headers",
+                    string.Format("to contain {0} with {1} value", name, value),
+                    "none was found");
+            }
+        }
+
+        private void ContainingHeader(
+            HttpHeaders headers,
+            string name,
+            IEnumerable<string> values,
+            bool isContentHeader = false)
+        {
+            this.ContainingHeader(headers, name, isContentHeader);
+            var actualHeaderValuesWithExpectedName = this.GetHeaderValues(headers, name);
+            var expectedValues = values.ToList();
+            var actualValuesCount = actualHeaderValuesWithExpectedName.Count;
+            var expectedValuesCount = expectedValues.Count;
+            if (expectedValuesCount != actualValuesCount)
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    isContentHeader ? "content headers" : "headers",
+                    string.Format("to contain {0} with {1} values", name, expectedValuesCount),
+                    string.Format("instead found {0}", actualValuesCount));
+            }
+
+            var sortedActualValues = actualHeaderValuesWithExpectedName.OrderBy(v => v).ToList();
+            var sortedExpectedValues = expectedValues.OrderBy(v => v).ToList();
+
+            for (int i = 0; i < sortedActualValues.Count; i++)
+            {
+                var actualValue = sortedActualValues[i];
+                var expectedValue = sortedExpectedValues[i];
+                if (actualValue != expectedValue)
+                {
+                    this.ThrowNewHttpResponseMessageAssertionException(
+                        isContentHeader ? "content headers" : "headers",
+                        string.Format("to have {0} with {1} value", name, expectedValue),
+                        "none was found");
+                }
+            }
+        }
+
+        private IList<string> GetHeaderValues(HttpHeaders headers, string name)
+        {
+            return headers.First(h => h.Key == name).Value.ToList();
         }
 
         private void ValidateHeadersCount(IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers)

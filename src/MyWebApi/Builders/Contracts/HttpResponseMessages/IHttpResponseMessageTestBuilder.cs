@@ -105,6 +105,36 @@ namespace MyWebApi.Builders.Contracts.HttpResponseMessages
         IAndHttpResponseMessageTestBuilder ContainingHeaders(IDictionary<string, IEnumerable<string>> headers);
 
         /// <summary>
+        /// Tests whether the HTTP response message contains content header with certain name.
+        /// </summary>
+        /// <param name="name">Name of expected content header.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        IAndHttpResponseMessageTestBuilder ContainingContentHeader(string name);
+
+        /// <summary>
+        /// Tests whether the HTTP response message contains content header with certain name and value.
+        /// </summary>
+        /// <param name="name">Name of expected content header.</param>
+        /// <param name="value">Value of expected content header.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        IAndHttpResponseMessageTestBuilder ContainingContentHeader(string name, string value);
+
+        /// <summary>
+        /// Tests whether the HTTP response message contains content header with certain name and collection of value.
+        /// </summary>
+        /// <param name="name">Name of expected content header.</param>
+        /// <param name="values">Collection of values in the expected content header.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        IAndHttpResponseMessageTestBuilder ContainingContentHeader(string name, IEnumerable<string> values);
+
+        /// <summary>
+        /// Tests whether the HTTP response message contains content headers provided by dictionary.
+        /// </summary>
+        /// <param name="headers">Dictionary containing content headers.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        IAndHttpResponseMessageTestBuilder ContainingContentHeaders(IDictionary<string, IEnumerable<string>> headers);
+
+        /// <summary>
         /// Tests whether HTTP response message status code is the same as the provided HttpStatusCode.
         /// </summary>
         /// <param name="statusCode">Expected status code.</param>
