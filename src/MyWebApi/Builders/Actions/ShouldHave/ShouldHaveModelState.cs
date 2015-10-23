@@ -16,6 +16,7 @@
 
 namespace MyWebApi.Builders.Actions.ShouldHave
 {
+    using System.Linq;
     using Common.Extensions;
     using Contracts.And;
     using Contracts.Models;
@@ -55,7 +56,7 @@ namespace MyWebApi.Builders.Actions.ShouldHave
         /// <returns>Test builder with AndAlso method.</returns>
         public IAndTestBuilder<TActionResult> InvalidModelState(int? withNumberOfErrors = null)
         {
-            var actualModelStateErrors = this.Controller.ModelState.Count;
+            var actualModelStateErrors = this.Controller.ModelState.Values.SelectMany(c => c.Errors).Count();
             if (actualModelStateErrors == 0
                 || (withNumberOfErrors != null && actualModelStateErrors != withNumberOfErrors))
             {

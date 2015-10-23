@@ -43,7 +43,7 @@ namespace MyWebApi.Utilities.Validators
                     string.Format("instead received {0}", location));
             }
 
-            return new Uri(location);
+            return new Uri(location, UriKind.RelativeOrAbsolute);
         }
 
         /// <summary>

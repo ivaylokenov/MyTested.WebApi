@@ -22,7 +22,6 @@ namespace MyWebApi.Builders
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Formatting;
-    using System.Net.Http.Headers;
     using System.Web.Http;
     using Base;
     using Common.Extensions;
@@ -242,16 +241,6 @@ namespace MyWebApi.Builders
             this.ValidateHeadersCount(headers);
             headers.ForEach(h => this.ContainingHeader(h.Key, h.Value));
             return this;
-        }
-
-        /// <summary>
-        /// Tests whether the HTTP response message contains response headers.
-        /// </summary>
-        /// <param name="headers">HTTP response headers.</param>
-        /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder ContainingHeaders(HttpResponseHeaders headers)
-        {
-            return this.ContainingHeaders(headers.ToDictionary(h => h.Key, h => h.Value));
         }
 
         /// <summary>

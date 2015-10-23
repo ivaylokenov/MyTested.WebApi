@@ -84,6 +84,12 @@ namespace MyWebApi
         public const string ApplicationXml = "application/xml";
 
         /// <summary>
+        /// Represents application/x-www-form-urlencoded.
+        /// </summary>
+        [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "*", Justification = "MIME types are not recognised by the spelling checker.")]
+        public const string FormUrlEncoded = "application/x-www-form-urlencoded";
+
+        /// <summary>
         /// Represents application/octet-stream (exe).
         /// </summary>
         [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "*", Justification = "MIME types are not recognised by the spelling checker.")]

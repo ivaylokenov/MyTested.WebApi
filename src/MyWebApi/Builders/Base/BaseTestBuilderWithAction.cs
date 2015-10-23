@@ -85,7 +85,7 @@ namespace MyWebApi.Builders.Base
         }
 
         /// <summary>
-        /// Checks whether the tested action's model state is valid.
+        /// Tests whether the tested action's model state is valid.
         /// </summary>
         protected void CheckValidModelState()
         {

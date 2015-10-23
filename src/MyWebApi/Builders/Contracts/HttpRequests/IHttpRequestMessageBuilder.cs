@@ -20,7 +20,6 @@ namespace MyWebApi.Builders.Contracts.HttpRequests
     using System.Collections.Generic;
     using System.IO;
     using System.Net.Http;
-    using System.Net.Http.Headers;
     using System.Text;
     using Uris;
 
@@ -76,11 +75,33 @@ namespace MyWebApi.Builders.Contracts.HttpRequests
             IEnumerable<KeyValuePair<string, string>> nameValueCollection);
 
         /// <summary>
+        /// Adds HTTP form URL encoded content to the built HTTP request message.
+        /// </summary>
+        /// <param name="queryString">String representing the content.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        IAndHttpRequestMessageBuilder WithFormUrlEncodedContent(string queryString);
+
+        /// <summary>
+        /// Adds JSON content to the built HTTP request message.
+        /// </summary>
+        /// <param name="jsonContent">JSON string.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        IAndHttpRequestMessageBuilder WithJsonContent(string jsonContent);
+
+        /// <summary>
         /// Adds HTTP string content to the built HTTP request message.
         /// </summary>
         /// <param name="content">String content to add.</param>
         /// <returns>The same HTTP request message builder.</returns>
         IAndHttpRequestMessageBuilder WithStringContent(string content);
+
+        /// <summary>
+        /// Adds HTTP string content to the built HTTP request message.
+        /// </summary>
+        /// <param name="content">String content to add.</param>
+        /// <param name="mediaType">Type of media to use in the content.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        IAndHttpRequestMessageBuilder WithStringContent(string content, string mediaType);
 
         /// <summary>
         /// Adds HTTP string content to the built HTTP request message.
@@ -123,11 +144,27 @@ namespace MyWebApi.Builders.Contracts.HttpRequests
         IAndHttpRequestMessageBuilder WithHeaders(IDictionary<string, IEnumerable<string>> headers);
 
         /// <summary>
-        /// Adds headers to the built HTTP request message.
+        /// Adds content header to the built HTTP request message.
         /// </summary>
-        /// <param name="headers">Headers represented by HttpRequestHeaders type.</param>
+        /// <param name="name">Name of the header.</param>
+        /// <param name="value">Value of the header.</param>
         /// <returns>The same HTTP request message builder.</returns>
-        IAndHttpRequestMessageBuilder WithHeaders(HttpRequestHeaders headers);
+        IAndHttpRequestMessageBuilder WithContentHeader(string name, string value);
+
+        /// <summary>
+        /// Adds content header to the built HTTP request message.
+        /// </summary>
+        /// <param name="name">Name of the header.</param>
+        /// <param name="values">Collection of values for the header.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        IAndHttpRequestMessageBuilder WithContentHeader(string name, IEnumerable<string> values);
+
+        /// <summary>
+        /// Adds collection of content headers to the built HTTP request message.
+        /// </summary>
+        /// <param name="headers">Dictionary of headers to add.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        IAndHttpRequestMessageBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers);
 
         /// <summary>
         /// Adds method to the built HTTP request message.
