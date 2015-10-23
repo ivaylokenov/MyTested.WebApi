@@ -1816,8 +1816,18 @@ MyWebApi
 	.Calling(c => c.SomeAction())
 	.ShouldReturn()
 	.Redirect();
+	
+// tests whether the action returns
+// RedirectToRouteResult to specific route values
+// provided by lambda expression
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Redirect()
+	.To<AnotherController>(c => c.AnotherAction("ParameterRouteValue"));;
 
-// tests whether the action returns redirect result
+// tests whether the action returns RedirectResult
 // with location provided as string
 MyWebApi
 	.Controller<WebApiController>()
@@ -1826,7 +1836,7 @@ MyWebApi
 	.Redirect()
 	.AtLocation("http://somehost.com/someuri/1?query=someQuery");
 
-// tests whether the action returns redirect result
+// tests whether the action returns RedirectResult
 // with location provided as URI
 MyWebApi
 	.Controller<WebApiController>()
@@ -1835,7 +1845,7 @@ MyWebApi
 	.Redirect()
 	.AtLocation(someUri);
 
-// tests whether the action returns redirect result
+// tests whether the action returns RedirectResult
 // with location provided as URI builder
 MyWebApi
 	.Controller<WebApiController>()
