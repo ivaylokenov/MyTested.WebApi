@@ -1825,7 +1825,7 @@ MyWebApi
 	.Calling(c => c.SomeAction())
 	.ShouldReturn()
 	.Redirect()
-	.To<AnotherController>(c => c.AnotherAction("ParameterRouteValue"));;
+	.To<AnotherController>(c => c.AnotherAction("ParameterRouteValue"));
 
 // tests whether the action returns RedirectResult
 // with location provided as string
@@ -2048,6 +2048,16 @@ MyWebApi
 	.ShouldReturn()
 	.Created()
 	.WithResponseModelOfType<ResponseModel>();
+	
+// tests whether the action returns
+// CreatedAtRouteNegotiatedContentResult<T> to specific route values
+// provided by lambda expression
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.At<AnotherController>(c => c.AnotherAction("ParameterRouteValue"));
 	
 // tests whether the action returns created result
 // with DefaultContentNegotiator
