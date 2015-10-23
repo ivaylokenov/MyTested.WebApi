@@ -293,7 +293,12 @@ namespace MyWebApi.Tests.Setups.Controllers
 
         public IHttpActionResult CreatedAtRouteAction()
         {
-            return this.CreatedAtRoute("Default", new { id = 1 }, this.responseModel);
+            return this.CreatedAtRoute("Redirect", new { action = "WithParameter", id = 1 }, this.responseModel);
+        }
+
+        public IHttpActionResult CreatedAtRouteVoidAction()
+        {
+            return this.CreatedAtRoute("Redirect", new { action = "VoidAction" }, this.responseModel);
         }
 
         public IHttpActionResult RedirectAction()

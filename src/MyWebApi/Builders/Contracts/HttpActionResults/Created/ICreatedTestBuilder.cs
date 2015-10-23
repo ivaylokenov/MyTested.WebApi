@@ -18,7 +18,9 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.Created
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
     using System.Net.Http.Formatting;
+    using System.Web.Http;
     using Formatters;
     using Models;
     using Uris;
@@ -69,6 +71,12 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.Created
         /// <param name="uriTestBuilder">Builder for expected URI.</param>
         /// <returns>The same created test builder.</returns>
         IAndCreatedTestBuilder AtLocation(Action<IUriTestBuilder> uriTestBuilder);
+
+        IAndCreatedTestBuilder At<TController>(Expression<Func<TController, object>> actionCall)
+            where TController : ApiController;
+
+        IAndCreatedTestBuilder At<TController>(Expression<Action<TController>> actionCall)
+            where TController : ApiController;
 
         /// <summary>
         /// Tests whether created result contains the provided media type formatter.

@@ -19,8 +19,10 @@ namespace MyWebApi.Builders.HttpActionResults.Created
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Net.Http.Formatting;
     using System.Web.Http;
+    using System.Web.Http.Results;
     using Common.Extensions;
     using Contracts.Formatters;
     using Contracts.HttpActionResults.Created;
@@ -36,6 +38,8 @@ namespace MyWebApi.Builders.HttpActionResults.Created
     public class CreatedTestBuilder<TCreatedResult>
         : BaseResponseModelTestBuilder<TCreatedResult>, IAndCreatedTestBuilder
     {
+        private const string RouteName = "route name";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CreatedTestBuilder{TCreatedResult}" /> class.
         /// </summary>
@@ -127,6 +131,18 @@ namespace MyWebApi.Builders.HttpActionResults.Created
             return this;
         }
 
+        public IAndCreatedTestBuilder At<TController>(Expression<Func<TController, object>> actionCall)
+            where TController : ApiController
+        {
+            return this.AtRoute<TController>(actionCall);
+        }
+
+        public IAndCreatedTestBuilder At<TController>(Expression<Action<TController>> actionCall)
+            where TController : ApiController
+        {
+            return this.AtRoute<TController>(actionCall);
+        }
+
         /// <summary>
         /// Tests whether created result contains the provided media type formatter.
         /// </summary>
@@ -208,6 +224,23 @@ namespace MyWebApi.Builders.HttpActionResults.Created
         /// <returns>The same created test builder.</returns>
         public ICreatedTestBuilder AndAlso()
         {
+            return this;
+        }
+
+        private IAndCreatedTestBuilder AtRoute<TController>(LambdaExpression actionCall)
+            where TController : ApiController
+        {
+            RuntimeBinderValidator.ValidateBinding(() =>
+            {
+                var createdAtRouteResult = this.GetActionResultAsDynamic();
+                RouteValidator.Validate<TController>(
+                    createdAtRouteResult.Request,
+                    createdAtRouteResult.RouteName,
+                    createdAtRouteResult.RouteValues,
+                    actionCall,
+                    new Action<string, string, string>(this.ThrowNewCreatedResultAssertionException));
+            });
+
             return this;
         }
 
