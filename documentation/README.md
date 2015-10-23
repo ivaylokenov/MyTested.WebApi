@@ -63,7 +63,7 @@ MyWebApi
 	.Routes();
 	
 // configures the HTTP configuration 
-// for a specific test case by passing it to the metho
+// for a specific test case by passing it to the method
 MyWebApi
 	.Routes(httpConfiguration);
 
