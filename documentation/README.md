@@ -1267,13 +1267,40 @@ MyWebApi
 	.ContainingHeaders(someDictionaryWithHeaders);
 	
 // tests whether the action returns HttpResponseMessage
-// containing headers provided as HttpResponseHeaders
+// containing content header with specific name
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
 	.ShouldReturn()
 	.HttpResponseMessage()
-	.ContainingHeaders(someHttpReponseHeaders);
+	.ContainingContentHeader("SomeContentHeader");
+	
+// tests whether the action returns HttpResponseMessage
+// containing content header with specific name and value
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.ContainingContentHeader("SomeContentHeader", "SomeContentValue");
+	
+// tests whether the action returns HttpResponseMessage
+// containing content header with specific name and values
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.ContainingContentHeader("SomeContentHeader", new[] { "SomeContentHeaderValue", "AnotherContentHeaderValue" });
+	
+// tests whether the action returns HttpResponseMessage
+// containing content headers provided as dictionary
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.ContainingContentHeaders(someDictionaryWithContentHeaders);
 	
 // tests whether the action returns HttpResponseMessage
 // with specific status code
