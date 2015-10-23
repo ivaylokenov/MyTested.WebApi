@@ -112,6 +112,7 @@ namespace MyWebApi.Tests.Setups.Controllers
             };
 
             response.Headers.Add("TestHeader", "TestHeaderValue");
+            response.Content.Headers.Add("TestHeader", "TestHeaderValue");
 
             return response;
         }
@@ -127,6 +128,11 @@ namespace MyWebApi.Tests.Setups.Controllers
                 HttpStatusCode.OK,
                 this.responseModel,
                 TestObjectFactory.GetCustomMediaTypeFormatter());
+        }
+
+        public HttpResponseMessage HttpResponseMessageWithoutContent()
+        {
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
         public HttpResponseMessage HttpResponseMessageWithMediaType()

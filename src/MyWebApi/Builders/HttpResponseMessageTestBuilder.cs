@@ -195,7 +195,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP response message test builder.</returns>
         public IAndHttpResponseMessageTestBuilder ContainingHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
-            this.ValidateHeadersCount(headers);
+            this.ValidateHeadersCount(headers, this.ActionResult.Headers);
             headers.ForEach(h => this.ContainingHeader(h.Key, h.Value));
             return this;
         }
@@ -247,7 +247,7 @@ namespace MyWebApi.Builders
             IDictionary<string, IEnumerable<string>> headers)
         {
             this.ValidateContent();
-            this.ValidateHeadersCount(this.ActionResult.Content.Headers);
+            this.ValidateHeadersCount(headers, this.ActionResult.Content.Headers, isContentHeaders: true);
             headers.ForEach(h => this.ContainingContentHeader(h.Key, h.Value));
             return this;
         }
@@ -381,8 +381,8 @@ namespace MyWebApi.Builders
             {
                 this.ThrowNewHttpResponseMessageAssertionException(
                     "content",
-                    " to be initialized and set",
-                    "but it was null and no content headers were found");
+                    "to be initialized and set",
+                    "it was null and no content headers were found");
             }
         }
 
@@ -393,7 +393,7 @@ namespace MyWebApi.Builders
                 this.ThrowNewHttpResponseMessageAssertionException(
                     isContentHeader ? "content headers" : "headers",
                     string.Format("to contain {0}", name),
-                    "but none was found");
+                    "none was found");
             }
         }
 
@@ -451,17 +451,20 @@ namespace MyWebApi.Builders
             return headers.First(h => h.Key == name).Value.ToList();
         }
 
-        private void ValidateHeadersCount(IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers)
+        private void ValidateHeadersCount(
+            IEnumerable<KeyValuePair<string, IEnumerable<string>>> expectedHeaders,
+            HttpHeaders actualHeaders,
+            bool isContentHeaders = false)
         {
-            var actualHeadersCount = this.ActionResult.Headers.Count();
-            var expectedHeadersCount = headers.Count();
+            var actualHeadersCount = actualHeaders.Count();
+            var expectedHeadersCount = expectedHeaders.Count();
 
             if (expectedHeadersCount != actualHeadersCount)
             {
                 this.ThrowNewHttpResponseMessageAssertionException(
-                        "headers",
-                        string.Format("to be {0}", expectedHeadersCount),
-                        string.Format("were in fact {0}", actualHeadersCount));
+                    isContentHeaders ? "content headers" : "headers",
+                    string.Format("to be {0}", expectedHeadersCount),
+                    string.Format("were in fact {0}", actualHeadersCount));
             }
         }
 

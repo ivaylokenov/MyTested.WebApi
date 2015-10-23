@@ -197,7 +197,7 @@ namespace MyWebApi.Tests.BuildersTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result headers to contain AnotherHeader, but but none was found.")]
+             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result headers to contain AnotherHeader, but none was found.")]
         public void ContainingHeaderShouldThrowExceptionWithIncorrectHeaderName()
         {
             MyWebApi
@@ -302,6 +302,141 @@ namespace MyWebApi.Tests.BuildersTests
                     { "TestHeader", new List<string> { "TestHeaderValue" } },
                     { "AnotherTestHeader", new List<string> { "TestHeaderValue" } }
                 });
+        }
+
+        [Test]
+        public void ContainingContentHeaderShouldNotThrowExceptionWithCorrectHeaderName()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .ContainingContentHeader("TestHeader");
+        }
+
+        [Test]
+        [ExpectedException(
+             typeof(HttpResponseMessageAssertionException),
+             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result content headers to contain AnotherHeader, but none was found.")]
+        public void ContainingContentHeaderShouldThrowExceptionWithIncorrectHeaderName()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .ContainingContentHeader("AnotherHeader");
+        }
+
+        [Test]
+        public void ContainingContentHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValue()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .ContainingContentHeader("TestHeader", "TestHeaderValue");
+        }
+
+        [Test]
+        [ExpectedException(
+             typeof(HttpResponseMessageAssertionException),
+             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result content headers to contain TestHeader with AnotherHeaderValue value, but none was found.")]
+        public void ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValue()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .ContainingContentHeader("TestHeader", "AnotherHeaderValue");
+        }
+
+        [Test]
+        public void ContainingContentHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValues()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .ContainingContentHeader("TestHeader", new[] { "TestHeaderValue" });
+        }
+
+        [Test]
+        [ExpectedException(
+             typeof(HttpResponseMessageAssertionException),
+             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result content headers to have TestHeader with AnotherHeaderValue value, but none was found.")]
+        public void ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValues()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .ContainingContentHeader("TestHeader", new[] { "AnotherHeaderValue" });
+        }
+
+        [Test]
+        [ExpectedException(
+             typeof(HttpResponseMessageAssertionException),
+             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result content headers to contain TestHeader with 2 values, but instead found 1.")]
+        public void ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndOneCorrectAndOneIncorrectValues()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .ContainingContentHeader("TestHeader", new[] { "TestHeaderValue", "AnotherHeaderValue" });
+        }
+
+        [Test]
+        public void ContainingContentHeadersShouldNotThrowExceptionWithCorrectDictionaryOfHeaders()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .ContainingContentHeaders(new Dictionary<string, IEnumerable<string>>
+                {
+                    { "TestHeader", new List<string> { "TestHeaderValue" } }
+                });
+        }
+
+        [Test]
+        [ExpectedException(
+             typeof(HttpResponseMessageAssertionException),
+             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result content headers to be 2, but were in fact 1.")]
+        public void ContainingContentHeadersShouldNotThrowExceptionWithCorrectDictionaryOfHeadersWithInvalidCount()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .ContainingContentHeaders(new Dictionary<string, IEnumerable<string>>
+                {
+                    { "TestHeader", new List<string> { "TestHeaderValue" } },
+                    { "AnotherTestHeader", new List<string> { "TestHeaderValue" } }
+                });
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(HttpResponseMessageAssertionException),
+            ExpectedMessage = "When calling HttpResponseMessageWithoutContent action in WebApiController expected HTTP response message result content to be initialized and set, but it was null and no content headers were found.")]
+        public void ContainingHeaderShouldThrowExceptionIfNoContentIsAdded()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageWithoutContent())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .ContainingContentHeader("AnotherHeader");
         }
 
         [Test]
