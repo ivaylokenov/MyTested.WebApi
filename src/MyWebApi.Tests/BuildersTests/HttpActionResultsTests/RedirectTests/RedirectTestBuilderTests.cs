@@ -136,5 +136,69 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.RedirectTests
                         .AndAlso()
                         .WithQuery("?query=Test"));
         }
+
+        [Test]
+        public void ToShouldWorkCorrectlyWithCorrectActionCall()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.RedirectToRouteAction())
+                .ShouldReturn()
+                .Redirect()
+                .To<NoAttributesController>(c => c.WithParameter(1));
+        }
+
+        [Test]
+        public void ToShouldWorkCorrectlyWithCorrectVoidActionCall()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.RedirectToRouteVoidAction())
+                .ShouldReturn()
+                .Redirect()
+                .To<NoAttributesController>(c => c.VoidAction());
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(RedirectResultAssertionException),
+            ExpectedMessage = "When calling RedirectToRouteAction action in WebApiController expected redirect result to redirect to '/api/Redirect/WithParameter?id=2', but in fact redirected to '/api/Redirect/WithParameter?id=1'.")]
+        public void ToShouldThrowExceptionWithIncorrectActionParameter()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.RedirectToRouteAction())
+                .ShouldReturn()
+                .Redirect()
+                .To<NoAttributesController>(c => c.WithParameter(2));
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(RedirectResultAssertionException),
+            ExpectedMessage = "When calling RedirectToRouteAction action in WebApiController expected redirect result to redirect to a specific URI, but such URI could not be resolved from the 'Redirect' route template.")]
+        public void ToShouldThrowExceptionWithIncorrectActionCall()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.RedirectToRouteAction())
+                .ShouldReturn()
+                .Redirect()
+                .To<RouteController>(c => c.VoidAction());
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(RedirectResultAssertionException),
+            ExpectedMessage = "When calling RedirectAction action in WebApiController expected redirect result to contain route name, but it could not be found.")]
+        public void ToShouldThrowExceptionWithIncorrectActionResult()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.RedirectAction())
+                .ShouldReturn()
+                .Redirect()
+                .To<RouteController>(c => c.VoidAction());
+        }
     }
 }

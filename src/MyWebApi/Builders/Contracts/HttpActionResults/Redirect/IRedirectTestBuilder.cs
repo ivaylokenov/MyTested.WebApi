@@ -17,6 +17,8 @@
 namespace MyWebApi.Builders.Contracts.HttpActionResults.Redirect
 {
     using System;
+    using System.Linq.Expressions;
+    using System.Web.Http;
     using Base;
     using Uris;
 
@@ -45,5 +47,11 @@ namespace MyWebApi.Builders.Contracts.HttpActionResults.Redirect
         /// <param name="uriTestBuilder">Builder for expected URI.</param>
         /// <returns>The same created test builder.</returns>
         IBaseTestBuilderWithCaughtException AtLocation(Action<IUriTestBuilder> uriTestBuilder);
+
+        IBaseTestBuilderWithCaughtException To<TController>(Expression<Func<TController, object>> actionCall)
+            where TController : ApiController;
+
+        IBaseTestBuilderWithCaughtException To<TController>(Expression<Action<TController>> actionCall)
+            where TController : ApiController;
     }
 }

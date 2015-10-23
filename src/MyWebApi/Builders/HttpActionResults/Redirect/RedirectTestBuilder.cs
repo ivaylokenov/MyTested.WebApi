@@ -17,13 +17,19 @@
 namespace MyWebApi.Builders.HttpActionResults.Redirect
 {
     using System;
+    using System.Linq.Expressions;
+    using System.Net.Http;
     using System.Web.Http;
+    using System.Web.Http.Results;
+    using System.Web.Http.Routing;
     using Base;
     using Common.Extensions;
     using Contracts.Base;
     using Contracts.HttpActionResults.Redirect;
+    using Contracts.Routes;
     using Contracts.Uris;
     using Exceptions;
+    using Utilities.RouteResolvers;
     using Utilities.Validators;
 
     /// <summary>
@@ -33,6 +39,9 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
     public class RedirectTestBuilder<TRedirectResult>
         : BaseTestBuilderWithActionResult<TRedirectResult>, IRedirectTestBuilder
     {
+        private const string Location = "location";
+        private const string RouteName = "route name";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RedirectTestBuilder{TRedirectResult}" /> class.
         /// </summary>
@@ -67,8 +76,9 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
         /// <returns>Base test builder.</returns>
         public IBaseTestBuilderWithCaughtException AtLocation(Uri location)
         {
+            var redirrectResult = this.GetRedirectResult<RedirectResult>(Location);
             LocationValidator.ValidateUri(
-                this.ActionResult,
+                redirrectResult,
                 location,
                 this.ThrowNewRedirectResultAssertionException);
 
@@ -82,9 +92,52 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
         /// <returns>Base test builder.</returns>
         public IBaseTestBuilderWithCaughtException AtLocation(Action<IUriTestBuilder> uriTestBuilder)
         {
+            var redirrectResult = this.GetRedirectResult<RedirectResult>(Location);
             LocationValidator.ValidateLocation(
-                this.ActionResult,
+                redirrectResult,
                 uriTestBuilder,
+                this.ThrowNewRedirectResultAssertionException);
+
+            return this;
+        }
+
+        public IBaseTestBuilderWithCaughtException To<TController>(Expression<Func<TController, object>> actionCall)
+            where TController : ApiController
+        {
+            return this.RedirectTo<TController>(actionCall);
+        }
+
+        public IBaseTestBuilderWithCaughtException To<TController>(Expression<Action<TController>> actionCall)
+            where TController : ApiController
+        {
+            return this.RedirectTo<TController>(actionCall);
+        }
+
+        private TExpectedRedirectResult GetRedirectResult<TExpectedRedirectResult>(string containment)
+            where TExpectedRedirectResult : class
+        {
+            var actualRedirectResult = this.ActionResult as TExpectedRedirectResult;
+            if (actualRedirectResult == null)
+            {
+                throw new RedirectResultAssertionException(string.Format(
+                    "When calling {0} action in {1} expected redirect result to contain {2}, but it could not be found.",
+                    this.ActionName,
+                    this.Controller.GetName(),
+                    containment));
+            }
+
+            return actualRedirectResult;
+        }
+
+        private IBaseTestBuilderWithCaughtException RedirectTo<TController>(LambdaExpression actionCall)
+            where TController : ApiController
+        {
+            var redirectToRouteResult = this.GetRedirectResult<RedirectToRouteResult>(RouteName);
+            RouteValidator.Validate<TController>(
+                redirectToRouteResult.Request,
+                redirectToRouteResult.RouteName,
+                redirectToRouteResult.RouteValues,
+                actionCall,
                 this.ThrowNewRedirectResultAssertionException);
 
             return this;

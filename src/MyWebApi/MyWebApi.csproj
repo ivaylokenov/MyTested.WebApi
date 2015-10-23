@@ -227,6 +227,7 @@
     <Compile Include="Utilities\Validators\HttpRequestMessageValidator.cs" />
     <Compile Include="Utilities\Validators\LocationValidator.cs" />
     <Compile Include="Utilities\Validators\MediaTypeFormatterValidator.cs" />
+    <Compile Include="Utilities\Validators\RouteValidator.cs" />
     <Compile Include="Utilities\Validators\RuntimeBinderValidator.cs" />
     <Compile Include="Utilities\Validators\VersionValidator.cs" />
   </ItemGroup>

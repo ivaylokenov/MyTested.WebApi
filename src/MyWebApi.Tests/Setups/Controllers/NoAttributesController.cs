@@ -20,5 +20,13 @@ namespace MyWebApi.Tests.Setups.Controllers
 
     public class NoAttributesController : ApiController
     {
+        public IHttpActionResult WithParameter(int id)
+        {
+            return this.Ok(id);
+        }
+
+        public void VoidAction()
+        {
+        }
     }
 }

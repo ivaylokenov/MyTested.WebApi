@@ -308,7 +308,12 @@ namespace MyWebApi.Tests.Setups.Controllers
 
         public IHttpActionResult RedirectToRouteAction()
         {
-            return this.RedirectToRoute("Default", new { id = 1 });
+            return this.RedirectToRoute("Redirect", new { action = "WithParameter", id = 1 });
+        }
+
+        public IHttpActionResult RedirectToRouteVoidAction()
+        {
+            return this.RedirectToRoute("Redirect", new { action = "VoidAction" });
         }
 
         public IHttpActionResult ActionWithException()
@@ -358,6 +363,11 @@ namespace MyWebApi.Tests.Setups.Controllers
             }
 
             return this.Ok(model);
+        }
+
+        public IHttpActionResult OkResultWithParameter(int id)
+        {
+            return this.Ok(id);
         }
 
         public IHttpActionResult OkResultWithInterfaceResponse()
