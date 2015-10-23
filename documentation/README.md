@@ -130,6 +130,7 @@ MyWebApi
 	
 // sets the URI location to test as string
 // and adds custom HTTP content header to the request
+// * adding content headers requires content to be initialized and set
 MyWebApi
 	.Routes()
 	.ShouldMap("api/Route/To/Test")
@@ -137,6 +138,7 @@ MyWebApi
 	
 // sets the URI location to test as string
 // and adds custom HTTP content header with multiple values to the request
+// * adding content headers requires content to be initialized and set
 MyWebApi
 	.Routes()
 	.ShouldMap("api/Route/To/Test")
@@ -144,6 +146,7 @@ MyWebApi
 	
 // sets the URI location to test as string
 // and adds custom HTTP content headers as dictionary to the request
+// * adding content headers requires content to be initialized and set
 MyWebApi
 	.Routes()
 	.ShouldMap("api/Route/To/Test")
@@ -463,18 +466,21 @@ MyWebApi
 		.WithHeaders(someDictionaryWithHeaders));
 		
 // adding custom content header to the request message
+// * adding content headers requires content to be initialized and set
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
 		.WithContentHeader("SomeContentHeader", "SomeContentHeaderValue"));
 		
 // adding custom content header with multiple values to the request message
+// * adding content headers requires content to be initialized and set
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
 		.WithContentHeader("SomeContentHeader", new[] { "SomeContentHeaderValue", "AnotherContentHeaderValue" }));
 		
 // adding custom content headers provided as dictionary to the request message
+// * adding content headers requires content to be initialized and set
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
