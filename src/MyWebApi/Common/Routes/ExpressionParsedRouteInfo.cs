@@ -62,9 +62,13 @@ namespace MyWebApi.Common.Routes
         /// <value>Dictionary of string-argument info pairs.</value>
         public IDictionary<string, MethodArgumentInfo> Arguments { get; private set; }
 
+        /// <summary>
+        /// Converts the parsed information to route value dictionary.
+        /// </summary>
+        /// <returns>Dictionary of string-object pairs.</returns>
         public IDictionary<string, object> ToRouteValueDictionary()
         {
-            var result = Arguments.ToDictionary(a => a.Key, a => a.Value.Value);
+            var result = this.Arguments.ToDictionary(a => a.Key, a => a.Value.Value);
             result.Add("controller", this.GetControllerName());
             result.Add("action", this.Action);
             return result;

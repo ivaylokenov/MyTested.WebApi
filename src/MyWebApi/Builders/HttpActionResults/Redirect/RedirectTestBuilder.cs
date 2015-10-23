@@ -101,12 +101,24 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
             return this;
         }
 
+        /// <summary>
+        /// Tests whether redirect result redirects to specific action.
+        /// </summary>
+        /// <typeparam name="TController">Type of expected redirect controller.</typeparam>
+        /// <param name="actionCall">Method call expression indicating the expected redirect action.</param>
+        /// <returns>Base test builder.</returns>
         public IBaseTestBuilderWithCaughtException To<TController>(Expression<Func<TController, object>> actionCall)
             where TController : ApiController
         {
             return this.RedirectTo<TController>(actionCall);
         }
 
+        /// <summary>
+        /// Tests whether redirect result redirects to specific action.
+        /// </summary>
+        /// <typeparam name="TController">Type of expected redirect controller.</typeparam>
+        /// <param name="actionCall">Method call expression indicating the expected redirect action.</param>
+        /// <returns>Base test builder.</returns>
         public IBaseTestBuilderWithCaughtException To<TController>(Expression<Action<TController>> actionCall)
             where TController : ApiController
         {

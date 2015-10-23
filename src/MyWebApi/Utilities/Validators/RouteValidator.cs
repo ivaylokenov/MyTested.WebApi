@@ -24,8 +24,20 @@ namespace MyWebApi.Utilities.Validators
     using System.Web.Http.Routing;
     using RouteResolvers;
 
+    /// <summary>
+    /// Validator class containing route URI validator.
+    /// </summary>
     public static class RouteValidator
     {
+        /// <summary>
+        /// Validates whether route generated URI is the same as action call generated URI.
+        /// </summary>
+        /// <typeparam name="TController">Type of expected redirect controller.</typeparam>
+        /// <param name="request">HttpRequestMessage to use for generating the route URI.</param>
+        /// <param name="routeName">Route name from the HTTP configuration routes.</param>
+        /// <param name="routeValues">Route values dictionary of string-object pairs.</param>
+        /// <param name="expectedActionCall">Method call expression indicating the expected action.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void Validate<TController>(
             HttpRequestMessage request,
             string routeName,
