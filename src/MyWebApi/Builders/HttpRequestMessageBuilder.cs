@@ -19,6 +19,7 @@ namespace MyWebApi.Builders
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Text;
@@ -110,6 +111,26 @@ namespace MyWebApi.Builders
         }
 
         /// <summary>
+        /// Adds HTTP form URL encoded content to the built HTTP request message.
+        /// </summary>
+        /// <param name="queryString">String representing the content.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        public IAndHttpRequestMessageBuilder WithFormUrlEncodedContent(string queryString)
+        {
+            return this.WithContent(new StringContent(queryString, Encoding.UTF8, MediaType.FormUrlEncoded));
+        }
+
+        /// <summary>
+        /// Adds JSON content to the built HTTP request message.
+        /// </summary>
+        /// <param name="jsonContent">JSON string.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        public IAndHttpRequestMessageBuilder WithJsonContent(string jsonContent)
+        {
+            return this.WithContent(new StringContent(jsonContent, Encoding.UTF8, MediaType.ApplicationJson));
+        }
+
+        /// <summary>
         /// Adds HTTP string content to the built HTTP request message.
         /// </summary>
         /// <param name="content">String content to add.</param>
@@ -117,6 +138,17 @@ namespace MyWebApi.Builders
         public IAndHttpRequestMessageBuilder WithStringContent(string content)
         {
             return this.WithContent(new StringContent(content));
+        }
+
+        /// <summary>
+        /// Adds HTTP string content to the built HTTP request message.
+        /// </summary>
+        /// <param name="content">String content to add.</param>
+        /// <param name="mediaType">Type of media to use in the content.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        public IAndHttpRequestMessageBuilder WithStringContent(string content, string mediaType)
+        {
+            return this.WithContent(new StringContent(content, Encoding.UTF8, mediaType));
         }
 
         /// <summary>
@@ -173,18 +205,46 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
-            headers.ForEach(h => this.requestMessage.Headers.Add(h.Key, h.Value));
+            headers.ForEach(h => this.WithHeader(h.Key, h.Value));
             return this;
         }
 
         /// <summary>
-        /// Adds headers to the built HTTP request message.
+        /// Adds content header to the built HTTP request message.
         /// </summary>
-        /// <param name="headers">Headers represented by HttpRequestHeaders type.</param>
+        /// <param name="name">Name of the header.</param>
+        /// <param name="value">Value of the header.</param>
         /// <returns>The same HTTP request message builder.</returns>
-        public IAndHttpRequestMessageBuilder WithHeaders(HttpRequestHeaders headers)
+        public IAndHttpRequestMessageBuilder WithContentHeader(string name, string value)
         {
-            headers.ForEach(h => this.requestMessage.Headers.Add(h.Key, h.Value));
+            this.ValidateContentBeforeAddingContentHeaders();
+            this.requestMessage.Content.Headers.Add(name, value);
+            return this;
+        }
+
+        /// <summary>
+        /// Adds content header to the built HTTP request message.
+        /// </summary>
+        /// <param name="name">Name of the header.</param>
+        /// <param name="values">Collection of values for the header.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        public IAndHttpRequestMessageBuilder WithContentHeader(string name, IEnumerable<string> values)
+        {
+            this.ValidateContentBeforeAddingContentHeaders();
+            this.requestMessage.Content.Headers.Add(name, values);
+            return this;
+        }
+
+        /// <summary>
+        /// Adds collection of content headers to the built HTTP request message.
+        /// </summary>
+        /// <param name="headers">Dictionary of headers to add.</param>
+        /// <returns>The same HTTP request message builder.</returns>
+        public IAndHttpRequestMessageBuilder WithContentHeaders(IDictionary<string, IEnumerable<string>> headers)
+        {
+            this.ValidateContentBeforeAddingContentHeaders();
+            this.requestMessage.Content.Headers.Clear();
+            headers.ForEach(h => this.WithContentHeader(h.Key, h.Value));
             return this;
         }
 
@@ -254,7 +314,7 @@ namespace MyWebApi.Builders
         /// <returns>The same HTTP request message builder.</returns>
         public IAndHttpRequestMessageBuilder WithVersion(string version)
         {
-            Version parsedVersion = VersionValidator.TryParse(version, this.ThrowNewInvalidHttpRequestMessageException);
+            var parsedVersion = VersionValidator.TryParse(version, this.ThrowNewInvalidHttpRequestMessageException);
             return this.WithVersion(parsedVersion);
         }
 
@@ -292,6 +352,17 @@ namespace MyWebApi.Builders
         internal HttpRequestMessage GetHttpRequestMessage()
         {
             return this.requestMessage;
+        }
+
+        private void ValidateContentBeforeAddingContentHeaders()
+        {
+            if (this.requestMessage.Content == null)
+            {
+                this.ThrowNewInvalidHttpRequestMessageException(
+                    "content",
+                    "initialized and set in order to add content headers",
+                    "null");
+            }
         }
 
         private void ThrowNewInvalidHttpRequestMessageException(string propertyName, string expectedValue, string actualValue)

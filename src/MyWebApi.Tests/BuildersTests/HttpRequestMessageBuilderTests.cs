@@ -111,6 +111,31 @@ namespace MyWebApi.Tests.BuildersTests
 
             Assert.IsInstanceOf<FormUrlEncodedContent>(httpRequestMessage.Content);
             Assert.AreEqual("First=FirstValue&Second=SecondValue", httpRequestMessage.Content.ReadAsStringAsync().Result);
+            Assert.AreEqual(MediaType.FormUrlEncoded, httpRequestMessage.Content.Headers.ContentType.MediaType);
+        }
+
+        [Test]
+        public void WithFormUrlEncodedContentShouldPopulateCorrectContentWithDirectString()
+        {
+            var httpRequestMessage = MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request => request.WithFormUrlEncodedContent("First=FirstValue&Second=SecondValue"))
+                .HttpRequestMessage;
+
+            Assert.AreEqual("First=FirstValue&Second=SecondValue", httpRequestMessage.Content.ReadAsStringAsync().Result);
+            Assert.AreEqual(MediaType.FormUrlEncoded, httpRequestMessage.Content.Headers.ContentType.MediaType);
+        }
+
+        [Test]
+        public void WithJsonContentShouldPopulateCorrectContent()
+        {
+            var httpRequestMessage = MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request => request.WithJsonContent(@"{""Age"":5}"))
+                .HttpRequestMessage;
+
+            Assert.AreEqual(@"{""Age"":5}", httpRequestMessage.Content.ReadAsStringAsync().Result);
+            Assert.AreEqual(MediaType.ApplicationJson, httpRequestMessage.Content.Headers.ContentType.MediaType);
         }
 
         [Test]
@@ -123,6 +148,19 @@ namespace MyWebApi.Tests.BuildersTests
 
             Assert.IsInstanceOf<StringContent>(httpRequestMessage.Content);
             Assert.AreEqual(StringContent, httpRequestMessage.Content.ReadAsStringAsync().Result);
+        }
+
+        [Test]
+        public void WithStringContentAndMediaTypeShouldPopulateCorrectContent()
+        {
+            var httpRequestMessage = MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request => request.WithStringContent(StringContent, MediaType.ApplicationXml))
+                .HttpRequestMessage;
+
+            Assert.IsInstanceOf<StringContent>(httpRequestMessage.Content);
+            Assert.AreEqual(StringContent, httpRequestMessage.Content.ReadAsStringAsync().Result);
+            Assert.AreEqual(MediaType.ApplicationXml, httpRequestMessage.Content.Headers.ContentType.MediaType);
         }
 
         [Test]
@@ -192,18 +230,70 @@ namespace MyWebApi.Tests.BuildersTests
         }
 
         [Test]
-        public void WithHeadersShouldPopulateCorrectHeaders()
+        public void WithContentHeaderShouldPopulateCorrectHeader()
         {
-            var headers = new HttpRequestMessage().Headers;
-            headers.Add(TestHeader, TestHeaderValue);
+            var httpRequestMessage = MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request => request
+                    .WithStringContent(StringContent)
+                    .WithContentHeader(TestHeader, TestHeaderValue))
+                .HttpRequestMessage;
+
+            Assert.IsTrue(httpRequestMessage.Content.Headers.Contains(TestHeader));
+            Assert.IsTrue(httpRequestMessage.Content.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
+        }
+
+        [Test]
+        public void WithContentHeaderAndMultipleValuesShouldPopulateCorrectHeader()
+        {
+            var headers = new[]
+            {
+                TestHeaderValue, AnotherTestHeaderValue
+            };
 
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
-                .WithHttpRequestMessage(request => request.WithHeaders(headers))
+                .WithHttpRequestMessage(request => request
+                    .WithStringContent(StringContent)
+                    .WithContentHeader(TestHeader, headers))
                 .HttpRequestMessage;
 
-            Assert.IsTrue(httpRequestMessage.Headers.Contains(TestHeader));
-            Assert.IsTrue(httpRequestMessage.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
+            Assert.IsTrue(httpRequestMessage.Content.Headers.Contains(TestHeader));
+            Assert.IsTrue(httpRequestMessage.Content.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
+            Assert.IsTrue(httpRequestMessage.Content.Headers.First(h => h.Key == TestHeader).Value.Contains(AnotherTestHeaderValue));
+        }
+
+        [Test]
+        public void WithContentHeadersDictionaryShouldPopulateCorrectHeaders()
+        {
+            var httpRequestMessage = MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request => request
+                    .WithStringContent(StringContent)
+                    .WithContentHeaders(new Dictionary<string, IEnumerable<string>>
+                    {
+                        { TestHeader, new[] { TestHeaderValue, AnotherTestHeaderValue } },
+                    }))
+                .HttpRequestMessage;
+
+            Assert.IsTrue(httpRequestMessage.Content.Headers.Contains(TestHeader));
+            Assert.IsTrue(httpRequestMessage.Content.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
+            Assert.IsTrue(httpRequestMessage.Content.Headers.First(h => h.Key == TestHeader).Value.Contains(AnotherTestHeaderValue));
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(InvalidHttpRequestMessageException),
+            ExpectedMessage = "When building HttpRequestMessage expected content to be initialized and set in order to add content headers, but instead received null.")]
+        public void WithContentHeadersShouldThrowExpcetionIfNoContentIsPresent()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpRequestMessage(request => request
+                    .WithContentHeaders(new Dictionary<string, IEnumerable<string>>
+                    {
+                        { TestHeader, new[] { TestHeaderValue, AnotherTestHeaderValue } },
+                    }));
         }
 
         [Test]

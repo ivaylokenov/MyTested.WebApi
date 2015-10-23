@@ -81,6 +81,15 @@ namespace MyWebApi.Builders.Base
         }
 
         /// <summary>
+        /// Gets the HTTP configuration with which the action will be tested.
+        /// </summary>
+        /// <returns>HttpConfiguration from the tested controller.</returns>
+        public HttpConfiguration AndProvideTheHttpConfiguration()
+        {
+            return this.Controller.Configuration;
+        }
+
+        /// <summary>
         /// Gets the attributes on the tested controller..
         /// </summary>
         /// <returns>IEnumerable of object representing the attributes or null, if no attributes were collected on the controller.</returns>

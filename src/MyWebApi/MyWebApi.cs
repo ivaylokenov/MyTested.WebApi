@@ -19,14 +19,51 @@ namespace MyWebApi
     using System;
     using System.Web.Http;
     using Builders.Contracts.Controllers;
+    using Builders.Contracts.Routes;
     using Builders.Controllers;
+    using Builders.Routes;
     using Utilities;
+    using Utilities.Validators;
 
     /// <summary>
     /// Starting point of the testing framework, which provides a way to specify the ASP.NET Web API controller to be tested.
     /// </summary>
     public static class MyWebApi
     {
+        /// <summary>
+        /// Gets the current global HTTP configuration used in the testing.
+        /// </summary>
+        /// <value>Instance of HttpConfiguration.</value>
+        public static HttpConfiguration Configuration { get; private set; }
+
+        /// <summary>
+        /// Sets the HttpConfiguration which will be used in all tests.
+        /// </summary>
+        /// <param name="httpConfiguration">HttpConfiguration instance used in the testing.</param>
+        public static void IsUsing(HttpConfiguration httpConfiguration)
+        {
+            Configuration = httpConfiguration;
+        }
+
+        /// <summary>
+        /// Starts a route test.
+        /// </summary>
+        /// <param name="httpConfiguration">Optional HttpConfiguration to use in case one is not configured globally.</param>
+        /// <returns>Route test builder.</returns>
+        public static IRouteTestBuilder Routes(HttpConfiguration httpConfiguration = null)
+        {
+            if (httpConfiguration == null)
+            {
+                CommonValidator.CheckForNullReference(
+                    Configuration,
+                    "'IsUsing' method should be called before testing routes or HttpConfiguration should be provided. MyWebApi must be configured and HttpConfiguration");
+
+                httpConfiguration = Configuration;
+            }
+
+            return new RouteTestBuilder(httpConfiguration);
+        }
+
         /// <summary>
         /// Selects controller on which the test will be executed. Controller is instantiated with default constructor.
         /// </summary>

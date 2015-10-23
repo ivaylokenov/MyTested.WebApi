@@ -22,15 +22,45 @@ namespace MyWebApi.Tests.Setups
     using System.Net.Http;
     using System.Net.Http.Formatting;
     using System.Runtime.Serialization.Formatters;
+    using System.Web.Http;
     using System.Web.Http.ModelBinding;
+    using System.Web.Http.Routing;
     using Common;
     using Models;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
+    using Routes;
 
     public static class TestObjectFactory
     {
         public const string MediaType = "application/json";
+
+        public static HttpConfiguration GetHttpConfigurationWithRoutes()
+        {
+            var config = new HttpConfiguration();
+
+            config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "HeaderRoute",
+                routeTemplate: "api/HeaderRoute",
+                defaults: new { controller = "Route", action = "HeaderRoute" },
+                constraints: new { controller = new HeaderRouteConstraint("CustomHeader", "CustomHeaderValue") });
+
+            config.Routes.MapHttpRoute(
+                name: "TestRoute",
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional });
+
+            config.Routes.MapHttpRoute(
+                name: "Ignored",
+                routeTemplate: "api/IgnoredRoute",
+                defaults: new { controller = "Route", action = "GetMethod" },
+                constraints: null,
+                handler: new StopRoutingHandler());
+
+            return config;
+        }
 
         public static IEnumerable<MediaTypeFormatter> GetFormatters()
         {

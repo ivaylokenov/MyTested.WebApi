@@ -94,6 +94,11 @@
     <Compile Include="Builders\Contracts\HttpRequests\IHttpRequestMessageBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IAndHttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpResponseMessageTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Routes\IAndResolvedRouteTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Routes\IAndShouldMapTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Routes\IResolvedRouteTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Routes\IRouteTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Routes\IShouldMapTestBuilder.cs" />
     <Compile Include="Builders\Controllers\ControllerTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\AggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestErrorMessageTestBuilder.cs" />
@@ -152,6 +157,10 @@
     <Compile Include="Builders\FormattersBuilder.cs" />
     <Compile Include="Builders\HttpRequestMessageBuilder.cs" />
     <Compile Include="Builders\HttpResponseMessageTestBuilder.cs" />
+    <Compile Include="Builders\Routes\BaseRouteTestBuilder.cs" />
+    <Compile Include="Builders\Routes\RouteRequestBuilder.cs" />
+    <Compile Include="Builders\Routes\RouteTestBuilder.cs" />
+    <Compile Include="Builders\Routes\ShouldMapTestBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
@@ -179,7 +188,9 @@
     <Compile Include="Common\Extensions\ObjectExtensions.cs" />
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Common\MockedUri.cs" />
-    <Compile Include="Common\TypeValuePair.cs" />
+    <Compile Include="Common\Routes\ExpressionParsedRouteInfo.cs" />
+    <Compile Include="Common\Routes\ResolvedRouteInfo.cs" />
+    <Compile Include="Common\MethodArgumentInfo.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
     <Compile Include="Common\VoidActionResult.cs" />
@@ -198,6 +209,7 @@
     <Compile Include="Exceptions\OkResultAssertionException.cs" />
     <Compile Include="Exceptions\ResponseModelAssertionException.cs" />
     <Compile Include="Exceptions\ModelErrorAssertionException.cs" />
+    <Compile Include="Exceptions\RouteAssertionException.cs" />
     <Compile Include="Exceptions\UnauthorizedResultAssertionException.cs" />
     <Compile Include="Exceptions\UnresolvedDependenciesException.cs" />
     <Compile Include="Exceptions\RedirectResultAssertionException.cs" />
@@ -207,6 +219,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ExpressionParser.cs" />
     <Compile Include="Utilities\Reflection.cs" />
+    <Compile Include="Utilities\RouteResolvers\InternalRouteResolver.cs" />
+    <Compile Include="Utilities\RouteResolvers\RouteExpressionParser.cs" />
     <Compile Include="Utilities\Validators\AttributesValidator.cs" />
     <Compile Include="Utilities\Validators\CommonValidator.cs" />
     <Compile Include="Utilities\Validators\ContentNegotiatorValidator.cs" />

@@ -305,20 +305,6 @@ namespace MyWebApi.Tests.BuildersTests
         }
 
         [Test]
-        public void ContainingHeaderShouldNotThrowExceptionWithCorrectHeaders()
-        {
-            var httpReponseResponse = new HttpResponseMessage();
-            httpReponseResponse.Headers.Add("TestHeader", "TestHeaderValue");
-
-            MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
-                .ContainingHeaders(httpReponseResponse.Headers);
-        }
-
-        [Test]
         public void WithStatusCodeShouldNotThrowExceptionWithValidStatusCode()
         {
             MyWebApi

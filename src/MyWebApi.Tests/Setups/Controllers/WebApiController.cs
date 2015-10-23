@@ -170,6 +170,10 @@ namespace MyWebApi.Tests.Setups.Controllers
         {
         }
 
+        public void EmptyActionWithParameters(int id, RequestModel model)
+        {
+        }
+
         public async Task EmptyActionAsync()
         {
             await Task.Run(() => { });

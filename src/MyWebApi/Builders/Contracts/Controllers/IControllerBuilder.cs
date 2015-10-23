@@ -39,9 +39,15 @@ namespace MyWebApi.Builders.Contracts.Controllers
         TController Controller { get; }
 
         /// <summary>
+        /// Gets the HTTP configuration used in the testing.
+        /// </summary>
+        /// <value>Instance of HttpConfiguration.</value>
+        HttpConfiguration HttpConfiguration { get; }
+
+        /// <summary>
         /// Gets the HTTP request message used in the testing.
         /// </summary>
-        /// <value>Instance HttpRequestMessage.</value>
+        /// <value>Instance of HttpRequestMessage.</value>
         HttpRequestMessage HttpRequestMessage { get; }
 
         /// <summary>
@@ -49,6 +55,20 @@ namespace MyWebApi.Builders.Contracts.Controllers
         /// </summary>
         /// <returns>Controller test builder.</returns>
         IControllerTestBuilder ShouldHave();
+
+        /// <summary>
+        /// Sets the HTTP configuration for the current test case.
+        /// </summary>
+        /// <param name="config">Instance of HttpConfiguration.</param>
+        /// <returns>The same controller builder.</returns>
+        IAndControllerBuilder<TController> WithHttpConfiguration(HttpConfiguration config);
+
+        /// <summary>
+        /// Adds HTTP request message to the tested controller.
+        /// </summary>
+        /// <param name="requestMessage">Instance of HttpRequestMessage.</param>
+        /// <returns>The same controller builder.</returns>
+        IAndControllerBuilder<TController> WithHttpRequestMessage(HttpRequestMessage requestMessage);
 
         /// <summary>
         /// Adds HTTP request message to the tested controller.
