@@ -18,18 +18,14 @@ namespace MyWebApi.Builders.HttpActionResults.Redirect
 {
     using System;
     using System.Linq.Expressions;
-    using System.Net.Http;
     using System.Web.Http;
     using System.Web.Http.Results;
-    using System.Web.Http.Routing;
     using Base;
     using Common.Extensions;
     using Contracts.Base;
     using Contracts.HttpActionResults.Redirect;
-    using Contracts.Routes;
     using Contracts.Uris;
     using Exceptions;
-    using Utilities.RouteResolvers;
     using Utilities.Validators;
 
     /// <summary>

@@ -131,12 +131,24 @@ namespace MyWebApi.Builders.HttpActionResults.Created
             return this;
         }
 
+        /// <summary>
+        /// Tests whether created result returns created at specific action.
+        /// </summary>
+        /// <typeparam name="TController">Type of expected controller.</typeparam>
+        /// <param name="actionCall">Method call expression indicating the expected action.</param>
+        /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder At<TController>(Expression<Func<TController, object>> actionCall)
             where TController : ApiController
         {
             return this.AtRoute<TController>(actionCall);
         }
 
+        /// <summary>
+        /// Tests whether created result returns created at specific action.
+        /// </summary>
+        /// <typeparam name="TController">Type of expected controller.</typeparam>
+        /// <param name="actionCall">Method call expression indicating the expected action.</param>
+        /// <returns>The same created test builder.</returns>
         public IAndCreatedTestBuilder At<TController>(Expression<Action<TController>> actionCall)
             where TController : ApiController
         {
