@@ -14,19 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Tests.Setups.Controllers
+namespace MyWebApi.Utilities.Validators
 {
-    using System.Web.Http;
+    using System.Net.Http;
+    using Exceptions;
 
-    public class NoAttributesController : ApiController
+    /// <summary>
+    /// Validator class containing HTTP request message validations.
+    /// </summary>
+    public static class HttpRequestMessageValidator
     {
-        public IHttpActionResult WithParameter(int id)
+        /// <summary>
+        /// Checks whether content headers can be added to a HttpRequestMessage.
+        /// </summary>
+        /// <param name="requestMessage">HttpRequestMessage to validate.</param>
+        public static void ValidateContent(HttpRequestMessage requestMessage)
         {
-            return this.Ok(id);
-        }
-
-        public void VoidAction()
-        {
+            if (requestMessage.Content == null)
+            {
+                throw new InvalidHttpRequestMessageException("When building HttpRequestMessage expected content to be initialized and set in order to add content headers.");
+            }
         }
     }
 }

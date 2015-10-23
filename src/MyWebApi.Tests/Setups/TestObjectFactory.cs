@@ -59,6 +59,11 @@ namespace MyWebApi.Tests.Setups
                 constraints: null,
                 handler: new StopRoutingHandler());
 
+            config.Routes.MapHttpRoute(
+                name: "Redirect",
+                routeTemplate: "api/Redirect/{action}",
+                defaults: new { controller = "NoAttributes" });
+
             return config;
         }
 

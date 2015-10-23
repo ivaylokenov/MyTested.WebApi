@@ -21,6 +21,7 @@ namespace MyWebApi.Builders.Routes
     using System.Net.Http.Headers;
     using Common.Extensions;
     using Contracts.Routes;
+    using Utilities.Validators;
 
     /// <summary>
     /// Used for building a request for route test.
@@ -91,6 +92,7 @@ namespace MyWebApi.Builders.Routes
         /// <returns>The same route test builder.</returns>
         public IAndShouldMapTestBuilder WithContentHeader(string name, string value)
         {
+            HttpRequestMessageValidator.ValidateContent(this.requestMessage);
             this.requestMessage.Content.Headers.Add(name, value);
             return this;
         }
@@ -103,6 +105,7 @@ namespace MyWebApi.Builders.Routes
         /// <returns>The same route test builder.</returns>
         public IAndShouldMapTestBuilder WithContentHeader(string name, IEnumerable<string> values)
         {
+            HttpRequestMessageValidator.ValidateContent(this.requestMessage);
             this.requestMessage.Content.Headers.Add(name, values);
             return this;
         }

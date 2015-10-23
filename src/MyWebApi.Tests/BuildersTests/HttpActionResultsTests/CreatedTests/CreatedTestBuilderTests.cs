@@ -411,5 +411,69 @@ namespace MyWebApi.Tests.BuildersTests.HttpActionResultsTests.CreatedTests
                 .Created()
                 .WithResponseModelOfType<ICollection<ResponseModel>>();
         }
+
+        [Test]
+        public void AtShouldWorkCorrectlyWithCorrectActionCall()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.CreatedAtRouteAction())
+                .ShouldReturn()
+                .Created()
+                .At<NoAttributesController>(c => c.WithParameter(1));
+        }
+
+        [Test]
+        public void AtShouldWorkCorrectlyWithCorrectVoidActionCall()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.CreatedAtRouteVoidAction())
+                .ShouldReturn()
+                .Created()
+                .At<NoAttributesController>(c => c.VoidAction());
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(CreatedResultAssertionException),
+            ExpectedMessage = "When calling CreatedAtRouteAction action in WebApiController expected created result to redirect to '/api/Redirect/WithParameter?id=2', but in fact redirected to '/api/Redirect/WithParameter?id=1'.")]
+        public void AtShouldThrowExceptionWithIncorrectActionParameter()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.CreatedAtRouteAction())
+                .ShouldReturn()
+                .Created()
+                .At<NoAttributesController>(c => c.WithParameter(2));
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(CreatedResultAssertionException),
+            ExpectedMessage = "When calling CreatedAtRouteAction action in WebApiController expected created result to redirect to a specific URI, but such URI could not be resolved from the 'Redirect' route template.")]
+        public void AtShouldThrowExceptionWithIncorrectActionCall()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.CreatedAtRouteAction())
+                .ShouldReturn()
+                .Created()
+                .At<RouteController>(c => c.VoidAction());
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ActionCallAssertionException),
+            ExpectedMessage = "Expected action result to contain a 'RouteName' property to test, but in fact such property was not found.")]
+        public void AtShouldThrowExceptionWithIncorrectActionResult()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.CreatedAction())
+                .ShouldReturn()
+                .Created()
+                .At<RouteController>(c => c.VoidAction());
+        }
     }
 }
