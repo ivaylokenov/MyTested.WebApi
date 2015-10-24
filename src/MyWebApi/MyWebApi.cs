@@ -17,7 +17,10 @@
 namespace MyWebApi
 {
     using System;
+    using System.Net.Http;
     using System.Web.Http;
+    using Builders;
+    using Builders.Contracts;
     using Builders.Contracts.Controllers;
     using Builders.Contracts.Routes;
     using Builders.Controllers;
@@ -62,6 +65,26 @@ namespace MyWebApi
             }
 
             return new RouteTestBuilder(httpConfiguration);
+        }
+
+        public static IHttpMessageHandlerTestBuilder<THandler> Handler<THandler>()
+            where THandler : HttpMessageHandler
+        {
+            var handler = Reflection.TryCreateInstance<THandler>();
+            return Handler(() => handler);
+        }
+
+        public static IHttpMessageHandlerTestBuilder<THandler> Handler<THandler>(THandler handler)
+            where THandler : HttpMessageHandler
+        {
+            return Handler(() => handler);
+        }
+
+        public static IHttpMessageHandlerTestBuilder<THandler> Handler<THandler>(Func<THandler> handler)
+            where THandler : HttpMessageHandler
+        {
+            var handlerInstance = handler();
+            return new HttpMessageHandlerTestBuilder<THandler>(handlerInstance  );
         }
 
         /// <summary>

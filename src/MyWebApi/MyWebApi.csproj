@@ -94,6 +94,7 @@
     <Compile Include="Builders\Contracts\HttpRequests\IHttpRequestMessageBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IAndHttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpResponseMessageTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\IHttpMessageHandlerTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IAndResolvedRouteTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IAndShouldMapTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IResolvedRouteTestBuilder.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveModelState.cs" />
     <Compile Include="Builders\HttpActionResults\Created\CreatedTestBuilder.cs" />
     <Compile Include="Builders\FormattersBuilder.cs" />
+    <Compile Include="Builders\HttpMessageHandlerTestBuilder.cs" />
     <Compile Include="Builders\HttpRequestMessageBuilder.cs" />
     <Compile Include="Builders\HttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Routes\BaseRouteTestBuilder.cs" />
