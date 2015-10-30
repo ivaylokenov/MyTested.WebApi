@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders
+namespace MyWebApi.Builders.HttpMessages
 {
     using System;
     using System.Collections.Generic;
@@ -25,11 +25,11 @@ namespace MyWebApi.Builders
     using System.Net.Http.Headers;
     using System.Web.Http;
     using Base;
-    using Common.Extensions;
     using Contracts.HttpResponseMessages;
     using Contracts.Models;
-    using Exceptions;
     using Models;
+    using Common.Extensions;
+    using Exceptions;
     using Utilities;
     using Utilities.Validators;
 

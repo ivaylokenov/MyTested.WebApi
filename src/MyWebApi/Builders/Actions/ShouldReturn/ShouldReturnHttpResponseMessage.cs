@@ -18,6 +18,7 @@ namespace MyWebApi.Builders.Actions.ShouldReturn
 {
     using System.Net.Http;
     using Contracts.HttpResponseMessages;
+    using HttpMessages;
 
     /// <summary>
     /// Class containing methods for testing HttpResponseMessage result.

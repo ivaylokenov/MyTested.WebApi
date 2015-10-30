@@ -14,18 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders
+namespace MyWebApi.Builders.HttpMessages
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Net.Http;
     using System.Text;
-    using Common.Extensions;
     using Contracts.HttpRequests;
     using Contracts.Uris;
-    using Exceptions;
     using Uris;
+    using Common.Extensions;
+    using Exceptions;
     using Utilities.Validators;
 
     /// <summary>

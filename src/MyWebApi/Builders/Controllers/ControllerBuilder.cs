@@ -32,6 +32,7 @@ namespace MyWebApi.Builders.Controllers
     using Contracts.Controllers;
     using Contracts.HttpRequests;
     using Exceptions;
+    using HttpMessages;
     using Utilities;
 
     /// <summary>

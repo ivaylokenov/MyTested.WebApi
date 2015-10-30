@@ -14,17 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders
+namespace MyWebApi.Builders.Contracts.Handlers
 {
-    using System.Net.Http;
-    using Contracts;
-
-    public class HttpMessageHandlerTestBuilder<THandler> : IHttpMessageHandlerTestBuilder<THandler>
-        where THandler : HttpMessageHandler
+    public interface IHttpMessageHandlerTestBuilder : IHttpMessageHandlerBuilder
     {
-        public HttpMessageHandlerTestBuilder(THandler handler)
-        {
-            
-        }
     }
 }

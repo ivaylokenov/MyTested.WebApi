@@ -21,7 +21,8 @@ namespace MyWebApi.Builders.Routes
     using System.Web.Http;
     using Contracts.HttpRequests;
     using Contracts.Routes;
-    
+    using HttpMessages;
+
     /// <summary>
     /// Used for building a route test.
     /// </summary>

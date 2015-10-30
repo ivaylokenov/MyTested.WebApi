@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Tests.BuildersTests
+namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
 {
     using System;
     using System.Collections.Generic;
@@ -23,8 +23,8 @@ namespace MyWebApi.Tests.BuildersTests
     using System.Net.Http;
     using System.Text;
     using Exceptions;
-    using NUnit.Framework;
     using Setups.Controllers;
+    using NUnit.Framework;
 
     [TestFixture]
     public class HttpRequestMessageBuilderTests
