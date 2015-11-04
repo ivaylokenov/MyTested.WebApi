@@ -16,7 +16,7 @@
 
 namespace MyWebApi.Builders.Contracts.Handlers
 {
-    public interface IHttpMessageHandlerTestBuilder : IHttpMessageHandlerBuilder
+    public interface IHttpMessageHandlerTestBuilder
     {
     }
 }

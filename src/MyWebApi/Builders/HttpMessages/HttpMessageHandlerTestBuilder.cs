@@ -18,9 +18,12 @@ namespace MyWebApi.Builders.HttpMessages
 {
     using System;
     using System.Net.Http;
+    using System.Threading;
     using Contracts.Handlers;
+    using Contracts.HttpRequests;
+    using Contracts.HttpResponseMessages;
 
-    public class HttpMessageHandlerTestBuilder : IHttpMessageHandlerTestBuilder
+    public class HttpMessageHandlerTestBuilder : IHttpMessageHandlerBuilder, IHttpMessageHandlerTestBuilder
     {
         public HttpMessageHandlerTestBuilder(HttpMessageHandler handler)
         {
@@ -29,34 +32,35 @@ namespace MyWebApi.Builders.HttpMessages
 
         public HttpMessageHandler Handler { get; private set; }
 
-        public IHttpMessageHandlerTestBuilder WithInnerHandler<TInnerHandler>()
+        public HttpRequestMessage HttpRequestMessage { get; private set; }
+
+        public IHttpMessageHandlerBuilder WithInnerHandler<TInnerHandler>()
             where TInnerHandler : HttpMessageHandler, new()
         {
             return this.WithInnerHandler(new TInnerHandler());
         }
 
-        public IHttpMessageHandlerTestBuilder WithInnerHandler<TInnerHandler>(TInnerHandler innerHandler)
+        public IHttpMessageHandlerBuilder WithInnerHandler<TInnerHandler>(TInnerHandler innerHandler)
             where TInnerHandler : HttpMessageHandler
         {
             var handlerAsDelegatingHandler = this.Handler as DelegatingHandler;
             if (handlerAsDelegatingHandler == null)
             {
                 // TODO: throw
-                return null;
             }
 
             handlerAsDelegatingHandler.InnerHandler = innerHandler;
             return this;
         }
 
-        public IHttpMessageHandlerTestBuilder WithInnerHandler<TInnerHandler>(Func<TInnerHandler> construction)
+        public IHttpMessageHandlerBuilder WithInnerHandler<TInnerHandler>(Func<TInnerHandler> construction)
             where TInnerHandler : HttpMessageHandler
         {
             var innerHandlerInstance = construction();
             return this.WithInnerHandler(innerHandlerInstance);
         }
 
-        public IHttpMessageHandlerTestBuilder WithInnerHandler<TInnerHandler>(
+        public IHttpMessageHandlerBuilder WithInnerHandler<TInnerHandler>(
             Action<IHttpMessageHandlerBuilder> httpMessageHandlerBuilder)
             where TInnerHandler : HttpMessageHandler, new()
         {
@@ -65,6 +69,32 @@ namespace MyWebApi.Builders.HttpMessages
             return this.WithInnerHandler(newHttpMessageHandlerBuilder.Handler);
         }
 
-        public HttpRequestMessage HttpRequestMessage { get; private set; }
+        public IHttpMessageHandlerTestBuilder WithHttpRequestMessage(HttpRequestMessage requestMessage)
+        {
+            this.HttpRequestMessage = requestMessage;
+            return this;
+        }
+
+        public IHttpMessageHandlerTestBuilder WithHttpRequestMessage(Action<IHttpRequestMessageBuilder> httpRequestMessageBuilder)
+        {
+            var httpBuilder = new HttpRequestMessageBuilder();
+            httpRequestMessageBuilder(httpBuilder);
+            return this.WithHttpRequestMessage(httpBuilder.GetHttpRequestMessage());
+        }
+
+        public IHttpResponseMessageTestBuilder ShouldReturnHttpResponseMessage()
+        {
+            var httpMessageInvoker = new HttpMessageInvoker(this.Handler);
+            var httpMessageResult = httpMessageInvoker.SendAsync(this.HttpRequestMessage, CancellationToken.None).Result; // TODO: catch exception and add test builder, disposable
+            return null;
+        }
+
+        private void ValidateHttpRequestMessage()
+        {
+            if (this.HttpRequestMessage == null)
+            {
+                // TODO: throw
+            }
+        }
     }
 }

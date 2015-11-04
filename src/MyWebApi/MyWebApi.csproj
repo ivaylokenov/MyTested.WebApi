@@ -228,6 +228,7 @@
     <Compile Include="Utilities\Validators\CommonValidator.cs" />
     <Compile Include="Utilities\Validators\ContentNegotiatorValidator.cs" />
     <Compile Include="Utilities\Validators\HttpRequestMessageValidator.cs" />
+    <Compile Include="Utilities\Validators\HttpResponseMessageValidator.cs" />
     <Compile Include="Utilities\Validators\LocationValidator.cs" />
     <Compile Include="Utilities\Validators\MediaTypeFormatterValidator.cs" />
     <Compile Include="Utilities\Validators\RouteValidator.cs" />

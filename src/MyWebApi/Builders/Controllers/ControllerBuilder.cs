@@ -122,8 +122,7 @@ namespace MyWebApi.Builders.Controllers
         {
             var httpBuilder = new HttpRequestMessageBuilder();
             httpRequestMessageBuilder(httpBuilder);
-            this.HttpRequestMessage = httpBuilder.GetHttpRequestMessage();
-            return this;
+            return this.WithHttpRequestMessage(httpBuilder.GetHttpRequestMessage());
         }
 
         /// <summary>

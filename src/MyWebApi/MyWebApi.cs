@@ -19,8 +19,6 @@ namespace MyWebApi
     using System;
     using System.Net.Http;
     using System.Web.Http;
-    using Builders;
-    using Builders.Contracts;
     using Builders.Contracts.Controllers;
     using Builders.Contracts.Handlers;
     using Builders.Contracts.Routes;
@@ -31,7 +29,7 @@ namespace MyWebApi
     using Utilities.Validators;
 
     /// <summary>
-    /// Starting point of the testing framework, which provides a way to specify the ASP.NET Web API controller to be tested.
+    /// Starting point of the testing framework, which provides a way to specify the ASP.NET Web API feature to be tested.
     /// </summary>
     public static class MyWebApi
     {
