@@ -394,7 +394,7 @@ MyWebApi
 
 ### Handler response validation
 
-See (HTTP response validations)[#http-response-message-result] for all available options:
+See [HTTP response validations](#http-response-message-result) for all available options:
 
 ```c#
 // tests whether the handler returns response message successfully
