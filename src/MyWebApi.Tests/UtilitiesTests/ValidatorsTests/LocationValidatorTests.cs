@@ -56,7 +56,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         public void ValidateUriShouldNotThrowExceptionWithProperUriWithCorrectString()
         {
             var actionResultWithLocation = new CreatedNegotiatedContentResult<int>(
-                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().Controller);
+                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             LocationValidator.ValidateUri(
                 actionResultWithLocation,
@@ -71,7 +71,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         public void ValidateUriShouldThrowExceptionWithIncorrectString()
         {
             var actionResultWithLocation = new CreatedNegotiatedContentResult<int>(
-                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().Controller);
+                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             LocationValidator.ValidateUri(
                 actionResultWithLocation,
@@ -83,7 +83,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         public void ValidateLocationShouldNotThrowExceptionWithCorrectLocationBuilder()
         {
             var actionResultWithLocation = new CreatedNegotiatedContentResult<int>(
-                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().Controller);
+                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             LocationValidator.ValidateLocation(
                 actionResultWithLocation,
@@ -110,7 +110,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         public void ValidateLocationShouldThrowExceptionWithIncorrectLocationBuilder()
         {
             var actionResultWithLocation = new CreatedNegotiatedContentResult<int>(
-                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().Controller);
+                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             LocationValidator.ValidateLocation(
                 actionResultWithLocation,

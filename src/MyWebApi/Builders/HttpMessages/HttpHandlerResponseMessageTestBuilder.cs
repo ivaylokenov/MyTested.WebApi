@@ -21,35 +21,34 @@ namespace MyWebApi.Builders.HttpMessages
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Formatting;
-    using System.Web.Http;
     using Base;
+    using Common.Extensions;
     using Contracts.HttpResponseMessages;
     using Contracts.Models;
-    using Models;
-    using Common.Extensions;
     using Exceptions;
+    using Models;
     using Utilities.Validators;
 
     /// <summary>
-    /// Used for testing HTTP response message results from actions.
+    /// Used for testing HTTP response message results from handlers.
     /// </summary>
-    public class HttpResponseMessageTestBuilder
-        : BaseTestBuilderWithActionResult<HttpResponseMessage>, IAndHttpResponseMessageTestBuilder
+    public class HttpHandlerResponseMessageTestBuilder 
+        : BaseHandlerTestBuilder, IAndHttpHandlerResponseMessageTestBuilder
     {
+        private readonly HttpResponseMessage httpResponseMessage;
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="HttpResponseMessageTestBuilder" /> class.
+        /// Initializes a new instance of the <see cref="HttpHandlerResponseMessageTestBuilder" /> class.
         /// </summary>
-        /// <param name="controller">Controller on which the action will be tested.</param>
-        /// <param name="actionName">Name of the tested action.</param>
-        /// <param name="caughtException">Caught exception during the action execution.</param>
-        /// <param name="actionResult">HTTP response result from the tested action.</param>
-        public HttpResponseMessageTestBuilder(
-            ApiController controller,
-            string actionName,
-            Exception caughtException,
-            HttpResponseMessage actionResult)
-            : base(controller, actionName, caughtException, actionResult)
+        /// <param name="handler">Tested HTTP message handler.</param>
+        /// <param name="httpResponseMessage">HTTP response result from the tested handler.</param>
+        public HttpHandlerResponseMessageTestBuilder(
+            HttpMessageHandler handler,
+            HttpResponseMessage httpResponseMessage)
+            : base(handler)
         {
+            CommonValidator.CheckForNullReference(this.httpResponseMessage, errorMessageName: "HttpResponseMessage");
+            this.httpResponseMessage = httpResponseMessage;
         }
 
         /// <summary>
@@ -57,17 +56,16 @@ namespace MyWebApi.Builders.HttpMessages
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <returns>Builder for testing the response model errors.</returns>
-        public IModelDetailsTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>()
+        public IHttpHandlerModelDetailsTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>()
         {
             this.WithContentOfType<ObjectContent>();
             var actualModel = HttpResponseMessageValidator.GetActualContentModel<TResponseModel>(
-                this.ActionResult.Content,
+                this.httpResponseMessage.Content,
                 this.ThrowNewResponseModelAssertionException);
 
-            return new ModelDetailsTestBuilder<TResponseModel>(
-                this.Controller,
-                this.ActionName,
-                this.CaughtException,
+            return new HttpHandlerModelDetailsTestBuilder<TResponseModel>(
+                this.Handler,
+                this,
                 actualModel);
         }
 
@@ -77,19 +75,18 @@ namespace MyWebApi.Builders.HttpMessages
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="expectedModel">Expected model to be returned.</param>
         /// <returns>Builder for testing the response model errors.</returns>
-        public IModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
+        public IHttpHandlerModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
             where TResponseModel : class
         {
             var actualModel = HttpResponseMessageValidator.WithResponseModel(
-                this.ActionResult.Content,
+                this.httpResponseMessage.Content,
                 expectedModel,
                 this.ThrowNewHttpResponseMessageAssertionException,
                 this.ThrowNewResponseModelAssertionException);
 
-            return new ModelDetailsTestBuilder<TResponseModel>(
-                this.Controller,
-                this.ActionName,
-                this.CaughtException,
+            return new HttpHandlerModelDetailsTestBuilder<TResponseModel>(
+                this.Handler,
+                this,
                 actualModel);
         }
 
@@ -98,11 +95,11 @@ namespace MyWebApi.Builders.HttpMessages
         /// </summary>
         /// <typeparam name="TContentType">Type of expected HTTP content.</typeparam>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder WithContentOfType<TContentType>()
+        public IAndHttpHandlerResponseMessageTestBuilder WithContentOfType<TContentType>()
             where TContentType : HttpContent
         {
             HttpResponseMessageValidator.WithContentOfType<TContentType>(
-                this.ActionResult.Content,
+                this.httpResponseMessage.Content,
                 this.ThrowNewHttpResponseMessageAssertionException);
 
             return this;
@@ -113,10 +110,10 @@ namespace MyWebApi.Builders.HttpMessages
         /// </summary>
         /// <param name="mediaTypeFormatter">Expected media type formatter.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder WithMediaTypeFormatter(MediaTypeFormatter mediaTypeFormatter)
+        public IAndHttpHandlerResponseMessageTestBuilder WithMediaTypeFormatter(MediaTypeFormatter mediaTypeFormatter)
         {
             MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
-                this.ActionResult.Content,
+                this.httpResponseMessage.Content,
                 mediaTypeFormatter,
                 this.ThrowNewHttpResponseMessageAssertionException);
 
@@ -128,7 +125,7 @@ namespace MyWebApi.Builders.HttpMessages
         /// </summary>
         /// <typeparam name="TMediaTypeFormatter">Type of MediaTypeFormatter.</typeparam>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder WithMediaTypeFormatterOfType<TMediaTypeFormatter>()
+        public IAndHttpHandlerResponseMessageTestBuilder WithMediaTypeFormatterOfType<TMediaTypeFormatter>()
             where TMediaTypeFormatter : MediaTypeFormatter, new()
         {
             return this.WithMediaTypeFormatter(Activator.CreateInstance<TMediaTypeFormatter>());
@@ -138,7 +135,7 @@ namespace MyWebApi.Builders.HttpMessages
         /// Tests whether the HTTP response message contains the default media type formatter provided by the framework.
         /// </summary>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder WithDefaultMediaTypeFormatter()
+        public IAndHttpHandlerResponseMessageTestBuilder WithDefaultMediaTypeFormatter()
         {
             return this.WithMediaTypeFormatterOfType<JsonMediaTypeFormatter>();
         }
@@ -148,9 +145,9 @@ namespace MyWebApi.Builders.HttpMessages
         /// </summary>
         /// <param name="name">Name of expected response header.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder ContainingHeader(string name)
+        public IAndHttpHandlerResponseMessageTestBuilder ContainingHeader(string name)
         {
-            HttpResponseMessageValidator.ContainingHeader(this.ActionResult.Headers, name, this.ThrowNewHttpResponseMessageAssertionException);
+            HttpResponseMessageValidator.ContainingHeader(this.httpResponseMessage.Headers, name, this.ThrowNewHttpResponseMessageAssertionException);
             return this;
         }
 
@@ -160,9 +157,9 @@ namespace MyWebApi.Builders.HttpMessages
         /// <param name="name">Name of expected response header.</param>
         /// <param name="value">Value of expected response header.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder ContainingHeader(string name, string value)
+        public IAndHttpHandlerResponseMessageTestBuilder ContainingHeader(string name, string value)
         {
-            HttpResponseMessageValidator.ContainingHeader(this.ActionResult.Headers, name, value, this.ThrowNewHttpResponseMessageAssertionException);
+            HttpResponseMessageValidator.ContainingHeader(this.httpResponseMessage.Headers, name, value, this.ThrowNewHttpResponseMessageAssertionException);
             return this;
         }
 
@@ -172,9 +169,9 @@ namespace MyWebApi.Builders.HttpMessages
         /// <param name="name">Name of expected response header.</param>
         /// <param name="values">Collection of values in the expected response header.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder ContainingHeader(string name, IEnumerable<string> values)
+        public IAndHttpHandlerResponseMessageTestBuilder ContainingHeader(string name, IEnumerable<string> values)
         {
-            HttpResponseMessageValidator.ContainingHeader(this.ActionResult.Headers, name, values, this.ThrowNewHttpResponseMessageAssertionException);
+            HttpResponseMessageValidator.ContainingHeader(this.httpResponseMessage.Headers, name, values, this.ThrowNewHttpResponseMessageAssertionException);
             return this;
         }
 
@@ -183,9 +180,9 @@ namespace MyWebApi.Builders.HttpMessages
         /// </summary>
         /// <param name="headers">Dictionary containing response headers.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder ContainingHeaders(IDictionary<string, IEnumerable<string>> headers)
+        public IAndHttpHandlerResponseMessageTestBuilder ContainingHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
-            HttpResponseMessageValidator.ValidateHeadersCount(headers, this.ActionResult.Headers, this.ThrowNewHttpResponseMessageAssertionException);
+            HttpResponseMessageValidator.ValidateHeadersCount(headers, this.httpResponseMessage.Headers, this.ThrowNewHttpResponseMessageAssertionException);
             headers.ForEach(h => this.ContainingHeader(h.Key, h.Value));
             return this;
         }
@@ -195,11 +192,11 @@ namespace MyWebApi.Builders.HttpMessages
         /// </summary>
         /// <param name="name">Name of expected content header.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder ContainingContentHeader(string name)
+        public IAndHttpHandlerResponseMessageTestBuilder ContainingContentHeader(string name)
         {
-            HttpResponseMessageValidator.ValidateContent(this.ActionResult.Content, this.ThrowNewHttpResponseMessageAssertionException);
+            HttpResponseMessageValidator.ValidateContent(this.httpResponseMessage.Content, this.ThrowNewHttpResponseMessageAssertionException);
             HttpResponseMessageValidator.ContainingHeader(
-                this.ActionResult.Content.Headers,
+                this.httpResponseMessage.Content.Headers,
                 name,
                 this.ThrowNewHttpResponseMessageAssertionException,
                 isContentHeader: true);
@@ -213,11 +210,11 @@ namespace MyWebApi.Builders.HttpMessages
         /// <param name="name">Name of expected content header.</param>
         /// <param name="value">Value of expected content header.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder ContainingContentHeader(string name, string value)
+        public IAndHttpHandlerResponseMessageTestBuilder ContainingContentHeader(string name, string value)
         {
-            HttpResponseMessageValidator.ValidateContent(this.ActionResult.Content, this.ThrowNewHttpResponseMessageAssertionException);
+            HttpResponseMessageValidator.ValidateContent(this.httpResponseMessage.Content, this.ThrowNewHttpResponseMessageAssertionException);
             HttpResponseMessageValidator.ContainingHeader(
-                this.ActionResult.Content.Headers,
+                this.httpResponseMessage.Content.Headers,
                 name,
                 value,
                 this.ThrowNewHttpResponseMessageAssertionException,
@@ -232,11 +229,11 @@ namespace MyWebApi.Builders.HttpMessages
         /// <param name="name">Name of expected content header.</param>
         /// <param name="values">Collection of values in the expected content header.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder ContainingContentHeader(string name, IEnumerable<string> values)
+        public IAndHttpHandlerResponseMessageTestBuilder ContainingContentHeader(string name, IEnumerable<string> values)
         {
-            HttpResponseMessageValidator.ValidateContent(this.ActionResult.Content, this.ThrowNewHttpResponseMessageAssertionException);
+            HttpResponseMessageValidator.ValidateContent(this.httpResponseMessage.Content, this.ThrowNewHttpResponseMessageAssertionException);
             HttpResponseMessageValidator.ContainingHeader(
-                this.ActionResult.Content.Headers,
+                this.httpResponseMessage.Content.Headers,
                 name,
                 values,
                 this.ThrowNewHttpResponseMessageAssertionException,
@@ -250,13 +247,13 @@ namespace MyWebApi.Builders.HttpMessages
         /// </summary>
         /// <param name="headers">Dictionary containing content headers.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder ContainingContentHeaders(
+        public IAndHttpHandlerResponseMessageTestBuilder ContainingContentHeaders(
             IDictionary<string, IEnumerable<string>> headers)
         {
-            HttpResponseMessageValidator.ValidateContent(this.ActionResult.Content, this.ThrowNewHttpResponseMessageAssertionException);
+            HttpResponseMessageValidator.ValidateContent(this.httpResponseMessage.Content, this.ThrowNewHttpResponseMessageAssertionException);
             HttpResponseMessageValidator.ValidateHeadersCount(
                 headers,
-                this.ActionResult.Content.Headers,
+                this.httpResponseMessage.Content.Headers,
                 this.ThrowNewHttpResponseMessageAssertionException,
                 isContentHeaders: true);
 
@@ -269,9 +266,9 @@ namespace MyWebApi.Builders.HttpMessages
         /// </summary>
         /// <param name="statusCode">Expected status code.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder WithStatusCode(HttpStatusCode statusCode)
+        public IAndHttpHandlerResponseMessageTestBuilder WithStatusCode(HttpStatusCode statusCode)
         {
-            HttpResponseMessageValidator.WithStatusCode(this.ActionResult, statusCode, this.ThrowNewHttpResponseMessageAssertionException);
+            HttpResponseMessageValidator.WithStatusCode(this.httpResponseMessage, statusCode, this.ThrowNewHttpResponseMessageAssertionException);
             return this;
         }
 
@@ -280,7 +277,7 @@ namespace MyWebApi.Builders.HttpMessages
         /// </summary>
         /// <param name="version">Expected version as string.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder WithVersion(string version)
+        public IAndHttpHandlerResponseMessageTestBuilder WithVersion(string version)
         {
             var parsedVersion = VersionValidator.TryParse(version, this.ThrowNewHttpResponseMessageAssertionException);
             return this.WithVersion(parsedVersion);
@@ -292,7 +289,7 @@ namespace MyWebApi.Builders.HttpMessages
         /// <param name="major">Major number in the expected version.</param>
         /// <param name="minor">Minor number in the expected version.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder WithVersion(int major, int minor)
+        public IAndHttpHandlerResponseMessageTestBuilder WithVersion(int major, int minor)
         {
             return this.WithVersion(new Version(major, minor));
         }
@@ -302,9 +299,9 @@ namespace MyWebApi.Builders.HttpMessages
         /// </summary>
         /// <param name="version">Expected version.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder WithVersion(Version version)
+        public IAndHttpHandlerResponseMessageTestBuilder WithVersion(Version version)
         {
-            HttpResponseMessageValidator.WithVersion(this.ActionResult, version, this.ThrowNewHttpResponseMessageAssertionException);
+            HttpResponseMessageValidator.WithVersion(this.httpResponseMessage, version, this.ThrowNewHttpResponseMessageAssertionException);
             return this;
         }
 
@@ -313,9 +310,9 @@ namespace MyWebApi.Builders.HttpMessages
         /// </summary>
         /// <param name="reasonPhrase">Expected reason phrase as string.</param>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder WithReasonPhrase(string reasonPhrase)
+        public IAndHttpHandlerResponseMessageTestBuilder WithReasonPhrase(string reasonPhrase)
         {
-            HttpResponseMessageValidator.WithReasonPhrase(this.ActionResult, reasonPhrase, this.ThrowNewHttpResponseMessageAssertionException);
+            HttpResponseMessageValidator.WithReasonPhrase(this.httpResponseMessage, reasonPhrase, this.ThrowNewHttpResponseMessageAssertionException);
             return this;
         }
 
@@ -323,9 +320,9 @@ namespace MyWebApi.Builders.HttpMessages
         /// Tests whether HTTP response message returns success status code between 200 and 299.
         /// </summary>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IAndHttpResponseMessageTestBuilder WithSuccessStatusCode()
+        public IAndHttpHandlerResponseMessageTestBuilder WithSuccessStatusCode()
         {
-            HttpResponseMessageValidator.WithSuccessStatusCode(this.ActionResult, this.ThrowNewHttpResponseMessageAssertionException);
+            HttpResponseMessageValidator.WithSuccessStatusCode(this.httpResponseMessage, this.ThrowNewHttpResponseMessageAssertionException);
             return this;
         }
 
@@ -333,22 +330,21 @@ namespace MyWebApi.Builders.HttpMessages
         /// AndAlso method for better readability when chaining HTTP response message tests.
         /// </summary>
         /// <returns>The same HTTP response message test builder.</returns>
-        public IHttpResponseMessageTestBuilder AndAlso()
+        public IHttpHandlerResponseMessageTestBuilder AndAlso()
         {
             return this;
         }
 
         public HttpResponseMessage AndProvideTheHttpResponseMessage()
         {
-            return this.ActionResult;
+            return this.httpResponseMessage;
         }
 
         private void ThrowNewHttpResponseMessageAssertionException(string propertyName, string expectedValue, string actualValue)
         {
             throw new HttpResponseMessageAssertionException(string.Format(
-                    "When calling {0} action in {1} expected HTTP response message result {2} {3}, but {4}.",
-                    this.ActionName,
-                    this.Controller.GetName(),
+                    "When testing {0} expected HTTP response message result {1} {2}, but {3}.",
+                    this.Handler.GetName(),
                     propertyName,
                     expectedValue,
                     actualValue));
@@ -357,9 +353,8 @@ namespace MyWebApi.Builders.HttpMessages
         private ResponseModelAssertionException ThrowNewResponseModelAssertionException(string expectedResponseModel, string actualResponseModel)
         {
             return new ResponseModelAssertionException(string.Format(
-                    "When calling {0} action in {1} expected HTTP response message model to {2}, but {3}.",
-                    this.ActionName,
-                    this.Controller.GetName(),
+                    "When testing {0} expected HTTP response message model to {1}, but {2}.",
+                    this.Handler.GetName(),
                     expectedResponseModel,
                     actualResponseModel));
         }

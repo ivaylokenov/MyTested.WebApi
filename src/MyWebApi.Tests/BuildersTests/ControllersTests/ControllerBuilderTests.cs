@@ -136,7 +136,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                 .ShouldReturn()
                 .Ok();
 
-            var controllerUser = controllerBuilder.Controller.User;
+            var controllerUser = controllerBuilder.AndProvideTheController().User;
 
             Assert.AreEqual(false, controllerUser.IsInRole("Any"));
             Assert.AreEqual("TestUser", controllerUser.Identity.Name);
@@ -165,7 +165,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                 .ShouldReturn()
                 .Ok();
 
-            var controllerUser = controllerBuilder.Controller.User;
+            var controllerUser = controllerBuilder.AndProvideTheController().User;
 
             Assert.AreEqual("NewUserName", controllerUser.Identity.Name);
             Assert.AreEqual("Custom", controllerUser.Identity.AuthenticationType);
@@ -189,7 +189,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                 .ShouldReturn()
                 .NotFound();
 
-            var controllerUser = controllerBuilder.Controller.User;
+            var controllerUser = controllerBuilder.AndProvideTheController().User;
 
             Assert.AreEqual(false, controllerUser.IsInRole("Any"));
             Assert.AreEqual(null, controllerUser.Identity.Name);
@@ -203,7 +203,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
             var controller = MyWebApi
                 .Controller<WebApiController>()
                 .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
-                .Controller;
+                .AndProvideTheController();
 
             Assert.IsNotNull(controller);
             Assert.IsNotNull(controller.InjectedService);
@@ -218,7 +218,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                 .Controller<WebApiController>()
                 .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
                 .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
-                .Controller;
+                .AndProvideTheController();
 
             Assert.IsNotNull(controller);
             Assert.IsNotNull(controller.InjectedService);
@@ -234,7 +234,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                 .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
                 .WithResolvedDependencyFor<RequestModel>(new RequestModel())
                 .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
-                .Controller;
+                .AndProvideTheController();
 
             Assert.IsNotNull(controller);
             Assert.IsNotNull(controller.InjectedService);
@@ -420,7 +420,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
             var controllerConfig = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpConfiguration(config)
-                .Controller
+                .AndProvideTheController()
                 .Configuration;
 
             Assert.AreSame(config, controllerConfig);

@@ -31,7 +31,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         [Test]
         public void ValidateContentNegotiatorShouldNotThrowExceptionIfContentValidatorIsCorrect()
         {
-            var actionResultWithContentNegotiator = new OkNegotiatedContentResult<int>(5, MyWebApi.Controller<WebApiController>().Controller);
+            var actionResultWithContentNegotiator = new OkNegotiatedContentResult<int>(5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             ContentNegotiatorValidator.ValidateContentNegotiator(
                 actionResultWithContentNegotiator,
@@ -45,7 +45,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
             ExpectedMessage = "IContentNegotiator to be CustomContentNegotiator instead received DefaultContentNegotiator")]
         public void ValidateContentNegotiatorShouldThrowExceptionIfContentValidatorIsNotCorrect()
         {
-            var actionResultWithContentNegotiator = new OkNegotiatedContentResult<int>(5, MyWebApi.Controller<WebApiController>().Controller);
+            var actionResultWithContentNegotiator = new OkNegotiatedContentResult<int>(5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             ContentNegotiatorValidator.ValidateContentNegotiator(
                 actionResultWithContentNegotiator,

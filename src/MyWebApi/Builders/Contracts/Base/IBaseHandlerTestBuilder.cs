@@ -14,15 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Handlers
+namespace MyWebApi.Builders.Contracts.Base
 {
     using System.Net.Http;
-    using HttpResponseMessages;
 
-    public interface IHttpMessageHandlerTestBuilder
+    public interface IBaseHandlerTestBuilder
     {
-        IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage();
-
-        HttpRequestMessage AndProvideTheHttpRequestMessage();
+        HttpMessageHandler AndProvideTheHandler();
     }
 }

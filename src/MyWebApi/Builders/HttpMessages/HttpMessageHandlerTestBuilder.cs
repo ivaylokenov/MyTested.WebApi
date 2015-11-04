@@ -19,20 +19,23 @@ namespace MyWebApi.Builders.HttpMessages
     using System;
     using System.Net.Http;
     using System.Threading;
+    using Base;
+    using Common.Extensions;
     using Contracts.Handlers;
     using Contracts.HttpRequests;
     using Contracts.HttpResponseMessages;
+    using Exceptions;
+    using Utilities.Validators;
 
-    public class HttpMessageHandlerTestBuilder : IHttpMessageHandlerBuilder, IHttpMessageHandlerTestBuilder
+    public class HttpMessageHandlerTestBuilder
+        : BaseHandlerTestBuilder, IHttpMessageHandlerBuilder, IHttpMessageHandlerTestBuilder
     {
         public HttpMessageHandlerTestBuilder(HttpMessageHandler handler)
+            : base(handler)
         {
-            this.Handler = handler;
         }
 
-        public HttpMessageHandler Handler { get; private set; }
-
-        public HttpRequestMessage HttpRequestMessage { get; private set; }
+        protected HttpRequestMessage HttpRequestMessage { get; private set; }
 
         public IHttpMessageHandlerBuilder WithInnerHandler<TInnerHandler>()
             where TInnerHandler : HttpMessageHandler, new()
@@ -46,7 +49,10 @@ namespace MyWebApi.Builders.HttpMessages
             var handlerAsDelegatingHandler = this.Handler as DelegatingHandler;
             if (handlerAsDelegatingHandler == null)
             {
-                // TODO: throw
+                throw new HttpHandlerAssertionException(string.Format(
+                    "When adding inner handler {0} to {1}, expected {1} to be DelegatinHandler, but in fact was not.",
+                    innerHandler.GetName(),
+                    this.Handler.GetName()));
             }
 
             handlerAsDelegatingHandler.InnerHandler = innerHandler;
@@ -82,19 +88,29 @@ namespace MyWebApi.Builders.HttpMessages
             return this.WithHttpRequestMessage(httpBuilder.GetHttpRequestMessage());
         }
 
-        public IHttpResponseMessageTestBuilder ShouldReturnHttpResponseMessage()
+        public IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage()
         {
-            var httpMessageInvoker = new HttpMessageInvoker(this.Handler);
-            var httpMessageResult = httpMessageInvoker.SendAsync(this.HttpRequestMessage, CancellationToken.None).Result; // TODO: catch exception and add test builder, disposable
-            return null;
+            HttpResponseMessage httpResponseMessage = null;
+            using (var httpMessageInvoker = new HttpMessageInvoker(this.Handler))
+            {
+                try
+                {
+                    httpResponseMessage = httpMessageInvoker.SendAsync(this.HttpRequestMessage, CancellationToken.None).Result;
+                }
+                catch (Exception exception)
+                {
+                    CommonValidator.CheckForException(exception);
+                }
+            }
+
+            return new HttpHandlerResponseMessageTestBuilder(
+                this.Handler,
+                httpResponseMessage);
         }
 
-        private void ValidateHttpRequestMessage()
+        public HttpRequestMessage AndProvideTheHttpRequestMessage()
         {
-            if (this.HttpRequestMessage == null)
-            {
-                // TODO: throw
-            }
+            return this.HttpRequestMessage;
         }
     }
 }

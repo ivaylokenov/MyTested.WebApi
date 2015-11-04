@@ -44,7 +44,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithContent(new StringContent(StringContent)))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsInstanceOf<StringContent>(httpRequestMessage.Content);
             Assert.AreEqual(StringContent, httpRequestMessage.Content.ReadAsStringAsync().Result);
@@ -56,7 +56,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithStreamContent(new MemoryStream(this.buffer)))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsInstanceOf<StreamContent>(httpRequestMessage.Content);
             Assert.AreEqual(this.buffer.Length, httpRequestMessage.Content.ReadAsByteArrayAsync().Result.Length);
@@ -68,7 +68,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithStreamContent(new MemoryStream(this.buffer), 8))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsInstanceOf<StreamContent>(httpRequestMessage.Content);
             Assert.AreEqual(this.buffer.Length, httpRequestMessage.Content.ReadAsByteArrayAsync().Result.Length);
@@ -80,7 +80,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithByteArrayContent(this.buffer))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsInstanceOf<ByteArrayContent>(httpRequestMessage.Content);
             Assert.AreEqual(this.buffer.Length, httpRequestMessage.Content.ReadAsByteArrayAsync().Result.Length);
@@ -92,7 +92,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithByteArrayContent(this.buffer, 2, 4))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsInstanceOf<ByteArrayContent>(httpRequestMessage.Content);
             Assert.AreEqual(4, httpRequestMessage.Content.ReadAsByteArrayAsync().Result.Length);
@@ -107,7 +107,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
                 {
                     new KeyValuePair<string, string>("First", "FirstValue"), new KeyValuePair<string, string>("Second", "SecondValue")
                 }))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsInstanceOf<FormUrlEncodedContent>(httpRequestMessage.Content);
             Assert.AreEqual("First=FirstValue&Second=SecondValue", httpRequestMessage.Content.ReadAsStringAsync().Result);
@@ -120,7 +120,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithFormUrlEncodedContent("First=FirstValue&Second=SecondValue"))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.AreEqual("First=FirstValue&Second=SecondValue", httpRequestMessage.Content.ReadAsStringAsync().Result);
             Assert.AreEqual(MediaType.FormUrlEncoded, httpRequestMessage.Content.Headers.ContentType.MediaType);
@@ -132,7 +132,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithJsonContent(@"{""Age"":5}"))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.AreEqual(@"{""Age"":5}", httpRequestMessage.Content.ReadAsStringAsync().Result);
             Assert.AreEqual(MediaType.ApplicationJson, httpRequestMessage.Content.Headers.ContentType.MediaType);
@@ -144,7 +144,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithStringContent(StringContent))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsInstanceOf<StringContent>(httpRequestMessage.Content);
             Assert.AreEqual(StringContent, httpRequestMessage.Content.ReadAsStringAsync().Result);
@@ -156,7 +156,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithStringContent(StringContent, MediaType.ApplicationXml))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsInstanceOf<StringContent>(httpRequestMessage.Content);
             Assert.AreEqual(StringContent, httpRequestMessage.Content.ReadAsStringAsync().Result);
@@ -169,7 +169,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithStringContent(StringContent, Encoding.UTF8))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsInstanceOf<StringContent>(httpRequestMessage.Content);
             Assert.AreEqual(StringContent, httpRequestMessage.Content.ReadAsStringAsync().Result);
@@ -181,7 +181,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithStringContent(StringContent, Encoding.UTF8, MediaType.ApplicationJson))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsInstanceOf<StringContent>(httpRequestMessage.Content);
             Assert.AreEqual(StringContent, httpRequestMessage.Content.ReadAsStringAsync().Result);
@@ -193,7 +193,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithHeader(TestHeader, TestHeaderValue))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsTrue(httpRequestMessage.Headers.Contains(TestHeader));
             Assert.IsTrue(httpRequestMessage.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
@@ -205,7 +205,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithHeader(TestHeader, new[] { TestHeaderValue, AnotherTestHeaderValue }))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsTrue(httpRequestMessage.Headers.Contains(TestHeader));
             Assert.IsTrue(httpRequestMessage.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
@@ -222,7 +222,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
                     {
                         { TestHeader, new[] { TestHeaderValue, AnotherTestHeaderValue } },
                     }))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsTrue(httpRequestMessage.Headers.Contains(TestHeader));
             Assert.IsTrue(httpRequestMessage.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
@@ -237,7 +237,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
                 .WithHttpRequestMessage(request => request
                     .WithStringContent(StringContent)
                     .WithContentHeader(TestHeader, TestHeaderValue))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsTrue(httpRequestMessage.Content.Headers.Contains(TestHeader));
             Assert.IsTrue(httpRequestMessage.Content.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
@@ -256,7 +256,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
                 .WithHttpRequestMessage(request => request
                     .WithStringContent(StringContent)
                     .WithContentHeader(TestHeader, headers))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsTrue(httpRequestMessage.Content.Headers.Contains(TestHeader));
             Assert.IsTrue(httpRequestMessage.Content.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
@@ -274,7 +274,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
                     {
                         { TestHeader, new[] { TestHeaderValue, AnotherTestHeaderValue } },
                     }))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.IsTrue(httpRequestMessage.Content.Headers.Contains(TestHeader));
             Assert.IsTrue(httpRequestMessage.Content.Headers.First(h => h.Key == TestHeader).Value.Contains(TestHeaderValue));
@@ -302,7 +302,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithMethod("GET"))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.AreEqual(HttpMethod.Get, httpRequestMessage.Method);
         }
@@ -313,7 +313,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.AreEqual(HttpMethod.Get, httpRequestMessage.Method);
         }
@@ -324,7 +324,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithRequestUri(RequestUri))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.AreEqual(new Uri(RequestUri), httpRequestMessage.RequestUri);
         }
@@ -335,7 +335,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithRequestUri(new Uri(RequestUri)))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.AreEqual(new Uri(RequestUri), httpRequestMessage.RequestUri);
         }
@@ -351,7 +351,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
                             => uri
                                 .WithScheme("http")
                                 .WithHost("sometest.com")))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.AreEqual(new Uri(RequestUri).Host, httpRequestMessage.RequestUri.Host);
         }
@@ -362,7 +362,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithVersion(Version))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.AreEqual(Version, httpRequestMessage.Version.ToString());
         }
@@ -373,7 +373,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithVersion(1, 1))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.AreEqual(Version, httpRequestMessage.Version.ToString());
         }
@@ -384,7 +384,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithVersion(new Version(1, 1)))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.AreEqual(Version, httpRequestMessage.Version.ToString());
         }
@@ -398,7 +398,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             var httpRequestMessage = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpRequestMessage(request => request.WithVersion("Invalid"))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.AreEqual(Version, httpRequestMessage.Version.ToString());
         }
@@ -417,7 +417,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
                         .WithVersion("1.1")
                         .AndAlso()
                         .WithStringContent(StringContent))
-                .HttpRequestMessage;
+                .AndProvideTheHttpRequestMessage();
 
             Assert.AreEqual(HttpMethod.Get, httpRequestMessage.Method);
             Assert.AreEqual(new Uri(RequestUri), httpRequestMessage.RequestUri);

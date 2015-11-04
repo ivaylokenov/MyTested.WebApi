@@ -14,15 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Handlers
+namespace MyWebApi.Builders.Contracts.HttpResponseMessages
 {
-    using System.Net.Http;
-    using HttpResponseMessages;
-
-    public interface IHttpMessageHandlerTestBuilder
+    /// <summary>
+    /// Used for adding AndAlso() method to the the HTTP response message tests.
+    /// </summary>
+    public interface IAndHttpHandlerResponseMessageTestBuilder : IHttpHandlerResponseMessageTestBuilder
     {
-        IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage();
-
-        HttpRequestMessage AndProvideTheHttpRequestMessage();
+        /// <summary>
+        /// AndAlso method for better readability when chaining HTTP response message tests.
+        /// </summary>
+        /// <returns>The same HTTP response message test builder.</returns>
+        IHttpHandlerResponseMessageTestBuilder AndAlso();
     }
 }

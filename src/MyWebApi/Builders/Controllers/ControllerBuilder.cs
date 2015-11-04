@@ -65,7 +65,7 @@ namespace MyWebApi.Builders.Controllers
         /// Gets the ASP.NET Web API controller instance to be tested.
         /// </summary>
         /// <value>Instance of the ASP.NET Web API controller.</value>
-        public TController Controller
+        protected TController Controller
         {
             get
             {
@@ -83,13 +83,13 @@ namespace MyWebApi.Builders.Controllers
         /// Gets the HTTP request message used in the testing.
         /// </summary>
         /// <value>Instance of HttpRequestMessage.</value>
-        public HttpRequestMessage HttpRequestMessage { get; private set; }
+        protected HttpRequestMessage HttpRequestMessage { get; private set; }
 
         /// <summary>
         /// Gets the HTTP configuration used in the testing.
         /// </summary>
         /// <value>Instance of HttpConfiguration.</value>
-        public HttpConfiguration HttpConfiguration { get; private set; }
+        protected HttpConfiguration HttpConfiguration { get; private set; }
 
         /// <summary>
         /// Sets the HTTP configuration for the current test case.
@@ -308,6 +308,21 @@ namespace MyWebApi.Builders.Controllers
             }
 
             return new VoidActionResultTestBuilder(this.Controller, actionInfo.ActionName, actionInfo.CaughtException, actionInfo.ActionAttributes);
+        }
+
+        public TController AndProvideTheController()
+        {
+            return this.Controller;
+        }
+
+        public HttpRequestMessage AndProvideTheHttpRequestMessage()
+        {
+            return this.HttpRequestMessage;
+        }
+
+        public HttpConfiguration AndProvideTheHttpConfiguration()
+        {
+            return this.HttpConfiguration;
         }
 
         private void BuildControllerIfNotExists()

@@ -14,15 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Handlers
+namespace MyWebApi.Exceptions
 {
-    using System.Net.Http;
-    using HttpResponseMessages;
+    using System;
 
-    public interface IHttpMessageHandlerTestBuilder
+    /// <summary>
+    /// Exception for invalid HTTP handler.
+    /// </summary>
+    public class HttpHandlerAssertionException : Exception
     {
-        IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage();
-
-        HttpRequestMessage AndProvideTheHttpRequestMessage();
+        /// <summary>
+        /// Initializes a new instance of the HttpHandlerAssertionException class.
+        /// </summary>
+        /// <param name="message">Message for System.Exception class.</param>
+        public HttpHandlerAssertionException(string message)
+            : base(message)
+        {
+        }
     }
 }

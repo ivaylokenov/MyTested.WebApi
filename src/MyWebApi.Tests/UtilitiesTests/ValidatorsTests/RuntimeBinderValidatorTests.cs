@@ -30,7 +30,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         public void ValidateBindingShouldNotThrowExceptionWithValidPropertyCall()
         {
             var actionResultWithFormatters = new CreatedNegotiatedContentResult<int>(
-                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().Controller);
+                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             RuntimeBinderValidator.ValidateBinding(() =>
             {
@@ -46,7 +46,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         public void ValidateBindingShouldThrowExceptionWithInvalidPropertyCall()
         {
             var actionResultWithFormatters = new CreatedNegotiatedContentResult<int>(
-                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().Controller);
+                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             RuntimeBinderValidator.ValidateBinding(() =>
             {
