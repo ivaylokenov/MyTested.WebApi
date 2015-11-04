@@ -24,8 +24,17 @@ namespace MyWebApi.Utilities.Validators
     using System.Net.Http.Headers;
     using Exceptions;
 
+    /// <summary>
+    /// Validator class containing HTTP response message validation logic.
+    /// </summary>
     public static class HttpResponseMessageValidator
     {
+        /// <summary>
+        /// Tests whether the content of the HTTP response message is of certain type.
+        /// </summary>
+        /// <typeparam name="TContentType">Type of expected HTTP content.</typeparam>
+        /// <param name="content">Actual HTTP content.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void WithContentOfType<TContentType>(
             HttpContent content,
             Action<string, string, string> failedValidationAction)
@@ -42,6 +51,11 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        /// <summary>
+        /// Validates HTTP content for not null reference.
+        /// </summary>
+        /// <param name="content">HTTP content to validate.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void ValidateContent(HttpContent content, Action<string, string, string> failedValidationAction)
         {
             if (content == null)
@@ -53,6 +67,13 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        /// <summary>
+        /// Tests whether the HTTP response message contains response header with certain name.
+        /// </summary>
+        /// <param name="headers">HTTP headers.</param>
+        /// <param name="name">Name of expected response header.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
+        /// <param name="isContentHeader">Indicates whether the header is content header.</param>
         public static void ContainingHeader(
             HttpHeaders headers,
             string name,
@@ -68,6 +89,14 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        /// <summary>
+        /// Tests whether the HTTP response message contains response header with certain name and value.
+        /// </summary>
+        /// <param name="headers">HTTP headers.</param>
+        /// <param name="name">Name of expected response header.</param>
+        /// <param name="value">Value of expected response header.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
+        /// <param name="isContentHeader">Indicates whether the header is content header.</param>
         public static void ContainingHeader(
             HttpHeaders headers,
             string name,
@@ -87,6 +116,14 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        /// <summary>
+        /// Tests whether the HTTP response message contains response header with certain name and collection of value.
+        /// </summary>
+        /// <param name="headers">HTTP headers.</param>
+        /// <param name="name">Name of expected response header.</param>
+        /// <param name="values">Collection of values in the expected response header.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
+        /// <param name="isContentHeader">Indicates whether the header is content header.</param>
         public static void ContainingHeader(
             HttpHeaders headers,
             string name,
@@ -124,6 +161,13 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        /// <summary>
+        /// Validates total number of HTTP headers.
+        /// </summary>
+        /// <param name="expectedHeaders">Expected HTTP headers.</param>
+        /// <param name="actualHeaders">Actual HTTP headers.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
+        /// <param name="isContentHeaders">Indicates whether the headers are content headers.</param>
         public static void ValidateHeadersCount(
             IEnumerable<KeyValuePair<string, IEnumerable<string>>> expectedHeaders,
             HttpHeaders actualHeaders,
@@ -142,6 +186,15 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        /// <summary>
+        /// Tests whether an object is returned from the invoked HTTP response message content.
+        /// </summary>
+        /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
+        /// <param name="content">Actual HTTP content.</param>
+        /// <param name="expectedModel">Expected model to be returned.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
+        /// <param name="failedResponseModelValidationAction">Func returning exception, in case of failed response model validation.</param>
+        /// <returns>The actual HTTP response model.</returns>
         public static TResponseModel WithResponseModel<TResponseModel>(
             HttpContent content,
             TResponseModel expectedModel,
@@ -162,6 +215,13 @@ namespace MyWebApi.Utilities.Validators
             return actualModel;
         }
 
+        /// <summary>
+        /// Gets the actual response model from HTTP content.
+        /// </summary>
+        /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
+        /// <param name="content">Actual HTTP content.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
+        /// <returns>The actual HTTP response model.</returns>
         public static TResponseModel GetActualContentModel<TResponseModel>(
             HttpContent content,
             Func<string, string, ResponseModelAssertionException> failedValidationAction)
@@ -179,6 +239,12 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        /// <summary>
+        /// Tests whether HTTP response message status code is the same as the provided HttpStatusCode.
+        /// </summary>
+        /// <param name="httpResponseMessage">HTTP response message to test.</param>
+        /// <param name="statusCode">Expected status code.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void WithStatusCode(
             HttpResponseMessage httpResponseMessage,
             HttpStatusCode statusCode,
@@ -194,6 +260,12 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        /// <summary>
+        /// Tests whether HTTP response message version is the same as the provided version.
+        /// </summary>
+        /// <param name="httpResponseMessage">HTTP response message to test.</param>
+        /// <param name="version">Expected version.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void WithVersion(
             HttpResponseMessage httpResponseMessage,
             Version version,
@@ -209,6 +281,12 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        /// <summary>
+        /// Tests whether HTTP response message reason phrase is the same as the provided reason phrase as string.
+        /// </summary>
+        /// <param name="httpResponseMessage">HTTP response message to test.</param>
+        /// <param name="reasonPhrase">Expected reason phrase as string.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void WithReasonPhrase(
             HttpResponseMessage httpResponseMessage,
             string reasonPhrase,
@@ -224,6 +302,11 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        /// <summary>
+        /// Tests whether HTTP response message returns success status code between 200 and 299.
+        /// </summary>
+        /// <param name="httpResponseMessage">HTTP response message to test.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void WithSuccessStatusCode(HttpResponseMessage httpResponseMessage, Action<string, string, string> failedValidationAction)
         {
             if (!httpResponseMessage.IsSuccessStatusCode)
