@@ -40,36 +40,38 @@ namespace MyWebApi.Tests.Setups.Handlers
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            return Task.Run(() =>
-            {
-                if (request.Headers.Contains("NoContent"))
+            return Task.Run(
+                () =>
                 {
-                    return new HttpResponseMessage(HttpStatusCode.NoContent);;
-                }
+                    if (request.Headers.Contains("NoContent"))
+                    {
+                        return new HttpResponseMessage(HttpStatusCode.NoContent);;
+                    }
 
-                if (request.Headers.Contains("NotFound"))
-                {
-                    return new HttpResponseMessage(HttpStatusCode.NotFound);
-                }
+                    if (request.Headers.Contains("NotFound"))
+                    {
+                        return new HttpResponseMessage(HttpStatusCode.NotFound);
+                    }
 
-                if (request.Headers.Contains("FromRequest"))
-                {
-                    return request.CreateResponse(HttpStatusCode.BadRequest, this.responseModel);
-                }
+                    if (request.Headers.Contains("FromRequest"))
+                    {
+                        return request.CreateResponse(HttpStatusCode.BadRequest, this.responseModel);
+                    }
 
-                var response = new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    ReasonPhrase = "Custom reason phrase",
-                    Version = new Version(1, 1),
-                    Content = new ObjectContent(this.responseModel.GetType(), this.responseModel, TestObjectFactory.GetCustomMediaTypeFormatter()),
-                    RequestMessage = request
-                };
+                    var response = new HttpResponseMessage(HttpStatusCode.OK)
+                    {
+                        ReasonPhrase = "Custom reason phrase",
+                        Version = new Version(1, 1),
+                        Content = new ObjectContent(this.responseModel.GetType(), this.responseModel, TestObjectFactory.GetCustomMediaTypeFormatter()),
+                        RequestMessage = request
+                    };
 
-                response.Headers.Add("TestHeader", "TestHeaderValue");
-                response.Content.Headers.Add("TestHeader", "TestHeaderValue");
+                    response.Headers.Add("TestHeader", "TestHeaderValue");
+                    response.Content.Headers.Add("TestHeader", "TestHeaderValue");
 
-                return response;
-            }, cancellationToken);
+                    return response;
+                },
+                cancellationToken);
         }
     }
 }

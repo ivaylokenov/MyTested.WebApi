@@ -22,11 +22,11 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
     using System.Net.Http;
     using System.Net.Http.Formatting;
     using Exceptions;
+    using NUnit.Framework;
     using Setups;
     using Setups.Common;
     using Setups.Controllers;
     using Setups.Models;
-    using NUnit.Framework;
 
     [TestFixture]
     public class HttpResponseMessageTestBuilderTests

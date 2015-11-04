@@ -176,6 +176,10 @@ namespace MyWebApi.Builders.Contracts.HttpResponseMessages
         /// <returns>The same HTTP response message test builder.</returns>
         IAndHttpHandlerResponseMessageTestBuilder WithSuccessStatusCode();
 
+        /// <summary>
+        /// Gets the HTTP request message used in the handler testing.
+        /// </summary>
+        /// <returns>Instance of HttpRequestMessage.</returns>
         HttpResponseMessage AndProvideTheHttpResponseMessage();
     }
 }

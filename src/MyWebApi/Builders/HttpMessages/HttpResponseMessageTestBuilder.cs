@@ -23,11 +23,11 @@ namespace MyWebApi.Builders.HttpMessages
     using System.Net.Http.Formatting;
     using System.Web.Http;
     using Base;
+    using Common.Extensions;
     using Contracts.HttpResponseMessages;
     using Contracts.Models;
-    using Models;
-    using Common.Extensions;
     using Exceptions;
+    using Models;
     using Utilities.Validators;
 
     /// <summary>
@@ -338,6 +338,10 @@ namespace MyWebApi.Builders.HttpMessages
             return this;
         }
 
+        /// <summary>
+        /// Gets the HTTP request message used in the testing.
+        /// </summary>
+        /// <returns>Instance of HttpRequestMessage.</returns>
         public HttpResponseMessage AndProvideTheHttpResponseMessage()
         {
             return this.ActionResult;

@@ -133,19 +133,19 @@ namespace MyWebApi.Builders.Contracts.Controllers
         /// <summary>
         /// Gets ASP.NET Web API controller instance to be tested.
         /// </summary>
-        /// <value>Instance of the ASP.NET Web API controller.</value>
+        /// <returns>Instance of the ASP.NET Web API controller.</returns>
         TController AndProvideTheController();
 
         /// <summary>
         /// Gets the HTTP configuration used in the testing.
         /// </summary>
-        /// <value>Instance of HttpConfiguration.</value>
+        /// <returns>Instance of HttpConfiguration.</returns>
         HttpConfiguration AndProvideTheHttpConfiguration();
 
         /// <summary>
         /// Gets the HTTP request message used in the testing.
         /// </summary>
-        /// <value>Instance of HttpRequestMessage.</value>
+        /// <returns>Instance of HttpRequestMessage.</returns>
         HttpRequestMessage AndProvideTheHttpRequestMessage();
     }
 }

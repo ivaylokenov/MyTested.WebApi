@@ -40,7 +40,7 @@ namespace MyWebApi.Utilities.Validators
             Action<string, string, string> failedValidationAction)
             where TContentType : HttpContent
         {
-            var expectedType = typeof (TContentType);
+            var expectedType = typeof(TContentType);
             var actualType = content.GetType();
             if (Reflection.AreDifferentTypes(expectedType, actualType))
             {
@@ -128,7 +128,7 @@ namespace MyWebApi.Utilities.Validators
             HttpHeaders headers,
             string name,
             IEnumerable<string> values,
-            Action<string, string, string> failedValidationAction, 
+            Action<string, string, string> failedValidationAction,
             bool isContentHeader = false)
         {
             ContainingHeader(headers, name, failedValidationAction, isContentHeader);
@@ -193,7 +193,7 @@ namespace MyWebApi.Utilities.Validators
         /// <param name="content">Actual HTTP content.</param>
         /// <param name="expectedModel">Expected model to be returned.</param>
         /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
-        /// <param name="failedResponseModelValidationAction">Func returning exception, in case of failed response model validation.</param>
+        /// <param name="failedResponseModelValidationAction">Function returning exception, in case of failed response model validation.</param>
         /// <returns>The actual HTTP response model.</returns>
         public static TResponseModel WithResponseModel<TResponseModel>(
             HttpContent content,
@@ -234,7 +234,7 @@ namespace MyWebApi.Utilities.Validators
             catch (InvalidCastException)
             {
                 throw failedValidationAction(
-                   string.Format("be a {0}",typeof(TResponseModel).ToFriendlyTypeName()),
+                   string.Format("be a {0}", typeof(TResponseModel).ToFriendlyTypeName()),
                    string.Format("instead received a {0}", responseModel.GetType().ToFriendlyTypeName()));
             }
         }

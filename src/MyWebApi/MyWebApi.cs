@@ -67,6 +67,11 @@ namespace MyWebApi
             return new RouteTestBuilder(httpConfiguration);
         }
 
+        /// <summary>
+        /// Selects HTTP message handler on which the test will be executed. HttpMessageHandler is instantiated with default constructor.
+        /// </summary>
+        /// <typeparam name="THandler">Instance of type HttpMessageHandler.</typeparam>
+        /// <returns>Handler builder used to build the test case.</returns>
         public static IHttpMessageHandlerBuilder Handler<THandler>()
             where THandler : HttpMessageHandler
         {
@@ -74,14 +79,24 @@ namespace MyWebApi
             return Handler(() => handler);
         }
 
+        /// <summary>
+        /// Selects HTTP message handler on which the test will be executed.
+        /// </summary>
+        /// <param name="handler">Instance of the HttpMessageHandler to use.</param>
+        /// <returns>Handler builder used to build the test case.</returns>
         public static IHttpMessageHandlerBuilder Handler(HttpMessageHandler handler)
         {
             return Handler(() => handler);
         }
 
-        public static IHttpMessageHandlerBuilder Handler(Func<HttpMessageHandler> handler)
+        /// <summary>
+        /// Selects HTTP message handler on which the test will be executed. HttpMessageHandler is instantiated using construction function.
+        /// </summary>
+        /// <param name="construction">Construction function returning the instantiated HttpMessageHandler.</param>
+        /// <returns>Handler builder used to build the test case.</returns>
+        public static IHttpMessageHandlerBuilder Handler(Func<HttpMessageHandler> construction)
         {
-            var handlerInstance = handler();
+            var handlerInstance = construction();
             return new HttpMessageHandlerTestBuilder(handlerInstance);
         }
 

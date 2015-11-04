@@ -44,7 +44,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         public void WithInnerHandlerWithProvidedInstanceShouldPopulateCorrectInnerHandler()
         {
-            var innerHandler = new CustomMessageHandler(); ;
+            var innerHandler = new CustomMessageHandler();
             var handler = MyWebApi
                 .Handler<CustomDelegatingHandler>()
                 .WithInnerHandler(innerHandler)
@@ -61,7 +61,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
             ExpectedMessage = "When adding inner handler CustomMessageHandler to CustomMessageHandler, expected CustomMessageHandler to be DelegatingHandler, but in fact was not.")]
         public void WithInnerHandlerInstanceShouldThrowExceptionIfOuterHandlerIsNotDelegatingHandler()
         {
-            var innerHandler = new CustomMessageHandler(); ;
+            var innerHandler = new CustomMessageHandler();
             var handler = MyWebApi
                 .Handler<CustomMessageHandler>()
                 .WithInnerHandler(innerHandler)

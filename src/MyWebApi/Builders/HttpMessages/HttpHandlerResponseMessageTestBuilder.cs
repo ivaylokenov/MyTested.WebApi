@@ -335,6 +335,10 @@ namespace MyWebApi.Builders.HttpMessages
             return this;
         }
 
+        /// <summary>
+        /// Gets the HTTP response message used in the testing.
+        /// </summary>
+        /// <returns>Instance of HttpResponseMessage.</returns>
         public HttpResponseMessage AndProvideTheHttpResponseMessage()
         {
             return this.httpResponseMessage;

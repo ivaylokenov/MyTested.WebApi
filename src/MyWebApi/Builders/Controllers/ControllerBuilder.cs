@@ -310,16 +310,28 @@ namespace MyWebApi.Builders.Controllers
             return new VoidActionResultTestBuilder(this.Controller, actionInfo.ActionName, actionInfo.CaughtException, actionInfo.ActionAttributes);
         }
 
+        /// <summary>
+        /// Gets ASP.NET Web API controller instance to be tested.
+        /// </summary>
+        /// <returns>Instance of the ASP.NET Web API controller.</returns>
         public TController AndProvideTheController()
         {
             return this.Controller;
         }
 
+        /// <summary>
+        /// Gets the HTTP configuration used in the testing.
+        /// </summary>
+        /// <returns>Instance of HttpConfiguration.</returns>
         public HttpRequestMessage AndProvideTheHttpRequestMessage()
         {
             return this.HttpRequestMessage;
         }
 
+        /// <summary>
+        /// Gets the HTTP request message used in the testing.
+        /// </summary>
+        /// <returns>Instance of HttpRequestMessage.</returns>
         public HttpConfiguration AndProvideTheHttpConfiguration()
         {
             return this.Controller.Configuration;

@@ -21,11 +21,11 @@ namespace MyWebApi.Builders.HttpMessages
     using System.IO;
     using System.Net.Http;
     using System.Text;
+    using Common.Extensions;
     using Contracts.HttpRequests;
     using Contracts.Uris;
-    using Uris;
-    using Common.Extensions;
     using Exceptions;
+    using Uris;
     using Utilities.Validators;
 
     /// <summary>

@@ -40,6 +40,10 @@ namespace MyWebApi.Builders.Contracts.Models
         /// <returns>Builder for testing the HTTP response message results from handlers.</returns>
         IHttpHandlerResponseMessageTestBuilder Passing(Func<TResponseModel, bool> predicate);
 
+        /// <summary>
+        /// Gets the HTTP response message content model used in the testing.
+        /// </summary>
+        /// <returns>Instance of the content model type.</returns>
         TResponseModel AndProvideTheModel();
     }
 }
