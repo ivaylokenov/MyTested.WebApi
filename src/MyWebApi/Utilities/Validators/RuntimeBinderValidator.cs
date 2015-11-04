@@ -22,7 +22,7 @@
             catch (RuntimeBinderException ex)
             {
                 var fullPropertyName = ex.Message.Split('\'')[3];
-                throw new ActionCallAssertionException(string.Format(
+                throw new InvalidCallAssertionException(string.Format(
                     "Expected action result to contain a '{0}' property to test, but in fact such property was not found.",
                     fullPropertyName));
             }

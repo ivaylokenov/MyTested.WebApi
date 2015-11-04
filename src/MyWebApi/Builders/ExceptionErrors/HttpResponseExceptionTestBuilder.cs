@@ -24,6 +24,7 @@ namespace MyWebApi.Builders.ExceptionErrors
     using Contracts.ExceptionErrors;
     using Contracts.HttpResponseMessages;
     using Exceptions;
+    using HttpMessages;
 
     /// <summary>
     /// Used for testing expected HttpResponseException.

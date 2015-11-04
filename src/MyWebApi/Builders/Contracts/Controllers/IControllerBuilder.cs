@@ -33,24 +33,6 @@ namespace MyWebApi.Builders.Contracts.Controllers
         where TController : ApiController
     {
         /// <summary>
-        /// Gets ASP.NET Web API controller instance to be tested.
-        /// </summary>
-        /// <value>Instance of the ASP.NET Web API controller.</value>
-        TController Controller { get; }
-
-        /// <summary>
-        /// Gets the HTTP configuration used in the testing.
-        /// </summary>
-        /// <value>Instance of HttpConfiguration.</value>
-        HttpConfiguration HttpConfiguration { get; }
-
-        /// <summary>
-        /// Gets the HTTP request message used in the testing.
-        /// </summary>
-        /// <value>Instance of HttpRequestMessage.</value>
-        HttpRequestMessage HttpRequestMessage { get; }
-
-        /// <summary>
         /// Used for testing controller attributes.
         /// </summary>
         /// <returns>Controller test builder.</returns>
@@ -147,5 +129,23 @@ namespace MyWebApi.Builders.Contracts.Controllers
         /// <param name="actionCall">Method call expression indicating invoked action.</param>
         /// <returns>Builder for testing void actions.</returns>
         IVoidActionResultTestBuilder CallingAsync(Expression<Func<TController, Task>> actionCall);
+
+        /// <summary>
+        /// Gets ASP.NET Web API controller instance to be tested.
+        /// </summary>
+        /// <returns>Instance of the ASP.NET Web API controller.</returns>
+        TController AndProvideTheController();
+
+        /// <summary>
+        /// Gets the HTTP configuration used in the testing.
+        /// </summary>
+        /// <returns>Instance of HttpConfiguration.</returns>
+        HttpConfiguration AndProvideTheHttpConfiguration();
+
+        /// <summary>
+        /// Gets the HTTP request message used in the testing.
+        /// </summary>
+        /// <returns>Instance of HttpRequestMessage.</returns>
+        HttpRequestMessage AndProvideTheHttpRequestMessage();
     }
 }

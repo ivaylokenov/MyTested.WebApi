@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Tests.BuildersTests
+namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
 {
     using System;
     using System.Collections.Generic;
@@ -572,6 +572,23 @@ namespace MyWebApi.Tests.BuildersTests
                 .WithSuccessStatusCode()
                 .AndAlso()
                 .WithReasonPhrase("Custom reason phrase");
+        }
+
+        [Test]
+        public void AndProvideTheHttpResponseMessageShouldWorkCorrectly()
+        {
+            var response = MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .WithSuccessStatusCode()
+                .AndAlso()
+                .WithReasonPhrase("Custom reason phrase")
+                .AndProvideTheHttpResponseMessage();
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }

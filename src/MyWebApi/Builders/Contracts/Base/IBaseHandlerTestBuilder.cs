@@ -14,30 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Actions.ShouldReturn
+namespace MyWebApi.Builders.Contracts.Base
 {
     using System.Net.Http;
-    using Contracts.HttpResponseMessages;
-    using HttpMessages;
 
     /// <summary>
-    /// Class containing methods for testing HttpResponseMessage result.
+    /// Base class for handler test builders.
     /// </summary>
-    /// <typeparam name="TActionResult">Result from invoked action in ASP.NET Web API controller.</typeparam>
-    public partial class ShouldReturnTestBuilder<TActionResult>
+    public interface IBaseHandlerTestBuilder
     {
         /// <summary>
-        /// Tests whether action result is HttpResponseMessage.
+        /// Gets the HTTP message handler used in the testing.
         /// </summary>
-        /// <returns>HTTP response message test builder.</returns>
-        public IHttpResponseMessageTestBuilder HttpResponseMessage()
-        {
-            this.ResultOfType<HttpResponseMessage>();
-            return new HttpResponseMessageTestBuilder(
-                this.Controller,
-                this.ActionName,
-                this.CaughtException,
-                this.ActionResult as HttpResponseMessage);
-        }
+        /// <returns>Instance of HttpMessageHandler.</returns>
+        HttpMessageHandler AndProvideTheHandler();
     }
 }

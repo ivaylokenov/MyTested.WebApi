@@ -56,7 +56,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
             var actionResultWithFormatters = new CreatedNegotiatedContentResult<int>(
                 TestObjectFactory.GetUri(),
                 5,
-                MyWebApi.Controller<WebApiController>().Controller);
+                MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
                 actionResultWithFormatters,
@@ -72,7 +72,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
                 5,
                 TestObjectFactory.GetCustomMediaTypeFormatter(),
                 new MediaTypeHeaderValue(TestObjectFactory.MediaType),
-                MyWebApi.Controller<WebApiController>().Controller);
+                MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
                 actionResultWithFormatter,
@@ -87,7 +87,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         public void ValidateMediaTypeFormatterShouldThrowExceptionWithIncorrectMediaTypeFormatter()
         {
             var actionResultWithFormatters = new CreatedNegotiatedContentResult<int>(
-                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().Controller);
+                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             MediaTypeFormatterValidator.ValidateMediaTypeFormatter(
                 actionResultWithFormatters,
@@ -99,7 +99,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         public void ValidateMediaTypeFormattersShouldNotThrowExceptionWithCorrectMediaTypeFormatter()
         {
             var actionResultWithFormatters = new CreatedNegotiatedContentResult<int>(
-                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().Controller);
+                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             MediaTypeFormatterValidator.ValidateMediaTypeFormatters(
                 actionResultWithFormatters,
@@ -114,7 +114,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         public void ValidateMediaTypeFormattersShouldThrowExceptionWithIncorrectMediaTypeFormatter()
         {
             var actionResultWithFormatters = new CreatedNegotiatedContentResult<int>(
-                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().Controller);
+                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             MediaTypeFormatterValidator.ValidateMediaTypeFormatters(
                 actionResultWithFormatters,
@@ -126,7 +126,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         public void ValidateMediaTypeFormattersBuilderShouldNotThrowExceptionWithCorrectBuilder()
         {
             var actionResultWithFormatters = new CreatedNegotiatedContentResult<int>(
-                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().Controller);
+                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             MediaTypeFormatterValidator.ValidateMediaTypeFormattersBuilder(
                 actionResultWithFormatters,
@@ -144,7 +144,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
         public void ValidateMediaTypeFormattersBuilderShouldThrowExceptionWithIncorrectBuilder()
         {
             var actionResultWithFormatters = new CreatedNegotiatedContentResult<int>(
-                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().Controller);
+                TestObjectFactory.GetUri(), 5, MyWebApi.Controller<WebApiController>().AndProvideTheController());
 
             MediaTypeFormatterValidator.ValidateMediaTypeFormattersBuilder(
                 actionResultWithFormatters,

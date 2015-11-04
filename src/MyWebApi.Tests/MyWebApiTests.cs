@@ -21,6 +21,7 @@ namespace MyWebApi.Tests
     using Exceptions;
     using NUnit.Framework;
     using Setups.Controllers;
+    using Setups.Handlers;
     using Setups.Services;
 
     [TestFixture]
@@ -33,7 +34,7 @@ namespace MyWebApi.Tests
             var configs = new List<HttpConfiguration>();
             for (int i = 0; i < 2; i++)
             {
-                var controller = MyWebApi.Controller<WebApiController>().Controller;
+                var controller = MyWebApi.Controller<WebApiController>().AndProvideTheController();
                 var actualConfig = controller.Configuration;
 
                 Assert.IsNotNull(actualConfig);
@@ -46,8 +47,8 @@ namespace MyWebApi.Tests
         [Test]
         public void ControllerWithoutConstructorFunctionShouldPopulateCorrectNewInstanceOfControllerType()
         {
-            var controller = MyWebApi.Controller<WebApiController>().Controller;
-
+            var controller = MyWebApi.Controller<WebApiController>().AndProvideTheController();
+            
             Assert.IsNotNull(controller);
             Assert.IsAssignableFrom<WebApiController>(controller);
         }
@@ -55,7 +56,7 @@ namespace MyWebApi.Tests
         [Test]
         public void ControllerWithConstructorFunctionShouldPopulateCorrectNewInstanceOfControllerType()
         {
-            var controller = MyWebApi.Controller(() => new WebApiController(new InjectedService())).Controller;
+            var controller = MyWebApi.Controller(() => new WebApiController(new InjectedService())).AndProvideTheController();
 
             Assert.IsNotNull(controller);
             Assert.IsAssignableFrom<WebApiController>(controller);
@@ -68,7 +69,7 @@ namespace MyWebApi.Tests
         public void ControllerWithProvidedInstanceShouldPopulateCorrectInstanceOfControllerType()
         {
             var instance = new WebApiController();
-            var controller = MyWebApi.Controller(instance).Controller;
+            var controller = MyWebApi.Controller(instance).AndProvideTheController();
 
             Assert.IsNotNull(controller);
             Assert.IsAssignableFrom<WebApiController>(controller);
@@ -85,6 +86,36 @@ namespace MyWebApi.Tests
                 .Calling(c => c.OkAction())
                 .ShouldReturn()
                 .Ok();
+        }
+
+        [Test]
+        public void HandlerWithoutConstructorFunctionShouldPopulateCorrectNewInstanceOfHandlerType()
+        {
+            var handler = MyWebApi
+                .Handler<CustomMessageHandler>()
+                .AndProvideTheHandler();
+
+            Assert.IsNotNull(handler);
+            Assert.IsAssignableFrom<CustomMessageHandler>(handler);
+        }
+
+        [Test]
+        public void HandlerWithConstructorFunctionShouldPopulateCorrectNewInstanceOfHandlerType()
+        {
+            var handler = MyWebApi.Handler(() => new CustomMessageHandler()).AndProvideTheHandler();
+
+            Assert.IsNotNull(handler);
+            Assert.IsAssignableFrom<CustomMessageHandler>(handler);
+        }
+
+        [Test]
+        public void HandlerWithProvidedInstanceShouldPopulateCorrectInstanceOfHandlerType()
+        {
+            var instance = new CustomMessageHandler();
+            var controller = MyWebApi.Handler(instance).AndProvideTheHandler();
+
+            Assert.IsNotNull(controller);
+            Assert.IsAssignableFrom<CustomMessageHandler>(controller);
         }
     }
 }

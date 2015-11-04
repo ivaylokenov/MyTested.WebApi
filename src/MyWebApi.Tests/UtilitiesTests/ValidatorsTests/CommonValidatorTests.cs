@@ -74,7 +74,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
 
         [Test]
         [ExpectedException(
-            typeof(ActionCallAssertionException),
+            typeof(InvalidCallAssertionException),
             ExpectedMessage = "NullReferenceException was thrown but was not caught or expected.")]
         public void CheckForExceptionShouldThrowIfExceptionIsNotNullWithEmptyMessage()
         {
@@ -83,7 +83,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
 
         [Test]
         [ExpectedException(
-            typeof(ActionCallAssertionException),
+            typeof(InvalidCallAssertionException),
             ExpectedMessage = "NullReferenceException with 'Test' message was thrown but was not caught or expected.")]
         public void CheckForExceptionShouldThrowIfExceptionIsNotNullWithMessage()
         {
@@ -92,7 +92,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
 
         [Test]
         [ExpectedException(
-            typeof(ActionCallAssertionException),
+            typeof(InvalidCallAssertionException),
             ExpectedMessage = "AggregateException (containing NullReferenceException with 'Null test' message, InvalidCastException with 'Cast test' message, InvalidOperationException with 'Operation test' message) was thrown but was not caught or expected.")]
         public void CheckForExceptionShouldThrowWithProperMessageIfExceptionIsAggregateException()
         {
@@ -162,7 +162,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
 
         [Test]
         [ExpectedException(
-            typeof(ActionCallAssertionException),
+            typeof(InvalidCallAssertionException),
             ExpectedMessage = "Int32 cannot be null.")]
         public void CheckIfTypeCanBeNullShouldThrowExceptionWithStruct()
         {

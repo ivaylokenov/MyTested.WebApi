@@ -35,7 +35,7 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
 
         [Test]
         [ExpectedException(
-            typeof(ActionCallAssertionException),
+            typeof(InvalidCallAssertionException),
             ExpectedMessage = "Boolean cannot be null.")]
         public void ShouldReturnNullShouldThrowExceptionWhenReturnValueIsNotNullable()
         {
@@ -71,7 +71,7 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
 
         [Test]
         [ExpectedException(
-            typeof(ActionCallAssertionException),
+            typeof(InvalidCallAssertionException),
             ExpectedMessage = "Boolean cannot be null.")]
         public void ShouldReturnNotNullShouldThrowExceptionWhenReturnValueIsNotNullable()
         {

@@ -35,7 +35,7 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests
 
         [Test]
         [ExpectedException(
-            typeof(ActionCallAssertionException),
+            typeof(InvalidCallAssertionException),
             ExpectedMessage = "NullReferenceException with 'Test exception message' message was thrown but was not caught or expected.")]
         public void ShouldReturnEmptyShouldThrowExceptionIfActionThrowsException()
         {
@@ -47,7 +47,7 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests
 
         [Test]
         [ExpectedException(
-            typeof(ActionCallAssertionException),
+            typeof(InvalidCallAssertionException),
             ExpectedMessage = "AggregateException (containing NullReferenceException with 'Test exception message' message) was thrown but was not caught or expected.")]
         public void ShouldReturnEmptyWithAsyncShouldThrowExceptionIfActionThrowsException()
         {

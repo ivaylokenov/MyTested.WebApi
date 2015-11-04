@@ -17,16 +17,19 @@
 namespace MyWebApi
 {
     using System;
+    using System.Net.Http;
     using System.Web.Http;
     using Builders.Contracts.Controllers;
+    using Builders.Contracts.Handlers;
     using Builders.Contracts.Routes;
     using Builders.Controllers;
+    using Builders.HttpMessages;
     using Builders.Routes;
     using Utilities;
     using Utilities.Validators;
 
     /// <summary>
-    /// Starting point of the testing framework, which provides a way to specify the ASP.NET Web API controller to be tested.
+    /// Starting point of the testing framework, which provides a way to specify the ASP.NET Web API feature to be tested.
     /// </summary>
     public static class MyWebApi
     {
@@ -62,6 +65,39 @@ namespace MyWebApi
             }
 
             return new RouteTestBuilder(httpConfiguration);
+        }
+
+        /// <summary>
+        /// Selects HTTP message handler on which the test will be executed. HttpMessageHandler is instantiated with default constructor.
+        /// </summary>
+        /// <typeparam name="THandler">Instance of type HttpMessageHandler.</typeparam>
+        /// <returns>Handler builder used to build the test case.</returns>
+        public static IHttpMessageHandlerBuilder Handler<THandler>()
+            where THandler : HttpMessageHandler
+        {
+            var handler = Reflection.TryCreateInstance<THandler>();
+            return Handler(() => handler);
+        }
+
+        /// <summary>
+        /// Selects HTTP message handler on which the test will be executed.
+        /// </summary>
+        /// <param name="handler">Instance of the HttpMessageHandler to use.</param>
+        /// <returns>Handler builder used to build the test case.</returns>
+        public static IHttpMessageHandlerBuilder Handler(HttpMessageHandler handler)
+        {
+            return Handler(() => handler);
+        }
+
+        /// <summary>
+        /// Selects HTTP message handler on which the test will be executed. HttpMessageHandler is instantiated using construction function.
+        /// </summary>
+        /// <param name="construction">Construction function returning the instantiated HttpMessageHandler.</param>
+        /// <returns>Handler builder used to build the test case.</returns>
+        public static IHttpMessageHandlerBuilder Handler(Func<HttpMessageHandler> construction)
+        {
+            var handlerInstance = construction();
+            return new HttpMessageHandlerTestBuilder(handlerInstance);
         }
 
         /// <summary>

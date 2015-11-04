@@ -92,7 +92,7 @@ namespace MyWebApi.Utilities.Validators
                     message = string.Format(" (containing {0})", string.Join(", ", innerExceptions));
                 }
 
-                throw new ActionCallAssertionException(string.Format(
+                throw new InvalidCallAssertionException(string.Format(
                     "{0}{1} was thrown but was not caught or expected.",
                     exception.GetType().ToFriendlyTypeName(),
                     message));
@@ -131,7 +131,7 @@ namespace MyWebApi.Utilities.Validators
             bool canBeNull = !type.IsValueType || (Nullable.GetUnderlyingType(type) != null);
             if (!canBeNull)
             {
-                throw new ActionCallAssertionException(string.Format(
+                throw new InvalidCallAssertionException(string.Format(
                     "{0} cannot be null.",
                     type.ToFriendlyTypeName()));
             }
