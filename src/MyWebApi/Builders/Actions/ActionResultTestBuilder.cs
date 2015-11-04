@@ -74,7 +74,7 @@ namespace MyWebApi.Builders.Actions
         {
             if (this.CaughtException == null)
             {
-                throw new ActionCallAssertionException(string.Format(
+                throw new InvalidCallAssertionException(string.Format(
                     "When calling {0} action in {1} thrown exception was expected, but in fact none was caught.",
                     this.ActionName,
                     this.Controller.GetName()));

@@ -41,7 +41,7 @@ namespace MyWebApi.Tests.UtilitiesTests.ValidatorsTests
 
         [Test]
         [ExpectedException(
-            typeof(ActionCallAssertionException),
+            typeof(InvalidCallAssertionException),
             ExpectedMessage = "Expected action result to contain a 'ModelState' property to test, but in fact such property was not found.")]
         public void ValidateBindingShouldThrowExceptionWithInvalidPropertyCall()
         {

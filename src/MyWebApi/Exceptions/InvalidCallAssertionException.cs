@@ -19,15 +19,15 @@ namespace MyWebApi.Exceptions
     using System;
 
     /// <summary>
-    /// Exception for invalid action call.
+    /// Exception for invalid test call.
     /// </summary>
-    public class ActionCallAssertionException : Exception
+    public class InvalidCallAssertionException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the ActionCallAssertionException class.
+        /// Initializes a new instance of the InvalidCallAssertionException class.
         /// </summary>
         /// <param name="message">Message for System.Exception class.</param>
-        public ActionCallAssertionException(string message)
+        public InvalidCallAssertionException(string message)
             : base(message)
         {
         }

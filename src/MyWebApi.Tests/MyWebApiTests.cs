@@ -21,6 +21,7 @@ namespace MyWebApi.Tests
     using Exceptions;
     using NUnit.Framework;
     using Setups.Controllers;
+    using Setups.Handlers;
     using Setups.Services;
 
     [TestFixture]
@@ -85,6 +86,36 @@ namespace MyWebApi.Tests
                 .Calling(c => c.OkAction())
                 .ShouldReturn()
                 .Ok();
+        }
+
+        [Test]
+        public void HandlerWithoutConstructorFunctionShouldPopulateCorrectNewInstanceOfHandlerType()
+        {
+            var handler = MyWebApi
+                .Handler<CustomMessageHandler>()
+                .AndProvideTheHandler();
+
+            Assert.IsNotNull(handler);
+            Assert.IsAssignableFrom<CustomMessageHandler>(handler);
+        }
+
+        [Test]
+        public void HandlerWithConstructorFunctionShouldPopulateCorrectNewInstanceOfHandlerType()
+        {
+            var handler = MyWebApi.Handler(() => new CustomMessageHandler()).AndProvideTheHandler();
+
+            Assert.IsNotNull(handler);
+            Assert.IsAssignableFrom<CustomMessageHandler>(handler);
+        }
+
+        [Test]
+        public void HandlerWithProvidedInstanceShouldPopulateCorrectInstanceOfHandlerType()
+        {
+            var instance = new CustomMessageHandler();
+            var controller = MyWebApi.Handler(instance).AndProvideTheHandler();
+
+            Assert.IsNotNull(controller);
+            Assert.IsAssignableFrom<CustomMessageHandler>(controller);
         }
     }
 }

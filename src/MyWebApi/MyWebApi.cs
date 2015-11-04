@@ -67,19 +67,19 @@ namespace MyWebApi
             return new RouteTestBuilder(httpConfiguration);
         }
 
-        public static IHttpMessageHandlerTestBuilder Handler<THandler>()
+        public static IHttpMessageHandlerBuilder Handler<THandler>()
             where THandler : HttpMessageHandler
         {
             var handler = Reflection.TryCreateInstance<THandler>();
             return Handler(() => handler);
         }
 
-        public static IHttpMessageHandlerTestBuilder Handler(HttpMessageHandler handler)
+        public static IHttpMessageHandlerBuilder Handler(HttpMessageHandler handler)
         {
             return Handler(() => handler);
         }
 
-        public static IHttpMessageHandlerTestBuilder Handler(Func<HttpMessageHandler> handler)
+        public static IHttpMessageHandlerBuilder Handler(Func<HttpMessageHandler> handler)
         {
             var handlerInstance = handler();
             return new HttpMessageHandlerTestBuilder(handlerInstance);

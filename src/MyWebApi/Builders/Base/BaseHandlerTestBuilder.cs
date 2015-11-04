@@ -17,7 +17,9 @@
 namespace MyWebApi.Builders.Base
 {
     using System.Net.Http;
+    using Common.Extensions;
     using Contracts.Base;
+    using Exceptions;
 
     public abstract class BaseHandlerTestBuilder : IBaseHandlerTestBuilder
     {
@@ -31,6 +33,20 @@ namespace MyWebApi.Builders.Base
         public HttpMessageHandler AndProvideTheHandler()
         {
             return this.Handler;
+        }
+
+        protected void SetInnerHandler(HttpMessageHandler innerHandler)
+        {
+            var handlerAsDelegatingHandler = this.Handler as DelegatingHandler;
+            if (handlerAsDelegatingHandler == null)
+            {
+                throw new HttpHandlerAssertionException(string.Format(
+                    "When adding inner handler {0} to {1}, expected {1} to be DelegatingHandler, but in fact was not.",
+                    innerHandler.GetName(),
+                    this.Handler.GetName()));
+            }
+
+            handlerAsDelegatingHandler.InnerHandler = innerHandler;
         }
     }
 }

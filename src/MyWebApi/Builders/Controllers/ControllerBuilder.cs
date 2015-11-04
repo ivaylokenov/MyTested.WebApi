@@ -322,7 +322,7 @@ namespace MyWebApi.Builders.Controllers
 
         public HttpConfiguration AndProvideTheHttpConfiguration()
         {
-            return this.HttpConfiguration;
+            return this.Controller.Configuration;
         }
 
         private void BuildControllerIfNotExists()

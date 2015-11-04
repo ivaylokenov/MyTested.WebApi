@@ -47,7 +47,7 @@ namespace MyWebApi.Builders.HttpMessages
             HttpResponseMessage httpResponseMessage)
             : base(handler)
         {
-            CommonValidator.CheckForNullReference(this.httpResponseMessage, errorMessageName: "HttpResponseMessage");
+            CommonValidator.CheckForNullReference(httpResponseMessage, errorMessageName: "HttpResponseMessage");
             this.httpResponseMessage = httpResponseMessage;
         }
 

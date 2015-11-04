@@ -14,16 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Handlers
+namespace MyWebApi.Tests.Setups.Handlers
 {
+    using System.Net;
     using System.Net.Http;
-    using Base;
-    using HttpResponseMessages;
+    using System.Threading;
+    using System.Threading.Tasks;
 
-    public interface IHttpMessageHandlerTestBuilder : IBaseHandlerTestBuilder
+    public class CustomDelegatingHandler : DelegatingHandler
     {
-        IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage();
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            if (request.Headers.Contains("CustomHeader"))
+            {
+                var response = await base.SendAsync(request, cancellationToken);
+                response.Headers.Add("CustomHeader", "CustomHeader");
+                return response;
+            }
 
-        HttpRequestMessage AndProvideTheHttpRequestMessage();
+            return new HttpResponseMessage(HttpStatusCode.InternalServerError);
+        }
     }
 }

@@ -89,8 +89,11 @@
     <Compile Include="BuildersTests\HttpActionResultsTests\JsonTests\JsonSerializerSettingsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\JsonTests\JsonTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpActionResultsTests\OkTests\OkTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpMessagesTests\HttpHandlerResponseMessageTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpMessagesTests\HttpMessageHandlerTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpMessagesTests\HttpRequestMessageBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpMessagesTests\HttpResponseMessageTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\ModelsTests\HttpHandlerModelDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ModelErrorDetailsTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ModelsTests\ResponseModelTestBuilderTests.cs" />
@@ -109,6 +112,10 @@
     <Compile Include="Setups\Controllers\NoAttributesController.cs" />
     <Compile Include="Setups\Controllers\NoParameterlessConstructorController.cs" />
     <Compile Include="Setups\Controllers\RouteController.cs" />
+    <Compile Include="Setups\Handlers\CustomDelegatingHandler.cs" />
+    <Compile Include="Setups\Handlers\CustomMessageHandler.cs" />
+    <Compile Include="Setups\Handlers\ExceptionMessageHandler.cs" />
+    <Compile Include="Setups\Handlers\ResponseMessageHandler.cs" />
     <Compile Include="Setups\Models\ComparableModel.cs" />
     <Compile Include="Setups\Models\EqualityOperatorModel.cs" />
     <Compile Include="Setups\Models\EqualsModel.cs" />

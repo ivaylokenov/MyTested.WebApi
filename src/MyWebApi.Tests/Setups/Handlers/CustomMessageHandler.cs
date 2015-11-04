@@ -14,16 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Handlers
+namespace MyWebApi.Tests.Setups.Handlers
 {
+    using System.Net;
     using System.Net.Http;
-    using Base;
-    using HttpResponseMessages;
+    using System.Threading;
+    using System.Threading.Tasks;
 
-    public interface IHttpMessageHandlerTestBuilder : IBaseHandlerTestBuilder
+    public class CustomMessageHandler : HttpMessageHandler
     {
-        IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage();
-
-        HttpRequestMessage AndProvideTheHttpRequestMessage();
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            return Task.Run(() => new HttpResponseMessage(HttpStatusCode.OK), cancellationToken);
+        }
     }
 }

@@ -22,64 +22,60 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
     using System.Net.Http;
     using System.Net.Http.Formatting;
     using Exceptions;
+    using NUnit.Framework;
     using Setups;
     using Setups.Common;
-    using Setups.Controllers;
+    using Setups.Handlers;
     using Setups.Models;
-    using NUnit.Framework;
 
     [TestFixture]
-    public class HttpResponseMessageTestBuilderTests
+    public class HttpHandlerResponseMessageTestBuilderTests
     {
         [Test]
         public void WithResponseModelOfTypeShouldNotThrowExceptionWithCorrectResponseModel()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithResponseModelOfType<IEnumerable<ResponseModel>>();
         }
 
         [Test]
         [ExpectedException(
             typeof(ResponseModelAssertionException),
-            ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message model to be a ResponseModel, but instead received a List<ResponseModel>.")]
+            ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message model to be a ResponseModel, but instead received a List<ResponseModel>.")]
         public void WithResponseModelOfTypeShouldThrowExceptionWithIncorrectResponseModel()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithResponseModelOfType<ResponseModel>();
         }
 
         [Test]
         public void WithResponseModelShouldNotThrowExceptionWithCorrectResponseModel()
         {
-            var controller = new WebApiController();
+            var handler = new ResponseMessageHandler();
 
             MyWebApi
-                .Controller(controller)
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
-                .WithResponseModel(controller.ResponseModel);
+                .Handler(handler)
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
+                .WithResponseModel(handler.ResponseModel);
         }
 
         [Test]
         [ExpectedException(
              typeof(ResponseModelAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message model to be the given model, but in fact it was a different model.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message model to be the given model, but in fact it was a different model.")]
         public void WithResponseModelShouldThrowExceptionWithIncorrectResponseModel()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithResponseModel(TestObjectFactory.GetListOfResponseModels());
         }
 
@@ -87,24 +83,22 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void WithContentOfTypeShouldNotThrowExceptionWithCorrectContent()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithContentOfType<ObjectContent>();
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result content to be StreamContent, but was in fact ObjectContent.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content to be StreamContent, but was in fact ObjectContent.")]
         public void WithContentOfTypeShouldThrowExceptionWithIncorrectContent()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithContentOfType<StreamContent>();
         }
 
@@ -112,24 +106,22 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void WithMediaTypeFormatterShouldNotThrowExceptionWithCorrectMediaTypeFormatter()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageWithMediaTypeFormatter())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithMediaTypeFormatter(TestObjectFactory.GetCustomMediaTypeFormatter());
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageWithMediaTypeFormatter action in WebApiController expected HTTP response message result Formatters to contain JsonMediaTypeFormatter, but none was found.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result Formatters to contain JsonMediaTypeFormatter, but none was found.")]
         public void WithMediaTypeFormatterShouldThrowExceptionWithIncorrectMediaTypeFormatter()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageWithMediaTypeFormatter())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithMediaTypeFormatter(new JsonMediaTypeFormatter());
         }
 
@@ -137,24 +129,22 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void WithMediaTypeFormatterOfTypeShouldNotThrowExceptionWithCorrectMediaTypeFormatter()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageWithMediaTypeFormatter())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithMediaTypeFormatterOfType<CustomMediaTypeFormatter>();
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageWithMediaTypeFormatter action in WebApiController expected HTTP response message result Formatters to contain JsonMediaTypeFormatter, but none was found.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result Formatters to contain JsonMediaTypeFormatter, but none was found.")]
         public void WithMediaTypeFormatterOfTypeShouldThrowExceptionWithIncorrectMediaTypeFormatter()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageWithMediaTypeFormatter())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithMediaTypeFormatterOfType<JsonMediaTypeFormatter>();
         }
 
@@ -162,24 +152,22 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void WithDefaultMediaTypeFormatterShouldNotThrowExceptionWithCorrectMediaTypeFormatter()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageWithResponseModelAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(request => request.WithHeader("FromRequest", "FromRequest"))
+                .ShouldReturnHttpResponseMessage()
                 .WithDefaultMediaTypeFormatter();
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageWithMediaTypeFormatter action in WebApiController expected HTTP response message result Formatters to contain JsonMediaTypeFormatter, but none was found.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result Formatters to contain JsonMediaTypeFormatter, but none was found.")]
         public void WithDefaultMediaTypeFormatterShouldThrowExceptionWithIncorrectMediaTypeFormatter()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageWithMediaTypeFormatter())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithDefaultMediaTypeFormatter();
         }
 
@@ -187,24 +175,22 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void ContainingHeaderShouldNotThrowExceptionWithCorrectHeaderName()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingHeader("TestHeader");
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result headers to contain AnotherHeader, but none was found.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result headers to contain AnotherHeader, but none was found.")]
         public void ContainingHeaderShouldThrowExceptionWithIncorrectHeaderName()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingHeader("AnotherHeader");
         }
 
@@ -212,24 +198,22 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void ContainingHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValue()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingHeader("TestHeader", "TestHeaderValue");
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result headers to contain TestHeader with AnotherHeaderValue value, but none was found.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result headers to contain TestHeader with AnotherHeaderValue value, but none was found.")]
         public void ContainingHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValue()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingHeader("TestHeader", "AnotherHeaderValue");
         }
 
@@ -237,38 +221,35 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void ContainingHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValues()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingHeader("TestHeader", new[] { "TestHeaderValue" });
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result headers to have TestHeader with AnotherHeaderValue value, but none was found.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result headers to have TestHeader with AnotherHeaderValue value, but none was found.")]
         public void ContainingHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValues()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingHeader("TestHeader", new[] { "AnotherHeaderValue" });
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result headers to contain TestHeader with 2 values, but instead found 1.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result headers to contain TestHeader with 2 values, but instead found 1.")]
         public void ContainingHeaderShouldThrowExceptionWithCorrectHeaderNameAndOneCorrectAndOneIncorrectValues()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingHeader("TestHeader", new[] { "TestHeaderValue", "AnotherHeaderValue" });
         }
 
@@ -276,10 +257,9 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void ContainingHeaderShouldNotThrowExceptionWithCorrectDictionaryOfHeaders()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingHeaders(new Dictionary<string, IEnumerable<string>>
                 {
                     { "TestHeader", new List<string> { "TestHeaderValue" } }
@@ -289,14 +269,13 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result headers to be 2, but were in fact 1.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result headers to be 2, but were in fact 1.")]
         public void ContainingHeaderShouldNotThrowExceptionWithCorrectDictionaryOfHeadersWithInvalidCount()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingHeaders(new Dictionary<string, IEnumerable<string>>
                 {
                     { "TestHeader", new List<string> { "TestHeaderValue" } },
@@ -308,24 +287,22 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void ContainingContentHeaderShouldNotThrowExceptionWithCorrectHeaderName()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingContentHeader("TestHeader");
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result content headers to contain AnotherHeader, but none was found.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content headers to contain AnotherHeader, but none was found.")]
         public void ContainingContentHeaderShouldThrowExceptionWithIncorrectHeaderName()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingContentHeader("AnotherHeader");
         }
 
@@ -333,24 +310,22 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void ContainingContentHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValue()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingContentHeader("TestHeader", "TestHeaderValue");
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result content headers to contain TestHeader with AnotherHeaderValue value, but none was found.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content headers to contain TestHeader with AnotherHeaderValue value, but none was found.")]
         public void ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValue()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingContentHeader("TestHeader", "AnotherHeaderValue");
         }
 
@@ -358,38 +333,35 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void ContainingContentHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValues()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingContentHeader("TestHeader", new[] { "TestHeaderValue" });
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result content headers to have TestHeader with AnotherHeaderValue value, but none was found.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content headers to have TestHeader with AnotherHeaderValue value, but none was found.")]
         public void ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValues()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingContentHeader("TestHeader", new[] { "AnotherHeaderValue" });
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result content headers to contain TestHeader with 2 values, but instead found 1.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content headers to contain TestHeader with 2 values, but instead found 1.")]
         public void ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndOneCorrectAndOneIncorrectValues()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingContentHeader("TestHeader", new[] { "TestHeaderValue", "AnotherHeaderValue" });
         }
 
@@ -397,10 +369,9 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void ContainingContentHeadersShouldNotThrowExceptionWithCorrectDictionaryOfHeaders()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingContentHeaders(new Dictionary<string, IEnumerable<string>>
                 {
                     { "TestHeader", new List<string> { "TestHeaderValue" } }
@@ -410,14 +381,13 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result content headers to be 2, but were in fact 1.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content headers to be 2, but were in fact 1.")]
         public void ContainingContentHeadersShouldNotThrowExceptionWithCorrectDictionaryOfHeadersWithInvalidCount()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .ContainingContentHeaders(new Dictionary<string, IEnumerable<string>>
                 {
                     { "TestHeader", new List<string> { "TestHeaderValue" } },
@@ -428,14 +398,13 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
             typeof(HttpResponseMessageAssertionException),
-            ExpectedMessage = "When calling HttpResponseMessageWithoutContent action in WebApiController expected HTTP response message result content to be initialized and set, but it was null and no content headers were found.")]
+            ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content to be initialized and set, but it was null and no content headers were found.")]
         public void ContainingHeaderShouldThrowExceptionIfNoContentIsAdded()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageWithoutContent())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(request => request.WithHeader("NoContent", "NoContent"))
+                .ShouldReturnHttpResponseMessage()
                 .ContainingContentHeader("AnotherHeader");
         }
 
@@ -443,24 +412,22 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void WithStatusCodeShouldNotThrowExceptionWithValidStatusCode()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithStatusCode(HttpStatusCode.OK);
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result status code to be 400 (BadRequest), but instead received 200 (OK).")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result status code to be 400 (BadRequest), but instead received 200 (OK).")]
         public void WithStatusCodeShouldThrowExceptionWithInvalidStatusCode()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithStatusCode(HttpStatusCode.BadRequest);
         }
 
@@ -468,10 +435,9 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void WithVersionShouldNotThrowExceptionWithValidVersionAsString()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithVersion("1.1");
         }
 
@@ -479,10 +445,9 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void WithVersionShouldNotThrowExceptionWithValidVersionWithMajorAndMinor()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithVersion(1, 1);
         }
 
@@ -490,24 +455,22 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void WithVersionShouldNotThrowExceptionWithValidVersion()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithVersion(new Version(1, 1));
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result version to be 1.0, but instead received 1.1.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result version to be 1.0, but instead received 1.1.")]
         public void WithVersionShouldThrowExceptionWithInvalidVersion()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithVersion("1.0");
         }
 
@@ -515,24 +478,22 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void WithReasonPhraseShouldNotThrowExceptionWithValidPhrase()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithReasonPhrase("Custom reason phrase");
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message result reason phrase to be 'Invalid reason phrase', but instead received 'Custom reason phrase'.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result reason phrase to be 'Invalid reason phrase', but instead received 'Custom reason phrase'.")]
         public void WithReasonPhraseShouldThrowExceptionWithInvalidPhrase()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithReasonPhrase("Invalid reason phrase");
         }
 
@@ -540,24 +501,22 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void WithSuccessStatusCodeShouldNotThrowExceptionWithValidStatusCode()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithSuccessStatusCode();
         }
 
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageWithResponseModelAction action in WebApiController expected HTTP response message result status code to be between 200 and 299, but it was not.")]
+             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result status code to be between 200 and 299, but it was not.")]
         public void WithSuccessStatusCodeShouldThrowExceptionWithInvalidStatusCode()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageWithResponseModelAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(request => request.WithHeader("NotFound", "NotFound"))
+                .ShouldReturnHttpResponseMessage()
                 .WithSuccessStatusCode();
         }
 
@@ -565,10 +524,9 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void AndAlsoShouldWorkCorrectly()
         {
             MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithSuccessStatusCode()
                 .AndAlso()
                 .WithReasonPhrase("Custom reason phrase");
@@ -578,10 +536,9 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         public void AndProvideTheHttpResponseMessageShouldWorkCorrectly()
         {
             var response = MyWebApi
-                .Controller<WebApiController>()
-                .Calling(c => c.HttpResponseMessageAction())
-                .ShouldReturn()
-                .HttpResponseMessage()
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
                 .WithSuccessStatusCode()
                 .AndAlso()
                 .WithReasonPhrase("Custom reason phrase")

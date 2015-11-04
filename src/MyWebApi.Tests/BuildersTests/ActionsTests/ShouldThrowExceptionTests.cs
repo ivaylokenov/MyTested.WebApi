@@ -36,7 +36,7 @@ namespace MyWebApi.Tests.BuildersTests.ActionsTests
 
         [Test]
         [ExpectedException(
-            typeof(ActionCallAssertionException),
+            typeof(InvalidCallAssertionException),
             ExpectedMessage = "When calling OkResultAction action in WebApiController thrown exception was expected, but in fact none was caught.")]
         public void ShouldThrowExceptionShouldThrowIfNoExceptionIsCaught()
         {

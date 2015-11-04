@@ -423,7 +423,13 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                 .AndProvideTheController()
                 .Configuration;
 
+            var controllerConfigFromApi = MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpConfiguration(config)
+                .AndProvideTheHttpConfiguration();
+
             Assert.AreSame(config, controllerConfig);
+            Assert.AreSame(config, controllerConfigFromApi);
         }
 
         private void CheckActionResultTestBuilder<TActionResult>(

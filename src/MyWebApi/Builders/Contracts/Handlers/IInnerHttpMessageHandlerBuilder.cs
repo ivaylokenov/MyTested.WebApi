@@ -16,14 +16,22 @@
 
 namespace MyWebApi.Builders.Contracts.Handlers
 {
+    using System;
     using System.Net.Http;
-    using Base;
-    using HttpResponseMessages;
 
-    public interface IHttpMessageHandlerTestBuilder : IBaseHandlerTestBuilder
+    public interface IInnerHttpMessageHandlerBuilder
     {
-        IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage();
+        void WithInnerHandler<TInnerHandler>()
+            where TInnerHandler : HttpMessageHandler, new();
 
-        HttpRequestMessage AndProvideTheHttpRequestMessage();
+        void WithInnerHandler<TInnerHandler>(TInnerHandler innerHandler)
+            where TInnerHandler : HttpMessageHandler;
+
+        void WithInnerHandler<TInnerHandler>(Func<TInnerHandler> construction)
+            where TInnerHandler : HttpMessageHandler;
+
+        void WithInnerHandler<TInnerHandler>(
+            Action<IInnerHttpMessageHandlerBuilder> httpMessageHandlerBuilder)
+            where TInnerHandler : HttpMessageHandler, new();
     }
 }

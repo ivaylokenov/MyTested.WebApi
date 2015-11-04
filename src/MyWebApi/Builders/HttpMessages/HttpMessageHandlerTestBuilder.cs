@@ -19,23 +19,28 @@ namespace MyWebApi.Builders.HttpMessages
     using System;
     using System.Net.Http;
     using System.Threading;
+    using System.Web.Http;
     using Base;
-    using Common.Extensions;
     using Contracts.Handlers;
     using Contracts.HttpRequests;
     using Contracts.HttpResponseMessages;
-    using Exceptions;
     using Utilities.Validators;
 
     public class HttpMessageHandlerTestBuilder
         : BaseHandlerTestBuilder, IHttpMessageHandlerBuilder, IHttpMessageHandlerTestBuilder
     {
+        private HttpRequestMessage httpRequestMessage;
+        private HttpConfiguration httpConfiguration;
+
         public HttpMessageHandlerTestBuilder(HttpMessageHandler handler)
             : base(handler)
         {
         }
 
-        protected HttpRequestMessage HttpRequestMessage { get; private set; }
+        private HttpConfiguration HttpConfiguration
+        {
+            get { return this.httpConfiguration ?? MyWebApi.Configuration ?? new HttpConfiguration(); }
+        }
 
         public IHttpMessageHandlerBuilder WithInnerHandler<TInnerHandler>()
             where TInnerHandler : HttpMessageHandler, new()
@@ -46,16 +51,7 @@ namespace MyWebApi.Builders.HttpMessages
         public IHttpMessageHandlerBuilder WithInnerHandler<TInnerHandler>(TInnerHandler innerHandler)
             where TInnerHandler : HttpMessageHandler
         {
-            var handlerAsDelegatingHandler = this.Handler as DelegatingHandler;
-            if (handlerAsDelegatingHandler == null)
-            {
-                throw new HttpHandlerAssertionException(string.Format(
-                    "When adding inner handler {0} to {1}, expected {1} to be DelegatinHandler, but in fact was not.",
-                    innerHandler.GetName(),
-                    this.Handler.GetName()));
-            }
-
-            handlerAsDelegatingHandler.InnerHandler = innerHandler;
+            this.SetInnerHandler(innerHandler);
             return this;
         }
 
@@ -67,17 +63,25 @@ namespace MyWebApi.Builders.HttpMessages
         }
 
         public IHttpMessageHandlerBuilder WithInnerHandler<TInnerHandler>(
-            Action<IHttpMessageHandlerBuilder> httpMessageHandlerBuilder)
+            Action<IInnerHttpMessageHandlerBuilder> httpMessageHandlerBuilder)
             where TInnerHandler : HttpMessageHandler, new()
         {
-            var newHttpMessageHandlerBuilder = new HttpMessageHandlerTestBuilder(new TInnerHandler());
+            var newHttpMessageHandlerBuilder = new InnerHttpMessageHandlerBuilder(new TInnerHandler());
             httpMessageHandlerBuilder(newHttpMessageHandlerBuilder);
-            return this.WithInnerHandler(newHttpMessageHandlerBuilder.Handler);
+            return this.WithInnerHandler(newHttpMessageHandlerBuilder.AndProvideTheHandler());
+        }
+
+        public IHttpMessageHandlerBuilder WithHttpConfiguration(HttpConfiguration config)
+        {
+            this.httpConfiguration = config;
+            return this;
         }
 
         public IHttpMessageHandlerTestBuilder WithHttpRequestMessage(HttpRequestMessage requestMessage)
         {
-            this.HttpRequestMessage = requestMessage;
+            this.httpRequestMessage = requestMessage;
+            var configuration = this.HttpConfiguration;
+            this.httpRequestMessage.SetConfiguration(configuration);
             return this;
         }
 
@@ -95,7 +99,7 @@ namespace MyWebApi.Builders.HttpMessages
             {
                 try
                 {
-                    httpResponseMessage = httpMessageInvoker.SendAsync(this.HttpRequestMessage, CancellationToken.None).Result;
+                    httpResponseMessage = httpMessageInvoker.SendAsync(this.httpRequestMessage, CancellationToken.None).Result;
                 }
                 catch (Exception exception)
                 {
@@ -110,7 +114,12 @@ namespace MyWebApi.Builders.HttpMessages
 
         public HttpRequestMessage AndProvideTheHttpRequestMessage()
         {
-            return this.HttpRequestMessage;
+            return this.httpRequestMessage;
+        }
+
+        public HttpConfiguration AndProvideTheHttpConfiguration()
+        {
+            return this.HttpConfiguration;
         }
     }
 }
