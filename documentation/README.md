@@ -335,7 +335,8 @@ MyWebApi
   
 ### Handler configuration
 
-You can test whether HTTP message handler returns correct response for a particular request:
+You can test whether HTTP message handler returns correct response for a particular request.
+See the [request message builder](#http-request-message) for all available options:
 
 ```c#
 // instantiates handler with parameterless constructor
@@ -378,7 +379,7 @@ MyWebApi
 	.WithHttpRequestMessage(someHttpRequestMessage);
 	
 // sets the HTTP request to the handler
-// * by using builder (see the [request message builder](#http-request-message) for all options)
+// by using builder 
 MyWebApi
 	.Handler<MyHttpMessageHandler>()
 	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get));
@@ -392,6 +393,8 @@ MyWebApi
 [To top](#table-of-contents)
 
 ### Handler response validation
+
+See (HTTP response validations)[#http-response-message-result] for all available options:
 
 ```c#
 // tests whether the handler returns response message successfully
@@ -419,7 +422,6 @@ MyWebApi
 	
 // tests whether the handler returns response message successfully
 // with specific response header
-// * see (HTTP response validations)[#http-response-message-result] for all available options
 MyWebApi
 	.Handler<MyHttpMessageHandler>()
 	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
