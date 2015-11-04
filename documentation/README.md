@@ -11,6 +11,9 @@
   - [Building route request](#building-route-request)
   - [Testing routes](#testing-routes)
   - [Testing resolved route values](#testing-resolved-route-values)
+ - HTTP message handler validations
+  - [Handler configuration](#handler-configuration)
+  - [Handler response validation](#handler-response-validation)
  - Controller test case configuration
   - [Controller instantiation](#controller-instantiation)
   - [HTTP request message] (#http-request-message)
@@ -330,9 +333,105 @@ MyWebApi
 
 [To top](#table-of-contents)
   
+### Handler configuration
+
+You can test whether HTTP message handler returns correct response for a particular request:
+
+```c#
+// instantiates handler with parameterless constructor
+MyWebApi
+	.Handler<MyHttpMessageHandler>();
+	
+// instantiates handler with constructor function to resolve dependencies
+MyWebApi
+	.Handler(() => new MyHttpMessageHandler(mockedInjectedService));
+	
+// or provide already instantiated handler
+MyWebApi
+	.Handler(myHttpMessageHandlerInstance);
+	
+// attaches inner handler to the current one
+MyWebApi
+	.Handler<MyDelegatingHandler>()
+	.WithInnerHandler<AnotherHttpMessageHandler>();
+	
+// or provide the inner handler as an instance
+MyWebApi
+	.Handler<MyDelegatingHandler>()
+	.WithInnerHandler(myInnerHandler);
+	
+// attaches inner handler by using construction function
+var handler = MyWebApi
+	.Handler<MyDelegatingHandler>()
+	.WithInnerHandler(() => new AnotherHttpMessageHandler());
+	
+// attaches chain of handlers
+MyWebApi
+	.Handler<MyDelegatingHandler>()
+	.WithInnerHandler<AnotherDelegatingHandler>(
+		firstInnerHandler => firstInnerHandler.WithInnerHandler<YetAnotherDelegatingHandler>(
+			secondInnerHandler => secondInnerHandler.WithInnerHandler<AndAnotherDelegatingHandler>));
+			
+// sets the HTTP request to the handler
+MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(someHttpRequestMessage);
+	
+// sets the HTTP request to the handler
+// * by using builder (see the [request message builder](#http-request-message) for all options)
+MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get));
+	
+// adds HTTP configuration for the particular test case
+MyWebApi
+	.Handler(myHttpMessageHandlerInstance);
+	.WithHttpConfiguration(config);
+```
+
+[To top](#table-of-contents)
+
+### Handler response validation
+
+```c#
+// tests whether the handler returns response message successfully
+MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage();
+
+// tests whether the handler returns response message successfully
+// with specific status code
+MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+	
+// tests whether the handler returns response message successfully
+// with specific content model
+MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage()
+	.WithResponseModelOfType<ResponseModel>()
+	.Passing(m => m.Id == 1);
+	
+// tests whether the handler returns response message successfully
+// with specific response header
+// * see (HTTP response validations)[#http-response-message-result] for all available options
+MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage()
+	.ContainingHeader("SomeHeader");
+```
+
+[To top](#table-of-contents)
+  
 ### Controller instantiation
 
-You have a couple of options from which you can setup the controller you want to test. The framework gives you static `MyWebApi` class from which the test builder starts:
+You have a couple of options from which you can setup the controller you want to test:
 
 ```c#
 // instantiates controller with parameterless constructor
@@ -368,7 +467,7 @@ MyWebApi
 MyWebApi
 	.Controller(myWebApiControllerInstance);
 	
-// add HTTP configuration for the particular test case
+// adds HTTP configuration for the particular test case
 MyWebApi
 	.Controller(myWebApiControllerInstance)
 	.WithHttpConfiguration(config);
@@ -2343,10 +2442,19 @@ MyWebApi
 
 ### AndProvide... methods
 
-You can get controller, action, action result and response model information where applicable by using AndProvide... methods.
-Useful for integration tests where current action result model is needed for the next action assertion.
+You can get different Web API specific objects used in the test case where applicable by using AndProvide... methods.
+Useful for additional custom test assertions:
 
 ```c#
+// get HTTP handler instance
+// * method is available wherever HTTP handlers are tested
+var handler = MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage()
+	.WithSuccessStatusCode()
+	.AndProvideTheHandler();
+	
 // get controller instance
 // * method is available almost everywhere throughout the API
 var controller = MyWebApi
@@ -2355,6 +2463,15 @@ var controller = MyWebApi
 	.ShouldReturn()
 	.Ok()
 	.AndProvideTheController();
+	
+// get the HTTP configuration
+// * method is available almost everywhere throughout the API
+var config = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.AndProvideTheHttpConfiguration();
 	
 // get controller attributes
 // * currently method returns correct attributes
@@ -2365,23 +2482,23 @@ var attributes = MyWebApi
 	.Attributes()
 	.AndProvideTheControllerAttributes();
 	
-// get the HTTP configuration
-// * method is available almost everywhere throughout the API
-var controller = MyWebApi
-	.Controller<WebApiController>()
-	.Calling(c => c.SomeAction())
-	.ShouldReturn()
-	.Ok()
-	.AndProvideTheHttpConfiguration();
-	
 // get the HTTP request message
 // * method is available almost everywhere throughout the API
-var controller = MyWebApi
+var request = MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
 	.ShouldReturn()
 	.Ok()
 	.AndProvideTheHttpRequestMessage();
+	
+// get the HTTP response message
+// * method is available wherever HTTP response message is tested
+var response = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.AndProvideTheHttpResponseMessage();
 	
 // get action name
 // * method is available almost everywhere throughout the API
