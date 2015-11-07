@@ -24,6 +24,7 @@ namespace MyWebApi.Utilities.RouteResolvers
     using System.Web.Http.Controllers;
     using System.Web.Http.Hosting;
     using System.Web.Http.Routing;
+    using Common.Extensions;
     using Common.Routes;
 
     /// <summary>
@@ -45,7 +46,7 @@ namespace MyWebApi.Utilities.RouteResolvers
 
             // transform the URI to fake absolute one since ASP.NET Web API internal route resolver does no support non-absolute URIs
             var originalRoute = request.RequestUri;
-            request.RequestUri = new Uri(new Uri("http://absoluteuri.com"), request.RequestUri);
+            request.TransformToAbsoluteRequestUri();
 
             var routeData = config.Routes.GetRouteData(request);
             if (routeData == null)

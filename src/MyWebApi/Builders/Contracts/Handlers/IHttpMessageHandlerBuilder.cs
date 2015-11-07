@@ -80,10 +80,10 @@ namespace MyWebApi.Builders.Contracts.Handlers
         /// <summary>
         /// Adds HTTP request message to the tested handler.
         /// </summary>
-        /// <param name="httpRequestBuilder">Builder for HTTP request message.</param>
+        /// <param name="httpRequestMessageBuilder">Builder for HTTP request message.</param>
         /// <returns>The HTTP handler builder.</returns>
         IHttpMessageHandlerTestBuilder WithHttpRequestMessage(
-            Action<IHttpRequestMessageBuilder> httpRequestBuilder);
+            Action<IHttpRequestMessageBuilder> httpRequestMessageBuilder);
 
         /// <summary>
         /// Gets the HTTP configuration used in the handler testing.

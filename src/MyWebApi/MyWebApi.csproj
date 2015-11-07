@@ -31,8 +31,24 @@
     <DocumentationFile>bin\Release\MyWebApi.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Hosting, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Hosting.3.0.1\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Testing, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Testing.3.0.1\lib\net45\Microsoft.Owin.Testing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -101,12 +117,16 @@
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpHandlerResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Handlers\IHttpMessageHandlerTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\IHttpConfigurationBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IHttpHandlerModelDetailsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IAndResolvedRouteTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IAndShouldMapTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IResolvedRouteTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IRouteTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IShouldMapTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Servers\IServer.cs" />
+    <Compile Include="Builders\Contracts\Servers\IServerBuilder.cs" />
+    <Compile Include="Builders\Contracts\Servers\IServerTestBuilder.cs" />
     <Compile Include="Builders\Controllers\ControllerTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\AggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestErrorMessageTestBuilder.cs" />
@@ -163,6 +183,7 @@
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveModelState.cs" />
     <Compile Include="Builders\HttpActionResults\Created\CreatedTestBuilder.cs" />
     <Compile Include="Builders\FormattersBuilder.cs" />
+    <Compile Include="Builders\HttpConfigurationBuilder.cs" />
     <Compile Include="Builders\HttpMessages\HttpHandlerResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\HttpMessages\HttpMessageHandlerTestBuilder.cs" />
     <Compile Include="Builders\HttpMessages\HttpRequestMessageBuilder.cs" />
@@ -173,6 +194,8 @@
     <Compile Include="Builders\Routes\RouteRequestBuilder.cs" />
     <Compile Include="Builders\Routes\RouteTestBuilder.cs" />
     <Compile Include="Builders\Routes\ShouldMapTestBuilder.cs" />
+    <Compile Include="Builders\Servers\Server.cs" />
+    <Compile Include="Builders\Servers\ServerTestBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
@@ -197,6 +220,7 @@
     <Compile Include="Builders\UserBuilder.cs" />
     <Compile Include="AuthenticationScheme.cs" />
     <Compile Include="Common\ActionInfo.cs" />
+    <Compile Include="Common\Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Common\Extensions\ObjectExtensions.cs" />
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Common\MockedUri.cs" />
@@ -205,6 +229,9 @@
     <Compile Include="Common\MethodArgumentInfo.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
+    <Compile Include="Common\Servers\HttpTestServer.cs" />
+    <Compile Include="Common\Servers\OwinTestServer.cs" />
+    <Compile Include="Common\Servers\ServerHttpMessageHandler.cs" />
     <Compile Include="Common\VoidActionResult.cs" />
     <Compile Include="Exceptions\InvalidCallAssertionException.cs" />
     <Compile Include="Exceptions\AttributeAssertionException.cs" />
@@ -237,6 +264,7 @@
     <Compile Include="Utilities\Validators\AttributesValidator.cs" />
     <Compile Include="Utilities\Validators\CommonValidator.cs" />
     <Compile Include="Utilities\Validators\ContentNegotiatorValidator.cs" />
+    <Compile Include="Utilities\Validators\HttpConfigurationValidator.cs" />
     <Compile Include="Utilities\Validators\HttpRequestMessageValidator.cs" />
     <Compile Include="Utilities\Validators\HttpResponseMessageValidator.cs" />
     <Compile Include="Utilities\Validators\LocationValidator.cs" />

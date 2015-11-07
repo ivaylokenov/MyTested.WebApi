@@ -7,11 +7,11 @@ MyWebApi is unit testing library providing easy fluent interface to test the ASP
 
 ## Documentation
 
-Please see the [documentation](https://github.com/ivaylokenov/MyWebApi/tree/master/documentation) for full list of available features.
+Please see the [documentation](https://github.com/ivaylokenov/MyWebApi/tree/master/documentation) for full list of available features. Everything listed in the documentation is [100% covered by more than 800 unit tests](https://github.com/ivaylokenov/MyWebApi/tree/master/src/MyWebApi.Tests) and should work correctly. Almost all items in the [issues page](https://github.com/ivaylokenov/MyWebApi/issues) are just expected future features and enhancements.
 
 ## Installation
 
-You can install this library using NuGet into your Test class library. It will automatically reference the needed dependency of Microsoft.AspNet.WebApi.Core (≥ 5.1.0) for you. .NET 4.5+ is needed.
+You can install this library using NuGet into your Test class project. It will automatically reference the needed dependencies of Microsoft.AspNet.WebApi.Core (≥ 5.1.0) and Microsoft.Owin.Testing (≥ 3.0.1) for you. .NET 4.5+ is needed.
 
     Install-Package MyWebApi
 
@@ -116,6 +116,19 @@ MyWebApi
 	.OfType<SomeException>()
 	.AndAlso()
 	.WithMessage("Some exception message");
+	
+// run full pipeline integration test
+MyWebApi
+	.Server()
+	.Working(httpConfiguration)
+	.WithHttpRequestMessage(
+		request => request
+			.WithMethod(HttpMethod.Post)
+			.WithRequestUri("api/WebApiController/SomeAction/1"))
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK)
+	.AndAlso()
+	.ContainingHeader("MyCustomHeader");
 ```
 
 ## License

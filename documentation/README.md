@@ -41,6 +41,9 @@
   - [Conflict result](#conflict-result)
   - [EmptyContent (void) result](#emptycontent-void-result)
   - [Null or Default result](#null-or-default-result)
+ - Integration testing of the full server pipeline
+  - [HTTP server](#http-server)
+  - [OWIN pipeline](#owin-pipeline)
  - Additional methods
   - [AndProvide... methods](#andprovide-methods)
 
@@ -2439,6 +2442,115 @@ MyWebApi
 	.ShouldReturn()
 	.Null();
 ```
+
+[To top](#table-of-contents)
+
+### HTTP server
+
+You can test the full pipeline by providing HTTP configuration. You can start global HTTP server in your test/class/assembly initialize method and set test cases with different requests or just instantiate separate server for each test:
+
+```c#
+// starts HTTP server with global configuration
+// set with MyWebApi.IsUsing
+// * the server is disposed after the test
+// * HTTP request can be set just like in the controller unit tests
+// * HTTP response can be tested just like in the controller unit tests
+MyWebApi.IsUsing(config);
+
+MyWebApi
+	.Server()
+	.Working() // working will instantiate new HTTP server with the global configuration
+	.WithHttpRequestMessage(
+		request => request
+			.WithMethod(HttpMethod.Post)
+			.WithRequestUri("api/MyController/MyAction/5"))
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+
+// starts HTTP server with specific for the test
+// HTTP configuration
+// * the server is disposed after the test
+MyWebApi
+	.Server()
+	.Working(config) // working will instantiate new HTTP server with the provided specific configuration
+	.WithHttpRequestMessage(httpRequestMessage)
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+
+// starts global HTTP server,
+// which is not disposed after the test
+// and must be stopped manually
+// * can be set in test/class/assembly initialize method
+MyWebApi.Server().Starts(); // uses global configuration
+// or the equivalent MyWebApi.IsUsing(config).AndStartsServer();
+// or pass specific configuration MyWebApi.Server().Starts(config);
+
+MyWebApi
+	.Server()
+	.Working() // working will use the global server started above
+	.WithHttpRequestMessage(httpRequestMessage)
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+
+// more test cases on the same global server
+
+// stops the global HTTP server
+MyWebApi.Server().Stops();
+```
+
+[To top](#table-of-contents)
+
+### OWIN pipeline
+
+You can test over the full pipeline by providing OWIN start up class and optional network host and post. You can start global HTTP server in your test/class/assembly initialize method and set test cases with different requests or just instantiate separate server for each test:
+
+```c#
+// starts OWIN web server with the provided host and port. If such are not provided, default is "http://localhost:1234"
+// * the server is disposed after the test
+// * some hosts and ports may require administrator rights
+// * HTTP request can be set just like in the controller unit tests
+// * HTTP response can be tested just like in the controller unit tests
+MyWebApi
+	.Server()
+	.Working<Startup>(host: "https://localhost", port: 9876) // 
+	.WithHttpRequestMessage(
+		request => request
+			.WithMethod(HttpMethod.Post)
+			.WithRequestUri("api/MyController/MyAction/5"))
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+
+// starts OWIN server with specific for the test
+// Startup class
+// * the server is disposed after the test
+// * since host and port are not provided, the default "http://localhost:1234" is used
+MyWebApi
+	.Server()
+	.Working<Startup>() // working will instantiate new OWIN server with the specified Startup class
+	.WithHttpRequestMessage(httpRequestMessage)
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+
+// starts global OWIN server,
+// which is not disposed after the test
+// and must be stopped manually
+// * can be set in test/class/assembly initialize method
+MyWebApi.Server().Starts<Startup>(); // host and port can be optionally specified
+
+MyWebApi
+	.Server()
+	.Working() // working will use the global OWIN server started above
+	.WithHttpRequestMessage(httpRequestMessage)
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+
+// more test cases on the same global server
+
+// stops the global OWIN server
+MyWebApi.Server().Stops();
+```
+
+Summary - the ".Working()" method without parameters will check if the global OWIN server is started. If not, it will check whether a global HTTP server is started. If not, it will instantiate new HTTP server using the global HTTP configuration. The first match will process the request and test over the response. If no server can be started, exception will be thrown. Using ".Working(config)" will start new HTTP server with the provided configuration and dispose it after the test. Using ".Working<Startup>()" will start new OWIN server with the provided start up class and dispose it after the test. Global server can be started with "MyWebApi.Server().Starts()" and it will be HTTP or OWIN dependending on the parameters. Global servers can be stopped with "MyWebApi.Server().Stops()", no matter HTTP or OWIN.
 
 [To top](#table-of-contents)
 

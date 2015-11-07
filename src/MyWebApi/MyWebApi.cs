@@ -19,12 +19,16 @@ namespace MyWebApi
     using System;
     using System.Net.Http;
     using System.Web.Http;
+    using Builders;
+    using Builders.Contracts;
     using Builders.Contracts.Controllers;
     using Builders.Contracts.Handlers;
     using Builders.Contracts.Routes;
+    using Builders.Contracts.Servers;
     using Builders.Controllers;
     using Builders.HttpMessages;
     using Builders.Routes;
+    using Builders.Servers;
     using Utilities;
     using Utilities.Validators;
 
@@ -43,9 +47,11 @@ namespace MyWebApi
         /// Sets the HttpConfiguration which will be used in all tests.
         /// </summary>
         /// <param name="httpConfiguration">HttpConfiguration instance used in the testing.</param>
-        public static void IsUsing(HttpConfiguration httpConfiguration)
+        /// <returns>HTTP configuration builder.</returns>
+        public static IHttpConfigurationBuilder IsUsing(HttpConfiguration httpConfiguration)
         {
             Configuration = httpConfiguration;
+            return new HttpConfigurationBuilder(httpConfiguration);
         }
 
         /// <summary>
@@ -57,10 +63,7 @@ namespace MyWebApi
         {
             if (httpConfiguration == null)
             {
-                CommonValidator.CheckForNullReference(
-                    Configuration,
-                    "'IsUsing' method should be called before testing routes or HttpConfiguration should be provided. MyWebApi must be configured and HttpConfiguration");
-
+                HttpConfigurationValidator.ValidateGlobalConfiguration("routes");
                 httpConfiguration = Configuration;
             }
 
@@ -135,6 +138,15 @@ namespace MyWebApi
         {
             var controllerInstance = construction();
             return new ControllerBuilder<TController>(controllerInstance);
+        }
+
+        /// <summary>
+        /// Starts a full ASP.NET Web API pipeline test.
+        /// </summary>
+        /// <returns>Server instance to set the HTTP request and test the HTTP response.</returns>
+        public static IServer Server()
+        {
+            return new Server();
         }
     }
 }
