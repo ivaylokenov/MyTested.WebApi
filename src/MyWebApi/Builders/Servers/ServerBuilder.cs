@@ -16,11 +16,32 @@
 
 namespace MyWebApi.Builders.Servers
 {
-    public class HttpServerTestBuilder
+    using System.Web.Http;
+    using Common.Servers;
+    using Contracts.Servers;
+    using Utilities.Validators;
+
+    public class ServerBuilder : IServerBuilder
     {
-        public HttpServerTestBuilder()
+        public void Starts(HttpConfiguration httpConfiguration = null)
         {
-            
+            if (httpConfiguration == null)
+            {
+                HttpConfigurationValidator.ValidateGlobalConfiguration("server pipeline");
+                httpConfiguration = MyWebApi.Configuration;
+            }
+
+            GlobalHttpServer.Start(httpConfiguration);
+        }
+
+        public void Starts<TStartup>()
+        {
+
+        }
+
+        public void Ends()
+        {
+            var httpServerStoppedSuccessfully = GlobalHttpServer.Stop();
         }
     }
 }

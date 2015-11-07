@@ -22,6 +22,7 @@ namespace MyWebApi
     using Builders.Contracts.Controllers;
     using Builders.Contracts.Handlers;
     using Builders.Contracts.Routes;
+    using Builders.Contracts.Servers;
     using Builders.Controllers;
     using Builders.HttpMessages;
     using Builders.Routes;
@@ -58,7 +59,7 @@ namespace MyWebApi
         {
             if (httpConfiguration == null)
             {
-                ValidateGlobalHttpConfiguration();
+                HttpConfigurationValidator.ValidateGlobalConfiguration("routes");
                 httpConfiguration = Configuration;
             }
 
@@ -135,32 +136,9 @@ namespace MyWebApi
             return new ControllerBuilder<TController>(controllerInstance);
         }
 
-        public static void Starts(HttpConfiguration httpConfiguration = null)
+        public static IServerBuilder Server()
         {
-            if (httpConfiguration == null)
-            {
-                ValidateGlobalHttpConfiguration();
-                httpConfiguration = Configuration;
-            }
-
-            HttpServerTestBuilder.StartGlobalHttpServer(httpConfiguration);
-        }
-
-        public static void Starts<TStartup>()
-        {
-
-        }
-
-        public static void Ends()
-        {
-            var httpServerStoppedSuccessfully = HttpServerTestBuilder.StopGlobalHttpServer();
-        }
-
-        private static void ValidateGlobalHttpConfiguration()
-        {
-            CommonValidator.CheckForNullReference(
-                Configuration,
-                "'IsUsing' method should be called before testing routes or HttpConfiguration should be provided. MyWebApi must be configured and HttpConfiguration");
+            return new ServerBuilder();
         }
     }
 }

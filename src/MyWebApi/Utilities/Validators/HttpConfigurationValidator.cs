@@ -14,13 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Servers
+namespace MyWebApi.Utilities.Validators
 {
-    public class HttpServerTestBuilder
+    public static class HttpConfigurationValidator
     {
-        public HttpServerTestBuilder()
+        public static void ValidateGlobalConfiguration(string testCase)
         {
-            
+            CommonValidator.CheckForNullReference(
+                MyWebApi.Configuration,
+                string.Format("'IsUsing' method should be called before testing {0} or HttpConfiguration should be provided. MyWebApi must be configured and HttpConfiguration", testCase));
         }
     }
 }

@@ -14,13 +14,36 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Servers
+namespace MyWebApi.Common.Servers
 {
-    public class HttpServerTestBuilder
+    using System.Net.Http;
+    using System.Web.Http;
+
+    public static class GlobalHttpServer
     {
-        public HttpServerTestBuilder()
+        public static void Start(HttpConfiguration httpConfiguration)
         {
-            
+            Server = new HttpServer(httpConfiguration);
+            Invoker = new HttpMessageInvoker(Server, true);
+        }
+
+        public static HttpServer Server { get; private set; }
+
+        public static HttpMessageInvoker Invoker { get; private set; }
+
+        public static bool Stop()
+        {
+            if (Server == null || Invoker == null)
+            {
+                return false;
+            }
+
+            Invoker.Dispose();
+
+            Invoker = null;
+            Server = null;
+
+            return true;
         }
     }
 }
