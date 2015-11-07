@@ -47,6 +47,7 @@ namespace MyWebApi
         /// Sets the HttpConfiguration which will be used in all tests.
         /// </summary>
         /// <param name="httpConfiguration">HttpConfiguration instance used in the testing.</param>
+        /// <returns>HTTP configuration builder.</returns>
         public static IHttpConfigurationBuilder IsUsing(HttpConfiguration httpConfiguration)
         {
             Configuration = httpConfiguration;
@@ -139,6 +140,10 @@ namespace MyWebApi
             return new ControllerBuilder<TController>(controllerInstance);
         }
 
+        /// <summary>
+        /// Starts a full ASP.NET Web API pipeline test.
+        /// </summary>
+        /// <returns>Server instance to set the HTTP request and test the HTTP response.</returns>
         public static IServer Server()
         {
             return new Server();

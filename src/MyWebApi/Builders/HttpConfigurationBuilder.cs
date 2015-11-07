@@ -20,15 +20,25 @@ namespace MyWebApi.Builders
     using Contracts;
     using Servers;
 
+    /// <summary>
+    /// HTTP configuration builder.
+    /// </summary>
     public class HttpConfigurationBuilder : IHttpConfigurationBuilder
     {
         private readonly HttpConfiguration httpConfiguration;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpConfigurationBuilder" /> class.
+        /// </summary>
+        /// <param name="httpConfiguration">HttpConfiguration instance used in the builder.</param>
         public HttpConfigurationBuilder(HttpConfiguration httpConfiguration)
         {
             this.httpConfiguration = httpConfiguration;
         }
 
+        /// <summary>
+        /// Starts HTTP server with the provided configuration.
+        /// </summary>
         public void AndStartsServer()
         {
             new Server().Starts(this.httpConfiguration);

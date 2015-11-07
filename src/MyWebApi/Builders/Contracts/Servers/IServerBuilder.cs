@@ -20,10 +20,23 @@ namespace MyWebApi.Builders.Contracts.Servers
     using System.Net.Http;
     using HttpRequests;
 
+    /// <summary>
+    /// Provides options to set the HTTP request to test.
+    /// </summary>
     public interface IServerBuilder
     {
+        /// <summary>
+        /// Adds HTTP request message to the tested server.
+        /// </summary>
+        /// <param name="requestMessage">Instance of HttpRequestMessage.</param>
+        /// <returns>Server test builder to test the returned HTTP response.</returns>
         IServerTestBuilder WithHttpRequestMessage(HttpRequestMessage requestMessage);
 
-        IServerTestBuilder WithHttpRequestMessage(Action<IHttpRequestMessageBuilder> httpRequestBuilder);
+        /// <summary>
+        /// Adds HTTP request message to the tested server.
+        /// </summary>
+        /// <param name="httpRequestMessageBuilder">Builder for HTTP request message.</param>
+        /// <returns>Server test builder to test the returned HTTP response.</returns>
+        IServerTestBuilder WithHttpRequestMessage(Action<IHttpRequestMessageBuilder> httpRequestMessageBuilder);
     }
 }

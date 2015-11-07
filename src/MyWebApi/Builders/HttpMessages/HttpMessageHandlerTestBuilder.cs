@@ -128,12 +128,12 @@ namespace MyWebApi.Builders.HttpMessages
         /// <summary>
         /// Adds HTTP request message to the tested handler.
         /// </summary>
-        /// <param name="httpRequestBuilder">Builder for HTTP request message.</param>
+        /// <param name="httpRequestMessageBuilder">Builder for HTTP request message.</param>
         /// <returns>The same HTTP handler builder.</returns>
-        public IHttpMessageHandlerTestBuilder WithHttpRequestMessage(Action<IHttpRequestMessageBuilder> httpRequestBuilder)
+        public IHttpMessageHandlerTestBuilder WithHttpRequestMessage(Action<IHttpRequestMessageBuilder> httpRequestMessageBuilder)
         {
             var httpBuilder = new HttpRequestMessageBuilder();
-            httpRequestBuilder(httpBuilder);
+            httpRequestMessageBuilder(httpBuilder);
             return this.WithHttpRequestMessage(httpBuilder.GetHttpRequestMessage());
         }
 

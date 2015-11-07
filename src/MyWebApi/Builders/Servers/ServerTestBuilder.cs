@@ -26,6 +26,9 @@ namespace MyWebApi.Builders.Servers
     using Contracts.Servers;
     using HttpMessages;
 
+    /// <summary>
+    /// Provides options to set the HTTP request and test the HTTP response.
+    /// </summary>
     public class ServerTestBuilder : IServerBuilder, IServerTestBuilder
     {
         private readonly HttpMessageInvoker client;
@@ -35,6 +38,13 @@ namespace MyWebApi.Builders.Servers
 
         private HttpRequestMessage httpRequestMessage;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServerTestBuilder" /> class.
+        /// </summary>
+        /// <param name="client">HTTP message invoker to send the request.</param>
+        /// <param name="transformRequest">Indicates whether to transform relative to fake absolute request URI.</param>
+        /// <param name="disposeServer">Indicates whether to dispose the server and the client after the test completes.</param>
+        /// <param name="server">IDisposable server to use for the request.</param>
         public ServerTestBuilder(
             HttpMessageInvoker client,
             bool transformRequest = false,
@@ -47,6 +57,11 @@ namespace MyWebApi.Builders.Servers
             this.server = server;
         }
 
+        /// <summary>
+        /// Adds HTTP request message to the tested server.
+        /// </summary>
+        /// <param name="requestMessage">Instance of HttpRequestMessage.</param>
+        /// <returns>Server test builder to test the returned HTTP response.</returns>
         public IServerTestBuilder WithHttpRequestMessage(HttpRequestMessage requestMessage)
         {
             this.httpRequestMessage = requestMessage;
@@ -58,13 +73,22 @@ namespace MyWebApi.Builders.Servers
             return this;
         }
 
-        public IServerTestBuilder WithHttpRequestMessage(Action<IHttpRequestMessageBuilder> httpRequestBuilder)
+        /// <summary>
+        /// Adds HTTP request message to the tested server.
+        /// </summary>
+        /// <param name="httpRequestMessageBuilder">Builder for HTTP request message.</param>
+        /// <returns>Server test builder to test the returned HTTP response.</returns>
+        public IServerTestBuilder WithHttpRequestMessage(Action<IHttpRequestMessageBuilder> httpRequestMessageBuilder)
         {
             var httpBuilder = new HttpRequestMessageBuilder();
-            httpRequestBuilder(httpBuilder);
+            httpRequestMessageBuilder(httpBuilder);
             return this.WithHttpRequestMessage(httpBuilder.GetHttpRequestMessage());
         }
 
+        /// <summary>
+        /// Tests for a particular HTTP response message.
+        /// </summary>
+        /// <returns>HTTP response message test builder.</returns>
         public IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage()
         {
             var serverHandler = new ServerHttpMessageHandler(this.client, this.disposeServer);

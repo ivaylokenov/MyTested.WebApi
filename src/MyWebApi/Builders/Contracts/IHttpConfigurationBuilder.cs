@@ -16,8 +16,14 @@
 
 namespace MyWebApi.Builders.Contracts
 {
+    /// <summary>
+    /// HTTP configuration builder.
+    /// </summary>
     public interface IHttpConfigurationBuilder
     {
+        /// <summary>
+        /// Starts HTTP server with the provided configuration.
+        /// </summary>
         void AndStartsServer();
     }
 }
