@@ -123,7 +123,9 @@
     <Compile Include="Builders\Contracts\Routes\IResolvedRouteTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IRouteTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IShouldMapTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Servers\IServer.cs" />
     <Compile Include="Builders\Contracts\Servers\IServerBuilder.cs" />
+    <Compile Include="Builders\Contracts\Servers\IServerTestBuilder.cs" />
     <Compile Include="Builders\Controllers\ControllerTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\AggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\BadRequest\BadRequestErrorMessageTestBuilder.cs" />
@@ -190,8 +192,7 @@
     <Compile Include="Builders\Routes\RouteRequestBuilder.cs" />
     <Compile Include="Builders\Routes\RouteTestBuilder.cs" />
     <Compile Include="Builders\Routes\ShouldMapTestBuilder.cs" />
-    <Compile Include="Builders\Servers\HttpServerTestBuilder.cs" />
-    <Compile Include="Builders\Servers\OwinHostTestBuilder.cs" />
+    <Compile Include="Builders\Servers\Server.cs" />
     <Compile Include="Builders\Servers\ServerBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriTestBuilder.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
     <Compile Include="Common\Servers\GlobalHttpServer.cs" />
+    <Compile Include="Common\Servers\GlobalOwinServer.cs" />
     <Compile Include="Common\VoidActionResult.cs" />
     <Compile Include="Exceptions\InvalidCallAssertionException.cs" />
     <Compile Include="Exceptions\AttributeAssertionException.cs" />

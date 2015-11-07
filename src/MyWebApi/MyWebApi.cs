@@ -136,9 +136,9 @@ namespace MyWebApi
             return new ControllerBuilder<TController>(controllerInstance);
         }
 
-        public static IServerBuilder Server()
+        public static IServer Server()
         {
-            return new ServerBuilder();
+            return new Server();
         }
     }
 }

@@ -16,20 +16,25 @@
 
 namespace MyWebApi.Common.Servers
 {
+    using System;
+    using System.Linq;
     using System.Net.Http;
-    using System.Web.Http;
+    using Microsoft.Owin.Hosting;
 
-    public static class GlobalHttpServer
+    public static class GlobalOwinServer
     {
-        public static void Start(HttpConfiguration httpConfiguration)
+        public static void Start<TStartup>(StartOptions options)
         {
-            Server = new HttpServer(httpConfiguration);
-            Client = new HttpMessageInvoker(Server, true);
+            Server = WebApp.Start<TStartup>(options);
+            Client = new HttpClient
+            {
+                BaseAddress = new Uri(options.Urls.First())
+            };
         }
 
-        public static HttpServer Server { get; private set; }
+        public static IDisposable Server { get; private set; }
 
-        public static HttpMessageInvoker Client { get; private set; }
+        public static HttpClient Client { get; private set; }
 
         public static bool Stop()
         {
@@ -39,6 +44,7 @@ namespace MyWebApi.Common.Servers
             }
 
             Client.Dispose();
+            Server.Dispose();
 
             Client = null;
             Server = null;
