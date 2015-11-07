@@ -14,19 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Servers
+namespace MyWebApi.Builders.Contracts
 {
-    using System.Web.Http;
-    using Common.Servers;
-
-    public interface IServer
+    public interface IHttpConfigurationBuilder
     {
-        void Starts(HttpConfiguration httpConfiguration = null);
-
-        void Starts<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost);
-
-        void Stops();
-
-        IServerBuilder Running();
+        void AndStartsServer();
     }
 }

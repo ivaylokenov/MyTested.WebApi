@@ -117,6 +117,7 @@
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpHandlerResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Handlers\IHttpMessageHandlerTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\IHttpConfigurationBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IHttpHandlerModelDetailsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IAndResolvedRouteTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IAndShouldMapTestBuilder.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveModelState.cs" />
     <Compile Include="Builders\HttpActionResults\Created\CreatedTestBuilder.cs" />
     <Compile Include="Builders\FormattersBuilder.cs" />
+    <Compile Include="Builders\HttpConfigurationBuilder.cs" />
     <Compile Include="Builders\HttpMessages\HttpHandlerResponseMessageTestBuilder.cs" />
     <Compile Include="Builders\HttpMessages\HttpMessageHandlerTestBuilder.cs" />
     <Compile Include="Builders\HttpMessages\HttpRequestMessageBuilder.cs" />
@@ -192,9 +194,8 @@
     <Compile Include="Builders\Routes\RouteRequestBuilder.cs" />
     <Compile Include="Builders\Routes\RouteTestBuilder.cs" />
     <Compile Include="Builders\Routes\ShouldMapTestBuilder.cs" />
-    <Compile Include="Builders\Servers\HttpServerTestBuilder.cs" />
     <Compile Include="Builders\Servers\Server.cs" />
-    <Compile Include="Builders\Servers\BaseServerTestBuilder.cs" />
+    <Compile Include="Builders\Servers\ServerTestBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriBuilder.cs" />
     <Compile Include="Builders\Uris\MockedUriTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\ExceptionMessageTestBuilder.cs" />
@@ -227,8 +228,9 @@
     <Compile Include="Common\MethodArgumentInfo.cs" />
     <Compile Include="Common\Identity\MockedIIdentity.cs" />
     <Compile Include="Common\Identity\MockedIPrinciple.cs" />
-    <Compile Include="Common\Servers\GlobalHttpServer.cs" />
-    <Compile Include="Common\Servers\GlobalOwinServer.cs" />
+    <Compile Include="Common\Servers\HttpTestServer.cs" />
+    <Compile Include="Common\Servers\OwinTestServer.cs" />
+    <Compile Include="Common\Servers\ServerHttpMessageHandler.cs" />
     <Compile Include="Common\VoidActionResult.cs" />
     <Compile Include="Exceptions\InvalidCallAssertionException.cs" />
     <Compile Include="Exceptions\AttributeAssertionException.cs" />

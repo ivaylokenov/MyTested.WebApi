@@ -19,6 +19,8 @@ namespace MyWebApi
     using System;
     using System.Net.Http;
     using System.Web.Http;
+    using Builders;
+    using Builders.Contracts;
     using Builders.Contracts.Controllers;
     using Builders.Contracts.Handlers;
     using Builders.Contracts.Routes;
@@ -45,9 +47,10 @@ namespace MyWebApi
         /// Sets the HttpConfiguration which will be used in all tests.
         /// </summary>
         /// <param name="httpConfiguration">HttpConfiguration instance used in the testing.</param>
-        public static void IsUsing(HttpConfiguration httpConfiguration)
+        public static IHttpConfigurationBuilder IsUsing(HttpConfiguration httpConfiguration)
         {
             Configuration = httpConfiguration;
+            return new HttpConfigurationBuilder(httpConfiguration);
         }
 
         /// <summary>

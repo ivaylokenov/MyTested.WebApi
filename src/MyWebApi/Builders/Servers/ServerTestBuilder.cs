@@ -18,18 +18,29 @@ namespace MyWebApi.Builders.Servers
 {
     using System;
     using System.Net.Http;
+    using System.Threading;
+    using Common.Servers;
     using Contracts.HttpRequests;
     using Contracts.HttpResponseMessages;
     using Contracts.Servers;
     using HttpMessages;
 
-    public abstract class BaseServerTestBuilder : IServerBuilder, IServerTestBuilder
+    public class ServerTestBuilder : IServerBuilder, IServerTestBuilder
     {
-        protected HttpRequestMessage HttpRequestMessage { get; private set; }
+        private readonly HttpMessageInvoker client;
+        private readonly bool disposeServer;
+
+        private HttpRequestMessage httpRequestMessage;
+
+        public ServerTestBuilder(HttpMessageInvoker client, bool disposeServer = false)
+        {
+            this.client = client;
+            this.disposeServer = disposeServer;
+        }
 
         public IServerTestBuilder WithHttpRequestMessage(HttpRequestMessage requestMessage)
         {
-            this.HttpRequestMessage = requestMessage;
+            this.httpRequestMessage = requestMessage;
             return this;
         }
 
@@ -40,6 +51,16 @@ namespace MyWebApi.Builders.Servers
             return this.WithHttpRequestMessage(httpBuilder.GetHttpRequestMessage());
         }
 
-        public abstract IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage();
+        public IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage()
+        {
+            var serverHandler = new ServerHttpMessageHandler(this.client);
+            var httpResponseMessage = serverHandler.HttpMessageInvoker.SendAsync(this.httpRequestMessage, CancellationToken.None).Result;
+            if (this.disposeServer)
+            {
+                this.client.Dispose();
+            }
+
+            return new HttpHandlerResponseMessageTestBuilder(serverHandler, httpResponseMessage);
+        }
     }
 }

@@ -14,32 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Servers
+namespace MyWebApi.Common.Servers
 {
     using System.Net.Http;
     using System.Threading;
-    using Contracts.HttpResponseMessages;
+    using System.Threading.Tasks;
 
-    public class HttpServerTestBuilder : BaseServerTestBuilder
+    public class ServerHttpMessageHandler : HttpMessageHandler
     {
-        private readonly HttpMessageInvoker client;
-        private readonly bool disposeAfterTest;
-
-        public HttpServerTestBuilder(HttpMessageInvoker client, bool disposeAfterTest = false)
+        public ServerHttpMessageHandler(HttpMessageInvoker httpMessageInvoker)
         {
-            this.client = client;
-            this.disposeAfterTest = disposeAfterTest;
+            this.HttpMessageInvoker = httpMessageInvoker;
         }
 
-        public override IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage()
-        {
-            var result = this.client.SendAsync(this.HttpRequestMessage, CancellationToken.None).Result;
-            if (this.disposeAfterTest)
-            {
-                this.client.Dispose();
-            }
+        public HttpMessageInvoker HttpMessageInvoker { get; private set; }
 
-            return null;
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            return this.HttpMessageInvoker.SendAsync(request, cancellationToken);
         }
     }
 }

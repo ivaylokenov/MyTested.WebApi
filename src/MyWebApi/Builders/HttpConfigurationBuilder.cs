@@ -14,38 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Common.Servers
+namespace MyWebApi.Builders
 {
-    using System.Net.Http;
     using System.Web.Http;
+    using Contracts;
+    using Servers;
 
-    public static class GlobalHttpServer
+    public class HttpConfigurationBuilder : IHttpConfigurationBuilder
     {
-        public static void Start(HttpConfiguration httpConfiguration)
+        private readonly HttpConfiguration httpConfiguration;
+
+        public HttpConfigurationBuilder(HttpConfiguration httpConfiguration)
         {
-            Server = new HttpServer(httpConfiguration);
-            Client = new HttpMessageInvoker(Server, true);
+            this.httpConfiguration = httpConfiguration;
         }
 
-        public static HttpServer Server { get; private set; }
-
-        public static HttpMessageInvoker Client { get; private set; }
-
-        public static bool Started { get { return Client != null; } }
-
-        public static bool Stop()
+        public void AndStartsServer()
         {
-            if (Server == null || Client == null)
-            {
-                return false;
-            }
-
-            Client.Dispose();
-
-            Client = null;
-            Server = null;
-
-            return true;
+            new Server().Starts(this.httpConfiguration);
         }
     }
 }

@@ -16,7 +16,7 @@
 
 namespace MyWebApi.Builders.Servers
 {
-    using System.Net.Http;
+    using System;
     using System.Web.Http;
     using Common.Servers;
     using Contracts.Servers;
@@ -33,65 +33,63 @@ namespace MyWebApi.Builders.Servers
                 httpConfiguration = MyWebApi.Configuration;
             }
 
-            if (GlobalHttpServer.Started)
-            {
-                GlobalHttpServer.Stop();
-            }
-
-            GlobalHttpServer.Start(httpConfiguration);
+            HttpTestServer.StartGlobal(httpConfiguration);
         }
 
-        public void Starts<TStartup>(int port = 1234, string host = "localhost")
+        public void Starts<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost)
         {
-            var options = new StartOptions(host)
-            {
-                Port = port
-            };
-
-            if (GlobalOwinServer.Started)
-            {
-                GlobalOwinServer.Stop();
-            }
-
-            GlobalOwinServer.Start<TStartup>(options);
+            OwinTestServer.StartGlobal<TStartup>(this.GetStartOptions(port, host));
         }
 
-        public void Ends()
+        public void Stops()
         {
-            var httpServerStoppedSuccessfully = GlobalHttpServer.Stop();
-            var owinServerStoppedSuccessfully = GlobalOwinServer.Stop();
+            var httpServerStoppedSuccessfully = HttpTestServer.StopGlobal();
+            var owinServerStoppedSuccessfully = OwinTestServer.StopGlobal();
 
             if (!httpServerStoppedSuccessfully && !owinServerStoppedSuccessfully)
             {
-                // TODO: throw
+                throw new InvalidOperationException("There are no running test servers to stop. Calling MyWebApi.Server().Stops() should be done only after MyWebApi.Server.Starts() is invoked.");
             }
         }
 
         public IServerBuilder Running()
         {
-            if (!GlobalOwinServer.Started)
+            if (!OwinTestServer.GlobalStarted)
             {
-                // run owin integration test
+                return new ServerTestBuilder(OwinTestServer.GlobalClient);
             }
 
-            if (!GlobalHttpServer.Started)
+            if (!HttpTestServer.GlobalStarted)
             {
-                return new HttpServerTestBuilder(GlobalHttpServer.Client);
+                return new ServerTestBuilder(HttpTestServer.GlobalClient);
             }
 
-            throw new System.NotImplementedException();
+            if (MyWebApi.Configuration != null)
+            {
+                return this.Running(MyWebApi.Configuration);
+            }
+
+            throw new InvalidOperationException("No test servers are started or could be started for this particular test case. Either call MyWebApi.Server.Starts() to start a new test server or provide global or test specific HttpConfiguration.");
         }
 
         public IServerBuilder Running(HttpConfiguration httpConfiguration)
         {
-            var httpServer = new HttpServer(httpConfiguration);
-            var httpMessageInvoker = new HttpMessageInvoker(httpServer, true);
-            return new HttpServerTestBuilder(httpMessageInvoker, true);
+            return new ServerTestBuilder(HttpTestServer.CreateNewClient(httpConfiguration), true);
         }
 
-        public IServerBuilder Running<TStartup>()
+        public IServerBuilder Running<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost)
         {
-            throw new System.NotImplementedException();
+            var options = this.GetStartOptions(port, host);
+            using (OwinTestServer.CreateNewServer<TStartup>(options))
+            {
+                return new ServerTestBuilder(OwinTestServer.CreateNewClient(options), true);
+            }
+        }
+
+        private StartOptions GetStartOptions(int port, string host)
+        {
+            var hostWithPort = string.Format("{0}:{1}", host, port);
+            return new StartOptions(hostWithPort);
         }
     }
 }
