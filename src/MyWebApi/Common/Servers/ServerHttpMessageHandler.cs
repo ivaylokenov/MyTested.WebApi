@@ -22,9 +22,12 @@ namespace MyWebApi.Common.Servers
 
     public class ServerHttpMessageHandler : HttpMessageHandler
     {
-        public ServerHttpMessageHandler(HttpMessageInvoker httpMessageInvoker)
+        public readonly bool disposeInvoker;
+
+        public ServerHttpMessageHandler(HttpMessageInvoker httpMessageInvoker, bool disposeInvoker)
         {
             this.HttpMessageInvoker = httpMessageInvoker;
+            this.disposeInvoker = disposeInvoker;
         }
 
         public HttpMessageInvoker HttpMessageInvoker { get; private set; }
@@ -32,6 +35,16 @@ namespace MyWebApi.Common.Servers
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             return this.HttpMessageInvoker.SendAsync(request, cancellationToken);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (this.disposeInvoker)
+            {
+                this.HttpMessageInvoker.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

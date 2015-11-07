@@ -25,7 +25,7 @@ namespace MyWebApi.Common.Servers
 
         public static HttpMessageInvoker GlobalClient { get; private set; }
 
-        public static bool GlobalStarted { get { return GlobalClient != null && GlobalServer != null; } }
+        public static bool GlobalIsStarted { get { return GlobalClient != null && GlobalServer != null; } }
 
         public static HttpMessageInvoker CreateNewClient(HttpConfiguration httpConfiguration)
         {
@@ -35,7 +35,7 @@ namespace MyWebApi.Common.Servers
 
         public static void StartGlobal(HttpConfiguration httpConfiguration)
         {
-            if (GlobalStarted)
+            if (GlobalIsStarted)
             {
                 StopGlobal();
             }

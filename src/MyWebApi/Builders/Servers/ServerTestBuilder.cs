@@ -19,6 +19,7 @@ namespace MyWebApi.Builders.Servers
     using System;
     using System.Net.Http;
     using System.Threading;
+    using Common.Extensions;
     using Common.Servers;
     using Contracts.HttpRequests;
     using Contracts.HttpResponseMessages;
@@ -28,19 +29,32 @@ namespace MyWebApi.Builders.Servers
     public class ServerTestBuilder : IServerBuilder, IServerTestBuilder
     {
         private readonly HttpMessageInvoker client;
+        private readonly bool transformRequest;
         private readonly bool disposeServer;
+        private readonly IDisposable server;
 
         private HttpRequestMessage httpRequestMessage;
 
-        public ServerTestBuilder(HttpMessageInvoker client, bool disposeServer = false)
+        public ServerTestBuilder(
+            HttpMessageInvoker client,
+            bool transformRequest = false,
+            bool disposeServer = false,
+            IDisposable server = null)
         {
             this.client = client;
+            this.transformRequest = transformRequest;
             this.disposeServer = disposeServer;
+            this.server = server;
         }
 
         public IServerTestBuilder WithHttpRequestMessage(HttpRequestMessage requestMessage)
         {
             this.httpRequestMessage = requestMessage;
+            if (this.transformRequest)
+            {
+                this.TransformRelativeRequestUri();
+            }
+
             return this;
         }
 
@@ -53,14 +67,25 @@ namespace MyWebApi.Builders.Servers
 
         public IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage()
         {
-            var serverHandler = new ServerHttpMessageHandler(this.client);
-            var httpResponseMessage = serverHandler.HttpMessageInvoker.SendAsync(this.httpRequestMessage, CancellationToken.None).Result;
-            if (this.disposeServer)
+            var serverHandler = new ServerHttpMessageHandler(this.client, this.disposeServer);
+            using (var invoker = new HttpMessageInvoker(serverHandler, true))
             {
-                this.client.Dispose();
-            }
+                var httpResponseMessage = invoker.SendAsync(this.httpRequestMessage, CancellationToken.None).Result;
+                if (this.disposeServer && this.server != null)
+                {
+                    this.server.Dispose();
+                }
 
-            return new HttpHandlerResponseMessageTestBuilder(serverHandler, httpResponseMessage);
+                return new HttpHandlerResponseMessageTestBuilder(serverHandler, httpResponseMessage);
+            }
+        }
+
+        private void TransformRelativeRequestUri()
+        {
+            if (this.httpRequestMessage.RequestUri != null && !this.httpRequestMessage.RequestUri.IsAbsoluteUri)
+            {
+                this.httpRequestMessage.TransformToAbsoluteRequestUri();
+            }
         }
     }
 }

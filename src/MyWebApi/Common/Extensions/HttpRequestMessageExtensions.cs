@@ -14,16 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Servers
+namespace MyWebApi.Common.Extensions
 {
     using System;
     using System.Net.Http;
-    using HttpRequests;
 
-    public interface IServerBuilder
+    public static class HttpRequestMessageExtensions
     {
-        IServerTestBuilder WithHttpRequestMessage(HttpRequestMessage requestMessage);
-
-        IServerTestBuilder WithHttpRequestMessage(Action<IHttpRequestMessageBuilder> httpRequestBuilder);
+        public static void TransformToAbsoluteRequestUri(this HttpRequestMessage request)
+        {
+            request.RequestUri = new Uri(new Uri("http://absoluteuri.com"), request.RequestUri);
+        }
     }
 }

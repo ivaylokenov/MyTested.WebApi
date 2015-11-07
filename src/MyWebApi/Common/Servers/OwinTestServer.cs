@@ -30,7 +30,7 @@ namespace MyWebApi.Common.Servers
 
         public static HttpClient GlobalClient { get; private set; }
 
-        public static bool GlobalStarted { get { return GlobalClient != null && GlobalServer != null; } }
+        public static bool GlobalIsStarted { get { return GlobalClient != null && GlobalServer != null; } }
 
         public static IDisposable CreateNewServer<TStartup>(StartOptions options)
         {
@@ -47,7 +47,7 @@ namespace MyWebApi.Common.Servers
 
         public static void StartGlobal<TStartup>(StartOptions options)
         {
-            if (GlobalStarted)
+            if (GlobalIsStarted)
             {
                 StopGlobal();
             }

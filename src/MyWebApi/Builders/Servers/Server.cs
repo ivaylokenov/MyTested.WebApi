@@ -52,38 +52,36 @@ namespace MyWebApi.Builders.Servers
             }
         }
 
-        public IServerBuilder Running()
+        public IServerBuilder Working()
         {
-            if (!OwinTestServer.GlobalStarted)
+            if (OwinTestServer.GlobalIsStarted)
             {
                 return new ServerTestBuilder(OwinTestServer.GlobalClient);
             }
 
-            if (!HttpTestServer.GlobalStarted)
+            if (HttpTestServer.GlobalIsStarted)
             {
-                return new ServerTestBuilder(HttpTestServer.GlobalClient);
+                return new ServerTestBuilder(HttpTestServer.GlobalClient, transformRequest: true);
             }
 
             if (MyWebApi.Configuration != null)
             {
-                return this.Running(MyWebApi.Configuration);
+                return this.Working(MyWebApi.Configuration);
             }
 
             throw new InvalidOperationException("No test servers are started or could be started for this particular test case. Either call MyWebApi.Server.Starts() to start a new test server or provide global or test specific HttpConfiguration.");
         }
 
-        public IServerBuilder Running(HttpConfiguration httpConfiguration)
+        public IServerBuilder Working(HttpConfiguration httpConfiguration)
         {
-            return new ServerTestBuilder(HttpTestServer.CreateNewClient(httpConfiguration), true);
+            return new ServerTestBuilder(HttpTestServer.CreateNewClient(httpConfiguration), transformRequest: true, disposeServer: true);
         }
 
-        public IServerBuilder Running<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost)
+        public IServerBuilder Working<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost)
         {
             var options = this.GetStartOptions(port, host);
-            using (OwinTestServer.CreateNewServer<TStartup>(options))
-            {
-                return new ServerTestBuilder(OwinTestServer.CreateNewClient(options), true);
-            }
+            var server = OwinTestServer.CreateNewServer<TStartup>(options);
+            return new ServerTestBuilder(OwinTestServer.CreateNewClient(options), disposeServer: true, server: server);
         }
 
         private StartOptions GetStartOptions(int port, string host)

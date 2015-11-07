@@ -220,6 +220,7 @@
     <Compile Include="Builders\UserBuilder.cs" />
     <Compile Include="AuthenticationScheme.cs" />
     <Compile Include="Common\ActionInfo.cs" />
+    <Compile Include="Common\Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Common\Extensions\ObjectExtensions.cs" />
     <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Common\MockedUri.cs" />

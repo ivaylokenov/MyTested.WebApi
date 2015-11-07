@@ -37,7 +37,7 @@ namespace MyWebApi.Tests.Setups
 
         public static HttpConfiguration GetHttpConfigurationWithRoutes()
         {
-            var config = new HttpConfiguration();
+            var config = new HttpConfiguration { IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always };
 
             config.MapHttpAttributeRoutes();
 

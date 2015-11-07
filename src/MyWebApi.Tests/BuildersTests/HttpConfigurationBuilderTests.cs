@@ -14,23 +14,29 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 
-namespace MyWebApi.Builders.Contracts.Servers
+namespace MyWebApi.Tests.BuildersTests
 {
-    using System.Web.Http;
     using Common.Servers;
+    using NUnit.Framework;
+    using Setups;
 
-    public interface IServer
+    [TestFixture]
+    public class HttpConfigurationBuilderTests
     {
-        void Starts(HttpConfiguration httpConfiguration = null);
+        [Test]
+        public void AndStartsServerShouldStartServerCorrectly()
+        {
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes()).AndStartsServer();
 
-        void Starts<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost);
+            Assert.IsNotNull(HttpTestServer.GlobalServer);
+            Assert.IsNotNull(HttpTestServer.GlobalClient);
+            Assert.IsTrue(HttpTestServer.GlobalIsStarted);
 
-        void Stops();
+            MyWebApi.Server().Stops();
 
-        IServerBuilder Working();
-
-        IServerBuilder Working(HttpConfiguration httpConfiguration);
-
-        IServerBuilder Working<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost);
+            Assert.IsNull(HttpTestServer.GlobalServer);
+            Assert.IsNull(HttpTestServer.GlobalClient);
+            Assert.IsFalse(HttpTestServer.GlobalIsStarted);
+        }
     }
 }
