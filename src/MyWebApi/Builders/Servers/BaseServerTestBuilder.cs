@@ -18,25 +18,18 @@ namespace MyWebApi.Builders.Servers
 {
     using System;
     using System.Net.Http;
-    using System.Web.Http;
     using Contracts.HttpRequests;
+    using Contracts.HttpResponseMessages;
     using Contracts.Servers;
     using HttpMessages;
 
-    public class ServerBuilder : IServerBuilder, IServerTestBuilder
+    public abstract class BaseServerTestBuilder : IServerBuilder, IServerTestBuilder
     {
-        private HttpRequestMessage httpRequestMessage;
-        private HttpConfiguration httpConfiguration;
-
-        public IServerBuilder WithHttpConfiguration(HttpConfiguration httpConfiguration)
-        {
-            this.httpConfiguration = httpConfiguration;
-            return this;
-        }
+        protected HttpRequestMessage HttpRequestMessage { get; private set; }
 
         public IServerTestBuilder WithHttpRequestMessage(HttpRequestMessage requestMessage)
         {
-            this.httpRequestMessage = requestMessage;
+            this.HttpRequestMessage = requestMessage;
             return this;
         }
 
@@ -46,5 +39,7 @@ namespace MyWebApi.Builders.Servers
             httpRequestBuilder(httpBuilder);
             return this.WithHttpRequestMessage(httpBuilder.GetHttpRequestMessage());
         }
+
+        public abstract IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage();
     }
 }

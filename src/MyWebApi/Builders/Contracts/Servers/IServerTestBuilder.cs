@@ -16,7 +16,10 @@
 
 namespace MyWebApi.Builders.Contracts.Servers
 {
+    using HttpResponseMessages;
+
     public interface IServerTestBuilder
     {
+        IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage();
     }
 }

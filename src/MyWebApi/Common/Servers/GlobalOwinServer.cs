@@ -19,6 +19,7 @@ namespace MyWebApi.Common.Servers
     using System;
     using System.Linq;
     using System.Net.Http;
+    using System.Runtime.CompilerServices;
     using Microsoft.Owin.Hosting;
 
     public static class GlobalOwinServer
@@ -35,6 +36,8 @@ namespace MyWebApi.Common.Servers
         public static IDisposable Server { get; private set; }
 
         public static HttpClient Client { get; private set; }
+
+        public static bool Started { get { return Client != null; } }
 
         public static bool Stop()
         {

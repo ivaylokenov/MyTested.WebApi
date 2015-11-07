@@ -16,6 +16,7 @@
 
 namespace MyWebApi.Builders.Servers
 {
+    using System.Net.Http;
     using System.Web.Http;
     using Common.Servers;
     using Contracts.Servers;
@@ -32,6 +33,11 @@ namespace MyWebApi.Builders.Servers
                 httpConfiguration = MyWebApi.Configuration;
             }
 
+            if (GlobalHttpServer.Started)
+            {
+                GlobalHttpServer.Stop();
+            }
+
             GlobalHttpServer.Start(httpConfiguration);
         }
 
@@ -41,6 +47,11 @@ namespace MyWebApi.Builders.Servers
             {
                 Port = port
             };
+
+            if (GlobalOwinServer.Started)
+            {
+                GlobalOwinServer.Stop();
+            }
 
             GlobalOwinServer.Start<TStartup>(options);
         }
@@ -57,6 +68,28 @@ namespace MyWebApi.Builders.Servers
         }
 
         public IServerBuilder Running()
+        {
+            if (!GlobalOwinServer.Started)
+            {
+                // run owin integration test
+            }
+
+            if (!GlobalHttpServer.Started)
+            {
+                return new HttpServerTestBuilder(GlobalHttpServer.Client);
+            }
+
+            throw new System.NotImplementedException();
+        }
+
+        public IServerBuilder Running(HttpConfiguration httpConfiguration)
+        {
+            var httpServer = new HttpServer(httpConfiguration);
+            var httpMessageInvoker = new HttpMessageInvoker(httpServer, true);
+            return new HttpServerTestBuilder(httpMessageInvoker, true);
+        }
+
+        public IServerBuilder Running<TStartup>()
         {
             throw new System.NotImplementedException();
         }
