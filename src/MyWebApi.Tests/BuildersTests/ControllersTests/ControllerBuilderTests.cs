@@ -1,19 +1,7 @@
 ﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see http://www.gnu.org/licenses/.
-
+// Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
 namespace MyWebApi.Tests.BuildersTests.ControllersTests
 {
     using System;
@@ -136,7 +124,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                 .ShouldReturn()
                 .Ok();
 
-            var controllerUser = controllerBuilder.Controller.User;
+            var controllerUser = controllerBuilder.AndProvideTheController().User;
 
             Assert.AreEqual(false, controllerUser.IsInRole("Any"));
             Assert.AreEqual("TestUser", controllerUser.Identity.Name);
@@ -165,7 +153,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                 .ShouldReturn()
                 .Ok();
 
-            var controllerUser = controllerBuilder.Controller.User;
+            var controllerUser = controllerBuilder.AndProvideTheController().User;
 
             Assert.AreEqual("NewUserName", controllerUser.Identity.Name);
             Assert.AreEqual("Custom", controllerUser.Identity.AuthenticationType);
@@ -189,7 +177,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                 .ShouldReturn()
                 .NotFound();
 
-            var controllerUser = controllerBuilder.Controller.User;
+            var controllerUser = controllerBuilder.AndProvideTheController().User;
 
             Assert.AreEqual(false, controllerUser.IsInRole("Any"));
             Assert.AreEqual(null, controllerUser.Identity.Name);
@@ -203,7 +191,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
             var controller = MyWebApi
                 .Controller<WebApiController>()
                 .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
-                .Controller;
+                .AndProvideTheController();
 
             Assert.IsNotNull(controller);
             Assert.IsNotNull(controller.InjectedService);
@@ -218,7 +206,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                 .Controller<WebApiController>()
                 .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
                 .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
-                .Controller;
+                .AndProvideTheController();
 
             Assert.IsNotNull(controller);
             Assert.IsNotNull(controller.InjectedService);
@@ -234,7 +222,7 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
                 .WithResolvedDependencyFor<IAnotherInjectedService>(new AnotherInjectedService())
                 .WithResolvedDependencyFor<RequestModel>(new RequestModel())
                 .WithResolvedDependencyFor<IInjectedService>(new InjectedService())
-                .Controller;
+                .AndProvideTheController();
 
             Assert.IsNotNull(controller);
             Assert.IsNotNull(controller.InjectedService);
@@ -420,10 +408,16 @@ namespace MyWebApi.Tests.BuildersTests.ControllersTests
             var controllerConfig = MyWebApi
                 .Controller<WebApiController>()
                 .WithHttpConfiguration(config)
-                .Controller
+                .AndProvideTheController()
                 .Configuration;
 
+            var controllerConfigFromApi = MyWebApi
+                .Controller<WebApiController>()
+                .WithHttpConfiguration(config)
+                .AndProvideTheHttpConfiguration();
+
             Assert.AreSame(config, controllerConfig);
+            Assert.AreSame(config, controllerConfigFromApi);
         }
 
         private void CheckActionResultTestBuilder<TActionResult>(

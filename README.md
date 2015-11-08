@@ -3,15 +3,15 @@
 
 MyWebApi is unit testing library providing easy fluent interface to test the ASP.NET Web API 2 framework. Inspired by [TestStack.FluentMVCTesting](https://github.com/TestStack/TestStack.FluentMVCTesting) and [ChaiJS](https://github.com/chaijs/chai).
 
-[![Build status](https://ci.appveyor.com/api/projects/status/738pm1kuuv7yw1t5?svg=true)](https://ci.appveyor.com/project/ivaylokenov/mywebapi)
+[![Build status](https://ci.appveyor.com/api/projects/status/738pm1kuuv7yw1t5?svg=true)](https://ci.appveyor.com/project/ivaylokenov/mywebapi) [![NuGet Version](http://img.shields.io/nuget/v/MyWebApi.svg?style=flat)](https://www.nuget.org/packages/MyWebApi/) [![NuGet Downloads](http://img.shields.io/nuget/dt/MyWebApi.svg?style=flat)](https://www.nuget.org/packages/MyWebApi/) [![Coverage Status](https://coveralls.io/repos/ivaylokenov/MyWebApi/badge.svg?branch=master&service=github)](https://coveralls.io/github/ivaylokenov/MyWebApi?branch=master)
 
 ## Documentation
 
-Please see the [documentation](https://github.com/ivaylokenov/MyWebApi/tree/master/documentation) for full list of available features.
+Please see the [documentation](https://github.com/ivaylokenov/MyWebApi/tree/master/documentation) for full list of available features. Everything listed in the documentation is 100% covered by [more than 800 unit tests](https://github.com/ivaylokenov/MyWebApi/tree/master/src/MyWebApi.Tests) and should work correctly. Almost all items in the [issues page](https://github.com/ivaylokenov/MyWebApi/issues) are expected future features and enhancements.
 
 ## Installation
 
-You can install this library using NuGet into your Test class library. It will automatically reference the needed dependency of Microsoft.AspNet.WebApi.Core (≥ 5.1.0) for you. .NET 4.5+ is needed.
+You can install this library using NuGet into your Test class project. It will automatically reference the needed dependencies of Microsoft.AspNet.WebApi.Core (≥ 5.1.0) and Microsoft.Owin.Testing (≥ 3.0.1) for you. .NET 4.5+ is needed.
 
     Install-Package MyWebApi
 
@@ -116,20 +116,31 @@ MyWebApi
 	.OfType<SomeException>()
 	.AndAlso()
 	.WithMessage("Some exception message");
+	
+// run full pipeline integration test
+MyWebApi
+	.Server()
+	.Working(httpConfiguration)
+	.WithHttpRequestMessage(
+		request => request
+			.WithMethod(HttpMethod.Post)
+			.WithRequestUri("api/WebApiController/SomeAction/1"))
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK)
+	.AndAlso()
+	.ContainingHeader("MyCustomHeader");
 ```
 
 ## License
 
 Code by Ivaylo Kenov. Copyright 2015 Ivaylo Kenov.
-This library is licensed under [GNU General Public License v3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) (full terms and conditions [here](https://www.gnu.org/licenses/gpl.html)). Basically:
+This library is intended to be used in both open-source and commercial environments. To allow its use in as many
+situations as possible, MyWebApi is dual-licensed. You may choose to use MyWebApi under either the Apache License,
+Version 2.0, or the Microsoft Public License (Ms-PL). These licenses are essentially identical, but you are
+encouraged to evaluate both to determine which best fits your intended use.
 
- - If you create software that uses GPL, you must license that software under GPL v3 (see [GPL FAQ](http://www.gnu.org/licenses/gpl-faq.html#IfLibraryIsGPL))
- - If you create software that uses GPL, you must release your source code (see [GPL FAQ](http://www.gnu.org/licenses/gpl-faq.html#IfLibraryIsGPL))
- - If you start with a GPL license, you cannot convert to another license
- - **You cannot include MyWebApi in a closed source distribution under this license**
-
-If you have a really-coolish-and-nice open source or just closed source commercial project and you want to include MyWebApi in it, leave a question on the [issues page](https://github.com/ivaylokenov/MyWebApi/issues) and another license with the latest version of the library will be provided **free of charge** to you.
+Refer to [LICENSE](https://github.com/ivaylokenov/MyWebApi/blob/master/LICENSE) for detailed information.
  
 ## Any questions, comments or additions?
 
-Leave an issue on the [issues page](https://github.com/ivaylokenov/MyWebApi/issues) or send a [pull request](https://github.com/ivaylokenov/MyWebApi/pulls).
+If you have a feature request or bug report, leave an issue on the [issues page](https://github.com/ivaylokenov/MyWebApi/issues) or send a [pull request](https://github.com/ivaylokenov/MyWebApi/pulls). For general questions and comments, use the [StackOverflow](http://stackoverflow.com/) forum.

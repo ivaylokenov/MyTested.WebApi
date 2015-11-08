@@ -1,19 +1,7 @@
 ﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see http://www.gnu.org/licenses/.
-
+// Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
 namespace MyWebApi.Utilities.RouteResolvers
 {
     using System;
@@ -24,6 +12,7 @@ namespace MyWebApi.Utilities.RouteResolvers
     using System.Web.Http.Controllers;
     using System.Web.Http.Hosting;
     using System.Web.Http.Routing;
+    using Common.Extensions;
     using Common.Routes;
 
     /// <summary>
@@ -45,7 +34,7 @@ namespace MyWebApi.Utilities.RouteResolvers
 
             // transform the URI to fake absolute one since ASP.NET Web API internal route resolver does no support non-absolute URIs
             var originalRoute = request.RequestUri;
-            request.RequestUri = new Uri(new Uri("http://absoluteuri.com"), request.RequestUri);
+            request.TransformToAbsoluteRequestUri();
 
             var routeData = config.Routes.GetRouteData(request);
             if (routeData == null)
@@ -75,6 +64,13 @@ namespace MyWebApi.Utilities.RouteResolvers
                 resolvedRouteInfo = new ResolvedRouteInfo(string.Format(
                     UnresolvedRouteFormat,
                     ex.Response.ReasonPhrase));
+            }
+            catch (AggregateException ex)
+            {
+                var innerException = (HttpResponseException)ex.InnerExceptions.First();
+                resolvedRouteInfo = new ResolvedRouteInfo(string.Format(
+                    UnresolvedRouteFormat,
+                    innerException.Response.ReasonPhrase));
             }
             catch (Exception ex)
             {

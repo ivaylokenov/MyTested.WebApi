@@ -1,19 +1,7 @@
 ﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see http://www.gnu.org/licenses/.
-
+// Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
 namespace MyWebApi.Builders.Contracts.Controllers
 {
     using System;
@@ -32,24 +20,6 @@ namespace MyWebApi.Builders.Contracts.Controllers
     public interface IControllerBuilder<TController>
         where TController : ApiController
     {
-        /// <summary>
-        /// Gets ASP.NET Web API controller instance to be tested.
-        /// </summary>
-        /// <value>Instance of the ASP.NET Web API controller.</value>
-        TController Controller { get; }
-
-        /// <summary>
-        /// Gets the HTTP configuration used in the testing.
-        /// </summary>
-        /// <value>Instance of HttpConfiguration.</value>
-        HttpConfiguration HttpConfiguration { get; }
-
-        /// <summary>
-        /// Gets the HTTP request message used in the testing.
-        /// </summary>
-        /// <value>Instance of HttpRequestMessage.</value>
-        HttpRequestMessage HttpRequestMessage { get; }
-
         /// <summary>
         /// Used for testing controller attributes.
         /// </summary>
@@ -147,5 +117,23 @@ namespace MyWebApi.Builders.Contracts.Controllers
         /// <param name="actionCall">Method call expression indicating invoked action.</param>
         /// <returns>Builder for testing void actions.</returns>
         IVoidActionResultTestBuilder CallingAsync(Expression<Func<TController, Task>> actionCall);
+
+        /// <summary>
+        /// Gets ASP.NET Web API controller instance to be tested.
+        /// </summary>
+        /// <returns>Instance of the ASP.NET Web API controller.</returns>
+        TController AndProvideTheController();
+
+        /// <summary>
+        /// Gets the HTTP configuration used in the testing.
+        /// </summary>
+        /// <returns>Instance of HttpConfiguration.</returns>
+        HttpConfiguration AndProvideTheHttpConfiguration();
+
+        /// <summary>
+        /// Gets the HTTP request message used in the testing.
+        /// </summary>
+        /// <returns>Instance of HttpRequestMessage.</returns>
+        HttpRequestMessage AndProvideTheHttpRequestMessage();
     }
 }

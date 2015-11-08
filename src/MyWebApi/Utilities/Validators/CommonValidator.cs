@@ -1,19 +1,7 @@
 ﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see http://www.gnu.org/licenses/.
-
+// Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
 namespace MyWebApi.Utilities.Validators
 {
     using System;
@@ -92,7 +80,7 @@ namespace MyWebApi.Utilities.Validators
                     message = string.Format(" (containing {0})", string.Join(", ", innerExceptions));
                 }
 
-                throw new ActionCallAssertionException(string.Format(
+                throw new InvalidCallAssertionException(string.Format(
                     "{0}{1} was thrown but was not caught or expected.",
                     exception.GetType().ToFriendlyTypeName(),
                     message));
@@ -131,7 +119,7 @@ namespace MyWebApi.Utilities.Validators
             bool canBeNull = !type.IsValueType || (Nullable.GetUnderlyingType(type) != null);
             if (!canBeNull)
             {
-                throw new ActionCallAssertionException(string.Format(
+                throw new InvalidCallAssertionException(string.Format(
                     "{0} cannot be null.",
                     type.ToFriendlyTypeName()));
             }

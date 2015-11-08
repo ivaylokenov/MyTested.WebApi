@@ -1,4 +1,8 @@
-﻿namespace MyWebApi.Utilities.Validators
+﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
+// Copyright (C) 2015 Ivaylo Kenov.
+// 
+// Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
+namespace MyWebApi.Utilities.Validators
 {
     using System;
     using Exceptions;
@@ -22,7 +26,7 @@
             catch (RuntimeBinderException ex)
             {
                 var fullPropertyName = ex.Message.Split('\'')[3];
-                throw new ActionCallAssertionException(string.Format(
+                throw new InvalidCallAssertionException(string.Format(
                     "Expected action result to contain a '{0}' property to test, but in fact such property was not found.",
                     fullPropertyName));
             }

@@ -1,32 +1,27 @@
 ﻿// MyWebApi - ASP.NET Web API Fluent Testing Framework
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see http://www.gnu.org/licenses/.
-
+// Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
 namespace MyWebApi
 {
     using System;
+    using System.Net.Http;
     using System.Web.Http;
+    using Builders;
+    using Builders.Contracts;
     using Builders.Contracts.Controllers;
+    using Builders.Contracts.Handlers;
     using Builders.Contracts.Routes;
+    using Builders.Contracts.Servers;
     using Builders.Controllers;
+    using Builders.HttpMessages;
     using Builders.Routes;
+    using Builders.Servers;
     using Utilities;
     using Utilities.Validators;
 
     /// <summary>
-    /// Starting point of the testing framework, which provides a way to specify the ASP.NET Web API controller to be tested.
+    /// Starting point of the testing framework, which provides a way to specify the ASP.NET Web API feature to be tested.
     /// </summary>
     public static class MyWebApi
     {
@@ -40,9 +35,11 @@ namespace MyWebApi
         /// Sets the HttpConfiguration which will be used in all tests.
         /// </summary>
         /// <param name="httpConfiguration">HttpConfiguration instance used in the testing.</param>
-        public static void IsUsing(HttpConfiguration httpConfiguration)
+        /// <returns>HTTP configuration builder.</returns>
+        public static IHttpConfigurationBuilder IsUsing(HttpConfiguration httpConfiguration)
         {
             Configuration = httpConfiguration;
+            return new HttpConfigurationBuilder(httpConfiguration);
         }
 
         /// <summary>
@@ -54,14 +51,44 @@ namespace MyWebApi
         {
             if (httpConfiguration == null)
             {
-                CommonValidator.CheckForNullReference(
-                    Configuration,
-                    "'IsUsing' method should be called before testing routes or HttpConfiguration should be provided. MyWebApi must be configured and HttpConfiguration");
-
+                HttpConfigurationValidator.ValidateGlobalConfiguration("routes");
                 httpConfiguration = Configuration;
             }
 
             return new RouteTestBuilder(httpConfiguration);
+        }
+
+        /// <summary>
+        /// Selects HTTP message handler on which the test will be executed. HttpMessageHandler is instantiated with default constructor.
+        /// </summary>
+        /// <typeparam name="THandler">Instance of type HttpMessageHandler.</typeparam>
+        /// <returns>Handler builder used to build the test case.</returns>
+        public static IHttpMessageHandlerBuilder Handler<THandler>()
+            where THandler : HttpMessageHandler
+        {
+            var handler = Reflection.TryCreateInstance<THandler>();
+            return Handler(() => handler);
+        }
+
+        /// <summary>
+        /// Selects HTTP message handler on which the test will be executed.
+        /// </summary>
+        /// <param name="handler">Instance of the HttpMessageHandler to use.</param>
+        /// <returns>Handler builder used to build the test case.</returns>
+        public static IHttpMessageHandlerBuilder Handler(HttpMessageHandler handler)
+        {
+            return Handler(() => handler);
+        }
+
+        /// <summary>
+        /// Selects HTTP message handler on which the test will be executed. HttpMessageHandler is instantiated using construction function.
+        /// </summary>
+        /// <param name="construction">Construction function returning the instantiated HttpMessageHandler.</param>
+        /// <returns>Handler builder used to build the test case.</returns>
+        public static IHttpMessageHandlerBuilder Handler(Func<HttpMessageHandler> construction)
+        {
+            var handlerInstance = construction();
+            return new HttpMessageHandlerTestBuilder(handlerInstance);
         }
 
         /// <summary>
@@ -99,6 +126,15 @@ namespace MyWebApi
         {
             var controllerInstance = construction();
             return new ControllerBuilder<TController>(controllerInstance);
+        }
+
+        /// <summary>
+        /// Starts a full ASP.NET Web API pipeline test.
+        /// </summary>
+        /// <returns>Server instance to set the HTTP request and test the HTTP response.</returns>
+        public static IServer Server()
+        {
+            return new Server();
         }
     }
 }

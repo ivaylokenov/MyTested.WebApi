@@ -1,0 +1,13 @@
+version: 1.0.{build}
+before_build:
+- cmd: nuget restore src\MyWebApi.sln
+build:
+  project: src\MyWebApi.sln
+  parallel: true
+  verbosity: minimal
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: HJDQ+oupn7YinVAV3kdGhw/Bz4FxYNpATMYdjP0kiZEIIAaszku5T4CCDMbh2ZA2
+after_test: 
+    - src\packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"src\packages\NUnit.Runners.2.6.4\tools\nunit-console.exe" -targetargs:"/noshadow /domain:single  src\MyWebApi.Tests\bin\debug\MyWebApi.Tests.dll" -output:coverage.xml
+    - src\packages\coveralls.io.1.3.4\tools\coveralls.net.exe --opencover coverage.xml

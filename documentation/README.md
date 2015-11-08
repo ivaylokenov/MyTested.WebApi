@@ -11,6 +11,9 @@
   - [Building route request](#building-route-request)
   - [Testing routes](#testing-routes)
   - [Testing resolved route values](#testing-resolved-route-values)
+ - HTTP message handler validations
+  - [Handler configuration](#handler-configuration)
+  - [Handler response validation](#handler-response-validation)
  - Controller test case configuration
   - [Controller instantiation](#controller-instantiation)
   - [HTTP request message] (#http-request-message)
@@ -38,6 +41,9 @@
   - [Conflict result](#conflict-result)
   - [EmptyContent (void) result](#emptycontent-void-result)
   - [Null or Default result](#null-or-default-result)
+ - Integration testing of the full server pipeline
+  - [HTTP server](#http-server)
+  - [OWIN pipeline](#owin-pipeline)
  - Additional methods
   - [AndProvide... methods](#andprovide-methods)
 
@@ -330,9 +336,107 @@ MyWebApi
 
 [To top](#table-of-contents)
   
+### Handler configuration
+
+You can test whether HTTP message handler returns correct response for a particular request.
+See the [request message builder](#http-request-message) for all available options:
+
+```c#
+// instantiates handler with parameterless constructor
+MyWebApi
+	.Handler<MyHttpMessageHandler>();
+	
+// instantiates handler with constructor function to resolve dependencies
+MyWebApi
+	.Handler(() => new MyHttpMessageHandler(mockedInjectedService));
+	
+// or provide already instantiated handler
+MyWebApi
+	.Handler(myHttpMessageHandlerInstance);
+	
+// attaches inner handler to the current one
+MyWebApi
+	.Handler<MyDelegatingHandler>()
+	.WithInnerHandler<AnotherHttpMessageHandler>();
+	
+// or provide the inner handler as an instance
+MyWebApi
+	.Handler<MyDelegatingHandler>()
+	.WithInnerHandler(myInnerHandler);
+	
+// attaches inner handler by using construction function
+var handler = MyWebApi
+	.Handler<MyDelegatingHandler>()
+	.WithInnerHandler(() => new AnotherHttpMessageHandler());
+	
+// attaches chain of handlers
+MyWebApi
+	.Handler<MyDelegatingHandler>()
+	.WithInnerHandler<AnotherDelegatingHandler>(
+		firstInnerHandler => firstInnerHandler.WithInnerHandler<YetAnotherDelegatingHandler>(
+			secondInnerHandler => secondInnerHandler.WithInnerHandler<AndAnotherDelegatingHandler>));
+			
+// sets the HTTP request to the handler
+MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(someHttpRequestMessage);
+	
+// sets the HTTP request to the handler
+// by using builder 
+MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get));
+	
+// adds HTTP configuration for the particular test case
+MyWebApi
+	.Handler(myHttpMessageHandlerInstance);
+	.WithHttpConfiguration(config);
+```
+
+[To top](#table-of-contents)
+
+### Handler response validation
+
+See [HTTP response validations](#http-response-message-result) for all available options:
+
+```c#
+// tests whether the handler returns response message successfully
+MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage();
+
+// tests whether the handler returns response message successfully
+// with specific status code
+MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+	
+// tests whether the handler returns response message successfully
+// with specific content model
+MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage()
+	.WithResponseModelOfType<ResponseModel>()
+	.Passing(m => m.Id == 1);
+	
+// tests whether the handler returns response message successfully
+// with specific response header
+MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage()
+	.ContainingHeader("SomeHeader");
+```
+
+[To top](#table-of-contents)
+  
 ### Controller instantiation
 
-You have a couple of options from which you can setup the controller you want to test. The framework gives you static `MyWebApi` class from which the test builder starts:
+You have a couple of options from which you can setup the controller you want to test:
 
 ```c#
 // instantiates controller with parameterless constructor
@@ -368,7 +472,7 @@ MyWebApi
 MyWebApi
 	.Controller(myWebApiControllerInstance);
 	
-// add HTTP configuration for the particular test case
+// adds HTTP configuration for the particular test case
 MyWebApi
 	.Controller(myWebApiControllerInstance)
 	.WithHttpConfiguration(config);
@@ -1186,7 +1290,8 @@ MyWebApi
 	.WithResponseModelOfType<ResponseModel>();
 	
 // tests whether the action returns HttpResponseMessage
-// with content response model object
+// with content response model object deeply equal
+// to the provided one
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
@@ -1202,6 +1307,15 @@ MyWebApi
 	.ShouldReturn()
 	.HttpResponseMessage()
 	.WithContentOfType<ObjectContent>();
+	
+// tests whether the action returns HttpResponseMessage
+// with StringContent and expected string
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithStringContent("SomeString");
 	
 // tests whether the action returns HttpResponseMessage
 // with specific media type formatter
@@ -1472,7 +1586,8 @@ MyWebApi
 				.AndAlso()
 				.ContainingMediaTypeFormatterOfType<SomeMediaTypeFormatter>());
 	
-// tests whether the action returns OkResult with specific object
+// tests whether the action returns OkResult with object
+// deeply equal to the provided one
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
@@ -2341,12 +2456,130 @@ MyWebApi
 
 [To top](#table-of-contents)
 
-### AndProvide... methods
+### HTTP server
 
-You can get controller, action, action result and response model information where applicable by using AndProvide... methods.
-Useful for integration tests where current action result model is needed for the next action assertion.
+You can test the full pipeline by providing HTTP configuration. You can start global HTTP server in your test/class/assembly initialize method and set test cases with different requests or just instantiate separate server for each test:
 
 ```c#
+// starts HTTP server with global configuration
+// set with MyWebApi.IsUsing
+// * the server is disposed after the test
+// * HTTP request can be set just like in the controller unit tests
+// * HTTP response can be tested just like in the controller unit tests
+MyWebApi.IsUsing(config);
+
+MyWebApi
+	.Server()
+	.Working() // working will instantiate new HTTP server with the global configuration
+	.WithHttpRequestMessage(
+		request => request
+			.WithMethod(HttpMethod.Post)
+			.WithRequestUri("api/MyController/MyAction/5"))
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+
+// starts HTTP server with specific for the test
+// HTTP configuration
+// * the server is disposed after the test
+MyWebApi
+	.Server()
+	.Working(config) // working will instantiate new HTTP server with the provided specific configuration
+	.WithHttpRequestMessage(httpRequestMessage)
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+
+// starts global HTTP server,
+// which is not disposed after the test
+// and must be stopped manually
+// * can be set in test/class/assembly initialize method
+MyWebApi.Server().Starts(); // uses global configuration
+// or the equivalent MyWebApi.IsUsing(config).AndStartsServer();
+// or pass specific configuration MyWebApi.Server().Starts(config);
+
+MyWebApi
+	.Server()
+	.Working() // working will use the global server started above
+	.WithHttpRequestMessage(httpRequestMessage)
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+
+// more test cases on the same global server
+
+// stops the global HTTP server
+MyWebApi.Server().Stops();
+```
+
+[To top](#table-of-contents)
+
+### OWIN pipeline
+
+You can test over the full pipeline by providing OWIN start up class and optional network host and post. You can start global HTTP server in your test/class/assembly initialize method and set test cases with different requests or just instantiate separate server for each test:
+
+```c#
+// starts OWIN web server with the provided host and port. If such are not provided, default is "http://localhost:1234"
+// * the server is disposed after the test
+// * some hosts and ports may require administrator rights
+// * HTTP request can be set just like in the controller unit tests
+// * HTTP response can be tested just like in the controller unit tests
+MyWebApi
+	.Server()
+	.Working<Startup>(host: "https://localhost", port: 9876) // 
+	.WithHttpRequestMessage(
+		request => request
+			.WithMethod(HttpMethod.Post)
+			.WithRequestUri("api/MyController/MyAction/5"))
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+
+// starts OWIN server with specific 
+// for the test Startup class 
+// * the server is disposed after the test
+// * since host and port are not provided, the default "http://localhost:1234" is used
+MyWebApi
+	.Server()
+	.Working<Startup>() // working will instantiate new OWIN server with the specified Startup class
+	.WithHttpRequestMessage(httpRequestMessage)
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+
+// starts global OWIN server,
+// which is not disposed after the test
+// and must be stopped manually
+// * can be set in test/class/assembly initialize method
+MyWebApi.Server().Starts<Startup>(); // host and port can be optionally specified
+
+MyWebApi
+	.Server()
+	.Working() // working will use the global OWIN server started above
+	.WithHttpRequestMessage(httpRequestMessage)
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+
+// more test cases on the same global server
+
+// stops the global OWIN server
+MyWebApi.Server().Stops();
+```
+
+Summary - the **".Working()"** method without parameters will check if the global OWIN server is started. If not, it will check whether a global HTTP server is started. If not, it will instantiate new HTTP server using the global HTTP configuration. The first match will process the request and test over the response. If no server can be started, exception will be thrown. Using **".Working(config)"** will start new HTTP server with the provided configuration and dispose it after the test. Using **".Working<Startup>()"** will start new OWIN server with the provided start up class and dispose it after the test. Global server can be started with **"MyWebApi.Server().Starts()"** and it will be HTTP or OWIN dependending on the parameters. Global servers can be stopped with **"MyWebApi.Server().Stops()"**, no matter HTTP or OWIN.
+
+[To top](#table-of-contents)
+
+### AndProvide... methods
+
+You can get different Web API specific objects used in the test case where applicable by using AndProvide... methods.
+Useful for additional custom test assertions:
+
+```c#
+// get HTTP handler instance
+// * method is available wherever HTTP handlers are tested
+var handler = MyWebApi
+	.Handler<MyHttpMessageHandler>()
+	.WithHttpRequestMessage(request => request.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage()
+	.WithSuccessStatusCode()
+	.AndProvideTheHandler();
+	
 // get controller instance
 // * method is available almost everywhere throughout the API
 var controller = MyWebApi
@@ -2355,6 +2588,15 @@ var controller = MyWebApi
 	.ShouldReturn()
 	.Ok()
 	.AndProvideTheController();
+	
+// get the HTTP configuration
+// * method is available almost everywhere throughout the API
+var config = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok()
+	.AndProvideTheHttpConfiguration();
 	
 // get controller attributes
 // * currently method returns correct attributes
@@ -2365,23 +2607,23 @@ var attributes = MyWebApi
 	.Attributes()
 	.AndProvideTheControllerAttributes();
 	
-// get the HTTP configuration
-// * method is available almost everywhere throughout the API
-var controller = MyWebApi
-	.Controller<WebApiController>()
-	.Calling(c => c.SomeAction())
-	.ShouldReturn()
-	.Ok()
-	.AndProvideTheHttpConfiguration();
-	
 // get the HTTP request message
 // * method is available almost everywhere throughout the API
-var controller = MyWebApi
+var request = MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
 	.ShouldReturn()
 	.Ok()
 	.AndProvideTheHttpRequestMessage();
+	
+// get the HTTP response message
+// * method is available wherever HTTP response message is tested
+var response = MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.AndProvideTheHttpResponseMessage();
 	
 // get action name
 // * method is available almost everywhere throughout the API
