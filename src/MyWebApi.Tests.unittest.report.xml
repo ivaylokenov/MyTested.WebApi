@@ -1,0 +1,1167 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="" total="797" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2015-11-08" time="00:08:27">
+  <environment nunit-version="1.0.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 6.3.9600.0" platform="Win32NT" cwd="D:\Projects\MyWebApi\src\packages\NunitRunnerTask.2.0.9\build\Nunit" machine-name="IFAK" user="Ifak" user-domain="IFAK" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Assembly" name="D:\Projects\MyWebApi\src\MyWebApi.Tests\bin\Release\MyWebApi.Tests.dll" executed="True" result="Success" success="True" time="4.261" asserts="0">
+    <properties>
+      <property name="_PID" value="2012" />
+      <property name="_APPDOMAIN" value="test-domain-" />
+    </properties>
+    <results>
+      <test-suite type="Namespace" name="MyWebApi" executed="True" result="Success" success="True" time="4.253" asserts="0">
+        <results>
+          <test-suite type="SetUpFixture" name="Tests" executed="True" result="Success" success="True" time="4.252" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="BuildersTests" executed="True" result="Success" success="True" time="3.614" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="ActionsTests" executed="True" result="Success" success="True" time="0.529" asserts="0">
+                    <results>
+                      <test-suite type="Namespace" name="ShouldHave" executed="True" result="Success" success="True" time="0.285" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="ShouldHaveActionAttributesTests" executed="True" result="Success" success="True" time="0.129" asserts="0">
+                            <results>
+                              <test-case name="ActionAttributesShouldNotThrowEceptionWithActionContainingAttributes" executed="True" result="Success" success="True" time="0.095" asserts="0" />
+                              <test-case name="ActionAttributesShouldNotThrowEceptionWithActionContainingNumberOfAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ActionAttributesShouldNotThrowEceptionWithVoidActionContainingAttributes" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="ActionAttributesShouldThrowEceptionWithActionContainingNoAttributes" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="ActionAttributesShouldThrowEceptionWithActionContainingNumberOfAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ActionAttributesShouldThrowEceptionWithActionContainingNumberOfAttributesTestingWithOne" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ActionAttributesShouldThrowEceptionWithVoidActionContainingNoAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="NoActionAttributesShouldNotThrowExceptionWithActionContainingNoAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="NoActionAttributesShouldNotThrowExceptionWithVoidActionContainingNoAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="NoActionAttributesShouldThrowExceptionWithActionContainingAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="NoActionAttributesShouldThrowExceptionWithVoidActionContainingAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldHaveModelStateTests" executed="True" result="Success" success="True" time="0.154" asserts="0">
+                            <results>
+                              <test-case name="AndProvideModelShouldThrowExceptionWhenIsCalledOnTheRequest" executed="True" result="Success" success="True" time="0.124" asserts="0" />
+                              <test-case name="AndShouldWorkCorrectlyWithInvalidModelState" executed="True" result="Success" success="True" time="0.008" asserts="0" />
+                              <test-case name="AndShouldWorkCorrectlyWithValidModelState" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldHaveInvalidModelStateShouldBeInvalidWithInvalidRequestModelAndIncorrectNumberOfErrors" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldHaveInvalidModelStateShouldBeValidWithInvalidRequestModel" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldHaveInvalidModelStateShouldBeValidWithInvalidRequestModelAndCorrectNumberOfErrors" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldHaveInvalidModelStateShouldThrowExceptionWithValidRequestModel" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldHaveInvalidModelStateShouldThrowExceptionWithValidRequestModelAndProvidedNumberOfErrors" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldHaveModelStateForShouldChainCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldHaveValidModelStateShouldBeValidWithValidRequestModel" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldHaveValidModelStateShouldThrowExceptionWithInvalidRequestModel" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="ShouldReturn" executed="True" result="Success" success="True" time="0.200" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="ShouldReturnBadRequestTests" executed="True" result="Success" success="True" time="0.010" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnBadRequestShouldNotThrowExceptionWhenResultIsBadRequest" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="ShouldReturnBadRequestShouldNotThrowExceptionWhenResultIsBadRequestErrorMessageResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnBadRequestShouldNotThrowExceptionWhenResultIsInvalidModelStateResult" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldReturnNotFoundShouldThrowExceptionWhenActionDoesNotReturnNotFound" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnConflictTests" executed="True" result="Success" success="True" time="0.005" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnConflictShouldNotThrowExceptionWhenActionReturnsConflict" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="ShouldReturnConflictShouldThrowExceptionWhenActionDoesNotReturnConflict" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnContentTests" executed="True" result="Success" success="True" time="0.008" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnContentShouldNotThrowExceptionWithMediaTypeContentResult" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="ShouldReturnContentShouldNotThrowExceptionWithNegotiatedContentResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnContentShouldThrowExceptionWithBadRequestResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnCreatedTests" executed="True" result="Success" success="True" time="0.008" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnCreatedShouldNotThrowExceptionWithCreatedAtRouteResult" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="ShouldReturnCreatedShouldNotThrowExceptionWithCreatedResult" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldReturnCreatedShouldThrowExceptionWithBadRequestResult" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnHttpResponseModelTests" executed="True" result="Success" success="True" time="0.020" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnHttpResponseMessageShouldNotThrowExceptionIfResultIsHttpResponseMessage" executed="True" result="Success" success="True" time="0.018" asserts="0" />
+                              <test-case name="ShouldReturnHttpResponseMessageShouldThrowExceptionIfResultIsNotHttpResponseMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnInternalServerErrorTests" executed="True" result="Success" success="True" time="0.007" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnInternalServerErrorShouldNotThrowExceptionWhenResultIsExceptionResult" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldReturnInternalServerErrorShouldNotThrowExceptionWhenResultIsInternalServerErrorResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnNotFoundShouldThrowExceptionWhenActionDoesNotReturnNotFound" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnJsonTests" executed="True" result="Success" success="True" time="0.006" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnJsonShouldNotThrowExceptionIfResultIsJson" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="ShouldReturnJsonShouldThrowExceptionIfResultIsNotJson" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnNotFoundTests" executed="True" result="Success" success="True" time="0.003" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnNotFoundShouldNotThrowExceptionWhenActionReturnsNotFound" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnNotFoundShouldThrowExceptionWhenActionDoesNotReturnNotFound" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnNullOrDefaultTests" executed="True" result="Success" success="True" time="0.019" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnDefaultShouldNotThrowExceptionWhenReturnValueIDefaultForClass" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnDefaultShouldNotThrowExceptionWhenReturnValueIsNotDefaultForStructs" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="ShouldReturnDefaultShouldThrowExceptionWhenReturnValueIsNotDefault" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnNotNullShouldNotThrowExceptionWhenReturnValueIsNotNull" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldReturnNotNullShouldThrowExceptionWhenReturnValueIsNotNull" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnNotNullShouldThrowExceptionWhenReturnValueIsNotNullable" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="ShouldReturnNullShouldNotThrowExceptionWhenReturnValueIsNull" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnNullShouldThrowExceptionWhenReturnValueIsNotNull" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnNullShouldThrowExceptionWhenReturnValueIsNotNullable" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnOkResultTests" executed="True" result="Success" success="True" time="0.010" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnOkResultShouldNotThrowExceptionWithOkResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnOkResultShouldThrowExceptionWithOtherThanOkResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnOkWithAsyncShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue" executed="True" result="Success" success="True" time="0.007" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnRedirectTests" executed="True" result="Success" success="True" time="0.007" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnRedirectShouldNotThrowExceptionWithRedirectResult" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="ShouldReturnRedirectShouldNotThrowExceptionWithRedirectToRouteResult" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldReturnRedirectShouldThrowExceptionWithBadRequestResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnStatusCodeTests" executed="True" result="Success" success="True" time="0.009" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnStatusCodeShouldNotThrowExceptionWhenActionReturnsCorrectStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnStatusCodeShouldNotThrowExceptionWhenActionReturnsStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnStatusCodeShouldThrowExceptionWhenActionDoesNotReturnStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnStatusCodeShouldThrowExceptionWhenActionDoesNotReturnStatusCodeAndPassingStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnStatusCodeShouldThrowExceptionWhenActionReturnsWrongStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnTests" executed="True" result="Success" success="True" time="0.065" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnShouldNotExceptionWithConcreteGenericResultWithTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotExceptionWithOtherGenericResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithClassGenericDefinitionTypesAndTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithClassTypes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithClassTypesAndTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithCollectionOfClassTypes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithCollectionOfClassTypesAndTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithDifferentInheritedGenericResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithDifferentInheritedGenericResultWithTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithInterfaceTypes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithInterfaceTypesAndInterfaceReturn" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithInterfaceTypesAndTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithInterfaceTypesAndTypeOfAndInterfaceReturn" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithNotInheritedGenericResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithNotInheritedGenericResultWithTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithStructTypes" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="ShouldReturnShouldNotThrowExceptionWithStructTypesAndTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithClassTypesAndInterfaceReturn" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithClassTypesAndTypeOfAndInterfaceReturn" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithClassTypesAndTypeOfAndInterfaceReturnWithInterface" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithCollectionOfClassTypesAndTypeOfWithInterface" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithCollectionOfClassTypesWithInterface" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithDifferentGenericDefinitionAndTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithDifferentGenericResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithDifferentGenericResultAndTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithDifferentInheritedGenericDefinitionResultAndTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithDifferentInheritedGenericResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithDifferentInheritedGenericResultAndTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithDifferentResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithDifferentResultAndTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithDifferentWrongGenericDefinitionAndTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithModelDetailsTestsWithGenericDefinitionAndIncorrectAssertion" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldReturnShouldThrowExceptionWithOtherGenericResultWithTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldWorkWithModelDetailsTestsWithGenericDefinition" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnShouldWorkWithModelDetailsTestsWithTypeOf" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ShouldReturnWithAsyncShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ShouldReturnUnauthorizedTests" executed="True" result="Success" success="True" time="0.004" asserts="0">
+                            <results>
+                              <test-case name="ShouldReturnUnauthorizedShouldNotThrowExceptionWhenActionReturnsUnauthorizedResult" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ShouldReturnUnauthorizedShouldThrowExceptionWhenActionDoesNotReturnUnauthorizedResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ShouldThrowExceptionTests" executed="True" result="Success" success="True" time="0.020" asserts="0">
+                        <results>
+                          <test-case name="ShouldThrowAggregateExceptionShouldCatchAndValidateAggregateException" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                          <test-case name="ShouldThrowAggregateExceptionShouldCatchAndValidateAggregateExceptionWithSpecificNumberOfInnerExceptions" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ShouldThrowAggregateExceptionShouldCatchAndValidateAggregateExceptionWithWrongNumberOfInnerExceptions" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ShouldThrowAggregateExceptionShouldThrowIfTheExceptionIsNotValidType" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ShouldThrowExceptionShouldCatchAndValidateThereIsException" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ShouldThrowExceptionShouldCatchAndValidateTypeOfException" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ShouldThrowExceptionShouldThrowIfNoExceptionIsCaught" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ShouldThrowExceptionShouldThrowWithInvalidTypeOfException" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ShouldThrowHttpResponseExceptionShouldCatchAndValidateHttpResponseException" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ShouldThrowHttpResponseExceptionShouldThrowIfTheExceptionIsNotValidType" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="VoidActionResultTestBuilderTests" executed="True" result="Success" success="True" time="0.011" asserts="0">
+                        <results>
+                          <test-case name="ShouldHaveModelStateShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ShouldReturnEmptyShouldNotThrowExceptionWithNormalVoidAction" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ShouldReturnEmptyShouldThrowExceptionIfActionThrowsException" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ShouldReturnEmptyWithAsyncShouldThrowExceptionIfActionThrowsException" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                          <test-case name="ShouldThrowExceptionShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="AndTests" executed="True" result="Success" success="True" time="0.034" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="AndProvideTestBuilderTests" executed="True" result="Success" success="True" time="0.033" asserts="0">
+                        <results>
+                          <test-case name="AndProvideShouldReturnProperActionAttributes" executed="True" result="Success" success="True" time="0.010" asserts="1" />
+                          <test-case name="AndProvideShouldReturnProperActionName" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                          <test-case name="AndProvideShouldReturnProperActionResult" executed="True" result="Success" success="True" time="0.005" asserts="2" />
+                          <test-case name="AndProvideShouldReturnProperCaughtException" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="AndProvideShouldReturnProperController" executed="True" result="Success" success="True" time="0.002" asserts="2" />
+                          <test-case name="AndProvideShouldReturnProperHttpConfiguration" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                          <test-case name="AndProvideShouldReturnProperHttpRequestMessage" executed="True" result="Success" success="True" time="0.004" asserts="3" />
+                          <test-case name="AndProvideShouldThrowExceptionIfActionIsVoid" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="AndProvideTheControllerAttributesShouldReturnProperAttributes" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="AttributesTests" executed="True" result="Success" success="True" time="0.110" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="ActionAttributesTestBuilderTests" executed="True" result="Success" success="True" time="0.076" asserts="0">
+                        <results>
+                          <test-case name="AllowingAnonymousRequestsShouldNotThrowExceptionWithTheAttribute" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                          <test-case name="AllowingAnonymousRequestsShouldThrowExceptionWithActionWithoutTheAttribute" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="AndAlsoShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                          <test-case name="ChangingActionNameToShouldNotThrowExceptionWithActionWithTheAttribute" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                          <test-case name="ChangingActionNameToShouldThrowExceptionWithActionWithoutTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingActionNameToShouldThrowExceptionWithActionWithTheAttributeAndWrongName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRouteToShouldNotThrowExceptionWithActionWithTheAttribute" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                          <test-case name="ChangingRouteToShouldNotThrowExceptionWithActionWithTheAttributeAndCorrectName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRouteToShouldNotThrowExceptionWithActionWithTheAttributeAndCorrectOrder" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRouteToShouldThrowExceptionWithActionWithoutTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRouteToShouldThrowExceptionWithActionWithTheAttributeAndWrongName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRouteToShouldThrowExceptionWithActionWithTheAttributeAndWrongOrder" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ChangingRouteToShouldThrowExceptionWithActionWithTheAttributeAndWrongTemplate" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingAttributeOfTypeShouldNotThrowExceptionWithActionWithTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingAttributeOfTypeShouldThrowExceptionWithActionWithoutTheAttribute" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="DisablingActionCallShouldNotThrowExceptionWithTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="DisablingActionCallShouldThrowExceptionWithActionWithoutTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForAuthorizedRequestsShouldNotThrowExceptionWithTheAttribute" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="RestrictingForAuthorizedRequestsShouldNotThrowExceptionWithTheAttributeWithCorrectRoles" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="RestrictingForAuthorizedRequestsShouldNotThrowExceptionWithTheAttributeWithCorrectUsers" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="RestrictingForAuthorizedRequestsShouldThrowExceptionWithActionWithoutTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForAuthorizedRequestsShouldThrowExceptionWithActionWithoutTheAttributeWithIncorrectRoles" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForAuthorizedRequestsShouldThrowExceptionWithActionWithoutTheAttributeWithIncorrectUsers" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForRequestsWithMethodWithGenericShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForRequestsWithMethodWithHttpMethodClassShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForRequestsWithMethodWithListOfHttpMethodsShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForRequestsWithMethodWithListOfHttpMethodsShouldWorkCorrectlyWithDoubleAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForRequestsWithMethodWithListOfHttpMethodsShouldWorkCorrectlyWithDoubleAttributesAndIncorrectMethods" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="RestrictingForRequestsWithMethodWithListOfStringsShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                          <test-case name="RestrictingForRequestsWithMethodWithParamsOfHttpMethodShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForRequestsWithMethodWithParamsOfStringsShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForRequestsWithMethodWithStringShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ControllerAttributesTestBuilderTests" executed="True" result="Success" success="True" time="0.031" asserts="0">
+                        <results>
+                          <test-case name="AllowingAnonymousRequestsShouldNotThrowExceptionWithTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="AllowingAnonymousRequestsShouldThrowExceptionWithControllerWithoutTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="AndAlsoShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingActionNameToShouldThrowExceptionWithActionWithoutTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRoutePrefixToShouldNotThrowExceptionWithCorrectTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRoutePrefixToShouldThrowExceptionWithControllerWithTheAttributeAndWrongPrefix" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ChangingRouteToShouldNotThrowExceptionWithActionWithTheAttributeAndCorrectOrder" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRouteToShouldNotThrowExceptionWithControllerWithTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRouteToShouldNotThrowExceptionWithControllerWithTheAttributeAndCorrectName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRouteToShouldThrowExceptionWithActionWithoutTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRouteToShouldThrowExceptionWithActionWithTheAttributeAndWrongName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRouteToShouldThrowExceptionWithActionWithTheAttributeAndWrongOrder" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ChangingRouteToShouldThrowExceptionWithControllerWithTheAttributeAndWrongTemplate" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingAttributeOfTypeShouldNotThrowExceptionWithControllerWithTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingAttributeOfTypeShouldThrowExceptionWithControllerWithoutTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForAuthorizedRequestsShouldNotThrowExceptionWithTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForAuthorizedRequestsShouldNotThrowExceptionWithTheAttributeWithCorrectRoles" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="RestrictingForAuthorizedRequestsShouldNotThrowExceptionWithTheAttributeWithCorrectUsers" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="RestrictingForAuthorizedRequestsShouldThrowExceptionWithControllerWithoutTheAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForAuthorizedRequestsShouldThrowExceptionWithControllerWithoutTheAttributeWithIncorrectRoles" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="RestrictingForAuthorizedRequestsShouldThrowExceptionWithControllerWithoutTheAttributeWithIncorrectUsers" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="ControllersTests" executed="True" result="Success" success="True" time="0.092" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="ControllerBuilderTests" executed="True" result="Success" success="True" time="0.081" asserts="0">
+                        <results>
+                          <test-case name="AndAlsoShouldContinueTheNormalExecutionFlowOfTestBuilders" executed="True" result="Success" success="True" time="0.016" asserts="0" />
+                          <test-case name="CallingShouldHaveValidModelStateWhenThereAreNoModelErrors" executed="True" result="Success" success="True" time="0.005" asserts="3" />
+                          <test-case name="CallingShouldPopulateCorrectActionNameAndActionResultWithAsyncActionCall" executed="True" result="Success" success="True" time="0.004" asserts="4" />
+                          <test-case name="CallingShouldPopulateCorrectActionNameAndActionResultWithNormalActionCall" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                          <test-case name="CallingShouldPopulateCorrectActionNameWithNormalVoidActionCall" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="CallingShouldPopulateCorrectActionNameWithTaskActionCall" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                          <test-case name="CallingShouldPopulateModelStateWhenThereAreModelErrors" executed="True" result="Success" success="True" time="0.004" asserts="4" />
+                          <test-case name="WithAuthenticatedNotCalledShouldNotHaveAuthorizedUser" executed="True" result="Success" success="True" time="0.002" asserts="4" />
+                          <test-case name="WithAuthenticatedUserShouldPopulateProperUserWhenUserWithUserBuilder" executed="True" result="Success" success="True" time="0.003" asserts="9" />
+                          <test-case name="WithAuthenticatedUserShouldPopulateUserPropertyWithDefaultValues" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                          <test-case name="WithHttpConfigurationShouldOverrideTheDefaultOne" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithHttpRequestMessageShouldPopulateCorrectRequestAndReturnBadRequestWhenHeaderIsMissing" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="WithHttpRequestMessageShouldPopulateCorrectRequestAndReturnBadRequestWhenMethodIsMissing" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithHttpRequestMessageShouldPopulateCorrectRequestAndReturnOk" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithHttpRequestMessageShouldPopulateCorrectRequestAndReturnOkWithCommonHeader" executed="True" result="Success" success="True" time="0.007" asserts="0" />
+                          <test-case name="WithHttpRequestMessageWithBuilderShouldPopulateCorrectRequestAndReturnOk" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithoutAnyConfigurationShouldInstantiateDefaultOne" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                          <test-case name="WithoutValidationShouldNotValidateTheRequestModel" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResolvedDependenciesShouldWorkCorrectWithCollectionOfObjects" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="WithResolvedDependenciesShouldWorkCorrectWithParamsOfObjects" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="WithResolvedDependencyForShouldChooseCorrectConstructorWithAllDependencies" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                          <test-case name="WithResolvedDependencyForShouldChooseCorrectConstructorWithLessDependencies" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                          <test-case name="WithResolvedDependencyForShouldChooseCorrectConstructorWithMoreDependencies" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                          <test-case name="WithResolvedDependencyForShouldContinueTheNormalExecutionFlowOfTestBuilders" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResolvedDependencyForShouldThrowExceptionWhenNoConstructorExistsForDependencies" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="WithResolvedDependencyForShouldThrowExceptionWhenSameDependenciesAreRegistered" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ControllerTestBuilderTests" executed="True" result="Success" success="True" time="0.008" asserts="0">
+                        <results>
+                          <test-case name="AttributesShouldNotThrowEceptionWithControllerContainingAttributes" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="AttributesShouldNotThrowEceptionWithControllerContainingNumberOfAttributes" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="AttributesShouldThrowEceptionWithControllerContainingNoAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="AttributesShouldThrowEceptionWithControllerContainingNumberOfAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="AttributesShouldThrowEceptionWithControllerContainingNumberOfAttributesTestingWithOne" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="NoAttributesShouldNotThrowExceptionWithControllerContainingNoAttributes" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="NoAttributesShouldThrowExceptionWithControllerContainingAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="ExceptionErrorsTests" executed="True" result="Success" success="True" time="0.040" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="AggregateExceptionTestBuilderTests" executed="True" result="Success" success="True" time="0.006" asserts="0">
+                        <results>
+                          <test-case name="AndAlsoShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ContainingInnerExceptionOfTypeShouldNotThrowIfInnerExceptionIsCorrect" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingInnerExceptionOfTypeShouldThrowIfInnerExceptionIsNotCorrect" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ExceptionMessageTestBuilderTests" executed="True" result="Success" success="True" time="0.017" asserts="0">
+                        <results>
+                          <test-case name="BeginningWithShouldNotThrowExceptionWithProperErrorMessage" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="BeginningWithShouldThrowExceptionWithIncorrectErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingShouldNotThrowExceptionWithProperErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingShouldThrowExceptionWithIncorrectErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="EndingWithShouldNotThrowExceptionWithProperErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="EndingWithShouldThrowExceptionWithIncorrectErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ThatEqualsShouldNotThrowExceptionWithProperErrorMessage" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ThatEqualsShouldNotThrowExceptionWithProperErrorMessageAndFirstCallingWithMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ThatEqualsShouldThrowExceptionWithIncorrectErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ExceptionTestBuilderTests" executed="True" result="Success" success="True" time="0.006" asserts="0">
+                        <results>
+                          <test-case name="OfTypeShouldNotThrowExceptionWhenExceptionIsOfTheProvidedType" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="OfTypeShouldThrowExceptionWhenExceptionIsNotOfTheProvidedType" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithMessageShouldNotThrowExceptionWhenExceptionIsWithCorrectMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithMessageShouldNotThrowExceptionWhenExceptionIsWithIncorrectMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="HttpResponseExceptionTestBuilderTests" executed="True" result="Success" success="True" time="0.006" asserts="0">
+                        <results>
+                          <test-case name="ShouldThrowHttpResponseExceptionShouldBeAbleToTestHttpResponseMessage" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ShouldThrowHttpResponseExceptionShouldCatchAndValidateHttpResponseExceptionStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ShouldThrowHttpResponseExceptionShouldThrowWithInvalidHttpResponseExceptionStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="HttpActionResultsTests" executed="True" result="Success" success="True" time="1.071" asserts="0">
+                    <results>
+                      <test-suite type="Namespace" name="BadRequestTests" executed="True" result="Success" success="True" time="0.050" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="BadRequestErrorMessageTestBuilderTests" executed="True" result="Success" success="True" time="0.013" asserts="0">
+                            <results>
+                              <test-case name="BeginningWithShouldNotThrowExceptionWithProperErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="BeginningWithShouldThrowExceptionWithIncorrectErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingShouldNotThrowExceptionWithProperErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingShouldThrowExceptionWithIncorrectErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="EndingWithShouldNotThrowExceptionWithProperErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="EndingWithShouldThrowExceptionWithIncorrectErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ThatEqualsShouldNotThrowExceptionWithProperErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ThatEqualsShouldThrowExceptionWithIncorrectErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="BadRequestTestBuilderTests" executed="True" result="Success" success="True" time="0.034" asserts="0">
+                            <results>
+                              <test-case name="WithErrorMessageShouldNotThrowExceptionWhenResultHasCorrentErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithErrorMessageShouldNotThrowExceptionWhenResultHasErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithErrorMessageShouldThrowExceptionWhenResultDoesNotHaveCorrentErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithErrorMessageShouldThrowExceptionWhenResultDoesNotHaveErrorMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithModelStateForShouldNotThrowExceptionWhenModelStateHasSameErrors" executed="True" result="Success" success="True" time="0.007" asserts="0" />
+                              <test-case name="WithModelStateShouldNotThrowExceptionWhenModelStateHasSameErrors" executed="True" result="Success" success="True" time="0.006" asserts="0" />
+                              <test-case name="WithModelStateShouldThrowExceptionWhenModelStateHasDifferentKeys" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithModelStateShouldThrowExceptionWhenModelStateHasLessNumberOfKeys" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithModelStateShouldThrowExceptionWhenModelStateHasMoreErrors" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithModelStateShouldThrowExceptionWhenModelStateHasMoreNumberOfKeys" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithModelStateShouldThrowExceptionWhenModelStateHasWrongError" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="ContentTests" executed="True" result="Success" success="True" time="0.456" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="ContentTestBuilderTests" executed="True" result="Success" success="True" time="0.456" asserts="0">
+                            <results>
+                              <test-case name="AndAlsoShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.302" asserts="0" />
+                              <test-case name="ContainingDefaultFormattersShouldNotThrowExceptionWhenActionResultHasDefaultMediaTypeFormatters" executed="True" result="Success" success="True" time="0.090" asserts="0" />
+                              <test-case name="ContainingDefaultFormattersShouldThrowExceptionWhenActionResultHasNotDefaultMediaTypeFormatters" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="ContainingFormattersShouldNotThrowExceptionWhenActionResultHasCorrectMediaTypeFormatters" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="ContainingFormattersShouldNotThrowExceptionWhenActionResultHasCorrectMediaTypeFormattersAsParams" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingFormattersWithBuilderShouldNotThrowExceptionWhenActionResultHasCorrectMediaTypeFormatters" executed="True" result="Success" success="True" time="0.015" asserts="0" />
+                              <test-case name="ContainingMediaTypeFormatterShouldNotThrowExceptionWhenActionResultHasTheProvidedMediaTypeFormatter" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ContainingMediaTypeOfTypeFormatterShouldNotThrowExceptionWhenActionResultHasTheProvidedMediaTypeFormatter" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithContentNegotiatorOfTypeShouldNotThrowExceptionWhenActionReturnsCorrectContentNegotiator" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="WithContentNegotiatorShouldNotThrowExceptionWhenActionReturnsCorrectContentNegotiator" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithDefaultContentNegotiatorShouldNotThrowExceptionWhenActionReturnsDefaultContentNegotiator" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDefaultContentNegotiatorShouldThrowExceptionWhenActionReturnsNotDefaultContentNegotiator" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithMediaTypeShouldNotThrowExceptionWithMediaTypeHeaderValue" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="WithMediaTypeShouldNotThrowExceptionWithMediaTypeHeaderValueConstant" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithMediaTypeShouldNotThrowExceptionWithString" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithMediaTypeShouldThrowExceptionWithMediaTypeHeaderValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithMediaTypeShouldThrowExceptionWithMediaTypeHeaderValueAndNullActual" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithMediaTypeShouldThrowExceptionWithNullMediaTypeHeaderValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithMediaTypeShouldThrowExceptionWithNullMediaTypeHeaderValueAndNullActual" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithResponseModelOfTypeShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithStatusCodeShouldNotThrowExceptionWhenActionReturnsCorrectStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithStatusCodeShouldThrowExceptionWhenActionReturnsWrongStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="CreatedTests" executed="True" result="Success" success="True" time="0.202" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="CreatedTestBuilderTests" executed="True" result="Success" success="True" time="0.201" asserts="0">
+                            <results>
+                              <test-case name="AndAlsoShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.009" asserts="0" />
+                              <test-case name="AtLocationWithBuilderShouldNotThrowExceptionIfTheLocationIsCorrect" executed="True" result="Success" success="True" time="0.012" asserts="0" />
+                              <test-case name="AtLocationWithBuilderShouldThrowExceptionIfTheLocationIsIncorrect" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="AtLocationWithStringShouldNotThrowExceptionIfTheLocationIsCorrect" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="AtLocationWithStringShouldThrowExceptionIfTheLocationIsIncorrect" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="AtLocationWithStringShouldThrowExceptionIfTheLocationIsNotValid" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="AtLocationWithUriShouldNotThrowExceptionIfTheLocationIsCorrect" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="AtLocationWithUriShouldThrowExceptionIfTheLocationIsIncorrect" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="AtShouldThrowExceptionWithIncorrectActionCall" executed="True" result="Success" success="True" time="0.105" asserts="0" />
+                              <test-case name="AtShouldThrowExceptionWithIncorrectActionParameter" executed="True" result="Success" success="True" time="0.006" asserts="0" />
+                              <test-case name="AtShouldThrowExceptionWithIncorrectActionResult" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="AtShouldWorkCorrectlyWithCorrectActionCall" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="AtShouldWorkCorrectlyWithCorrectVoidActionCall" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="ContainingDefaultFormattersShouldNotThrowExceptionWhenActionResultHasDefaultMediaTypeFormatters" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ContainingDefaultFormattersShouldThrowExceptionWhenActionResultDoesNotHaveDefaultMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingFormattersShouldNotThrowExceptionWhenActionResultHasCorrectMediaTypeFormatters" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingFormattersShouldNotThrowExceptionWhenActionResultHasCorrectMediaTypeFormattersAsParams" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ContainingFormattersShouldThrowExceptionWhenActionResultHasDifferentCountOfMediaTypeFormatters" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ContainingFormattersShouldThrowExceptionWhenActionResultHasDifferentTypeOfMediaTypeFormatters" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingFormattersWithBuilderShouldNotThrowExceptionWhenActionResultHasCorrectMediaTypeFormatters" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="ContainingFormattersWithBuilderShouldThrowExceptionWhenActionResultHasIncorrectMediaTypeFormatters" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ContainingMediaTypeFormatterOfTypeShouldThrowExceptionWhenActionResultDoesNotHaveTheProvidedMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingMediaTypeFormatterShouldNotThrowExceptionWhenActionResultHasTheProvidedMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingMediaTypeFormatterShouldThrowExceptionWhenActionResultDoesNotHaveTheProvidedMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingMediaTypeOfTypeFormatterShouldNotThrowExceptionWhenActionResultHasTheProvidedMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithContentNegotiatorOfTypeShouldNotThrowExceptionWhenActionReturnsCorrectContentNegotiator" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithContentNegotiatorOfTypeShouldThrowExceptionWhenActionReturnsIncorrectContentNegotiator" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithContentNegotiatorShouldNotThrowExceptionWhenActionReturnsCorrectContentNegotiator" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithContentNegotiatorShouldThrowExceptionWhenActionReturnsIncorrectContentNegotiator" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithDefaultContentNegotiatorShouldNotThrowExceptionWhenActionReturnsDefaultContentNegotiator" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithDefaultContentNegotiatorShouldThrowExceptionWhenActionReturnsNotDefaultContentNegotiator" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithResponseModelOfTypeShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="InternalServerErrorTests" executed="True" result="Success" success="True" time="0.013" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="InternalServerErrorTestBuilderTests" executed="True" result="Success" success="True" time="0.013" asserts="0">
+                            <results>
+                              <test-case name="WithExceptionShouldNotThrowExceptionWhenActionResultIsExceptionResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithExceptionShouldNotThrowExceptionWhenProvidedExceptionIsOfTheSameType" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithExceptionShouldThrowExceptionWhenActionResultIsInternalServerErrorResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithExceptionShouldThrowExceptionWhenProvidedExceptionIsNotOfTheSameType" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithExceptionShouldThrowExceptionWhenProvidedExceptionIsOfTheSameTypeWithDifferentMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="JsonTests" executed="True" result="Success" success="True" time="0.207" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="JsonSerializerSettingsTestBuilderTests" executed="True" result="Success" success="True" time="0.184" asserts="0">
+                            <results>
+                              <test-case name="AndAlsoShouldNotThrowExceptionWithCorrectValues" executed="True" result="Success" success="True" time="0.008" asserts="0" />
+                              <test-case name="AndAlsoShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithConstructorHandlingShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithConstructorHandlingShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithConstructorHandlingShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.041" asserts="0" />
+                              <test-case name="WithContractResolverOfTypeShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithContractResolverOfTypeShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithContractResolverOfTypeShouldValidateTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithContractResolverShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithContractResolverShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithContractResolverShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithCultureShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithCultureShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithCultureShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDateFormatHandlingShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDateFormatHandlingShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithDateFormatHandlingShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDateParseHandlingShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDateParseHandlingShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDateParseHandlingShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDateTimeZoneHandlingShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDateTimeZoneHandlingShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithDateTimeZoneHandlingShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDefaultValueHandlingShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDefaultValueHandlingShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDefaultValueHandlingShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithFormattingShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithFormattingShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithFormattingShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithMaxDepthShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithMaxDepthShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithMaxDepthShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithMissingMemberHandlingShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithMissingMemberHandlingShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithMissingMemberHandlingShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithNullValueHandlingShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithNullValueHandlingShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithNullValueHandlingShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithObjectCreationHandlingShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithObjectCreationHandlingShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithObjectCreationHandlingShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithPreserveReferencesHandlingShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithPreserveReferencesHandlingShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.006" asserts="0" />
+                              <test-case name="WithPreserveReferencesHandlingShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithReferenceLoopHandlingShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithReferenceLoopHandlingShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithReferenceLoopHandlingShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithTypeNameAssemblyFormatShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithTypeNameAssemblyFormatShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithTypeNameAssemblyFormatShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithTypeNameHandlingShouldNotThrowExceptionWithCorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithTypeNameHandlingShouldThrowExceptionWithIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithTypeNameHandlingShouldValidateOnlyTheProperty" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="JsonTestBuilderTests" executed="True" result="Success" success="True" time="0.020" asserts="0">
+                            <results>
+                              <test-case name="WithDefaultEncodingShouldNotThrowExceptionWhenUsingDefaultEncoding" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="WithDefaultEncodingShouldThrowExceptionWhenNotUsingDefaultEncoding" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDefaultJsonSettingsShouldNotThrowExeptionWithDefaultJsonSettings" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithEncodingShouldNotThrowExceptionWhenUsingDefaultEncoding" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithEncodingShouldThrowExceptionWhenNotUsingDefaultEncoding" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithJsonSerializerSettingsShouldNotThrowExceptionWithSameJsonSettings" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithJsonSerializerSettingsShouldThrowExceptionWithDifferentJsonSettings" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithResponseModelOfTypeShouldWorkCorrectlyWithJson" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="OkTests" executed="True" result="Success" success="True" time="0.036" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="OkTestBuilderTests" executed="True" result="Success" success="True" time="0.036" asserts="0">
+                            <results>
+                              <test-case name="AndAlsoShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.009" asserts="0" />
+                              <test-case name="ContainingDefaultFormattersShouldNotThrowExceptionWhenActionResultHasDefaultMediaTypeFormatters" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="ContainingDefaultFormattersShouldThrowExceptionWhenActionResultHasNotDefaultMediaTypeFormatters" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="ContainingFormattersShouldNotThrowExceptionWhenActionResultHasCorrectMediaTypeFormatters" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingFormattersShouldNotThrowExceptionWhenActionResultHasCorrectMediaTypeFormattersAsParams" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ContainingFormattersWithBuilderShouldNotThrowExceptionWhenActionResultHasCorrectMediaTypeFormatters" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="ContainingMediaTypeFormatterShouldNotThrowExceptionWhenActionResultHasTheProvidedMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingMediaTypeOfTypeFormatterShouldNotThrowExceptionWhenActionResultHasTheProvidedMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithContentNegotiatorOfTypeShouldNotThrowExceptionWhenActionReturnsCorrectContentNegotiator" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithContentNegotiatorShouldNotThrowExceptionWhenActionReturnsCorrectContentNegotiator" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithDefaultContentNegotiatorShouldNotThrowExceptionWhenActionReturnsDefaultContentNegotiator" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithDefaultContentNegotiatorShouldThrowExceptionWhenActionReturnsNotDefaultContentNegotiator" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="RedirectTests" executed="True" result="Success" success="True" time="0.026" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="RedirectTestBuilderTests" executed="True" result="Success" success="True" time="0.026" asserts="0">
+                            <results>
+                              <test-case name="AtLocationWithBuilderShouldNotThrowExceptionIfTheLocationIsCorrect" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="AtLocationWithBuilderShouldThrowExceptionIfTheLocationIsIncorrect" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="AtLocationWithStringShouldNotThrowExceptionIfTheLocationIsCorrect" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="AtLocationWithStringShouldThrowExceptionIfTheLocationIsIncorrect" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="AtLocationWithStringShouldThrowExceptionIfTheLocationIsNotValid" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="AtLocationWithUriShouldNotThrowExceptionIfTheLocationIsCorrect" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="AtLocationWithUriShouldThrowExceptionIfTheLocationIsIncorrect" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ToShouldThrowExceptionWithIncorrectActionCall" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="ToShouldThrowExceptionWithIncorrectActionParameter" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ToShouldThrowExceptionWithIncorrectActionResult" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ToShouldWorkCorrectlyWithCorrectActionCall" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ToShouldWorkCorrectlyWithCorrectVoidActionCall" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="UnauthorizedTests" executed="True" result="Success" success="True" time="0.060" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="AndUnauthorizedTestBuilderTests" executed="True" result="Success" success="True" time="0.005" asserts="0">
+                            <results>
+                              <test-case name="AndShouldReturnCorrectResultsWhenHeadersAreCorrect" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="AndShouldThrowExceptionWhenHeadersAreInCorrect" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="UnauthorizedResultTestBuilderTests" executed="True" result="Success" success="True" time="0.052" asserts="0">
+                            <results>
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldNotThrowExceptionWhenResultContainsTheProvidedHeader" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldNotThrowExceptionWhenResultContainsTheProvidedHeaderBuilder" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldNotThrowExceptionWhenResultContainsTheProvidedHeaderWithParameter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldNotThrowExceptionWhenResultContainsTheProvidedHeaderWithParameterBuilder" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldNotThrowExceptionWhenResultContainsTheProvidedHeaderWithScheme" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldNotThrowExceptionWhenResultContainsTheProvidedHeaderWithSchemeAndParamter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldNotThrowExceptionWhenResultContainsTheProvidedHeaderWithSchemeEnum" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldThrowExceptionWhenResultDoesNotContainTheProvidedHeader" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldThrowExceptionWhenResultDoesNotContainTheProvidedHeaderBuilder" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldThrowExceptionWhenResultDoesNotContainTheProvidedHeaderWithParameter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldThrowExceptionWhenResultDoesNotContainTheProvidedHeaderWithParameterBuilder" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldThrowExceptionWhenResultDoesNotContainTheProvidedHeaderWithScheme" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldThrowExceptionWhenResultDoesNotContainTheProvidedHeaderWithSchemeAndParameter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="ContainingAuthenticationHeaderChallengeShouldThrowExceptionWhenResultDoesNotContainTheProvidedHeaderWithSchemeEnum" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithAuthenticationHeaderChallengesShouldNotThrowExceptionWhenResultContainsExactlyAllProvidedHeaders" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="WithAuthenticationHeaderChallengesShouldNotThrowExceptionWhenResultContainsExactlyAllProvidedHeadersAndParams" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithAuthenticationHeaderChallengesShouldNotThrowExceptionWhenResultContainsExactlyAllProvidedHeadersAndParamsAndBuilder" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithAuthenticationHeaderChallengesShouldNotThrowExceptionWhenResultContainsExactlyAllProvidedHeadersInDifferentOrder" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithAuthenticationHeaderChallengesShouldNotThrowExceptionWhenResultContainsExactlyAllProvidedHeadersInDifferentOrderAndParams" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithAuthenticationHeaderChallengesShouldNotThrowExceptionWhenResultContainsExactlyAllProvidedHeadersInDifferentOrderAndParamsAndBuilder" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithAuthenticationHeaderChallengesShouldThrowExceptionWhenResultDoesNotContainExactlyAllProvidedHeadersWithWrongData" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithAuthenticationHeaderChallengesShouldThrowExceptionWhenResultDoesNotContainExactlyAllProvidedHeadersWithWrongDataAndBuilder" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="WithAuthenticationHeaderChallengesShouldThrowExceptionWhenResultDoesNotContainExactlyAllProvidedHeadersWithWrongDataAndParams" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithAuthenticationHeaderChallengesShouldThrowExceptionWhenResultDoesNotContainExactlyNotAllProvidedHeadersInDifferentOrder" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithAuthenticationHeaderChallengesShouldThrowExceptionWhenResultDoesNotContainExactlyNotAllProvidedHeadersInDifferentOrderAndParams" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="WithAuthenticationHeaderChallengesShouldThrowExceptionWhenResultDoesNotContainExactlyNotAllProvidedHeadersInDifferentOrderAndParamsAndBuilder" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="HttpConfigurationBuilderTests" executed="True" result="Success" success="True" time="0.005" asserts="0">
+                    <results>
+                      <test-case name="AndStartsServerShouldStartServerCorrectly" executed="True" result="Success" success="True" time="0.005" asserts="6" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="HttpMessagesTests" executed="True" result="Success" success="True" time="0.343" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="HttpHandlerResponseMessageTestBuilderTests" executed="True" result="Success" success="True" time="0.165" asserts="0">
+                        <results>
+                          <test-case name="AndAlsoShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.006" asserts="0" />
+                          <test-case name="AndProvideTheHttpResponseMessageShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                          <test-case name="ContainingContentHeaderShouldNotThrowExceptionWithCorrectHeaderName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingContentHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValue" executed="True" result="Success" success="True" time="0.007" asserts="0" />
+                          <test-case name="ContainingContentHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValues" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValues" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndOneCorrectAndOneIncorrectValues" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingContentHeaderShouldThrowExceptionWithIncorrectHeaderName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingContentHeadersShouldNotThrowExceptionWithCorrectDictionaryOfHeaders" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                          <test-case name="ContainingContentHeadersShouldNotThrowExceptionWithCorrectDictionaryOfHeadersWithInvalidCount" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldNotThrowExceptionWithCorrectDictionaryOfHeaders" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldNotThrowExceptionWithCorrectDictionaryOfHeadersWithInvalidCount" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldNotThrowExceptionWithCorrectHeaderName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValues" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ContainingHeaderShouldThrowExceptionIfNoContentIsAdded" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValues" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldThrowExceptionWithCorrectHeaderNameAndOneCorrectAndOneIncorrectValues" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldThrowExceptionWithIncorrectHeaderName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithContentOfTypeShouldNotThrowExceptionWithCorrectContent" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithContentOfTypeShouldThrowExceptionWithIncorrectContent" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithDefaultMediaTypeFormatterShouldNotThrowExceptionWithCorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.085" asserts="0" />
+                          <test-case name="WithDefaultMediaTypeFormatterShouldThrowExceptionWithIncorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="WithMediaTypeFormatterOfTypeShouldNotThrowExceptionWithCorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="WithMediaTypeFormatterOfTypeShouldThrowExceptionWithIncorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithMediaTypeFormatterShouldNotThrowExceptionWithCorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithMediaTypeFormatterShouldThrowExceptionWithIncorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithReasonPhraseShouldNotThrowExceptionWithValidPhrase" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="WithReasonPhraseShouldThrowExceptionWithInvalidPhrase" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResponseModelOfTypeShouldNotThrowExceptionWithCorrectResponseModel" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResponseModelOfTypeShouldThrowExceptionWithIncorrectResponseModel" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResponseModelShouldNotThrowExceptionWithCorrectResponseModel" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="WithResponseModelShouldThrowExceptionWithIncorrectResponseModel" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithStatusCodeShouldNotThrowExceptionWithValidStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithStatusCodeShouldThrowExceptionWithInvalidStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithSuccessStatusCodeShouldNotThrowExceptionWithValidStatusCode" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="WithSuccessStatusCodeShouldThrowExceptionWithInvalidStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithVersionShouldNotThrowExceptionWithValidVersion" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithVersionShouldNotThrowExceptionWithValidVersionAsString" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithVersionShouldNotThrowExceptionWithValidVersionWithMajorAndMinor" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="WithVersionShouldThrowExceptionWithInvalidVersion" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="HttpMessageHandlerTestBuilderTests" executed="True" result="Success" success="True" time="0.019" asserts="0">
+                        <results>
+                          <test-case name="ShouldReturnHttpResponseMessageShouldThrowExceptionWhenHandlerThrowsException" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ShouldReturnHttpResponseMessageShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.005" asserts="0" />
+                          <test-case name="WithHttpConfigurationShouldOverrideTheDefaultOne" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                          <test-case name="WithInnerHandlerBuilderShouldPopulateCorrectInnerHandler" executed="True" result="Success" success="True" time="0.002" asserts="8" />
+                          <test-case name="WithInnerHandlerInstanceShouldThrowExceptionIfOuterHandlerIsNotDelegatingHandler" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithInnerHandlerWithConstructionFunctionShouldPopulateCorrectInnerHandler" executed="True" result="Success" success="True" time="0.001" asserts="3" />
+                          <test-case name="WithInnerHandlerWithoutConstructionFunctionShouldPopulateCorrectInnerHandler" executed="True" result="Success" success="True" time="0.000" asserts="3" />
+                          <test-case name="WithInnerHandlerWithProvidedInstanceShouldPopulateCorrectInnerHandler" executed="True" result="Success" success="True" time="0.000" asserts="3" />
+                          <test-case name="WithoutAnyConfigurationShouldInstantiateDefaultOne" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                          <test-case name="WithRequestMessageBuilderShouldPopulateCorrectHttpRequestMessage" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                          <test-case name="WithRequestMessageShouldPopulateCorrectHttpRequestMessage" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="HttpRequestMessageBuilderTests" executed="True" result="Success" success="True" time="0.062" asserts="0">
+                        <results>
+                          <test-case name="AndAlsoShouldBuildCorrectHttpRequestMessage" executed="True" result="Success" success="True" time="0.011" asserts="5" />
+                          <test-case name="WithByteArrayContentAndBufferSizeShouldPopulateCorrectContent" executed="True" result="Success" success="True" time="0.002" asserts="2" />
+                          <test-case name="WithByteArrayContentShouldPopulateCorrectContent" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithContentHeaderAndMultipleValuesShouldPopulateCorrectHeader" executed="True" result="Success" success="True" time="0.003" asserts="3" />
+                          <test-case name="WithContentHeadersDictionaryShouldPopulateCorrectHeaders" executed="True" result="Success" success="True" time="0.002" asserts="3" />
+                          <test-case name="WithContentHeaderShouldPopulateCorrectHeader" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithContentHeadersShouldThrowExpcetionIfNoContentIsPresent" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithContentShouldPopulateCorrectContent" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithFormUrlEncodedContentShouldPopulateCorrectContent" executed="True" result="Success" success="True" time="0.002" asserts="3" />
+                          <test-case name="WithFormUrlEncodedContentShouldPopulateCorrectContentWithDirectString" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithHeaderAndMultipleValuesShouldPopulateCorrectHeader" executed="True" result="Success" success="True" time="0.002" asserts="3" />
+                          <test-case name="WithHeadersDictionaryShouldPopulateCorrectHeaders" executed="True" result="Success" success="True" time="0.002" asserts="3" />
+                          <test-case name="WithHeaderShouldPopulateCorrectHeader" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithInvalidVersionShouldThrowInvalidHttpRequestMessageException" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithJsonContentShouldPopulateCorrectContent" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithMethodShouldPopulateCorrectMethod" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                          <test-case name="WithMethodStringShouldPopulateCorrectMethod" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                          <test-case name="WithRequestUriBuilderShouldPopulateCorrectUri" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                          <test-case name="WithRequestUriShouldPopulateCorrectUri" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                          <test-case name="WithRequestUriStringShouldPopulateCorrectUri" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                          <test-case name="WithStreamContentAndBufferSizeShouldPopulateCorrectContent" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                          <test-case name="WithStreamContentShouldPopulateCorrectContent" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithStringContentAndEncodingShouldPopulateCorrectContent" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithStringContentAndMediaTypeShouldPopulateCorrectContent" executed="True" result="Success" success="True" time="0.001" asserts="3" />
+                          <test-case name="WithStringContentEncodingAndMediaTypeShouldPopulateCorrectContent" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithStringContentShouldPopulateCorrectContent" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithVersionIntegersShouldPopulateCorrectVersion" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                          <test-case name="WithVersionShouldPopulateCorrectVersion" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                          <test-case name="WithVersionStringShouldPopulateCorrectVersion" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="HttpResponseMessageTestBuilderTests" executed="True" result="Success" success="True" time="0.086" asserts="0">
+                        <results>
+                          <test-case name="AndAlsoShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="AndProvideTheHttpResponseMessageShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="ContainingContentHeaderShouldNotThrowExceptionWithCorrectHeaderName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingContentHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingContentHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValues" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValue" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValues" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndOneCorrectAndOneIncorrectValues" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingContentHeaderShouldThrowExceptionWithIncorrectHeaderName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingContentHeadersShouldNotThrowExceptionWithCorrectDictionaryOfHeaders" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ContainingContentHeadersShouldNotThrowExceptionWithCorrectDictionaryOfHeadersWithInvalidCount" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldNotThrowExceptionWithCorrectDictionaryOfHeaders" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ContainingHeaderShouldNotThrowExceptionWithCorrectDictionaryOfHeadersWithInvalidCount" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldNotThrowExceptionWithCorrectHeaderName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldNotThrowExceptionWithCorrectHeaderNameAndValues" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldThrowExceptionIfNoContentIsAdded" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValue" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValues" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldThrowExceptionWithCorrectHeaderNameAndOneCorrectAndOneIncorrectValues" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ContainingHeaderShouldThrowExceptionWithIncorrectHeaderName" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithContentOfTypeShouldNotThrowExceptionWithCorrectContent" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithContentOfTypeShouldThrowExceptionWithIncorrectContent" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithDefaultMediaTypeFormatterShouldNotThrowExceptionWithCorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                          <test-case name="WithDefaultMediaTypeFormatterShouldThrowExceptionWithIncorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="WithMediaTypeFormatterOfTypeShouldNotThrowExceptionWithCorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithMediaTypeFormatterOfTypeShouldThrowExceptionWithIncorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithMediaTypeFormatterShouldNotThrowExceptionWithCorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithMediaTypeFormatterShouldThrowExceptionWithIncorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithReasonPhraseShouldNotThrowExceptionWithValidPhrase" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithReasonPhraseShouldThrowExceptionWithInvalidPhrase" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResponseModelOfTypeShouldNotThrowExceptionWithCorrectResponseModel" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="WithResponseModelOfTypeShouldThrowExceptionWithIncorrectResponseModel" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="WithResponseModelShouldNotThrowExceptionWithCorrectResponseModel" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                          <test-case name="WithResponseModelShouldThrowExceptionWithIncorrectResponseModel" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithStatusCodeShouldNotThrowExceptionWithValidStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithStatusCodeShouldThrowExceptionWithInvalidStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithSuccessStatusCodeShouldNotThrowExceptionWithValidStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithSuccessStatusCodeShouldThrowExceptionWithInvalidStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithVersionShouldNotThrowExceptionWithValidVersion" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithVersionShouldNotThrowExceptionWithValidVersionAsString" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithVersionShouldNotThrowExceptionWithValidVersionWithMajorAndMinor" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithVersionShouldThrowExceptionWithInvalidVersion" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="ModelsTests" executed="True" result="Success" success="True" time="0.120" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="HttpHandlerModelDetailsTestBuilderTests" executed="True" result="Success" success="True" time="0.010" asserts="0">
+                        <results>
+                          <test-case name="AndProvideTheModelShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithResponseModelShouldNotThrowExceptionWithCorrectAssertions" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                          <test-case name="WithResponseModelShouldNotThrowExceptionWithCorrectPredicate" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResponseModelShouldThrowExceptionWithIncorrectAssertions" executed="True" result="Success" success="True" time="0.004" asserts="2" />
+                          <test-case name="WithResponseModelShouldThrowExceptionWithWrongPredicate" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ModelErrorDetailsTestBuilderTests" executed="True" result="Success" success="True" time="0.027" asserts="0">
+                        <results>
+                          <test-case name="BeginningWithShouldNotThrowExceptionWhenProvidedMessageIsValid" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                          <test-case name="BeginningWithShouldThrowExceptionWhenProvidedMessageIsValid" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                          <test-case name="ContainingShouldNotThrowExceptionWhenProvidedMessageIsValid" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ContainingShouldThrowExceptionWhenProvidedMessageIsValid" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                          <test-case name="EngingWithShouldNotThrowExceptionWhenProvidedMessageIsValid" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                          <test-case name="EngingWithShouldThrowExceptionWhenProvidedMessageIsValid" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                          <test-case name="ThatEqualsShouldNotThrowExceptionWhenProvidedMessageIsValid" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                          <test-case name="ThatEqualsShouldThrowExceptionWhenProvidedMessageIsValid" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ModelErrorTestBuilderTests" executed="True" result="Success" success="True" time="0.046" asserts="0">
+                        <results>
+                          <test-case name="AndModelStateErrorForShouldNotThrowExceptionWhenTheProvidedPropertyHasErrors" executed="True" result="Success" success="True" time="0.007" asserts="0" />
+                          <test-case name="AndModelStateErrorForShouldThrowExceptionWhenTheProvidedPropertyDoesNotHaveErrors" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                          <test-case name="AndModelStateErrorShouldNotThrowExceptionWhenTheProvidedModelStateErrorExists" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="AndModelStateErrorShouldThrowExceptionWhenTheProvidedModelStateErrorDoesNotExist" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="AndNoModelStateErrorForShouldNotThrowExceptionWhenChainedWithValidModel" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="AndNoModelStateErrorForShouldNotThrowExceptionWhenTheProvidedPropertyDoesNotHaveErrors" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="AndNoModelStateErrorForShouldThrowExceptionWhenChainedWithInvalidModel" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                          <test-case name="AndNoModelStateErrorForShouldThrowExceptionWhenTheProvidedPropertyHasErrors" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="AndProvideTheModelShouldReturnProperModelWhenThereIsResponseModel" executed="True" result="Success" success="True" time="0.003" asserts="3" />
+                          <test-case name="AndProvideTheModelShouldReturnProperModelWhenThereIsResponseModelWithModelStateCheck" executed="True" result="Success" success="True" time="0.002" asserts="3" />
+                          <test-case name="AndProvideTheModelShouldReturnProperModelWhenThereIsResponseModelWithModelStateError" executed="True" result="Success" success="True" time="0.002" asserts="3" />
+                          <test-case name="AndProvideTheModelShouldReturnProperModelWhenThereIsResponseModelWithModelStateErrorAndErrorCheck" executed="True" result="Success" success="True" time="0.001" asserts="3" />
+                          <test-case name="AndProvideTheModelShouldReturnProperModelWhenThereIsResponseModelWithPassing" executed="True" result="Success" success="True" time="0.001" asserts="3" />
+                          <test-case name="ContainingNoErrorsShouldNotThrowExceptionWhenThereAreNoModelStateErrors" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ContainingNoErrorsShouldThrowExceptionWhenThereAreModelStateErrors" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ResponseModelDetailsTestBuilderTests" executed="True" result="Success" success="True" time="0.011" asserts="0">
+                        <results>
+                          <test-case name="WithResponseModelShouldNotThrowExceptionWithCorrectAssertions" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                          <test-case name="WithResponseModelShouldNotThrowExceptionWithCorrectPredicate" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResponseModelShouldThrowExceptionWithIncorrectAssertions" executed="True" result="Success" success="True" time="0.002" asserts="2" />
+                          <test-case name="WithResponseModelShouldThrowExceptionWithWrongPredicate" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ResponseModelTestBuilderTests" executed="True" result="Success" success="True" time="0.020" asserts="0">
+                        <results>
+                          <test-case name="WithNoResponseModelShouldNotThrowExceptionWhenNoResponseModel" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithNoResponseModelShouldThrowExceptionWhenResponseModelExists" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResponceModelShouldThrowExceptionWithDifferentPassedExpectedObject" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="WithResponseModelShouldNotThrowExceptionWithCorrectImplementatorTypeArgument" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResponseModelShouldNotThrowExceptionWithCorrectPassedExpectedObject" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="WithResponseModelShouldNotThrowExceptionWithCorrectResponseModel" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResponseModelShouldNotThrowExceptionWithIncorrectInheritedTypeArgument" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResponseModelShouldThrowExceptionWithIncorrectGenericTypeArgument" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResponseModelShouldThrowExceptionWithIncorrectResponseModel" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithResponseModelShouldThrowExceptionWithNoResponseModel" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="RoutesTests" executed="True" result="Success" success="True" time="0.701" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="RoutesTestBuilderTests" executed="True" result="Success" success="True" time="0.701" asserts="0">
+                        <results>
+                          <test-case name="AndAlsoShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.337" asserts="0" />
+                          <test-case name="RouteShouldNotMatchWithoutHeaders" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ToHandlerOfTypeShouldThrowExceptionIfHandlerIsAnotherType" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ToHandlerOfTypeShouldThrowExceptionIfHandlerIsNull" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToHandlerOfTypeShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ToIgnoredRouteShouldThrowExceptionWhenRouteIsNotResolved" executed="True" result="Success" success="True" time="0.020" asserts="0" />
+                          <test-case name="ToIgnoredRouteShouldThrowExceptionWhenRouteIsResolved" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToIgnoredRouteShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ToInvalidModelStateShouldShouldThrowExceptionWithIncorrectNumberOfErrors" executed="True" result="Success" success="True" time="0.159" asserts="0" />
+                          <test-case name="ToInvalidModelStateShouldThrowExceptionWhenModelStateIsValidValid" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToInvalidModelStateShouldThrowExceptionWhenRouteIsIgnored" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToInvalidModelStateShouldThrowExceptionWhenRouteIsNotResolved" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ToInvalidModelStateShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ToInvalidModelStateShouldWorkCorrectlyWithNumberOfErrors" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ToNoHandlerOfTypeShouldThrowExceptionIfHandlerIsAnotherType" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToNoHandlerOfTypeShouldWorkCorrectlyIfHandlerIsNull" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ToNoHandlerOfTypeShouldWorkCorrectlyWithOtherHandler" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ToNoHandlerShouldThrowExceptionIfHandlerIsAnotherType" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToNoHandlerShouldWorkCorrectlyIfHandlerIsNull" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ToNonExistingRouteShouldThrowExceptionWhenRouteIsIgnored" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToNonExistingRouteShouldThrowExceptionWhenRouteIsResolved" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToNonExistingRouteShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ToNotAllowedMethodShouldThrowExceptionWithUnresolvedRoute" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ToNotAllowedMethodShouldThrowExceptionWithWrongMethod" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ToNotAllowedMethodShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectControllerAndAction" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectControllerAndActionWithActionNameAttribute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectControllerAndActionWithUriLocation" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectlyWithDefaultGetMethod" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectlyWithFullQueryString" executed="True" result="Success" success="True" time="0.006" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectlyWithParameter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectlyWithParameterAndQueryString" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectlyWithRoutePrefixAndRouteAttribute" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectlyWithVoidAction" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectyWithFormUrlEncodedContentAndQueryString" executed="True" result="Success" success="True" time="0.040" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectyWithJsonContent" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectyWithJsonContentAndParameter" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ToShouldResolveCorrectyWithJsonContentAndQueryString" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ToShouldThrowExceptionWithIgnoredRoute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToShouldThrowExceptionWithNotResolvedRoute" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToShouldThrowExceptionWithWrongAction" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToShouldThrowExceptionWithWrongActionArguments" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ToShouldThrowExceptionWithWrongController" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToValidModelStateShouldThrowExceptionWhenModelStateIsNotValid" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToValidModelStateShouldThrowExceptionWhenRouteIsIgnored" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ToValidModelStateShouldThrowExceptionWhenRouteIsNotResolved" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ToValidModelStateShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="WithCustomConfigurationShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.056" asserts="0" />
+                          <test-case name="WithHttpRequestMessageBuilderShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithHttpRequestMessageShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithRequestContentHeaderMultipleValuesShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithRequestContentHeadersDictionaryShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithRequestContentHeaderShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithRequestHeaderMultipleValuesShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithRequestHeadersDictionaryShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="WithRequestHeaderShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="ServersTests" executed="True" result="Success" success="True" time="0.515" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="ServerTestBuilderTests" executed="True" result="Success" success="True" time="0.493" asserts="0">
+                        <results>
+                          <test-case name="HttpServerTestShouldWorkCorrectlyWhenNoGlobalServerIsRunning" executed="True" result="Success" success="True" time="0.039" asserts="4" />
+                          <test-case name="HttpTestsShouldWorkCorrectlyWithGlobalTestServer" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="OwinTestsShouldWorkCorrectlyWithGlobalTestServer" executed="True" result="Success" success="True" time="0.440" asserts="0" />
+                          <test-case name="WithCustomConfigurationShouldStartHttpServerCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="4" />
+                          <test-case name="WithIndividualOwinHostShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.006" asserts="4" />
+                          <test-case name="WithoutAnyConfigurationServersShouldThrowException" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ServerTests" executed="True" result="Success" success="True" time="0.021" asserts="0">
+                        <results>
+                          <test-case name="HttpAndOwinServersShouldBeStartedAtTheSameTimeAndStopsShouldStopBothOfThem" executed="True" result="Success" success="True" time="0.002" asserts="12" />
+                          <test-case name="SecondStartsShouldStopTheFirstHttpServer" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                          <test-case name="SecondStartsShouldStopTheFirstOwinServer" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                          <test-case name="StartsAndStopsShouldWorkCorrectlyForHttpServers" executed="True" result="Success" success="True" time="0.001" asserts="6" />
+                          <test-case name="StartsAndStopsShouldWorkCorrectlyForOwinServers" executed="True" result="Success" success="True" time="0.002" asserts="7" />
+                          <test-case name="StartsShouldThrowExceptionWithoutAnyConfiguration" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="StartsShouldWorkCorrectlyWithGlobalConfiguration" executed="True" result="Success" success="True" time="0.001" asserts="6" />
+                          <test-case name="StartWithCustomHostShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                          <test-case name="StartWithCustomPortShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                          <test-case name="StopsShouldThrowExceptionIfNoServersAreRunning" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="TestFixture" name="MyWebApiTests" executed="True" result="Success" success="True" time="0.009" asserts="0">
+                <results>
+                  <test-case name="ControllerWithConstructorFunctionShouldPopulateCorrectNewInstanceOfControllerType" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                  <test-case name="ControllerWithNoParameterlessConstructorShouldThrowProperException" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                  <test-case name="ControllerWithoutConstructorFunctionShouldPopulateCorrectNewInstanceOfControllerType" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                  <test-case name="ControllerWithProvidedInstanceShouldPopulateCorrectInstanceOfControllerType" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                  <test-case name="HandlerWithConstructorFunctionShouldPopulateCorrectNewInstanceOfHandlerType" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                  <test-case name="HandlerWithoutConstructorFunctionShouldPopulateCorrectNewInstanceOfHandlerType" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                  <test-case name="HandlerWithProvidedInstanceShouldPopulateCorrectInstanceOfHandlerType" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                  <test-case name="IsUsingShouldOverrideTheDefaultConfiguration" executed="True" result="Success" success="True" time="0.001" asserts="3" />
+                </results>
+              </test-suite>
+              <test-suite type="Namespace" name="UtilitiesTests" executed="True" result="Success" success="True" time="0.320" asserts="0">
+                <results>
+                  <test-suite type="TestFixture" name="ExpressionParserTests" executed="True" result="Success" success="True" time="0.016" asserts="0">
+                    <results>
+                      <test-case name="GetMethodAttributesShouldReturnProperAttributes" executed="True" result="Success" success="True" time="0.001" asserts="3" />
+                      <test-case name="GetMethodNameShouldReturnCorrectMethodNameWithValidMethodCallExpression" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="GetMethodNameShouldThrowArgumentExceptionWithInvalidMethodCallExpression" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                      <test-case name="GetPropertyNameShouldReturnProperMemberNameWithValidExpression" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="GetPropertyNameShouldThrowExceptionWithInvalidMemberExpression" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                      <test-case name="ResolveMethodArgumentsShouldReturnCorrectCollectionOfArgumentsInformation" executed="True" result="Success" success="True" time="0.002" asserts="8" />
+                      <test-case name="ResolveMethodArgumentsShouldReturnEmptyCollectionIfMethodDoesNotHaveArguments" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                      <test-case name="ResolveMethodArgumentsShouldReturnProperArgumentsWithNullValues" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                      <test-case name="ResolveMethodArgumentsShouldThrowArgumentExceptionWithInvalidMethodCallExpression" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="ReflectionTests" executed="True" result="Success" success="True" time="0.053" asserts="0">
+                    <results>
+                      <test-case name="AreAssignableShouldReturnFalseWithGenericTypeDefinitions" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                      <test-case name="AreAssignableShouldReturnFalseWithOneGenericTypeDefinition" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                      <test-case name="AreAssignableShouldReturnTrueWithInheritedTypes" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                      <test-case name="AreAssignableShouldReturnTrueWithInvertedInheritedTypes" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                      <test-case name="AreAssignableShouldReturnTrueWithTheSameTypes" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                      <test-case name="AreDeepEqualShouldWorkCorrectlyWithCollections" executed="True" result="Success" success="True" time="0.010" asserts="12" />
+                      <test-case name="AreDeeplyEqualShouldWorkCorrectlyWithPrimitiveAndStructTypes" executed="True" result="Success" success="True" time="0.002" asserts="17" />
+                      <test-case name="AreDeeplyEqualsShouldWorkCorrectlyWithNestedObjects" executed="True" result="Success" success="True" time="0.001" asserts="3" />
+                      <test-case name="AreDeeplyEqualsShouldWorkCorrectlyWithNormalObjects" executed="True" result="Success" success="True" time="0.003" asserts="24" />
+                      <test-case name="AreDifferentTypesShouldReturnFalseWithInheritedTypes" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="AreDifferentTypesShouldReturnFalseWithObjectsOfSameTypes" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="AreDifferentTypesShouldReturnFalseWithSameTypes" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="AreDifferentTypesShouldReturnTrueWithDifferentTypes" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="AreDifferentTypesShouldReturnTrueWithObjectsOfDifferentTypes" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="AreSameTypesShouldReturnFalseWithDifferentTypes" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="AreSameTypesShouldReturnFalseWithInheritedTypes" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="AreSameTypesShouldReturnFalseWithObjectsOfDifferentTypes" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="AreSameTypesShouldReturnTrueWithObjectsOfSameTypes" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="AreSameTypesShouldReturnTrueWithSameTypes" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="CastToShouldReturnCorrectCastWhenCastIsPossible" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="CastToShouldThrowExceptionWhenCastIsNotPossible" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                      <test-case name="ContainsGenericTypeDefinitionInterfacesShouldReturnFalseWithInvalidInterfaces" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="ContainsGenericTypeDefinitionInterfacesShouldReturnTrueWithValidInterfaces" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="GetCustomAttributesShouldReturnProperAttributeTypes" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                      <test-case name="HaveDifferentGenericArgumentsShouldReturnFalseWithSameGenericArguments" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                      <test-case name="HaveDifferentGenericArgumentsShouldReturnTrueWithDifferentNumberOfGenericArguments" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="HaveDifferentGenericArgumentsShouldReturnTrueWithNoGenericArguments" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="HaveDifferentGenericArgumentsShouldReturnTrueWithOneTypeHavingGenericArguments" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="HaveDifferentGenericArgumentsShouldReturnTrueWithSameDifferentArguments" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="IsGenericShouldReturnFalseWithNonGenericType" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                      <test-case name="IsGenericShouldReturnTrueWithGenericType" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                      <test-case name="IsGenericShouldReturnTrueWithGenericTypeDefinition" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                      <test-case name="IsGenericTypeDefinitionShouldReturnFalseWithGenericType" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="IsGenericTypeDefinitionShouldReturnFalseWithNonGenericType" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="IsGenericTypeDefinitionShouldReturnTrueWithGenericTypeDefinition" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="ToFriendlyTypeNameShouldReturnProperNameWhenTypeIsGenericWithMoreThanOneArguments" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="ToFriendlyTypeNameShouldReturnProperNameWhenTypeIsGenericWithOneArgument" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="ToFriendlyTypeNameShouldReturnProperNameWhenTypeIsGenericWithoutArguments" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="ToFriendlyTypeNameShouldReturnProperNameWhenTypeIsGenericWithoutMoreThanOneArguments" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="ToFriendlyTypeNameShouldReturnTheOriginalNameWhenTypeIsNotGeneric" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="TryCreateInstanceShouldReturnInitializedObjectWhenIncorrectOrderOfParametersAreProvided" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                      <test-case name="TryCreateInstanceShouldReturnNullWhenConstructorArgumentsDoNotMatch" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="TryCreateInstanceShouldReturnNullWhenConstructorArgumentsDoNotMatchAndAreTooMany" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="TryGetInstanceShouldReturnCorrectInitializationWithPartOfAllParameters" executed="True" result="Success" success="True" time="0.000" asserts="4" />
+                      <test-case name="TryGetInstanceShouldReturnInitializedObjectWhenCorrectOrderOfParametersAreProvided" executed="True" result="Success" success="True" time="0.000" asserts="4" />
+                      <test-case name="TryGetInstanceShouldReturnObjectWithDefaultConstructorWhenNoParametersAreProvided" executed="True" result="Success" success="True" time="0.000" asserts="4" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="RouteResolversTests" executed="True" result="Success" success="True" time="0.171" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="InternalRouteResolverTests" executed="True" result="Success" success="True" time="0.160" asserts="0">
+                        <results>
+                          <test-case name="ResolveShouldIgnoreRoutesWithStopRountingHandler" executed="True" result="Success" success="True" time="0.015" asserts="9" />
+                          <test-case name="ResolveShouldNotResolveCorrectlyWithMissingQueryString" executed="True" result="Success" success="True" time="0.005" asserts="9" />
+                          <test-case name="ResolveShouldNotResolveCorrectlyWithPartialQueryString" executed="True" result="Success" success="True" time="0.005" asserts="9" />
+                          <test-case name="ResolveShouldNotResolveCorrectlyWithWrongMethod" executed="True" result="Success" success="True" time="0.005" asserts="9" />
+                          <test-case name="ResolveShouldResolveCorrectControllerAndAction" executed="True" result="Success" success="True" time="0.005" asserts="9" />
+                          <test-case name="ResolveShouldResolveCorrectControllerAndActionWithActionNameAttribute" executed="True" result="Success" success="True" time="0.005" asserts="9" />
+                          <test-case name="ResolveShouldResolveCorrectlyJsonContentBody" executed="True" result="Success" success="True" time="0.009" asserts="15" />
+                          <test-case name="ResolveShouldResolveCorrectlyJsonContentBodyAndQueryString" executed="True" result="Success" success="True" time="0.010" asserts="16" />
+                          <test-case name="ResolveShouldResolveCorrectlyJsonContentBodyAndRouteParameter" executed="True" result="Success" success="True" time="0.009" asserts="16" />
+                          <test-case name="ResolveShouldResolveCorrectlyPartialJsonContentBody" executed="True" result="Success" success="True" time="0.009" asserts="15" />
+                          <test-case name="ResolveShouldResolveCorrectlyWithEmptyJsonContentBody" executed="True" result="Success" success="True" time="0.007" asserts="10" />
+                          <test-case name="ResolveShouldResolveCorrectlyWithFullQueryString" executed="True" result="Success" success="True" time="0.006" asserts="11" />
+                          <test-case name="ResolveShouldResolveCorrectlyWithParameter" executed="True" result="Success" success="True" time="0.006" asserts="10" />
+                          <test-case name="ResolveShouldResolveCorrectlyWithParameterAndQueryString" executed="True" result="Success" success="True" time="0.006" asserts="10" />
+                          <test-case name="ResolveShouldResolveCorrectlyWithParameterOfDifferentType" executed="True" result="Success" success="True" time="0.008" asserts="10" />
+                          <test-case name="ResolveShouldResolveCorrectlyWithRoutePrefixAndRouteAttribute" executed="True" result="Success" success="True" time="0.005" asserts="9" />
+                          <test-case name="ResolveShouldResolveCorrectlyWithSpecificMethod" executed="True" result="Success" success="True" time="0.006" asserts="9" />
+                          <test-case name="ResolveShouldReturnProperErrorWhenActionIsNotFound" executed="True" result="Success" success="True" time="0.006" asserts="9" />
+                          <test-case name="ResolveShouldReturnProperErrorWhenControllerIsNotFound" executed="True" result="Success" success="True" time="0.006" asserts="9" />
+                          <test-case name="ResolveShouldReturnProperErrorWhenTwoActionsAreMatched" executed="True" result="Success" success="True" time="0.005" asserts="9" />
+                          <test-case name="ResolveShouldWorkWithBindingAttributes" executed="True" result="Success" success="True" time="0.008" asserts="15" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="RouteExpressionParserTests" executed="True" result="Success" success="True" time="0.009" asserts="0">
+                        <results>
+                          <test-case name="ParseShouldParseMethodWithActionNameAttribute" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                          <test-case name="ParseShouldParseReturningMethods" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                          <test-case name="ParseShouldParseReturningMethodsWithParameters" executed="True" result="Success" success="True" time="0.002" asserts="6" />
+                          <test-case name="ParseShouldParseVoidMethods" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                          <test-case name="ParseShouldParseVoidMethodsWithParameters" executed="True" result="Success" success="True" time="0.002" asserts="6" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="ValidatorsTests" executed="True" result="Success" success="True" time="0.073" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="AttributesValidatorTests" executed="True" result="Success" success="True" time="0.008" asserts="0">
+                        <results>
+                          <test-case name="ValidateAnyNumberOfAttributesShouldFailWithIncorrectExpectedNumberOfAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ValidateAnyNumberOfAttributesShouldFailWithNoAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ValidateAnyNumberOfAttributesShouldNotFailWithCorrectAttributes" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ValidateAnyNumberOfAttributesShouldNotFailWithExpectedNumberOfAttributes" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ValidateAttributesShouldWorkCorrectly" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ValidateNoAttributesShouldFailWithAttributes" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ValidateNoAttributesShouldNotFailWithNoAttributes" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="CommonValidatorTests" executed="True" result="Success" success="True" time="0.017" asserts="0">
+                        <results>
+                          <test-case name="CheckForDefaultValueShouldReturnFalseIfValueIsNotDefaultForClass" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                          <test-case name="CheckForDefaultValueShouldReturnFalseIfValueIsNotDefaultForStruct" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                          <test-case name="CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForClass" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                          <test-case name="CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForNullableType" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                          <test-case name="CheckForDefaultValueShouldReturnTrueIfValueIsDefaultForStruct" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                          <test-case name="CheckForExceptionShouldNotThrowIfExceptionIsNull" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="CheckForExceptionShouldThrowIfExceptionIsNotNullWithEmptyMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="CheckForExceptionShouldThrowIfExceptionIsNotNullWithMessage" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="CheckForExceptionShouldThrowWithProperMessageIfExceptionIsAggregateException" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="CheckForNotEmptyStringShouldNotThrowExceptionWithNormalString" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="CheckForNotEmptyStringShouldThrowArgumentNullExceptionWithEmptyString" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="CheckForNotEmptyStringShouldThrowArgumentNullExceptionWithNullString" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="CheckForNotEmptyStringShouldThrowArgumentNullExceptionWithWhiteSpace" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="CheckForNullReferenceShouldNotThrowExceptionWithNotNullObject" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="CheckForNullReferenceShouldThrowArgumentNullExceptionWithNullObject" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="CheckIfTypeCanBeNullShouldNotThrowExceptionWithClass" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="CheckIfTypeCanBeNullShouldNotThrowExceptionWithNullableType" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="CheckIfTypeCanBeNullShouldThrowExceptionWithStruct" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ContentNegotiatorValidatorTests" executed="True" result="Success" success="True" time="0.003" asserts="0">
+                        <results>
+                          <test-case name="ValidateContentNegotiatorShouldNotThrowExceptionIfContentValidatorIsCorrect" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ValidateContentNegotiatorShouldThrowExceptionIfContentValidatorIsNotCorrect" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="LocationValidatorTests" executed="True" result="Success" success="True" time="0.008" asserts="0">
+                        <results>
+                          <test-case name="ValidateAndGetWellFormedUriStringShouldReturnProperUriWithCorrectString" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                          <test-case name="ValidateAndGetWellFormedUriStringShouldThrowExceptionWithIncorrectString" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ValidateLocationShouldNotThrowExceptionWithCorrectLocationBuilder" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ValidateLocationShouldThrowExceptionWithIncorrectLocationBuilder" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ValidateUriShouldNotThrowExceptionWithProperUriWithCorrectString" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ValidateUriShouldThrowExceptionWithIncorrectString" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="MediaTypeFormatterValidatorTests" executed="True" result="Success" success="True" time="0.019" asserts="0">
+                        <results>
+                          <test-case name="GetDefaultMediaTypeFormattersShouldReturnProperFormatters" executed="True" result="Success" success="True" time="0.001" asserts="3" />
+                          <test-case name="ValidateMediaTypeFormattersBuilderShouldNotThrowExceptionWithCorrectBuilder" executed="True" result="Success" success="True" time="0.005" asserts="0" />
+                          <test-case name="ValidateMediaTypeFormattersBuilderShouldThrowExceptionWithIncorrectBuilder" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ValidateMediaTypeFormatterShouldNotThrowExceptionWithCorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="ValidateMediaTypeFormatterShouldNotThrowExceptionWithSingleCorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="ValidateMediaTypeFormatterShouldThrowExceptionWithIncorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ValidateMediaTypeFormattersShouldNotThrowExceptionWithCorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="ValidateMediaTypeFormattersShouldThrowExceptionWithIncorrectMediaTypeFormatter" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="RuntimeBinderValidatorTests" executed="True" result="Success" success="True" time="0.008" asserts="0">
+                        <results>
+                          <test-case name="ValidateBindingShouldNotThrowExceptionWithValidPropertyCall" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                          <test-case name="ValidateBindingShouldThrowExceptionWithInvalidPropertyCall" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="VersionValidatorTests" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                        <results>
+                          <test-case name="TryParseShouldInvokeFailedActionIfStringIsNotInCorrectFormat" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="TryParseShouldReturnCorrectVersion" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

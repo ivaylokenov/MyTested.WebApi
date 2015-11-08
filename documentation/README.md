@@ -2520,8 +2520,8 @@ MyWebApi
 	.ShouldReturnHttpResponseMessage()
 	.WithStatusCode(HttpStatusCode.OK);
 
-// starts OWIN server with specific for the test
-// Startup class
+// starts OWIN server with specific 
+// for the test Startup class 
 // * the server is disposed after the test
 // * since host and port are not provided, the default "http://localhost:1234" is used
 MyWebApi
@@ -2550,7 +2550,7 @@ MyWebApi
 MyWebApi.Server().Stops();
 ```
 
-Summary - the ".Working()" method without parameters will check if the global OWIN server is started. If not, it will check whether a global HTTP server is started. If not, it will instantiate new HTTP server using the global HTTP configuration. The first match will process the request and test over the response. If no server can be started, exception will be thrown. Using ".Working(config)" will start new HTTP server with the provided configuration and dispose it after the test. Using ".Working<Startup>()" will start new OWIN server with the provided start up class and dispose it after the test. Global server can be started with "MyWebApi.Server().Starts()" and it will be HTTP or OWIN dependending on the parameters. Global servers can be stopped with "MyWebApi.Server().Stops()", no matter HTTP or OWIN.
+Summary - the **".Working()"** method without parameters will check if the global OWIN server is started. If not, it will check whether a global HTTP server is started. If not, it will instantiate new HTTP server using the global HTTP configuration. The first match will process the request and test over the response. If no server can be started, exception will be thrown. Using **".Working(config)"** will start new HTTP server with the provided configuration and dispose it after the test. Using **".Working<Startup>()"** will start new OWIN server with the provided start up class and dispose it after the test. Global server can be started with **"MyWebApi.Server().Starts()"** and it will be HTTP or OWIN dependending on the parameters. Global servers can be stopped with **"MyWebApi.Server().Stops()"**, no matter HTTP or OWIN.
 
 [To top](#table-of-contents)
 
