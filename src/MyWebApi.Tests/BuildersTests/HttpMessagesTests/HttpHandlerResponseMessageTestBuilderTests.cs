@@ -2,7 +2,7 @@
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
+namespace My.WebApi.Tests.BuildersTests.HttpMessagesTests
 {
     using System;
     using System.Collections.Generic;
@@ -32,12 +32,28 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
             typeof(ResponseModelAssertionException),
-            ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message model to be a ResponseModel, but instead received a List<ResponseModel>.")]
+            ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message model to be a ResponseModel, but instead received a different model.")]
         public void WithResponseModelOfTypeShouldThrowExceptionWithIncorrectResponseModel()
         {
             MyWebApi
                 .Handler<ResponseMessageHandler>()
                 .WithHttpRequestMessage(new HttpRequestMessage())
+                .ShouldReturnHttpResponseMessage()
+                .WithResponseModelOfType<ResponseModel>();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ResponseModelAssertionException),
+            ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message model to be a ResponseModel, but instead received a different model.")]
+        public void WithResponseModelOfTypeShouldThrowExceptionWithIncorrectHttpContent()
+        {
+            var request = new HttpRequestMessage();
+            request.Headers.Add("StringContent", "StringContent");
+
+            MyWebApi
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(request)
                 .ShouldReturnHttpResponseMessage()
                 .WithResponseModelOfType<ResponseModel>();
         }

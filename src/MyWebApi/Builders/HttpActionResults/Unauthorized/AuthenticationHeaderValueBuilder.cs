@@ -2,7 +2,7 @@
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-namespace MyWebApi.Builders.HttpActionResults.Unauthorized
+namespace My.WebApi.Builders.HttpActionResults.Unauthorized
 {
     using System.Net.Http.Headers;
     using Contracts.HttpActionResults.Unauthorized;

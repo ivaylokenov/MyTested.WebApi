@@ -7,7 +7,7 @@
     <ProjectGuid>{FD183AD3-8BAB-4377-A03B-EDC3A2C5D2B5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyWebApi.Tests</RootNamespace>
+    <RootNamespace>My.WebApi.Tests</RootNamespace>
     <AssemblyName>MyWebApi.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -151,6 +151,7 @@
     <Compile Include="Setups\Controllers\WebApiController.cs" />
     <Compile Include="MyWebApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setups\WebApiConfig.cs" />
     <Compile Include="TestsStartup.cs" />
     <Compile Include="UtilitiesTests\ExpressionParserTests.cs" />
     <Compile Include="UtilitiesTests\ReflectionTests.cs" />

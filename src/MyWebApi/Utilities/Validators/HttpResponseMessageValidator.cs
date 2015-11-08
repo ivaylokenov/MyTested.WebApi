@@ -2,7 +2,7 @@
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-namespace MyWebApi.Utilities.Validators
+namespace My.WebApi.Utilities.Validators
 {
     using System;
     using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace MyWebApi.Utilities.Validators
         {
             var expectedType = typeof(TContentType);
             var actualType = content.GetType();
-            if (Reflection.AreDifferentTypes(expectedType, actualType))
+            if (Reflection.AreNotAssignable(actualType, expectedType))
             {
                 failedValidationAction(
                     "content",
@@ -50,9 +50,7 @@ namespace MyWebApi.Utilities.Validators
             string expectedContent,
             Action<string, string, string> failedValidationAction)
         {
-            WithContentOfType<StringContent>(actualContent, failedValidationAction);
-            var contentAsStringContent = (StringContent)actualContent;
-            var actualContentAsString = contentAsStringContent.ReadAsStringAsync().Result;
+            var actualContentAsString = actualContent.ReadAsStringAsync().Result;
             if (expectedContent != actualContentAsString)
             {
                 failedValidationAction(
@@ -212,6 +210,7 @@ namespace MyWebApi.Utilities.Validators
             Action<string, string, string> failedValidationAction,
             Func<string, string, ResponseModelAssertionException> failedResponseModelValidationAction)
         {
+            WithContentOfType<ObjectContent<TResponseModel>>(content, failedValidationAction);
             var actualModel = GetActualContentModel<TResponseModel>(
                 content,
                 failedResponseModelValidationAction);
@@ -235,16 +234,15 @@ namespace MyWebApi.Utilities.Validators
             HttpContent content,
             Func<string, string, ResponseModelAssertionException> failedValidationAction)
         {
-            var responseModel = ((ObjectContent)content).Value;
             try
             {
-                return (TResponseModel)responseModel;
+                return content.ReadAsAsync<TResponseModel>().Result;
             }
-            catch (InvalidCastException)
+            catch (UnsupportedMediaTypeException)
             {
                 throw failedValidationAction(
                    string.Format("be a {0}", typeof(TResponseModel).ToFriendlyTypeName()),
-                   string.Format("instead received a {0}", responseModel.GetType().ToFriendlyTypeName()));
+                   "instead received a different model");
             }
         }
 

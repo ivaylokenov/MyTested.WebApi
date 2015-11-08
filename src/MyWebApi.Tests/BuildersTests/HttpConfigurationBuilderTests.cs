@@ -2,7 +2,7 @@
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-namespace MyWebApi.Tests.BuildersTests
+namespace My.WebApi.Tests.BuildersTests
 {
     using Common.Servers;
     using NUnit.Framework;

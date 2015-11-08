@@ -2,7 +2,7 @@
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-namespace MyWebApi
+namespace My.WebApi
 {
     using System;
     using System.Net.Http;
@@ -32,6 +32,15 @@ namespace MyWebApi
         public static HttpConfiguration Configuration { get; private set; }
 
         /// <summary>
+        /// Sets the default HttpConfiguration which will be used in all tests.
+        /// </summary>
+        /// <returns>HTTP configuration builder.</returns>
+        public static IHttpConfigurationBuilder IsUsingDefaultHttpConfiguration()
+        {
+            return IsUsing(new HttpConfiguration());
+        }
+
+        /// <summary>
         /// Sets the HttpConfiguration which will be used in all tests.
         /// </summary>
         /// <param name="httpConfiguration">HttpConfiguration instance used in the testing.</param>
@@ -40,6 +49,18 @@ namespace MyWebApi
         {
             Configuration = httpConfiguration;
             return new HttpConfigurationBuilder(httpConfiguration);
+        }
+
+        /// <summary>
+        /// Sets the action which will register the HttpConfiguration used in all tests.
+        /// </summary>
+        /// <param name="httpConfigurationRegistration">Action to register HttpConfiguration.</param>
+        /// <returns>HTTP configuration builder.</returns>
+        public static IHttpConfigurationBuilder IsRegisteredWith(Action<HttpConfiguration> httpConfigurationRegistration)
+        {
+            var configuration = new HttpConfiguration();
+            httpConfigurationRegistration(configuration);
+            return IsUsing(configuration);
         }
 
         /// <summary>

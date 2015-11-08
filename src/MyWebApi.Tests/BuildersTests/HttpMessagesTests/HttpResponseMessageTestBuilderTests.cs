@@ -2,7 +2,7 @@
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
+namespace My.WebApi.Tests.BuildersTests.HttpMessagesTests
 {
     using System;
     using System.Collections.Generic;
@@ -31,14 +31,39 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         }
 
         [Test]
+        public void WithResponseModelOfTypeShouldNotThrowExceptionWithCorrectResponseModelAndGenericObjectContent()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageGenericObjectContentAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .WithResponseModelOfType<IEnumerable<ResponseModel>>();
+        }
+
+        [Test]
         [ExpectedException(
             typeof(ResponseModelAssertionException),
-            ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message model to be a ResponseModel, but instead received a List<ResponseModel>.")]
+            ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message model to be a ResponseModel, but instead received a different model.")]
         public void WithResponseModelOfTypeShouldThrowExceptionWithIncorrectResponseModel()
         {
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .WithResponseModelOfType<ResponseModel>();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ResponseModelAssertionException),
+            ExpectedMessage = "When calling HttpResponseMessageWithStringContent action in WebApiController expected HTTP response message model to be a ResponseModel, but instead received a different model.")]
+        public void WithResponseModelOfTypeShouldThrowExceptionWithIncorrectHttpContent()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageWithStringContent())
                 .ShouldReturn()
                 .HttpResponseMessage()
                 .WithResponseModelOfType<ResponseModel>();

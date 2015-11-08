@@ -2,12 +2,13 @@
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-namespace MyWebApi.Tests
+namespace My.WebApi.Tests
 {
     using System.Collections.Generic;
     using System.Web.Http;
     using Exceptions;
     using NUnit.Framework;
+    using Setups;
     using Setups.Controllers;
     using Setups.Handlers;
     using Setups.Services;
@@ -104,6 +105,28 @@ namespace MyWebApi.Tests
 
             Assert.IsNotNull(controller);
             Assert.IsAssignableFrom<CustomMessageHandler>(controller);
+        }
+
+        [Test]
+        public void IsRegisteredWithShouldWorkCorrectly()
+        {
+            MyWebApi.IsRegisteredWith(WebApiConfig.Register);
+
+            Assert.IsNotNull(MyWebApi.Configuration);
+            Assert.AreEqual(1, MyWebApi.Configuration.Routes.Count);
+
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
+        }
+
+        [Test]
+        public void IsUsingDefaultConfigurationShouldWorkCorrectly()
+        {
+            MyWebApi.IsUsingDefaultHttpConfiguration();
+
+            Assert.IsNotNull(MyWebApi.Configuration);
+            Assert.AreEqual(0, MyWebApi.Configuration.Routes.Count);
+
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
         }
     }
 }

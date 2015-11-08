@@ -49,10 +49,20 @@
 
 ### Using custom HttpConfiguration
 
-You have the option to configure global HttpConfiguration to be used across all test cases:
+You have the option to configure global HttpConfiguration to be used across all test cases. These call are not necessary but can be helpful for route tests for example where all registered routes are the same throughout the whole application:
 
 ```c#
+// register configuration by providing instance of HttpConfiguration
 MyWebApi.IsUsing(httpConfiguration);
+
+// or by providing registration action
+MyWebApi.IsRegisteredWith(WebApiConfig.Register);
+
+// or by setting the default HttpConfiguration
+// * this call is not necessary for tests to run
+// * it is useful if you want to reset the global
+// * configuration used in other tests
+MyWebApi.IsUsingDefaultHttpConfiguration();
 ```
 
 [To top](#table-of-contents)

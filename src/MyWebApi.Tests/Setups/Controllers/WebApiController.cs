@@ -2,13 +2,14 @@
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-namespace MyWebApi.Tests.Setups.Controllers
+namespace My.WebApi.Tests.Setups.Controllers
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Http.Formatting;
     using System.Net.Http.Headers;
     using System.Text;
     using System.Threading.Tasks;
@@ -103,6 +104,14 @@ namespace MyWebApi.Tests.Setups.Controllers
             response.Content.Headers.Add("TestHeader", "TestHeaderValue");
 
             return response;
+        }
+
+        public HttpResponseMessage HttpResponseMessageGenericObjectContentAction()
+        {
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ObjectContent<IEnumerable<ResponseModel>>(this.responseModel, new JsonMediaTypeFormatter())
+            };
         }
 
         public HttpResponseMessage HttpResponseMessageWithStringContent()
