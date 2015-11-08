@@ -134,6 +134,7 @@ MyWebApi
 ## License
 
 Code by Ivaylo Kenov. Copyright 2015 Ivaylo Kenov.
+
 This library is intended to be used in both open-source and commercial environments. To allow its use in as many
 situations as possible, MyWebApi is dual-licensed. You may choose to use MyWebApi under either the Apache License,
 Version 2.0, or the Microsoft Public License (Ms-PL). These licenses are essentially identical, but you are
