@@ -210,7 +210,6 @@ namespace My.WebApi.Utilities.Validators
             Action<string, string, string> failedValidationAction,
             Func<string, string, ResponseModelAssertionException> failedResponseModelValidationAction)
         {
-            WithContentOfType<ObjectContent<TResponseModel>>(content, failedValidationAction);
             var actualModel = GetActualContentModel<TResponseModel>(
                 content,
                 failedResponseModelValidationAction);
