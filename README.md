@@ -11,7 +11,7 @@ Please see the [documentation](https://github.com/ivaylokenov/MyWebApi/tree/mast
 
 ## Installation
 
-You can install this library using NuGet into your Test class project. It will automatically reference the needed dependencies of Microsoft.AspNet.WebApi.Core (≥ 5.1.0) and Microsoft.Owin.Testing (≥ 3.0.1) for you. .NET 4.5+ is needed. Make sure your solution has the same versions of the mentioned dependencies in all projects where you are using them. For example, if you are using Microsoft.AspNet.WebApi.Core 5.2.3 in your Web project, update it to the same version after installing MyWebApi in your Test project.
+You can install this library using NuGet into your Test class project. It will automatically reference the needed dependencies of Microsoft.AspNet.WebApi.Core (≥ 5.1.0), Microsoft.Owin.Testing (≥ 3.0.1) and Microsoft.Owin.Host.HttpListener (≥ 3.0.1) for you. .NET 4.5+ is needed. Make sure your solution has the same versions of the mentioned dependencies in all projects where you are using them. For example, if you are using Microsoft.AspNet.WebApi.Core 5.2.3 in your Web project, update it to the same version after installing MyWebApi in your Test project.
 
     Install-Package MyWebApi
 
@@ -26,7 +26,7 @@ Basically you can create a test case by using the fluent API the library provide
 namespace MyApp.Tests.Controllers
 {
     using MyApp.Controllers;
-	using MyWebApi;
+	using My.WebApi;
 	using NUnit.Framework;
 
     [TestFixture]
@@ -46,7 +46,7 @@ namespace MyApp.Tests.Controllers
 ```
 
 The example uses NUnit but you can use whatever testing framework you want.
-Basically, the framework throws an unhandled exception if the assertion does not pass and the test fails.
+Basically, MyWebApi throws an unhandled exception if the assertion does not pass and the test fails.
 
 Here are some random examples of what the fluent testing API is capable of:
 

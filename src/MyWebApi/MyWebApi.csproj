@@ -7,7 +7,7 @@
     <ProjectGuid>{61BE8E0E-E5E3-48B2-85AD-45265488173A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyWebApi</RootNamespace>
+    <RootNamespace>My.WebApi</RootNamespace>
     <AssemblyName>MyWebApi</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
