@@ -11,6 +11,7 @@ namespace My.WebApi.Tests.BuildersTests.ServersTests
     using Common.Servers;
     using NUnit.Framework;
     using Setups;
+    using Setups.Models;
 
     [TestFixture]
     public class ServerTestBuilderTests
@@ -21,6 +22,8 @@ namespace My.WebApi.Tests.BuildersTests.ServersTests
             MyWebApi.Server().Starts<CustomStartup>();
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/test");
+            var jsonRequest = new HttpRequestMessage(HttpMethod.Post, "/json");
+            var noModelRequest = new HttpRequestMessage(HttpMethod.Post, "/nomodel");
 
             MyWebApi
                 .Server()
@@ -35,6 +38,24 @@ namespace My.WebApi.Tests.BuildersTests.ServersTests
                 .WithHttpRequestMessage(req => req.WithHeader("CustomHeader", "CustomValue"))
                 .ShouldReturnHttpResponseMessage()
                 .WithStatusCode(HttpStatusCode.OK);
+
+            MyWebApi
+                .Server()
+                .Working()
+                .WithHttpRequestMessage(jsonRequest)
+                .ShouldReturnHttpResponseMessage()
+                .WithStatusCode(HttpStatusCode.OK)
+                .AndAlso()
+                .WithResponseModel(new ResponseModel { IntegerValue = 1, StringValue = "Test" });
+
+            MyWebApi
+                .Server()
+                .Working()
+                .WithHttpRequestMessage(noModelRequest)
+                .ShouldReturnHttpResponseMessage()
+                .WithStatusCode(HttpStatusCode.OK)
+                .AndAlso()
+                .WithResponseModel(new { id = 1 });
 
             MyWebApi
                 .Server()
@@ -73,7 +94,7 @@ namespace My.WebApi.Tests.BuildersTests.ServersTests
             MyWebApi
                 .Server()
                 .Working()
-                .WithHttpRequestMessage(new HttpRequestMessage(HttpMethod.Post,  "/Invalid"))
+                .WithHttpRequestMessage(new HttpRequestMessage(HttpMethod.Post, "/Invalid"))
                 .ShouldReturnHttpResponseMessage()
                 .WithStatusCode(HttpStatusCode.NotFound);
 

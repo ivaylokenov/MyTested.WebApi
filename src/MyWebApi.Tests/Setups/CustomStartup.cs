@@ -18,6 +18,18 @@ namespace My.WebApi.Tests.Setups
                     return context.Response.WriteAsync("Found!");
                 }
 
+                if (context.Request.Method == "POST" && context.Request.Uri.OriginalString.EndsWith("/json"))
+                {
+                    context.Response.ContentType = "application/json";
+                    return context.Response.WriteAsync("{\"IntegerValue\":1,\"StringValue\":\"Test\"}");
+                }
+
+                if (context.Request.Method == "POST" && context.Request.Uri.OriginalString.EndsWith("/nomodel"))
+                {
+                    context.Response.ContentType = "application/json";
+                    return context.Response.WriteAsync("{\"id\":1}");
+                }
+
                 if (context.Request.Headers.ContainsKey("CustomHeader"))
                 {
                     return context.Response.WriteAsync("OK!");
