@@ -4,7 +4,7 @@ before_build:
 build:
   project: src\MyWebApi.sln
   parallel: true
-  verbosity: detailed
+  verbosity: minimal
 environment:
   COVERALLS_REPO_TOKEN:
     secure: HJDQ+oupn7YinVAV3kdGhw/Bz4FxYNpATMYdjP0kiZEIIAaszku5T4CCDMbh2ZA2
