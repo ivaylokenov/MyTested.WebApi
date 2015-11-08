@@ -11,7 +11,7 @@ Please see the [documentation](https://github.com/ivaylokenov/MyWebApi/tree/mast
 
 ## Installation
 
-You can install this library using NuGet into your Test class project. It will automatically reference the needed dependencies of Microsoft.AspNet.WebApi.Core (≥ 5.1.0) and Microsoft.Owin.Testing (≥ 3.0.1) for you. .NET 4.5+ is needed.
+You can install this library using NuGet into your Test class project. It will automatically reference the needed dependencies of Microsoft.AspNet.WebApi.Core (≥ 5.1.0) and Microsoft.Owin.Testing (≥ 3.0.1) for you. .NET 4.5+ is needed. Make sure your solution has the same versions of the mentioned dependencies in both the Web and the Test projects.
 
     Install-Package MyWebApi
 
