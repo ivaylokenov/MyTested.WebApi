@@ -17,6 +17,8 @@ You can install this library using NuGet into your Test class project. It will a
 
 After the downloading is complete, just add `using My.WebApi;` and you are ready to test in the most elegant and developer friendly way.
 	
+    using My.WebApi;
+	
 ## How to use
 
 Make sure to check out [the documentation](https://github.com/ivaylokenov/MyWebApi/tree/master/documentation) for full list of available features.
