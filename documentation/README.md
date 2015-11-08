@@ -1290,7 +1290,8 @@ MyWebApi
 	.WithResponseModelOfType<ResponseModel>();
 	
 // tests whether the action returns HttpResponseMessage
-// with content response model object
+// with content response model object deeply equal
+// to the provided one
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
@@ -1306,6 +1307,15 @@ MyWebApi
 	.ShouldReturn()
 	.HttpResponseMessage()
 	.WithContentOfType<ObjectContent>();
+	
+// tests whether the action returns HttpResponseMessage
+// with StringContent and expected string
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithStringContent("SomeString");
 	
 // tests whether the action returns HttpResponseMessage
 // with specific media type formatter
@@ -1576,7 +1586,8 @@ MyWebApi
 				.AndAlso()
 				.ContainingMediaTypeFormatterOfType<SomeMediaTypeFormatter>());
 	
-// tests whether the action returns OkResult with specific object
+// tests whether the action returns OkResult with object
+// deeply equal to the provided one
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())

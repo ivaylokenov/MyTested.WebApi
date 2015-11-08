@@ -51,6 +51,12 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        /// <summary>
+        /// Tests whether the content of the HTTP response message contains the provided string.
+        /// </summary>
+        /// <param name="actualContent">Actual HTTP content.</param>
+        /// <param name="expectedContent">Expected string content.</param>
+        /// <param name="failedValidationAction">Action to call in case of failed validation.</param>
         public static void WithStringContent(
             HttpContent actualContent,
             string expectedContent,
