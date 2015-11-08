@@ -134,15 +134,13 @@ MyWebApi
 ## License
 
 Code by Ivaylo Kenov. Copyright 2015 Ivaylo Kenov.
-This library is licensed under [GNU General Public License v3](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)) (full terms and conditions [here](https://www.gnu.org/licenses/gpl.html)). Basically:
+This library is intended to be used in both open-source and commercial environments. To allow its use in as many
+situations as possible, MyWebApi is dual-licensed. You may choose to use MyWebApi under either the Apache License,
+Version 2.0, or the Microsoft Public License (Ms-PL). These licenses are essentially identical, but you are
+encouraged to evaluate both to determine which best fits your intended use.
 
- - If you create software that uses GPL, you must license that software under GPL v3 (see [GPL FAQ](http://www.gnu.org/licenses/gpl-faq.html#IfLibraryIsGPL))
- - If you create software that uses GPL, you must release your source code (see [GPL FAQ](http://www.gnu.org/licenses/gpl-faq.html#IfLibraryIsGPL))
- - If you start with a GPL license, you cannot convert to another license
- - **You cannot include MyWebApi in a closed source distribution under this license**
-
-If you have a really-coolish-and-nice open source or just closed source commercial project and you want to include MyWebApi in it, leave a question on the [issues page](https://github.com/ivaylokenov/MyWebApi/issues) and another license with the latest version of the library will be provided **free of charge** to you.
+Refer to [LICENSE](https://github.com/ivaylokenov/MyWebApi/blob/master/LICENSE) for detailed information.
  
 ## Any questions, comments or additions?
 
-Leave an issue on the [issues page](https://github.com/ivaylokenov/MyWebApi/issues) or send a [pull request](https://github.com/ivaylokenov/MyWebApi/pulls).
+If you have a feature request or bug report, leave an issue on the [issues page](https://github.com/ivaylokenov/MyWebApi/issues) or send a [pull request](https://github.com/ivaylokenov/MyWebApi/pulls). For general questions and comments, use the [StackOverflow](http://stackoverflow.com/) forum.
