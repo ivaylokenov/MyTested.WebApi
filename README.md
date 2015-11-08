@@ -25,8 +25,9 @@ Basically you can create a test case by using the fluent API the library provide
 ```c#
 namespace MyApp.Tests.Controllers
 {
-    using MyApp.Controllers;
 	using My.WebApi;
+	
+    using MyApp.Controllers;
 	using NUnit.Framework;
 
     [TestFixture]

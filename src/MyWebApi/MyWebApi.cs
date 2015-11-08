@@ -32,6 +32,15 @@ namespace My.WebApi
         public static HttpConfiguration Configuration { get; private set; }
 
         /// <summary>
+        /// Sets the default HttpConfiguration which will be used in all tests.
+        /// </summary>
+        /// <returns>HTTP configuration builder.</returns>
+        public static IHttpConfigurationBuilder IsUsingDefaultHttpConfiguration()
+        {
+            return IsUsing(new HttpConfiguration());
+        }
+
+        /// <summary>
         /// Sets the HttpConfiguration which will be used in all tests.
         /// </summary>
         /// <param name="httpConfiguration">HttpConfiguration instance used in the testing.</param>

@@ -117,5 +117,16 @@ namespace My.WebApi.Tests
 
             MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
         }
+
+        [Test]
+        public void IsUsingDefaultConfigurationShouldWorkCorrectly()
+        {
+            MyWebApi.IsUsingDefaultHttpConfiguration();
+
+            Assert.IsNotNull(MyWebApi.Configuration);
+            Assert.AreEqual(0, MyWebApi.Configuration.Routes.Count);
+
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
+        }
     }
 }
