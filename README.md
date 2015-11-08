@@ -3,7 +3,7 @@
 
 MyWebApi is unit testing library providing easy fluent interface to test the ASP.NET Web API 2 framework. Inspired by [TestStack.FluentMVCTesting](https://github.com/TestStack/TestStack.FluentMVCTesting) and [ChaiJS](https://github.com/chaijs/chai).
 
-[![Build status](https://ci.appveyor.com/api/projects/status/738pm1kuuv7yw1t5?svg=true)](https://ci.appveyor.com/project/ivaylokenov/mywebapi) [![NuGet Version](http://img.shields.io/nuget/v/MyWebApi.svg?style=flat)](https://www.nuget.org/packages/MyWebApi/) [![NuGet Downloads](http://img.shields.io/nuget/dt/MyWebApi.svg?style=flat)](https://www.nuget.org/packages/MyWebApi/) [![Coverage Status](https://coveralls.io/repos/ivaylokenov/MyWebApi/badge.svg?branch=master&service=github)](https://coveralls.io/github/ivaylokenov/MyWebApi?branch=master)
+[![Build status](https://ci.appveyor.com/api/projects/status/738pm1kuuv7yw1t5?svg=true)](https://ci.appveyor.com/project/ivaylokenov/mywebapi) [![NuGet Version](http://img.shields.io/nuget/v/MyWebApi.svg?style=flat)](https://www.nuget.org/packages/MyWebApi/) [![NuGet Downloads](http://img.shields.io/nuget/dt/MyWebApi.svg?style=flat)](https://www.nuget.org/packages/MyWebApi/) [![Coverage Status](https://coveralls.io/repos/ivaylokenov/MyWebApi/badge.svg?branch=master&service=github&v=2)](https://coveralls.io/github/ivaylokenov/MyWebApi?branch=master)
 
 ## Documentation
 
