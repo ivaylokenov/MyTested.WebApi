@@ -43,6 +43,18 @@ namespace My.WebApi
         }
 
         /// <summary>
+        /// Sets the action which will register the HttpConfiguration used in all tests.
+        /// </summary>
+        /// <param name="httpConfigurationRegistration">Action to register HttpConfiguration.</param>
+        /// <returns>HTTP configuration builder.</returns>
+        public static IHttpConfigurationBuilder IsRegisteredWith(Action<HttpConfiguration> httpConfigurationRegistration)
+        {
+            var configuration = new HttpConfiguration();
+            httpConfigurationRegistration(configuration);
+            return IsUsing(configuration);
+        }
+
+        /// <summary>
         /// Starts a route test.
         /// </summary>
         /// <param name="httpConfiguration">Optional HttpConfiguration to use in case one is not configured globally.</param>

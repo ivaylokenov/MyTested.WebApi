@@ -52,7 +52,11 @@
 You have the option to configure global HttpConfiguration to be used across all test cases:
 
 ```c#
+// providing instance of HttpConfiguration
 MyWebApi.IsUsing(httpConfiguration);
+
+// or provide registration action
+MyWebApi.IsRegisteredWith(WebApiConfig.Register);
 ```
 
 [To top](#table-of-contents)

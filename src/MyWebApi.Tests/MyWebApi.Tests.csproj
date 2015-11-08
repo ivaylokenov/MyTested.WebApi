@@ -151,6 +151,7 @@
     <Compile Include="Setups\Controllers\WebApiController.cs" />
     <Compile Include="MyWebApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Setups\WebApiConfig.cs" />
     <Compile Include="TestsStartup.cs" />
     <Compile Include="UtilitiesTests\ExpressionParserTests.cs" />
     <Compile Include="UtilitiesTests\ReflectionTests.cs" />

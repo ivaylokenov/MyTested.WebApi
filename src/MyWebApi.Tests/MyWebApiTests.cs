@@ -8,6 +8,7 @@ namespace My.WebApi.Tests
     using System.Web.Http;
     using Exceptions;
     using NUnit.Framework;
+    using Setups;
     using Setups.Controllers;
     using Setups.Handlers;
     using Setups.Services;
@@ -104,6 +105,17 @@ namespace My.WebApi.Tests
 
             Assert.IsNotNull(controller);
             Assert.IsAssignableFrom<CustomMessageHandler>(controller);
+        }
+
+        [Test]
+        public void IsRegisteredWithShouldWorkCorrectly()
+        {
+            MyWebApi.IsRegisteredWith(WebApiConfig.Register);
+
+            Assert.IsNotNull(MyWebApi.Configuration);
+            Assert.AreEqual(1, MyWebApi.Configuration.Routes.Count);
+
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
         }
     }
 }
