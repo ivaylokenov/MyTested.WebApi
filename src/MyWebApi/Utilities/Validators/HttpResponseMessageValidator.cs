@@ -30,7 +30,7 @@ namespace My.WebApi.Utilities.Validators
         {
             var expectedType = typeof(TContentType);
             var actualType = content.GetType();
-            if (Reflection.AreDifferentTypes(expectedType, actualType))
+            if (Reflection.AreNotAssignable(actualType, expectedType))
             {
                 failedValidationAction(
                     "content",
@@ -50,9 +50,7 @@ namespace My.WebApi.Utilities.Validators
             string expectedContent,
             Action<string, string, string> failedValidationAction)
         {
-            WithContentOfType<StringContent>(actualContent, failedValidationAction);
-            var contentAsStringContent = (StringContent)actualContent;
-            var actualContentAsString = contentAsStringContent.ReadAsStringAsync().Result;
+            var actualContentAsString = actualContent.ReadAsStringAsync().Result;
             if (expectedContent != actualContentAsString)
             {
                 failedValidationAction(
@@ -212,6 +210,7 @@ namespace My.WebApi.Utilities.Validators
             Action<string, string, string> failedValidationAction,
             Func<string, string, ResponseModelAssertionException> failedResponseModelValidationAction)
         {
+            WithContentOfType<ObjectContent<TResponseModel>>(content, failedValidationAction);
             var actualModel = GetActualContentModel<TResponseModel>(
                 content,
                 failedResponseModelValidationAction);

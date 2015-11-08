@@ -31,6 +31,17 @@ namespace My.WebApi.Tests.BuildersTests.HttpMessagesTests
         }
 
         [Test]
+        public void WithResponseModelOfTypeShouldNotThrowExceptionWithCorrectResponseModelAndGenericObjectContent()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageGenericObjectContentAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .WithResponseModelOfType<IEnumerable<ResponseModel>>();
+        }
+
+        [Test]
         [ExpectedException(
             typeof(ResponseModelAssertionException),
             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message model to be a ResponseModel, but instead received a List<ResponseModel>.")]
@@ -39,6 +50,20 @@ namespace My.WebApi.Tests.BuildersTests.HttpMessagesTests
             MyWebApi
                 .Controller<WebApiController>()
                 .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .WithResponseModelOfType<ResponseModel>();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(HttpResponseMessageAssertionException),
+            ExpectedMessage = "When calling HttpResponseMessageWithStringContent action in WebApiController expected HTTP response message result content to be ObjectContent<ResponseModel>, but was in fact StringContent.")]
+        public void WithResponseModelOfTypeShouldThrowExceptionWithIncorrectHttpContent()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageWithStringContent())
                 .ShouldReturn()
                 .HttpResponseMessage()
                 .WithResponseModelOfType<ResponseModel>();

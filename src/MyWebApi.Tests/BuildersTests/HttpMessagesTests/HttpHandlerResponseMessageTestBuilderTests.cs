@@ -43,6 +43,22 @@ namespace My.WebApi.Tests.BuildersTests.HttpMessagesTests
         }
 
         [Test]
+        [ExpectedException(
+            typeof(HttpResponseMessageAssertionException),
+            ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content to be ObjectContent<ResponseModel>, but was in fact StringContent.")]
+        public void WithResponseModelOfTypeShouldThrowExceptionWithIncorrectHttpContent()
+        {
+            var request = new HttpRequestMessage();
+            request.Headers.Add("StringContent", "StringContent");
+
+            MyWebApi
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(request)
+                .ShouldReturnHttpResponseMessage()
+                .WithResponseModelOfType<ResponseModel>();
+        }
+
+        [Test]
         public void WithResponseModelShouldNotThrowExceptionWithCorrectResponseModel()
         {
             var handler = new ResponseMessageHandler();
