@@ -15,12 +15,14 @@ You can install this library using NuGet into your Test class project. It will a
 
     Install-Package MyWebApi
 
+After the downloading is complete, just add `using My.WebApi;` and you are ready to test in the most elegant and developer friendly way.
+	
 ## How to use
 
 Make sure to check out [the documentation](https://github.com/ivaylokenov/MyWebApi/tree/master/documentation) for full list of available features.
 You can also check out [the provided samples](https://github.com/ivaylokenov/MyWebApi/tree/master/samples) for real-life ASP.NET Web API application testing.
 
-Basically you can create a test case by using the fluent API the library provides.
+Basically you can create a test case by using the fluent API the library provides. You are given a static `MyWebApi` class from which all assertions can be easily configured.
 
 ```c#
 namespace MyApp.Tests.Controllers
