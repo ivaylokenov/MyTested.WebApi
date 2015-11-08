@@ -32,7 +32,7 @@ namespace My.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
             typeof(ResponseModelAssertionException),
-            ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message model to be a ResponseModel, but instead received a List<ResponseModel>.")]
+            ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message model to be a ResponseModel, but instead received a different model.")]
         public void WithResponseModelOfTypeShouldThrowExceptionWithIncorrectResponseModel()
         {
             MyWebApi
@@ -44,8 +44,8 @@ namespace My.WebApi.Tests.BuildersTests.HttpMessagesTests
 
         [Test]
         [ExpectedException(
-            typeof(HttpResponseMessageAssertionException),
-            ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content to be ObjectContent<ResponseModel>, but was in fact StringContent.")]
+            typeof(ResponseModelAssertionException),
+            ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message model to be a ResponseModel, but instead received a different model.")]
         public void WithResponseModelOfTypeShouldThrowExceptionWithIncorrectHttpContent()
         {
             var request = new HttpRequestMessage();

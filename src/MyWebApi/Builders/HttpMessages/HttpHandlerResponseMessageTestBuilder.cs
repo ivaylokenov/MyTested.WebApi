@@ -46,10 +46,6 @@ namespace My.WebApi.Builders.HttpMessages
         /// <returns>Builder for testing the response model errors.</returns>
         public IHttpHandlerModelDetailsTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>()
         {
-            HttpResponseMessageValidator.WithContentOfType<ObjectContent<TResponseModel>>(
-                this.httpResponseMessage.Content,
-                this.ThrowNewHttpResponseMessageAssertionException);
-
             var actualModel = HttpResponseMessageValidator.GetActualContentModel<TResponseModel>(
                 this.httpResponseMessage.Content,
                 this.ThrowNewResponseModelAssertionException);

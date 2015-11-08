@@ -234,16 +234,15 @@ namespace My.WebApi.Utilities.Validators
             HttpContent content,
             Func<string, string, ResponseModelAssertionException> failedValidationAction)
         {
-            var responseModel = ((ObjectContent)content).Value;
             try
             {
-                return (TResponseModel)responseModel;
+                return content.ReadAsAsync<TResponseModel>().Result;
             }
-            catch (InvalidCastException)
+            catch (UnsupportedMediaTypeException)
             {
                 throw failedValidationAction(
                    string.Format("be a {0}", typeof(TResponseModel).ToFriendlyTypeName()),
-                   string.Format("instead received a {0}", responseModel.GetType().ToFriendlyTypeName()));
+                   "instead received a different model");
             }
         }
 
