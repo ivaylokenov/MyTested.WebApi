@@ -69,13 +69,12 @@ namespace MyWebApi.Builders.HttpMessages
         }
 
         /// <summary>
-        /// Tests whether an object is returned from the invoked HTTP response message content.
+        /// Tests whether a deeply equal object to the provided one is returned from the invoked HTTP response message content.
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="expectedModel">Expected model to be returned.</param>
         /// <returns>Builder for testing the response model errors.</returns>
         public IHttpHandlerModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
-            where TResponseModel : class
         {
             var actualModel = HttpResponseMessageValidator.WithResponseModel(
                 this.httpResponseMessage.Content,
@@ -99,6 +98,21 @@ namespace MyWebApi.Builders.HttpMessages
         {
             HttpResponseMessageValidator.WithContentOfType<TContentType>(
                 this.httpResponseMessage.Content,
+                this.ThrowNewHttpResponseMessageAssertionException);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether the content of the HTTP response message is the provided string.
+        /// </summary>
+        /// <param name="content">Expected string content.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        public IAndHttpHandlerResponseMessageTestBuilder WithStringContent(string content)
+        {
+            HttpResponseMessageValidator.WithStringContent(
+                this.httpResponseMessage.Content,
+                content,
                 this.ThrowNewHttpResponseMessageAssertionException);
 
             return this;

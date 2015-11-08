@@ -43,6 +43,14 @@ namespace MyWebApi.Tests.Setups.Handlers
             return Task.Run(
                 () =>
                 {
+                    if (request.Headers.Contains("StringContent"))
+                    {
+                        return new HttpResponseMessage
+                        {
+                            Content = new StringContent("Test string")
+                        };
+                    }
+
                     if (request.Headers.Contains("NoContent"))
                     {
                         return new HttpResponseMessage(HttpStatusCode.NoContent);;

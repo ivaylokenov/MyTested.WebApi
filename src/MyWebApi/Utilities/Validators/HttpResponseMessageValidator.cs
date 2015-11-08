@@ -51,6 +51,23 @@ namespace MyWebApi.Utilities.Validators
             }
         }
 
+        public static void WithStringContent(
+            HttpContent actualContent,
+            string expectedContent,
+            Action<string, string, string> failedValidationAction)
+        {
+            WithContentOfType<StringContent>(actualContent, failedValidationAction);
+            var contentAsStringContent = (StringContent)actualContent;
+            var actualContentAsString = contentAsStringContent.ReadAsStringAsync().Result;
+            if (expectedContent != actualContentAsString)
+            {
+                failedValidationAction(
+                    "string content",
+                    string.Format("to be '{0}'", expectedContent),
+                    string.Format("was in fact '{0}'", actualContentAsString));
+            }
+        }
+
         /// <summary>
         /// Validates HTTP content for not null reference.
         /// </summary>
@@ -187,7 +204,7 @@ namespace MyWebApi.Utilities.Validators
         }
 
         /// <summary>
-        /// Tests whether an object is returned from the invoked HTTP response message content.
+        /// Tests whether a deeply equal object to the provided one is returned from the invoked HTTP response message content.
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="content">Actual HTTP content.</param>
@@ -200,14 +217,12 @@ namespace MyWebApi.Utilities.Validators
             TResponseModel expectedModel,
             Action<string, string, string> failedValidationAction,
             Func<string, string, ResponseModelAssertionException> failedResponseModelValidationAction)
-            where TResponseModel : class
         {
-            WithContentOfType<ObjectContent>(content, failedValidationAction);
             var actualModel = GetActualContentModel<TResponseModel>(
                 content,
                 failedResponseModelValidationAction);
 
-            if (expectedModel != actualModel)
+            if (Reflection.AreNotDeeplyEqual(expectedModel, actualModel))
             {
                 throw failedResponseModelValidationAction("be the given model", "in fact it was a different model");
             }

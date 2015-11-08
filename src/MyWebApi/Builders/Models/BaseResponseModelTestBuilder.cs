@@ -92,18 +92,17 @@ namespace MyWebApi.Builders.Models
         }
 
         /// <summary>
-        /// Tests whether an object is returned from the invoked action.
+        /// Tests whether a deeply equal object to the provided one is returned from the invoked action.
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="expectedModel">Expected model to be returned.</param>
         /// <returns>Builder for testing the response model errors.</returns>
         public IModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
-            where TResponseModel : class
         {
             this.WithResponseModelOfType<TResponseModel>();
 
             var actualModel = this.GetActualModel<TResponseModel>();
-            if (actualModel != expectedModel)
+            if (Reflection.AreNotDeeplyEqual(expectedModel, actualModel))
             {
                 throw new ResponseModelAssertionException(string.Format(
                             "When calling {0} action in {1} expected response model {2} to be the given model, but in fact it was a different model.",

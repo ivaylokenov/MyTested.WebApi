@@ -30,20 +30,19 @@ namespace MyWebApi.Builders.Contracts.HttpResponseMessages
     public interface IHttpResponseMessageTestBuilder : IBaseTestBuilderWithCaughtException
     {
         /// <summary>
-        /// Tests whether certain type of response model is returned from the HTTP response message content.
+        /// Tests whether certain type of response model is returned from the HTTP response message object content.
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <returns>Builder for testing the response model errors.</returns>
         IModelDetailsTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>();
 
         /// <summary>
-        /// Tests whether an object is returned from the HTTP response message content.
+        /// Tests whether a deeply equal object to the provided one is returned from the HTTP response message object content.
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="expectedModel">Expected model to be returned.</param>
         /// <returns>Builder for testing the response model errors.</returns>
-        IModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
-            where TResponseModel : class;
+        IModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel);
 
         /// <summary>
         /// Tests whether the content of the HTTP response message is of certain type.
@@ -52,6 +51,13 @@ namespace MyWebApi.Builders.Contracts.HttpResponseMessages
         /// <returns>The same HTTP response message test builder.</returns>
         IAndHttpResponseMessageTestBuilder WithContentOfType<TContentType>()
             where TContentType : HttpContent;
+
+        /// <summary>
+        /// Tests whether the content of the HTTP response message is the provided string.
+        /// </summary>
+        /// <param name="content">Expected string content.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        IAndHttpResponseMessageTestBuilder WithStringContent(string content);
 
         /// <summary>
         /// Tests whether the HTTP response message has the provided media type formatter.

@@ -17,6 +17,7 @@
 namespace MyWebApi.Tests.BuildersTests.ModelsTests
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Exceptions;
     using NUnit.Framework;
     using Setups.Controllers;
@@ -114,10 +115,7 @@ namespace MyWebApi.Tests.BuildersTests.ModelsTests
         }
 
         [Test]
-        [ExpectedException(
-            typeof(ResponseModelAssertionException),
-            ExpectedMessage = "When calling OkResultWithResponse action in WebApiController expected response model ICollection<ResponseModel> to be the given model, but in fact it was a different model.")]
-        public void WithResponceModelShouldThrowExceptionWithDifferentPassedExpectedObject()
+        public void WithResponceModelShouldNotThrowExceptionWithDeeplyEqualPassedExpectedObject()
         {
             var controller = new WebApiController();
 
@@ -127,6 +125,25 @@ namespace MyWebApi.Tests.BuildersTests.ModelsTests
                 .ShouldReturn()
                 .Ok()
                 .WithResponseModel(controller.ResponseModel);
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ResponseModelAssertionException),
+            ExpectedMessage = "When calling OkResultWithResponse action in WebApiController expected response model List<ResponseModel> to be the given model, but in fact it was a different model.")]
+        public void WithResponceModelShouldThrowExceptionWithDifferentPassedExpectedObject()
+        {
+            var controller = new WebApiController();
+
+            var another = controller.ResponseModel.ToList();
+            another.Add(new ResponseModel());
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.OkResultWithResponse())
+                .ShouldReturn()
+                .Ok()
+                .WithResponseModel(another);
         }
 
         [Test]

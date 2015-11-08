@@ -70,10 +70,7 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
         }
 
         [Test]
-        [ExpectedException(
-             typeof(ResponseModelAssertionException),
-             ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message model to be the given model, but in fact it was a different model.")]
-        public void WithResponseModelShouldThrowExceptionWithIncorrectResponseModel()
+        public void WithResponseModelShouldNotThrowExceptionWithDeeplyEqualResponseModel()
         {
             MyWebApi
                 .Controller<WebApiController>()
@@ -81,6 +78,23 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
                 .ShouldReturn()
                 .HttpResponseMessage()
                 .WithResponseModel(TestObjectFactory.GetListOfResponseModels());
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(ResponseModelAssertionException),
+            ExpectedMessage = "When calling HttpResponseMessageAction action in WebApiController expected HTTP response message model to be the given model, but in fact it was a different model.")]
+        public void WithResponseModelShouldThrowExceptionWithDeeplyUnequalResponseModel()
+        {
+            var another = TestObjectFactory.GetListOfResponseModels();
+            another.Add(new ResponseModel());
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageAction())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .WithResponseModel(another);
         }
 
         [Test]
@@ -106,6 +120,37 @@ namespace MyWebApi.Tests.BuildersTests.HttpMessagesTests
                 .ShouldReturn()
                 .HttpResponseMessage()
                 .WithContentOfType<StreamContent>();
+        }
+
+        [Test]
+        public void WithStringContentOfTypeShouldNotThrowExceptionWithCorrectContent()
+        {
+            var request = new HttpRequestMessage();
+            request.Headers.Add("StringContent", "StringContent");
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageWithStringContent())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .WithStringContent("Test string");
+        }
+
+        [Test]
+        [ExpectedException(
+             typeof(HttpResponseMessageAssertionException),
+             ExpectedMessage = "When calling HttpResponseMessageWithStringContent action in WebApiController expected HTTP response message result string content to be 'Another string', but was in fact 'Test string'.")]
+        public void WithStringContentOfTypeShouldThrowExceptionWithIncorrectContent()
+        {
+            var request = new HttpRequestMessage();
+            request.Headers.Add("StringContent", "StringContent");
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageWithStringContent())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .WithStringContent("Another string");
         }
 
         [Test]

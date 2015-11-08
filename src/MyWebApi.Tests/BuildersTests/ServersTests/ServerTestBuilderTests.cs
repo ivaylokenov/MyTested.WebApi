@@ -79,7 +79,8 @@ namespace MyWebApi.Tests.BuildersTests.ServersTests
                 .ShouldReturnHttpResponseMessage()
                 .WithStatusCode(HttpStatusCode.OK)
                 .AndAlso()
-                .WithResponseModelOfType<int>();
+                .WithResponseModelOfType<int>()
+                .Passing(m => m == 5);
 
             MyWebApi
                 .Server()

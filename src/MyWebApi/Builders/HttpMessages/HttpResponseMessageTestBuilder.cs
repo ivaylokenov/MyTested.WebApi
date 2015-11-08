@@ -53,7 +53,7 @@ namespace MyWebApi.Builders.HttpMessages
         }
 
         /// <summary>
-        /// Tests whether certain type of response model is returned from the HTTP response message content.
+        /// Tests whether certain type of response model is returned from the HTTP response message object content.
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <returns>Builder for testing the response model errors.</returns>
@@ -62,7 +62,7 @@ namespace MyWebApi.Builders.HttpMessages
             var actualModel = HttpResponseMessageValidator.GetActualContentModel<TResponseModel>(
                 this.ActionResult.Content,
                 this.ThrowNewResponseModelAssertionException);
-
+            
             return new ModelDetailsTestBuilder<TResponseModel>(
                 this.Controller,
                 this.ActionName,
@@ -71,13 +71,12 @@ namespace MyWebApi.Builders.HttpMessages
         }
 
         /// <summary>
-        /// Tests whether an object is returned from the invoked HTTP response message content.
+        /// Tests whether a deeply equal object to the provided one is returned from the invoked HTTP response message object content.
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="expectedModel">Expected model to be returned.</param>
         /// <returns>Builder for testing the response model errors.</returns>
         public IModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
-            where TResponseModel : class
         {
             var actualModel = HttpResponseMessageValidator.WithResponseModel(
                 this.ActionResult.Content,
@@ -102,6 +101,21 @@ namespace MyWebApi.Builders.HttpMessages
         {
             HttpResponseMessageValidator.WithContentOfType<TContentType>(
                 this.ActionResult.Content,
+                this.ThrowNewHttpResponseMessageAssertionException);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether the content of the HTTP response message is the provided string.
+        /// </summary>
+        /// <param name="content">Expected string content.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        public IAndHttpResponseMessageTestBuilder WithStringContent(string content)
+        {
+            HttpResponseMessageValidator.WithStringContent(
+                this.ActionResult.Content,
+                content,
                 this.ThrowNewHttpResponseMessageAssertionException);
 
             return this;

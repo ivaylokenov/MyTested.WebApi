@@ -31,12 +31,11 @@ namespace MyWebApi.Builders.Contracts.Models
         IModelDetailsTestBuilder<TResponseModel> WithResponseModelOfType<TResponseModel>();
 
         /// <summary>
-        /// Tests whether an object is returned from the invoked action.
+        /// Tests whether a deeply equal object to the provided one is returned from the invoked action.
         /// </summary>
         /// <typeparam name="TResponseModel">Type of the response model.</typeparam>
         /// <param name="expectedModel">Expected model to be returned.</param>
         /// <returns>Builder for testing the response model errors.</returns>
-        IModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel)
-            where TResponseModel : class;
+        IModelDetailsTestBuilder<TResponseModel> WithResponseModel<TResponseModel>(TResponseModel expectedModel);
     }
 }

@@ -117,6 +117,14 @@ namespace MyWebApi.Tests.Setups.Controllers
             return response;
         }
 
+        public HttpResponseMessage HttpResponseMessageWithStringContent()
+        {
+            return new HttpResponseMessage
+            {
+                Content = new StringContent("Test string")
+            };
+        }
+
         public HttpResponseMessage HttpResponseMessageWithResponseModelAction()
         {
             return this.Request.CreateResponse(HttpStatusCode.BadRequest, this.responseModel);
