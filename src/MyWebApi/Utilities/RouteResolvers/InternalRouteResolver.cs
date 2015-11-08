@@ -77,6 +77,13 @@ namespace MyWebApi.Utilities.RouteResolvers
                     UnresolvedRouteFormat,
                     ex.Response.ReasonPhrase));
             }
+            catch (AggregateException ex)
+            {
+                var innerException = (HttpResponseException)ex.InnerExceptions.First();
+                resolvedRouteInfo = new ResolvedRouteInfo(string.Format(
+                    UnresolvedRouteFormat,
+                    innerException.Response.ReasonPhrase));
+            }
             catch (Exception ex)
             {
                 resolvedRouteInfo = new ResolvedRouteInfo(string.Format(

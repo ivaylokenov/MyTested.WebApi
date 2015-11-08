@@ -306,6 +306,27 @@ namespace MyWebApi.Tests.BuildersTests.RoutesTests
         }
 
         [Test]
+        [ExpectedException(
+            typeof(RouteAssertionException),
+            ExpectedMessage = "Expected route 'api/Route/PostMethodWithModel' to match PostMethodWithModel action in RouteController but it could not be resolved: 'Unsupported Media Type'.")]
+        public void ToShouldThrowExceptionWithUnsupportedMediaType()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/Route/PostMethodWithModel")
+                .WithHttpMethod(HttpMethod.Post)
+                .WithContent(
+                    @"{""Integer"": 1, ""RequiredString"": ""Test"", ""NonRequiredString"": ""AnotherTest"", ""NotValidateInteger"": 2}", MediaType.TextPlain)
+                .To<RouteController>(c => c.PostMethodWithModel(new RequestModel
+                {
+                    Integer = 1,
+                    RequiredString = "Test",
+                    NonRequiredString = "AnotherTest",
+                    NotValidateInteger = 2
+                }));
+        }
+
+        [Test]
         public void ToNotAllowedMethodShouldWorkCorrectly()
         {
             MyWebApi
