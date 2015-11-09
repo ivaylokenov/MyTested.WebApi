@@ -1,4 +1,4 @@
-﻿namespace Books.Api.App_Start
+﻿namespace Books.Api
 {
     using System;
     using System.Collections.Generic;

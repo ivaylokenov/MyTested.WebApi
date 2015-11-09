@@ -10,5 +10,10 @@
         {
             get { return BooksRepositoryMock.Create(); }
         }
+
+        public static IRepository<Author> AuthorsRepository
+        {
+            get { return AuthorsRepositoryMock.Create(); }
+        }
     }
 }

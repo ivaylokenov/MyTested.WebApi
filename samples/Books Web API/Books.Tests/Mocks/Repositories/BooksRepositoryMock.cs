@@ -28,6 +28,11 @@
 
             var repository = new Mock<IRepository<Book>>();
             repository.Setup(r => r.All()).Returns(listOfBooks.AsQueryable());
+            repository.Setup(r => r.Add(It.IsAny<Book>())).Callback<Book>(b =>
+            {
+                b.Id = 1;
+            });
+            repository.Setup(r => r.SaveChanges()).Verifiable();
 
             return repository.Object;
         }

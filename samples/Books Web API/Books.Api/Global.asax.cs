@@ -11,7 +11,6 @@ namespace Books.Api
 {
     using System.Data.Entity;
     using System.Reflection;
-    using App_Start;
     using Data;
     using Data.Migrations;
 
