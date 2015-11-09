@@ -7,7 +7,7 @@
     <ProjectGuid>{FD183AD3-8BAB-4377-A03B-EDC3A2C5D2B5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>My.WebApi.Tests</RootNamespace>
+    <RootNamespace>MyTested.WebApi.Tests</RootNamespace>
     <AssemblyName>MyWebApi.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

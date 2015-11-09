@@ -2,7 +2,7 @@
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-namespace My.WebApi.Builders.Contracts.Controllers
+namespace MyTested.WebApi.Builders.Contracts.Controllers
 {
     using System;
     using System.Collections.Generic;

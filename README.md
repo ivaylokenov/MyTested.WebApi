@@ -11,13 +11,13 @@ Please see the [documentation](https://github.com/ivaylokenov/MyWebApi/tree/mast
 
 ## Installation
 
-You can install this library using NuGet into your Test class project. It will automatically reference the needed dependencies of Microsoft.AspNet.WebApi.Core (≥ 5.1.0), Microsoft.Owin.Testing (≥ 3.0.1) and Microsoft.Owin.Host.HttpListener (≥ 3.0.1) for you. .NET 4.5+ is needed. Make sure your solution has the same versions of the mentioned dependencies in all projects where you are using them. For example, if you are using Microsoft.AspNet.WebApi.Core 5.2.3 in your Web project, the same version should be used after installing MyWebApi in your Test project.
+You can install this library using NuGet into your Test class project. It will automatically reference the needed dependencies of Microsoft.AspNet.WebApi.Core (≥ 5.1.0), Microsoft.Owin.Testing (≥ 3.0.1) and Microsoft.Owin.Host.HttpListener (≥ 3.0.1) for you. .NET 4.5+ is needed. Make sure your solution has the same versions of the mentioned dependencies in all projects where you are using them. For example, if you are using Microsoft.AspNet.WebApi.Core 5.2.3 in your Web project, the same version should be used after installing MyWebApi in your Tests project.
 
     Install-Package MyWebApi
 
-After the downloading is complete, just add `using My.WebApi;` and you are ready to test in the most elegant and developer friendly way.
+After the downloading is complete, just add `using MyTested.WebApi;` and you are ready to test in the most elegant and developer friendly way.
 	
-    using My.WebApi;
+    using MyTested.WebApi;
 	
 ## How to use
 
@@ -29,7 +29,7 @@ Basically you can create a test case by using the fluent API the library provide
 ```c#
 namespace MyApp.Tests.Controllers
 {
-	using My.WebApi;
+	using MyTested.WebApi;
 	
     using MyApp.Controllers;
 	using NUnit.Framework;
