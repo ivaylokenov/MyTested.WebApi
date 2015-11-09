@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Books.Api.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Books.Api.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Books.Api.NinjectConfig), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Books.Api.NinjectConfig), "Stop")]
 
-namespace Books.Api.App_Start
+namespace Books.Api
 {
     using System;
     using System.Web;
@@ -11,9 +11,11 @@ namespace Books.Api.App_Start
     using Ninject;
     using Ninject.Web.Common;
 
-    public static class NinjectWebCommon
+    public static class NinjectConfig
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+
+        public static Action<IKernel> RebindAction { get; set; } 
 
         /// <summary>
         /// Starts the application
@@ -37,7 +39,7 @@ namespace Books.Api.App_Start
         /// Creates the kernel that will manage your application.
         /// </summary>
         /// <returns>The created kernel.</returns>
-        private static IKernel CreateKernel()
+        public static IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
             try
@@ -46,6 +48,11 @@ namespace Books.Api.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+                if (RebindAction != null)
+                {
+                    RebindAction(kernel);
+                }
+
                 return kernel;
             }
             catch
