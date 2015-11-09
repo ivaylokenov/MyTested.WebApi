@@ -2,7 +2,7 @@
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-namespace My.WebApi.Builders.Base
+namespace MyTested.WebApi.Builders.Base
 {
     using System.Collections.Generic;
     using System.Web.Http;
