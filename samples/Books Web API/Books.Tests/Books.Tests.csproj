@@ -105,8 +105,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiTests\ControllerTests\BooksControllerShould.cs" />
-    <Compile Include="ApiTests\IntegrationTests\BooksIntegrationTests.cs" />
+    <Compile Include="ApiTests\ControllerTests\BooksControllerTests.cs" />
+    <Compile Include="ApiTests\IntegrationTests\BooksControllerIntegrationTests.cs" />
     <Compile Include="ApiTests\RouteTests\BookControllerRouteTests.cs" />
     <Compile Include="Mocks\MocksFactory.cs" />
     <Compile Include="Mocks\Repositories\AuthorsRepositoryMock.cs" />

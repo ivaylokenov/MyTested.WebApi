@@ -11,7 +11,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class BooksControllerShould
+    public class BooksControllerTests
     {
         private IControllerBuilder<BooksController> controller;
 

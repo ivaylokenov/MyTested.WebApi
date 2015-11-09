@@ -13,7 +13,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class BooksIntegrationTests
+    public class BooksControllerIntegrationTests
     {
         private IServerBuilder server;
 

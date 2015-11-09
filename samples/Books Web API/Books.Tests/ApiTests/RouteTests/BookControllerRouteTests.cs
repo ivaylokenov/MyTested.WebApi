@@ -14,7 +14,7 @@
         {
             MyWebApi
                 .Routes()
-                .ShouldMap("api/books/get")
+                .ShouldMap("api/Books/Get")
                 .WithHttpMethod(HttpMethod.Get)
                 .To<BooksController>(c => c.Get());
         }
@@ -34,7 +34,7 @@
         {
             MyWebApi
                 .Routes()
-                .ShouldMap("api/books/post")
+                .ShouldMap("api/Books/Post")
                 .WithHttpMethod(HttpMethod.Post)
                 .WithJsonContent(@"{""Title"":""Valid Title"",""Description"":""Valid Description"",""AuthorUsername"":""Valid""}")
                 .To<BooksController>(c => c.Post(new BookRequestModel
