@@ -83,6 +83,17 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
                 .ActionAttributes(attributes => attributes.ChangingRouteTo("/api/test"));
         }
 
+
+        [Test]
+        public void ChangingRouteToShouldNotThrowExceptionWithActionWithTheAttributeAndCasingDifference()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.VariousAttributesAction())
+                .ShouldHave()
+                .ActionAttributes(attributes => attributes.ChangingRouteTo("/api/Test"));
+        }
+
         [Test]
         [ExpectedException(
             typeof(AttributeAssertionException),

@@ -43,6 +43,15 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
         }
 
         [Test]
+        public void ChangingRouteToShouldNotThrowExceptionWithControllerWithTheAttributeAndCaseDifference()
+        {
+            MyWebApi
+                .Controller<AttributesController>()
+                .ShouldHave()
+                .Attributes(attributes => attributes.ChangingRouteTo("/api/Test"));
+        }
+
+        [Test]
         [ExpectedException(
             typeof(AttributeAssertionException),
             ExpectedMessage = "When testing AttributesController was expected to have RouteAttribute with '/api/another' template, but in fact found '/api/test'.")]
@@ -115,6 +124,15 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
                 .Controller<WebApiController>()
                 .ShouldHave()
                 .Attributes(attributes => attributes.ChangingRoutePrefixTo("/api/test"));
+        }
+
+        [Test]
+        public void ChangingRoutePrefixToShouldNotThrowExceptionWithCorrectTheAttributeAndCaseDifference()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .ShouldHave()
+                .Attributes(attributes => attributes.ChangingRoutePrefixTo("/api/Test"));
         }
 
         [Test]
