@@ -425,5 +425,15 @@ namespace MyTested.WebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
                 .ShouldReturn()
                 .ResultOfType(typeof(ICollection<int>));
         }
+
+        [Test]
+        public void DynamicResultShouldBeProperlyRecognised()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.DynamicResult())
+                .ShouldReturn()
+                .ResultOfType<List<ResponseModel>>();
+        }
     }
 }

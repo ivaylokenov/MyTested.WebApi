@@ -20,7 +20,8 @@ namespace MyTested.WebApi.Builders.Servers
         /// Starts new global HTTP server.
         /// </summary>
         /// <param name="httpConfiguration">Optional HTTP configuration to use. If no configuration is provided, the global configuration will be used instead.</param>
-        public void Starts(HttpConfiguration httpConfiguration = null)
+        /// <returns>Server builder.</returns>
+        public IServerBuilder Starts(HttpConfiguration httpConfiguration = null)
         {
             if (httpConfiguration == null)
             {
@@ -29,6 +30,7 @@ namespace MyTested.WebApi.Builders.Servers
             }
 
             HttpTestServer.StartGlobal(httpConfiguration);
+            return this.Working();
         }
 
         /// <summary>
@@ -37,9 +39,11 @@ namespace MyTested.WebApi.Builders.Servers
         /// <typeparam name="TStartup">OWIN startup class to use.</typeparam>
         /// <param name="port">Network port on which the server will listen for requests.</param>
         /// <param name="host">Network host on which the server will listen for requests.</param>
-        public void Starts<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost)
+        /// <returns>Server builder.</returns>
+        public IServerBuilder Starts<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost)
         {
             OwinTestServer.StartGlobal<TStartup>(this.GetStartOptions(port, host));
+            return this.Working();
         }
 
         /// <summary>
