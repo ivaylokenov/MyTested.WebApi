@@ -5,9 +5,8 @@
 namespace MyTested.WebApi.Common.Servers
 {
     using System;
-    using System.Linq;
     using System.Net.Http;
-    using Microsoft.Owin.Hosting;
+    using Microsoft.Owin.Testing;
 
     /// <summary>
     /// Test server for full OWIN pipeline testing.
@@ -15,20 +14,20 @@ namespace MyTested.WebApi.Common.Servers
     public static class OwinTestServer
     {
         /// <summary>
-        /// Default host on which the OWIN server will listen.
+        /// Default host on which the OWIN server will listen - http://localhost.
         /// </summary>
         public const string DefaultHost = "http://localhost";
 
         /// <summary>
-        /// Default port on which the OWIN server will listen.
+        /// Default port on which the OWIN server will listen - 80.
         /// </summary>
-        public const int DefaultPort = 1234;
+        public const int DefaultPort = 80;
 
         /// <summary>
         /// Gets the global OWIN server used in the testing.
         /// </summary>
-        /// <value>IDisposable instance.</value>
-        public static IDisposable GlobalServer { get; private set; }
+        /// <value>Test server instance.</value>
+        public static TestServer GlobalServer { get; private set; }
 
         /// <summary>
         /// Gets the global OWIN client used to send the request.
@@ -52,40 +51,29 @@ namespace MyTested.WebApi.Common.Servers
         /// Creates new OWIN server.
         /// </summary>
         /// <typeparam name="TStartup">OWIN startup class to use.</typeparam>
-        /// <param name="options">Start options to use for the requests.</param>
-        /// <returns>IDisposable OWIN server.</returns>
-        public static IDisposable CreateNewServer<TStartup>(StartOptions options)
+        /// <param name="baseAddress">Base address to use for the requests.</param>
+        /// <returns>OWIN test server.</returns>
+        public static TestServer CreateNewServer<TStartup>(string baseAddress)
         {
-            return WebApp.Start<TStartup>(options);
-        }
-
-        /// <summary>
-        /// Creates new OWIN client for the server.
-        /// </summary>
-        /// <param name="options">Start options to use for the requests.</param>
-        /// <returns>HttpClient instance.</returns>
-        public static HttpClient CreateNewClient(StartOptions options)
-        {
-            return new HttpClient
-            {
-                BaseAddress = new Uri(options.Urls.First())
-            };
+            var server = TestServer.Create<TStartup>();
+            server.BaseAddress = new Uri(baseAddress);
+            return server;
         }
 
         /// <summary>
         /// Starts singleton global instance of the OWIN server.
         /// </summary>
         /// <typeparam name="TStartup">OWIN startup class to use.</typeparam>
-        /// <param name="options">Start options to use for the requests.</param>
-        public static void StartGlobal<TStartup>(StartOptions options)
+        /// <param name="baseAddress">Base address to use for the requests.</param>
+        public static void StartGlobal<TStartup>(string baseAddress)
         {
             if (GlobalIsStarted)
             {
                 StopGlobal();
             }
 
-            GlobalServer = CreateNewServer<TStartup>(options);
-            GlobalClient = CreateNewClient(options);
+            GlobalServer = CreateNewServer<TStartup>(baseAddress);
+            GlobalClient = GlobalServer.HttpClient;
         }
 
         /// <summary>

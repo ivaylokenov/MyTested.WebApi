@@ -8,7 +8,6 @@ namespace MyTested.WebApi.Builders.Servers
     using System.Web.Http;
     using Common.Servers;
     using Contracts.Servers;
-    using Microsoft.Owin.Hosting;
     using Utilities.Validators;
 
     /// <summary>
@@ -105,13 +104,12 @@ namespace MyTested.WebApi.Builders.Servers
         {
             var options = this.GetStartOptions(port, host);
             var server = OwinTestServer.CreateNewServer<TStartup>(options);
-            return new ServerTestBuilder(OwinTestServer.CreateNewClient(options), disposeServer: true, server: server);
+            return new ServerTestBuilder(server.HttpClient, disposeServer: true, server: server);
         }
 
-        private StartOptions GetStartOptions(int port, string host)
+        private string GetStartOptions(int port, string host)
         {
-            var hostWithPort = string.Format("{0}:{1}", host, port);
-            return new StartOptions(hostWithPort);
+            return string.Format("{0}:{1}", host, port);
         }
     }
 }
