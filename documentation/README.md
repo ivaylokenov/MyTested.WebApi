@@ -2526,9 +2526,8 @@ MyWebApi.Server().Stops();
 You can test over the full pipeline by providing OWIN start up class and optional network host and post. You can start global HTTP server in your test/class/assembly initialize method and set test cases with different requests or just instantiate separate server for each test:
 
 ```c#
-// starts OWIN web server with the provided host and port. If such are not provided, default is "http://localhost:1234"
+// starts OWIN web server with the provided host and port. If such are not provided, default is "http://localhost:80"
 // * the server is disposed after the test
-// * some hosts and ports may require administrator rights
 // * HTTP request can be set just like in the controller unit tests
 // * HTTP response can be tested just like in the controller unit tests
 MyWebApi
@@ -2544,7 +2543,7 @@ MyWebApi
 // starts OWIN server with specific 
 // for the test Startup class 
 // * the server is disposed after the test
-// * since host and port are not provided, the default "http://localhost:1234" is used
+// * since host and port are not provided, the default "http://localhost:80" is used
 MyWebApi
 	.Server()
 	.Working<Startup>() // working will instantiate new OWIN server with the specified Startup class
