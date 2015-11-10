@@ -315,6 +315,32 @@ namespace MyTested.WebApi.Tests.BuildersTests.RoutesTests
         }
 
         [Test]
+        [ExpectedException(
+            typeof(RouteAssertionException),
+            ExpectedMessage = "Expected route '/Route/PostMethodWithModel' to match VoidAction action in RouteController but route does not exist.")]
+        public void NonExistendRouteShouldThrowProperErrorException()
+        {
+            MyWebApi
+               .Routes()
+               .ShouldMap("/Route/PostMethodWithModel")
+               .WithHttpMethod(HttpMethod.Post)
+               .To<RouteController>(c => c.VoidAction());
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(RouteAssertionException),
+            ExpectedMessage = "Expected route 'api/Route/GetMethod' to match GetMethod action in RouteController but the 'id' parameter could not be found.")]
+        public void ToShouldThrowExceptionWithMoreParameters()
+        {
+            MyWebApi
+               .Routes()
+               .ShouldMap("api/Route/GetMethod")
+               .WithHttpMethod(HttpMethod.Get)
+               .To<RouteController>(c => c.GetMethod(1));
+        }
+
+        [Test]
         public void ToNotAllowedMethodShouldWorkCorrectly()
         {
             MyWebApi

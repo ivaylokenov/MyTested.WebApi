@@ -83,7 +83,6 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
                 .ActionAttributes(attributes => attributes.ChangingRouteTo("/api/test"));
         }
 
-
         [Test]
         public void ChangingRouteToShouldNotThrowExceptionWithActionWithTheAttributeAndCasingDifference()
         {

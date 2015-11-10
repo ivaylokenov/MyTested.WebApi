@@ -30,6 +30,12 @@ namespace MyTested.WebApi.Tests.Setups.Controllers
             return this.Ok();            
         }
 
+        [HttpGet]
+        public IHttpActionResult GetMethod(int id)
+        {
+            return this.Ok();
+        }
+
         public IHttpActionResult QueryString(string first, int second)
         {
             return this.Ok();
