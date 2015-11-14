@@ -6,6 +6,7 @@ namespace Books.Api
     using System;
     using System.Web;
     using Data;
+    using Infrastructure;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
@@ -53,6 +54,7 @@ namespace Books.Api
                     RebindAction(kernel);
                 }
 
+                ObjectFactory.Initialize(kernel);
                 return kernel;
             }
             catch

@@ -16,15 +16,15 @@ namespace Books.Api
         {
             AutoMapperConfig.RegisterMappings(Assembly.GetExecutingAssembly());
 
+            app.UseNinjectMiddleware(NinjectConfig.CreateKernel);
+
             ConfigureAuth(app);
 
             var config = new HttpConfiguration();
 
             WebApiConfig.Register(config);
 
-            app
-                .UseNinjectMiddleware(NinjectConfig.CreateKernel)
-                .UseNinjectWebApi(config);
+            app.UseNinjectWebApi(config);
         }
     }
 }

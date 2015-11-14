@@ -1,6 +1,8 @@
 ﻿namespace Books.Tests.Mocks
 {
+    using Api;
     using Data;
+    using Identity;
     using Models;
     using Repositories;
 
@@ -14,6 +16,11 @@
         public static IRepository<Author> AuthorsRepository
         {
             get { return AuthorsRepositoryMock.Create(); }
+        }
+
+        public static ApplicationUserManager ApplicationUserManager
+        {
+            get { return ApplicationUserManagerMock.Create(); }
         }
     }
 }
