@@ -56,7 +56,7 @@
                 .WithHttpRequestMessage(req => req
                     .WithRequestUri("/api/Books/Get")
                     .WithMethod(HttpMethod.Get)
-                    .WithHeader("Authorization", "Bearer " + this.accessToken))
+                    .WithHeader(HttpHeader.Authorization, "Bearer " + this.accessToken))
                 .ShouldReturnHttpResponseMessage()
                 .WithStatusCode(HttpStatusCode.OK)
                 .WithResponseModelOfType<List<BookResponseModel>>()

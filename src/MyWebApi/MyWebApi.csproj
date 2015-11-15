@@ -113,6 +113,7 @@
     <Compile Include="Builders\Contracts\ExceptionErrors\IAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAndAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IBaseExceptionTestBuilder.cs" />
+    <Compile Include="HttpContentHeader.cs" />
     <Compile Include="IHttpMessageHandlerBuilder.cs" />
     <Compile Include="Builders\Contracts\Handlers\IInnerHttpMessageHandlerBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Ok\IAndOkTestBuilder.cs" />
