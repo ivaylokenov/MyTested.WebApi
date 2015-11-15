@@ -1,4 +1,4 @@
-<h1><img src="https://raw.githubusercontent.com/ivaylokenov/MyTested.WebApi/master/documentation/logo.png" align="left" alt="MyTested.WebApi" width="100">&nbsp; MyTested.WebApi - ASP.NET<br />&nbsp; Web API Fluent Testing Framework</h1>
+<h1><img src="https://raw.githubusercontent.com/ivaylokenov/MyTested.WebApi/master/documentation/logo.png" align="left" alt="MyTested.WebApi" width="100">&nbsp; MyTested.WebApi</h1>
 ====================================
 
 MyTested.WebApi is unit testing library providing easy fluent interface to test the ASP.NET Web API 2 framework. It is testing framework agnostic, so you can combine it with the testing library of your choice (e.g. NUnit, xUnit, etc.). Inspired by [ChaiJS](https://github.com/chaijs/chai).
