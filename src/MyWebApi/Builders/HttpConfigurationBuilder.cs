@@ -27,9 +27,10 @@ namespace MyTested.WebApi.Builders
         /// <summary>
         /// Starts HTTP server with the provided configuration.
         /// </summary>
-        public void AndStartsServer()
+        /// <returns>Server builder.</returns>
+        public IServerBuilder AndStartsServer()
         {
-            new Server().Starts(this.httpConfiguration);
+            return new Server().Starts(this.httpConfiguration);
         }
     }
 }

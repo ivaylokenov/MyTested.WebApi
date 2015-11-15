@@ -12,6 +12,7 @@ namespace MyTested.WebApi.Builders.Contracts
         /// <summary>
         /// Starts HTTP server with the provided configuration.
         /// </summary>
-        void AndStartsServer();
+        /// <returns>Server builder.</returns>
+        IServerBuilder AndStartsServer();
     }
 }
