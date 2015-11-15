@@ -9,9 +9,6 @@ namespace MyTested.WebApi
     using System.Web.Http;
     using Builders;
     using Builders.Contracts;
-    using Builders.Contracts.Controllers;
-    using Builders.Contracts.Handlers;
-    using Builders.Contracts.Routes;
     using Builders.Contracts.Servers;
     using Builders.Controllers;
     using Builders.HttpMessages;

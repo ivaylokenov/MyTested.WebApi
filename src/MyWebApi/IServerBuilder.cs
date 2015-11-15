@@ -2,11 +2,12 @@
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-namespace MyTested.WebApi.Builders.Contracts.Servers
+namespace MyTested.WebApi
 {
     using System;
     using System.Net.Http;
-    using HttpRequests;
+    using Builders.Contracts.HttpRequests;
+    using Builders.Contracts.Servers;
 
     /// <summary>
     /// Provides options to set the HTTP request to test.

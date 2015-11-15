@@ -10,7 +10,6 @@ namespace MyTested.WebApi.Builders.HttpActionResults.Created
     using System.Linq.Expressions;
     using System.Net.Http.Formatting;
     using System.Web.Http;
-    using System.Web.Http.Results;
     using Common.Extensions;
     using Contracts.Formatters;
     using Contracts.HttpActionResults.Created;
