@@ -7,7 +7,6 @@
     using Api.Models.ResponseModels;
     using Mocks;
     using MyTested.WebApi;
-    using MyTested.WebApi.Builders.Contracts.Controllers;
     using NUnit.Framework;
 
     [TestFixture]

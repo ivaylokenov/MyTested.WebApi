@@ -6,11 +6,9 @@
     using Api;
     using Api.Models.ResponseModels;
     using Data;
-    using Microsoft.Owin.Security;
     using Mocks;
     using Models;
     using MyTested.WebApi;
-    using MyTested.WebApi.Builders.Contracts.Servers;
     using Newtonsoft.Json.Linq;
     using NUnit.Framework;
 
@@ -30,8 +28,7 @@
                 kernel.Rebind<ApplicationUserManager>().ToConstant(MocksFactory.ApplicationUserManager);
             };
 
-            MyWebApi.Server().Starts<Startup>();
-            this.server = MyWebApi.Server().Working();
+            this.server = MyWebApi.Server().Starts<Startup>();
 
             this.GetAccessToken();
         }

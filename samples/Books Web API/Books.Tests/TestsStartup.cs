@@ -1,7 +1,6 @@
 ﻿namespace Books.Tests
 {
     using System.Reflection;
-    using System.Web.Http;
     using Api;
     using MyTested.WebApi;
     using NUnit.Framework;
