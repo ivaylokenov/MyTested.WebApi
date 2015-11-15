@@ -84,6 +84,16 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
         }
 
         [Test]
+        public void ChangingRouteToShouldNotThrowExceptionWithActionWithTheAttributeAndCasingDifference()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.VariousAttributesAction())
+                .ShouldHave()
+                .ActionAttributes(attributes => attributes.ChangingRouteTo("/api/Test"));
+        }
+
+        [Test]
         [ExpectedException(
             typeof(AttributeAssertionException),
             ExpectedMessage = "When calling VariousAttributesAction action in WebApiController expected action to have RouteAttribute with '/api/another' template, but in fact found '/api/test'.")]

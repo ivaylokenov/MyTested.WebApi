@@ -16,7 +16,8 @@ namespace MyTested.WebApi.Builders.Contracts.Servers
         /// Starts new global HTTP server.
         /// </summary>
         /// <param name="httpConfiguration">Optional HTTP configuration to use. If no configuration is provided, the global configuration will be used instead.</param>
-        void Starts(HttpConfiguration httpConfiguration = null);
+        /// <returns>Server builder.</returns>
+        IServerBuilder Starts(HttpConfiguration httpConfiguration = null);
 
         /// <summary>
         /// Starts new global OWIN server.
@@ -24,7 +25,8 @@ namespace MyTested.WebApi.Builders.Contracts.Servers
         /// <typeparam name="TStartup">OWIN startup class to use.</typeparam>
         /// <param name="port">Network port on which the server will listen for requests.</param>
         /// <param name="host">Network host on which the server will listen for requests.</param>
-        void Starts<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost);
+        /// <returns>Server builder.</returns>
+        IServerBuilder Starts<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost);
 
         /// <summary>
         /// Stops all currently started global HTTP or OWIN servers.

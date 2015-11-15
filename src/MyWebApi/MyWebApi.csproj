@@ -42,10 +42,6 @@
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.3.0.1\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Owin.Hosting, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Hosting.3.0.1\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
       <Private>True</Private>
@@ -117,7 +113,8 @@
     <Compile Include="Builders\Contracts\ExceptionErrors\IAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAndAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IBaseExceptionTestBuilder.cs" />
-    <Compile Include="Builders\Contracts\Handlers\IHttpMessageHandlerBuilder.cs" />
+    <Compile Include="HttpContentHeader.cs" />
+    <Compile Include="IHttpMessageHandlerBuilder.cs" />
     <Compile Include="Builders\Contracts\Handlers\IInnerHttpMessageHandlerBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Ok\IAndOkTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Ok\IOkTestBuilder.cs" />
@@ -133,10 +130,10 @@
     <Compile Include="Builders\Contracts\Routes\IAndResolvedRouteTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IAndShouldMapTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IResolvedRouteTestBuilder.cs" />
-    <Compile Include="Builders\Contracts\Routes\IRouteTestBuilder.cs" />
+    <Compile Include="IRouteTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Routes\IShouldMapTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Servers\IServer.cs" />
-    <Compile Include="Builders\Contracts\Servers\IServerBuilder.cs" />
+    <Compile Include="IServerBuilder.cs" />
     <Compile Include="Builders\Contracts\Servers\IServerTestBuilder.cs" />
     <Compile Include="Builders\Controllers\ControllerTestBuilder.cs" />
     <Compile Include="Builders\ExceptionErrors\AggregateExceptionTestBuilder.cs" />
@@ -182,7 +179,7 @@
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithCaughtException.cs" />
     <Compile Include="Builders\Contracts\Base\IBaseTestBuilderWithActionResult.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Unauthorized\IChallengesBuilder.cs" />
-    <Compile Include="Builders\Contracts\Controllers\IControllerBuilder.cs" />
+    <Compile Include="IControllerBuilder.cs" />
     <Compile Include="Builders\Contracts\Actions\IActionResultTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IModelErrorDetailsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Models\IModelErrorTestBuilder.cs" />
@@ -283,6 +280,7 @@
     <Compile Include="Utilities\Validators\RouteValidator.cs" />
     <Compile Include="Utilities\Validators\RuntimeBinderValidator.cs" />
     <Compile Include="Utilities\Validators\VersionValidator.cs" />
+    <Compile Include="With.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MyWebApi.licenseheader" />

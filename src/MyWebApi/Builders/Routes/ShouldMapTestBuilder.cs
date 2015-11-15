@@ -306,6 +306,13 @@ namespace MyTested.WebApi.Builders.Routes
 
             expectedRouteValues.Arguments.ForEach(arg =>
             {
+                if (!actualRouteValues.ActionArguments.ContainsKey(arg.Key))
+                {
+                    this.ThrowNewRouteAssertionException(actual: string.Format(
+                        "the '{0}' parameter could not be found",
+                        arg.Key));
+                }
+
                 var expectedArgumentInfo = arg.Value;
                 var actualArgumentInfo = actualRouteValues.ActionArguments[arg.Key];
                 if (Reflection.AreNotDeeplyEqual(expectedArgumentInfo.Value, actualArgumentInfo.Value))

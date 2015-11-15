@@ -22,14 +22,35 @@ namespace MyTested.WebApi.Builders
         public HttpConfigurationBuilder(HttpConfiguration httpConfiguration)
         {
             this.httpConfiguration = httpConfiguration;
+            this.SetErrorDetailPolicy(IncludeErrorDetailPolicy.Always);
         }
 
         /// <summary>
         /// Starts HTTP server with the provided configuration.
         /// </summary>
-        public void AndStartsServer()
+        /// <returns>Server builder.</returns>
+        public IServerBuilder AndStartsServer()
         {
-            new Server().Starts(this.httpConfiguration);
+            return new Server().Starts(this.httpConfiguration);
+        }
+
+        /// <summary>
+        /// Sets the error detail policy used in the testing. Default is 'Always'.
+        /// </summary>
+        /// <param name="errorDetailPolicy">Error details policy to use.</param>
+        /// <returns>The same HTTP configuration builder.</returns>
+        public IHttpConfigurationBuilder WithErrorDetailPolicy(IncludeErrorDetailPolicy errorDetailPolicy)
+        {
+            this.SetErrorDetailPolicy(errorDetailPolicy);
+            return this;
+        }
+
+        private void SetErrorDetailPolicy(IncludeErrorDetailPolicy errorDetailPolicy)
+        {
+            if (this.httpConfiguration != null)
+            {
+                this.httpConfiguration.IncludeErrorDetailPolicy = errorDetailPolicy;
+            }
         }
     }
 }

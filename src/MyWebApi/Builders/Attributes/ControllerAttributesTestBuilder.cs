@@ -69,7 +69,7 @@ namespace MyTested.WebApi.Builders.Attributes
             {
                 var routePrefixAttribute = this.GetAttributeOfType<RoutePrefixAttribute>(attrs);
                 var actualRoutePrefix = routePrefixAttribute.Prefix;
-                if (prefix != actualRoutePrefix)
+                if (prefix.ToLower() != actualRoutePrefix.ToLower())
                 {
                     this.ThrowNewAttributeAssertionException(
                         string.Format("{0} with '{1}' prefix", routePrefixAttribute.GetName(), prefix),

@@ -76,7 +76,7 @@ namespace MyTested.WebApi.Builders.Attributes
             {
                 var routeAttribute = this.TryGetAttributeOfType<RouteAttribute>(attrs);
                 var actualTemplate = routeAttribute.Template;
-                if (template != actualTemplate)
+                if (template.ToLower() != actualTemplate.ToLower())
                 {
                     failedValidationAction(
                                 string.Format("{0} with '{1}' template", routeAttribute.GetName(), template),

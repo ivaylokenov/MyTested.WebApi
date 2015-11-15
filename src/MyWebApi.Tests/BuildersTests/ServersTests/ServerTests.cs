@@ -80,7 +80,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
             Assert.IsNotNull(OwinTestServer.GlobalClient);
             Assert.IsTrue(OwinTestServer.GlobalIsStarted);
 
-            Assert.AreEqual("http://localhost:1234", OwinTestServer.GlobalClient.BaseAddress.OriginalString);
+            Assert.AreEqual("http://localhost:80", OwinTestServer.GlobalClient.BaseAddress.OriginalString);
 
             MyWebApi.Server().Stops();
 
@@ -118,7 +118,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
         {
             MyWebApi.Server().Starts<CustomStartup>(host: "https://localhost");
 
-            Assert.AreEqual("https://localhost:1234", OwinTestServer.GlobalClient.BaseAddress.OriginalString);
+            Assert.AreEqual("https://localhost:80", OwinTestServer.GlobalClient.BaseAddress.OriginalString);
 
             MyWebApi.Server().Stops();
         }

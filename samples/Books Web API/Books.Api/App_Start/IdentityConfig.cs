@@ -9,6 +9,7 @@ namespace Books.Api
 {
     using Books.Models;
     using Data;
+    using Infrastructure;
 
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
 
@@ -21,7 +22,9 @@ namespace Books.Api
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<Author>(context.Get<BooksDbContext>()));
+            var manager = ObjectFactory.TryGetInstance<ApplicationUserManager>() ??
+                          new ApplicationUserManager(new UserStore<Author>(context.Get<BooksDbContext>()));
+
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<Author>(manager)
             {
@@ -32,10 +35,10 @@ namespace Books.Api
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
             };
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)

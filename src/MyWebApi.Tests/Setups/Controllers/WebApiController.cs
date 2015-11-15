@@ -526,6 +526,11 @@ namespace MyTested.WebApi.Tests.Setups.Controllers
             return TestObjectFactory.GetListOfResponseModels();
         }
 
+        public dynamic DynamicResult()
+        {
+            return TestObjectFactory.GetListOfResponseModels();
+        }
+
         private void ThrowNewNullReferenceException()
         {
             throw new NullReferenceException("Test exception message");

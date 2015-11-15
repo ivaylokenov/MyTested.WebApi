@@ -6,6 +6,7 @@ namespace Books.Api
     using System;
     using System.Web;
     using Data;
+    using Infrastructure;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
@@ -15,7 +16,7 @@ namespace Books.Api
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
-        public static Action<IKernel> RebindAction { get; set; } 
+        public static Action<IKernel> RebindAction { get; set; } // should be used only in integration testing scenarios
 
         /// <summary>
         /// Starts the application
@@ -53,6 +54,7 @@ namespace Books.Api
                     RebindAction(kernel);
                 }
 
+                ObjectFactory.Initialize(kernel);
                 return kernel;
             }
             catch

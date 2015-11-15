@@ -39,6 +39,7 @@ namespace MyTested.WebApi.Utilities.RouteResolvers
             var routeData = config.Routes.GetRouteData(request);
             if (routeData == null)
             {
+                request.RequestUri = originalRoute;
                 return new ResolvedRouteInfo("route does not exist");
             }
 

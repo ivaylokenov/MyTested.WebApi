@@ -182,6 +182,39 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
                 .WithResponseModelOfType<int>();
         }
 
+        [Test]
+        public void ServerStartsShouldReturnCorrectTestBuilder()
+        {
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
+
+            var server = MyWebApi.Server().Starts();
+
+            server
+                .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Post).WithRequestUri("api/NoAttributes/WithParameter/5"))
+                .ShouldReturnHttpResponseMessage()
+                .WithStatusCode(HttpStatusCode.OK)
+                .AndAlso()
+                .WithResponseModelOfType<int>()
+                .Passing(m => m == 5);
+
+            MyWebApi.Server().Stops();
+        }
+
+        [Test]
+        public void OwinServerStartsShouldReturnCorrectTestBuilder()
+        {
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
+
+            var server = MyWebApi.Server().Starts<CustomStartup>();
+
+            server
+                .WithHttpRequestMessage(req => req.WithHeader("CustomHeader", "CustomValue"))
+                .ShouldReturnHttpResponseMessage()
+                .WithStatusCode(HttpStatusCode.OK);
+
+            MyWebApi.Server().Stops();
+        }
+
         [TestFixtureTearDown]
         public void RestoreConfiguration()
         {

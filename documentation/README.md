@@ -44,7 +44,8 @@
  - Integration testing of the full server pipeline
   - [HTTP server](#http-server)
   - [OWIN pipeline](#owin-pipeline)
- - Additional methods
+ - Additional classes and methods
+  - [Helper classes](#helper-classes)
   - [AndProvide... methods](#andprovide-methods)
 
 ### Using custom HttpConfiguration
@@ -63,6 +64,13 @@ MyWebApi.IsRegisteredWith(WebApiConfig.Register);
 // * it is useful if you want to reset the global
 // * configuration used in other tests
 MyWebApi.IsUsingDefaultHttpConfiguration();
+
+// the three options provide a way to set
+// the error detail policy for the testing
+// * default is 'Always' for easier debugging
+MyWebApi
+	.IsRegisteredWith(WebApiConfig.Register)
+	.WithErrorDetailPolicy(IncludeErrorDetailPolicy.LocalOnly);
 ```
 
 [To top](#table-of-contents)
@@ -565,7 +573,7 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
-		.WithHeader("SomeHeader", "SomeHeaderValue"));
+		.WithHeader(HttpHeader.Accept, MediaType.TextHtml));
 		
 // adding custom header with multiple values to the request message
 MyWebApi
@@ -584,7 +592,7 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
-		.WithContentHeader("SomeContentHeader", "SomeContentHeaderValue"));
+		.WithContentHeader(HttpContentHeader.ContentType, MediaType.ApplicationJson));
 		
 // adding custom content header with multiple values to the request message
 // * adding content headers requires content to be initialized and set
@@ -726,6 +734,12 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.CallingAsync(c => c.SomeActionAsync());
+	
+// if action has non-important parameters, instead of adding dummy values
+// use With.Any<TParameter> for better readability
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(With.Any<int>()));
 ```
 [To top](#table-of-contents)
 
@@ -841,6 +855,15 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes();
+	
+// since testing for attributes does not require valid parameters,
+// instead of adding dummy values
+// use With.Any<TParameter> for better readability
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(With.Any<int>()))
 	.ShouldHave()
 	.ActionAttributes();
 	
@@ -2526,9 +2549,8 @@ MyWebApi.Server().Stops();
 You can test over the full pipeline by providing OWIN start up class and optional network host and post. You can start global HTTP server in your test/class/assembly initialize method and set test cases with different requests or just instantiate separate server for each test:
 
 ```c#
-// starts OWIN web server with the provided host and port. If such are not provided, default is "http://localhost:1234"
+// starts OWIN web server with the provided host and port. If such are not provided, default is "http://localhost:80"
 // * the server is disposed after the test
-// * some hosts and ports may require administrator rights
 // * HTTP request can be set just like in the controller unit tests
 // * HTTP response can be tested just like in the controller unit tests
 MyWebApi
@@ -2544,7 +2566,7 @@ MyWebApi
 // starts OWIN server with specific 
 // for the test Startup class 
 // * the server is disposed after the test
-// * since host and port are not provided, the default "http://localhost:1234" is used
+// * since host and port are not provided, the default "http://localhost:80" is used
 MyWebApi
 	.Server()
 	.Working<Startup>() // working will instantiate new OWIN server with the specified Startup class
@@ -2569,9 +2591,73 @@ MyWebApi
 
 // stops the global OWIN server
 MyWebApi.Server().Stops();
+
+// saving the server builder instance for later usage
+// * can be done with the normal HTTP server too
+var server = MyWebApi.Server().Starts<Startup>();
+
+server
+	.WithHttpRequestMessage(httpRequestMessage)
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+	
+// more test cases on the same global server
+	
+MyWebApi.Server().Stops();
 ```
 
 Summary - the **".Working()"** method without parameters will check if the global OWIN server is started. If not, it will check whether a global HTTP server is started. If not, it will instantiate new HTTP server using the global HTTP configuration. The first match will process the request and test over the response. If no server can be started, exception will be thrown. Using **".Working(config)"** will start new HTTP server with the provided configuration and dispose it after the test. Using **".Working<Startup>()"** will start new OWIN server with the provided start up class and dispose it after the test. Global server can be started with **"MyWebApi.Server().Starts()"** and it will be HTTP or OWIN dependending on the parameters. Global servers can be stopped with **"MyWebApi.Server().Stops()"**, no matter HTTP or OWIN.
+
+[To top](#table-of-contents)
+
+### Helper classes
+
+The library gives you helper classes for common magic strings and non-important action call parameters:
+
+```c#
+// With.Any<TParameter> is helpful where action call parameter values are not important
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(With.Any<int>()))
+	.ShouldHave()
+	.ActionAttributes();
+	
+// MediaType class contains common media type strings
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Content()
+	.WithMediaType(MediaType.ApplicationJson); // represents "application/json"
+	
+// HttpHeader class contains common HTTP header names
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(
+		request => request
+			.WithHeader(HttpHeader.Accept, MediaType.ApplicationJson)) // represents "Accept" HTTP header
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok();
+	
+// HttpContentHeader class contains common HTTP content header names
+MyWebApi
+	.Controller<WebApiController>()
+	.WithHttpRequestMessage(
+		request => request
+			.WithContentHeader(HttpContentHeader.ContentType, MediaType.ApplicationJson)) // represents "ContentType" HTTP header
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Ok();
+	
+// AuthenticationScheme class containing common authentication schemes
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.UnauthorizedActionWithChallenges())
+	.ShouldReturn()
+	.Unauthorized()
+	.ContainingAuthenticationHeaderChallenge(AuthenticationScheme.Basic); // represents Basic authentication scheme
+```
 
 [To top](#table-of-contents)
 

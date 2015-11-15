@@ -7,7 +7,6 @@ namespace MyTested.WebApi.Common.Routes
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Utilities;
 
     /// <summary>
     /// Contains route information from parsed expression.
