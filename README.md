@@ -93,7 +93,7 @@ MyWebApi
 	{
 		Assert.AreEqual(1, m.Id);
 		Assert.AreEqual("Some property value", m.SomeProperty);
-	});;
+	});
 
 // tests whether model state error exists by using lambda expression
 // and specific tests for the error messages
@@ -145,7 +145,7 @@ situations as possible, MyTested.WebApi is dual-licensed. You may choose to use 
 Version 2.0, or the Microsoft Public License (Ms-PL). These licenses are essentially identical, but you are
 encouraged to evaluate both to determine which best fits your intended use.
 
-Refer to [LICENSE](https://github.com/ivaylokenov/MyTested.WebApi/blob/master/LICENSE) for detailed information.
+Refer to the [LICENSE](https://github.com/ivaylokenov/MyTested.WebApi/blob/master/LICENSE) for detailed information.
  
 ## Any questions, comments or additions?
 
