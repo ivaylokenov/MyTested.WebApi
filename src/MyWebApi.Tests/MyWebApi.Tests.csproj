@@ -168,6 +168,7 @@
     <Compile Include="UtilitiesTests\ValidatorsTests\MediaTypeFormatterValidatorTests.cs" />
     <Compile Include="UtilitiesTests\ValidatorsTests\RuntimeBinderValidatorTests.cs" />
     <Compile Include="UtilitiesTests\ValidatorsTests\VersionValidatorTests.cs" />
+    <Compile Include="WithTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

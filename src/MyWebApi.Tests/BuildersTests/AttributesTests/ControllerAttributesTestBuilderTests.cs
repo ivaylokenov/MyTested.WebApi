@@ -39,7 +39,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
             MyWebApi
                 .Controller<AttributesController>()
                 .ShouldHave()
-                .Attributes(attributes => attributes.ChangingRouteTo("/api/test"));
+                .Attributes(attributes => attributes.ChangingRouteTo("api/test"));
         }
 
         [Test]
@@ -48,19 +48,19 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
             MyWebApi
                 .Controller<AttributesController>()
                 .ShouldHave()
-                .Attributes(attributes => attributes.ChangingRouteTo("/api/Test"));
+                .Attributes(attributes => attributes.ChangingRouteTo("api/Test"));
         }
 
         [Test]
         [ExpectedException(
             typeof(AttributeAssertionException),
-            ExpectedMessage = "When testing AttributesController was expected to have RouteAttribute with '/api/another' template, but in fact found '/api/test'.")]
+            ExpectedMessage = "When testing AttributesController was expected to have RouteAttribute with 'api/another' template, but in fact found 'api/test'.")]
         public void ChangingRouteToShouldThrowExceptionWithControllerWithTheAttributeAndWrongTemplate()
         {
             MyWebApi
                 .Controller<AttributesController>()
                 .ShouldHave()
-                .Attributes(attributes => attributes.ChangingRouteTo("/api/another"));
+                .Attributes(attributes => attributes.ChangingRouteTo("api/another"));
         }
 
         [Test]
@@ -69,19 +69,19 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
             MyWebApi
                 .Controller<AttributesController>()
                 .ShouldHave()
-                .Attributes(attributes => attributes.ChangingRouteTo("/api/test", withName: "TestRoute"));
+                .Attributes(attributes => attributes.ChangingRouteTo("api/test", withName: "TestRouteAttributes"));
         }
 
         [Test]
         [ExpectedException(
             typeof(AttributeAssertionException),
-            ExpectedMessage = "When testing AttributesController was expected to have RouteAttribute with 'AnotherRoute' name, but in fact found 'TestRoute'.")]
+            ExpectedMessage = "When testing AttributesController was expected to have RouteAttribute with 'AnotherRoute' name, but in fact found 'TestRouteAttributes'.")]
         public void ChangingRouteToShouldThrowExceptionWithActionWithTheAttributeAndWrongName()
         {
             MyWebApi
                 .Controller<AttributesController>()
                 .ShouldHave()
-                .Attributes(attributes => attributes.ChangingRouteTo("/api/test", withName: "AnotherRoute"));
+                .Attributes(attributes => attributes.ChangingRouteTo("api/test", withName: "AnotherRoute"));
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
             MyWebApi
                 .Controller<AttributesController>()
                 .ShouldHave()
-                .Attributes(attributes => attributes.ChangingRouteTo("/api/test", withOrder: 1));
+                .Attributes(attributes => attributes.ChangingRouteTo("api/test", withOrder: 1));
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
             MyWebApi
                 .Controller<AttributesController>()
                 .ShouldHave()
-                .Attributes(attributes => attributes.ChangingRouteTo("/api/test", withOrder: 2));
+                .Attributes(attributes => attributes.ChangingRouteTo("api/test", withOrder: 2));
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
             MyWebApi
                 .Controller<WebApiController>()
                 .ShouldHave()
-                .Attributes(attributes => attributes.ChangingRouteTo("/api/test"));
+                .Attributes(attributes => attributes.ChangingRouteTo("api/test"));
         }
 
         [Test]
@@ -253,7 +253,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
                     => attributes
                         .AllowingAnonymousRequests()
                         .AndAlso()
-                        .ChangingRouteTo("/api/test"));
+                        .ChangingRouteTo("api/test"));
         }
     }
 }

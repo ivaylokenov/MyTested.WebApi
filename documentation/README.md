@@ -726,6 +726,12 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.CallingAsync(c => c.SomeActionAsync());
+	
+// if action has non-important parameters, instead of adding dummy values
+// use With.Any<TParameter> for better readability
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(With.Any<int>()));
 ```
 [To top](#table-of-contents)
 
@@ -841,6 +847,15 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
+	.ShouldHave()
+	.ActionAttributes();
+	
+// since testing for attributes does not require valid parameters,
+// instead of adding dummy values
+// use With.Any<TParameter> for better readability
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction(With.Any<int>()))
 	.ShouldHave()
 	.ActionAttributes();
 	

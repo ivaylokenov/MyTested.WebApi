@@ -14,7 +14,7 @@ namespace MyTested.WebApi.Common.Servers
     public static class OwinTestServer
     {
         /// <summary>
-        /// Default host on which the OWIN server will listen - http://localhost.
+        /// Default host on which the OWIN server will listen - local host.
         /// </summary>
         public const string DefaultHost = "http://localhost";
 
