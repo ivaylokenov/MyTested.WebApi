@@ -4,6 +4,7 @@
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
 namespace MyTested.WebApi.Tests.BuildersTests
 {
+    using System.Web.Http;
     using Common.Servers;
     using NUnit.Framework;
     using Setups;
@@ -25,6 +26,26 @@ namespace MyTested.WebApi.Tests.BuildersTests
             Assert.IsNull(HttpTestServer.GlobalServer);
             Assert.IsNull(HttpTestServer.GlobalClient);
             Assert.IsFalse(HttpTestServer.GlobalIsStarted);
+        }
+
+        [Test]
+        public void DefaultErrorDetailPolicyShouldBeAlways()
+        {
+            MyWebApi.IsUsingDefaultHttpConfiguration();
+
+            Assert.AreEqual(IncludeErrorDetailPolicy.Always, MyWebApi.Configuration.IncludeErrorDetailPolicy);
+
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
+        }
+
+        [Test]
+        public void WithErrorDetailPolicyShouldSetCorrectErrorDetailPolicy()
+        {
+            MyWebApi.IsUsingDefaultHttpConfiguration().WithErrorDetailPolicy(IncludeErrorDetailPolicy.LocalOnly);
+
+            Assert.AreEqual(IncludeErrorDetailPolicy.LocalOnly, MyWebApi.Configuration.IncludeErrorDetailPolicy);
+
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
         }
     }
 }

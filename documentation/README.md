@@ -63,6 +63,13 @@ MyWebApi.IsRegisteredWith(WebApiConfig.Register);
 // * it is useful if you want to reset the global
 // * configuration used in other tests
 MyWebApi.IsUsingDefaultHttpConfiguration();
+
+// the three options provide a way to set
+// the error detail policy for the testing
+// * default is 'Always' for easier debugging
+MyWebApi
+	.IsRegisteredWith(WebApiConfig.Register)
+	.WithErrorDetailPolicy(IncludeErrorDetailPolicy.LocalOnly);
 ```
 
 [To top](#table-of-contents)
