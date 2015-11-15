@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{39A13EC7-93AC-417F-8F73-88517F751B26}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTested.WebApi", "MyTested.WebApi\MyTested.WebApi.csproj", "{61BE8E0E-E5E3-48B2-85AD-45265488173A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTested.WebApi.Tests", "MyTested.WebApi.Tests\MyTested.WebApi.Tests.csproj", "{FD183AD3-8BAB-4377-A03B-EDC3A2C5D2B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61BE8E0E-E5E3-48B2-85AD-45265488173A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61BE8E0E-E5E3-48B2-85AD-45265488173A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61BE8E0E-E5E3-48B2-85AD-45265488173A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61BE8E0E-E5E3-48B2-85AD-45265488173A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD183AD3-8BAB-4377-A03B-EDC3A2C5D2B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD183AD3-8BAB-4377-A03B-EDC3A2C5D2B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD183AD3-8BAB-4377-A03B-EDC3A2C5D2B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD183AD3-8BAB-4377-A03B-EDC3A2C5D2B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
