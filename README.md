@@ -19,6 +19,11 @@ After the downloading is complete, just add `using MyTested.WebApi;` and you are
 	
     using MyTested.WebApi;
 	
+For other interesting packages check out:
+
+ - [AspNet.Mvc.TypedRouting](https://github.com/ivaylokenov/AspNet.Mvc.TypedRouting) - typed routing and link generation for ASP.NET MVC 6
+ - [ASP.NET MVC 5 Lambda Expression Helpers](https://github.com/ivaylokenov/ASP.NET-MVC-Lambda-Expression-Helpers) - typed expression based link generation for ASP.NET MVC 5
+	
 ## How to use
 
 Make sure to check out [the documentation](https://github.com/ivaylokenov/MyTested.WebApi/tree/master/documentation) for full list of available features.
