@@ -60,7 +60,7 @@
                 .ShouldReturn()
                 .HttpResponseMessage()
                 .WithStatusCode(HttpStatusCode.Found)
-                .ContainingHeader("Location", "http://telerikacademy.com/")
+                .ContainingHeader(HttpHeader.Location, "http://telerikacademy.com/")
                 .WithContentOfType<ObjectContent<bool>>()
                 .WithResponseModel(true);
         }
