@@ -44,6 +44,7 @@
  - Integration testing of the full server pipeline
   - [HTTP server](#http-server)
   - [OWIN pipeline](#owin-pipeline)
+  - [Response time](#response-time)
  - Additional classes and methods
   - [Helper classes](#helper-classes)
   - [AndProvide... methods](#andprovide-methods)
@@ -2610,6 +2611,35 @@ Summary - the **".Working()"** method without parameters will check if the globa
 
 [To top](#table-of-contents)
 
+### Response time
+
+You can test the response time the server needed to process the request:
+
+```c#
+// tests whether the response time passes a predicate
+MyWebApi
+	.Server()
+	.Working()
+	.WithHttpRequestMessage(httpRequestMessage)
+	.ShouldReturnHttpResponseMessage()
+	.WithResponseTime(responseTime => responseTime.TotalMilliseconds < 100);
+	
+// tests whether the response time passes specific assertions
+MyWebApi
+	.Server()
+	.Working()
+	.WithHttpRequestMessage(httpRequestMessage)
+	.ShouldReturnHttpResponseMessage()
+	.WithResponseTime(responseTime =>
+	{
+		// do whatever you want with the response time - log it, aggregate it
+		// * touch it, bring it, pay it, watch it, turn it, leave it, stop, format it
+		Assert.IsTrue(responseTime.TotalMilliseconds < 100);
+	});
+```
+
+[To top](#table-of-contents)
+
 ### Helper classes
 
 The library gives you helper classes for common magic strings and non-important action call parameters:
@@ -2762,12 +2792,21 @@ var responseModel = MyWebApi
 // get the caught exception 
 // * returns null if the action does not throw exception
 // * method is available almost everywhere throughout the API
-MyWebApi
+var exception = MyWebApi
 	.Controller<WebApiController>()
 	.Calling(c => c.SomeAction())
 	.ShouldThrow()
 	.Exception()
 	.AndProvideTheCaughtException();
+	
+// get the integration test response time
+// * method is available on all HTTP server tests
+var responseTime = MyWebApi
+	.Server()
+	.Working<CustomStartup>()
+	.WithHttpRequestMessage(request)
+	.ShouldReturnHttpResponseMessage()
+	.AndProvideTheResponseTime();
 ```
 
 [To top](#table-of-contents)
