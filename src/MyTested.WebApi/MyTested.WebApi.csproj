@@ -113,6 +113,9 @@
     <Compile Include="Builders\Contracts\ExceptionErrors\IAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IAndAggregateExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\ExceptionErrors\IBaseExceptionTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\HttpResponseMessages\IAndHttpHandlerResponseMessageWithTimeTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpHandlerResponseMessageWithTimeTestBuilder.cs" />
+    <Compile Include="Builders\HttpMessages\HttpHandlerResponseMessageWithTimeTestBuilder.cs" />
     <Compile Include="HttpContentHeader.cs" />
     <Compile Include="IHttpMessageHandlerBuilder.cs" />
     <Compile Include="Builders\Contracts\Handlers\IInnerHttpMessageHandlerBuilder.cs" />

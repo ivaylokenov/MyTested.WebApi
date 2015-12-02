@@ -5,6 +5,7 @@
 namespace MyTested.WebApi.Builders.Servers
 {
     using System;
+    using System.Diagnostics;
     using System.Net.Http;
     using System.Threading;
     using Common.Extensions;
@@ -77,18 +78,23 @@ namespace MyTested.WebApi.Builders.Servers
         /// Tests for a particular HTTP response message.
         /// </summary>
         /// <returns>HTTP response message test builder.</returns>
-        public IHttpHandlerResponseMessageTestBuilder ShouldReturnHttpResponseMessage()
+        public IHttpHandlerResponseMessageWithTimeTestBuilder ShouldReturnHttpResponseMessage()
         {
             var serverHandler = new ServerHttpMessageHandler(this.client, this.disposeServer);
             using (var invoker = new HttpMessageInvoker(serverHandler, true))
             {
+                var stopwatch = Stopwatch.StartNew();
+
                 var httpResponseMessage = invoker.SendAsync(this.httpRequestMessage, CancellationToken.None).Result;
+
+                stopwatch.Stop();
+
                 if (this.disposeServer && this.server != null)
                 {
                     this.server.Dispose();
                 }
 
-                return new HttpHandlerResponseMessageTestBuilder(serverHandler, httpResponseMessage);
+                return new HttpHandlerResponseMessageWithTimeTestBuilder(serverHandler, httpResponseMessage, stopwatch.Elapsed);
             }
         }
 
