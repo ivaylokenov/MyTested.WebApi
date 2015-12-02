@@ -108,6 +108,7 @@
     <Compile Include="BuildersTests\HttpActionResultsTests\OkTests\OkTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpConfigurationBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpMessagesTests\HttpHandlerResponseMessageTestBuilderTests.cs" />
+    <Compile Include="BuildersTests\HttpMessagesTests\HttpHandlerResponseMessageWithTimeTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpMessagesTests\HttpMessageHandlerTestBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpMessagesTests\HttpRequestMessageBuilderTests.cs" />
     <Compile Include="BuildersTests\HttpMessagesTests\HttpResponseMessageTestBuilderTests.cs" />

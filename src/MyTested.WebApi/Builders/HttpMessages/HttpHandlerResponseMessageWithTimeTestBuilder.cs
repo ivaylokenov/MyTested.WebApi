@@ -32,7 +32,7 @@ namespace MyTested.WebApi.Builders.HttpMessages
         {
             if (!predicate(this.responseTime))
             {
-                this.ThrowNewHttpResponseMessageAssertionException("response time", "pass the given condition", "it failed");
+                this.ThrowNewHttpResponseMessageAssertionException("response time", "to pass the given condition", "it failed");
             }
 
             return this;
