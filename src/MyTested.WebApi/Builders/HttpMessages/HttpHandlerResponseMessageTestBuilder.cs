@@ -345,7 +345,13 @@ namespace MyTested.WebApi.Builders.HttpMessages
             return this.httpResponseMessage;
         }
 
-        internal protected void ThrowNewHttpResponseMessageAssertionException(string propertyName, string expectedValue, string actualValue)
+        /// <summary>
+        /// Throws HttpResponseMessageAssertionException with specific message.
+        /// </summary>
+        /// <param name="propertyName">Tested property name of the HTTP response message.</param>
+        /// <param name="expectedValue">Expected value.</param>
+        /// <param name="actualValue">Actual value.</param>
+        protected void ThrowNewHttpResponseMessageAssertionException(string propertyName, string expectedValue, string actualValue)
         {
             throw new HttpResponseMessageAssertionException(string.Format(
                     "When testing {0} expected HTTP response message result {1} {2}, but {3}.",
