@@ -364,7 +364,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
         {
             MyWebApi
                 .Controller<WebApiController>()
-                .WithHttpRequestMessage(request => request.WithHeader(HttpHeader.Accept, MediaType.ApplicationJson))
+                .WithHttpRequestMessage(request => request.WithHeader(HttpRequestHeader.Accept, MediaType.ApplicationJson))
                 .Calling(c => c.CommonHeaderAction())
                 .ShouldReturn()
                 .Ok();

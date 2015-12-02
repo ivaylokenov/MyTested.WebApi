@@ -5,9 +5,9 @@
 namespace MyTested.WebApi
 {
     /// <summary>
-    /// Contains common HTTP header names.
+    /// Contains common HTTP request header names.
     /// </summary>
-    public static class HttpHeader
+    public static class HttpRequestHeader
     {
         /// <summary>
         /// Represents Accept header name.
