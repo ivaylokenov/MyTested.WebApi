@@ -5,9 +5,9 @@
 namespace MyTested.WebApi
 {
     /// <summary>
-    /// Contains common HTTP request header names.
+    /// Contains common HTTP request and response header names.
     /// </summary>
-    public static class HttpRequestHeader
+    public static class HttpHeader
     {
         /// <summary>
         /// Represents Accept header name.
@@ -28,6 +28,16 @@ namespace MyTested.WebApi
         /// Represents AcceptLanguage header name.
         /// </summary>
         public const string AcceptLanguage = "AcceptLanguage";
+
+        /// <summary>
+        /// Represents AcceptRanges header name.
+        /// </summary>
+        public const string AcceptRanges = "AcceptRanges";
+
+        /// <summary>
+        /// Represents Age header name.
+        /// </summary>
+        public const string Age = "Age";
 
         /// <summary>
         /// Represents Authorization header name.
@@ -100,6 +110,11 @@ namespace MyTested.WebApi
         public const string IfUnmodifiedSince = "IfUnmodifiedSince";
 
         /// <summary>
+        /// Represents Location header name.
+        /// </summary>
+        public const string Location = "Location";
+
+        /// <summary>
         /// Represents MaxForwards header name.
         /// </summary>
         public const string MaxForwards = "MaxForwards";
@@ -108,6 +123,11 @@ namespace MyTested.WebApi
         /// Represents Pragma header name.
         /// </summary>
         public const string Pragma = "Pragma";
+
+        /// <summary>
+        /// Represents ProxyAuthenticate header name.
+        /// </summary>
+        public const string ProxyAuthenticate = "ProxyAuthenticate";
 
         /// <summary>
         /// Represents ProxyAuthorization header name.
@@ -123,6 +143,16 @@ namespace MyTested.WebApi
         /// Represents Referrer header name.
         /// </summary>
         public const string Referrer = "Referrer";
+
+        /// <summary>
+        /// Represents RetryAfter header name.
+        /// </summary>
+        public const string RetryAfter = "RetryAfter";
+
+        /// <summary>
+        /// Represents Server header name.
+        /// </summary>
+        public const string Server = "Server";
 
         /// <summary>
         /// Represents TE header name.
@@ -155,6 +185,11 @@ namespace MyTested.WebApi
         public const string UserAgent = "UserAgent";
 
         /// <summary>
+        /// Represents Vary header name.
+        /// </summary>
+        public const string Vary = "Vary";
+
+        /// <summary>
         /// Represents Via header name.
         /// </summary>
         public const string Via = "Via";
@@ -163,5 +198,10 @@ namespace MyTested.WebApi
         /// Represents Warning header name.
         /// </summary>
         public const string Warning = "Warning";
+
+        /// <summary>
+        /// Represents WwwAuthenticate header name.
+        /// </summary>
+        public const string WwwAuthenticate = "WwwAuthenticate";
     }
 }

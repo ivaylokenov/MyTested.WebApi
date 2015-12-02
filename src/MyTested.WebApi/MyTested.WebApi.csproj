@@ -117,7 +117,6 @@
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpHandlerResponseMessageWithTimeTestBuilder.cs" />
     <Compile Include="Builders\HttpMessages\HttpHandlerResponseMessageWithTimeTestBuilder.cs" />
     <Compile Include="HttpContentHeader.cs" />
-    <Compile Include="HttpResponseHeader.cs" />
     <Compile Include="IHttpMessageHandlerBuilder.cs" />
     <Compile Include="Builders\Contracts\Handlers\IInnerHttpMessageHandlerBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Ok\IAndOkTestBuilder.cs" />
@@ -265,7 +264,7 @@
     <Compile Include="Exceptions\UnauthorizedResultAssertionException.cs" />
     <Compile Include="Exceptions\UnresolvedDependenciesException.cs" />
     <Compile Include="Exceptions\RedirectResultAssertionException.cs" />
-    <Compile Include="HttpRequestHeader.cs" />
+    <Compile Include="HttpHeader.cs" />
     <Compile Include="MediaType.cs" />
     <Compile Include="MyWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

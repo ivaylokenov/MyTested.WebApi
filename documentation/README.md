@@ -574,7 +574,7 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
-		.WithHeader(HttpHeader.Accept, MediaType.TextHtml));
+		.WithHeader(HttpHeaderHeader.Accept, MediaType.TextHtml));
 		
 // adding custom header with multiple values to the request message
 MyWebApi
