@@ -227,7 +227,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
                 .ShouldReturnHttpResponseMessage()
                 .WithResponseTime(time => time.TotalMilliseconds > 0)
                 .WithStatusCode(HttpStatusCode.OK)
-                .ContainingContentHeader(HttpContentHeader.ContentType, "text/html; charset=windows-1251");
+                .ContainingContentHeader(HttpContentHeader.ContentType);
 
             MyWebApi
                 .Server()
