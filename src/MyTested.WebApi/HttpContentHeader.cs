@@ -17,42 +17,42 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents ContentDisposition content header name.
         /// </summary>
-        public const string ContentDisposition = "ContentDisposition";
+        public const string ContentDisposition = "Content-Disposition";
 
         /// <summary>
         /// Represents ContentEncoding content header name.
         /// </summary>
-        public const string ContentEncoding = "ContentEncoding";
+        public const string ContentEncoding = "Content-Encoding";
 
         /// <summary>
         /// Represents ContentLanguage content header name.
         /// </summary>
-        public const string ContentLanguage = "ContentLanguage";
+        public const string ContentLanguage = "Content-Language";
 
         /// <summary>
         /// Represents ContentLength content header name.
         /// </summary>
-        public const string ContentLength = "ContentLength";
+        public const string ContentLength = "Content-Length";
 
         /// <summary>
         /// Represents ContentLocation content header name.
         /// </summary>
-        public const string ContentLocation = "ContentLocation";
+        public const string ContentLocation = "Content-Location";
 
         /// <summary>
         /// Represents ContentMD5 content header name.
         /// </summary>
-        public const string ContentMD5 = "ContentMD5";
+        public const string ContentMD5 = "Content-MD5";
 
         /// <summary>
         /// Represents ContentRange content header name.
         /// </summary>
-        public const string ContentRange = "ContentRange";
+        public const string ContentRange = "Content-Range";
 
         /// <summary>
         /// Represents ContentType content header name.
         /// </summary>
-        public const string ContentType = "ContentType";
+        public const string ContentType = "Content-Type";
 
         /// <summary>
         /// Represents Expires content header name.
@@ -62,6 +62,6 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents LastModified content header name.
         /// </summary>
-        public const string LastModified = "LastModified";
+        public const string LastModified = "Last-Modified";
     }
 }

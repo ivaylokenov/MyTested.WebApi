@@ -5,6 +5,7 @@
 namespace MyTested.WebApi.Builders.Servers
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Net.Http;
     using System.Threading;
@@ -20,7 +21,7 @@ namespace MyTested.WebApi.Builders.Servers
     /// </summary>
     public class ServerTestBuilder : IServerBuilder, IServerTestBuilder
     {
-        private readonly HttpMessageInvoker client;
+        private readonly HttpClient client;
         private readonly bool transformRequest;
         private readonly bool disposeServer;
         private readonly IDisposable server;
@@ -35,7 +36,7 @@ namespace MyTested.WebApi.Builders.Servers
         /// <param name="disposeServer">Indicates whether to dispose the server and the client after the test completes.</param>
         /// <param name="server">IDisposable server to use for the request.</param>
         public ServerTestBuilder(
-            HttpMessageInvoker client,
+            HttpClient client,
             bool transformRequest = false,
             bool disposeServer = false,
             IDisposable server = null)
@@ -44,6 +45,41 @@ namespace MyTested.WebApi.Builders.Servers
             this.transformRequest = transformRequest;
             this.disposeServer = disposeServer;
             this.server = server;
+        }
+
+        /// <summary>
+        /// Adds default header to every request tested on the server.
+        /// </summary>
+        /// <param name="name">Name of the header.</param>
+        /// <param name="value">Value of the header.</param>
+        /// <returns>The same server builder.</returns>
+        public IServerBuilder WithDefaultRequestHeader(string name, string value)
+        {
+            this.client.DefaultRequestHeaders.Add(name, value);
+            return this;
+        }
+
+        /// <summary>
+        /// Adds default header to every request tested on the server.
+        /// </summary>
+        /// <param name="name">Name of the header.</param>
+        /// <param name="values">Collection of values for the header.</param>
+        /// <returns>The same server builder.</returns>
+        public IServerBuilder WithDefaultRequestHeader(string name, IEnumerable<string> values)
+        {
+            this.client.DefaultRequestHeaders.Add(name, values);
+            return this;
+        }
+
+        /// <summary>
+        /// Adds default collection of headers to every request tested on the server.
+        /// </summary>
+        /// <param name="headers">Dictionary of headers to add.</param>
+        /// <returns>The same server builder.</returns>
+        public IServerBuilder WithDefaultRequestHeaders(IDictionary<string, IEnumerable<string>> headers)
+        {
+            headers.ForEach(h => this.WithDefaultRequestHeader(h.Key, h.Value));
+            return this;
         }
 
         /// <summary>

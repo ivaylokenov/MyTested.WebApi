@@ -21,11 +21,11 @@ namespace MyTested.WebApi.Common.Servers
         /// <summary>
         /// Gets the global HTTP client used to send the request.
         /// </summary>
-        /// <value>HttpMessageInvoker instance.</value>
-        public static HttpMessageInvoker GlobalClient { get; private set; }
+        /// <value>HttpClient instance.</value>
+        public static HttpClient GlobalClient { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating whether the HTTP is started and listening for requests.
+        /// Gets a value indicating whether the HTTP server is started and listening for requests.
         /// </summary>
         /// <value>True or false.</value>
         public static bool GlobalIsStarted
@@ -40,11 +40,11 @@ namespace MyTested.WebApi.Common.Servers
         /// Creates new HTTP client for the server.
         /// </summary>
         /// <param name="httpConfiguration">HTTP configuration to use for the requests.</param>
-        /// <returns>HttpMessageInvoker instance.</returns>
-        public static HttpMessageInvoker CreateNewClient(HttpConfiguration httpConfiguration)
+        /// <returns>HttpClient instance.</returns>
+        public static HttpClient CreateNewClient(HttpConfiguration httpConfiguration)
         {
             var httpServer = new HttpServer(httpConfiguration);
-            return new HttpMessageInvoker(httpServer);
+            return new HttpClient(httpServer);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace MyTested.WebApi.Common.Servers
             }
 
             GlobalServer = new HttpServer(httpConfiguration);
-            GlobalClient = new HttpMessageInvoker(GlobalServer, true);
+            GlobalClient = new HttpClient(GlobalServer, true);
         }
 
         /// <summary>
