@@ -44,6 +44,7 @@
  - Integration testing of the full server pipeline
   - [HTTP server](#http-server)
   - [OWIN pipeline](#owin-pipeline)
+  - [Remote server](#remote-server)
   - [Response time](#response-time)
  - Additional classes and methods
   - [Helper classes](#helper-classes)
@@ -2608,6 +2609,51 @@ MyWebApi.Server().Stops();
 ```
 
 Summary - the **".Working()"** method without parameters will check if the global OWIN server is started. If not, it will check whether a global HTTP server is started. If not, it will instantiate new HTTP server using the global HTTP configuration. The first match will process the request and test over the response. If no server can be started, exception will be thrown. Using **".Working(config)"** will start new HTTP server with the provided configuration and dispose it after the test. Using **".Working<Startup>()"** will start new OWIN server with the provided start up class and dispose it after the test. Global server can be started with **"MyWebApi.Server().Starts()"** and it will be HTTP or OWIN dependending on the parameters. Global servers can be stopped with **"MyWebApi.Server().Stops()"**, no matter HTTP or OWIN.
+
+[To top](#table-of-contents)
+
+### Remote server
+
+You can test over a remotely deployed HTTP server. There are two options available. You can configure global base address in your test/class/assembly initialize method and set test cases with different requests or just set separate base address for each test:
+
+```c#
+// tests over a remotely deployed HTTP server
+// * the used HTTP client is disposed after the test
+MyWebApi
+	.Server()
+	.WorkingRemotely("http://mytestedasp.net")
+	.WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage()
+	.WithResponseTime(time => time.TotalMilliseconds < 100)
+	.WithStatusCode(HttpStatusCode.OK)
+	.ContainingContentHeader(HttpContentHeader.ContentType);
+
+// configure global base address
+MyWebApi.Server().IsLocatedAt("http://mytestedasp.net");
+
+MyWebApi
+	.Server()
+	.WorkingRemotely() // working remotely will use the globally set base address
+	.WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage()
+	.WithResponseTime(time => time.TotalMilliseconds < 100)
+	.WithStatusCode(HttpStatusCode.OK)
+	.ContainingContentHeader(HttpContentHeader.ContentType);
+
+// more test cases on the same global server
+
+// saving the remote server builder instance for later usage
+var server = MyWebApi.Server().IsLocatedAt("http://mytestedasp.net");
+
+server
+	.WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
+	.ShouldReturnHttpResponseMessage()
+	.WithResponseTime(time => time.TotalMilliseconds < 100)
+	.WithStatusCode(HttpStatusCode.OK)
+	.ContainingContentHeader(HttpContentHeader.ContentType);
+	
+// more test cases on the same globally configured server
+```
 
 [To top](#table-of-contents)
 
