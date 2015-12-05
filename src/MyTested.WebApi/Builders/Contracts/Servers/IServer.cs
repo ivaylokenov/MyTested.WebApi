@@ -28,6 +28,11 @@ namespace MyTested.WebApi.Builders.Contracts.Servers
         /// <returns>Server builder.</returns>
         IServerBuilder Starts<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost);
 
+        /// <summary>
+        /// Configures global remote server.
+        /// </summary>
+        /// <param name="baseAddress">Base address to use for the requests.</param>
+        /// <returns>Server builder.</returns>
         IServerBuilder IsLocatedAt(string baseAddress);
 
         /// <summary>
@@ -57,8 +62,17 @@ namespace MyTested.WebApi.Builders.Contracts.Servers
         /// <returns>Server builder to set specific HTTP requests.</returns>
         IServerBuilder Working<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost);
 
+        /// <summary>
+        /// Processes HTTP request on globally configured remote HTTP server.
+        /// </summary>
+        /// <returns>Server builder to set specific HTTP requests.</returns>
         IServerBuilder WorkingRemotely();
 
+        /// <summary>
+        /// Processes HTTP request on the remote HTTP server located at the provided base address.
+        /// </summary>
+        /// <param name="baseAddress">Base address to use for the requests.</param>
+        /// <returns>Server builder to set specific HTTP requests.</returns>
         IServerBuilder WorkingRemotely(string baseAddress);
     }
 }
