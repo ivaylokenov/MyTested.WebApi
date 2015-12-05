@@ -5,6 +5,7 @@
 namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
 {
     using System;
+    using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
@@ -294,6 +295,45 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
                 .WithResponseTime(time => time.TotalMilliseconds > 0)
                 .WithStatusCode(HttpStatusCode.NotFound)
                 .ContainingContentHeader(HttpContentHeader.ContentType, "text/html; charset=UTF-8");
+        }
+
+        [Test]
+        public void WithDefaultHeaderShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Server()
+                .Working<CustomStartup>()
+                .WithDefaultRequestHeader("CustomHeader", "CustomValue")
+                .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
+                .ShouldReturnHttpResponseMessage()
+                .WithStatusCode(HttpStatusCode.OK);
+        }
+
+        [Test]
+        public void WithDefaultHeaderWithMultipleValuesShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Server()
+                .Working<CustomStartup>()
+                .WithDefaultRequestHeader("CustomHeader", new[] { "CustomValue", "AnotherValue" })
+                .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
+                .ShouldReturnHttpResponseMessage()
+                .WithStatusCode(HttpStatusCode.OK);
+        }
+
+        [Test]
+        public void WithDefaultHeadersShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Server()
+                .Working<CustomStartup>()
+                .WithDefaultRequestHeaders(new Dictionary<string, IEnumerable<string>>
+                {
+                    { "CustomHeader", new[] { "CustomValue", "AnotherValue" } }
+                })
+                .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
+                .ShouldReturnHttpResponseMessage()
+                .WithStatusCode(HttpStatusCode.OK);
         }
 
         [TestFixtureTearDown]
