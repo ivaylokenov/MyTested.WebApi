@@ -5,6 +5,7 @@
 namespace MyTested.WebApi.Builders.Servers
 {
     using System;
+    using System.Net.Http;
     using System.Web.Http;
     using Common.Servers;
     using Contracts.Servers;
@@ -45,6 +46,12 @@ namespace MyTested.WebApi.Builders.Servers
             return this.Working();
         }
 
+        public IServerBuilder IsLocatedAt(string baseAddress)
+        {
+            RemoteServer.ConfigureGlobal(baseAddress);
+            return this.WorkingRemotely();
+        }
+
         /// <summary>
         /// Stops all currently started global HTTP or OWIN servers.
         /// </summary>
@@ -80,7 +87,7 @@ namespace MyTested.WebApi.Builders.Servers
                 return this.Working(MyWebApi.Configuration);
             }
 
-            throw new InvalidOperationException("No test servers are started or could be started for this particular test case. Either call MyWebApi.Server.Starts() to start a new test server or provide global or test specific HttpConfiguration.");
+            throw new InvalidOperationException("No test servers are started or could be started for this particular test case. Either call MyWebApi.Server().Starts() to start a new test server or provide global or test specific HttpConfiguration.");
         }
 
         /// <summary>
@@ -105,6 +112,21 @@ namespace MyTested.WebApi.Builders.Servers
             var options = this.GetStartOptions(port, host);
             var server = OwinTestServer.CreateNewServer<TStartup>(options);
             return new ServerTestBuilder(server.HttpClient, disposeServer: true, server: server);
+        }
+
+        public IServerBuilder WorkingRemotely()
+        {
+            if (RemoteServer.GlobalIsConfigured)
+            {
+                return new ServerTestBuilder(RemoteServer.GlobalClient);
+            }
+
+            throw new InvalidOperationException("No remote server is configured for this particular test case. Either call MyWebApi.Server().IsLocatedAt() to configure a new remote server or provide test specific base address.");
+        }
+
+        public IServerBuilder WorkingRemotely(string baseAddress)
+        {
+            return new ServerTestBuilder(RemoteServer.CreateNewClient(baseAddress), disposeServer: true);
         }
 
         private string GetStartOptions(int port, string host)
