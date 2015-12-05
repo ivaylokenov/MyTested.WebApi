@@ -167,7 +167,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
         [Test]
         [ExpectedException(
             typeof(InvalidOperationException),
-            ExpectedMessage = "No test servers are started or could be started for this particular test case. Either call MyWebApi.Server.Starts() to start a new test server or provide global or test specific HttpConfiguration.")]
+            ExpectedMessage = "No test servers are started or could be started for this particular test case. Either call MyWebApi.Server().Starts() to start a new test server or provide global or test specific HttpConfiguration.")]
         public void WithoutAnyConfigurationServersShouldThrowException()
         {
             MyWebApi.IsUsing(null);
@@ -213,6 +213,87 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
                 .WithStatusCode(HttpStatusCode.OK);
 
             MyWebApi.Server().Stops();
+        }
+
+        [Test]
+        public void RemoteServerShouldWorkCorrectlyWithGlobalConfiguration()
+        {
+            MyWebApi.Server().IsLocatedAt("http://google.com");
+
+            MyWebApi
+                .Server()
+                .WorkingRemotely()
+                .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
+                .ShouldReturnHttpResponseMessage()
+                .WithResponseTime(time => time.TotalMilliseconds > 0)
+                .WithStatusCode(HttpStatusCode.OK)
+                .ContainingContentHeader(HttpContentHeader.ContentType, "text/html; charset=windows-1251");
+
+            MyWebApi
+                .Server()
+                .WorkingRemotely()
+                .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Delete))
+                .ShouldReturnHttpResponseMessage()
+                .WithResponseTime(time => time.TotalMilliseconds > 0)
+                .WithStatusCode(HttpStatusCode.MethodNotAllowed);
+
+            MyWebApi
+                .Server()
+                .WorkingRemotely()
+                .WithHttpRequestMessage(req => req.WithRequestUri("/notfound"))
+                .ShouldReturnHttpResponseMessage()
+                .WithResponseTime(time => time.TotalMilliseconds > 0)
+                .WithStatusCode(HttpStatusCode.NotFound);
+
+            RemoteServer.DisposeGlobal();
+        }
+
+        [Test]
+        public void RemoteServerShouldWorkCorrectlyWithSpecificBaseAddress()
+        {
+            Assert.IsFalse(RemoteServer.GlobalIsConfigured);
+
+            MyWebApi
+                .Server()
+                .WorkingRemotely("http://google.com")
+                .WithHttpRequestMessage(req => req.WithRequestUri("/users/ivaylokenov/repos"))
+                .ShouldReturnHttpResponseMessage()
+                .WithResponseTime(time => time.TotalMilliseconds > 0)
+                .WithStatusCode(HttpStatusCode.NotFound)
+                .ContainingContentHeader(HttpContentHeader.ContentType, "text/html; charset=UTF-8");
+
+            Assert.IsFalse(RemoteServer.GlobalIsConfigured);
+
+            MyWebApi
+                .Server()
+                .WorkingRemotely("https://api.github.com")
+                .WithHttpRequestMessage(req => req
+                    .WithRequestUri("/users/ivaylokenov/repos")
+                    .WithHeader(HttpHeader.UserAgent, "MyTested.WebApi"))
+                .ShouldReturnHttpResponseMessage()
+                .WithResponseTime(time => time.TotalMilliseconds > 0)
+                .WithStatusCode(HttpStatusCode.OK)
+                .ContainingContentHeader(HttpContentHeader.ContentType, "application/json; charset=utf-8");
+
+            Assert.IsFalse(RemoteServer.GlobalIsConfigured);
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(InvalidOperationException),
+            ExpectedMessage = "No remote server is configured for this particular test case. Either call MyWebApi.Server().IsLocatedAt() to configure a new remote server or provide test specific base address.")]
+        public void WorkingRemotelyWithoutAnyBaseAddressShouldThrowException()
+        {
+            RemoteServer.DisposeGlobal();
+
+            MyWebApi
+                .Server()
+                .WorkingRemotely()
+                .WithHttpRequestMessage(req => req.WithRequestUri("/users/ivaylokenov/repos"))
+                .ShouldReturnHttpResponseMessage()
+                .WithResponseTime(time => time.TotalMilliseconds > 0)
+                .WithStatusCode(HttpStatusCode.NotFound)
+                .ContainingContentHeader(HttpContentHeader.ContentType, "text/html; charset=UTF-8");
         }
 
         [TestFixtureTearDown]

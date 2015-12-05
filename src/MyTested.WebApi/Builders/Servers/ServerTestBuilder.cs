@@ -20,7 +20,7 @@ namespace MyTested.WebApi.Builders.Servers
     /// </summary>
     public class ServerTestBuilder : IServerBuilder, IServerTestBuilder
     {
-        private readonly HttpMessageInvoker client;
+        private readonly HttpClient client;
         private readonly bool transformRequest;
         private readonly bool disposeServer;
         private readonly IDisposable server;
@@ -35,7 +35,7 @@ namespace MyTested.WebApi.Builders.Servers
         /// <param name="disposeServer">Indicates whether to dispose the server and the client after the test completes.</param>
         /// <param name="server">IDisposable server to use for the request.</param>
         public ServerTestBuilder(
-            HttpMessageInvoker client,
+            HttpClient client,
             bool transformRequest = false,
             bool disposeServer = false,
             IDisposable server = null)

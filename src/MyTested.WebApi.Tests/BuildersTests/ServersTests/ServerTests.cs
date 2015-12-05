@@ -155,6 +155,38 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
             MyWebApi.Server().Stops();
         }
 
+        [Test]
+        public void IsLocatedAtShouldConfigureGlobalRemoteServer()
+        {
+            MyWebApi.Server().IsLocatedAt("http://google.com");
+
+            Assert.IsNotNull(RemoteServer.GlobalClient);
+            Assert.IsTrue(RemoteServer.GlobalIsConfigured);
+            Assert.AreEqual("http://google.com", RemoteServer.GlobalClient.BaseAddress.OriginalString);
+
+            RemoteServer.DisposeGlobal();
+
+            Assert.IsNull(RemoteServer.GlobalClient);
+            Assert.IsFalse(RemoteServer.GlobalIsConfigured);
+        }
+
+        [Test]
+        public void SecondIsLocatedAtShouldReconfigureGlobalRemoteServer()
+        {
+            MyWebApi.Server().IsLocatedAt("http://google.com");
+
+            var client = RemoteServer.GlobalClient;
+
+            MyWebApi.Server().IsLocatedAt("http://mytestedasp.net");
+
+            var secondClient = RemoteServer.GlobalClient;
+
+            Assert.AreNotSame(client, secondClient);
+            Assert.IsNotNull(secondClient);
+            Assert.IsTrue(RemoteServer.GlobalIsConfigured);
+            Assert.AreEqual("http://mytestedasp.net", RemoteServer.GlobalClient.BaseAddress.OriginalString);
+        }
+
         [TestFixtureTearDown]
         public void RestoreConfiguration()
         {

@@ -28,6 +28,8 @@ namespace MyTested.WebApi.Builders.Contracts.Servers
         /// <returns>Server builder.</returns>
         IServerBuilder Starts<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost);
 
+        IServerBuilder IsLocatedAt(string baseAddress);
+
         /// <summary>
         /// Stops all currently started global HTTP or OWIN servers.
         /// </summary>
@@ -54,5 +56,9 @@ namespace MyTested.WebApi.Builders.Contracts.Servers
         /// <param name="host">Network host on which the server will listen for requests.</param>
         /// <returns>Server builder to set specific HTTP requests.</returns>
         IServerBuilder Working<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost);
+
+        IServerBuilder WorkingRemotely();
+
+        IServerBuilder WorkingRemotely(string baseAddress);
     }
 }

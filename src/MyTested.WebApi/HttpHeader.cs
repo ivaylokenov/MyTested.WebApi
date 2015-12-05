@@ -17,22 +17,22 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents AcceptCharset header name.
         /// </summary>
-        public const string AcceptCharset = "AcceptCharset";
+        public const string AcceptCharset = "Accept-Charset";
 
         /// <summary>
         /// Represents AcceptEncoding header name.
         /// </summary>
-        public const string AcceptEncoding = "AcceptEncoding";
+        public const string AcceptEncoding = "Accept-Encoding";
 
         /// <summary>
         /// Represents AcceptLanguage header name.
         /// </summary>
-        public const string AcceptLanguage = "AcceptLanguage";
+        public const string AcceptLanguage = "Accept-Language";
 
         /// <summary>
         /// Represents AcceptRanges header name.
         /// </summary>
-        public const string AcceptRanges = "AcceptRanges";
+        public const string AcceptRanges = "Accept-Ranges";
 
         /// <summary>
         /// Represents Age header name.
@@ -47,7 +47,7 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents CacheControl header name.
         /// </summary>
-        public const string CacheControl = "CacheControl";
+        public const string CacheControl = "Cache-Control";
 
         /// <summary>
         /// Represents Connection header name.
@@ -57,7 +57,7 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents ConnectionClose header name.
         /// </summary>
-        public const string ConnectionClose = "ConnectionClose";
+        public const string ConnectionClose = "Connection-Close";
 
         /// <summary>
         /// Represents Date header name.
@@ -72,7 +72,7 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents ExpectContinue header name.
         /// </summary>
-        public const string ExpectContinue = "ExpectContinue";
+        public const string ExpectContinue = "Expect-Continue";
 
         /// <summary>
         /// Represents From header name.
@@ -87,27 +87,27 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents IfMatch header name.
         /// </summary>
-        public const string IfMatch = "IfMatch";
+        public const string IfMatch = "If-Match";
 
         /// <summary>
         /// Represents IfModifiedSince header name.
         /// </summary>
-        public const string IfModifiedSince = "IfModifiedSince";
+        public const string IfModifiedSince = "If-Modified-Since";
 
         /// <summary>
         /// Represents IfNoneMatch header name.
         /// </summary>
-        public const string IfNoneMatch = "IfNoneMatch";
+        public const string IfNoneMatch = "If-None-Match";
 
         /// <summary>
         /// Represents IfRange header name.
         /// </summary>
-        public const string IfRange = "IfRange";
+        public const string IfRange = "If-Range";
 
         /// <summary>
         /// Represents IfUnmodifiedSince header name.
         /// </summary>
-        public const string IfUnmodifiedSince = "IfUnmodifiedSince";
+        public const string IfUnmodifiedSince = "If-Unmodified-Since";
 
         /// <summary>
         /// Represents Location header name.
@@ -117,7 +117,7 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents MaxForwards header name.
         /// </summary>
-        public const string MaxForwards = "MaxForwards";
+        public const string MaxForwards = "Max-Forwards";
 
         /// <summary>
         /// Represents Pragma header name.
@@ -127,12 +127,12 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents ProxyAuthenticate header name.
         /// </summary>
-        public const string ProxyAuthenticate = "ProxyAuthenticate";
+        public const string ProxyAuthenticate = "Proxy-Authenticate";
 
         /// <summary>
         /// Represents ProxyAuthorization header name.
         /// </summary>
-        public const string ProxyAuthorization = "ProxyAuthorization";
+        public const string ProxyAuthorization = "Proxy-Authorization";
 
         /// <summary>
         /// Represents Range header name.
@@ -147,7 +147,7 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents RetryAfter header name.
         /// </summary>
-        public const string RetryAfter = "RetryAfter";
+        public const string RetryAfter = "Retry-After";
 
         /// <summary>
         /// Represents Server header name.
@@ -167,12 +167,12 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents TransferEncoding header name.
         /// </summary>
-        public const string TransferEncoding = "TransferEncoding";
+        public const string TransferEncoding = "Transfer-Encoding";
 
         /// <summary>
         /// Represents TransferEncodingChunked header name.
         /// </summary>
-        public const string TransferEncodingChunked = "TransferEncodingChunked";
+        public const string TransferEncodingChunked = "Transfer-Encoding-Chunked";
 
         /// <summary>
         /// Represents Upgrade header name.
@@ -182,7 +182,7 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents UserAgent header name.
         /// </summary>
-        public const string UserAgent = "UserAgent";
+        public const string UserAgent = "User-Agent";
 
         /// <summary>
         /// Represents Vary header name.
@@ -202,6 +202,6 @@ namespace MyTested.WebApi
         /// <summary>
         /// Represents WwwAuthenticate header name.
         /// </summary>
-        public const string WwwAuthenticate = "WwwAuthenticate";
+        public const string WwwAuthenticate = "Www-Authenticate";
     }
 }

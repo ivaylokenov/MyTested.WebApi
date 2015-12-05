@@ -5,7 +5,6 @@
 namespace MyTested.WebApi.Builders.Servers
 {
     using System;
-    using System.Net.Http;
     using System.Web.Http;
     using Common.Servers;
     using Contracts.Servers;
