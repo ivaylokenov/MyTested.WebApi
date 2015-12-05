@@ -2695,7 +2695,6 @@ MyWebApi
 	
 // saving the server builder instance for later usage
 // with configured default request headers
-
 var server = MyWebApi
 	.Server()
 	.Starts<CustomStartup>()
