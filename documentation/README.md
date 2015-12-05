@@ -2613,7 +2613,7 @@ Summary - the **".Working()"** method without parameters will check if the globa
 
 ### Response time
 
-You can test the response time the server needed to process the request:
+You can test the response time the server needed to process the request. It is measured with System.Diagnostics.Stopwatch and results may vary depending on external factors (machine specifications, free system resources, etc.) so use it only for informational and statistical purposes:
 
 ```c#
 // tests whether the response time passes a predicate
