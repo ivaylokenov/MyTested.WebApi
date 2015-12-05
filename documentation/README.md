@@ -45,6 +45,7 @@
   - [HTTP server](#http-server)
   - [OWIN pipeline](#owin-pipeline)
   - [Remote server](#remote-server)
+  - [Default request headers](#default-request-headers)
   - [Response time](#response-time)
  - Additional classes and methods
   - [Helper classes](#helper-classes)
@@ -2653,6 +2654,59 @@ server
 	.ContainingContentHeader(HttpContentHeader.ContentType);
 	
 // more test cases on the same globally configured server
+```
+
+[To top](#table-of-contents)
+
+### Default request headers
+
+You can set default request headers for all types of integration tests:
+
+```c#
+// adds default request header by name and value
+MyWebApi
+	.Server()
+	.Starts<CustomStartup>() // works with HTTP and remote integration tests too
+	.WithDefaultRequestHeader("CustomHeader", "CustomValue");
+	
+// adds default request header by name and collection of values
+MyWebApi
+	.Server()
+	.Starts<CustomStartup>()
+	.WithDefaultRequestHeader("CustomHeader", new[] { "CustomValue", "AnotherValue" });
+	
+// adds default request headers
+MyWebApi
+	.Server()
+	.Starts<CustomStartup>()
+	.WithDefaultRequestHeaders(new Dictionary<string, IEnumerable<string>>
+	{
+		{ "CustomHeader", new[] { "CustomValue", "AnotherValue" } }
+	});
+	
+// every test using the global server will have
+// the specified default request headers
+MyWebApi
+	.Server()
+	.Working()
+	.WithHttpRequestMessage(httpRequestMessage) // request will contain the default headers
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+	
+// saving the server builder instance for later usage
+// with configured default request headers
+
+var server = MyWebApi
+	.Server()
+	.Starts<CustomStartup>()
+	.WithDefaultRequestHeader("CustomHeader", "CustomValue");
+
+server
+	.WithHttpRequestMessage(httpRequestMessage) // request will contain the default headers
+	.ShouldReturnHttpResponseMessage()
+	.WithStatusCode(HttpStatusCode.OK);
+	
+// more test cases on the same global server with the default headers
 ```
 
 [To top](#table-of-contents)
