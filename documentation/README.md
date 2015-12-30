@@ -53,7 +53,7 @@
 
 ### Using custom HttpConfiguration
 
-You have the option to configure global HttpConfiguration to be used across all test cases. These call are not necessary but can be helpful for route tests for example where all registered routes are the same throughout the whole application:
+You have the option to configure global HttpConfiguration to be used across all test cases. These calls are not necessary but can be helpful for route tests for example where all registered routes are the same throughout the whole application:
 
 ```c#
 // register configuration by providing instance of HttpConfiguration
