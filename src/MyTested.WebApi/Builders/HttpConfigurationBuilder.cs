@@ -5,6 +5,7 @@
 namespace MyTested.WebApi.Builders
 {
     using System.Web.Http;
+    using Common.Servers;
     using Contracts;
     using Servers;
 
@@ -53,6 +54,12 @@ namespace MyTested.WebApi.Builders
         public IHttpConfigurationBuilder WithBaseAddress(string baseAddress)
         {
             MyWebApi.BaseAddress = baseAddress;
+
+            if (!RemoteServer.GlobalIsConfigured)
+            {
+                RemoteServer.ConfigureGlobal(baseAddress);
+            }
+
             return this;
         }
 

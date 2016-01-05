@@ -20,7 +20,7 @@ namespace MyTested.WebApi.Tests.Setups.Controllers
     using Services;
 
     [Authorize(Roles = "Admin,Moderator", Users = "John,George")]
-    [RoutePrefix("/api/test")]
+    [RoutePrefix("api/test")]
     internal class WebApiController : ApiController
     {
         private readonly ICollection<ResponseModel> responseModel;
@@ -69,6 +69,12 @@ namespace MyTested.WebApi.Tests.Setups.Controllers
         public IAnotherInjectedService AnotherInjectedService { get; private set; }
 
         public RequestModel InjectedRequestModel { get; private set; }
+
+        public IHttpActionResult WithGeneratedLink(int id)
+        {
+            var link = this.Url.Link("TestRouteAttributes", new { id = 1 });
+            return this.Created(link, "content");
+        }
 
         public IHttpActionResult CustomRequestAction()
         {

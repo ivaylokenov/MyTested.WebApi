@@ -12,6 +12,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
     using System.Web.Http.Results;
     using Builders.Contracts.Actions;
     using Builders.Contracts.Base;
+    using Common.Servers;
     using Exceptions;
     using NUnit.Framework;
     using Setups;
@@ -418,6 +419,39 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
 
             Assert.AreSame(config, controllerConfig);
             Assert.AreSame(config, controllerConfigFromApi);
+        }
+
+        [Test]
+        public void LinkGenerationShouldWorkCorrectlyWithDefaultConfiguration()
+        {
+            MyWebApi.IsUsingDefaultHttpConfiguration();
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.WithGeneratedLink(1))
+                .ShouldReturn()
+                .Created()
+                .AtLocation("http://localhost/api/test?id=1");
+
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
+        }
+
+        [Test]
+        public void LinkGenerationShouldWorkCorrectlyWithCustomBaseAddress()
+        {
+            MyWebApi
+                .IsUsingDefaultHttpConfiguration()
+                .WithBaseAddress("http://mytestedasp.net");
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.WithGeneratedLink(1))
+                .ShouldReturn()
+                .Created()
+                .AtLocation("http://mytestedasp.net/api/test?id=1");
+
+            RemoteServer.DisposeGlobal();
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
         }
 
         private void CheckActionResultTestBuilder<TActionResult>(

@@ -44,7 +44,11 @@ namespace MyTested.WebApi
         /// <value>Instance of HttpConfiguration.</value>
         public static HttpConfiguration Configuration { get; private set; }
 
-        internal static string BaseAddress { get; set; }
+        /// <summary>
+        /// Gets the current base address used in the testing.
+        /// </summary>
+        /// <value>Instance of String.</value>
+        public static string BaseAddress { get; internal set; }
 
         /// <summary>
         /// Sets the default HttpConfiguration which will be used in all tests.
@@ -52,7 +56,16 @@ namespace MyTested.WebApi
         /// <returns>HTTP configuration builder.</returns>
         public static IHttpConfigurationBuilder IsUsingDefaultHttpConfiguration()
         {
-            return IsUsing(new HttpConfiguration());
+            var config = new HttpConfiguration();
+
+            config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "API Default",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional });
+
+            return IsUsing(config);
         }
 
         /// <summary>
@@ -63,6 +76,7 @@ namespace MyTested.WebApi
         public static IHttpConfigurationBuilder IsUsing(HttpConfiguration httpConfiguration)
         {
             Configuration = httpConfiguration;
+            BaseAddress = DefaultHost;
             return new HttpConfigurationBuilder(httpConfiguration);
         }
 
