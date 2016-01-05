@@ -44,7 +44,7 @@ namespace MyTested.WebApi.Builders.Controllers
         {
             this.Controller = controllerInstance;
             this.aggregatedDependencies = new Dictionary<Type, object>();
-            this.HttpRequestMessage = new HttpRequestMessage();
+            this.HttpRequestMessage = new HttpRequestMessage(HttpMethod.Get, MyWebApi.BaseAddress);
             this.isPreparedForTesting = false;
             this.enabledValidation = true;
         }
@@ -384,6 +384,7 @@ namespace MyTested.WebApi.Builders.Controllers
         private void PrepareController()
         {
             this.controller.Request = this.HttpRequestMessage;
+            this.controller.Request.TransformToAbsoluteRequestUri();
             this.controller.RequestContext = this.HttpRequestMessage.GetRequestContext();
             this.controller.Configuration = this.HttpConfiguration ?? MyWebApi.Configuration ?? new HttpConfiguration();
             this.controller.User = MockedIPrinciple.CreateUnauthenticated();

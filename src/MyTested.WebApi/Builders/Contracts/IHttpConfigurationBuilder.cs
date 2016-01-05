@@ -23,5 +23,12 @@ namespace MyTested.WebApi.Builders.Contracts
         /// <param name="errorDetailPolicy">Error details policy to use.</param>
         /// <returns>The same HTTP configuration builder.</returns>
         IHttpConfigurationBuilder WithErrorDetailPolicy(IncludeErrorDetailPolicy errorDetailPolicy);
+
+        /// <summary>
+        /// Sets the global base address to be used across the test cases. Default is local host.
+        /// </summary>
+        /// <param name="baseAddress">Base address to use.</param>
+        /// <returns>The same HTTP configuration builder.</returns>
+        IHttpConfigurationBuilder WithBaseAddress(string baseAddress);
     }
 }

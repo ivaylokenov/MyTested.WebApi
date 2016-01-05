@@ -23,10 +23,28 @@ namespace MyTested.WebApi
     public static class MyWebApi
     {
         /// <summary>
+        /// Default host which the tests will use - local host.
+        /// </summary>
+        public const string DefaultHost = "http://localhost";
+
+        /// <summary>
+        /// Default port which the tests will use - 80.
+        /// </summary>
+        public const int DefaultPort = 80;
+
+        static MyWebApi()
+        {
+            BaseAddress = DefaultHost;
+            IsUsingDefaultHttpConfiguration();
+        }
+
+        /// <summary>
         /// Gets the current global HTTP configuration used in the testing.
         /// </summary>
         /// <value>Instance of HttpConfiguration.</value>
         public static HttpConfiguration Configuration { get; private set; }
+
+        internal static string BaseAddress { get; set; }
 
         /// <summary>
         /// Sets the default HttpConfiguration which will be used in all tests.
