@@ -89,6 +89,15 @@ By default all unit tests are run with request host **"http://localhost"** and *
 MyWebApi
 	.IsRegisteredWith(WebApiConfig.Register)
 	.WithBaseAddress("http://mytestedasp.net");
+
+// these are also available
+MyWebApi
+	.IsUsingDefaultHttpConfiguration()
+	.WithBaseAddress("http://mytestedasp.net");
+	
+MyWebApi
+	.IsUsing(httpConfiguration)
+	.WithBaseAddress("http://mytestedasp.net");
 ```
 
 [To top](#table-of-contents)
