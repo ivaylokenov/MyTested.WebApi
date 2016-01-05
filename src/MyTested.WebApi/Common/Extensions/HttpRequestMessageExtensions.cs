@@ -20,7 +20,7 @@ namespace MyTested.WebApi.Common.Extensions
         {
             if (request.RequestUri != null && !request.RequestUri.IsAbsoluteUri)
             {
-                request.RequestUri = new Uri(new Uri(MyWebApi.BaseAddress), request.RequestUri);
+                request.RequestUri = new Uri(MyWebApi.BaseAddress, request.RequestUri);
             }
         }
     }

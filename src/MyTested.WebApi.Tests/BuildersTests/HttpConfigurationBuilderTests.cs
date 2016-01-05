@@ -42,7 +42,7 @@ namespace MyTested.WebApi.Tests.BuildersTests
         public void WithBaseAddressShouldChangedDefaultAddress()
         {
             Assert.IsFalse(RemoteServer.GlobalIsConfigured);
-            Assert.AreEqual(MyWebApi.DefaultHost, MyWebApi.BaseAddress);
+            Assert.AreEqual(MyWebApi.DefaultHost, MyWebApi.BaseAddress.OriginalString);
 
             string address = "http://mytestedasp.net";
 
@@ -50,12 +50,12 @@ namespace MyTested.WebApi.Tests.BuildersTests
                 .IsUsingDefaultHttpConfiguration()
                 .WithBaseAddress(address);
 
-            Assert.AreEqual(address, MyWebApi.BaseAddress);
+            Assert.AreEqual(address, MyWebApi.BaseAddress.OriginalString);
             Assert.IsTrue(RemoteServer.GlobalIsConfigured);
 
             MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
 
-            Assert.AreEqual(MyWebApi.DefaultHost, MyWebApi.BaseAddress);
+            Assert.AreEqual(MyWebApi.DefaultHost, MyWebApi.BaseAddress.OriginalString);
 
             RemoteServer.DisposeGlobal();
         }

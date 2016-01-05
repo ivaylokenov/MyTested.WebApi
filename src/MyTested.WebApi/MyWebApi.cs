@@ -34,7 +34,6 @@ namespace MyTested.WebApi
 
         static MyWebApi()
         {
-            BaseAddress = DefaultHost;
             IsUsingDefaultHttpConfiguration();
         }
 
@@ -48,7 +47,7 @@ namespace MyTested.WebApi
         /// Gets the current base address used in the testing.
         /// </summary>
         /// <value>Instance of String.</value>
-        public static string BaseAddress { get; internal set; }
+        public static Uri BaseAddress { get; internal set; }
 
         /// <summary>
         /// Sets the default HttpConfiguration which will be used in all tests.
@@ -76,7 +75,7 @@ namespace MyTested.WebApi
         public static IHttpConfigurationBuilder IsUsing(HttpConfiguration httpConfiguration)
         {
             Configuration = httpConfiguration;
-            BaseAddress = DefaultHost;
+            BaseAddress = new Uri(DefaultHost, UriKind.Absolute);
             return new HttpConfigurationBuilder(httpConfiguration);
         }
 

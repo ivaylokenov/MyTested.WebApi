@@ -4,6 +4,7 @@
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
 namespace MyTested.WebApi.Builders
 {
+    using System;
     using System.Web.Http;
     using Common.Servers;
     using Contracts;
@@ -53,7 +54,7 @@ namespace MyTested.WebApi.Builders
         /// <returns>The same HTTP configuration builder.</returns>
         public IHttpConfigurationBuilder WithBaseAddress(string baseAddress)
         {
-            MyWebApi.BaseAddress = baseAddress;
+            MyWebApi.BaseAddress = new Uri(baseAddress, UriKind.Absolute);
 
             if (!RemoteServer.GlobalIsConfigured)
             {

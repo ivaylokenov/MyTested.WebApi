@@ -7,6 +7,7 @@
 
  - Global configuration
   - [Using custom HttpConfiguration](#using-custom-httpconfiguration)
+  - [Base address](#base-address)
  - Route validations
   - [Building route request](#building-route-request)
   - [Testing routes](#testing-routes)
@@ -74,6 +75,20 @@ MyWebApi.IsUsingDefaultHttpConfiguration();
 MyWebApi
 	.IsRegisteredWith(WebApiConfig.Register)
 	.WithErrorDetailPolicy(IncludeErrorDetailPolicy.LocalOnly);
+```
+
+[To top](#table-of-contents)
+  
+### Base address
+
+By default all unit tests are run with request host **"http://localhost"** and **Url.Link** will use it as base address. Another host can be configured easily after setting the HTTP configuration:
+
+```c#
+// sets all test requests to come from custom base address
+// ** this will also set the global remote server
+MyWebApi
+	.IsRegisteredWith(WebApiConfig.Register)
+	.WithBaseAddress("http://mytestedasp.net");
 ```
 
 [To top](#table-of-contents)
@@ -2630,6 +2645,8 @@ MyWebApi
 	.ContainingContentHeader(HttpContentHeader.ContentType);
 
 // configure global base address
+// ** this step is not necessary, if you already provided 
+// ** a base address through the configuration
 MyWebApi.Server().IsLocatedAt("http://mytestedasp.net");
 
 MyWebApi
