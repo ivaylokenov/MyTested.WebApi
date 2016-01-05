@@ -14,16 +14,6 @@ namespace MyTested.WebApi.Common.Servers
     public static class OwinTestServer
     {
         /// <summary>
-        /// Default host on which the OWIN server will listen - local host.
-        /// </summary>
-        public const string DefaultHost = "http://localhost";
-
-        /// <summary>
-        /// Default port on which the OWIN server will listen - 80.
-        /// </summary>
-        public const int DefaultPort = 80;
-
-        /// <summary>
         /// Gets the global OWIN server used in the testing.
         /// </summary>
         /// <value>Test server instance.</value>

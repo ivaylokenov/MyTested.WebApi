@@ -18,7 +18,10 @@ namespace MyTested.WebApi.Common.Extensions
         /// <param name="request">HTTP request message to transform.</param>
         public static void TransformToAbsoluteRequestUri(this HttpRequestMessage request)
         {
-            request.RequestUri = new Uri(new Uri("http://absoluteuri.com"), request.RequestUri);
+            if (request.RequestUri != null && !request.RequestUri.IsAbsoluteUri)
+            {
+                request.RequestUri = new Uri(MyWebApi.BaseAddress, request.RequestUri);
+            }
         }
     }
 }

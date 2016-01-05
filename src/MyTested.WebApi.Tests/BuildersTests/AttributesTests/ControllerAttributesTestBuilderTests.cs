@@ -123,7 +123,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
             MyWebApi
                 .Controller<WebApiController>()
                 .ShouldHave()
-                .Attributes(attributes => attributes.ChangingRoutePrefixTo("/api/test"));
+                .Attributes(attributes => attributes.ChangingRoutePrefixTo("api/test"));
         }
 
         [Test]
@@ -132,19 +132,19 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
             MyWebApi
                 .Controller<WebApiController>()
                 .ShouldHave()
-                .Attributes(attributes => attributes.ChangingRoutePrefixTo("/api/Test"));
+                .Attributes(attributes => attributes.ChangingRoutePrefixTo("api/Test"));
         }
 
         [Test]
         [ExpectedException(
             typeof(AttributeAssertionException),
-            ExpectedMessage = "When testing WebApiController was expected to have RoutePrefixAttribute with '/api/another' prefix, but in fact found '/api/test'.")]
+            ExpectedMessage = "When testing WebApiController was expected to have RoutePrefixAttribute with 'api/another' prefix, but in fact found 'api/test'.")]
         public void ChangingRoutePrefixToShouldThrowExceptionWithControllerWithTheAttributeAndWrongPrefix()
         {
             MyWebApi
                 .Controller<WebApiController>()
                 .ShouldHave()
-                .Attributes(attributes => attributes.ChangingRoutePrefixTo("/api/another"));
+                .Attributes(attributes => attributes.ChangingRoutePrefixTo("api/another"));
         }
 
         [Test]
@@ -156,7 +156,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.AttributesTests
             MyWebApi
                 .Controller<AttributesController>()
                 .ShouldHave()
-                .Attributes(attributes => attributes.ChangingRoutePrefixTo("/api/test"));
+                .Attributes(attributes => attributes.ChangingRoutePrefixTo("api/test"));
         }
 
         [Test]
