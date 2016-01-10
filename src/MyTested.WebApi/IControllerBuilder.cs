@@ -8,12 +8,14 @@ namespace MyTested.WebApi
     using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Net.Http;
+    using System.Security.Principal;
     using System.Threading.Tasks;
     using System.Web.Http;
     using Builders.Contracts;
     using Builders.Contracts.Actions;
     using Builders.Contracts.Controllers;
     using Builders.Contracts.HttpRequests;
+    using Builders.Contracts.Identity;
 
     /// <summary>
     /// Used for building the action which will be tested.
@@ -82,6 +84,13 @@ namespace MyTested.WebApi
         /// </summary>
         /// <returns>The same controller builder.</returns>
         IAndControllerBuilder<TController> WithAuthenticatedUser();
+
+        /// <summary>
+        /// Sets custom authenticated user to the built controller.
+        /// </summary>
+        /// <param name="pricipal">The IPrincipal user to set.</param>
+        /// <returns>The same controller builder.</returns>
+        IAndControllerBuilder<TController> WithAuthenticatedUser(IPrincipal pricipal);
 
         /// <summary>
         /// Sets custom authenticated user using provided user builder.

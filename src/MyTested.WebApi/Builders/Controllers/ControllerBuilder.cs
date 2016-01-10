@@ -19,8 +19,10 @@ namespace MyTested.WebApi.Builders.Controllers
     using Contracts.Actions;
     using Contracts.Controllers;
     using Contracts.HttpRequests;
+    using Contracts.Identity;
     using Exceptions;
     using HttpMessages;
+    using Identity;
     using Utilities;
 
     /// <summary>

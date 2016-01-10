@@ -7,6 +7,7 @@ namespace MyTested.WebApi.Tests.UtilitiesTests.ValidatorsTests
     using System;
     using Builders;
     using Builders.Attributes;
+    using Builders.Identity;
     using NUnit.Framework;
     using Setups;
     using Setups.Controllers;
