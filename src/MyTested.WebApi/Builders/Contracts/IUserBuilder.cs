@@ -5,12 +5,20 @@
 namespace MyTested.WebApi.Builders.Contracts
 {
     using System.Collections.Generic;
+    using System.Security.Claims;
 
     /// <summary>
     /// Used for building mocked Controller.User object.
     /// </summary>
     public interface IUserBuilder
     {
+        /// <summary>
+        /// Used for setting ID to the mocked user object.
+        /// </summary>
+        /// <param name="identifier">The user Id to set.</param>
+        /// <returns>The same user builder.</returns>
+        IUserBuilder WithIdentifier(string identifier);
+
         /// <summary>
         /// Used for setting username to the mocked user object.
         /// </summary>
@@ -24,6 +32,13 @@ namespace MyTested.WebApi.Builders.Contracts
         /// <param name="authenticationType">The authentication type to set.</param>
         /// <returns>The same user builder.</returns>
         IUserBuilder WithAuthenticationType(string authenticationType);
+
+        /// <summary>
+        /// Used for adding claim to the mocked user object.
+        /// </summary>
+        /// <param name="claim">The user claim to set.</param>
+        /// <returns>The same user builder.</returns>
+        IUserBuilder WithClaim(Claim claim);
 
         /// <summary>
         /// Used for adding user role to the mocked user object.

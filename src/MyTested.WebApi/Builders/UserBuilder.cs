@@ -31,6 +31,11 @@ namespace MyTested.WebApi.Builders
             this.constructedRoles = new HashSet<string>();
         }
 
+        /// <summary>
+        /// Used for setting ID to the mocked user object.
+        /// </summary>
+        /// <param name="identifier">The user Id to set.</param>
+        /// <returns>The same user builder.</returns>
         public IUserBuilder WithIdentifier(string identifier)
         {
             this.constructedClaims.Add(new Claim(ClaimTypes.NameIdentifier, identifier));
@@ -48,6 +53,11 @@ namespace MyTested.WebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Used to adding claim to the mocked user object.
+        /// </summary>
+        /// <param name="claim">The user claim to set.</param>
+        /// <returns>The same user builder.</returns>
         public IUserBuilder WithClaim(Claim claim)
         {
             this.constructedClaims.Add(claim);

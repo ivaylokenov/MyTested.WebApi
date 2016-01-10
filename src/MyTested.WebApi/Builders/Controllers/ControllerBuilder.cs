@@ -177,6 +177,11 @@ namespace MyTested.WebApi.Builders.Controllers
             return this;
         }
 
+        /// <summary>
+        /// Sets custom authenticated user to the built controller.
+        /// </summary>
+        /// <param name="pricipal">The IPrincipal user to set.</param>
+        /// <returns>The same controller builder.</returns>
         public IAndControllerBuilder<TController> WithAuthenticatedUser(IPrincipal pricipal)
         {
             this.Controller.User = pricipal;
