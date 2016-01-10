@@ -92,8 +92,8 @@
       <HintPath>..\..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MyTested.WebApi, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MyTested.WebApi.1.1.8\lib\net45\MyTested.WebApi.dll</HintPath>
+    <Reference Include="MyTested.WebApi, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MyTested.WebApi.1.2.0\lib\net45\MyTested.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
