@@ -521,6 +521,16 @@ MyWebApi
 MyWebApi
 	.Controller(myWebApiControllerInstance)
 	.WithHttpConfiguration(config);
+	
+// sets the controller properties with a delegate
+MyWebApi
+	.Controller<WebApiController>()
+	.WithSetup(c =>
+	{
+		c.ActionContext = customActionContext;
+		c.User = customUser;
+		c.Configuration = customConfig;
+	});
 ```
 
 [To top](#table-of-contents)
