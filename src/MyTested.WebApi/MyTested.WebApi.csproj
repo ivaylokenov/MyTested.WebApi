@@ -239,8 +239,7 @@
     <Compile Include="Common\Routes\ExpressionParsedRouteInfo.cs" />
     <Compile Include="Common\Routes\ResolvedRouteInfo.cs" />
     <Compile Include="Common\MethodArgumentInfo.cs" />
-    <Compile Include="Common\Identity\MockedIIdentity.cs" />
-    <Compile Include="Common\Identity\MockedIPrinciple.cs" />
+    <Compile Include="Common\MockedIPrincipal.cs" />
     <Compile Include="Common\Servers\HttpTestServer.cs" />
     <Compile Include="Common\Servers\OwinTestServer.cs" />
     <Compile Include="Common\Servers\ServerHttpMessageHandler.cs" />

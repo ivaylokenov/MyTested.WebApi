@@ -2,38 +2,37 @@
 // Copyright (C) 2015 Ivaylo Kenov.
 // 
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
-namespace MyTested.WebApi.Common.Identity
+namespace MyTested.WebApi.Common
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Security.Principal;
 
     /// <summary>
     /// Mocked IPrinciple object.
     /// </summary>
-    public class MockedIPrinciple : IPrincipal
+    public class MockedIPrincipal : IPrincipal
     {
+        private const string DefaultIdentifier = "TestId";
         private const string DefaultUsername = "TestUser";
-        private const string DefaultIPrincipalType = "Passport";
+        private const string DefaultAuthenticationType = "Passport";
 
         private readonly IEnumerable<string> roles;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MockedIPrinciple" /> class.
+        /// Initializes a new instance of the <see cref="MockedIPrincipal" /> class.
         /// </summary>
-        /// <param name="username">Initial username.</param>
-        /// <param name="principalType">Initial principal type.</param>
+        /// <param name="authenticationType">Initial principal type.</param>
+        /// <param name="claims">Initial user claims.</param>
         /// <param name="roles">Initial user roles.</param>
-        public MockedIPrinciple(
-            string username = null,
-            string principalType = null,
-            IEnumerable<string> roles = null)
+        public MockedIPrincipal(
+            string authenticationType = null,
+            ICollection<Claim> claims = null,
+            ICollection<string> roles = null)
         {
             this.roles = roles ?? new HashSet<string>();
-            this.Identity = new MockedIIdentity(
-                username ?? DefaultUsername,
-                principalType ?? DefaultIPrincipalType,
-                true);
+            this.Identity = GetAuthenticatedClaimsIdentity(claims, authenticationType);
         }
 
         /// <summary>
@@ -48,9 +47,9 @@ namespace MyTested.WebApi.Common.Identity
         /// <returns>Unauthenticated IPrincipal.</returns>
         public static IPrincipal CreateUnauthenticated()
         {
-            return new MockedIPrinciple
+            return new MockedIPrincipal
             {
-                Identity = new MockedIIdentity()
+                Identity = new ClaimsIdentity()
             };
         }
 
@@ -60,9 +59,9 @@ namespace MyTested.WebApi.Common.Identity
         /// <returns>Authenticated IPrincipal.</returns>
         public static IPrincipal CreateDefaultAuthenticated()
         {
-            return new MockedIPrinciple()
+            return new MockedIPrincipal
             {
-                Identity = new MockedIIdentity(DefaultUsername, DefaultIPrincipalType, true)
+                Identity = GetAuthenticatedClaimsIdentity()
             };
         }
 
@@ -74,6 +73,25 @@ namespace MyTested.WebApi.Common.Identity
         public bool IsInRole(string role)
         {
             return this.roles.Contains(role);
+        }
+
+        private static ClaimsIdentity GetAuthenticatedClaimsIdentity(
+            ICollection<Claim> claims = null,
+            string authenticationType = DefaultAuthenticationType)
+        {
+            claims = claims ?? new List<Claim>();
+
+            if (claims.All(c => c.Type != ClaimTypes.NameIdentifier))
+            {
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, DefaultIdentifier));
+            }
+
+            if (claims.All(c => c.Type != ClaimTypes.Name))
+            {
+                claims.Add(new Claim(ClaimTypes.Name, DefaultUsername));
+            }
+
+            return new ClaimsIdentity(claims, authenticationType);
         }
     }
 }

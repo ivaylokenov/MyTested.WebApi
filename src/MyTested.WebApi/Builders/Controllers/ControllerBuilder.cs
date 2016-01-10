@@ -9,12 +9,12 @@ namespace MyTested.WebApi.Builders.Controllers
     using System.Linq;
     using System.Linq.Expressions;
     using System.Net.Http;
+    using System.Security.Principal;
     using System.Threading.Tasks;
     using System.Web.Http;
     using Actions;
     using Common;
     using Common.Extensions;
-    using Common.Identity;
     using Contracts;
     using Contracts.Actions;
     using Contracts.Controllers;
@@ -173,7 +173,13 @@ namespace MyTested.WebApi.Builders.Controllers
         /// <returns>The same controller builder.</returns>
         public IAndControllerBuilder<TController> WithAuthenticatedUser()
         {
-            this.Controller.User = MockedIPrinciple.CreateDefaultAuthenticated();
+            this.Controller.User = MockedIPrincipal.CreateDefaultAuthenticated();
+            return this;
+        }
+
+        public IAndControllerBuilder<TController> WithAuthenticatedUser(IPrincipal pricipal)
+        {
+            this.Controller.User = pricipal;
             return this;
         }
 
@@ -387,7 +393,7 @@ namespace MyTested.WebApi.Builders.Controllers
             this.controller.Request.TransformToAbsoluteRequestUri();
             this.controller.RequestContext = this.HttpRequestMessage.GetRequestContext();
             this.controller.Configuration = this.HttpConfiguration ?? MyWebApi.Configuration ?? new HttpConfiguration();
-            this.controller.User = MockedIPrinciple.CreateUnauthenticated();
+            this.controller.User = MockedIPrincipal.CreateUnauthenticated();
         }
 
         private void ValidateModelState(LambdaExpression actionCall)

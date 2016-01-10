@@ -6,9 +6,10 @@ namespace MyTested.WebApi.Builders
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Security.Principal;
+    using Common;
     using Common.Extensions;
-    using Common.Identity;
     using Contracts;
 
     /// <summary>
@@ -16,9 +17,9 @@ namespace MyTested.WebApi.Builders
     /// </summary>
     public class UserBuilder : IUserBuilder
     {
+        private readonly ICollection<Claim> constructedClaims; 
         private readonly ICollection<string> constructedRoles;
 
-        private string constructedUsername;
         private string constructedAuthenticationType;
 
         /// <summary>
@@ -26,7 +27,14 @@ namespace MyTested.WebApi.Builders
         /// </summary>
         public UserBuilder()
         {
+            this.constructedClaims = new List<Claim>();
             this.constructedRoles = new HashSet<string>();
+        }
+
+        public IUserBuilder WithIdentifier(string identifier)
+        {
+            this.constructedClaims.Add(new Claim(ClaimTypes.NameIdentifier, identifier));
+            return this;
         }
 
         /// <summary>
@@ -36,7 +44,13 @@ namespace MyTested.WebApi.Builders
         /// <returns>The same user builder.</returns>
         public IUserBuilder WithUsername(string username)
         {
-            this.constructedUsername = username;
+            this.constructedClaims.Add(new Claim(ClaimTypes.Name, username));
+            return this;
+        }
+
+        public IUserBuilder WithClaim(Claim claim)
+        {
+            this.constructedClaims.Add(claim);
             return this;
         }
 
@@ -85,9 +99,9 @@ namespace MyTested.WebApi.Builders
 
         internal IPrincipal GetUser()
         {
-            return new MockedIPrinciple(
-                this.constructedUsername, 
+            return new MockedIPrincipal( 
                 this.constructedAuthenticationType, 
+                this.constructedClaims,
                 this.constructedRoles);
         }
     }

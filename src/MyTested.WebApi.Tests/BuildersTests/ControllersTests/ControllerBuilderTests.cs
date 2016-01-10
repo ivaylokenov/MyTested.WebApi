@@ -8,6 +8,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Security.Claims;
     using System.Web.Http;
     using System.Web.Http.Results;
     using Builders.Contracts.Actions;
@@ -131,6 +132,15 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
             Assert.AreEqual("TestUser", controllerUser.Identity.Name);
             Assert.AreEqual("Passport", controllerUser.Identity.AuthenticationType);
             Assert.AreEqual(true, controllerUser.Identity.IsAuthenticated);
+
+            var claimsIdentity = controllerUser.Identity as ClaimsIdentity;
+
+            Assert.NotNull(claimsIdentity);
+
+            var idClaim = claimsIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            Assert.NotNull(idClaim);
+            Assert.AreEqual("TestId", idClaim.Value);
         }
 
         [Test]
