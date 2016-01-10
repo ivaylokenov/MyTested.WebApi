@@ -115,6 +115,7 @@
     <Compile Include="Builders\Contracts\ExceptionErrors\IBaseExceptionTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IAndHttpHandlerResponseMessageWithTimeTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpHandlerResponseMessageWithTimeTestBuilder.cs" />
+    <Compile Include="Builders\Contracts\Identity\IAndUserBuilder.cs" />
     <Compile Include="Builders\HttpMessages\HttpHandlerResponseMessageWithTimeTestBuilder.cs" />
     <Compile Include="Common\Servers\RemoteServer.cs" />
     <Compile Include="HttpContentHeader.cs" />
@@ -190,7 +191,7 @@
     <Compile Include="Builders\Contracts\Models\IModelErrorTestBuilder{TModel}.cs" />
     <Compile Include="Builders\Contracts\Models\IModelDetailsTestBuilder.cs" />
     <Compile Include="Builders\Contracts\HttpActionResults\Unauthorized\IUnauthorizedTestBuilder.cs" />
-    <Compile Include="Builders\Contracts\IUserBuilder.cs" />
+    <Compile Include="Builders\Contracts\Identity\IUserBuilder.cs" />
     <Compile Include="Builders\Controllers\ControllerBuilder.cs" />
     <Compile Include="Builders\Actions\ShouldHave\ShouldHaveModelState.cs" />
     <Compile Include="Builders\HttpActionResults\Created\CreatedTestBuilder.cs" />
@@ -229,7 +230,7 @@
     <Compile Include="Builders\HttpActionResults\Unauthorized\AuthenticationHeaderValueBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\Unauthorized\ChallengesBuilder.cs" />
     <Compile Include="Builders\HttpActionResults\Unauthorized\UnauthorizedTestBuilder.cs" />
-    <Compile Include="Builders\UserBuilder.cs" />
+    <Compile Include="Builders\Identity\UserBuilder.cs" />
     <Compile Include="AuthenticationScheme.cs" />
     <Compile Include="Common\ActionInfo.cs" />
     <Compile Include="Common\Extensions\HttpRequestMessageExtensions.cs" />
@@ -239,8 +240,7 @@
     <Compile Include="Common\Routes\ExpressionParsedRouteInfo.cs" />
     <Compile Include="Common\Routes\ResolvedRouteInfo.cs" />
     <Compile Include="Common\MethodArgumentInfo.cs" />
-    <Compile Include="Common\Identity\MockedIIdentity.cs" />
-    <Compile Include="Common\Identity\MockedIPrinciple.cs" />
+    <Compile Include="Common\MockedIPrincipal.cs" />
     <Compile Include="Common\Servers\HttpTestServer.cs" />
     <Compile Include="Common\Servers\OwinTestServer.cs" />
     <Compile Include="Common\Servers\ServerHttpMessageHandler.cs" />

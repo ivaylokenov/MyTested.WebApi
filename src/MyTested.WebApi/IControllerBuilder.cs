@@ -8,12 +8,14 @@ namespace MyTested.WebApi
     using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Net.Http;
+    using System.Security.Principal;
     using System.Threading.Tasks;
     using System.Web.Http;
     using Builders.Contracts;
     using Builders.Contracts.Actions;
     using Builders.Contracts.Controllers;
     using Builders.Contracts.HttpRequests;
+    using Builders.Contracts.Identity;
 
     /// <summary>
     /// Used for building the action which will be tested.
@@ -84,12 +86,26 @@ namespace MyTested.WebApi
         IAndControllerBuilder<TController> WithAuthenticatedUser();
 
         /// <summary>
+        /// Sets custom authenticated user to the built controller.
+        /// </summary>
+        /// <param name="pricipal">The IPrincipal user to set.</param>
+        /// <returns>The same controller builder.</returns>
+        IAndControllerBuilder<TController> WithAuthenticatedUser(IPrincipal pricipal);
+
+        /// <summary>
         /// Sets custom authenticated user using provided user builder.
         /// </summary>
         /// <param name="userBuilder">User builder to create mocked user object.</param>
         /// <returns>The same controller builder.</returns>
         IAndControllerBuilder<TController> WithAuthenticatedUser(Action<IUserBuilder> userBuilder);
-            
+
+        /// <summary>
+        /// Sets custom properties to the controller using action delegate.
+        /// </summary>
+        /// <param name="controllerSetup">Action delegate to use for controller setup.</param>
+        /// <returns>The same controller test builder.</returns>
+        IAndControllerBuilder<TController> WithSetup(Action<TController> controllerSetup);
+
         /// <summary>
         /// Indicates which action should be invoked and tested.
         /// </summary>

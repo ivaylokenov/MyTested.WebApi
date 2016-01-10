@@ -8,7 +8,9 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using System.Security.Claims;
     using System.Web.Http;
+    using System.Web.Http.Controllers;
     using System.Web.Http.Results;
     using Builders.Contracts.Actions;
     using Builders.Contracts.Base;
@@ -103,6 +105,29 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
         }
 
         [Test]
+        public void WithSetupShouldSetCorrectPropertiesToController()
+        {
+            var actionContext = new HttpActionContext();
+            var user = TestObjectFactory.GetClaimsPrincipal();
+            var config = new HttpConfiguration();
+
+            var controller = MyWebApi
+                .Controller<WebApiController>()
+                .WithSetup(c =>
+                {
+                    c.ActionContext = actionContext;
+                    c.User = user;
+                    c.Configuration = config;
+                })
+                .AndProvideTheController();
+
+            Assert.NotNull(controller);
+            Assert.AreSame(actionContext, controller.ActionContext);
+            Assert.AreSame(user, controller.User);
+            Assert.AreSame(config, controller.Configuration);
+        }
+
+        [Test]
         public void WithoutValidationShouldNotValidateTheRequestModel()
         {
             MyWebApi
@@ -131,6 +156,15 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
             Assert.AreEqual("TestUser", controllerUser.Identity.Name);
             Assert.AreEqual("Passport", controllerUser.Identity.AuthenticationType);
             Assert.AreEqual(true, controllerUser.Identity.IsAuthenticated);
+
+            var claimsIdentity = controllerUser.Identity as ClaimsIdentity;
+
+            Assert.NotNull(claimsIdentity);
+
+            var idClaim = claimsIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            Assert.NotNull(idClaim);
+            Assert.AreEqual("TestId", idClaim.Value);
         }
 
         [Test]
@@ -139,8 +173,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
             var controllerBuilder = MyWebApi
                 .Controller<WebApiController>()
                 .WithAuthenticatedUser(user => user
+                    .WithIdentifier("NewId")
                     .WithUsername("NewUserName")
                     .WithAuthenticationType("Custom")
+                    .WithClaim(new Claim(ClaimTypes.Actor, "CustomActor"))
+                    .AndAlso()
+                    .WithClaim(new Claim(ClaimTypes.Authentication, "Bearer"))
                     .InRole("NormalUser")
                     .InRoles("Moderator", "Administrator")
                     .InRoles(new[]
@@ -165,6 +203,24 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
             Assert.AreEqual(true, controllerUser.IsInRole("SuperUser"));
             Assert.AreEqual(true, controllerUser.IsInRole("MegaUser"));
             Assert.AreEqual(false, controllerUser.IsInRole("AnotherRole"));
+
+            var claimsIdentity = controllerUser.Identity as ClaimsIdentity;
+            Assert.NotNull(claimsIdentity);
+
+            var idClaim = claimsIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+            Assert.NotNull(idClaim);
+            Assert.AreEqual("NewId", idClaim.Value);
+
+            var actorClaim = claimsIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Actor);
+
+            Assert.NotNull(actorClaim);
+            Assert.AreEqual("CustomActor", actorClaim.Value);
+
+            var authenticationClaim = claimsIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Authentication);
+
+            Assert.NotNull(authenticationClaim);
+            Assert.AreEqual("Bearer", authenticationClaim.Value);
         }
 
         [Test]
@@ -184,6 +240,25 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
             Assert.AreEqual(null, controllerUser.Identity.Name);
             Assert.AreEqual(null, controllerUser.Identity.AuthenticationType);
             Assert.AreEqual(false, controllerUser.Identity.IsAuthenticated);
+        }
+
+        [Test]
+        public void WithAuthenticatedUserUsingPrincipalShouldWorkCorrectly()
+        {
+            var controllerBuilder = MyWebApi
+                .Controller<WebApiController>();
+
+            controllerBuilder
+                .WithAuthenticatedUser(TestObjectFactory.GetClaimsPrincipal())
+                .Calling(c => c.AuthorizedAction())
+                .ShouldReturn()
+                .NotFound();
+
+            var controllerUser = controllerBuilder.AndProvideTheController().User;
+
+            Assert.AreEqual("CustomUser", controllerUser.Identity.Name);
+            Assert.AreEqual(null, controllerUser.Identity.AuthenticationType);
+            Assert.IsFalse(controllerUser.Identity.IsAuthenticated);
         }
 
         [Test]
