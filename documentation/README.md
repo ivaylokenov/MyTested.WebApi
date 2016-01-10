@@ -727,6 +727,11 @@ MyWebApi
 	.Controller<WebApiController>()
 	.WithAuthenticatedUser();
 	
+// sets custom IPrincipal object as user
+MyWebApi
+	.Controller<WebApiController>()
+	.WithAuthenticatedUser(customPrincipal);
+	
 // sets custom authenticated user using delegate action
 MyWebApi
 	.Controller<WebApiController>()
@@ -736,7 +741,10 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.WithAuthenticatedUser(user => user
+		.WithIdentifier("NewId") // adds claim of type NameIdentifier
 		.WithUsername("NewUserName")
+		.WithClaim(ClaimType.Actor, "NewActor") // adds custom claim to the user
+		.WithClaim(ClaimType.DateOfBirth, DateTime.Now.ToString(0) // adds another claim to the user
 		.InRoles("Moderator", "Administrator")); // or InRole("Moderator")
 ```
 
