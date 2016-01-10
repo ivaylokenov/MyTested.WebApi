@@ -204,6 +204,17 @@ namespace MyTested.WebApi.Builders.Controllers
         }
 
         /// <summary>
+        /// Sets custom properties to the controller using action delegate.
+        /// </summary>
+        /// <param name="controllerSetup">Action delegate to use for controller setup.</param>
+        /// <returns>The same controller test builder.</returns>
+        public IAndControllerBuilder<TController> WithSetup(Action<TController> controllerSetup)
+        {
+            controllerSetup(this.Controller);
+            return this;
+        }
+
+        /// <summary>
         /// Used for testing controller attributes.
         /// </summary>
         /// <returns>Controller test builder.</returns>

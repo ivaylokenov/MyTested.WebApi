@@ -98,7 +98,14 @@ namespace MyTested.WebApi
         /// <param name="userBuilder">User builder to create mocked user object.</param>
         /// <returns>The same controller builder.</returns>
         IAndControllerBuilder<TController> WithAuthenticatedUser(Action<IUserBuilder> userBuilder);
-            
+
+        /// <summary>
+        /// Sets custom properties to the controller using action delegate.
+        /// </summary>
+        /// <param name="controllerSetup">Action delegate to use for controller setup.</param>
+        /// <returns>The same controller test builder.</returns>
+        IAndControllerBuilder<TController> WithSetup(Action<TController> controllerSetup);
+
         /// <summary>
         /// Indicates which action should be invoked and tested.
         /// </summary>

@@ -10,6 +10,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
     using System.Net.Http;
     using System.Security.Claims;
     using System.Web.Http;
+    using System.Web.Http.Controllers;
     using System.Web.Http.Results;
     using Builders.Contracts.Actions;
     using Builders.Contracts.Base;
@@ -101,6 +102,29 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
             Assert.IsTrue(modelState.IsValid);
             Assert.AreEqual(0, modelState.Values.Count);
             Assert.AreEqual(0, modelState.Keys.Count);
+        }
+
+        [Test]
+        public void WithSetupShouldSetCorrectPropertiesToController()
+        {
+            var actionContext = new HttpActionContext();
+            var user = TestObjectFactory.GetClaimsPrincipal();
+            var config = new HttpConfiguration();
+
+            var controller = MyWebApi
+                .Controller<WebApiController>()
+                .WithSetup(c =>
+                {
+                    c.ActionContext = actionContext;
+                    c.User = user;
+                    c.Configuration = config;
+                })
+                .AndProvideTheController();
+
+            Assert.NotNull(controller);
+            Assert.AreSame(actionContext, controller.ActionContext);
+            Assert.AreSame(user, controller.User);
+            Assert.AreSame(config, controller.Configuration);
         }
 
         [Test]
@@ -225,7 +249,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
                 .Controller<WebApiController>();
 
             controllerBuilder
-                .WithAuthenticatedUser(new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "CustomUser") })))
+                .WithAuthenticatedUser(TestObjectFactory.GetClaimsPrincipal())
                 .Calling(c => c.AuthorizedAction())
                 .ShouldReturn()
                 .NotFound();
