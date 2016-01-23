@@ -25,8 +25,6 @@ namespace MyTested.WebApi.Builders.HttpActionResults.Created
     public class CreatedTestBuilder<TCreatedResult>
         : BaseResponseModelTestBuilder<TCreatedResult>, IAndCreatedTestBuilder
     {
-        private const string RouteName = "route name";
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CreatedTestBuilder{TCreatedResult}" /> class.
         /// </summary>
@@ -87,6 +85,44 @@ namespace MyTested.WebApi.Builders.HttpActionResults.Created
         {
             var uri = LocationValidator.ValidateAndGetWellFormedUriString(location, this.ThrowNewCreatedResultAssertionException);
             return this.AtLocation(uri);
+        }
+
+        /// <summary>
+        /// Tests whether created result location passes given assertions.
+        /// </summary>
+        /// <param name="assertions">Action containing all assertions on the location.</param>
+        /// <returns>The same created test builder.</returns>
+        public IAndCreatedTestBuilder AtLocation(Action<string> assertions)
+        {
+            RuntimeBinderValidator.ValidateBinding(() =>
+            {
+                var location = (string)this.GetActionResultAsDynamic().Location.OriginalString;
+                assertions(location);
+            });
+
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether created result location passes given predicate.
+        /// </summary>
+        /// <param name="predicate">Predicate testing the location.</param>
+        /// <returns>The same created test builder.</returns>
+        public IAndCreatedTestBuilder AtLocation(Func<string, bool> predicate)
+        {
+            RuntimeBinderValidator.ValidateBinding(() =>
+            {
+                var location = (string)this.GetActionResultAsDynamic().Location;
+                if (!predicate(location))
+                {
+                    this.ThrowNewCreatedResultAssertionException(
+                        "Location",
+                        "to pass the given predicate",
+                        "but it failed");
+                }
+            });
+
+            return this;
         }
 
         /// <summary>

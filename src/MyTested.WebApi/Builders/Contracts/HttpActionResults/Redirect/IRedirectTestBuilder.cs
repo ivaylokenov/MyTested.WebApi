@@ -23,6 +23,20 @@ namespace MyTested.WebApi.Builders.Contracts.HttpActionResults.Redirect
         IBaseTestBuilderWithCaughtException AtLocation(string location);
 
         /// <summary>
+        /// Tests whether redirect result location passes given assertions.
+        /// </summary>
+        /// <param name="assertions">Action containing all assertions on the location.</param>
+        /// <returns>Base test builder.</returns>
+        IBaseTestBuilderWithCaughtException AtLocation(Action<string> assertions);
+
+        /// <summary>
+        /// Tests whether redirect result location passes given predicate.
+        /// </summary>
+        /// <param name="predicate">Predicate testing the location.</param>
+        /// <returns>Base test builder.</returns>
+        IBaseTestBuilderWithCaughtException AtLocation(Func<string, bool> predicate);
+
+        /// <summary>
         /// Tests whether redirect result has specific location provided by URI.
         /// </summary>
         /// <param name="location">Expected location as URI.</param>

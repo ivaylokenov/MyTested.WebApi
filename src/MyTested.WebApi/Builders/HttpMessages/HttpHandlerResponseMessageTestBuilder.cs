@@ -108,6 +108,35 @@ namespace MyTested.WebApi.Builders.HttpMessages
         }
 
         /// <summary>
+        /// Tests whether HTTP response message string content passes given assertions.
+        /// </summary>
+        /// <param name="assertions">Action containing all assertions on the string content.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        public IAndHttpHandlerResponseMessageTestBuilder WithStringContent(Action<string> assertions)
+        {
+            assertions(this.GetStringContent());
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether HTTP response message string content passes given predicate.
+        /// </summary>
+        /// <param name="predicate">Predicate testing the string content.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        public IAndHttpHandlerResponseMessageTestBuilder WithStringContent(Func<string, bool> predicate)
+        {
+            if (!predicate(this.GetStringContent()))
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "Content",
+                    "to pass the given predicate",
+                    "but it failed");
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// Tests whether the HTTP response message has the provided media type formatter.
         /// </summary>
         /// <param name="mediaTypeFormatter">Expected media type formatter.</param>
@@ -372,6 +401,11 @@ namespace MyTested.WebApi.Builders.HttpMessages
                     actualResponseModel));
         }
 
+        private string GetStringContent()
+        {
+            return this.httpResponseMessage.Content.ReadAsStringAsync().Result;
+        }
+
         private string FormatHttpResponseMessage()
         {
             var statusCode = (int)this.httpResponseMessage.StatusCode;
@@ -390,7 +424,8 @@ namespace MyTested.WebApi.Builders.HttpMessages
                 ? new[] { "None" }
                 : this.httpResponseMessage.Headers.Select(h => string.Format("{0} - '{1}'", h.Key, string.Join("; ", h.Value)));
 
-            return string.Format("{3}Status code: {0},{3}Headers: {3}{1},{3}Content: {3}{2}",
+            return string.Format(
+                "{3}Status code: {0},{3}Headers: {3}{1},{3}Content: {3}{2}",
                 statusCode,
                 string.Join(Environment.NewLine, headers),
                 contentAsString,

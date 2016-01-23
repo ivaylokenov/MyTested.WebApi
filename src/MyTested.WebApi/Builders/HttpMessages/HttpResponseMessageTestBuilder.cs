@@ -110,6 +110,35 @@ namespace MyTested.WebApi.Builders.HttpMessages
         }
 
         /// <summary>
+        /// Tests whether HTTP response message string content passes given assertions.
+        /// </summary>
+        /// <param name="assertions">Action containing all assertions on the string content.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        public IAndHttpResponseMessageTestBuilder WithStringContent(Action<string> assertions)
+        {
+            assertions(this.GetStringContent());
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether HTTP response message string content passes given predicate.
+        /// </summary>
+        /// <param name="predicate">Predicate testing the string content.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        public IAndHttpResponseMessageTestBuilder WithStringContent(Func<string, bool> predicate)
+        {
+            if (!predicate(this.GetStringContent()))
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "Content",
+                    "to pass the given predicate",
+                    "but it failed");
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// Tests whether the HTTP response message has the provided media type formatter.
         /// </summary>
         /// <param name="mediaTypeFormatter">Expected media type formatter.</param>
@@ -346,6 +375,11 @@ namespace MyTested.WebApi.Builders.HttpMessages
         public HttpResponseMessage AndProvideTheHttpResponseMessage()
         {
             return this.ActionResult;
+        }
+
+        private string GetStringContent()
+        {
+            return this.ActionResult.Content.ReadAsStringAsync().Result;
         }
 
         private void ThrowNewHttpResponseMessageAssertionException(string propertyName, string expectedValue, string actualValue)

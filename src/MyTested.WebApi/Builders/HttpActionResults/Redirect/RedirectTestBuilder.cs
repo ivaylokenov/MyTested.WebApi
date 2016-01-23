@@ -54,6 +54,38 @@ namespace MyTested.WebApi.Builders.HttpActionResults.Redirect
         }
 
         /// <summary>
+        /// Tests whether redirect result location passes given assertions.
+        /// </summary>
+        /// <param name="assertions">Action containing all assertions on the location.</param>
+        /// <returns>Base test builder.</returns>
+        public IBaseTestBuilderWithCaughtException AtLocation(Action<string> assertions)
+        {
+            var redirrectResult = this.GetRedirectResult<RedirectResult>(Location);
+            assertions(redirrectResult.Location.OriginalString);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether redirect result location passes given predicate.
+        /// </summary>
+        /// <param name="predicate">Predicate testing the location.</param>
+        /// <returns>Base test builder.</returns>
+        public IBaseTestBuilderWithCaughtException AtLocation(Func<string, bool> predicate)
+        {
+            var redirrectResult = this.GetRedirectResult<RedirectResult>(Location);
+            if (!predicate(redirrectResult.Location.OriginalString))
+            {
+                this.ThrowNewRedirectResultAssertionException(
+                    "Location",
+                    "to pass the given predicate",
+                    "but it failed");
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// Tests whether redirect result has specific location provided by URI.
         /// </summary>
         /// <param name="location">Expected location as URI.</param>
