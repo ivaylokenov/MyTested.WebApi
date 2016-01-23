@@ -1210,6 +1210,14 @@ MyWebApi
 	.Exception()
 	.WithMessage("Some exception message");
 	
+// tests whether the action throws exception with message passing predicate
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.Exception()
+	.WithMessage(message => message == "Test exception message");
+	
 // tests whether the action throws exception
 // of specific type and specific error message
 MyWebApi
@@ -1394,6 +1402,15 @@ MyWebApi
 	.ShouldReturn()
 	.HttpResponseMessage()
 	.WithStringContent("SomeString");
+	
+// tests whether the action returns HttpResponseMessage
+// with StringContent passing predicate
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithStringContent(content => content == "SomeString");
 	
 // tests whether the action returns HttpResponseMessage
 // with specific media type formatter
@@ -1854,6 +1871,14 @@ MyWebApi
 	.BadRequest()
 	.WithErrorMessage("Undefined is not a function");	
 
+// tests whether the action returns bad request error passing given predicate
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.BadRequest()
+	.WithErrorMessage(error => error == "Test exception message");	
+
 // tests whether the action returns bad request with specific error
 MyWebApi
 	.Controller<WebApiController>()
@@ -2028,6 +2053,15 @@ MyWebApi
 	.ShouldReturn()
 	.Redirect()
 	.AtLocation("http://somehost.com/someuri/1?query=someQuery");
+	
+// tests whether the action returns RedirectResult
+// with location passing a predicate
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Redirect()
+	.AtLocationPassing(location => location == "http://somehost.com/someuri/1?query=someQuery");
 
 // tests whether the action returns RedirectResult
 // with location provided as URI
@@ -2287,6 +2321,15 @@ MyWebApi
 	.ShouldReturn()
 	.Created()
 	.AtLocation("http://somehost.com/someuri/1?query=someQuery");
+	
+// tests whether the action returns created result
+// with location passing given predicate
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.AtLocationPassing(location => location == "http://somehost.com/someuri/1?query=someQuery");
 
 // tests whether the action returns created result
 // with location provided as URI
