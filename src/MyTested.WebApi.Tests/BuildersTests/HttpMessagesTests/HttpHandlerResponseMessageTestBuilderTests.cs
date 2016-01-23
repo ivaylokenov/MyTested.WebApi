@@ -109,7 +109,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content to be StreamContent, but was in fact ObjectContent.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result content to be StreamContent, but was in fact ObjectContent. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void WithContentOfTypeShouldThrowExceptionWithIncorrectContent()
         {
             MyWebApi
@@ -135,7 +140,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result string content to be 'Another string', but was in fact 'Test string'.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result string content to be 'Another string', but was in fact 'Test string'. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+None,
+Content: 
+Test string.")]
         public void WithStringContentOfTypeShouldThrowExceptionWithIncorrectContent()
         {
             var request = new HttpRequestMessage();
@@ -161,7 +171,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result Formatters to contain JsonMediaTypeFormatter, but none was found.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result Formatters to contain JsonMediaTypeFormatter, but none was found. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void WithMediaTypeFormatterShouldThrowExceptionWithIncorrectMediaTypeFormatter()
         {
             MyWebApi
@@ -184,7 +199,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result Formatters to contain JsonMediaTypeFormatter, but none was found.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result Formatters to contain JsonMediaTypeFormatter, but none was found. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void WithMediaTypeFormatterOfTypeShouldThrowExceptionWithIncorrectMediaTypeFormatter()
         {
             MyWebApi
@@ -207,7 +227,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result Formatters to contain JsonMediaTypeFormatter, but none was found.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result Formatters to contain JsonMediaTypeFormatter, but none was found. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void WithDefaultMediaTypeFormatterShouldThrowExceptionWithIncorrectMediaTypeFormatter()
         {
             MyWebApi
@@ -230,7 +255,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result headers to contain AnotherHeader, but none was found.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result headers to contain AnotherHeader, but none was found. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void ContainingHeaderShouldThrowExceptionWithIncorrectHeaderName()
         {
             MyWebApi
@@ -253,7 +283,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result headers to contain TestHeader with AnotherHeaderValue value, but none was found.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result headers to contain TestHeader with AnotherHeaderValue value, but none was found. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void ContainingHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValue()
         {
             MyWebApi
@@ -276,7 +311,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result headers to have TestHeader with AnotherHeaderValue value, but none was found.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result headers to have TestHeader with AnotherHeaderValue value, but none was found. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void ContainingHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValues()
         {
             MyWebApi
@@ -289,7 +329,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result headers to contain TestHeader with 2 values, but instead found 1.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result headers to contain TestHeader with 2 values, but instead found 1. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void ContainingHeaderShouldThrowExceptionWithCorrectHeaderNameAndOneCorrectAndOneIncorrectValues()
         {
             MyWebApi
@@ -315,7 +360,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result headers to be 2, but were in fact 1.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result headers to be 2, but were in fact 1. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void ContainingHeaderShouldNotThrowExceptionWithCorrectDictionaryOfHeadersWithInvalidCount()
         {
             MyWebApi
@@ -342,7 +392,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content headers to contain AnotherHeader, but none was found.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result content headers to contain AnotherHeader, but none was found. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void ContainingContentHeaderShouldThrowExceptionWithIncorrectHeaderName()
         {
             MyWebApi
@@ -365,7 +420,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content headers to contain TestHeader with AnotherHeaderValue value, but none was found.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result content headers to contain TestHeader with AnotherHeaderValue value, but none was found. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValue()
         {
             MyWebApi
@@ -388,7 +448,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content headers to have TestHeader with AnotherHeaderValue value, but none was found.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result content headers to have TestHeader with AnotherHeaderValue value, but none was found. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndIncorrectValues()
         {
             MyWebApi
@@ -401,7 +466,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content headers to contain TestHeader with 2 values, but instead found 1.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result content headers to contain TestHeader with 2 values, but instead found 1. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void ContainingContentHeaderShouldThrowExceptionWithCorrectHeaderNameAndOneCorrectAndOneIncorrectValues()
         {
             MyWebApi
@@ -427,7 +497,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content headers to be 2, but were in fact 1.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result content headers to be 2, but were in fact 1. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void ContainingContentHeadersShouldNotThrowExceptionWithCorrectDictionaryOfHeadersWithInvalidCount()
         {
             MyWebApi
@@ -444,7 +519,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
             typeof(HttpResponseMessageAssertionException),
-            ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result content to be initialized and set, but it was null and no content headers were found.")]
+            ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result content to be initialized and set, but it was null and no content headers were found. Actual HTTP response message details: 
+Status code: 204,
+Headers: 
+None,
+Content: 
+Non-string value.")]
         public void ContainingHeaderShouldThrowExceptionIfNoContentIsAdded()
         {
             MyWebApi
@@ -467,7 +547,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result status code to be 400 (BadRequest), but instead received 200 (OK).")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result status code to be 400 (BadRequest), but instead received 200 (OK). Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void WithStatusCodeShouldThrowExceptionWithInvalidStatusCode()
         {
             MyWebApi
@@ -510,7 +595,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result version to be 1.0, but instead received 1.1.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result version to be 1.0, but instead received 1.1. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void WithVersionShouldThrowExceptionWithInvalidVersion()
         {
             MyWebApi
@@ -533,7 +623,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result reason phrase to be 'Invalid reason phrase', but instead received 'Custom reason phrase'.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result reason phrase to be 'Invalid reason phrase', but instead received 'Custom reason phrase'. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+TestHeader - 'TestHeaderValue',
+Content: 
+Non-string value.")]
         public void WithReasonPhraseShouldThrowExceptionWithInvalidPhrase()
         {
             MyWebApi
@@ -556,7 +651,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
              typeof(HttpResponseMessageAssertionException),
-             ExpectedMessage = "When testing ResponseMessageHandler expected HTTP response message result status code to be between 200 and 299, but it was not.")]
+             ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result status code to be between 200 and 299, but it was not. Actual HTTP response message details: 
+Status code: 404,
+Headers: 
+None,
+Content: 
+Non-string value.")]
         public void WithSuccessStatusCodeShouldThrowExceptionWithInvalidStatusCode()
         {
             MyWebApi
