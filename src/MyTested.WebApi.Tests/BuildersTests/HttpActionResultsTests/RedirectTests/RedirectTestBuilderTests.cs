@@ -50,6 +50,44 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpActionResultsTests.RedirectTes
                 .Redirect()
                 .AtLocation("http://somehost!@#?Query==true");
         }
+        [Test]
+        public void AtLocationAndActionShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.RedirectActionWithUri())
+                .ShouldReturn()
+                .Redirect()
+                .AtLocationPassing(location =>
+                {
+                    Assert.AreEqual("http://somehost.com/someuri/1?query=Test", location);
+                });
+        }
+
+        [Test]
+        public void AtLocationAndPredicateShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.RedirectActionWithUri())
+                .ShouldReturn()
+                .Redirect()
+                .AtLocationPassing(location => location == "http://somehost.com/someuri/1?query=Test");
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(RedirectResultAssertionException),
+            ExpectedMessage = "When calling RedirectActionWithUri action in WebApiController expected redirect result Location to pass the given predicate, but it failed.")]
+        public void AtLocationAndPredicateShouldThrowExceptionWithIncorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.RedirectActionWithUri())
+                .ShouldReturn()
+                .Redirect()
+                .AtLocationPassing(location => location == "http://somehost");
+        }
 
         [Test]
         public void AtLocationWithUriShouldNotThrowExceptionIfTheLocationIsCorrect()

@@ -92,11 +92,11 @@ namespace MyTested.WebApi.Builders.HttpActionResults.Created
         /// </summary>
         /// <param name="assertions">Action containing all assertions on the location.</param>
         /// <returns>The same created test builder.</returns>
-        public IAndCreatedTestBuilder AtLocation(Action<string> assertions)
+        public IAndCreatedTestBuilder AtLocationPassing(Action<string> assertions)
         {
             RuntimeBinderValidator.ValidateBinding(() =>
             {
-                var location = (string)this.GetActionResultAsDynamic().Location.OriginalString;
+                var location = (string)(this.GetActionResultAsDynamic().Location.OriginalString);
                 assertions(location);
             });
 
@@ -108,17 +108,17 @@ namespace MyTested.WebApi.Builders.HttpActionResults.Created
         /// </summary>
         /// <param name="predicate">Predicate testing the location.</param>
         /// <returns>The same created test builder.</returns>
-        public IAndCreatedTestBuilder AtLocation(Func<string, bool> predicate)
+        public IAndCreatedTestBuilder AtLocationPassing(Func<string, bool> predicate)
         {
             RuntimeBinderValidator.ValidateBinding(() =>
             {
-                var location = (string)this.GetActionResultAsDynamic().Location;
+                var location = (string)(this.GetActionResultAsDynamic().Location.OriginalString);
                 if (!predicate(location))
                 {
                     this.ThrowNewCreatedResultAssertionException(
                         "Location",
                         "to pass the given predicate",
-                        "but it failed");
+                        "it failed");
                 }
             });
 

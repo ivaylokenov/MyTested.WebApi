@@ -219,7 +219,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
         [Test]
         public void RemoteServerShouldWorkCorrectlyWithGlobalConfiguration()
         {
-            MyWebApi.Server().IsLocatedAt("http://google.com");
+            MyWebApi.Server().IsLocatedAt("https://google.com");
 
             MyWebApi
                 .Server()
@@ -227,8 +227,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
                 .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
                 .ShouldReturnHttpResponseMessage()
                 .WithResponseTime(time => time.TotalMilliseconds > 0)
-                .WithStatusCode(HttpStatusCode.OK)
-                .ContainingContentHeader(HttpContentHeader.ContentType);
+                .WithStatusCode(HttpStatusCode.ServiceUnavailable);
 
             MyWebApi
                 .Server()

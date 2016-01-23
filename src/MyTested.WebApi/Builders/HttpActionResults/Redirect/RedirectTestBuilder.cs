@@ -58,7 +58,7 @@ namespace MyTested.WebApi.Builders.HttpActionResults.Redirect
         /// </summary>
         /// <param name="assertions">Action containing all assertions on the location.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilderWithCaughtException AtLocation(Action<string> assertions)
+        public IBaseTestBuilderWithCaughtException AtLocationPassing(Action<string> assertions)
         {
             var redirrectResult = this.GetRedirectResult<RedirectResult>(Location);
             assertions(redirrectResult.Location.OriginalString);
@@ -71,7 +71,7 @@ namespace MyTested.WebApi.Builders.HttpActionResults.Redirect
         /// </summary>
         /// <param name="predicate">Predicate testing the location.</param>
         /// <returns>Base test builder.</returns>
-        public IBaseTestBuilderWithCaughtException AtLocation(Func<string, bool> predicate)
+        public IBaseTestBuilderWithCaughtException AtLocationPassing(Func<string, bool> predicate)
         {
             var redirrectResult = this.GetRedirectResult<RedirectResult>(Location);
             if (!predicate(redirrectResult.Location.OriginalString))
@@ -79,7 +79,7 @@ namespace MyTested.WebApi.Builders.HttpActionResults.Redirect
                 this.ThrowNewRedirectResultAssertionException(
                     "Location",
                     "to pass the given predicate",
-                    "but it failed");
+                    "it failed");
             }
 
             return this;

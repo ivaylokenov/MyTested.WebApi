@@ -149,5 +149,53 @@ namespace MyTested.WebApi.Tests.BuildersTests.ExceptionErrorsTests
                 .AndAlso()
                 .WithMessage().Containing("Another");
         }
+
+        [Test]
+        public void WithMessageAndActionShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.InternalServerErrorWithExceptionAction())
+                .ShouldReturn()
+                .InternalServerError()
+                .WithException()
+                .OfType<NullReferenceException>()
+                .AndAlso()
+                .WithMessage(message =>
+                {
+                    Assert.AreEqual("Test exception message", message);
+                });
+        }
+
+        [Test]
+        public void WithMessageAndPredicateShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.InternalServerErrorWithExceptionAction())
+                .ShouldReturn()
+                .InternalServerError()
+                .WithException()
+                .OfType<NullReferenceException>()
+                .AndAlso()
+                .WithMessage(message => message == "Test exception message");
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(InvalidExceptionAssertionException),
+            ExpectedMessage = "When calling InternalServerErrorWithExceptionAction action in WebApiController expected exception to pass the given predicate, but it failed.")]
+        public void WithMessageAndPredicateShouldThrowExceptionWithIncorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.InternalServerErrorWithExceptionAction())
+                .ShouldReturn()
+                .InternalServerError()
+                .WithException()
+                .OfType<NullReferenceException>()
+                .AndAlso()
+                .WithMessage(message => message == "Test");
+        }
     }
 }

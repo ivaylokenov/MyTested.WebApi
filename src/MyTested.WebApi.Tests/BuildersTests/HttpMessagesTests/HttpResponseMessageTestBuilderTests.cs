@@ -166,6 +166,55 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
                 .WithStringContent("Another string");
         }
 
+
+        [Test]
+        public void WithStringContentAndActionShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            var request = new HttpRequestMessage();
+            request.Headers.Add("StringContent", "StringContent");
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageWithStringContent())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .WithStringContent(content =>
+                {
+                    Assert.AreEqual("Test string", content);
+                });
+        }
+
+        [Test]
+        public void WithStringContentAndPredicateShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            var request = new HttpRequestMessage();
+            request.Headers.Add("StringContent", "StringContent");
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageWithStringContent())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .WithStringContent(content => content == "Test string");
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(HttpResponseMessageAssertionException),
+            ExpectedMessage = @"When calling HttpResponseMessageWithStringContent action in WebApiController expected HTTP response message result Content to pass the given predicate, but but it failed.")]
+        public void WithStringContentAndPredicateShouldThrowExceptionWithIncorrectAssertions()
+        {
+            var request = new HttpRequestMessage();
+            request.Headers.Add("StringContent", "StringContent");
+
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.HttpResponseMessageWithStringContent())
+                .ShouldReturn()
+                .HttpResponseMessage()
+                .WithStringContent(content => content == "Test");
+        }
+
         [Test]
         public void WithMediaTypeFormatterShouldNotThrowExceptionWithCorrectMediaTypeFormatter()
         {

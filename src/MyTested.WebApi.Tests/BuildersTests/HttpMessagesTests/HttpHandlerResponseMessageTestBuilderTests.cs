@@ -159,6 +159,56 @@ Test string.")]
         }
 
         [Test]
+        public void WithStringContentAndActionShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            var request = new HttpRequestMessage();
+            request.Headers.Add("StringContent", "StringContent");
+
+            MyWebApi
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(request)
+                .ShouldReturnHttpResponseMessage()
+                .WithStringContent(content =>
+                {
+                    Assert.AreEqual("Test string", content);
+                });
+        }
+
+        [Test]
+        public void WithStringContentAndPredicateShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            var request = new HttpRequestMessage();
+            request.Headers.Add("StringContent", "StringContent");
+
+            MyWebApi
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(request)
+                .ShouldReturnHttpResponseMessage()
+                .WithStringContent(content => content == "Test string");
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(HttpResponseMessageAssertionException),
+            ExpectedMessage = @"When testing ResponseMessageHandler expected HTTP response message result Content to pass the given predicate, but but it failed. Actual HTTP response message details: 
+Status code: 200,
+Headers: 
+None,
+Content: 
+Test string.")]
+        public void WithStringContentAndPredicateShouldThrowExceptionWithIncorrectAssertions()
+        {
+            var request = new HttpRequestMessage();
+            request.Headers.Add("StringContent", "StringContent");
+
+            MyWebApi
+                .Handler<ResponseMessageHandler>()
+                .WithHttpRequestMessage(request)
+                .ShouldReturnHttpResponseMessage()
+                .WithStringContent(content => content == "Test");
+        }
+
+        [Test]
         public void WithMediaTypeFormatterShouldNotThrowExceptionWithCorrectMediaTypeFormatter()
         {
             MyWebApi
