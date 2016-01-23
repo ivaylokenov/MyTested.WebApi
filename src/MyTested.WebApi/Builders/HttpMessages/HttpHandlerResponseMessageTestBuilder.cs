@@ -24,7 +24,7 @@ namespace MyTested.WebApi.Builders.HttpMessages
     public class HttpHandlerResponseMessageTestBuilder
         : BaseHandlerTestBuilder, IAndHttpHandlerResponseMessageTestBuilder
     {
-        private const string NewLine = "\r\n";
+        private const string NewLine = "\n";
 
         private readonly HttpResponseMessage httpResponseMessage;
 

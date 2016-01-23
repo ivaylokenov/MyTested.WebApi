@@ -200,7 +200,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
             typeof(HttpResponseMessageAssertionException),
-            ExpectedMessage = @"When calling HttpResponseMessageWithStringContent action in WebApiController expected HTTP response message result Content to pass the given predicate, but but it failed.")]
+            ExpectedMessage = "When calling HttpResponseMessageWithStringContent action in WebApiController expected HTTP response message result Content to pass the given predicate, but but it failed.")]
         public void WithStringContentAndPredicateShouldThrowExceptionWithIncorrectAssertions()
         {
             var request = new HttpRequestMessage();
