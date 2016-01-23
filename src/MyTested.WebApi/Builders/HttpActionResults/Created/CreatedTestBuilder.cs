@@ -96,7 +96,7 @@ namespace MyTested.WebApi.Builders.HttpActionResults.Created
         {
             RuntimeBinderValidator.ValidateBinding(() =>
             {
-                var location = (string)(this.GetActionResultAsDynamic().Location.OriginalString);
+                var location = (string)this.GetActionResultAsDynamic().Location.OriginalString;
                 assertions(location);
             });
 
@@ -112,7 +112,7 @@ namespace MyTested.WebApi.Builders.HttpActionResults.Created
         {
             RuntimeBinderValidator.ValidateBinding(() =>
             {
-                var location = (string)(this.GetActionResultAsDynamic().Location.OriginalString);
+                var location = (string)this.GetActionResultAsDynamic().Location.OriginalString;
                 if (!predicate(location))
                 {
                     this.ThrowNewCreatedResultAssertionException(

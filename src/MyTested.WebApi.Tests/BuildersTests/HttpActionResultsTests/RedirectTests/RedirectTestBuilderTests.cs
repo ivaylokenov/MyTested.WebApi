@@ -50,6 +50,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpActionResultsTests.RedirectTes
                 .Redirect()
                 .AtLocation("http://somehost!@#?Query==true");
         }
+
         [Test]
         public void AtLocationAndActionShouldNotThrowExceptionWithCorrectAssertions()
         {

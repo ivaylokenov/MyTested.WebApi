@@ -166,7 +166,6 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
                 .WithStringContent("Another string");
         }
 
-
         [Test]
         public void WithStringContentAndActionShouldNotThrowExceptionWithCorrectAssertions()
         {
