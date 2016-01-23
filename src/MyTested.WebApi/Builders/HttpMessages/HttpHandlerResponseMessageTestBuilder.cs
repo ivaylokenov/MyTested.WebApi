@@ -24,8 +24,6 @@ namespace MyTested.WebApi.Builders.HttpMessages
     public class HttpHandlerResponseMessageTestBuilder
         : BaseHandlerTestBuilder, IAndHttpHandlerResponseMessageTestBuilder
     {
-        private const string NewLine = "\n";
-
         private readonly HttpResponseMessage httpResponseMessage;
 
         /// <summary>
@@ -431,7 +429,7 @@ namespace MyTested.WebApi.Builders.HttpMessages
                 statusCode,
                 string.Join(Environment.NewLine, headers),
                 contentAsString,
-                NewLine);
+                Environment.NewLine);
         }
     }
 }
