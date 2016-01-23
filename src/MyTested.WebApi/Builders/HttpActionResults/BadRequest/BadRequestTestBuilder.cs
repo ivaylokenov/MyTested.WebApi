@@ -73,6 +73,38 @@ namespace MyTested.WebApi.Builders.HttpActionResults.BadRequest
         }
 
         /// <summary>
+        /// Tests bad request result error message whether it passes given assertions.
+        /// </summary>
+        /// <param name="assertions">Action containing all assertions on the error message.</param>
+        /// <returns>Base test builder.</returns>
+        public IBaseTestBuilderWithCaughtException WithErrorMessage(Action<string> assertions)
+        {
+            var badRequestErrorMessageResult = this.GetBadRequestResult<BadRequestErrorMessageResult>(ErrorMessage);
+            assertions(badRequestErrorMessageResult.Message);
+
+            return this.NewAndProvideTestBuilder();
+        }
+
+        /// <summary>
+        /// Tests bad request result error message whether it passes given predicate.
+        /// </summary>
+        /// <param name="predicate">Predicate testing the error message.</param>
+        /// <returns>Base test builder.</returns>
+        public IBaseTestBuilderWithCaughtException WithErrorMessage(Func<string, bool> predicate)
+        {
+            var badRequestErrorMessageResult = this.GetBadRequestResult<BadRequestErrorMessageResult>(ErrorMessage);
+            if (!predicate(badRequestErrorMessageResult.Message))
+            {
+                throw new BadRequestResultAssertionException(string.Format(
+                        "When calling {0} action in {1} expected bad request error message to pass the given predicate, but it failed.",
+                        this.ActionName,
+                        this.Controller.GetName()));
+            }
+
+            return this.NewAndProvideTestBuilder();
+        }
+
+        /// <summary>
         /// Tests bad request result with specific model state dictionary.
         /// </summary>
         /// <param name="modelState">Model state dictionary to deeply compare to the actual one.</param>
@@ -95,7 +127,6 @@ namespace MyTested.WebApi.Builders.HttpActionResults.BadRequest
                         actualKeysCount));
             }
 
-            var actualModelStateSortedKeys = actualModelState.Keys.OrderBy(k => k).ToList();
             var expectedModelStateSortedKeys = modelState.Keys.OrderBy(k => k).ToList();
 
             foreach (var expectedKey in expectedModelStateSortedKeys)

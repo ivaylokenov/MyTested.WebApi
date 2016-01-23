@@ -65,6 +65,45 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpActionResultsTests.BadRequestT
         }
 
         [Test]
+        public void WithErrorMessageAndActionShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.BadRequestWithErrorAction())
+                .ShouldReturn()
+                .BadRequest()
+                .WithErrorMessage(message =>
+                {
+                    Assert.AreEqual("Bad request", message);
+                });
+        }
+
+        [Test]
+        public void WithErrorMessageAndPredicateShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.BadRequestWithErrorAction())
+                .ShouldReturn()
+                .BadRequest()
+                .WithErrorMessage(message => message == "Bad request");
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(BadRequestResultAssertionException),
+            ExpectedMessage = "When calling BadRequestWithErrorAction action in WebApiController expected bad request error message to pass the given predicate, but it failed.")]
+        public void WithErrorMessageAndPredicateShouldThrowExceptionWithIncorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.BadRequestWithErrorAction())
+                .ShouldReturn()
+                .BadRequest()
+                .WithErrorMessage(message => message == "Good");
+        }
+
+        [Test]
         public void WithModelStateShouldNotThrowExceptionWhenModelStateHasSameErrors()
         {
             var requestModelWithErrors = TestObjectFactory.GetRequestModelWithErrors();

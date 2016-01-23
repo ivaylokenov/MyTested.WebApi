@@ -77,7 +77,12 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
             typeof(HttpResponseMessageAssertionException),
-            ExpectedMessage = "When testing ServerHttpMessageHandler expected HTTP response message result response time to pass the given condition, but it failed.")]
+            ExpectedMessage = @"When testing ServerHttpMessageHandler expected HTTP response message result response time to pass the given condition, but it failed. Actual HTTP response message details: 
+Status code: 302,
+Headers: 
+None,
+Content: 
+Found!.")]
         public void WithResponseTimeShouldThrowExceptionIfPredicateIsNotValid()
         {
             var request = new HttpRequestMessage(HttpMethod.Post, "/test");

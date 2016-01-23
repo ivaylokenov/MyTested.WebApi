@@ -133,6 +133,45 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpActionResultsTests.CreatedTest
         }
 
         [Test]
+        public void AtLocationAndActionShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.CreatedAction())
+                .ShouldReturn()
+                .Created()
+                .AtLocationPassing(location =>
+                {
+                    Assert.AreEqual("http://somehost.com/someuri/1?query=Test", location);
+                });
+        }
+
+        [Test]
+        public void AtLocationAndPredicateShouldNotThrowExceptionWithCorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.CreatedAction())
+                .ShouldReturn()
+                .Created()
+                .AtLocationPassing(location => location == "http://somehost.com/someuri/1?query=Test");
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(CreatedResultAssertionException),
+            ExpectedMessage = "When calling CreatedAction action in WebApiController expected created result Location to pass the given predicate, but it failed.")]
+        public void AtLocationAndPredicateShouldThrowExceptionWithIncorrectAssertions()
+        {
+            MyWebApi
+                .Controller<WebApiController>()
+                .Calling(c => c.CreatedAction())
+                .ShouldReturn()
+                .Created()
+                .AtLocationPassing(location => location == "http://somehost");
+        }
+
+        [Test]
         public void AtLocationWithUriShouldNotThrowExceptionIfTheLocationIsCorrect()
         {
             MyWebApi

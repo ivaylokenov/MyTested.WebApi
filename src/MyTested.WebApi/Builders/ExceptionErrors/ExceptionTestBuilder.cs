@@ -85,6 +85,35 @@ namespace MyTested.WebApi.Builders.ExceptionErrors
         }
 
         /// <summary>
+        /// Tests exception message whether it passes given assertions.
+        /// </summary>
+        /// <param name="assertions">Action containing all assertions on message.</param>
+        /// <returns>The same exception test builder.</returns>
+        public IAndExceptionTestBuilder WithMessage(Action<string> assertions)
+        {
+            assertions(this.CaughtException.Message);
+            return this;
+        }
+
+        /// <summary>
+        /// Tests exception message whether it passes given predicate.
+        /// </summary>
+        /// <param name="predicate">Predicate testing the message.</param>
+        /// <returns>The same exception test builder.</returns>
+        public IAndExceptionTestBuilder WithMessage(Func<string, bool> predicate)
+        {
+            if (!predicate(this.CaughtException.Message))
+            {
+                throw new InvalidExceptionAssertionException(string.Format(
+                    "When calling {0} action in {1} expected exception to pass the given predicate, but it failed.",
+                    this.ActionName,
+                    this.Controller.GetName()));
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// AndAlso method for better readability when chaining expected exception tests.
         /// </summary>
         /// <returns>The same exception test builder.</returns>
