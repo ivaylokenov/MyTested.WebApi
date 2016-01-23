@@ -227,7 +227,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
                 .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
                 .ShouldReturnHttpResponseMessage()
                 .WithResponseTime(time => time.TotalMilliseconds > 0)
-                .WithStatusCode(HttpStatusCode.ServiceUnavailable);
+                .WithStatusCode(HttpStatusCode.OK);
 
             MyWebApi
                 .Server()
