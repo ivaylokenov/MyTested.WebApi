@@ -7,7 +7,7 @@
 
  - Global configuration
   - [Using custom HttpConfiguration](#using-custom-httpconfiguration)
-  - [Custom dependency resolver](custom-dependency-resolver)
+  - [Custom dependency resolver](#custom-dependency-resolver)
   - [Base address](#base-address)
  - Route validations
   - [Building route request](#building-route-request)

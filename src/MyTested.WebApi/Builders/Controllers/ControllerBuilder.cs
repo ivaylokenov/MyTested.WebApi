@@ -364,7 +364,7 @@ namespace MyTested.WebApi.Builders.Controllers
                 }
                 else
                 {
-                    var configuration = this.HttpConfiguration ?? MyWebApi.Configuration;
+                    var configuration = this.GetHttpConfiguration();
                     this.controller = configuration.TryResolve<TController>();
                 }
 
@@ -424,7 +424,7 @@ namespace MyTested.WebApi.Builders.Controllers
             this.controller.Request = this.HttpRequestMessage;
             this.controller.Request.TransformToAbsoluteRequestUri();
             this.controller.RequestContext = this.HttpRequestMessage.GetRequestContext();
-            this.controller.Configuration = this.HttpConfiguration ?? MyWebApi.Configuration ?? new HttpConfiguration();
+            this.controller.Configuration = this.GetHttpConfiguration();
             this.controller.Request.SetConfiguration(this.controller.Configuration);
             this.controller.User = MockedIPrincipal.CreateUnauthenticated();
         }
@@ -436,6 +436,11 @@ namespace MyTested.WebApi.Builders.Controllers
             {
                 this.Controller.Validate(argument.Value);
             }
+        }
+
+        private HttpConfiguration GetHttpConfiguration()
+        {
+            return this.HttpConfiguration ?? MyWebApi.Configuration ?? new HttpConfiguration();
         }
     }
 }
