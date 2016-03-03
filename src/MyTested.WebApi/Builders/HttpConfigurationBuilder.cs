@@ -4,7 +4,9 @@
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
 namespace MyTested.WebApi.Builders
 {
+    using System;
     using System.Web.Http;
+    using System.Web.Http.Dependencies;
     using Contracts;
     using Servers;
 
@@ -43,6 +45,27 @@ namespace MyTested.WebApi.Builders
         {
             this.SetErrorDetailPolicy(errorDetailPolicy);
             return this;
+        }
+
+        /// <summary>
+        /// Sets the dependency resolver used in the testing.
+        /// </summary>
+        /// <param name="dependencyResolver">IDependencyResolver instance to use for all tests.</param>
+        /// <returns>The same HTTP configuration builder.</returns>
+        public IHttpConfigurationBuilder WithDependencyResolver(IDependencyResolver dependencyResolver)
+        {
+            this.httpConfiguration.DependencyResolver = dependencyResolver;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the dependency resolver used in the testing by using construction function.
+        /// </summary>
+        /// <param name="construction">Construction function returning the dependency resolver.</param>
+        /// <returns>The same HTTP configuration builder.</returns>
+        public IHttpConfigurationBuilder WithDependencyResolver(Func<IDependencyResolver> construction)
+        {
+            return this.WithDependencyResolver(construction());
         }
 
         private void SetErrorDetailPolicy(IncludeErrorDetailPolicy errorDetailPolicy)

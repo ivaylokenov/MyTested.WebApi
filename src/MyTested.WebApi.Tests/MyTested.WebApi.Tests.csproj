@@ -127,6 +127,7 @@
     <Compile Include="BuildersTests\ServersTests\ServerTestBuilderTests.cs" />
     <Compile Include="BuildersTests\ServersTests\ServerTests.cs" />
     <Compile Include="Setups\Common\CustomContentNegotiator.cs" />
+    <Compile Include="Setups\Common\CustomDependencyResolver.cs" />
     <Compile Include="Setups\Common\CustomHttpMessageHandler.cs" />
     <Compile Include="Setups\Common\CustomMediaTypeFormatter.cs" />
     <Compile Include="Setups\Controllers\AttributesController.cs" />

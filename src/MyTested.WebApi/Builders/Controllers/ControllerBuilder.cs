@@ -121,7 +121,7 @@ namespace MyTested.WebApi.Builders.Controllers
         /// <returns>The same controller builder.</returns>
         public IAndControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency)
         {
-            var typeOfDependency = dependency != null 
+            var typeOfDependency = dependency != null
                 ? dependency.GetType()
                 : typeof(TDependency);
 
@@ -332,7 +332,24 @@ namespace MyTested.WebApi.Builders.Controllers
         {
             if (this.controller == null)
             {
-                this.controller = Reflection.TryCreateInstance<TController>(this.aggregatedDependencies.Select(v => v.Value).ToArray());
+                if (this.aggregatedDependencies.Any())
+                {
+                    this.controller =
+                        Reflection.TryCreateInstance<TController>(
+                            this.aggregatedDependencies.Select(v => v.Value).ToArray());
+                }
+                else
+                {
+                    var configuration = this.HttpConfiguration ?? MyWebApi.Configuration;
+                    if (configuration != null && configuration.DependencyResolver != null)
+                    {
+                        this.controller = configuration
+                            .DependencyResolver
+                            .BeginScope()
+                            .GetService(typeof(TController)) as TController;
+                    }
+                }
+
                 if (this.controller == null)
                 {
                     var friendlyDependenciesNames = this.aggregatedDependencies
