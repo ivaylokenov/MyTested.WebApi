@@ -23,10 +23,31 @@ namespace MyTested.WebApi
     public static class MyWebApi
     {
         /// <summary>
+        /// Default host which the tests will use - local host.
+        /// </summary>
+        public const string DefaultHost = "http://localhost";
+
+        /// <summary>
+        /// Default port which the tests will use - 80.
+        /// </summary>
+        public const int DefaultPort = 80;
+
+        static MyWebApi()
+        {
+            IsUsingDefaultHttpConfiguration();
+        }
+
+        /// <summary>
         /// Gets the current global HTTP configuration used in the testing.
         /// </summary>
         /// <value>Instance of HttpConfiguration.</value>
         public static HttpConfiguration Configuration { get; private set; }
+
+        /// <summary>
+        /// Gets the current base address used in the testing.
+        /// </summary>
+        /// <value>Instance of String.</value>
+        public static Uri BaseAddress { get; internal set; }
 
         /// <summary>
         /// Sets the default HttpConfiguration which will be used in all tests.
@@ -34,7 +55,16 @@ namespace MyTested.WebApi
         /// <returns>HTTP configuration builder.</returns>
         public static IHttpConfigurationBuilder IsUsingDefaultHttpConfiguration()
         {
-            return IsUsing(new HttpConfiguration());
+            var config = new HttpConfiguration();
+
+            config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "API Default",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional });
+
+            return IsUsing(config);
         }
 
         /// <summary>
@@ -45,6 +75,7 @@ namespace MyTested.WebApi
         public static IHttpConfigurationBuilder IsUsing(HttpConfiguration httpConfiguration)
         {
             Configuration = httpConfiguration;
+            BaseAddress = new Uri(DefaultHost, UriKind.Absolute);
             return new HttpConfigurationBuilder(httpConfiguration);
         }
 

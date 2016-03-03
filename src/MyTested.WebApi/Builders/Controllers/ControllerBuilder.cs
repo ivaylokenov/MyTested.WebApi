@@ -9,18 +9,20 @@ namespace MyTested.WebApi.Builders.Controllers
     using System.Linq;
     using System.Linq.Expressions;
     using System.Net.Http;
+    using System.Security.Principal;
     using System.Threading.Tasks;
     using System.Web.Http;
     using Actions;
     using Common;
     using Common.Extensions;
-    using Common.Identity;
     using Contracts;
     using Contracts.Actions;
     using Contracts.Controllers;
     using Contracts.HttpRequests;
+    using Contracts.Identity;
     using Exceptions;
     using HttpMessages;
+    using Identity;
     using Utilities;
 
     /// <summary>
@@ -44,7 +46,7 @@ namespace MyTested.WebApi.Builders.Controllers
         {
             this.Controller = controllerInstance;
             this.aggregatedDependencies = new Dictionary<Type, object>();
-            this.HttpRequestMessage = new HttpRequestMessage();
+            this.HttpRequestMessage = new HttpRequestMessage(HttpMethod.Get, MyWebApi.BaseAddress);
             this.isPreparedForTesting = false;
             this.enabledValidation = true;
         }
@@ -176,7 +178,18 @@ namespace MyTested.WebApi.Builders.Controllers
         /// <returns>The same controller builder.</returns>
         public IAndControllerBuilder<TController> WithAuthenticatedUser()
         {
-            this.Controller.User = MockedIPrinciple.CreateDefaultAuthenticated();
+            this.Controller.User = MockedIPrincipal.CreateDefaultAuthenticated();
+            return this;
+        }
+
+        /// <summary>
+        /// Sets custom authenticated user to the built controller.
+        /// </summary>
+        /// <param name="pricipal">The IPrincipal user to set.</param>
+        /// <returns>The same controller builder.</returns>
+        public IAndControllerBuilder<TController> WithAuthenticatedUser(IPrincipal pricipal)
+        {
+            this.Controller.User = pricipal;
             return this;
         }
 
@@ -190,6 +203,17 @@ namespace MyTested.WebApi.Builders.Controllers
             var newUserBuilder = new UserBuilder();
             userBuilder(newUserBuilder);
             this.Controller.User = newUserBuilder.GetUser();
+            return this;
+        }
+
+        /// <summary>
+        /// Sets custom properties to the controller using action delegate.
+        /// </summary>
+        /// <param name="controllerSetup">Action delegate to use for controller setup.</param>
+        /// <returns>The same controller test builder.</returns>
+        public IAndControllerBuilder<TController> WithSetup(Action<TController> controllerSetup)
+        {
+            controllerSetup(this.Controller);
             return this;
         }
 
@@ -404,9 +428,10 @@ namespace MyTested.WebApi.Builders.Controllers
         private void PrepareController()
         {
             this.controller.Request = this.HttpRequestMessage;
+            this.controller.Request.TransformToAbsoluteRequestUri();
             this.controller.RequestContext = this.HttpRequestMessage.GetRequestContext();
             this.controller.Configuration = this.HttpConfiguration ?? MyWebApi.Configuration ?? new HttpConfiguration();
-            this.controller.User = MockedIPrinciple.CreateUnauthenticated();
+            this.controller.User = MockedIPrincipal.CreateUnauthenticated();
         }
 
         private void ValidateModelState(LambdaExpression actionCall)

@@ -219,7 +219,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
         [Test]
         public void RemoteServerShouldWorkCorrectlyWithGlobalConfiguration()
         {
-            MyWebApi.Server().IsLocatedAt("http://google.com");
+            MyWebApi.Server().IsLocatedAt("https://google.com");
 
             MyWebApi
                 .Server()
@@ -227,8 +227,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
                 .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
                 .ShouldReturnHttpResponseMessage()
                 .WithResponseTime(time => time.TotalMilliseconds > 0)
-                .WithStatusCode(HttpStatusCode.OK)
-                .ContainingContentHeader(HttpContentHeader.ContentType);
+                .WithStatusCode(HttpStatusCode.OK);
 
             MyWebApi
                 .Server()
@@ -266,14 +265,13 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
 
             MyWebApi
                 .Server()
-                .WorkingRemotely("https://api.github.com")
+                .WorkingRemotely("http://mytestedasp.net")
                 .WithHttpRequestMessage(req => req
-                    .WithRequestUri("/users/ivaylokenov/repos")
                     .WithHeader(HttpHeader.UserAgent, "MyTested.WebApi"))
                 .ShouldReturnHttpResponseMessage()
                 .WithResponseTime(time => time.TotalMilliseconds > 0)
                 .WithStatusCode(HttpStatusCode.OK)
-                .ContainingContentHeader(HttpContentHeader.ContentType, "application/json; charset=utf-8");
+                .ContainingContentHeader(HttpContentHeader.ContentType, "text/html; charset=utf-8");
 
             Assert.IsFalse(RemoteServer.GlobalIsConfigured);
         }

@@ -124,7 +124,7 @@ namespace MyTested.WebApi.Tests
             MyWebApi.IsUsingDefaultHttpConfiguration();
 
             Assert.IsNotNull(MyWebApi.Configuration);
-            Assert.AreEqual(0, MyWebApi.Configuration.Routes.Count);
+            Assert.IsTrue(MyWebApi.Configuration.Routes.ContainsKey("API Default"));
 
             MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
         }

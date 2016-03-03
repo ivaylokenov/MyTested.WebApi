@@ -39,5 +39,12 @@ namespace MyTested.WebApi.Builders.Contracts
         /// <param name="construction">Construction function returning the dependency resolver.</param>
         /// <returns>The same HTTP configuration builder.</returns>
         IHttpConfigurationBuilder WithDependencyResolver(Func<IDependencyResolver> construction);
+
+        /// <summary>
+        /// Sets the global base address to be used across the test cases. Default is local host.
+        /// </summary>
+        /// <param name="baseAddress">Base address to use.</param>
+        /// <returns>The same HTTP configuration builder.</returns>
+        IHttpConfigurationBuilder WithBaseAddress(string baseAddress);
     }
 }

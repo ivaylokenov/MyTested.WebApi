@@ -47,6 +47,20 @@ namespace MyTested.WebApi.Builders.Contracts.HttpActionResults.Created
         IAndCreatedTestBuilder AtLocation(string location);
 
         /// <summary>
+        /// Tests whether created result location passes given assertions.
+        /// </summary>
+        /// <param name="assertions">Action containing all assertions on the location.</param>
+        /// <returns>The same created test builder.</returns>
+        IAndCreatedTestBuilder AtLocationPassing(Action<string> assertions);
+
+        /// <summary>
+        /// Tests whether created result location passes given predicate.
+        /// </summary>
+        /// <param name="predicate">Predicate testing the location.</param>
+        /// <returns>The same created test builder.</returns>
+        IAndCreatedTestBuilder AtLocationPassing(Func<string, bool> predicate);
+
+        /// <summary>
         /// Tests whether created result has specific location provided by URI.
         /// </summary>
         /// <param name="location">Expected location as URI.</param>

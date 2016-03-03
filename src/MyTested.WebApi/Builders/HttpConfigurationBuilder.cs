@@ -7,6 +7,7 @@ namespace MyTested.WebApi.Builders
     using System;
     using System.Web.Http;
     using System.Web.Http.Dependencies;
+    using Common.Servers;
     using Contracts;
     using Servers;
 
@@ -24,7 +25,7 @@ namespace MyTested.WebApi.Builders
         public HttpConfigurationBuilder(HttpConfiguration httpConfiguration)
         {
             this.httpConfiguration = httpConfiguration;
-            this.SetErrorDetailPolicy(IncludeErrorDetailPolicy.Always);
+            this.SetErrorDetailPolicyAndInitialize(IncludeErrorDetailPolicy.Always);
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace MyTested.WebApi.Builders
         /// <returns>The same HTTP configuration builder.</returns>
         public IHttpConfigurationBuilder WithErrorDetailPolicy(IncludeErrorDetailPolicy errorDetailPolicy)
         {
-            this.SetErrorDetailPolicy(errorDetailPolicy);
+            this.SetErrorDetailPolicyAndInitialize(errorDetailPolicy);
             return this;
         }
 
@@ -69,10 +70,29 @@ namespace MyTested.WebApi.Builders
         }
 
         private void SetErrorDetailPolicy(IncludeErrorDetailPolicy errorDetailPolicy)
+        /// <summary>
+        /// Sets the global base address to be used across the test cases. Default is local host.
+        /// </summary>
+        /// <param name="baseAddress">Base address to use.</param>
+        /// <returns>The same HTTP configuration builder.</returns>
+        public IHttpConfigurationBuilder WithBaseAddress(string baseAddress)
+        {
+            MyWebApi.BaseAddress = new Uri(baseAddress, UriKind.Absolute);
+
+            if (!RemoteServer.GlobalIsConfigured)
+            {
+                RemoteServer.ConfigureGlobal(baseAddress);
+            }
+
+            return this;
+        }
+
+        private void SetErrorDetailPolicyAndInitialize(IncludeErrorDetailPolicy errorDetailPolicy)
         {
             if (this.httpConfiguration != null)
             {
                 this.httpConfiguration.IncludeErrorDetailPolicy = errorDetailPolicy;
+                this.httpConfiguration.EnsureInitialized();
             }
         }
     }

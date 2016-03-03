@@ -39,7 +39,7 @@ namespace MyTested.WebApi.Builders.Servers
         /// <param name="port">Network port on which the server will listen for requests.</param>
         /// <param name="host">Network host on which the server will listen for requests.</param>
         /// <returns>Server builder.</returns>
-        public IServerBuilder Starts<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost)
+        public IServerBuilder Starts<TStartup>(int port = MyWebApi.DefaultPort, string host = MyWebApi.DefaultHost)
         {
             OwinTestServer.StartGlobal<TStartup>(this.GetStartOptions(port, host));
             return this.Working();
@@ -111,7 +111,7 @@ namespace MyTested.WebApi.Builders.Servers
         /// <param name="port">Network port on which the server will listen for requests.</param>
         /// <param name="host">Network host on which the server will listen for requests.</param>
         /// <returns>Server builder to set specific HTTP requests.</returns>
-        public IServerBuilder Working<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost)
+        public IServerBuilder Working<TStartup>(int port = MyWebApi.DefaultPort, string host = MyWebApi.DefaultHost)
         {
             var options = this.GetStartOptions(port, host);
             var server = OwinTestServer.CreateNewServer<TStartup>(options);

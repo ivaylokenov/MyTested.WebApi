@@ -48,6 +48,20 @@ namespace MyTested.WebApi.Builders.Contracts.HttpResponseMessages
         IAndHttpResponseMessageTestBuilder WithStringContent(string content);
 
         /// <summary>
+        /// Tests whether HTTP response message string content passes given assertions.
+        /// </summary>
+        /// <param name="assertions">Action containing all assertions on the string content.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        IAndHttpResponseMessageTestBuilder WithStringContent(Action<string> assertions);
+
+        /// <summary>
+        /// Tests whether HTTP response message string content passes given predicate.
+        /// </summary>
+        /// <param name="predicate">Predicate testing the string content.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        IAndHttpResponseMessageTestBuilder WithStringContent(Func<string, bool> predicate);
+
+        /// <summary>
         /// Tests whether the HTTP response message has the provided media type formatter.
         /// </summary>
         /// <param name="mediaTypeFormatter">Expected media type formatter.</param>

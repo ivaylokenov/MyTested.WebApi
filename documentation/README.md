@@ -7,6 +7,7 @@
 
  - Global configuration
   - [Using custom HttpConfiguration](#using-custom-httpconfiguration)
+  - [Base address](#base-address)
  - Route validations
   - [Building route request](#building-route-request)
   - [Testing routes](#testing-routes)
@@ -53,7 +54,7 @@
 
 ### Using custom HttpConfiguration
 
-You have the option to configure global HttpConfiguration to be used across all test cases. These call are not necessary but can be helpful for route tests for example where all registered routes are the same throughout the whole application:
+You have the option to configure global HttpConfiguration to be used across all test cases. These calls are not necessary but can be helpful for route tests for example where all registered routes are the same throughout the whole application:
 
 ```c#
 // register configuration by providing instance of HttpConfiguration
@@ -74,6 +75,29 @@ MyWebApi.IsUsingDefaultHttpConfiguration();
 MyWebApi
 	.IsRegisteredWith(WebApiConfig.Register)
 	.WithErrorDetailPolicy(IncludeErrorDetailPolicy.LocalOnly);
+```
+
+[To top](#table-of-contents)
+  
+### Base address
+
+By default all unit tests are run with request host **"http://localhost"** and **Url.Link** will use it as base address. Another host can be configured easily after setting the HTTP configuration:
+
+```c#
+// sets all test requests to come from custom base address
+// ** this will also set the global remote server
+MyWebApi
+	.IsRegisteredWith(WebApiConfig.Register)
+	.WithBaseAddress("http://mytestedasp.net");
+
+// these are also available
+MyWebApi
+	.IsUsingDefaultHttpConfiguration()
+	.WithBaseAddress("http://mytestedasp.net");
+	
+MyWebApi
+	.IsUsing(httpConfiguration)
+	.WithBaseAddress("http://mytestedasp.net");
 ```
 
 [To top](#table-of-contents)
@@ -497,6 +521,16 @@ MyWebApi
 MyWebApi
 	.Controller(myWebApiControllerInstance)
 	.WithHttpConfiguration(config);
+	
+// sets the controller properties with a delegate
+MyWebApi
+	.Controller<WebApiController>()
+	.WithSetup(c =>
+	{
+		c.ActionContext = customActionContext;
+		c.User = customUser;
+		c.Configuration = customConfig;
+	});
 ```
 
 [To top](#table-of-contents)
@@ -576,7 +610,7 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.WithHttpRequestMessage(request => request
-		.WithHeader(HttpHeaderHeader.Accept, MediaType.TextHtml));
+		.WithHeader(HttpHeader.Accept, MediaType.TextHtml));
 		
 // adding custom header with multiple values to the request message
 MyWebApi
@@ -703,6 +737,11 @@ MyWebApi
 	.Controller<WebApiController>()
 	.WithAuthenticatedUser();
 	
+// sets custom IPrincipal object as user
+MyWebApi
+	.Controller<WebApiController>()
+	.WithAuthenticatedUser(customPrincipal);
+	
 // sets custom authenticated user using delegate action
 MyWebApi
 	.Controller<WebApiController>()
@@ -712,7 +751,10 @@ MyWebApi
 MyWebApi
 	.Controller<WebApiController>()
 	.WithAuthenticatedUser(user => user
+		.WithIdentifier("NewId") // adds claim of type NameIdentifier
 		.WithUsername("NewUserName")
+		.WithClaim(ClaimType.Actor, "NewActor") // adds custom claim to the user
+		.WithClaim(ClaimType.DateOfBirth, DateTime.Now.ToString(0) // adds another claim to the user
 		.InRoles("Moderator", "Administrator")); // or InRole("Moderator")
 ```
 
@@ -1168,6 +1210,14 @@ MyWebApi
 	.Exception()
 	.WithMessage("Some exception message");
 	
+// tests whether the action throws exception with message passing predicate
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldThrow()
+	.Exception()
+	.WithMessage(message => message == "Test exception message");
+	
 // tests whether the action throws exception
 // of specific type and specific error message
 MyWebApi
@@ -1352,6 +1402,15 @@ MyWebApi
 	.ShouldReturn()
 	.HttpResponseMessage()
 	.WithStringContent("SomeString");
+	
+// tests whether the action returns HttpResponseMessage
+// with StringContent passing predicate
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.HttpResponseMessage()
+	.WithStringContent(content => content == "SomeString");
 	
 // tests whether the action returns HttpResponseMessage
 // with specific media type formatter
@@ -1812,6 +1871,14 @@ MyWebApi
 	.BadRequest()
 	.WithErrorMessage("Undefined is not a function");	
 
+// tests whether the action returns bad request error passing given predicate
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.BadRequest()
+	.WithErrorMessage(error => error == "Test exception message");	
+
 // tests whether the action returns bad request with specific error
 MyWebApi
 	.Controller<WebApiController>()
@@ -1986,6 +2053,15 @@ MyWebApi
 	.ShouldReturn()
 	.Redirect()
 	.AtLocation("http://somehost.com/someuri/1?query=someQuery");
+	
+// tests whether the action returns RedirectResult
+// with location passing a predicate
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Redirect()
+	.AtLocationPassing(location => location == "http://somehost.com/someuri/1?query=someQuery");
 
 // tests whether the action returns RedirectResult
 // with location provided as URI
@@ -2245,6 +2321,15 @@ MyWebApi
 	.ShouldReturn()
 	.Created()
 	.AtLocation("http://somehost.com/someuri/1?query=someQuery");
+	
+// tests whether the action returns created result
+// with location passing given predicate
+MyWebApi
+	.Controller<WebApiController>()
+	.Calling(c => c.SomeAction())
+	.ShouldReturn()
+	.Created()
+	.AtLocationPassing(location => location == "http://somehost.com/someuri/1?query=someQuery");
 
 // tests whether the action returns created result
 // with location provided as URI
@@ -2630,6 +2715,8 @@ MyWebApi
 	.ContainingContentHeader(HttpContentHeader.ContentType);
 
 // configure global base address
+// ** this step is not necessary, if you already provided 
+// ** a base address through the configuration
 MyWebApi.Server().IsLocatedAt("http://mytestedasp.net");
 
 MyWebApi

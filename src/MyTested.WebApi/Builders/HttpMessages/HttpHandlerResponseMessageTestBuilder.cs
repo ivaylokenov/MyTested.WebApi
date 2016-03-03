@@ -6,6 +6,7 @@ namespace MyTested.WebApi.Builders.HttpMessages
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Formatting;
@@ -20,7 +21,7 @@ namespace MyTested.WebApi.Builders.HttpMessages
     /// <summary>
     /// Used for testing HTTP response message results from handlers.
     /// </summary>
-    public class HttpHandlerResponseMessageTestBuilder 
+    public class HttpHandlerResponseMessageTestBuilder
         : BaseHandlerTestBuilder, IAndHttpHandlerResponseMessageTestBuilder
     {
         private readonly HttpResponseMessage httpResponseMessage;
@@ -102,6 +103,35 @@ namespace MyTested.WebApi.Builders.HttpMessages
                 this.httpResponseMessage.Content,
                 content,
                 this.ThrowNewHttpResponseMessageAssertionException);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether HTTP response message string content passes given assertions.
+        /// </summary>
+        /// <param name="assertions">Action containing all assertions on the string content.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        public IAndHttpHandlerResponseMessageTestBuilder WithStringContent(Action<string> assertions)
+        {
+            assertions(this.GetStringContent());
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether HTTP response message string content passes given predicate.
+        /// </summary>
+        /// <param name="predicate">Predicate testing the string content.</param>
+        /// <returns>The same HTTP response message test builder.</returns>
+        public IAndHttpHandlerResponseMessageTestBuilder WithStringContent(Func<string, bool> predicate)
+        {
+            if (!predicate(this.GetStringContent()))
+            {
+                this.ThrowNewHttpResponseMessageAssertionException(
+                    "Content",
+                    "to pass the given predicate",
+                    "but it failed");
+            }
 
             return this;
         }
@@ -354,11 +384,12 @@ namespace MyTested.WebApi.Builders.HttpMessages
         protected void ThrowNewHttpResponseMessageAssertionException(string propertyName, string expectedValue, string actualValue)
         {
             throw new HttpResponseMessageAssertionException(string.Format(
-                    "When testing {0} expected HTTP response message result {1} {2}, but {3}.",
+                    "When testing {0} expected HTTP response message result {1} {2}, but {3}. Actual HTTP response message details: {4}.",
                     this.Handler.GetName(),
                     propertyName,
                     expectedValue,
-                    actualValue));
+                    actualValue,
+                    this.FormatHttpResponseMessage()));
         }
 
         private ResponseModelAssertionException ThrowNewResponseModelAssertionException(string expectedResponseModel, string actualResponseModel)
@@ -368,6 +399,37 @@ namespace MyTested.WebApi.Builders.HttpMessages
                     this.Handler.GetName(),
                     expectedResponseModel,
                     actualResponseModel));
+        }
+
+        private string GetStringContent()
+        {
+            return this.httpResponseMessage.Content.ReadAsStringAsync().Result;
+        }
+
+        private string FormatHttpResponseMessage()
+        {
+            var statusCode = (int)this.httpResponseMessage.StatusCode;
+
+            string contentAsString;
+            try
+            {
+                contentAsString = this.httpResponseMessage.Content.ReadAsStringAsync().Result;
+            }
+            catch
+            {
+                contentAsString = "Non-string value";
+            }
+
+            var headers = !this.httpResponseMessage.Headers.Any()
+                ? new[] { "None" }
+                : this.httpResponseMessage.Headers.Select(h => string.Format("{0} - '{1}'", h.Key, string.Join("; ", h.Value)));
+
+            return string.Format(
+                "{3}Status code: {0},{3}Headers: {3}{1},{3}Content: {3}{2}",
+                statusCode,
+                string.Join(Environment.NewLine, headers),
+                contentAsString,
+                Environment.NewLine);
         }
     }
 }

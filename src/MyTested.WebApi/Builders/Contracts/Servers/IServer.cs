@@ -26,7 +26,7 @@ namespace MyTested.WebApi.Builders.Contracts.Servers
         /// <param name="port">Network port on which the server will listen for requests.</param>
         /// <param name="host">Network host on which the server will listen for requests.</param>
         /// <returns>Server builder.</returns>
-        IServerBuilder Starts<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost);
+        IServerBuilder Starts<TStartup>(int port = MyWebApi.DefaultPort, string host = MyWebApi.DefaultHost);
 
         /// <summary>
         /// Configures global remote server.
@@ -60,7 +60,7 @@ namespace MyTested.WebApi.Builders.Contracts.Servers
         /// <param name="port">Network port on which the server will listen for requests.</param>
         /// <param name="host">Network host on which the server will listen for requests.</param>
         /// <returns>Server builder to set specific HTTP requests.</returns>
-        IServerBuilder Working<TStartup>(int port = OwinTestServer.DefaultPort, string host = OwinTestServer.DefaultHost);
+        IServerBuilder Working<TStartup>(int port = MyWebApi.DefaultPort, string host = MyWebApi.DefaultHost);
 
         /// <summary>
         /// Processes HTTP request on globally configured remote HTTP server.

@@ -10,6 +10,8 @@ namespace MyTested.WebApi.Tests.Setups
     using System.Net.Http;
     using System.Net.Http.Formatting;
     using System.Runtime.Serialization.Formatters;
+    using System.Security.Claims;
+    using System.Security.Principal;
     using System.Web.Http;
     using System.Web.Http.ModelBinding;
     using System.Web.Http.Routing;
@@ -53,6 +55,11 @@ namespace MyTested.WebApi.Tests.Setups
                 defaults: new { controller = "NoAttributes" });
 
             return config;
+        }
+
+        public static IPrincipal GetClaimsPrincipal()
+        {
+            return new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "CustomUser") }));
         }
 
         public static IEnumerable<MediaTypeFormatter> GetFormatters()
