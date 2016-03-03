@@ -69,7 +69,6 @@ namespace MyTested.WebApi.Builders
             return this.WithDependencyResolver(construction());
         }
 
-        private void SetErrorDetailPolicy(IncludeErrorDetailPolicy errorDetailPolicy)
         /// <summary>
         /// Sets the global base address to be used across the test cases. Default is local host.
         /// </summary>
