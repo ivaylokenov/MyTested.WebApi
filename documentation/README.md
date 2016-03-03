@@ -103,7 +103,7 @@ MyWebApi
 		
 		// register controllers and dependencies
 		builder.RegisterApiControllers(Assembly.Load("MyWebApiAssembly"));
-		builder.RegisterType<InjectedService>().As<IInjectedService>().InstancePerRequest();
+		builder.RegisterType<InjectedService>().As<IInjectedService>();
         
 		// return the dependency resolver to be used in all unit tests
 		return new AutofacWebApiDependencyResolver(builder.Build());

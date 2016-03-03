@@ -431,6 +431,7 @@ namespace MyTested.WebApi.Builders.Controllers
             this.controller.Request.TransformToAbsoluteRequestUri();
             this.controller.RequestContext = this.HttpRequestMessage.GetRequestContext();
             this.controller.Configuration = this.HttpConfiguration ?? MyWebApi.Configuration ?? new HttpConfiguration();
+            this.controller.Request.SetConfiguration(this.controller.Configuration);
             this.controller.User = MockedIPrincipal.CreateUnauthenticated();
         }
 
