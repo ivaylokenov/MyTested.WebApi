@@ -6,6 +6,7 @@ namespace MyTested.WebApi.Utilities
 {
     using System;
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
@@ -16,6 +17,10 @@ namespace MyTested.WebApi.Utilities
     /// </summary>
     public static class Reflection
     {
+        private static readonly ConcurrentDictionary<Type, ConstructorInfo> TypesWithOneConstructorCache = new ConcurrentDictionary<Type, ConstructorInfo>();
+        private static readonly ConcurrentDictionary<Type, IEnumerable<object>> TypeAttributesCache = new ConcurrentDictionary<Type, IEnumerable<object>>();
+        private static readonly ConcurrentDictionary<MethodInfo, IEnumerable<object>> MethodAttributesCache = new ConcurrentDictionary<MethodInfo, IEnumerable<object>>();
+
         /// <summary>
         /// Checks whether two objects have the same types.
         /// </summary>
@@ -207,11 +212,29 @@ namespace MyTested.WebApi.Utilities
         }
 
         /// <summary>
+        /// Tries to create fast instance from type with constructor without parameters by using cached expression built delegates.
+        /// </summary>
+        /// <typeparam name="T">Type of the created instance.</typeparam>
+        /// <returns>Created instance or null, if no constructor without parameters is found.</returns>
+        public static T TryFastCreateInstance<T>()
+            where T : class
+        {
+            try
+            {
+                return New<T>.Instance();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Tries to create instance of type T by using the provided unordered constructor parameters.
         /// </summary>
-        /// <typeparam name="T">Type of created instance.</typeparam>
+        /// <typeparam name="T">Type of the created instance.</typeparam>
         /// <param name="constructorParameters">Unordered constructor parameters.</param>
-        /// <returns>Created instance or null, if no suitable constructor found.</returns>
+        /// <returns>Created instance or null, if no suitable constructor is found.</returns>
         public static T TryCreateInstance<T>(params object[] constructorParameters)
             where T : class
         {
@@ -223,6 +246,11 @@ namespace MyTested.WebApi.Utilities
             }
             catch (Exception)
             {
+                if (constructorParameters == null || constructorParameters.Length == 0)
+                {
+                    return instance;
+                }
+
                 var constructorParameterTypes = constructorParameters
                     .Select(cp => cp.GetType())
                     .ToList();
@@ -261,11 +289,22 @@ namespace MyTested.WebApi.Utilities
         /// <summary>
         /// Gets custom attributes on the provided object.
         /// </summary>
-        /// <param name="obj">Object decorated with custom attribute.</param>
+        /// <param name="obj">Object decorated with custom attributes.</param>
         /// <returns>IEnumerable of objects representing the custom attributes.</returns>
         public static IEnumerable<object> GetCustomAttributes(object obj)
         {
-            return obj.GetType().GetCustomAttributes(true);
+            var type = obj.GetType();
+            return TypeAttributesCache.GetOrAdd(type, _ => type.GetTypeInfo().GetCustomAttributes(true));
+        }
+
+        /// <summary>
+        /// Gets custom attributes on the provided method info.
+        /// </summary>
+        /// <param name="method">MethodInfo from which the custom attributes will be retrieved.</param>
+        /// <returns>IEnumerable of objects representing the custom attributes.</returns>
+        public static IEnumerable<object> GetCustomAttributes(MethodInfo method)
+        {
+            return MethodAttributesCache.GetOrAdd(method, _ => method.GetCustomAttributes(true));
         }
 
         /// <summary>
@@ -361,6 +400,20 @@ namespace MyTested.WebApi.Utilities
 
         private static ConstructorInfo GetConstructorByUnorderedParameters(this Type type, IEnumerable<Type> types)
         {
+            ConstructorInfo cachedConstructor;
+            if (TypesWithOneConstructorCache.TryGetValue(type, out cachedConstructor))
+            {
+                return cachedConstructor;
+            }
+
+            var allConstructors = type.GetConstructors();
+            if (allConstructors.Length == 1)
+            {
+                var singleConstructor = allConstructors[0];
+                TypesWithOneConstructorCache.TryAdd(type, singleConstructor);
+                return singleConstructor;
+            }
+
             var orderedTypes = types
                 .OrderBy(t => t.FullName)
                 .ToList();
@@ -474,6 +527,11 @@ namespace MyTested.WebApi.Utilities
             }
 
             return true;
+        }
+
+        private static class New<T>
+        {
+            public static readonly Func<T> Instance = Expression.Lambda<Func<T>>(Expression.New(typeof(T))).Compile();
         }
     }
 }

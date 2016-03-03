@@ -7,6 +7,7 @@
 
  - Global configuration
   - [Using custom HttpConfiguration](#using-custom-httpconfiguration)
+  - [Custom dependency resolver](custom-dependency-resolver)
   - [Base address](#base-address)
  - Route validations
   - [Building route request](#building-route-request)
@@ -54,7 +55,7 @@
 
 ### Using custom HttpConfiguration
 
-You have the option to configure global HttpConfiguration to be used across all test cases. These calls are not necessary but can be helpful for route tests for example where all registered routes are the same throughout the whole application:
+You have the option to configure global HttpConfiguration to be used across all test cases. This should be done once before all test cases are run (for example in the test assembly or test class initialization). These calls are not necessary but can be helpful for route tests for example where all registered routes are the same throughout the whole application:
 
 ```c#
 // register configuration by providing instance of HttpConfiguration
@@ -75,6 +76,43 @@ MyWebApi.IsUsingDefaultHttpConfiguration();
 MyWebApi
 	.IsRegisteredWith(WebApiConfig.Register)
 	.WithErrorDetailPolicy(IncludeErrorDetailPolicy.LocalOnly);
+```
+
+[To top](#table-of-contents)
+  
+### Custom dependency resolver
+
+By default you need to specify controller dependencies for each unit test manually. If you want, you can register global dependency resolver, which will be used across all controller test cases.
+
+```c#
+// example which DOES NOT use dependency resolver
+// * must be done in every unit test
+MyWebApi
+	.Controller<WebApiController>()
+	.WithResolvedDependencyFor<IInjectedService>(injectedService);
+	
+// to register dependency resolver, you can either set it on the global HTTP configuration
+// or provide it with a construction function
+// * example with AutoFac
+MyWebApi
+	.IsRegisteredWith(WebApiConfig.Register)
+	.WithDependencyResolver(() => 
+	{
+		// create AutoFac container
+		var builder = new ContainerBuilder();
+		
+		// register controllers and dependencies
+		builder.RegisterApiControllers(Assembly.Load("MyWebApiAssembly"));
+		builder.RegisterType<InjectedService>().As<IInjectedService>();
+        
+		// return the dependency resolver to be used in all unit tests
+		return new AutofacWebApiDependencyResolver(builder.Build());
+	});
+	
+// from now on you will not need to specify controller dependencies
+// * WebApiController will be instantiated using the global dependency resolver
+MyWebApi
+	.Controller<WebApiController>();
 ```
 
 [To top](#table-of-contents)

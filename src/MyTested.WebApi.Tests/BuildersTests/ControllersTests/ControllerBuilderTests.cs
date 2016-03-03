@@ -18,6 +18,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
     using Exceptions;
     using NUnit.Framework;
     using Setups;
+    using Setups.Common;
     using Setups.Controllers;
     using Setups.Models;
     using Setups.Services;
@@ -304,6 +305,72 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
             Assert.IsNotNull(controller.InjectedService);
             Assert.IsNotNull(controller.AnotherInjectedService);
             Assert.IsNotNull(controller.InjectedRequestModel);
+        }
+
+        [Test]
+        public void WithNullDependenciesShouldWorkCorrectly()
+        {
+            var controller = MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<IAnotherInjectedService>(null)
+                .WithResolvedDependencyFor<RequestModel>(null)
+                .WithResolvedDependencyFor<IInjectedService>(null)
+                .AndProvideTheController();
+
+            Assert.IsNotNull(controller);
+            Assert.IsNull(controller.InjectedService);
+            Assert.IsNull(controller.AnotherInjectedService);
+            Assert.IsNull(controller.InjectedRequestModel);
+        }
+
+        [Test]
+        public void WithCustomDependencyResolverShouldWorkCorrectly()
+        {
+            MyWebApi
+                .IsUsingDefaultHttpConfiguration()
+                .WithDependencyResolver(new CustomDependencyResolver());
+
+            var controller = MyWebApi
+                .Controller<NoParameterlessConstructorController>()
+                .AndProvideTheController();
+
+            Assert.IsNotNull(controller);
+            Assert.IsNotNull(controller.Service);
+
+            MyWebApi.IsUsingDefaultHttpConfiguration();
+        }
+
+        [Test]
+        public void WithCustomDependencyResolverAsConstructorFunctionShouldWorkCorrectly()
+        {
+            MyWebApi
+                .IsUsingDefaultHttpConfiguration()
+                .WithDependencyResolver(() => new CustomDependencyResolver());
+
+            var controller = MyWebApi
+                .Controller<NoParameterlessConstructorController>()
+                .AndProvideTheController();
+
+            Assert.IsNotNull(controller);
+            Assert.IsNotNull(controller.Service);
+
+            MyWebApi.IsUsingDefaultHttpConfiguration();
+        }
+
+        [Test]
+        public void ConstructorsShouldBeCachedIfTheyAreOnlyOneInAClass()
+        {
+            MyWebApi
+                .Controller<RouteController>()
+                .WithResolvedDependencies(new AnotherInjectedService(), new InjectedService())
+                .Calling(c => c.VoidAction())
+                .ShouldReturnEmpty();
+
+            MyWebApi
+                .Controller<RouteController>()
+                .WithResolvedDependencies(new AnotherInjectedService(), new InjectedService())
+                .Calling(c => c.VoidAction())
+                .ShouldReturnEmpty();
         }
 
         [Test]

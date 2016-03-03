@@ -123,7 +123,10 @@ namespace MyTested.WebApi.Builders.Controllers
         /// <returns>The same controller builder.</returns>
         public IAndControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency)
         {
-            var typeOfDependency = dependency.GetType();
+            var typeOfDependency = dependency != null
+                ? dependency.GetType()
+                : typeof(TDependency);
+
             if (this.aggregatedDependencies.ContainsKey(typeOfDependency))
             {
                 throw new InvalidOperationException(string.Format(
@@ -353,7 +356,18 @@ namespace MyTested.WebApi.Builders.Controllers
         {
             if (this.controller == null)
             {
-                this.controller = Reflection.TryCreateInstance<TController>(this.aggregatedDependencies.Select(v => v.Value).ToArray());
+                if (this.aggregatedDependencies.Any())
+                {
+                    this.controller =
+                        Reflection.TryCreateInstance<TController>(
+                            this.aggregatedDependencies.Select(v => v.Value).ToArray());
+                }
+                else
+                {
+                    var configuration = this.HttpConfiguration ?? MyWebApi.Configuration;
+                    this.controller = configuration.TryResolve<TController>();
+                }
+
                 if (this.controller == null)
                 {
                     var friendlyDependenciesNames = this.aggregatedDependencies
@@ -411,6 +425,7 @@ namespace MyTested.WebApi.Builders.Controllers
             this.controller.Request.TransformToAbsoluteRequestUri();
             this.controller.RequestContext = this.HttpRequestMessage.GetRequestContext();
             this.controller.Configuration = this.HttpConfiguration ?? MyWebApi.Configuration ?? new HttpConfiguration();
+            this.controller.Request.SetConfiguration(this.controller.Configuration);
             this.controller.User = MockedIPrincipal.CreateUnauthenticated();
         }
 

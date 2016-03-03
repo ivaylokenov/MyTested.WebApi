@@ -14,6 +14,7 @@ namespace MyTested.WebApi
     using Builders.HttpMessages;
     using Builders.Routes;
     using Builders.Servers;
+    using Common.Extensions;
     using Utilities;
     using Utilities.Validators;
 
@@ -141,14 +142,14 @@ namespace MyTested.WebApi
         }
 
         /// <summary>
-        /// Selects controller on which the test will be executed. Controller is instantiated with default constructor.
+        /// Selects controller on which the test will be executed. Controller is instantiated with the globally registered dependency resolver or with its default constructor, if resolving is unsuccessful.
         /// </summary>
         /// <typeparam name="TController">Class inheriting ASP.NET Web API controller.</typeparam>
         /// <returns>Controller builder used to build the test case.</returns>
         public static IControllerBuilder<TController> Controller<TController>()
             where TController : ApiController
         {
-            var controller = Reflection.TryCreateInstance<TController>();
+            var controller = Configuration.TryResolve<TController>() ?? Reflection.TryFastCreateInstance<TController>();
             return Controller(() => controller);
         }
 

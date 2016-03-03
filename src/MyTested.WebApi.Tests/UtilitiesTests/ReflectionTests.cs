@@ -331,6 +331,14 @@ namespace MyTested.WebApi.Tests.UtilitiesTests
         }
 
         [Test]
+        public void TryGetInstanceShouldReturnNullWithNoParametersAndConstructorExpectingSuch()
+        {
+            var instance = Reflection.TryCreateInstance<RouteController>();
+
+            Assert.IsNull(instance);
+        }
+
+        [Test]
         public void TryGetInstanceShouldReturnCorrectInitializationWithPartOfAllParameters()
         {
             var instance = Reflection.TryCreateInstance<WebApiController>(new InjectedService());

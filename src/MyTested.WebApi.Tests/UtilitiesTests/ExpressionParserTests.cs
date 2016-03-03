@@ -36,11 +36,20 @@ namespace MyTested.WebApi.Tests.UtilitiesTests
         }
 
         [Test]
+        [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Provided expression is not valid - expected instance method call but instead received static method call.")]
+        public void GetMethodNameShouldThrowArgumentExceptionWithStaticMethodCallExpression()
+        {
+            Expression<Func<int>> expression = () => int.Parse("0");
+            ExpressionParser.GetMethodName(expression);
+        }
+
+        [Test]
         public void ResolveMethodArgumentsShouldReturnCorrectCollectionOfArgumentsInformation()
         {
             var requestModel = TestObjectFactory.GetValidRequestModel();
 
-            Expression<Func<WebApiController, IHttpActionResult>> expression = c => c.OkResultActionWithRequestBody(1, requestModel);
+            object obj = 1;
+            Expression<Func<WebApiController, IHttpActionResult>> expression = c => c.OkResultActionWithRequestBody((int)obj, requestModel);
 
             var result = ExpressionParser.ResolveMethodArguments(expression);
 

@@ -9,12 +9,12 @@ namespace MyTested.WebApi.Tests.Setups.Controllers
 
     public class NoParameterlessConstructorController : ApiController
     {
-        private IInjectedService service;
-
-        internal NoParameterlessConstructorController(IInjectedService service)
+        public NoParameterlessConstructorController(IInjectedService service)
         {
-            this.service = service;
+            this.Service = service;
         }
+
+        public IInjectedService Service { get; private set; }
 
         public IHttpActionResult OkAction()
         {
