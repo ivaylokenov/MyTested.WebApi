@@ -34,13 +34,18 @@ namespace MyTested.WebApi.Utilities
         public static IEnumerable<MethodArgumentInfo> ResolveMethodArguments(LambdaExpression expression)
         {
             var methodCallExpression = GetMethodCallExpression(expression);
+            if (!methodCallExpression.Arguments.Any())
+            {
+                return Enumerable.Empty<MethodArgumentInfo>();
+            }
+
             return methodCallExpression.Arguments
                 .Zip(
                     methodCallExpression.Method.GetParameters(), 
                     (m, a) => new
                     {
                         a.Name,
-                        Value = Expression.Lambda(m).Compile().DynamicInvoke()
+                        Value = ResolveExpressionValue(m)
                     })
                 .Select(ma => new MethodArgumentInfo
                 {
@@ -52,6 +57,47 @@ namespace MyTested.WebApi.Utilities
         }
 
         /// <summary>
+        /// Tries to resolve expression value depending on the expression type.
+        /// </summary>
+        /// <param name="expression">Expression to resolve.</param>
+        /// <returns>Value extracted from the provided expression.</returns>
+        public static object ResolveExpressionValue(Expression expression)
+        {
+            if (expression.NodeType == ExpressionType.Convert)
+            {
+                // Expression which contains converting from type to type
+                var expressionArgumentAsUnary = (UnaryExpression)expression;
+                expression = expressionArgumentAsUnary.Operand;
+            }
+
+            if (expression.NodeType == ExpressionType.Call)
+            {
+                // Expression of type c => c.Action(With.No<int>()) - value should be ignored and can be skipped.
+                var expressionArgumentAsMethodCall = (MethodCallExpression)expression;
+                if (expressionArgumentAsMethodCall.Object == null
+                    && expressionArgumentAsMethodCall.Method.DeclaringType == typeof(With))
+                {
+                    return null;
+                }
+            }
+
+            object value;
+            if (expression.NodeType == ExpressionType.Constant)
+            {
+                // Expression of type c => c.Action({const}) - value can be extracted without compiling.
+                value = ((ConstantExpression)expression).Value;
+            }
+            else
+            {
+                // Expresion needs compiling because it is not of constant type.
+                var convertExpression = Expression.Convert(expression, typeof(object));
+                value = Expression.Lambda<Func<object>>(convertExpression).Compile().Invoke();
+            }
+
+            return value;
+        }
+
+        /// <summary>
         /// Retrieves custom attributes on a method from method call lambda expression.
         /// </summary>
         /// <param name="expression">Expression to be parsed.</param>
@@ -59,7 +105,7 @@ namespace MyTested.WebApi.Utilities
         public static IEnumerable<object> GetMethodAttributes(LambdaExpression expression)
         {
             var methodCallExpression = GetMethodCallExpression(expression);
-            return methodCallExpression.Method.GetCustomAttributes(true);
+            return Reflection.GetCustomAttributes(methodCallExpression.Method);
         }
 
         /// <summary>
@@ -89,6 +135,12 @@ namespace MyTested.WebApi.Utilities
             if (methodCallExpression == null)
             {
                 throw new ArgumentException("Provided expression is not a valid method call.");
+            } 
+            
+            var objectInstance = methodCallExpression.Object;
+            if (objectInstance == null)
+            {
+                throw new InvalidOperationException("Provided expression is not valid - expected instance method call but instead received static method call.");
             }
 
             return methodCallExpression;

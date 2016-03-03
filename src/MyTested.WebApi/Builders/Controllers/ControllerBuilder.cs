@@ -365,13 +365,7 @@ namespace MyTested.WebApi.Builders.Controllers
                 else
                 {
                     var configuration = this.HttpConfiguration ?? MyWebApi.Configuration;
-                    if (configuration != null && configuration.DependencyResolver != null)
-                    {
-                        this.controller = configuration
-                            .DependencyResolver
-                            .BeginScope()
-                            .GetService(typeof(TController)) as TController;
-                    }
+                    this.controller = configuration.TryResolve<TController>();
                 }
 
                 if (this.controller == null)

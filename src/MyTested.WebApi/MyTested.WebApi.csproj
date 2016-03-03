@@ -117,6 +117,7 @@
     <Compile Include="Builders\Contracts\HttpResponseMessages\IHttpHandlerResponseMessageWithTimeTestBuilder.cs" />
     <Compile Include="Builders\Contracts\Identity\IAndUserBuilder.cs" />
     <Compile Include="Builders\HttpMessages\HttpHandlerResponseMessageWithTimeTestBuilder.cs" />
+    <Compile Include="Common\Extensions\HttpConfigurationExtensions.cs" />
     <Compile Include="Common\Servers\RemoteServer.cs" />
     <Compile Include="HttpContentHeader.cs" />
     <Compile Include="IHttpMessageHandlerBuilder.cs" />

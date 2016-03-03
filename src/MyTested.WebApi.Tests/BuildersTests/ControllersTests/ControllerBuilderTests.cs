@@ -358,6 +358,22 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
         }
 
         [Test]
+        public void ConstructorsShouldBeCachedIfTheyAreOnlyOneInAClass()
+        {
+            MyWebApi
+                .Controller<RouteController>()
+                .WithResolvedDependencies(new AnotherInjectedService(), new InjectedService())
+                .Calling(c => c.VoidAction())
+                .ShouldReturnEmpty();
+
+            MyWebApi
+                .Controller<RouteController>()
+                .WithResolvedDependencies(new AnotherInjectedService(), new InjectedService())
+                .Calling(c => c.VoidAction())
+                .ShouldReturnEmpty();
+        }
+
+        [Test]
         public void WithResolvedDependencyForShouldContinueTheNormalExecutionFlowOfTestBuilders()
         {
             MyWebApi

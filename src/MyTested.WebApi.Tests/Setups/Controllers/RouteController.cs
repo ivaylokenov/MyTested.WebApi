@@ -6,10 +6,15 @@ namespace MyTested.WebApi.Tests.Setups.Controllers
 {
     using System.Web.Http;
     using Models;
+    using Services;
 
     [RoutePrefix("api/routes")]
     public class RouteController : ApiController
     {
+        public RouteController(IInjectedService injectedService, IAnotherInjectedService anotherService)
+        {
+        }
+
         public void VoidAction()
         {
         }
