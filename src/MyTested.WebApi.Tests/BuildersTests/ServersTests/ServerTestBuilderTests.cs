@@ -260,8 +260,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
                 .WithHttpRequestMessage(req => req.WithRequestUri("/users/ivaylokenov/repos"))
                 .ShouldReturnHttpResponseMessage()
                 .WithResponseTime(time => time.TotalMilliseconds > 0)
-                .WithStatusCode(HttpStatusCode.NotFound)
-                .ContainingContentHeader(HttpContentHeader.ContentType, "text/html; charset=UTF-8");
+                .WithStatusCode(HttpStatusCode.NotFound);
 
             Assert.IsFalse(RemoteServer.GlobalIsConfigured);
 

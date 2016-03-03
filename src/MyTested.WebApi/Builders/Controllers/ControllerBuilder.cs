@@ -121,7 +121,10 @@ namespace MyTested.WebApi.Builders.Controllers
         /// <returns>The same controller builder.</returns>
         public IAndControllerBuilder<TController> WithResolvedDependencyFor<TDependency>(TDependency dependency)
         {
-            var typeOfDependency = dependency.GetType();
+            var typeOfDependency = dependency != null 
+                ? dependency.GetType()
+                : typeof(TDependency);
+
             if (this.aggregatedDependencies.ContainsKey(typeOfDependency))
             {
                 throw new InvalidOperationException(string.Format(

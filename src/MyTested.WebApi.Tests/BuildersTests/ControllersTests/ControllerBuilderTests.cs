@@ -231,6 +231,22 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
         }
 
         [Test]
+        public void WithNullDependenciesShouldWorkCorrectly()
+        {
+            var controller = MyWebApi
+                .Controller<WebApiController>()
+                .WithResolvedDependencyFor<IAnotherInjectedService>(null)
+                .WithResolvedDependencyFor<RequestModel>(null)
+                .WithResolvedDependencyFor<IInjectedService>(null)
+                .AndProvideTheController();
+
+            Assert.IsNotNull(controller);
+            Assert.IsNull(controller.InjectedService);
+            Assert.IsNull(controller.AnotherInjectedService);
+            Assert.IsNull(controller.InjectedRequestModel);
+        }
+
+        [Test]
         public void WithResolvedDependencyForShouldContinueTheNormalExecutionFlowOfTestBuilders()
         {
             MyWebApi
