@@ -15,6 +15,8 @@ namespace MyTested.WebApi.Utilities
     /// </summary>
     public static class ExpressionParser
     {
+        internal const string IgnoredArgument = "!__Ignored_Value__!";
+
         /// <summary>
         /// Parses method name from method call lambda expression.
         /// </summary>
@@ -77,7 +79,7 @@ namespace MyTested.WebApi.Utilities
                 if (expressionArgumentAsMethodCall.Object == null
                     && expressionArgumentAsMethodCall.Method.DeclaringType == typeof(With))
                 {
-                    return null;
+                    return IgnoredArgument;
                 }
             }
 

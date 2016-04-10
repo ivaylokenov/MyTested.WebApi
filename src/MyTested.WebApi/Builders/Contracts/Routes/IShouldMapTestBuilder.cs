@@ -107,6 +107,28 @@ namespace MyTested.WebApi.Builders.Contracts.Routes
         IAndShouldMapTestBuilder WithContent(string content, MediaTypeHeaderValue mediaType);
 
         /// <summary>
+        /// Tests whether the built route is resolved to the provided action.
+        /// </summary>
+        /// <param name="action">Expected action name.</param>
+        /// <returns>The same route test builder.</returns>
+        IAndResolvedRouteTestBuilder ToAction(string action);
+
+        /// <summary>
+        /// Tests whether the built route is resolved to the provided controller name.
+        /// </summary>
+        /// <param name="controller">Expected controller name.</param>
+        /// <returns>The same route test builder.</returns>
+        IAndResolvedRouteTestBuilder ToController(string controller);
+
+        /// <summary>
+        /// Tests whether the built route is resolved to the provided controller type.
+        /// </summary>
+        /// <typeparam name="TController">Expected controller type.</typeparam>
+        /// <returns>The same route test builder.</returns>
+        IAndResolvedRouteTestBuilder To<TController>()
+            where TController : ApiController;
+
+        /// <summary>
         /// Tests whether the built route is resolved to the action provided by the expression.
         /// </summary>
         /// <typeparam name="TController">Type of expected resolved controller.</typeparam>

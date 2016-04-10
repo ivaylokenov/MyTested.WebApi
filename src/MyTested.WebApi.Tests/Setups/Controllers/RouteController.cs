@@ -4,6 +4,7 @@
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
 namespace MyTested.WebApi.Tests.Setups.Controllers
 {
+    using System.Threading.Tasks;
     using System.Web.Http;
     using Models;
     using Services;
@@ -96,6 +97,12 @@ namespace MyTested.WebApi.Tests.Setups.Controllers
         public IHttpActionResult SameAction(ResponseModel model)
         {
             return this.Ok();
+        }
+
+        [HttpGet]
+        public async Task<IHttpActionResult> AsyncAction()
+        {
+            return await Task.Run(() => this.Ok());
         }
     }
 }

@@ -11,7 +11,6 @@ namespace MyTested.WebApi
     using System.Security.Principal;
     using System.Threading.Tasks;
     using System.Web.Http;
-    using Builders.Contracts;
     using Builders.Contracts.Actions;
     using Builders.Contracts.Controllers;
     using Builders.Contracts.HttpRequests;

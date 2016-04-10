@@ -56,6 +56,68 @@ namespace MyTested.WebApi.Builders.Routes
         }
 
         /// <summary>
+        /// Tests whether the built route is resolved to the provided action.
+        /// </summary>
+        /// <param name="action">Expected action name.</param>
+        /// <returns>The same route test builder.</returns>
+        public IAndResolvedRouteTestBuilder ToAction(string action)
+        {
+            var actualInfo = this.GetActualRouteInfo();
+            var actualAction = actualInfo.Action;
+
+            if (action != actualAction)
+            {
+                this.ThrowNewRouteAssertionException(
+                    string.Format("match '{0}' action", action),
+                    string.Format("instead matched '{0}'", actualAction));
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether the built route is resolved to the provided controller name.
+        /// </summary>
+        /// <param name="controller">Expected controller name.</param>
+        /// <returns>The same route test builder.</returns>
+        public IAndResolvedRouteTestBuilder ToController(string controller)
+        {
+            var actualInfo = this.GetActualRouteInfo();
+            var actualController = actualInfo.Controller.Name.Replace("Controller", string.Empty);
+
+            if (controller != actualController)
+            {
+                this.ThrowNewRouteAssertionException(
+                    string.Format("match '{0}' controller", controller),
+                    string.Format("instead matched '{0}'", actualController));
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Tests whether the built route is resolved to the provided controller type.
+        /// </summary>
+        /// <typeparam name="TController">Expected controller type.</typeparam>
+        /// <returns>The same route test builder.</returns>
+        public IAndResolvedRouteTestBuilder To<TController>()
+            where TController : ApiController
+        {
+            var actualInfo = this.GetActualRouteInfo();
+            var expectedControllerType = typeof(TController);
+            var actualControllerType = actualInfo.Controller;
+
+            if (expectedControllerType != actualControllerType)
+            {
+                this.ThrowNewRouteAssertionException(
+                    string.Format("match {0}", expectedControllerType.ToFriendlyTypeName()),
+                    string.Format("instead matched {0}", actualControllerType.ToFriendlyTypeName()));
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// Tests whether the built route is resolved to the action provided by the expression.
         /// </summary>
         /// <typeparam name="TController">Type of expected resolved controller.</typeparam>
@@ -174,7 +236,7 @@ namespace MyTested.WebApi.Builders.Routes
                         "in fact found the same type of handler");
                 }
             }
-            
+
             return this;
         }
 
@@ -306,6 +368,11 @@ namespace MyTested.WebApi.Builders.Routes
 
             expectedRouteValues.Arguments.ForEach(arg =>
             {
+                if (arg.Value.Value.ToString() == ExpressionParser.IgnoredArgument)
+                {
+                    return;
+                }
+
                 if (!actualRouteValues.ActionArguments.ContainsKey(arg.Key))
                 {
                     this.ThrowNewRouteAssertionException(actual: string.Format(
