@@ -15,7 +15,6 @@ namespace MyTested.WebApi.Builders.Controllers
     using Actions;
     using Common;
     using Common.Extensions;
-    using Contracts;
     using Contracts.Actions;
     using Contracts.Controllers;
     using Contracts.HttpRequests;

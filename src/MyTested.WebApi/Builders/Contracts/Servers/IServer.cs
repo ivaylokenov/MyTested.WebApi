@@ -5,7 +5,6 @@
 namespace MyTested.WebApi.Builders.Contracts.Servers
 {
     using System.Web.Http;
-    using Common.Servers;
 
     /// <summary>
     /// Provides options to start and stop HTTP servers, as well as processing HTTP requests for full pipeline testing.

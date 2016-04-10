@@ -55,6 +55,53 @@ namespace MyTested.WebApi.Builders.Routes
             this.requestMessage = requestMessage;
         }
 
+        public IAndResolvedRouteTestBuilder ToAction(string action)
+        {
+            var actualInfo = this.GetActualRouteInfo();
+            var actualAction = actualInfo.Action;
+
+            if (action != actualAction)
+            {
+                this.ThrowNewRouteAssertionException(
+                    string.Format("match '{0}' action", action),
+                    string.Format("instead matched '{0}'", actualAction));
+            }
+
+            return this;
+        }
+
+        public IAndResolvedRouteTestBuilder ToController(string controller)
+        {
+            var actualInfo = this.GetActualRouteInfo();
+            var actualController = actualInfo.Controller.Name.Replace("Controller", string.Empty);
+
+            if (controller != actualController)
+            {
+                this.ThrowNewRouteAssertionException(
+                    string.Format("match '{0}' controller", controller),
+                    string.Format("instead matched '{0}'", actualController));
+            }
+
+            return this;
+        }
+
+        public IAndResolvedRouteTestBuilder To<TController>()
+            where TController : ApiController
+        {
+            var actualInfo = this.GetActualRouteInfo();
+            var expectedControllerType = typeof(TController);
+            var actualControllerType = actualInfo.Controller;
+
+            if (expectedControllerType != actualControllerType)
+            {
+                this.ThrowNewRouteAssertionException(
+                    string.Format("match {0}", expectedControllerType.ToFriendlyTypeName()),
+                    string.Format("instead matched {0}", actualControllerType.ToFriendlyTypeName()));
+            }
+
+            return this;
+        }
+
         /// <summary>
         /// Tests whether the built route is resolved to the action provided by the expression.
         /// </summary>
@@ -174,7 +221,7 @@ namespace MyTested.WebApi.Builders.Routes
                         "in fact found the same type of handler");
                 }
             }
-            
+
             return this;
         }
 
