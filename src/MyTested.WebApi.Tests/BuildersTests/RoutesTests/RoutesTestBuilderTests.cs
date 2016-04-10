@@ -64,6 +64,75 @@ namespace MyTested.WebApi.Tests.BuildersTests.RoutesTests
         }
 
         [Test]
+        public void ToActionShouldResolveCorrectAction()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/NoParameterlessConstructor/OkAction")
+                .WithHttpMethod(HttpMethod.Post)
+                .ToAction("OkAction");
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(RouteAssertionException),
+            ExpectedMessage = "Expected route 'api/NoParameterlessConstructor/OkAction' to match 'Invalid' action but instead matched 'OkAction'.")]
+        public void ToActionShouldThrowExceptionWithIncorrectAction()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/NoParameterlessConstructor/OkAction")
+                .WithHttpMethod(HttpMethod.Post)
+                .ToAction("Invalid");
+        }
+
+        [Test]
+        public void ToControllerShouldResolveCorrectController()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/NoParameterlessConstructor/OkAction")
+                .WithHttpMethod(HttpMethod.Post)
+                .ToController("NoParameterlessConstructor");
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(RouteAssertionException),
+            ExpectedMessage = "Expected route 'api/NoParameterlessConstructor/OkAction' to match 'Invalid' controller but instead matched 'NoParameterlessConstructor'.")]
+        public void ToControllerShouldThrowExceptionWithIncorrectController()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/NoParameterlessConstructor/OkAction")
+                .WithHttpMethod(HttpMethod.Post)
+                .ToController("Invalid");
+        }
+
+        [Test]
+        public void ToControllerTypeShouldResolveCorrectControllerType()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/NoParameterlessConstructor/OkAction")
+                .WithHttpMethod(HttpMethod.Post)
+                .To<NoParameterlessConstructorController>();
+        }
+
+        [Test]
+        [ExpectedException(
+            typeof(RouteAssertionException),
+            ExpectedMessage = "Expected route 'api/NoParameterlessConstructor/OkAction' to match RouteController but instead matched NoParameterlessConstructorController.")]
+        public void ToControllerTypeShouldThrowExceptionWithIncorrectControllerType()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/NoParameterlessConstructor/OkAction")
+                .WithHttpMethod(HttpMethod.Post)
+                .To<RouteController>();
+        }
+
+        [Test]
 
         public void ToShouldResolveCorrectControllerAndActionWithUriLocation()
         {

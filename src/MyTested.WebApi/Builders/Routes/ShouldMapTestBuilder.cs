@@ -55,6 +55,11 @@ namespace MyTested.WebApi.Builders.Routes
             this.requestMessage = requestMessage;
         }
 
+        /// <summary>
+        /// Tests whether the built route is resolved to the provided action.
+        /// </summary>
+        /// <param name="action">Expected action name.</param>
+        /// <returns>The same route test builder.</returns>
         public IAndResolvedRouteTestBuilder ToAction(string action)
         {
             var actualInfo = this.GetActualRouteInfo();
@@ -70,6 +75,11 @@ namespace MyTested.WebApi.Builders.Routes
             return this;
         }
 
+        /// <summary>
+        /// Tests whether the built route is resolved to the provided controller name.
+        /// </summary>
+        /// <param name="controller">Expected controller name.</param>
+        /// <returns>The same route test builder.</returns>
         public IAndResolvedRouteTestBuilder ToController(string controller)
         {
             var actualInfo = this.GetActualRouteInfo();
@@ -85,6 +95,11 @@ namespace MyTested.WebApi.Builders.Routes
             return this;
         }
 
+        /// <summary>
+        /// Tests whether the built route is resolved to the provided controller type.
+        /// </summary>
+        /// <typeparam name="TController">Expected controller type.</typeparam>
+        /// <returns>The same route test builder.</returns>
         public IAndResolvedRouteTestBuilder To<TController>()
             where TController : ApiController
         {
