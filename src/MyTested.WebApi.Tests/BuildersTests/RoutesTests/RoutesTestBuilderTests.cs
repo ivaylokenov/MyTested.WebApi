@@ -203,6 +203,15 @@ namespace MyTested.WebApi.Tests.BuildersTests.RoutesTests
         }
 
         [Test]
+        public void ToShouldResolveCorrectlyAsyncMethods()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/Route/AsyncAction")
+                .To<RouteController>(c => c.AsyncAction());
+        }
+
+        [Test]
         public void ToShouldResolveCorrectlyWithFullQueryString()
         {
             MyWebApi
