@@ -341,7 +341,7 @@ MyWebApi
 	.ShouldMap("api/Route/To/Test")
 	.WithHttpMethod(HttpMethod.Post)
 	.WithJsonContent(someJsonContent)
-	.InvalidModelState();
+	.ToInvalidModelState();
 	
 // tests whether the route is resolved
 // with invalid model state and specific number of errors
@@ -350,7 +350,7 @@ MyWebApi
 	.ShouldMap("api/Route/To/Test")
 	.WithHttpMethod(HttpMethod.Post)
 	.WithJsonContent(someJsonContent)
-	.InvalidModelState(withNumberOfErrors: 5);
+	.ToInvalidModelState(withNumberOfErrors: 5);
 ```
 
 [To top](#table-of-contents)
@@ -362,21 +362,21 @@ MyWebApi
 // * ActionName, RoutePrefix and Route attributes are taken into account
 MyWebApi
 	.Routes()
-	.ShouldMap("api/WebApiController/SomeAction")
+	.ShouldMap("api/WebApi/SomeAction")
 	.To<WebApiController>(c => c.SomeAction());
 	
 // tests whether the controller and action are correctly resolved
 // with all the route parameters
 MyWebApi
 	.Routes()
-	.ShouldMap("api/WebApiController/SomeAction/5")
+	.ShouldMap("api/WebApi/SomeAction/5")
 	.To<WebApiController>(c => c.SomeAction(5));
 	
 // tests whether the controller and action are correctly resolved
 // with all the route values and a query string
 MyWebApi
 	.Routes()
-	.ShouldMap("api/WebApiController/SomeAction/5?Value=Test")
+	.ShouldMap("api/WebApi/SomeAction/5?Value=Test")
 	.To<WebApiController>(c => c.SomeAction(5, "Test"));
 	
 // tests whether the controller and action are correctly resolved
@@ -385,7 +385,7 @@ MyWebApi
 // * overridden Equals method, custom == operator, IComparable, nested objects and collection properties
 MyWebApi
 	.Routes()
-	.ShouldMap("api/WebApiController/SomeAction")
+	.ShouldMap("api/WebApi/SomeAction")
 	.WithHttpMethod(HttpMethod.Post)
 	.WithJsonContent(@"{""SomeInt"": 1, ""SomeString"": ""Test""}")
 	.To<WebApiController>(c => c.SomeAction(new RequestModel
@@ -398,7 +398,7 @@ MyWebApi
 // with parameter and model deeply equal to the provided one
 MyWebApi
 	.Routes()
-	.ShouldMap("api/WebApiController/SomeAction/5")
+	.ShouldMap("api/WebApi/SomeAction/5")
 	.WithHttpMethod(HttpMethod.Post)
 	.And() // And is not necessary
 	.WithJsonContent(@"{""SomeInt"": 1, ""SomeString"": ""Test""}")
@@ -407,6 +407,24 @@ MyWebApi
 		SomeInt = 1,
 		SomeString = "Test"
 	}));
+
+// tests whether the the action name is correctly resolved
+MyWebApi
+	.Routes()
+	.ShouldMap("api/WebApi/SomeAction")
+	.ToAction("SomeAction");
+	
+// tests whether the the controller name is correctly resolved
+MyWebApi
+	.Routes()
+	.ShouldMap("api/WebApi/SomeAction")
+	.ToController("WebApi");
+	
+// tests whether the the controller type is correctly resolved
+MyWebApi
+	.Routes()
+	.ShouldMap("api/WebApi/SomeAction")
+	.To<WebApiController>();
 	
 // combining tests with AndAlso()
 MyWebApi
