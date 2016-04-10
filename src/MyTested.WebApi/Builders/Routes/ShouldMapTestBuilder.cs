@@ -368,6 +368,11 @@ namespace MyTested.WebApi.Builders.Routes
 
             expectedRouteValues.Arguments.ForEach(arg =>
             {
+                if (arg.Value.Value.ToString() == ExpressionParser.IgnoredArgument)
+                {
+                    return;
+                }
+
                 if (!actualRouteValues.ActionArguments.ContainsKey(arg.Key))
                 {
                     this.ThrowNewRouteAssertionException(actual: string.Format(

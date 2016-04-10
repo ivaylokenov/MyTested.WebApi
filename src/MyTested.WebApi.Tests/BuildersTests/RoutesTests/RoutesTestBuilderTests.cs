@@ -174,6 +174,16 @@ namespace MyTested.WebApi.Tests.BuildersTests.RoutesTests
         }
 
         [Test]
+        public void ToShouldResolveCorrectlyWithIgnoredParameter()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/Route/WithParameter/5")
+                .WithHttpMethod(HttpMethod.Post)
+                .To<RouteController>(c => c.WithParameter(With.Any<int>()));
+        }
+
+        [Test]
         public void ToShouldResolveCorrectlyWithParameterAndQueryString()
         {
             MyWebApi
