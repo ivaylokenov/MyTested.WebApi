@@ -373,7 +373,7 @@ MyWebApi
 	.To<WebApiController>(c => c.SomeAction(5));
 	
 // tests whether the controller and action are correctly resolved
-// ignoring the route parameter
+// ignoring the route parameters
 MyWebApi
 	.Routes()
 	.ShouldMap("api/WebApi/SomeAction/5")
