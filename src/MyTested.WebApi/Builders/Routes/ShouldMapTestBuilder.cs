@@ -368,7 +368,7 @@ namespace MyTested.WebApi.Builders.Routes
 
             expectedRouteValues.Arguments.ForEach(arg =>
             {
-                if (arg.Value.Value.ToString() == ExpressionParser.IgnoredArgument)
+                if (arg.Value.Value != null && arg.Value.Value.ToString() == ExpressionParser.IgnoredArgument)
                 {
                     return;
                 }
