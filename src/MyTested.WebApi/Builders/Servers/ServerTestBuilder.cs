@@ -27,6 +27,7 @@ namespace MyTested.WebApi.Builders.Servers
         private readonly IDisposable server;
 
         private HttpRequestMessage httpRequestMessage;
+        private CancellationToken requestCancellationToken;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServerTestBuilder" /> class.
@@ -45,6 +46,7 @@ namespace MyTested.WebApi.Builders.Servers
             this.transformRequest = transformRequest;
             this.disposeServer = disposeServer;
             this.server = server;
+            this.requestCancellationToken = CancellationToken.None;
         }
 
         /// <summary>
@@ -79,6 +81,36 @@ namespace MyTested.WebApi.Builders.Servers
         public IServerBuilder WithDefaultRequestHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
             headers.ForEach(h => this.WithDefaultRequestHeader(h.Key, h.Value));
+            return this;
+        }
+
+        /// <summary>
+        /// Adds canceled cancellation token to the server request.
+        /// </summary>
+        /// <returns>The same server builder.</returns>
+        public IServerBuilder WithCancellationToken()
+        {
+            return this.WithCancellationToken(true);
+        }
+
+        /// <summary>
+        /// Adds cancellation token to the server request.
+        /// </summary>
+        /// <param name="cancelled">True or false indicating whether the token is canceled.</param>
+        /// <returns>The same server builder.</returns>
+        public IServerBuilder WithCancellationToken(bool cancelled)
+        {
+            return this.WithCancellationToken(new CancellationToken(cancelled));
+        }
+
+        /// <summary>
+        /// Adds cancellation token to the server request.
+        /// </summary>
+        /// <param name="cancellationToken">Cancellation token to add to the server request.</param>
+        /// <returns>The same server builder.</returns>
+        public IServerBuilder WithCancellationToken(CancellationToken cancellationToken)
+        {
+            this.requestCancellationToken = cancellationToken;
             return this;
         }
 
@@ -121,7 +153,7 @@ namespace MyTested.WebApi.Builders.Servers
             {
                 var stopwatch = Stopwatch.StartNew();
 
-                var httpResponseMessage = invoker.SendAsync(this.httpRequestMessage, CancellationToken.None).Result;
+                var httpResponseMessage = invoker.SendAsync(this.httpRequestMessage, this.requestCancellationToken).Result;
 
                 stopwatch.Stop();
 
