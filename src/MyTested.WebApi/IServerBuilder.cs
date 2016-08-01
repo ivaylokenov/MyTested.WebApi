@@ -40,24 +40,11 @@ namespace MyTested.WebApi
         IServerBuilder WithDefaultRequestHeaders(IDictionary<string, IEnumerable<string>> headers);
 
         /// <summary>
-        /// Adds canceled cancellation token to the server request.
+        /// Adds cancellation token source to the server request.
         /// </summary>
+        /// <param name="cancellationTokenSource">Cancellation token source to use for the server request.</param>
         /// <returns>The same server builder.</returns>
-        IServerBuilder WithCancellationToken();
-
-        /// <summary>
-        /// Adds cancellation token to the server request.
-        /// </summary>
-        /// <param name="cancelled">True or false indicating whether the token is canceled.</param>
-        /// <returns>The same server builder.</returns>
-        IServerBuilder WithCancellationToken(bool cancelled);
-
-        /// <summary>
-        /// Adds cancellation token to the server request.
-        /// </summary>
-        /// <param name="cancellationToken">Cancellation token to add to the server request.</param>
-        /// <returns>The same server builder.</returns>
-        IServerBuilder WithCancellationToken(CancellationToken cancellationToken);
+        IServerBuilder WithCancellationTokenSource(CancellationTokenSource cancellationTokenSource);
 
         /// <summary>
         /// Adds HTTP request message to the tested server.

@@ -67,6 +67,10 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.1.0\lib\net45\System.Web.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.1.0\lib\net45\System.Web.Http.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -158,6 +162,7 @@
     <Compile Include="MyWebApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setups\WebApiConfig.cs" />
+    <Compile Include="Setups\WebApiStartup.cs" />
     <Compile Include="TestsStartup.cs" />
     <Compile Include="UtilitiesTests\ExpressionParserTests.cs" />
     <Compile Include="UtilitiesTests\ReflectionTests.cs" />
