@@ -61,6 +61,16 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
             MyWebApi
                 .Server()
                 .Working()
+                .WithHttpRequestMessage(req => req
+                    .WithMethod(HttpMethod.Get)
+                    .WithRequestUri("/cookies")
+                    .WithHeader(HttpHeader.Cookie, "cookiename=cookievalue;anothercookie=anothervalue"))
+                .ShouldReturnHttpResponseMessage()
+                .WithStringContent("cookiename+cookievalue!anothercookie+anothervalue");
+
+            MyWebApi
+                .Server()
+                .Working()
                 .WithHttpRequestMessage(new HttpRequestMessage())
                 .ShouldReturnHttpResponseMessage()
                 .WithStatusCode(HttpStatusCode.NotFound);
@@ -91,6 +101,18 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
                 .AndAlso()
                 .WithResponseModelOfType<int>()
                 .Passing(m => m == 5);
+
+            MyWebApi
+                .Server()
+                .Working()
+                .WithHttpRequestMessage(req => req
+                    .WithMethod(HttpMethod.Post)
+                    .WithRequestUri("api/NoAttributes/WithCookies")
+                    .WithHeader(HttpHeader.Cookie, "cookiename=cookievalue;anothercookie=anothervalue"))
+                .ShouldReturnHttpResponseMessage()
+                .WithStatusCode(HttpStatusCode.OK)
+                .AndAlso()
+                .WithStringContent("\"cookiename+cookievalue!anothercookie+anothervalue\"");
 
             MyWebApi
                 .Server()

@@ -4,6 +4,7 @@
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
 namespace MyTested.WebApi.Tests.Setups
 {
+    using System.Linq;
     using Owin;
 
     public class CustomStartup
@@ -12,6 +13,12 @@ namespace MyTested.WebApi.Tests.Setups
         {
             app.Run(context =>
             {
+                if (context.Request.Method == "GET" && context.Request.Uri.OriginalString.EndsWith("/cookies"))
+                {
+                    context.Response.StatusCode = 200;
+                    return context.Response.WriteAsync(string.Join("!", context.Request.Cookies.Select(c => string.Format("{0}+{1}", c.Key, c.Value))));
+                }
+
                 if (context.Request.Method == "POST" && context.Request.Uri.OriginalString.EndsWith("/test"))
                 {
                     context.Response.StatusCode = 302;
