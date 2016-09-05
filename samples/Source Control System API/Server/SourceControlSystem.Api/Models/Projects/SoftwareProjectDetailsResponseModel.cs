@@ -16,7 +16,7 @@
 
         public int TotalUsers { get; set; }
 
-        public void CreateMappings(IConfiguration config)
+        public void CreateMappings(IProfileExpression config)
         {
             config.CreateMap<SoftwareProject, SoftwareProjectDetailsResponseModel>()
                 .ForMember(s => s.TotalUsers, opts => opts.MapFrom(s => s.Users.Count()));

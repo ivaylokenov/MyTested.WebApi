@@ -18,7 +18,7 @@
         private IServerBuilder server;
         private string accessToken;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Init()
         {
             NinjectConfig.RebindAction = kernel =>
@@ -60,7 +60,7 @@
                 .Passing(m => m.Count == 10);
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             MyWebApi.Server().Stops();
