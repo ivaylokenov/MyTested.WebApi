@@ -355,6 +355,33 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
                 .WithStatusCode(HttpStatusCode.OK);
         }
 
+        [Test]
+        public void RemoveDefaultHeadersAfterAddShouldWorkCorrectly()
+        {
+            MyWebApi
+                .Server()
+                .Working<CustomStartup>()
+                .WithDefaultRequestHeader("CustomHeader", "CustomValue")
+                .RemoveDefaultRequestHeader("Customheader")
+                .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
+                .ShouldReturnHttpResponseMessage()
+                .WithStatusCode(HttpStatusCode.NotFound)
+                .WithStringContent("Header not found!");
+        }
+
+        [Test]
+        public void RemoveDefaultHeadersNonExistingDoesNotThrowException()
+        {
+            MyWebApi
+                .Server()
+                .Working<CustomStartup>()
+                .RemoveDefaultRequestHeader("Customheader")
+                .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
+                .ShouldReturnHttpResponseMessage()
+                .WithStatusCode(HttpStatusCode.NotFound)
+                .WithStringContent("Header not found!");
+        }
+
         [TestFixtureTearDown]
         public void RestoreConfiguration()
         {

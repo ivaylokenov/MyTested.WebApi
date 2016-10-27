@@ -82,6 +82,13 @@ namespace MyTested.WebApi.Builders.Servers
             return this;
         }
 
+        public IServerBuilder RemoveDefaultRequestHeader(string name)
+        {
+            if (client.DefaultRequestHeaders.Contains(name))
+                client.DefaultRequestHeaders.Remove(name);
+            return this;
+        }
+
         /// <summary>
         /// Adds HTTP request message to the tested server.
         /// </summary>
