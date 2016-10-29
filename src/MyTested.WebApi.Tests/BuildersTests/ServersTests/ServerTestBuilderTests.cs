@@ -362,7 +362,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
                 .Server()
                 .Working<CustomStartup>()
                 .WithDefaultRequestHeader("CustomHeader", "CustomValue")
-                .RemoveDefaultRequestHeader("Customheader")
+                .WithoutDefaultRequestHeader("Customheader")
                 .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
                 .ShouldReturnHttpResponseMessage()
                 .WithStatusCode(HttpStatusCode.NotFound)
@@ -375,7 +375,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
             MyWebApi
                 .Server()
                 .Working<CustomStartup>()
-                .RemoveDefaultRequestHeader("Customheader")
+                .WithoutDefaultRequestHeader("Customheader")
                 .WithHttpRequestMessage(req => req.WithMethod(HttpMethod.Get))
                 .ShouldReturnHttpResponseMessage()
                 .WithStatusCode(HttpStatusCode.NotFound)

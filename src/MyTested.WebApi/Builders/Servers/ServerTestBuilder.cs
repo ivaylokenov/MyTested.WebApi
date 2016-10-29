@@ -82,10 +82,18 @@ namespace MyTested.WebApi.Builders.Servers
             return this;
         }
 
-        public IServerBuilder RemoveDefaultRequestHeader(string name)
+        /// <summary>
+        /// Removes a previously added default header from every request tested on the server.
+        /// </summary>
+        /// <param name="name">Name of the header.</param>
+        /// <returns></returns>
+        public IServerBuilder WithoutDefaultRequestHeader(string name)
         {
             if (client.DefaultRequestHeaders.Contains(name))
+            {
                 client.DefaultRequestHeaders.Remove(name);
+            }
+
             return this;
         }
 

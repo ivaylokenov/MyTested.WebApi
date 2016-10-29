@@ -43,7 +43,7 @@ namespace MyTested.WebApi
         /// </summary>
         /// <param name="name">Name of the header.</param>
         /// <returns></returns>
-        IServerBuilder RemoveDefaultRequestHeader(string name);
+        IServerBuilder WithoutDefaultRequestHeader(string name);
 
         /// <summary>
         /// Adds HTTP request message to the tested server.
