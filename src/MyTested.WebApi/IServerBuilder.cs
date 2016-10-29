@@ -39,6 +39,13 @@ namespace MyTested.WebApi
         IServerBuilder WithDefaultRequestHeaders(IDictionary<string, IEnumerable<string>> headers);
 
         /// <summary>
+        /// Removes a previously added default header from every request tested on the server.
+        /// </summary>
+        /// <param name="name">Name of the header.</param>
+        /// <returns></returns>
+        IServerBuilder WithoutDefaultRequestHeader(string name);
+
+        /// <summary>
         /// Adds HTTP request message to the tested server.
         /// </summary>
         /// <param name="requestMessage">Instance of HttpRequestMessage.</param>

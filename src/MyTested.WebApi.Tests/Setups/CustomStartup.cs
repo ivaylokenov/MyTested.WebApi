@@ -42,6 +42,12 @@ namespace MyTested.WebApi.Tests.Setups
                     return context.Response.WriteAsync("OK!");
                 }
 
+                if (!context.Request.Headers.ContainsKey("CustomHeader"))
+                {
+                    context.Response.StatusCode = 404;
+                    return context.Response.WriteAsync("Header not found!");
+                }
+
                 context.Response.StatusCode = 404;
                 return context.Response.WriteAsync("Not found!");
             });
