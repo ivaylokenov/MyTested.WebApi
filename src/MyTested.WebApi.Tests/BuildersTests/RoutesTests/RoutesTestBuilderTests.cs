@@ -133,7 +133,6 @@ namespace MyTested.WebApi.Tests.BuildersTests.RoutesTests
         }
 
         [Test]
-
         public void ToShouldResolveCorrectControllerAndActionWithUriLocation()
         {
             MyWebApi
@@ -840,6 +839,15 @@ namespace MyTested.WebApi.Tests.BuildersTests.RoutesTests
                 .Routes()
                 .ShouldMap("api/HeaderRoute")
                 .ToNonExistingRoute();
+        }
+
+        [Test]
+        public void RouteShouldMatchPrimitiveTypes()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/Route/PrimitiveType")
+                .To<RouteController>(c => c.PrimitiveType());
         }
     }
 }

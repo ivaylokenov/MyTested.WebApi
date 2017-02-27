@@ -136,6 +136,15 @@ namespace MyTested.WebApi.Utilities
             var methodCallExpression = expression.Body as MethodCallExpression;
             if (methodCallExpression == null)
             {
+                var unaryExpression = expression.Body as UnaryExpression;
+                if (unaryExpression != null)
+                {
+                    methodCallExpression = unaryExpression.Operand as MethodCallExpression;
+                }
+            }
+
+            if (methodCallExpression == null)
+            {
                 throw new ArgumentException("Provided expression is not a valid method call.");
             } 
             
