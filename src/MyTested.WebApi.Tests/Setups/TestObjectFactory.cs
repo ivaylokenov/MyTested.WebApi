@@ -29,7 +29,8 @@ namespace MyTested.WebApi.Tests.Setups
         {
             var config = new HttpConfiguration { IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always };
 
-            config.MapHttpAttributeRoutes();
+            var constraintResolver = GetCustomInlineConstraintResolver();
+            config.MapHttpAttributeRoutes(constraintResolver);
 
             config.Routes.MapHttpRoute(
                 name: "HeaderRoute",
@@ -82,6 +83,13 @@ namespace MyTested.WebApi.Tests.Setups
         public static IContentNegotiator GetCustomContentNegotiator()
         {
             return new CustomContentNegotiator();
+        }
+
+        public static IInlineConstraintResolver GetCustomInlineConstraintResolver()
+        {
+            var constraintResolver = new DefaultInlineConstraintResolver();
+            constraintResolver.ConstraintMap.Add("custom", typeof(CustomConstraint));
+            return constraintResolver;
         }
 
         public static MediaTypeFormatter GetCustomMediaTypeFormatter()

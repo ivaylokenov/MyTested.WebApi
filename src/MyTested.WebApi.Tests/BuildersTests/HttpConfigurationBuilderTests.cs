@@ -31,7 +31,7 @@ namespace MyTested.WebApi.Tests.BuildersTests
         [Test]
         public void DefaultErrorDetailPolicyShouldBeAlways()
         {
-            MyWebApi.IsUsingDefaultHttpConfiguration();
+            MyWebApi.IsUsingDefaultHttpConfiguration(TestObjectFactory.GetCustomInlineConstraintResolver());
 
             Assert.AreEqual(IncludeErrorDetailPolicy.Always, MyWebApi.Configuration.IncludeErrorDetailPolicy);
 
@@ -47,7 +47,7 @@ namespace MyTested.WebApi.Tests.BuildersTests
             string address = "http://mytestedasp.net";
 
             MyWebApi
-                .IsUsingDefaultHttpConfiguration()
+                .IsUsingDefaultHttpConfiguration(TestObjectFactory.GetCustomInlineConstraintResolver())
                 .WithBaseAddress(address);
 
             Assert.AreEqual(address, MyWebApi.BaseAddress.OriginalString);
@@ -63,7 +63,8 @@ namespace MyTested.WebApi.Tests.BuildersTests
         [Test]
         public void WithErrorDetailPolicyShouldSetCorrectErrorDetailPolicy()
         {
-            MyWebApi.IsUsingDefaultHttpConfiguration().WithErrorDetailPolicy(IncludeErrorDetailPolicy.LocalOnly);
+            MyWebApi.IsUsingDefaultHttpConfiguration(TestObjectFactory.GetCustomInlineConstraintResolver())
+                .WithErrorDetailPolicy(IncludeErrorDetailPolicy.LocalOnly);
 
             Assert.AreEqual(IncludeErrorDetailPolicy.LocalOnly, MyWebApi.Configuration.IncludeErrorDetailPolicy);
 

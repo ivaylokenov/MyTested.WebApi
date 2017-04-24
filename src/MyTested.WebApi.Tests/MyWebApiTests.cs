@@ -4,7 +4,9 @@
 // Dual-licensed under the Apache License, Version 2.0, and the Microsoft Public License (Ms-PL).
 namespace MyTested.WebApi.Tests
 {
+    using System;
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
     using System.Web.Http;
     using Exceptions;
     using NUnit.Framework;
@@ -121,12 +123,33 @@ namespace MyTested.WebApi.Tests
         [Test]
         public void IsUsingDefaultConfigurationShouldWorkCorrectly()
         {
-            MyWebApi.IsUsingDefaultHttpConfiguration();
+            MyWebApi.IsUsingDefaultHttpConfiguration(TestObjectFactory.GetCustomInlineConstraintResolver());
 
             Assert.IsNotNull(MyWebApi.Configuration);
             Assert.IsTrue(MyWebApi.Configuration.Routes.ContainsKey("API Default"));
 
             MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
+        }
+
+        [Test]
+        public void CustomConstraintCausesFailureWhenNotRegistered()
+        {
+            Assert.Throws<InvalidOperationException>(() =>
+                MyWebApi.IsRegisteredWith(WebApiConfig.RegisterCustomControllerMissingConstraint));
+        }
+
+        [Test]
+        public void CustomConstraintWorksCorrectlyWhenRegistered()
+        {
+            Assert.DoesNotThrow(() =>
+                MyWebApi.IsRegisteredWith(WebApiConfig.RegisterCustomControllerAndConstraint));
+        }
+
+        [Test]
+        public void CustomConstraintDoesNotCauseStaticCtorFailureWhenStaticCtorSwallowsException()
+        {
+            // Manually call MyWebApi's static ctor
+            Assert.DoesNotThrow(() => RuntimeHelpers.RunClassConstructor(typeof(MyWebApi).TypeHandle));
         }
     }
 }

@@ -7,6 +7,8 @@ namespace MyTested.WebApi
     using System;
     using System.Net.Http;
     using System.Web.Http;
+    using System.Web.Http.Routing;
+
     using Builders;
     using Builders.Contracts;
     using Builders.Contracts.Servers;
@@ -35,7 +37,16 @@ namespace MyTested.WebApi
 
         static MyWebApi()
         {
-            IsUsingDefaultHttpConfiguration();
+            try
+            {
+                IsUsingDefaultHttpConfiguration();
+            }
+            catch (InvalidOperationException)
+            {
+                // This exception can be swallowed - arises when a custom route constraint cannot
+                // be resolved by the DefaultInlineConstraintResolver.
+                // See https://github.com/ivaylokenov/MyTested.WebApi/issues/270 for more info.
+            }
         }
 
         /// <summary>
@@ -53,12 +64,26 @@ namespace MyTested.WebApi
         /// <summary>
         /// Sets the default HttpConfiguration which will be used in all tests.
         /// </summary>
-        /// <returns>HTTP configuration builder.</returns>
-        public static IHttpConfigurationBuilder IsUsingDefaultHttpConfiguration()
+        /// <param name="constraintResolver">
+        /// The optional constraint Resolver.
+        /// </param>
+        /// <returns>
+        /// HTTP configuration builder.
+        /// </returns>
+        public static IHttpConfigurationBuilder IsUsingDefaultHttpConfiguration(
+            IInlineConstraintResolver constraintResolver = null
+        )
         {
             var config = new HttpConfiguration();
 
-            config.MapHttpAttributeRoutes();
+            if (constraintResolver == null)
+            {
+                config.MapHttpAttributeRoutes();
+            }
+            else
+            {
+                config.MapHttpAttributeRoutes(constraintResolver);
+            }
 
             config.Routes.MapHttpRoute(
                 name: "API Default",

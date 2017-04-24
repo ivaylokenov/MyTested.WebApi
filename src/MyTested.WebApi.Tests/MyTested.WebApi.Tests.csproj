@@ -130,10 +130,12 @@
     <Compile Include="Setups\Common\CustomDependencyResolver.cs" />
     <Compile Include="Setups\Common\CustomHttpMessageHandler.cs" />
     <Compile Include="Setups\Common\CustomMediaTypeFormatter.cs" />
+    <Compile Include="Setups\Controllers\CustomConstraintAttributesController.cs" />
     <Compile Include="Setups\Controllers\AttributesController.cs" />
     <Compile Include="Setups\Controllers\NoAttributesController.cs" />
     <Compile Include="Setups\Controllers\NoParameterlessConstructorController.cs" />
     <Compile Include="Setups\Controllers\RouteController.cs" />
+    <Compile Include="Setups\CustomConstraint.cs" />
     <Compile Include="Setups\CustomStartup.cs" />
     <Compile Include="Setups\Handlers\CustomDelegatingHandler.cs" />
     <Compile Include="Setups\Handlers\CustomMessageHandler.cs" />
