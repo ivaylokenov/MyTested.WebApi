@@ -34,10 +34,10 @@ Basically you can create a test case by using the fluent API the library provide
 ```c#
 namespace MyApp.Tests.Controllers
 {
-	using MyTested.WebApi;
+    using MyTested.WebApi;
 	
     using MyApp.Controllers;
-	using NUnit.Framework;
+    using NUnit.Framework;
 
     [TestFixture]
     public class HomeControllerShould
@@ -49,7 +49,7 @@ namespace MyApp.Tests.Controllers
                 .Controller<HomeController>()
                 .Calling(c => c.Get())
                 .ShouldReturn()
-				.Ok();
+				        .Ok();
         }
 	}
 }
@@ -63,82 +63,82 @@ Here are some random examples of what the fluent testing API is capable of:
 ```c#
 // tests a route for correct controller, action and resolved route values
 MyWebApi
-	.Routes()
-	.ShouldMap("api/WebApiController/SomeAction/5")
-	.WithJsonContent(@"{""SomeInt"": 1, ""SomeString"": ""Test""}")
-	.And()
-	.WithHttpMethod(HttpMethod.Post)
-	.To<WebApiController>(c => c.SomeAction(5, new RequestModel
-	{
-		SomeInt = 1,
-		SomeString = "Test"
-	}))
-	.AndAlso()
-	.ToNoHandler()
-	.AndAlso()
-	.ToValidModelState();
+    .Routes()
+		.ShouldMap("api/WebApiController/SomeAction/5")
+		.WithJsonContent(@"{""SomeInt"": 1, ""SomeString"": ""Test""}")
+		.And()
+		.WithHttpMethod(HttpMethod.Post)
+		.To<WebApiController>(c => c.SomeAction(5, new RequestModel
+		{
+			SomeInt = 1,
+			SomeString = "Test"
+		}))
+		.AndAlso()
+		.ToNoHandler()
+		.AndAlso()
+		.ToValidModelState();
 
 // injects dependencies into controller
 // and mocks authenticated user
 // and tests for valid model state
 // and tests response model from Ok result with specific assertions
 MyWebApi
-	.Controller<WebApiController>()
-	.WithResolvedDependencyFor<IInjectedService>(mockedInjectedService)
-	.WithResolvedDependencyFor<IAnotherInjectedService>(anotherMockedInjectedService);
-	.WithAuthenticatedUser(user => user.WithUsername("NewUserName"))
-	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHave()
-	.ValidModelState()
-	.AndAlso()
-	.ShouldReturn()
-	.Ok()
-	.WithResponseModelOfType<ResponseModel>()
-	.Passing(m =>
-	{
-		Assert.AreEqual(1, m.Id);
-		Assert.AreEqual("Some property value", m.SomeProperty);
-	});
+	  .Controller<WebApiController>()
+		.WithResolvedDependencyFor<IInjectedService>(mockedInjectedService)
+		.WithResolvedDependencyFor<IAnotherInjectedService>(anotherMockedInjectedService);
+		.WithAuthenticatedUser(user => user.WithUsername("NewUserName"))
+		.Calling(c => c.SomeAction(requestModel))
+		.ShouldHave()
+		.ValidModelState()
+		.AndAlso()
+		.ShouldReturn()
+		.Ok()
+		.WithResponseModelOfType<ResponseModel>()
+		.Passing(m =>
+		{
+			  Assert.AreEqual(1, m.Id);
+			  Assert.AreEqual("Some property value", m.SomeProperty);
+		});
 
 // tests whether model state error exists by using lambda expression
 // and specific tests for the error messages
 MyWebApi
-	.Controller<WebApiController>()
-	.Calling(c => c.SomeAction(requestModel))
-	.ShouldHave()
-	.ModelStateFor<RequestModel>()
-	.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message") 
-	.AndAlso()
-	.ContainingModelStateErrorFor(m => m.SecondProperty).BeginningWith("Error") 
-	.AndAlso()
-	.ContainingModelStateErrorFor(m => m.ThirdProperty).EndingWith("message") 
-	.AndAlso()
-	.ContainingModelStateErrorFor(m => m.SecondProperty).Containing("ror mes"); 
+	  .Controller<WebApiController>()
+	  .Calling(c => c.SomeAction(requestModel))
+		.ShouldHave()
+		.ModelStateFor<RequestModel>()
+		.ContainingModelStateErrorFor(m => m.SomeProperty).ThatEquals("Error message") 
+		.AndAlso()
+		.ContainingModelStateErrorFor(m => m.SecondProperty).BeginningWith("Error") 
+		.AndAlso()
+		.ContainingModelStateErrorFor(m => m.ThirdProperty).EndingWith("message") 
+		.AndAlso()
+		.ContainingModelStateErrorFor(m => m.SecondProperty).Containing("ror mes"); 
 	
 // tests whether the action throws internal server error
 // with exception of certain type and with certain message
 MyWebApi
-	.Controller<WebApiController>()
-	.Calling(c => c.SomeAction())
-	.ShouldReturn()
-	.InternalServerError()
-	.WithException()
-	.OfType<SomeException>()
-	.AndAlso()
-	.WithMessage("Some exception message");
+		.Controller<WebApiController>()
+		.Calling(c => c.SomeAction())
+		.ShouldReturn()
+		.InternalServerError()
+		.WithException()
+		.OfType<SomeException>()
+		.AndAlso()
+		.WithMessage("Some exception message");
 	
 // run full pipeline integration test
 MyWebApi
-	.Server()
-	.Working(httpConfiguration)
-	.WithHttpRequestMessage(
-		request => request
-			.WithMethod(HttpMethod.Post)
-			.WithRequestUri("api/WebApiController/SomeAction/1"))
-	.ShouldReturnHttpResponseMessage()
-	.WithStatusCode(HttpStatusCode.OK)
-	.AndAlso()
-	.ContainingHeader("MyCustomHeader");
+		.Server()
+		.Working(httpConfiguration)
+		.WithHttpRequestMessage(
+				request => request
+					.WithMethod(HttpMethod.Post)
+					.WithRequestUri("api/WebApiController/SomeAction/1"))
+		.ShouldReturnHttpResponseMessage()
+		.WithStatusCode(HttpStatusCode.OK)
+		.AndAlso()
+		.ContainingHeader("MyCustomHeader");
 ```
 
 ## License
