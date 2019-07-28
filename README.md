@@ -53,7 +53,7 @@ namespace MyApp.Tests.Controllers
                 .ShouldReturn()
                 .Ok();
         }
-	  }
+    }
 }
 ```
 
