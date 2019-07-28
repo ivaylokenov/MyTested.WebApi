@@ -7,6 +7,7 @@ namespace MyTested.WebApi
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
+    using System.Threading;
     using Builders.Contracts.HttpRequests;
     using Builders.Contracts.Servers;
 
@@ -44,6 +45,12 @@ namespace MyTested.WebApi
         /// <param name="name">Name of the header.</param>
         /// <returns></returns>
         IServerBuilder WithoutDefaultRequestHeader(string name);
+        
+        /// Adds cancellation token source to the server request.
+        /// </summary>
+        /// <param name="cancellationTokenSource">Cancellation token source to use for the server request.</param>
+        /// <returns>The same server builder.</returns>
+        IServerBuilder WithCancellationTokenSource(CancellationTokenSource cancellationTokenSource);
 
         /// <summary>
         /// Adds HTTP request message to the tested server.

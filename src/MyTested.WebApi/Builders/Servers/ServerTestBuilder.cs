@@ -27,6 +27,7 @@ namespace MyTested.WebApi.Builders.Servers
         private readonly IDisposable server;
 
         private HttpRequestMessage httpRequestMessage;
+        private CancellationTokenSource requestCancellationTokenSource;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServerTestBuilder" /> class.
@@ -79,6 +80,17 @@ namespace MyTested.WebApi.Builders.Servers
         public IServerBuilder WithDefaultRequestHeaders(IDictionary<string, IEnumerable<string>> headers)
         {
             headers.ForEach(h => this.WithDefaultRequestHeader(h.Key, h.Value));
+            return this;
+        }
+        
+        /// <summary>
+        /// Adds cancellation token source to the server request.
+        /// </summary>
+        /// <param name="cancellationTokenSource">Cancellation token source to use for the server request.</param>
+        /// <returns>The same server builder.</returns>
+        public IServerBuilder WithCancellationTokenSource(CancellationTokenSource cancellationTokenSource)
+        {
+            this.requestCancellationTokenSource = cancellationTokenSource;
             return this;
         }
 
@@ -136,7 +148,11 @@ namespace MyTested.WebApi.Builders.Servers
             {
                 var stopwatch = Stopwatch.StartNew();
 
-                var httpResponseMessage = invoker.SendAsync(this.httpRequestMessage, CancellationToken.None).Result;
+                var cancellationToken = this.requestCancellationTokenSource != null
+                    ? this.requestCancellationTokenSource.Token
+                    : CancellationToken.None;
+
+                var httpResponseMessage = invoker.SendAsync(this.httpRequestMessage, cancellationToken).Result;
 
                 stopwatch.Stop();
 
