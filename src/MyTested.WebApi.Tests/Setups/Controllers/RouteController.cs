@@ -104,5 +104,11 @@ namespace MyTested.WebApi.Tests.Setups.Controllers
         {
             return await Task.Run(() => this.Ok());
         }
+
+        [HttpGet]
+        public bool PrimitiveType()
+        {
+            return true;
+        }
     }
 }

@@ -381,6 +381,10 @@ namespace MyTested.WebApi.Tests.BuildersTests.ServersTests
                 .WithStatusCode(HttpStatusCode.NotFound)
                 .WithStringContent("Header not found!");
         }
+        
+        public void WithCancellationTokenSourceShouldWorkCorrectly()
+        {
+        }
 
         [TestFixtureTearDown]
         public void RestoreConfiguration()
