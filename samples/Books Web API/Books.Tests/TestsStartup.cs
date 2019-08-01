@@ -8,7 +8,7 @@
     [SetUpFixture]
     public class TestsStartup
     {
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUpTests()
         {
             AutoMapperConfig.RegisterMappings(Assembly.Load("Books.Api"));

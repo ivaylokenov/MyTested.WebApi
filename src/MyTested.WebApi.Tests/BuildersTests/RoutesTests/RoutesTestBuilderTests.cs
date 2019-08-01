@@ -239,6 +239,16 @@ namespace MyTested.WebApi.Tests.BuildersTests.RoutesTests
         }
 
         [Test]
+        public void ToShouldResolveCorrectyWithNullJsonContent()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/Route/PostMethodWithModel")
+                .WithHttpMethod(HttpMethod.Post)
+                .To<RouteController>(c => c.PostMethodWithModel(null));
+        }
+
+        [Test]
         public void ToShouldResolveCorrectyWithJsonContentAndParameter()
         {
             MyWebApi

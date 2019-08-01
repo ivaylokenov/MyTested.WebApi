@@ -13,7 +13,7 @@
 
         public DateTime CreatedOn { get; set; }
 
-        public void CreateMappings(IConfiguration config)
+        public void CreateMappings(IProfileExpression config)
         {
             config.CreateMap<Commit, ListedCommitResponseModel>()
                 .ForMember(c => c.UserName, opt => opt.MapFrom(c => c.User.UserName));
