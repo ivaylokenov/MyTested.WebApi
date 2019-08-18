@@ -5,6 +5,8 @@
     public static class ExceptionExtentions
     {
         public static bool IsRouteConstraintRelatedException(this Exception ex)
-            => ex.Message.Contains("was unable to resolve the following inline constraint") || ex.TargetSite.Name == "GetInlineConstraint";
+        {
+            return ex.Message.Contains("was unable to resolve the following inline constraint") || ex.TargetSite.Name == "GetInlineConstraint";
+        }
     }
 }
