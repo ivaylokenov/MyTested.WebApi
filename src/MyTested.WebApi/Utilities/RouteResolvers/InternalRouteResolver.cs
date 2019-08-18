@@ -36,10 +36,14 @@ namespace MyTested.WebApi.Utilities.RouteResolvers
                 config.EnsureInitialized();
             }
             catch (InvalidOperationException ex)
-            when (ex.IsRouteConstraintRelatedException())
             {
-                throw new UnresolvedRouteConstraintsException(@"An error occurred while resolving your routes. If you are using custom route constraints, 
+                if (ex.IsRouteConstraintRelatedException())
+                {
+                    throw new UnresolvedRouteConstraintsException(@"An error occurred while resolving your routes. If you are using custom route constraints, 
                     please call WithInlineConstgraintResolver method with appropriate IInlineConstraintResolver instance after httpConfiguration setup.");
+                }
+
+                throw ex;
             }
 
             // transform the URI to fake absolute one since ASP.NET Web API internal route resolver does no support non-absolute URIs

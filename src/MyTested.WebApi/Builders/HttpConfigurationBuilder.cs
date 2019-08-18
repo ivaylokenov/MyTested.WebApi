@@ -117,7 +117,12 @@ namespace MyTested.WebApi.Builders
                     this.httpConfiguration.EnsureInitialized();
                 }
                 catch (InvalidOperationException ex)
-                when (ex.IsRouteConstraintRelatedException()) { }                
+                {
+                    if (!ex.IsRouteConstraintRelatedException())
+                    {
+                        throw ex;
+                    }
+                }                
             }
         }
     }
