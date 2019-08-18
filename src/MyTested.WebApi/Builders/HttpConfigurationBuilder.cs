@@ -7,9 +7,11 @@ namespace MyTested.WebApi.Builders
     using System;
     using System.Web.Http;
     using System.Web.Http.Dependencies;
+    using System.Web.Http.Routing;
     using Common.Servers;
     using Contracts;
     using Servers;
+    using MyTested.WebApi.Common.Extensions;
 
     /// <summary>
     /// HTTP configuration builder.
@@ -86,12 +88,36 @@ namespace MyTested.WebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Sets custom inline constraint resolver to http configuration
+        /// </summary>
+        /// <param name="inlineConstraintResolver">Custom route constraint resolver to use.</param>
+        /// <returns>New HTTP configuration builder.</returns>
+        public IHttpConfigurationBuilder WithInlineConstraintResolver(IInlineConstraintResolver inlineConstraintResolver)
+        {
+            var config = new HttpConfiguration();
+
+            config.MapHttpAttributeRoutes(inlineConstraintResolver);
+
+            config.Routes.MapHttpRoute(
+                name: "API Default",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional });
+
+            return MyWebApi.IsUsing(config);
+        }
+
         private void SetErrorDetailPolicyAndInitialize(IncludeErrorDetailPolicy errorDetailPolicy)
         {
             if (this.httpConfiguration != null)
             {
                 this.httpConfiguration.IncludeErrorDetailPolicy = errorDetailPolicy;
-                this.httpConfiguration.EnsureInitialized();
+                try
+                {
+                    this.httpConfiguration.EnsureInitialized();
+                }
+                catch (InvalidOperationException ex)
+                when (ex.IsRouteConstraintRelatedException()) { }                
             }
         }
     }

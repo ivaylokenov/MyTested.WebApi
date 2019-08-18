@@ -7,6 +7,7 @@ namespace MyTested.WebApi.Builders.Contracts
     using System;
     using System.Web.Http;
     using System.Web.Http.Dependencies;
+    using System.Web.Http.Routing;
 
     /// <summary>
     /// HTTP configuration builder.
@@ -46,5 +47,7 @@ namespace MyTested.WebApi.Builders.Contracts
         /// <param name="baseAddress">Base address to use.</param>
         /// <returns>The same HTTP configuration builder.</returns>
         IHttpConfigurationBuilder WithBaseAddress(string baseAddress);
+
+        IHttpConfigurationBuilder WithInlineConstraintResolver(IInlineConstraintResolver inlineConstraintResolver);
     }
 }
