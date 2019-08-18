@@ -48,6 +48,11 @@ namespace MyTested.WebApi.Builders.Contracts
         /// <returns>The same HTTP configuration builder.</returns>
         IHttpConfigurationBuilder WithBaseAddress(string baseAddress);
 
+        /// <summary>
+        /// Sets custom inline constraint resolver to http configuration
+        /// </summary>
+        /// <param name="inlineConstraintResolver">Custom route constraint resolver to use.</param>
+        /// <returns>New HTTP configuration builder.</returns>
         IHttpConfigurationBuilder WithInlineConstraintResolver(IInlineConstraintResolver inlineConstraintResolver);
     }
 }
