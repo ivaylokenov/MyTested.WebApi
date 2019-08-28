@@ -566,7 +566,9 @@ namespace MyTested.WebApi.Tests.BuildersTests.ControllersTests
         [Test]
         public void LinkGenerationShouldWorkCorrectlyWithDefaultConfiguration()
         {
-            MyWebApi.IsUsingDefaultHttpConfiguration().WithInlineConstraintResolver(TestObjectFactory.GetCustomInlineConstraintResolver());
+            MyWebApi
+                .IsUsingDefaultHttpConfiguration()
+                .WithInlineConstraintResolver(TestObjectFactory.GetCustomInlineConstraintResolver());
 
             MyWebApi
                 .Controller<WebApiController>()

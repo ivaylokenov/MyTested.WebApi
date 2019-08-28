@@ -14,7 +14,7 @@ namespace MyTested.WebApi.Utilities.RouteResolvers
     using System.Web.Http.Routing;
     using Common.Extensions;
     using Common.Routes;
-    using MyTested.WebApi.Exceptions;
+    using Exceptions;
 
     /// <summary>
     /// Used for resolving HTTP request message to a route.
@@ -39,8 +39,7 @@ namespace MyTested.WebApi.Utilities.RouteResolvers
             {
                 if (ex.IsRouteConstraintRelatedException())
                 {
-                    throw new UnresolvedRouteConstraintsException(@"An error occurred while resolving your routes. If you are using custom route constraints, 
-                    please call WithInlineConstgraintResolver method with appropriate IInlineConstraintResolver instance after httpConfiguration setup.");
+                    throw new UnresolvedRouteConstraintsException("An error occurred while resolving your routes. If you are using custom route constraints, please call WithInlineConstgraintResolver method with appropriate IInlineConstraintResolver instance after httpConfiguration setup.");
                 }
 
                 throw ex;

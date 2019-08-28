@@ -6,7 +6,12 @@
 
     public class CustomConstraint : IHttpRouteConstraint
     {
-        public bool Match(HttpRequestMessage request, IHttpRoute route, string parameterName, IDictionary<string, object> values, HttpRouteDirection routeDirection)
+        public bool Match(
+            HttpRequestMessage request,
+            IHttpRoute route,
+            string parameterName,
+            IDictionary<string, object> values,
+            HttpRouteDirection routeDirection)
         {
             return true;
         }

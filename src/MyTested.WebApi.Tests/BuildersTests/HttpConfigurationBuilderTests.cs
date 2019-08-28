@@ -74,7 +74,9 @@ namespace MyTested.WebApi.Tests.BuildersTests
         public void WhenWithInlineConstraintResolverCalledShouldSetNewHttpConfigurationInstance()
         {
             var oldHttpConfiguration = MyWebApi.Configuration;
-            MyWebApi.IsUsingDefaultHttpConfiguration().WithInlineConstraintResolver(TestObjectFactory.GetCustomInlineConstraintResolver());
+            MyWebApi
+                .IsUsingDefaultHttpConfiguration()
+                .WithInlineConstraintResolver(TestObjectFactory.GetCustomInlineConstraintResolver());
 
             Assert.AreNotSame(MyWebApi.Configuration, oldHttpConfiguration);
 

@@ -8,10 +8,10 @@ namespace MyTested.WebApi.Builders
     using System.Web.Http;
     using System.Web.Http.Dependencies;
     using System.Web.Http.Routing;
-    using Common.Servers;
     using Contracts;
+    using Common.Servers;
+    using Common.Extensions;
     using Servers;
-    using MyTested.WebApi.Common.Extensions;
 
     /// <summary>
     /// HTTP configuration builder.
@@ -95,16 +95,23 @@ namespace MyTested.WebApi.Builders
         /// <returns>New HTTP configuration builder.</returns>
         public IHttpConfigurationBuilder WithInlineConstraintResolver(IInlineConstraintResolver inlineConstraintResolver)
         {
-            var config = new HttpConfiguration();
+            var config = InitializeHttpConfiguration();
 
             config.MapHttpAttributeRoutes(inlineConstraintResolver);
+
+            return MyWebApi.IsUsing(config);
+        }
+
+        internal static HttpConfiguration InitializeHttpConfiguration()
+        {
+            var config = new HttpConfiguration();
 
             config.Routes.MapHttpRoute(
                 name: "API Default",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional });
 
-            return MyWebApi.IsUsing(config);
+            return config;
         }
 
         private void SetErrorDetailPolicyAndInitialize(IncludeErrorDetailPolicy errorDetailPolicy)

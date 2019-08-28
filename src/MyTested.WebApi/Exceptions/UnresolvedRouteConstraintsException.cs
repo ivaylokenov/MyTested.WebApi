@@ -1,6 +1,7 @@
 ﻿namespace MyTested.WebApi.Exceptions
 {
     using System;
+
     public class UnresolvedRouteConstraintsException : Exception
     {
         /// <summary>
