@@ -337,7 +337,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
         [Test]
         [ExpectedException(
             typeof(InvalidCallAssertionException),
-            ExpectedMessage = "NullReferenceException with 'Test exception message' message was thrown but was not caught or expected.")]
+            ExpectedMessage = "NullReferenceException with 'Test exception message' message was thrown but was not caught or expected.", MatchType = MessageMatch.StartsWith)]
         public void ShouldReturnShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue()
         {
             MyWebApi
@@ -350,7 +350,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.ActionsTests.ShouldReturn
         [Test]
         [ExpectedException(
             typeof(InvalidCallAssertionException),
-            ExpectedMessage = "AggregateException (containing NullReferenceException with 'Test exception message' message) was thrown but was not caught or expected.")]
+            ExpectedMessage = "AggregateException (containing NullReferenceException with 'Test exception message' message) was thrown but was not caught or expected.", MatchType = MessageMatch.StartsWith)]
         public void ShouldReturnWithAsyncShouldThrowExceptionIfActionThrowsExceptionWithDefaultReturnValue()
         {
             MyWebApi
