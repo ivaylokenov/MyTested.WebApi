@@ -25,11 +25,17 @@ namespace MyTested.WebApi.Tests.Setups
     {
         public const string MediaType = "application/json";
 
-        public static HttpConfiguration GetHttpConfigurationWithRoutes()
+        public static HttpConfiguration GetHttpConfigurationWithRoutes(bool isCustomRouteConstraintIncluded = true)
         {
             var config = new HttpConfiguration { IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always };
-
-            config.MapHttpAttributeRoutes();
+            if (isCustomRouteConstraintIncluded)
+            {
+                config.MapHttpAttributeRoutes(GetCustomInlineConstraintResolver());
+            }
+            else
+            {
+                config.MapHttpAttributeRoutes();
+            }
 
             config.Routes.MapHttpRoute(
                 name: "HeaderRoute",
@@ -153,6 +159,14 @@ namespace MyTested.WebApi.Tests.Setups
                 TypeNameAssemblyFormat = FormatterAssemblyStyle.Simple,
                 TypeNameHandling = TypeNameHandling.None
             };
+        }
+
+        public static IInlineConstraintResolver GetCustomInlineConstraintResolver()
+        {
+            var constraintResolver = new DefaultInlineConstraintResolver();
+            constraintResolver.ConstraintMap.Add("custom", typeof(CustomConstraint));
+
+            return constraintResolver;
         }
     }
 }

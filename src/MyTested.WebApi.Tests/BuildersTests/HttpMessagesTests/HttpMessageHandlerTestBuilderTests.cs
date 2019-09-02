@@ -132,7 +132,7 @@ namespace MyTested.WebApi.Tests.BuildersTests.HttpMessagesTests
         [Test]
         [ExpectedException(
             typeof(InvalidCallAssertionException),
-            ExpectedMessage = "InvalidOperationException with 'Handler error' message was thrown but was not caught or expected.")]
+            ExpectedMessage = "InvalidOperationException with 'Handler error' message was thrown but was not caught or expected.", MatchType = MessageMatch.StartsWith)]
         public void ShouldReturnHttpResponseMessageShouldThrowExceptionWhenHandlerThrowsException()
         {
             MyWebApi

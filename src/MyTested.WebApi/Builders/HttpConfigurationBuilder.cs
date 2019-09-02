@@ -7,8 +7,10 @@ namespace MyTested.WebApi.Builders
     using System;
     using System.Web.Http;
     using System.Web.Http.Dependencies;
-    using Common.Servers;
+    using System.Web.Http.Routing;
     using Contracts;
+    using Common.Servers;
+    using Common.Extensions;
     using Servers;
 
     /// <summary>
@@ -86,12 +88,48 @@ namespace MyTested.WebApi.Builders
             return this;
         }
 
+        /// <summary>
+        /// Sets custom inline constraint resolver to http configuration
+        /// </summary>
+        /// <param name="inlineConstraintResolver">Custom route constraint resolver to use.</param>
+        /// <returns>New HTTP configuration builder.</returns>
+        public IHttpConfigurationBuilder WithInlineConstraintResolver(IInlineConstraintResolver inlineConstraintResolver)
+        {
+            var config = InitializeHttpConfiguration();
+
+            config.MapHttpAttributeRoutes(inlineConstraintResolver);
+
+            return MyWebApi.IsUsing(config);
+        }
+
+        internal static HttpConfiguration InitializeHttpConfiguration()
+        {
+            var config = new HttpConfiguration();
+
+            config.Routes.MapHttpRoute(
+                name: "API Default",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional });
+
+            return config;
+        }
+
         private void SetErrorDetailPolicyAndInitialize(IncludeErrorDetailPolicy errorDetailPolicy)
         {
             if (this.httpConfiguration != null)
             {
                 this.httpConfiguration.IncludeErrorDetailPolicy = errorDetailPolicy;
-                this.httpConfiguration.EnsureInitialized();
+                try
+                {
+                    this.httpConfiguration.EnsureInitialized();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    if (!ex.IsRouteConstraintRelatedException())
+                    {
+                        throw ex;
+                    }
+                }                
             }
         }
     }

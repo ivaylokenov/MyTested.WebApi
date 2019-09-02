@@ -14,6 +14,7 @@ namespace MyTested.WebApi.Utilities.RouteResolvers
     using System.Web.Http.Routing;
     using Common.Extensions;
     using Common.Routes;
+    using Exceptions;
 
     /// <summary>
     /// Used for resolving HTTP request message to a route.
@@ -30,7 +31,19 @@ namespace MyTested.WebApi.Utilities.RouteResolvers
         /// <returns>Resolved route information.</returns>
         public static ResolvedRouteInfo Resolve(HttpConfiguration config, HttpRequestMessage request)
         {
-            config.EnsureInitialized();
+            try
+            {
+                config.EnsureInitialized();
+            }
+            catch (InvalidOperationException ex)
+            {
+                if (ex.IsRouteConstraintRelatedException())
+                {
+                    throw new UnresolvedRouteConstraintsException("An error occurred while resolving your routes. If you are using custom route constraints, please call WithInlineConstgraintResolver method with appropriate IInlineConstraintResolver instance after httpConfiguration setup.");
+                }
+
+                throw ex;
+            }
 
             // transform the URI to fake absolute one since ASP.NET Web API internal route resolver does no support non-absolute URIs
             var originalRoute = request.RequestUri;

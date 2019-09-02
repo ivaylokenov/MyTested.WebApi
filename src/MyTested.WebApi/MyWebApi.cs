@@ -56,14 +56,9 @@ namespace MyTested.WebApi
         /// <returns>HTTP configuration builder.</returns>
         public static IHttpConfigurationBuilder IsUsingDefaultHttpConfiguration()
         {
-            var config = new HttpConfiguration();
+            var config = HttpConfigurationBuilder.InitializeHttpConfiguration();
 
             config.MapHttpAttributeRoutes();
-
-            config.Routes.MapHttpRoute(
-                name: "API Default",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional });
 
             return IsUsing(config);
         }
