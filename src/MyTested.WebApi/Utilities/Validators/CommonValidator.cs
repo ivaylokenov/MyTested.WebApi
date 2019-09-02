@@ -74,16 +74,24 @@ namespace MyTested.WebApi.Utilities.Validators
                 {
                     var innerExceptions = exceptionAsAggregateException
                         .InnerExceptions
-                        .Select(ex => 
+                        .Select(ex =>
                             string.Format("{0}{1}", ex.GetName(), FormatExceptionMessage(ex.Message)));
 
                     message = string.Format(" (containing {0})", string.Join(", ", innerExceptions));
                 }
+                else
+                {
+                    if (exception.InnerException != null)
+                    {
+                        message = string.Format("{0}{1}(containing {2}{3})", message, Environment.NewLine, exception.InnerException.GetName(), FormatExceptionMessage(exception.InnerException.Message));
+                    }
+                }
 
                 throw new InvalidCallAssertionException(string.Format(
-                    "{0}{1} was thrown but was not caught or expected.",
+                    "{0}{1} was thrown but was not caught or expected.{2}",
                     exception.GetType().ToFriendlyTypeName(),
-                    message));
+                    message,
+                    exception.StackTrace));
             }
         }
 

@@ -859,5 +859,33 @@ namespace MyTested.WebApi.Tests.BuildersTests.RoutesTests
                 .ShouldMap("api/Route/PrimitiveType")
                 .To<RouteController>(c => c.PrimitiveType());
         }
+
+        [Test]
+        public void RouteWithCustomConstraintShouldMatch()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/testcustomconstraint/custom/2")
+                .To<CustomConstraintAttributesController>(c => c.WithAttributesAndParameters(2));
+        }
+
+        [Test]
+        public void RouteWithoutCustomConstraintShouldNotMatch()
+        {
+            MyWebApi
+                .Routes()
+                .ShouldMap("api/testcustomconstraint/custom")
+                .ToNonExistingRoute();
+        }
+
+        [Test]
+        [ExpectedException(ExpectedException = typeof(UnresolvedRouteConstraintsException))]
+        public void RouteWithCustomConstraintWithoutWithInlineConstrainResolverMethodCalledShouldThrowInvalidOperationException()
+        {
+            MyWebApi
+                .Routes(TestObjectFactory.GetHttpConfigurationWithRoutes(false))
+                .ShouldMap("api/testcustomconstraint/custom/2")
+                .To<CustomConstraintAttributesController>(c => c.WithAttributesAndParameters(2));
+        }
     }
 }

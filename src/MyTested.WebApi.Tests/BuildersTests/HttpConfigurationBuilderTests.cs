@@ -69,5 +69,18 @@ namespace MyTested.WebApi.Tests.BuildersTests
 
             MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
         }
+
+        [Test]
+        public void WhenWithInlineConstraintResolverCalledShouldSetNewHttpConfigurationInstance()
+        {
+            var oldHttpConfiguration = MyWebApi.Configuration;
+            MyWebApi
+                .IsUsingDefaultHttpConfiguration()
+                .WithInlineConstraintResolver(TestObjectFactory.GetCustomInlineConstraintResolver());
+
+            Assert.AreNotSame(MyWebApi.Configuration, oldHttpConfiguration);
+
+            MyWebApi.IsUsing(TestObjectFactory.GetHttpConfigurationWithRoutes());
+        }
     }
 }
