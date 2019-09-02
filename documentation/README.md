@@ -8,6 +8,7 @@
  - Global configuration
   - [Using custom HttpConfiguration](#using-custom-httpconfiguration)
   - [Custom dependency resolver](#custom-dependency-resolver)
+  - [Custom inline constraint resolver](#custom-inline-constraint-resolver)
   - [Base address](#base-address)
  - Route validations
   - [Building route request](#building-route-request)
@@ -113,6 +114,28 @@ MyWebApi
 // * WebApiController will be instantiated using the global dependency resolver
 MyWebApi
 	.Controller<WebApiController>();
+```
+
+[To top](#table-of-contents)
+  
+### Custom inline constraint resolver
+
+If you are using a custom InlineConstraintResolver (IInlineConstraintResolver), you need to register it in your test configuration.
+
+```c#
+// sets the custom IInlineConstraintResolver for your tests
+MyWebApi
+	.IsRegisteredWith(WebApiConfig.Register)
+	.WithInlineConstraintResolver(customInlineConstraintResolver);
+
+// these are also available
+MyWebApi
+	.IsUsingDefaultHttpConfiguration()
+	.WithInlineConstraintResolver(customInlineConstraintResolver);
+	
+MyWebApi
+	.IsUsing(httpConfiguration)
+	.WithInlineConstraintResolver(customInlineConstraintResolver);
 ```
 
 [To top](#table-of-contents)
