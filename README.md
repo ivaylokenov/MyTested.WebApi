@@ -20,6 +20,24 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/738pm1kuuv7yw1t5?svg=true)](https://ci.appveyor.com/project/ivaylokenov/mywebapi) [![NuGet Version](http://img.shields.io/nuget/v/MyTested.WebApi.svg?style=flat)](https://www.nuget.org/packages/MyTested.WebApi/)  [![Coverage Status](https://coveralls.io/repos/ivaylokenov/MyTested.WebApi/badge.svg?branch=master&service=github&v=2)](https://coveralls.io/github/ivaylokenov/MyTested.WebApi?branch=master) [![License](https://img.shields.io/badge/license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
+## Sponsors &amp; Backers
+
+**MyTested.WebApi** is a community-driven open source library. It's an independent project with its ongoing development made possible thanks to the support by these awesome [backers](https://github.com/ivaylokenov/MyTested.WebApi/blob/development/BACKERS.md). If you'd like to join them, please consider:
+
+- [Become a backer or sponsor on Patreon](https://www.patreon.com/ivaylokenov)
+- [Become a backer or sponsor on OpenCollective](https://opencollective.com/mytestedaspnet)
+- [One-time donation via PayPal](http://paypal.me/ivaylokenov)
+- [One-time donation via Buy Me A Coffee](http://buymeacoff.ee/ivaylokenov)
+- One-time donation via cryptocurrencies:
+  - BTC (Bitcoin) - 3P49XMiGXxqR2Dq1HdqHpkCa6UD848rpBU 
+  - BCH (Bitcoin Cash) - qqgyjlvmuydf6gtfhfdypyw2u8utmc3uqg4nwma3y4
+  - ETC (Ethereum) - 0x2bc55e4b1B9b296B751738631CD24b2f701E588F
+  - LTC (Litecoin) - MQ1GJum1QuqAuUsc6LarE3Z6TQQJ3rJwsA
+
+#### What's the difference between Patreon and OpenCollective?
+
+Funds donated via both platforms are used for development and marketing purposes. Funds donated via OpenCollective are managed with transparent expenses. Your name/logo will receive proper recognition and exposure by donating on either platform.
+
 ## Documentation
 
 Please see the [documentation](https://github.com/ivaylokenov/MyTested.WebApi/tree/master/documentation) for full list of available features. Everything listed in the documentation is 100% covered by [more than 800 unit tests](https://github.com/ivaylokenov/MyTested.WebApi/tree/master/src/MyTested.WebApi.Tests) and should work correctly. Almost all items in the [issues page](https://github.com/ivaylokenov/MyTested.WebApi/issues) are expected future features and enhancements.
