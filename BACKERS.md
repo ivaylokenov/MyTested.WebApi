@@ -26,6 +26,11 @@ Funds donated via both platforms are used for development and marketing purposes
           <img width="148px" src="https://softuni.org/platform/assets/icons/logo.svg">
         </a>
       </td>
+	    <td align="center" valign="middle">
+        <a href="http://bit.ly/30xsnsC" target="_blank">
+          <img width="148px" src="https://user-images.githubusercontent.com/3391906/65251792-dd848800-daef-11e9-8857-637a48048cda.png">
+        </a>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -63,12 +68,13 @@ Funds donated via both platforms are used for development and marketing purposes
 - Anton Ivanov
 - Sideriss
 - Pavel Doychinov
+- Emil Slavov
 
 ## Backers
 Aleksandur Gyuzelov, Bogomil Stoev, Desislav Stoyanov, Emil Venkov, Georgi Krasimirov Georgiev, Kristiyan Mihailov, Lyubomir Krastanov, Nikolay Boyadzhiev, Nikolay Mihaylov, Rositsa Nenova, Slavi Bozhikov, Vasil Bonev, Yuriy Georgiev, Калин Ценков, Velina Getova
 
 ## One-Time Donations
-Yuliyana Tahova, Philip Shishov, Mariya Georgieva, Tanya Georgieva, Danny Berova, German Dimitrov, Aleksandar Evangelatov, Anton Petrov, Hristo Ivanov, Anna Stambolieva, Nedelcho Penev, Yulian Ashikov, Boyana Aleksova, Plamen Haralambiev, Victoria Karamanova, Ivaylo Goranov, Aneliya Drazheva, Zdravko Yakimov, Vanya Kuncheva, Georgi Petrov, Stanimir Pavlov, Teodor Stefanov, Stefan Minchev, Simon Valentinova Kochova, Marin Marinov, Petar Peshev, Radoslav Astardzhiev, Dimitar Radkov, Aleksandar Tsvetkov, Georgi Dragnev, Veselin Neychev, Kaloyan Kolev, Andrey Blagoev, Yordan Penev, Ventsislav Yordanov, Nikolay Georgiev, Siyana Yasenova Zdravkova, Ani Kalpachka, Gergana Damyanova, Petya Koleva, Dyanko Petkov, Nikola Kolchakov, Borislava Hranova
+Borislav Lazarov, Anna Stambolieva, Georgi Petrov, Yuliyana Tahova, Philip Shishov, Mariya Georgieva, Tanya Georgieva, Danny Berova, German Dimitrov, Aleksandar Evangelatov, Anton Petrov, Hristo Ivanov, Anna Stambolieva, Nedelcho Penev, Yulian Ashikov, Boyana Aleksova, Plamen Haralambiev, Victoria Karamanova, Ivaylo Goranov, Aneliya Drazheva, Zdravko Yakimov, Vanya Kuncheva, Georgi Petrov, Stanimir Pavlov, Teodor Stefanov, Stefan Minchev, Simon Valentinova Kochova, Marin Marinov, Petar Peshev, Radoslav Astardzhiev, Dimitar Radkov, Aleksandar Tsvetkov, Georgi Dragnev, Veselin Neychev, Kaloyan Kolev, Andrey Blagoev, Yordan Penev, Ventsislav Yordanov, Nikolay Georgiev, Siyana Yasenova Zdravkova, Ani Kalpachka, Gergana Damyanova, Petya Koleva, Dyanko Petkov, Nikola Kolchakov, Borislava Hranova
 
 ## Previous Supporters
 - Gabriel Daskalov
