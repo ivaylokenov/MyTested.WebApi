@@ -69,7 +69,7 @@
 
 ## Project Description
 
-**MyTested.WebApi** is a unit testing library providing easy fluent interface to test the ASP.NET Web API 2 framework. It is testing framework agnostic, so you can combine it with a test runner of your choice (e.g. NUnit, xUnit, etc.). Inspired by [ChaiJS](https://github.com/chaijs/chai).
+**MyTested.WebApi** is a unit testing library provids easy fluent interface to test the ASP.NET Web API 2 framework. It is testing framework agnostic, so you can combine it with a test runner of your choice (e.g. NUnit, xUnit, etc.). Inspired by [ChaiJS](https://github.com/chaijs/chai).
 
 [![Build status](https://ci.appveyor.com/api/projects/status/738pm1kuuv7yw1t5?svg=true)](https://ci.appveyor.com/project/ivaylokenov/mywebapi) [![NuGet Version](http://img.shields.io/nuget/v/MyTested.WebApi.svg?style=flat)](https://www.nuget.org/packages/MyTested.WebApi/)  [![Coverage Status](https://coveralls.io/repos/ivaylokenov/MyTested.WebApi/badge.svg?branch=master&service=github&v=2)](https://coveralls.io/github/ivaylokenov/MyTested.WebApi?branch=master) [![License](https://img.shields.io/badge/license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
