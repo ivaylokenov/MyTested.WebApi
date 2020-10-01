@@ -5,32 +5,32 @@
 namespace MyTested.WebApi
 {
     /// <summary>
-    /// Contains default authenticated header schemes.
+    /// Contains default authentication header schemes.
     /// </summary>
     public enum AuthenticationScheme
     {
         /// <summary>
-        /// Anonymous authenticated header scheme.
+        /// Anonymous authentication header scheme.
         /// </summary>
         Anonymous,
 
         /// <summary>
-        /// Basic authenticated header scheme.
+        /// Basic authentication header scheme.
         /// </summary>
         Basic,
 
         /// <summary>
-        /// Digest authenticated header scheme.
+        /// Digest authentication header scheme.
         /// </summary>
         Digest,
 
         /// <summary>
-        /// NTLM authenticated header scheme.
+        /// NTLM authentication header scheme.
         /// </summary>
         NTLM,
 
         /// <summary>
-        /// Negotiate authenticated header scheme.
+        /// Negotiate authentication header scheme.
         /// </summary>
         Negotiate
     }
